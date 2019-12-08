@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 git_source(:github) { |_repo_name| "https://github.com/#{repo_name}" }
 
+gem 'down'
 gem 'nokogiri'
 gem 'rubocop'
 gem 'solargraph'
