@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>codepipeline — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="acknowledge-job" href="acknowledge-job.html">
+    <link rel="prev" title="update-profiling-group" href="../codeguruprofiler/update-profiling-group.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="codepipeline">
+<span id="cli-aws-codepipeline"></span><h1>codepipeline<a class="headerlink" href="#codepipeline" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<blockquote>
+<div><strong>Overview</strong></div>
+</blockquote>
+<p>This is the AWS CodePipeline API Reference. This guide provides descriptions of the actions and data types for AWS CodePipeline. Some functionality for your pipeline can only be configured through the API. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html">AWS CodePipeline User Guide</a> .</p>
+<p>You can use the AWS CodePipeline API to work with pipelines, stages, actions, and transitions.</p>
+<blockquote>
+<div>
+<em>Pipelines</em> are models of automated release processes. Each pipeline is uniquely named, and consists of stages, actions, and transitions.</div>
+</blockquote>
+<p>You can work with pipelines by calling:</p>
+<ul class="simple">
+<li>CreatePipeline , which creates a uniquely named pipeline.</li>
+<li>DeletePipeline , which deletes the specified pipeline.</li>
+<li>GetPipeline , which returns information about the pipeline structure and pipeline metadata, including the pipeline Amazon Resource Name (ARN).</li>
+<li>GetPipelineExecution , which returns information about a specific execution of a pipeline.</li>
+<li>GetPipelineState , which returns information about the current state of the stages and actions of a pipeline.</li>
+<li>ListActionExecutions , which returns action-level details for past executions. The details include full stage and action-level details, including individual action duration, status, any errors that occurred during the execution, and input and output artifact location details.</li>
+<li>ListPipelines , which gets a summary of all of the pipelines associated with your account.</li>
+<li>ListPipelineExecutions , which gets a summary of the most recent executions for a pipeline.</li>
+<li>StartPipelineExecution , which runs the most recent revision of an artifact through the pipeline.</li>
+<li>UpdatePipeline , which updates a pipeline with edits or changes to the structure of the pipeline.</li>
+</ul>
+<p>Pipelines include <em>stages</em> . Each stage contains one or more actions that must complete before the next stage begins. A stage results in success or failure. If a stage fails, the pipeline stops at that stage and remains stopped until either a new version of an artifact appears in the source location, or a user takes action to rerun the most recent artifact through the pipeline. You can call  GetPipelineState , which displays the status of a pipeline, including the status of stages in the pipeline, or  GetPipeline , which returns the entire structure of the pipeline, including the stages of that pipeline. For more information about the structure of stages and actions, see <a class="reference external" href="https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-structure.html">AWS CodePipeline Pipeline Structure Reference</a> .</p>
+<p>Pipeline stages include <em>actions</em> that are categorized into categories such as source or build actions performed in a stage of a pipeline. For example, you can use a source action to import artifacts into a pipeline from a source such as Amazon S3. Like stages, you do not work with actions directly in most cases, but you do define and interact with actions when working with pipeline operations such as  CreatePipeline and  GetPipelineState . Valid action categories are:</p>
+<ul class="simple">
+<li>Source</li>
+<li>Build</li>
+<li>Test</li>
+<li>Deploy</li>
+<li>Approval</li>
+<li>Invoke</li>
+</ul>
+<p>Pipelines also include <em>transitions</em> , which allow the transition of artifacts from one stage to the next in a pipeline after the actions in one stage complete.</p>
+<p>You can work with transitions by calling:</p>
+<ul class="simple">
+<li>DisableStageTransition , which prevents artifacts from transitioning to the next stage in a pipeline.</li>
+<li>EnableStageTransition , which enables transition of artifacts between stages in a pipeline.</li>
+</ul>
+<blockquote>
+<div><strong>Using the API to integrate with AWS CodePipeline</strong></div>
+</blockquote>
+<p>For third-party integrators or developers who want to create their own integrations with AWS CodePipeline, the expected sequence varies from the standard API user. To integrate with AWS CodePipeline, developers need to work with the following items:</p>
+<blockquote>
+<div>
+<strong>Jobs</strong> , which are instances of an action. For example, a job for a source action might import a revision of an artifact from a source.</div>
+</blockquote>
+<p>You can work with jobs by calling:</p>
+<ul class="simple">
+<li>AcknowledgeJob , which confirms whether a job worker has received the specified job.</li>
+<li>GetJobDetails , which returns the details of a job.</li>
+<li>PollForJobs , which determines whether there are any jobs to act on.</li>
+<li>PutJobFailureResult , which provides details of a job failure.</li>
+<li>PutJobSuccessResult , which provides details of a job success.</li>
+</ul>
+<blockquote>
+<div>
+<strong>Third party jobs</strong> , which are instances of an action created by a partner action and integrated into AWS CodePipeline. Partner actions are created by members of the AWS Partner Network.</div>
+</blockquote>
+<p>You can work with third party jobs by calling:</p>
+<ul class="simple">
+<li>AcknowledgeThirdPartyJob , which confirms whether a job worker has received the specified job.</li>
+<li>GetThirdPartyJobDetails , which requests the details of a job for a partner action.</li>
+<li>PollForThirdPartyJobs , which determines whether there are any jobs to act on.</li>
+<li>PutThirdPartyJobFailureResult , which provides details of a job failure.</li>
+<li>PutThirdPartyJobSuccessResult , which provides details of a job success.</li>
+</ul>
+</div>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="acknowledge-job.html">acknowledge-job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledge-third-party-job.html">acknowledge-third-party-job</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-custom-action-type.html">create-custom-action-type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-pipeline.html">create-pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-custom-action-type.html">delete-custom-action-type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-pipeline.html">delete-pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-webhook.html">delete-webhook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deregister-webhook-with-third-party.html">deregister-webhook-with-third-party</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disable-stage-transition.html">disable-stage-transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="enable-stage-transition.html">enable-stage-transition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-job-details.html">get-job-details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-pipeline.html">get-pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-pipeline-execution.html">get-pipeline-execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-pipeline-state.html">get-pipeline-state</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-third-party-job-details.html">get-third-party-job-details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-action-executions.html">list-action-executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-action-types.html">list-action-types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-pipeline-executions.html">list-pipeline-executions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-pipelines.html">list-pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-tags-for-resource.html">list-tags-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-webhooks.html">list-webhooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poll-for-jobs.html">poll-for-jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poll-for-third-party-jobs.html">poll-for-third-party-jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-action-revision.html">put-action-revision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-approval-result.html">put-approval-result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-job-failure-result.html">put-job-failure-result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-job-success-result.html">put-job-success-result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-third-party-job-failure-result.html">put-third-party-job-failure-result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-third-party-job-success-result.html">put-third-party-job-success-result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-webhook.html">put-webhook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="register-webhook-with-third-party.html">register-webhook-with-third-party</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retry-stage-execution.html">retry-stage-execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start-pipeline-execution.html">start-pipeline-execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag-resource.html">tag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="untag-resource.html">untag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-pipeline.html">update-pipeline</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

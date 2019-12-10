@@ -42,6 +42,22 @@ end
 
 DOCSET_ROOT_URL = 'awscli.docset/Contents/Resources/Documents'
 
+def edit_service(service)
+  doc = Nokogiri::HTML(open(service[:url]))
+  [
+    'div.navbar.navbar-fixed-top',
+    'div.top-links',
+    'div.related',
+    'div.sphinxsidebar',
+    'div.body > p',
+    'div.footer-links',
+    'div.footer.container'
+  ].each do |css|
+    doc.css(css).each(&:remove)
+  end
+  doc.to_html
+end
+
 def edit_content(_service, command)
   doc = Nokogiri::HTML(open(command[:url]))
   [
@@ -69,6 +85,25 @@ def output(service, command)
   File.open(path, 'w') do |file|
     file.write(edit_content(service, command))
   end
+end
+
+def write_service_to_doc(service)
+  path = File.join(DOCSET_ROOT_URL, 'reference', service[:name]).then do |dir|
+           FileUtils.mkdir_p(dir)
+           File.join(dir, 'index.html')
+         end
+  File.open(path, 'w') do |file|
+    file.write(edit_service(service))
+  end
+  name = service[:name]
+  type = 'Class'
+  path = File.join('reference', service[:name], 'index.html')
+  db = SQLite3::Database.new('awscli.docset/Contents/Resources/docSet.dsidx')
+  db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) VALUES (?, ?, ?)', [name, type, path])
+end
+
+def connection
+  SQLite3::Database.new('awscli.docset/Contents/Resources/docSet.dsidx')
 end
 
 def reset_db
@@ -107,6 +142,8 @@ def main
     end
   end.each do |service|
     puts service[:name]
+    write_service_to_doc(service)
+    next
     commands(service).then do |commands|
       if test?
         commands.slice(0, 3)

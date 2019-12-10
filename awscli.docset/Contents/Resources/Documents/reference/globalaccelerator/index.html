@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>globalaccelerator — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="create-accelerator" href="create-accelerator.html">
+    <link rel="prev" title="vault-not-exists" href="../glacier/wait/vault-not-exists.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="globalaccelerator">
+<span id="cli-aws-globalaccelerator"></span><h1>globalaccelerator<a class="headerlink" href="#globalaccelerator" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This is the <em>AWS Global Accelerator API Reference</em> . This guide is for developers who need detailed information about AWS Global Accelerator API actions, data types, and errors. For more information about Global Accelerator features, see the <a class="reference external" href="https://docs.aws.amazon.com/global-accelerator/latest/dg/Welcome.html">AWS Global Accelerator Developer Guide</a> .</p>
+<p>AWS Global Accelerator is a network layer service in which you create accelerators to improve availability and performance for internet applications used by a global audience.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You must specify the US-West-2 (Oregon) Region to create or update accelerators.</p>
+</div>
+<p>Global Accelerator provides you with static IP addresses that you associate with your accelerator. These IP addresses are anycast from the AWS edge network and distribute incoming application traffic across multiple endpoint resources in multiple AWS Regions, which increases the availability of your applications. Endpoints can be Elastic IP addresses, Network Load Balancers, and Application Load Balancers that are located in one AWS Region or multiple Regions.</p>
+<p>Global Accelerator uses the AWS global network to route traffic to the optimal regional endpoint based on health, client location, and policies that you configure. The service reacts instantly to changes in health or configuration to ensure that internet traffic from clients is directed to only healthy endpoints.</p>
+<p>Global Accelerator includes components that work together to help you improve performance and availability for your applications:</p>
+<blockquote>
+<div>Static IP address</div>
+</blockquote>
+<p>AWS Global Accelerator provides you with a set of static IP addresses which are anycast from the AWS edge network and serve as the single fixed entry points for your clients. If you already have Elastic Load Balancing or Elastic IP address resources set up for your applications, you can easily add those to Global Accelerator to allow the resources to be accessed by a Global Accelerator static IP address.</p>
+<blockquote>
+<div>Accelerator</div>
+</blockquote>
+<p>An accelerator directs traffic to optimal endpoints over the AWS global network to improve availability and performance for your internet applications that have a global audience. Each accelerator includes one or more listeners.</p>
+<blockquote>
+<div>Network zone</div>
+</blockquote>
+<p>A network zone services the static IP addresses for your accelerator from a unique IP subnet. Similar to an AWS Availability Zone, a network zone is an isolated unit with its own set of physical infrastructure. When you configure an accelerator, Global Accelerator allocates two IPv4 addresses for it. If one IP address from a network zone becomes unavailable due to IP address blocking by certain client networks, or network disruptions, then client applications can retry on the healthy static IP address from the other isolated network zone.</p>
+<blockquote>
+<div>Listener</div>
+</blockquote>
+<p>A listener processes inbound connections from clients to Global Accelerator, based on the protocol and port that you configure. Each listener has one or more endpoint groups associated with it, and traffic is forwarded to endpoints in one of the groups. You associate endpoint groups with listeners by specifying the Regions that you want to distribute traffic to. Traffic is distributed to optimal endpoints within the endpoint groups associated with a listener.</p>
+<blockquote>
+<div>Endpoint group</div>
+</blockquote>
+<p>Each endpoint group is associated with a specific AWS Region. Endpoint groups include one or more endpoints in the Region. You can increase or reduce the percentage of traffic that would be otherwise directed to an endpoint group by adjusting a setting called a <em>traffic dial</em> . The traffic dial lets you easily do performance testing or blue/green deployment testing for new releases across different AWS Regions, for example.</p>
+<blockquote>
+<div>Endpoint</div>
+</blockquote>
+<p>An endpoint is an Elastic IP address, Network Load Balancer, or Application Load Balancer. Traffic is routed to endpoints based on several factors, including the geo-proximity to the user, the health of the endpoint, and the configuration options that you choose, such as endpoint weights. For each endpoint, you can configure weights, which are numbers that you can use to specify the proportion of traffic to route to each one. This can be useful, for example, to do performance testing within a Region.</p>
+</div>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="create-accelerator.html">create-accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-endpoint-group.html">create-endpoint-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-listener.html">create-listener</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-accelerator.html">delete-accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-endpoint-group.html">delete-endpoint-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-listener.html">delete-listener</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-accelerator.html">describe-accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-accelerator-attributes.html">describe-accelerator-attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-endpoint-group.html">describe-endpoint-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-listener.html">describe-listener</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-accelerators.html">list-accelerators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-endpoint-groups.html">list-endpoint-groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-listeners.html">list-listeners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-accelerator.html">update-accelerator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-accelerator-attributes.html">update-accelerator-attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-endpoint-group.html">update-endpoint-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-listener.html">update-listener</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

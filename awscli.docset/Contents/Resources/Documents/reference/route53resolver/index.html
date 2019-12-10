@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>route53resolver — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="associate-resolver-endpoint-ip-address" href="associate-resolver-endpoint-ip-address.html">
+    <link rel="prev" title="view-billing" href="../route53domains/view-billing.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="route53resolver">
+<span id="cli-aws-route53resolver"></span><h1>route53resolver<a class="headerlink" href="#route53resolver" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Here's how you set up to query an Amazon Route 53 private hosted zone from your network:</p>
+<ul class="simple">
+<li>Connect your network to a VPC using AWS Direct Connect or a VPN.</li>
+<li>Run the following AWS CLI command to create a Resolver endpoint:  <tt class="docutils literal"><span class="pre">create-resolver-endpoint</span> <span class="pre">--name</span> <span class="pre">[endpoint_name]</span> <span class="pre">--direction</span> <span class="pre">INBOUND</span> <span class="pre">--creator-request-id</span> <span class="pre">[unique_string]</span> <span class="pre">--security-group-ids</span> <span class="pre">[security_group_with_inbound_rules]</span> <span class="pre">--ip-addresses</span> <span class="pre">SubnetId=[subnet_id]</span> <span class="pre">SubnetId=[subnet_id_in_different_AZ]</span></tt>   Note the resolver endpoint ID that appears in the response. You'll use it in step 3.</li>
+<li>Get the IP addresses for the Resolver endpoints:  <tt class="docutils literal"><span class="pre">get-resolver-endpoint</span> <span class="pre">--resolver-endpoint-id</span> <span class="pre">[resolver_endpoint_id]</span></tt>
+</li>
+<li>In your network configuration, define the IP addresses that you got in step 3 as DNS servers. You can now query instance names in your VPCs and the names of records in your private hosted zone.</li>
+</ul>
+<p>You can also perform the following operations using the AWS CLI:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">list-resolver-endpoints</span></tt> : List all endpoints. The syntax includes options for pagination and filtering.</li>
+<li>
+<tt class="docutils literal"><span class="pre">update-resolver-endpoints</span></tt> : Add IP addresses to an endpoint or remove IP addresses from an endpoint.</li>
+</ul>
+<p>To delete an endpoint, use the following AWS CLI command:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">delete-resolver-endpoint</span> <span class="pre">--resolver-endpoint-id</span> <span class="pre">[resolver_endpoint_id]</span></tt></div>
+</blockquote>
+</div>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="associate-resolver-endpoint-ip-address.html">associate-resolver-endpoint-ip-address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="associate-resolver-rule.html">associate-resolver-rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-resolver-endpoint.html">create-resolver-endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-resolver-rule.html">create-resolver-rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-resolver-endpoint.html">delete-resolver-endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-resolver-rule.html">delete-resolver-rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disassociate-resolver-endpoint-ip-address.html">disassociate-resolver-endpoint-ip-address</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disassociate-resolver-rule.html">disassociate-resolver-rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-resolver-endpoint.html">get-resolver-endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-resolver-rule.html">get-resolver-rule</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-resolver-rule-association.html">get-resolver-rule-association</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-resolver-rule-policy.html">get-resolver-rule-policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-resolver-endpoint-ip-addresses.html">list-resolver-endpoint-ip-addresses</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-resolver-endpoints.html">list-resolver-endpoints</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-resolver-rule-associations.html">list-resolver-rule-associations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-resolver-rules.html">list-resolver-rules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-tags-for-resource.html">list-tags-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-resolver-rule-policy.html">put-resolver-rule-policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag-resource.html">tag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="untag-resource.html">untag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-resolver-endpoint.html">update-resolver-endpoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-resolver-rule.html">update-resolver-rule</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

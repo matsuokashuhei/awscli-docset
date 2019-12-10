@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>deploy — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="add-tags-to-on-premises-instances" href="add-tags-to-on-premises-instances.html">
+    <link rel="prev" title="update-subnet-group" href="../dax/update-subnet-group.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="deploy">
+<span id="cli-aws-deploy"></span><h1>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>AWS CodeDeploy is a deployment service that automates application deployments to Amazon EC2 instances, on-premises instances running in your own facility, serverless AWS Lambda functions, or applications in an Amazon ECS service.</p>
+<p>You can deploy a nearly unlimited variety of application content, such as an updated Lambda function, updated applications in an Amazon ECS service, code, web and configuration files, executables, packages, scripts, multimedia files, and so on. AWS CodeDeploy can deploy application content stored in Amazon S3 buckets, GitHub repositories, or Bitbucket repositories. You do not need to make changes to your existing code before you can use AWS CodeDeploy.</p>
+<p>AWS CodeDeploy makes it easier for you to rapidly release new features, helps you avoid downtime during application deployment, and handles the complexity of updating your applications, without many of the risks associated with error-prone manual deployments.</p>
+<blockquote>
+<div><strong>AWS CodeDeploy Components</strong></div>
+</blockquote>
+<p>Use the information in this guide to help you work with the following AWS CodeDeploy components:</p>
+<ul class="simple">
+<li>
+<strong>Application</strong> : A name that uniquely identifies the application you want to deploy. AWS CodeDeploy uses this name, which functions as a container, to ensure the correct combination of revision, deployment configuration, and deployment group are referenced during a deployment.</li>
+<li>
+<strong>Deployment group</strong> : A set of individual instances, CodeDeploy Lambda deployment configuration settings, or an Amazon ECS service and network details. A Lambda deployment group specifies how to route traffic to a new version of a Lambda function. An Amazon ECS deployment group specifies the service created in Amazon ECS to deploy, a load balancer, and a listener to reroute production traffic to an updated containerized application. An EC2/On-premises deployment group contains individually tagged instances, Amazon EC2 instances in Amazon EC2 Auto Scaling groups, or both. All deployment groups can specify optional trigger, alarm, and rollback settings.</li>
+<li>
+<strong>Deployment configuration</strong> : A set of deployment rules and deployment success and failure conditions used by AWS CodeDeploy during a deployment.</li>
+<li>
+<strong>Deployment</strong> : The process and the components used when updating a Lambda function, a containerized application in an Amazon ECS service, or of installing content on one or more instances.</li>
+<li>
+<strong>Application revisions</strong> : For an AWS Lambda deployment, this is an AppSpec file that specifies the Lambda function to be updated and one or more functions to validate deployment lifecycle events. For an Amazon ECS deployment, this is an AppSpec file that specifies the Amazon ECS task definition, container, and port where production traffic is rerouted. For an EC2/On-premises deployment, this is an archive file that contains source content—source code, webpages, executable files, and deployment scripts—along with an AppSpec file. Revisions are stored in Amazon S3 buckets or GitHub repositories. For Amazon S3, a revision is uniquely identified by its Amazon S3 object key and its ETag, version, or both. For GitHub, a revision is uniquely identified by its commit ID.</li>
+</ul>
+<p>This guide also contains information to help you get details about the instances in your deployments, to make on-premises instances available for AWS CodeDeploy deployments, to get details about a Lambda function deployment, and to get details about Amazon ECS service deployments.</p>
+<blockquote>
+<div><strong>AWS CodeDeploy Information Resources</strong></div>
+</blockquote>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.aws.amazon.com/codedeploy/latest/userguide">AWS CodeDeploy User Guide</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/codedeploy/latest/APIReference/">AWS CodeDeploy API Reference Guide</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html">AWS CLI Reference for AWS CodeDeploy</a></li>
+<li><a class="reference external" href="https://forums.aws.amazon.com/forum.jspa?forumID=179">AWS CodeDeploy Developer Forum</a></li>
+</ul>
+</div>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="add-tags-to-on-premises-instances.html">add-tags-to-on-premises-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch-get-application-revisions.html">batch-get-application-revisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch-get-applications.html">batch-get-applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch-get-deployment-groups.html">batch-get-deployment-groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch-get-deployment-targets.html">batch-get-deployment-targets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch-get-deployments.html">batch-get-deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch-get-on-premises-instances.html">batch-get-on-premises-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="continue-deployment.html">continue-deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-application.html">create-application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-deployment.html">create-deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-deployment-config.html">create-deployment-config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-deployment-group.html">create-deployment-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-application.html">delete-application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-deployment-config.html">delete-deployment-config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-deployment-group.html">delete-deployment-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-git-hub-account-token.html">delete-git-hub-account-token</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deregister.html">deregister</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deregister-on-premises-instance.html">deregister-on-premises-instance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-application.html">get-application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-application-revision.html">get-application-revision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-deployment.html">get-deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-deployment-config.html">get-deployment-config</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-deployment-group.html">get-deployment-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-deployment-target.html">get-deployment-target</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-on-premises-instance.html">get-on-premises-instance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-application-revisions.html">list-application-revisions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-applications.html">list-applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-deployment-configs.html">list-deployment-configs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-deployment-groups.html">list-deployment-groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-deployment-targets.html">list-deployment-targets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-deployments.html">list-deployments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-git-hub-account-token-names.html">list-git-hub-account-token-names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-on-premises-instances.html">list-on-premises-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-tags-for-resource.html">list-tags-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="push.html">push</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-lifecycle-event-hook-execution-status.html">put-lifecycle-event-hook-execution-status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="register.html">register</a></li>
+<li class="toctree-l1"><a class="reference internal" href="register-application-revision.html">register-application-revision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="register-on-premises-instance.html">register-on-premises-instance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="remove-tags-from-on-premises-instances.html">remove-tags-from-on-premises-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stop-deployment.html">stop-deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag-resource.html">tag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uninstall.html">uninstall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="untag-resource.html">untag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-application.html">update-application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-deployment-group.html">update-deployment-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wait/index.html">wait</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

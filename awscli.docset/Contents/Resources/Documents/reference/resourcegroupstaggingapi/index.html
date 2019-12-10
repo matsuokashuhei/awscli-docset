@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>resourcegroupstaggingapi — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="describe-report-creation" href="describe-report-creation.html">
+    <link rel="prev" title="update-group-query" href="../resource-groups/update-group-query.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="resourcegroupstaggingapi">
+<span id="cli-aws-resourcegroupstaggingapi"></span><h1>resourcegroupstaggingapi<a class="headerlink" href="#resourcegroupstaggingapi" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This guide describes the API operations for the resource groups tagging.</p>
+<p>A tag is a label that you assign to an AWS resource. A tag consists of a key and a value, both of which you define. For example, if you have two Amazon EC2 instances, you might assign both a tag key of "Stack." But the value of "Stack" might be "Testing" for one and "Production" for the other.</p>
+<p>Tagging can help you organize your resources and enables you to simplify resource management, access management and cost allocation.</p>
+<p>You can use the resource groups tagging API operations to complete the following tasks:</p>
+<ul class="simple">
+<li>Tag and untag supported resources located in the specified Region for the AWS account.</li>
+<li>Use tag-based filters to search for resources located in the specified Region for the AWS account.</li>
+<li>List all existing tag keys in the specified Region for the AWS account.</li>
+<li>List all existing values for the specified key in the specified Region for the AWS account.</li>
+</ul>
+<p>To use resource groups tagging API operations, you must add the following permissions to your IAM policy:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">tag:GetResources</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tag:TagResources</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tag:UntagResources</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tag:GetTagKeys</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tag:GetTagValues</span></tt></li>
+</ul>
+<p>You'll also need permissions to access the resources of individual services so that you can tag and untag those resources.</p>
+<p>For more information on IAM policies, see <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html">Managing IAM Policies</a> in the <em>IAM User Guide</em> .</p>
+<p>You can use the Resource Groups Tagging API to tag resources for the following AWS services.</p>
+<ul class="simple">
+<li>Alexa for Business (a4b)</li>
+<li>API Gateway</li>
+<li>Amazon AppStream</li>
+<li>AWS AppSync</li>
+<li>AWS App Mesh</li>
+<li>Amazon Athena</li>
+<li>Amazon Aurora</li>
+<li>AWS Backup</li>
+<li>AWS Certificate Manager</li>
+<li>AWS Certificate Manager Private CA</li>
+<li>Amazon Cloud Directory</li>
+<li>AWS CloudFormation</li>
+<li>Amazon CloudFront</li>
+<li>AWS CloudHSM</li>
+<li>AWS CloudTrail</li>
+<li>Amazon CloudWatch (alarms only)</li>
+<li>Amazon CloudWatch Events</li>
+<li>Amazon CloudWatch Logs</li>
+<li>AWS CodeBuild</li>
+<li>AWS CodeCommit</li>
+<li>AWS CodePipeline</li>
+<li>AWS CodeStar</li>
+<li>Amazon Cognito Identity</li>
+<li>Amazon Cognito User Pools</li>
+<li>Amazon Comprehend</li>
+<li>AWS Config</li>
+<li>AWS Data Pipeline</li>
+<li>AWS Database Migration Service</li>
+<li>AWS DataSync</li>
+<li>AWS Direct Connect</li>
+<li>AWS Directory Service</li>
+<li>Amazon DynamoDB</li>
+<li>Amazon EBS</li>
+<li>Amazon EC2</li>
+<li>Amazon ECR</li>
+<li>Amazon ECS</li>
+<li>AWS Elastic Beanstalk</li>
+<li>Amazon Elastic File System</li>
+<li>Elastic Load Balancing</li>
+<li>Amazon ElastiCache</li>
+<li>Amazon Elasticsearch Service</li>
+<li>AWS Elemental MediaLive</li>
+<li>AWS Elemental MediaPackage</li>
+<li>AWS Elemental MediaTailor</li>
+<li>Amazon EMR</li>
+<li>Amazon FSx</li>
+<li>Amazon S3 Glacier</li>
+<li>AWS Glue</li>
+<li>Amazon GuardDuty</li>
+<li>Amazon Inspector</li>
+<li>AWS IoT Analytics</li>
+<li>AWS IoT Core</li>
+<li>AWS IoT Device Defender</li>
+<li>AWS IoT Device Management</li>
+<li>AWS IoT Events</li>
+<li>AWS IoT Greengrass</li>
+<li>AWS Key Management Service</li>
+<li>Amazon Kinesis</li>
+<li>Amazon Kinesis Data Analytics</li>
+<li>Amazon Kinesis Data Firehose</li>
+<li>AWS Lambda</li>
+<li>AWS License Manager</li>
+<li>Amazon Machine Learning</li>
+<li>Amazon MQ</li>
+<li>Amazon MSK</li>
+<li>Amazon Neptune</li>
+<li>AWS OpsWorks</li>
+<li>AWS Organizations</li>
+<li>Amazon Quantum Ledger Database (QLDB)</li>
+<li>Amazon RDS</li>
+<li>Amazon Redshift</li>
+<li>AWS Resource Access Manager</li>
+<li>AWS Resource Groups</li>
+<li>AWS RoboMaker</li>
+<li>Amazon Route 53</li>
+<li>Amazon Route 53 Resolver</li>
+<li>Amazon S3 (buckets only)</li>
+<li>Amazon SageMaker</li>
+<li>AWS Secrets Manager</li>
+<li>AWS Security Hub</li>
+<li>AWS Service Catalog</li>
+<li>Amazon Simple Notification Service (SNS)</li>
+<li>Amazon Simple Queue Service (SQS)</li>
+<li>AWS Step Functions</li>
+<li>AWS Storage Gateway</li>
+<li>AWS Systems Manager</li>
+<li>AWS Transfer for SFTP</li>
+<li>Amazon VPC</li>
+<li>Amazon WorkSpaces</li>
+</ul>
+</div>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="describe-report-creation.html">describe-report-creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-compliance-summary.html">get-compliance-summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-resources.html">get-resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-tag-keys.html">get-tag-keys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-tag-values.html">get-tag-values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start-report-creation.html">start-report-creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag-resources.html">tag-resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="untag-resources.html">untag-resources</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

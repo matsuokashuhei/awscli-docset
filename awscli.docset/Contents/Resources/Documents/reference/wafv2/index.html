@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>wafv2 — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="associate-web-acl" href="associate-web-acl.html">
+    <link rel="prev" title="update-xss-match-set" href="../waf-regional/update-xss-match-set.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="wafv2">
+<span id="cli-aws-wafv2"></span><h1>wafv2<a class="headerlink" href="#wafv2" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This is the latest version of the <strong>AWS WAF</strong> API, released in November, 2019. The names of the entities that you use to access this API, like endpoints and namespaces, all have the versioning information added, like "V2" or "v2", to distinguish from the prior version. We recommend migrating your resources to this version, because it has a number of significant improvements.</p>
+<p>If you used AWS WAF prior to this release, you can't use this AWS WAFV2 API to access any AWS WAF resources that you created before. You can access your old rules, web ACLs, and other AWS WAF resources only through the AWS WAF Classic APIs. The AWS WAF Classic APIs have retained the prior names, endpoints, and namespaces.</p>
+<p class="last">For information, including how to migrate your AWS WAF resources to this version, see the <a class="reference external" href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a> .</p>
+</div>
+<p>AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to Amazon CloudFront, an Amazon API Gateway API, or an Application Load Balancer. AWS WAF also lets you control access to your content. Based on conditions that you specify, such as the IP addresses that requests originate from or the values of query strings, API Gateway, CloudFront, or the Application Load Balancer responds to requests either with the requested content or with an HTTP 403 status code (Forbidden). You also can configure CloudFront to return a custom error page when a request is blocked.</p>
+<p>This API guide is for developers who need detailed information about AWS WAF API actions, data types, and errors. For detailed information about AWS WAF features and an overview of how to use AWS WAF, see the <a class="reference external" href="https://docs.aws.amazon.com/waf/latest/developerguide/">AWS WAF Developer Guide</a> .</p>
+<p>You can make API calls using the endpoints listed in <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#waf_region">AWS Service Endpoints for AWS WAF</a> .</p>
+<ul class="simple">
+<li>For regional applications, you can use any of the endpoints in the list. A regional application can be an Application Load Balancer (ALB) or an API Gateway stage.</li>
+<li>For AWS CloudFront applications, you must use the API endpoint listed for US East (N. Virginia): us-east-1.</li>
+</ul>
+<p>Alternatively, you can use one of the AWS SDKs to access an API that's tailored to the programming language or platform that you're using. For more information, see <a class="reference external" href="http://aws.amazon.com/tools/#SDKs">AWS SDKs</a> .</p>
+<p>We currently provide two versions of the AWS WAF API: this API and the prior versions, the classic AWS WAF APIs. This new API provides the same functionality as the older versions, with the following major improvements:</p>
+<ul class="simple">
+<li>You use one API for both global and regional applications. Where you need to distinguish the scope, you specify a <tt class="docutils literal"><span class="pre">Scope</span></tt> parameter and set it to <tt class="docutils literal"><span class="pre">CLOUDFRONT</span></tt> or <tt class="docutils literal"><span class="pre">REGIONAL</span></tt> .</li>
+<li>You can define a Web ACL or rule group with a single API call, and update it with a single call. You define all rule specifications in JSON format, and pass them to your rule group or Web ACL API calls.</li>
+<li>The limits AWS WAF places on the use of rules more closely reflects the cost of running each type of rule. Rule groups include capacity settings, so you know the maximum cost of a rule group when you use it.</li>
+</ul>
+</div>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
+</h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="associate-web-acl.html">associate-web-acl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="check-capacity.html">check-capacity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-ip-set.html">create-ip-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-regex-pattern-set.html">create-regex-pattern-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-rule-group.html">create-rule-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-web-acl.html">create-web-acl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-ip-set.html">delete-ip-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-logging-configuration.html">delete-logging-configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-regex-pattern-set.html">delete-regex-pattern-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-rule-group.html">delete-rule-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-web-acl.html">delete-web-acl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-managed-rule-group.html">describe-managed-rule-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disassociate-web-acl.html">disassociate-web-acl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-ip-set.html">get-ip-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-logging-configuration.html">get-logging-configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-rate-based-statement-managed-keys.html">get-rate-based-statement-managed-keys</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-regex-pattern-set.html">get-regex-pattern-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-rule-group.html">get-rule-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-sampled-requests.html">get-sampled-requests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-web-acl.html">get-web-acl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-web-acl-for-resource.html">get-web-acl-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-available-managed-rule-groups.html">list-available-managed-rule-groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-ip-sets.html">list-ip-sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-logging-configurations.html">list-logging-configurations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-regex-pattern-sets.html">list-regex-pattern-sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-resources-for-web-acl.html">list-resources-for-web-acl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-rule-groups.html">list-rule-groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-tags-for-resource.html">list-tags-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-web-acls.html">list-web-acls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="put-logging-configuration.html">put-logging-configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag-resource.html">tag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="untag-resource.html">untag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-ip-set.html">update-ip-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-regex-pattern-set.html">update-regex-pattern-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-rule-group.html">update-rule-group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-web-acl.html">update-web-acl</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>
