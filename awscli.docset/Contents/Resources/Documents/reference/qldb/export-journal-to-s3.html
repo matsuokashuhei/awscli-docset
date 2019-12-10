@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>export-journal-to-s3 — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="qldb" href="index.html">
+    <link rel="next" title="get-block" href="get-block.html">
+    <link rel="prev" title="describe-ledger" href="describe-ledger.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="export-journal-to-s3">
+<span id="cli-aws-qldb-export-journal-to-s3"></span><h1>export-journal-to-s3<a class="headerlink" href="#export-journal-to-s3" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Exports journal contents within a date and time range from a ledger into a specified Amazon Simple Storage Service (Amazon S3) bucket. The data is written as files in Amazon Ion format.</p>
+<p>If the ledger with the given <tt class="docutils literal"><span class="pre">Name</span></tt> doesn't exist, then throws <tt class="docutils literal"><span class="pre">ResourceNotFoundException</span></tt> .</p>
+<p>If the ledger with the given <tt class="docutils literal"><span class="pre">Name</span></tt> is in <tt class="docutils literal"><span class="pre">CREATING</span></tt> status, then throws <tt class="docutils literal"><span class="pre">ResourcePreconditionNotMetException</span></tt> .</p>
+<p>You can initiate up to two concurrent journal export requests for each ledger. Beyond this limit, journal export requests throw <tt class="docutils literal"><span class="pre">LimitExceededException</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/qldb-2019-01-02/ExportJournalToS3">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  export-journal-to-s3
+--name &lt;value&gt;
+--inclusive-start-time &lt;value&gt;
+--exclusive-end-time &lt;value&gt;
+--s3-export-configuration &lt;value&gt;
+--role-arn &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the ledger.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--inclusive-start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The inclusive start date and time for the range of journal contents that you want to export.</p>
+<p>The <tt class="docutils literal"><span class="pre">InclusiveStartTime</span></tt> must be in <tt class="docutils literal"><span class="pre">ISO</span> <span class="pre">8601</span></tt> date and time format and in Universal Coordinated Time (UTC). For example: <tt class="docutils literal"><span class="pre">2019-06-13T21:36:34Z</span></tt></p>
+<p>The <tt class="docutils literal"><span class="pre">InclusiveStartTime</span></tt> must be before <tt class="docutils literal"><span class="pre">ExclusiveEndTime</span></tt> .</p>
+<p>If you provide an <tt class="docutils literal"><span class="pre">InclusiveStartTime</span></tt> that is before the ledger's <tt class="docutils literal"><span class="pre">CreationDateTime</span></tt> , Amazon QLDB defaults it to the ledger's <tt class="docutils literal"><span class="pre">CreationDateTime</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--exclusive-end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The exclusive end date and time for the range of journal contents that you want to export.</p>
+<p>The <tt class="docutils literal"><span class="pre">ExclusiveEndTime</span></tt> must be in <tt class="docutils literal"><span class="pre">ISO</span> <span class="pre">8601</span></tt> date and time format and in Universal Coordinated Time (UTC). For example: <tt class="docutils literal"><span class="pre">2019-06-13T21:36:34Z</span></tt></p>
+<p>The <tt class="docutils literal"><span class="pre">ExclusiveEndTime</span></tt> must be less than or equal to the current UTC date and time.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--s3-export-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>The configuration settings of the Amazon S3 bucket destination for your export request.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Bucket=string,Prefix=string,EncryptionConfiguration={ObjectEncryptionType=string,KmsKeyArn=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"EncryptionConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"ObjectEncryptionType"</span><span class="p">:</span> <span class="s2">"SSE_KMS"</span><span class="o">|</span><span class="s2">"SSE_S3"</span><span class="o">|</span><span class="s2">"NO_ENCRYPTION"</span><span class="p">,</span>
+    <span class="s2">"KmsKeyArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the IAM role that grants QLDB permissions for a journal export job to do the following:</p>
+<ul class="simple">
+<li>Write objects into your Amazon Simple Storage Service (Amazon S3) bucket.</li>
+<li>(Optional) Use your customer master key (CMK) in AWS Key Management Service (AWS KMS) for server-side encryption of your exported data.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To export journal blocks to S3</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">export-journal-to-s3</span></tt> example creates an export job for journal blocks within a specified date and time range from a ledger with the name <tt class="docutils literal"><span class="pre">myExampleLedger</span></tt>. The export job writes the blocks into a specified Amazon S3 bucket.</p>
+<div class="highlight-python">
+<pre>aws qldb export-journal-to-s3 \
+    --name myExampleLedger \
+    --inclusive-start-time 2019-09-18T00:00:00Z \
+    --exclusive-end-time 2019-09-18T22:59:59Z \
+    --role-arn arn:aws:iam::123456789012:role/my-s3-export-role \
+    --s3-export-configuration file://my-s3-export-config.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">my-s3-export-config.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"awsExampleBucket"</span><span class="p">,</span>
+    <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"ledgerexport1/"</span><span class="p">,</span>
+    <span class="s2">"EncryptionConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"ObjectEncryptionType"</span><span class="p">:</span> <span class="s2">"SSE_S3"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ExportId"</span><span class="p">:</span> <span class="s2">"ADR2ONPKN5LINYGb4dp7yZ"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/qldb/latest/developerguide/export-journal.html">Exporting Your Journal in Amazon QLDB</a> in the <em>Amazon QLDB Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ExportId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The unique ID that QLDB assigns to each journal export job.</p>
+<p>To describe your export request and check the status of the job, you can use <tt class="docutils literal"><span class="pre">ExportId</span></tt> to call <tt class="docutils literal"><span class="pre">DescribeJournalS3Export</span></tt> .</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

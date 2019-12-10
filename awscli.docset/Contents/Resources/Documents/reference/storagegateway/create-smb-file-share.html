@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-smb-file-share — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="storagegateway" href="index.html">
+    <link rel="next" title="create-snapshot" href="create-snapshot.html">
+    <link rel="prev" title="create-nfs-file-share" href="create-nfs-file-share.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-smb-file-share">
+<span id="cli-aws-storagegateway-create-smb-file-share"></span><h1>create-smb-file-share<a class="headerlink" href="#create-smb-file-share" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a Server Message Block (SMB) file share on an existing file gateway. In Storage Gateway, a file share is a file system mount point backed by Amazon S3 cloud storage. Storage Gateway expose file shares using a SMB interface. This operation is only supported for file gateways.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>File gateways require AWS Security Token Service (AWS STS) to be activated to enable you to create a file share. Make sure that AWS STS is activated in the AWS Region you are creating your file gateway in. If AWS STS is not activated in this AWS Region, activate it. For information about how to activate AWS STS, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html">Activating and Deactivating AWS STS in an AWS Region</a> in the <em>AWS Identity and Access Management User Guide.</em></p>
+<p class="last">File gateways don't support creating hard or symbolic links on a file share.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/CreateSMBFileShare">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-smb-file-share
+--client-token &lt;value&gt;
+--gateway-arn &lt;value&gt;
+[--kms-encrypted | --no-kms-encrypted]
+[--kms-key &lt;value&gt;]
+--role &lt;value&gt;
+--location-arn &lt;value&gt;
+[--default-storage-class &lt;value&gt;]
+[--object-acl &lt;value&gt;]
+[--read-only | --no-read-only]
+[--guess-mime-type-enabled | --no-guess-mime-type-enabled]
+[--requester-pays | --no-requester-pays]
+[--smbacl-enabled | --no-smbacl-enabled]
+[--admin-user-list &lt;value&gt;]
+[--valid-user-list &lt;value&gt;]
+[--invalid-user-list &lt;value&gt;]
+[--authentication &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>A unique string value that you supply that is used by file gateway to ensure idempotent file share creation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--gateway-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the file gateway on which you want to create a file share.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kms-encrypted</span></tt> | <tt class="docutils literal"><span class="pre">--no-kms-encrypted</span></tt> (boolean)</p>
+<blockquote>
+<div>True to use Amazon S3 server side encryption with your own AWS KMS key, or false to use a key managed by Amazon S3. Optional.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kms-key</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the AWS KMS key used for Amazon S3 server side encryption. This value can only be set when KMSEncrypted is true. Optional.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the AWS Identity and Access Management (IAM) role that a file gateway assumes when it accesses the underlying storage.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--location-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the backed storage used for storing file data.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--default-storage-class</span></tt> (string)</p>
+<blockquote>
+<div>The default storage class for objects put into an Amazon S3 bucket by the file gateway. Possible values are <tt class="docutils literal"><span class="pre">S3_STANDARD</span></tt> , <tt class="docutils literal"><span class="pre">S3_STANDARD_IA</span></tt> , or <tt class="docutils literal"><span class="pre">S3_ONEZONE_IA</span></tt> . If this field is not populated, the default value <tt class="docutils literal"><span class="pre">S3_STANDARD</span></tt> is used. Optional.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--object-acl</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A value that sets the access control list permission for objects in the S3 bucket that a file gateway puts objects into. The default value is "private".</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">private</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">public-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">public-read-write</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">authenticated-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">bucket-owner-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">bucket-owner-full-control</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">aws-exec-read</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--read-only</span></tt> | <tt class="docutils literal"><span class="pre">--no-read-only</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that sets the write status of a file share. This value is true if the write status is read-only, and otherwise false.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--guess-mime-type-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-guess-mime-type-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that enables guessing of the MIME type for uploaded objects based on file extensions. Set this value to true to enable MIME type guessing, and otherwise to false. The default value is true.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--requester-pays</span></tt> | <tt class="docutils literal"><span class="pre">--no-requester-pays</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that sets who pays the cost of the request and the cost associated with data download from the S3 bucket. If this value is set to true, the requester pays the costs. Otherwise the S3 bucket owner pays. However, the S3 bucket owner always pays the cost of storing data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">RequesterPays</span></tt> is a configuration for the S3 bucket that backs the file share, so make sure that the configuration on the file share is the same as the S3 bucket configuration.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--smbacl-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-smbacl-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Set this value to "true to enable ACL (access control list) on the SMB file share. Set it to "false" to map file and directory permissions to the POSIX permissions.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html">https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html</a> in the Storage Gateway User Guide.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--admin-user-list</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of users in the Active Directory that will be granted administrator privileges on the file share. These users can do all file operations as the super-user.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Use this option very carefully, because any user in this list can do anything they like on the file share, regardless of file permissions.</p>
+</div>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--valid-user-list</span></tt> (list)</p>
+<blockquote>
+<div>A list of users or groups in the Active Directory that are allowed to access the file share. A group must be prefixed with the @ character. For example <tt class="docutils literal"><span class="pre">@group1</span></tt> . Can only be set if Authentication is set to <tt class="docutils literal"><span class="pre">ActiveDirectory</span></tt> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--invalid-user-list</span></tt> (list)</p>
+<blockquote>
+<div>A list of users or groups in the Active Directory that are not allowed to access the file share. A group must be prefixed with the @ character. For example <tt class="docutils literal"><span class="pre">@group1</span></tt> . Can only be set if Authentication is set to <tt class="docutils literal"><span class="pre">ActiveDirectory</span></tt> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--authentication</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The authentication method that users use to access the file share.</p>
+<p>Valid values are <tt class="docutils literal"><span class="pre">ActiveDirectory</span></tt> or <tt class="docutils literal"><span class="pre">GuestAccess</span></tt> . The default is <tt class="docutils literal"><span class="pre">ActiveDirectory</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of up to 50 tags that can be assigned to the NFS file share. Each tag is a key-value pair.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Valid characters for key and value are letters, spaces, and numbers representable in UTF-8 format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the maximum length for a tag's value is 256.</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FileShareARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the newly created file share.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

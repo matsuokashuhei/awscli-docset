@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-compilation-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="create-domain" href="create-domain.html">
+    <link rel="prev" title="create-code-repository" href="create-code-repository.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-compilation-job">
+<span id="cli-aws-sagemaker-create-compilation-job"></span><h1>create-compilation-job<a class="headerlink" href="#create-compilation-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Starts a model compilation job. After the model has been compiled, Amazon SageMaker saves the resulting model artifacts to an Amazon Simple Storage Service (Amazon S3) bucket that you specify.</p>
+<p>If you choose to host your model using Amazon SageMaker hosting services, you can use the resulting model artifacts as part of the model. You can also use the artifacts with AWS IoT Greengrass. In that case, deploy them as an ML resource.</p>
+<p>In the request body, you provide the following:</p>
+<ul class="simple">
+<li>A name for the compilation job</li>
+<li>Information about the input model artifacts</li>
+<li>The output location for the compiled model and the device (target) that the model runs on</li>
+<li><tt class="docutils literal"><span class="pre">The</span> <span class="pre">Amazon</span> <span class="pre">Resource</span> <span class="pre">Name</span> <span class="pre">(ARN)</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">IAM</span> <span class="pre">role</span> <span class="pre">that</span> <span class="pre">Amazon</span> <span class="pre">SageMaker</span> <span class="pre">assumes</span> <span class="pre">to</span> <span class="pre">perform</span> <span class="pre">the</span> <span class="pre">model</span> <span class="pre">compilation</span> <span class="pre">job</span></tt></li>
+</ul>
+<p>You can also provide a <tt class="docutils literal"><span class="pre">Tag</span></tt> to track the model compilation job's resource use and costs. The response body contains the <tt class="docutils literal"><span class="pre">CompilationJobArn</span></tt> for the compiled job.</p>
+<p>To stop a model compilation job, use  StopCompilationJob . To get information about a particular model compilation job, use  DescribeCompilationJob . To get information about multiple model compilation jobs, use  ListCompilationJobs .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateCompilationJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-compilation-job
+--compilation-job-name &lt;value&gt;
+--role-arn &lt;value&gt;
+--input-config &lt;value&gt;
+--output-config &lt;value&gt;
+--stopping-condition &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--compilation-job-name</span></tt> (string)</p>
+<blockquote>
+<div>A name for the model compilation job. The name must be unique within the AWS Region and within your AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of an IAM role that enables Amazon SageMaker to perform tasks on your behalf.</p>
+<p>During model compilation, Amazon SageMaker needs your permission to:</p>
+<ul class="simple">
+<li>Read input data from an S3 bucket</li>
+<li>Write model artifacts to an S3 bucket</li>
+<li>Write logs to Amazon CloudWatch Logs</li>
+<li>Publish metrics to Amazon CloudWatch</li>
+</ul>
+<p>You grant permissions for all of these tasks to an IAM role. To pass this role to Amazon SageMaker, the caller of this API must have the <tt class="docutils literal"><span class="pre">iam:PassRole</span></tt> permission. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon SageMaker Roles.</a></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input-config</span></tt> (structure)</p>
+<blockquote>
+<div>Provides information about the location of input model artifacts, the name and shape of the expected data inputs, and the framework in which the model was trained.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3Uri</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">DataInputConfig</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Framework</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3Uri"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DataInputConfig"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Framework"</span><span class="p">:</span> <span class="s2">"TENSORFLOW"</span><span class="o">|</span><span class="s2">"MXNET"</span><span class="o">|</span><span class="s2">"ONNX"</span><span class="o">|</span><span class="s2">"PYTORCH"</span><span class="o">|</span><span class="s2">"XGBOOST"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--output-config</span></tt> (structure)</p>
+<blockquote>
+<div>Provides information about the output location for the compiled model and the target device the model runs on.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3OutputLocation</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TargetDevice</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3OutputLocation"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TargetDevice"</span><span class="p">:</span> <span class="s2">"lambda"</span><span class="o">|</span><span class="s2">"ml_m4"</span><span class="o">|</span><span class="s2">"ml_m5"</span><span class="o">|</span><span class="s2">"ml_c4"</span><span class="o">|</span><span class="s2">"ml_c5"</span><span class="o">|</span><span class="s2">"ml_p2"</span><span class="o">|</span><span class="s2">"ml_p3"</span><span class="o">|</span><span class="s2">"ml_inf1"</span><span class="o">|</span><span class="s2">"jetson_tx1"</span><span class="o">|</span><span class="s2">"jetson_tx2"</span><span class="o">|</span><span class="s2">"jetson_nano"</span><span class="o">|</span><span class="s2">"rasp3b"</span><span class="o">|</span><span class="s2">"deeplens"</span><span class="o">|</span><span class="s2">"rk3399"</span><span class="o">|</span><span class="s2">"rk3288"</span><span class="o">|</span><span class="s2">"aisage"</span><span class="o">|</span><span class="s2">"sbe_c"</span><span class="o">|</span><span class="s2">"qcs605"</span><span class="o">|</span><span class="s2">"qcs603"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--stopping-condition</span></tt> (structure)</p>
+<blockquote>
+<div>Specifies a limit to how long a model compilation job can run. When the job reaches the time limit, Amazon SageMaker ends the compilation job. Use this API to cap model training costs.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">MaxRuntimeInSeconds</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxWaitTimeInSeconds</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"MaxRuntimeInSeconds"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxWaitTimeInSeconds"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CompilationJobArn -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If the action is successful, the service sends back an HTTP 200 response. Amazon SageMaker returns the following data in JSON format:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CompilationJobArn</span></tt> : The Amazon Resource Name (ARN) of the compiled job.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

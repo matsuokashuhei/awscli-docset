@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>head-object — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="list-bucket-analytics-configurations" href="list-bucket-analytics-configurations.html">
+    <link rel="prev" title="head-bucket" href="head-bucket.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="head-object">
+<span id="cli-aws-s3api-head-object"></span><h1>head-object<a class="headerlink" href="#head-object" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>The HEAD operation retrieves metadata from an object without returning the object itself. This operation is useful if you're only interested in an object's metadata. To use HEAD, you must have READ access to the object.</p>
+<p>A <tt class="docutils literal"><span class="pre">HEAD</span></tt> request has the same options as a <tt class="docutils literal"><span class="pre">GET</span></tt> operation on an object. The response is identical to the <tt class="docutils literal"><span class="pre">GET</span></tt> response except that there is no response body.</p>
+<p>If you encrypt an object by using server-side encryption with customer-provided encryption keys (SSE-C) when you store the object in Amazon S3, then when you retrieve the metadata from the object, you must use the following headers:</p>
+<ul class="simple">
+<li>x-amz-server-side​-encryption​-customer-algorithm</li>
+<li>x-amz-server-side​-encryption​-customer-key</li>
+<li>x-amz-server-side​-encryption​-customer-key-MD5</li>
+</ul>
+<p>For more information about SSE-C, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">Server-Side Encryption (Using Customer-Provided Encryption Keys)</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Encryption request headers, like <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> , should not be sent for GET requests if your object uses server-side encryption with CMKs stored in AWS KMS (SSE-KMS) or server-side encryption with Amazon S3–managed encryption keys (SSE-S3). If your object does use these types of keys, you’ll get an HTTP 400 BadRequest error.</p>
+</div>
+<p>Request headers are limited to 8 KB in size. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonRequestHeaders.html">Common Request Headers</a> .</p>
+<p>Consider the following when using request headers:</p>
+<ul class="simple">
+<li>Consideration 1 – If both of the <tt class="docutils literal"><span class="pre">If-Match</span></tt> and <tt class="docutils literal"><span class="pre">If-Unmodified-Since</span></tt> headers are present in the request as follows:<ul>
+<li>
+<tt class="docutils literal"><span class="pre">If-Match</span></tt> condition evaluates to <tt class="docutils literal"><span class="pre">true</span></tt> , and;</li>
+<li>
+<tt class="docutils literal"><span class="pre">If-Unmodified-Since</span></tt> condition evaluates to <tt class="docutils literal"><span class="pre">false</span></tt> ;</li>
+</ul>
+</li>
+</ul>
+<p>Then Amazon S3 returns <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt> and the data requested.</p>
+<ul class="simple">
+<li>Consideration 2 – If both of the <tt class="docutils literal"><span class="pre">If-None-Match</span></tt> and <tt class="docutils literal"><span class="pre">If-Modified-Since</span></tt> headers are present in the request as follows:<ul>
+<li>
+<tt class="docutils literal"><span class="pre">If-None-Match</span></tt> condition evaluates to <tt class="docutils literal"><span class="pre">false</span></tt> , and;</li>
+<li>
+<tt class="docutils literal"><span class="pre">If-Modified-Since</span></tt> condition evaluates to <tt class="docutils literal"><span class="pre">true</span></tt> ;</li>
+</ul>
+</li>
+</ul>
+<p>Then Amazon S3 returns the <tt class="docutils literal"><span class="pre">304</span> <span class="pre">Not</span> <span class="pre">Modified</span></tt> response code.</p>
+<p>For more information about conditional requests, see <a class="reference external" href="https://tools.ietf.org/html/rfc7232">RFC 7232</a> .</p>
+<blockquote>
+<div><strong>Permissions</strong></div>
+</blockquote>
+<p>You need the <tt class="docutils literal"><span class="pre">s3:GetObject</span></tt> permission for this operation. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a Policy</a> . If the object you request does not exist, the error Amazon S3 returns depends on whether you also have the s3:ListBucket permission.</p>
+<ul class="simple">
+<li>If you have the <tt class="docutils literal"><span class="pre">s3:ListBucket</span></tt> permission on the bucket, Amazon S3 returns an HTTP status code 404 ("no such key") error.</li>
+<li>If you don’t have the <tt class="docutils literal"><span class="pre">s3:ListBucket</span></tt> permission, Amazon S3 returns an HTTP status code 403 ("access denied") error.</li>
+</ul>
+<p>The following operation is related to <tt class="docutils literal"><span class="pre">HeadObject</span></tt> :</p>
+<ul class="simple">
+<li>GetObject</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/HeadObject">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  head-object
+--bucket &lt;value&gt;
+[--if-match &lt;value&gt;]
+[--if-modified-since &lt;value&gt;]
+[--if-none-match &lt;value&gt;]
+[--if-unmodified-since &lt;value&gt;]
+--key &lt;value&gt;
+[--range &lt;value&gt;]
+[--version-id &lt;value&gt;]
+[--sse-customer-algorithm &lt;value&gt;]
+[--sse-customer-key &lt;value&gt;]
+[--sse-customer-key-md5 &lt;value&gt;]
+[--request-payer &lt;value&gt;]
+[--part-number &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bucket containing the object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--if-match</span></tt> (string)</p>
+<blockquote>
+<div>Return the object only if its entity tag (ETag) is the same as the one specified, otherwise return a 412 (precondition failed).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--if-modified-since</span></tt> (timestamp)</p>
+<blockquote>
+<div>Return the object only if it has been modified since the specified time, otherwise return a 304 (not modified).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--if-none-match</span></tt> (string)</p>
+<blockquote>
+<div>Return the object only if its entity tag (ETag) is different from the one specified, otherwise return a 304 (not modified).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--if-unmodified-since</span></tt> (timestamp)</p>
+<blockquote>
+<div>Return the object only if it has not been modified since the specified time, otherwise return a 412 (precondition failed).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key</span></tt> (string)</p>
+<blockquote>
+<div>The object key.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--range</span></tt> (string)</p>
+<blockquote>
+<div>Downloads the specified range bytes of an object. For more information about the HTTP Range header, see <a href="#id1"><span class="problematic" id="id2">`</span></a><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--version-id</span></tt> (string)</p>
+<blockquote>
+<div>VersionId used to reference a specific version of the object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the algorithm to use to when encrypting the object (for example, AES256).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use with the algorithm specified in the <tt class="docutils literal"><span class="pre">x-amz-server-side​-encryption​-customer-algorithm</span></tt> header.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key-md5</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--part-number</span></tt> (integer)</p>
+<blockquote>
+<div>Part number of the object being read. This is a positive integer between 1 and 10,000. Effectively performs a 'ranged' HEAD request for the part specified. Useful querying about the size of the part and the number of parts in this object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command retrieves metadata for an object in a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api head-object --bucket my-bucket --key index.html</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"AcceptRanges"</span><span class="p">:</span> <span class="s2">"bytes"</span><span class="p">,</span>
+    <span class="s2">"ContentType"</span><span class="p">:</span> <span class="s2">"text/html"</span><span class="p">,</span>
+    <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"Thu, 16 Apr 2015 18:19:14 GMT"</span><span class="p">,</span>
+    <span class="s2">"ContentLength"</span><span class="p">:</span> <span class="mi">77</span><span class="p">,</span>
+    <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">30a6ec7e1a9ad79c203d05a589c8b400</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+    <span class="s2">"Metadata"</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DeleteMarker -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the object retrieved was (true) or was not (false) a Delete Marker. If false, this response header does not appear in the response.</div>
+</blockquote>
+<p>AcceptRanges -&gt; (string)</p>
+<blockquote>
+<div>Indicates that a range of bytes was specified.</div>
+</blockquote>
+<p>Expiration -&gt; (string)</p>
+<blockquote>
+<div>If the object expiration is configured (see PUT Bucket lifecycle), the response includes this header. It includes the expiry-date and rule-id key-value pairs providing object expiration information. The value of the rule-id is URL encoded.</div>
+</blockquote>
+<p>Restore -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If the object is an archived object (an object whose storage class is GLACIER), the response includes this header if either the archive restoration is in progress (see  RestoreObject or an archive copy is already restored.</p>
+<p>If an archive copy is already restored, the header value indicates when Amazon S3 is scheduled to delete the object copy. For example:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">x-amz-restore:</span> <span class="pre">ongoing-request="false",</span> <span class="pre">expiry-date="Fri,</span> <span class="pre">23</span> <span class="pre">Dec</span> <span class="pre">2012</span> <span class="pre">00:00:00</span> <span class="pre">GMT"</span></tt></div>
+</blockquote>
+<p>If the object restoration is in progress, the header returns the value <tt class="docutils literal"><span class="pre">ongoing-request="true"</span></tt> .</p>
+<p>For more information about archiving objects, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html#lifecycle-transition-general-considerations">Transitioning Objects: General Considerations</a> .</p>
+</div>
+</blockquote>
+<p>LastModified -&gt; (timestamp)</p>
+<blockquote>
+<div>Last modified date of the object</div>
+</blockquote>
+<p>ContentLength -&gt; (long)</p>
+<blockquote>
+<div>Size of the body in bytes.</div>
+</blockquote>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>An ETag is an opaque identifier assigned by a web server to a specific version of a resource found at a URL.</div>
+</blockquote>
+<p>MissingMeta -&gt; (integer)</p>
+<blockquote>
+<div>This is set to the number of metadata entries not returned in <tt class="docutils literal"><span class="pre">x-amz-meta</span></tt> headers. This can happen if you create metadata using an API like SOAP that supports more flexible metadata than the REST API. For example, using SOAP, you can create metadata whose values are not legal HTTP headers.</div>
+</blockquote>
+<p>VersionId -&gt; (string)</p>
+<blockquote>
+<div>Version of the object.</div>
+</blockquote>
+<p>CacheControl -&gt; (string)</p>
+<blockquote>
+<div>Specifies caching behavior along the request/reply chain.</div>
+</blockquote>
+<p>ContentDisposition -&gt; (string)</p>
+<blockquote>
+<div>Specifies presentational information for the object.</div>
+</blockquote>
+<p>ContentEncoding -&gt; (string)</p>
+<blockquote>
+<div>Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to obtain the media-type referenced by the Content-Type header field.</div>
+</blockquote>
+<p>ContentLanguage -&gt; (string)</p>
+<blockquote>
+<div>The language the content is in.</div>
+</blockquote>
+<p>ContentType -&gt; (string)</p>
+<blockquote>
+<div>A standard MIME type describing the format of the object data.</div>
+</blockquote>
+<p>Expires -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time at which the object is no longer cacheable.</div>
+</blockquote>
+<p>WebsiteRedirectLocation -&gt; (string)</p>
+<blockquote>
+<div>If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.</div>
+</blockquote>
+<p>ServerSideEncryption -&gt; (string)</p>
+<blockquote>
+<div>If the object is stored using server-side encryption either with an AWS KMS customer master key (CMK) or an Amazon S3-managed encryption key, the response includes this header with the value of the server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).</div>
+</blockquote>
+<p>Metadata -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A map of metadata to store with the object in S3.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>SSECustomerAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.</div>
+</blockquote>
+<p>SSECustomerKeyMD5 -&gt; (string)</p>
+<blockquote>
+<div>If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.</div>
+</blockquote>
+<p>SSEKMSKeyId -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the ID of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used for the object.</div>
+</blockquote>
+<p>StorageClass -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Provides storage class information of the object. Amazon S3 returns this header for all objects except for Standard storage class objects.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">Storage Classes</a> .</p>
+</div>
+</blockquote>
+<p>RequestCharged -&gt; (string)</p>
+<blockquote>
+<div>If present, indicates that the requester was successfully charged for the request.</div>
+</blockquote>
+<p>ReplicationStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Amazon S3 can return this header if your request involves a bucket that is either a source or destination in a replication rule.</p>
+<p>In replication, you have a source bucket on which you configure replication and destination bucket where Amazon S3 stores object replicas. When you request an object (<tt class="docutils literal"><span class="pre">GetObject</span></tt> ) or object metadata (<tt class="docutils literal"><span class="pre">HeadObject</span></tt> ) from these buckets, Amazon S3 will return the <tt class="docutils literal"><span class="pre">x-amz-replication-status</span></tt> header in the response as follows:</p>
+<ul class="simple">
+<li>If requesting an object from the source bucket — Amazon S3 will return the <tt class="docutils literal"><span class="pre">x-amz-replication-status</span></tt> header if the object in your request is eligible for replication. For example, suppose that in your replication configuration, you specify object prefix <tt class="docutils literal"><span class="pre">TaxDocs</span></tt> requesting Amazon S3 to replicate objects with key prefix <tt class="docutils literal"><span class="pre">TaxDocs</span></tt> . Any objects you upload with this key name prefix, for example <tt class="docutils literal"><span class="pre">TaxDocs/document1.pdf</span></tt> , are eligible for replication. For any object request with this key name prefix, Amazon S3 will return the <tt class="docutils literal"><span class="pre">x-amz-replication-status</span></tt> header with value PENDING, COMPLETED or FAILED indicating object replication status.</li>
+<li>If requesting an object from the destination bucket — Amazon S3 will return the <tt class="docutils literal"><span class="pre">x-amz-replication-status</span></tt> header with value REPLICA if the object in your request is a replica that Amazon S3 created.</li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Replication</a> .</p>
+</div>
+</blockquote>
+<p>PartsCount -&gt; (integer)</p>
+<blockquote>
+<div>The count of parts this object has.</div>
+</blockquote>
+<p>ObjectLockMode -&gt; (string)</p>
+<blockquote>
+<div>The Object Lock mode, if any, that's in effect for this object. This header is only returned if the requester has the <tt class="docutils literal"><span class="pre">s3:GetObjectRetention</span></tt> permission. For more information about S3 Object Lock, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Object Lock</a> .</div>
+</blockquote>
+<p>ObjectLockRetainUntilDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the Object Lock retention period expires. This header is only returned if the requester has the <tt class="docutils literal"><span class="pre">s3:GetObjectRetention</span></tt> permission.</div>
+</blockquote>
+<p>ObjectLockLegalHoldStatus -&gt; (string)</p>
+<blockquote>
+<div>Specifies whether a legal hold is in effect for this object. This header is only returned if the requester has the <tt class="docutils literal"><span class="pre">s3:GetObjectLegalHold</span></tt> permission. This header is not returned if the specified version of this object has never had a legal hold applied. For more information about S3 Object Lock, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock.html">Object Lock</a> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

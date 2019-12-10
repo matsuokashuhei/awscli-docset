@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-object — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="mediastore-data" href="index.html">
+    <link rel="next" title="mediatailor" href="../mediatailor/index.html">
+    <link rel="prev" title="list-items" href="list-items.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-object">
+<span id="cli-aws-mediastore-data-put-object"></span><h1>put-object<a class="headerlink" href="#put-object" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Uploads an object to the specified path. Object sizes are limited to 25 MB for standard upload availability and 10 MB for streaming upload availability.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/PutObject">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-object
+--body &lt;value&gt;
+--path &lt;value&gt;
+[--content-type &lt;value&gt;]
+[--cache-control &lt;value&gt;]
+[--storage-class &lt;value&gt;]
+[--upload-availability &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--body</span></tt> (blob)</p>
+<blockquote>
+<div>The bytes to be stored.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--path</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The path (including the file name) where the object is stored in the container. Format: folder name/folder name/file name</p>
+<p>For example, to upload the file <tt class="docutils literal"><span class="pre">mlaw.avi</span></tt> to the folder path <tt class="docutils literal"><span class="pre">premium\canada</span></tt> in the container <tt class="docutils literal"><span class="pre">movies</span></tt> , enter the path <tt class="docutils literal"><span class="pre">premium/canada/mlaw.avi</span></tt> .</p>
+<p>Do not include the container name in this path.</p>
+<p>If the path includes any folders that don't exist yet, the service creates them. For example, suppose you have an existing <tt class="docutils literal"><span class="pre">premium/usa</span></tt> subfolder. If you specify <tt class="docutils literal"><span class="pre">premium/canada</span></tt> , the service creates a <tt class="docutils literal"><span class="pre">canada</span></tt> subfolder in the <tt class="docutils literal"><span class="pre">premium</span></tt> folder. You then have two subfolders, <tt class="docutils literal"><span class="pre">usa</span></tt> and <tt class="docutils literal"><span class="pre">canada</span></tt> , in the <tt class="docutils literal"><span class="pre">premium</span></tt> folder.</p>
+<p>There is no correlation between the path to the source and the path (folders) in the container in AWS Elemental MediaStore.</p>
+<p>For more information about folders and how they exist in a container, see the <a class="reference external" href="http://docs.aws.amazon.com/mediastore/latest/ug/">AWS Elemental MediaStore User Guide</a> .</p>
+<p>The file name is the name that is assigned to the file that you upload. The file can have the same name inside and outside of AWS Elemental MediaStore, or it can have the same name. The file name can include or omit an extension.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-type</span></tt> (string)</p>
+<blockquote>
+<div>The content type of the object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cache-control</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>An optional <tt class="docutils literal"><span class="pre">CacheControl</span></tt> header that allows the caller to control the object's cache behavior. Headers can be passed in as specified in the HTTP at <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a> .</p>
+<p>Headers with a custom user-defined value are also accepted.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--storage-class</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Indicates the storage class of a <tt class="docutils literal"><span class="pre">Put</span></tt> request. Defaults to high-performance temporal storage class, and objects are persisted into durable storage shortly after being received.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">TEMPORAL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--upload-availability</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Indicates the availability of an object while it is still uploading. If the value is set to <tt class="docutils literal"><span class="pre">streaming</span></tt> , the object is available for downloading after some initial buffering but before the object is uploaded completely. If the value is set to <tt class="docutils literal"><span class="pre">standard</span></tt> , the object is available for downloading only when it is uploaded completely. The default value for this header is <tt class="docutils literal"><span class="pre">standard</span></tt> .</p>
+<p>To use this header, you must also set the HTTP <tt class="docutils literal"><span class="pre">Transfer-Encoding</span></tt> header to <tt class="docutils literal"><span class="pre">chunked</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">STANDARD</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">STREAMING</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To upload an object to a container</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-object</span></tt> example upload an object to the specified container.</p>
+<div class="highlight-python">
+<pre>aws mediastore-data put-object \
+    --endpoint https://aaabbbcccdddee.data.mediastore.us-west-2.amazonaws.com \
+    --body ReadMe.md \
+    --path ReadMe.md \
+    --cache-control "max-age=6, public" \
+    --content-type binary/octet-stream</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ContentSHA256"</span><span class="p">:</span> <span class="s2">"f29bc64a9d3732b4b9035125fdb3285f5b6455778edca72414671e0ca3b2e0de"</span><span class="p">,</span>
+    <span class="s2">"StorageClass"</span><span class="p">:</span> <span class="s2">"TEMPORAL"</span><span class="p">,</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"2aa333bbcc8d8d22d777e999c88d4aa9eeeeee4dd89ff7f555555555555da6d3"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To upload an object to a folder within a container</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-object</span></tt> example upload an object to the specified folder within a container.</p>
+<div class="highlight-python">
+<pre>aws mediastore-data put-object \
+    --endpoint https://aaabbbcccdddee.data.mediastore.us-west-2.amazonaws.com \
+    --body ReadMe.md \
+    --path /september-events/ReadMe.md \
+    --cache-control "max-age=6, public" \
+    --content-type binary/octet-stream</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"2aa333bbcc8d8d22d777e999c88d4aa9eeeeee4dd89ff7f555555555555da6d3"</span><span class="p">,</span>
+    <span class="s2">"ContentSHA256"</span><span class="p">:</span> <span class="s2">"f29bc64a9d3732b4b9035125fdb3285f5b6455778edca72414671e0ca3b2e0de"</span><span class="p">,</span>
+    <span class="s2">"StorageClass"</span><span class="p">:</span> <span class="s2">"TEMPORAL"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/mediastore/latest/ug/objects-upload.html">Uploading an Object</a> in the <em>AWS Elemental MediaStore User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ContentSHA256 -&gt; (string)</p>
+<blockquote>
+<div>The SHA256 digest of the object that is persisted.</div>
+</blockquote>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier of the object in the container.</div>
+</blockquote>
+<p>StorageClass -&gt; (string)</p>
+<blockquote>
+<div>The storage class where the object was persisted. The class should be “Temporal”.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

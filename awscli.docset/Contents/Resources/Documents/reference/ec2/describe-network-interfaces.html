@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-network-interfaces — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-placement-groups" href="describe-placement-groups.html">
+    <link rel="prev" title="describe-network-interface-permissions" href="describe-network-interface-permissions.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-network-interfaces">
+<span id="cli-aws-ec2-describe-network-interfaces"></span><h1>describe-network-interfaces<a class="headerlink" href="#describe-network-interfaces" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes one or more of your network interfaces.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeNetworkInterfaces">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-network-interfaces</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">NetworkInterfaces</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-network-interfaces
+[--filters &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--network-interface-ids &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">addresses.private-ip-address</span></tt> - The private IPv4 addresses associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">addresses.primary</span></tt> - Whether the private IPv4 address is the primary IP address associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">addresses.association.public-ip</span></tt> - The association ID returned when the network interface was associated with the Elastic IP address (IPv4).</li>
+<li>
+<tt class="docutils literal"><span class="pre">addresses.association.owner-id</span></tt> - The owner ID of the addresses associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">association.association-id</span></tt> - The association ID returned when the network interface was associated with an IPv4 address.</li>
+<li>
+<tt class="docutils literal"><span class="pre">association.allocation-id</span></tt> - The allocation ID returned when you allocated the Elastic IP address (IPv4) for your network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">association.ip-owner-id</span></tt> - The owner of the Elastic IP address (IPv4) associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">association.public-ip</span></tt> - The address of the Elastic IP address (IPv4) bound to the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">association.public-dns-name</span></tt> - The public DNS name for the network interface (IPv4).</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.attachment-id</span></tt> - The ID of the interface attachment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.attach-time</span></tt> - The time that the network interface was attached to an instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.delete-on-termination</span></tt> - Indicates whether the attachment is deleted when an instance is terminated.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.device-index</span></tt> - The device index to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.instance-id</span></tt> - The ID of the instance to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.instance-owner-id</span></tt> - The owner ID of the instance to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.nat-gateway-id</span></tt> - The ID of the NAT gateway to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.status</span></tt> - The status of the attachment (<tt class="docutils literal"><span class="pre">attaching</span></tt> | <tt class="docutils literal"><span class="pre">attached</span></tt> | <tt class="docutils literal"><span class="pre">detaching</span></tt> | <tt class="docutils literal"><span class="pre">detached</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">availability-zone</span></tt> - The Availability Zone of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">description</span></tt> - The description of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">group-id</span></tt> - The ID of a security group associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">group-name</span></tt> - The name of a security group associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ipv6-addresses.ipv6-address</span></tt> - An IPv6 address associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">mac-address</span></tt> - The MAC address of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface-id</span></tt> - The ID of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">owner-id</span></tt> - The AWS account ID of the network interface owner.</li>
+<li>
+<tt class="docutils literal"><span class="pre">private-ip-address</span></tt> - The private IPv4 address or addresses of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">private-dns-name</span></tt> - The private DNS name of the network interface (IPv4).</li>
+<li>
+<tt class="docutils literal"><span class="pre">requester-id</span></tt> - The ID of the entity that launched the instance on your behalf (for example, AWS Management Console, Auto Scaling, and so on).</li>
+<li>
+<tt class="docutils literal"><span class="pre">requester-managed</span></tt> - Indicates whether the network interface is being managed by an AWS service (for example, AWS Management Console, Auto Scaling, and so on).</li>
+<li>
+<tt class="docutils literal"><span class="pre">source-dest-check</span></tt> - Indicates whether the network interface performs source/destination checking. A value of <tt class="docutils literal"><span class="pre">true</span></tt> means checking is enabled, and <tt class="docutils literal"><span class="pre">false</span></tt> means checking is disabled. The value must be <tt class="docutils literal"><span class="pre">false</span></tt> for the network interface to perform network address translation (NAT) in your VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">status</span></tt> - The status of the network interface. If the network interface is not attached to an instance, the status is <tt class="docutils literal"><span class="pre">available</span></tt> ; if a network interface is attached to an instance the status is <tt class="docutils literal"><span class="pre">in-use</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">subnet-id</span></tt> - The ID of the subnet for the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag</span></tt> :key- The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <tt class="docutils literal"><span class="pre">Owner</span></tt> and the value <tt class="docutils literal"><span class="pre">TeamA</span></tt> , specify <tt class="docutils literal"><span class="pre">tag:Owner</span></tt> for the filter name and <tt class="docutils literal"><span class="pre">TeamA</span></tt> for the filter value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag-key</span></tt> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">vpc-id</span></tt> - The ID of the VPC for the network interface.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--network-interface-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more network interface IDs.</p>
+<p>Default: Describes all your network interfaces.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe your network interfaces</strong></p>
+<p>This example describes all your network interfaces.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-network-interfaces</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"NetworkInterfaces"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"in-use"</span><span class="p">,</span>
+          <span class="s2">"MacAddress"</span><span class="p">:</span> <span class="s2">"02:2f:8f:b0:cf:75"</span><span class="p">,</span>
+          <span class="s2">"SourceDestCheck"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+          <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-a01106c2"</span><span class="p">,</span>
+          <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"my network interface"</span><span class="p">,</span>
+          <span class="s2">"Association"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"PublicIp"</span><span class="p">:</span> <span class="s2">"203.0.113.12"</span><span class="p">,</span>
+              <span class="s2">"AssociationId"</span><span class="p">:</span> <span class="s2">"eipassoc-0fbb766a"</span><span class="p">,</span>
+              <span class="s2">"PublicDnsName"</span><span class="p">:</span> <span class="s2">"ec2-203-0-113-12.compute-1.amazonaws.com"</span><span class="p">,</span>
+              <span class="s2">"IpOwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span>
+          <span class="p">},</span>
+          <span class="s2">"NetworkInterfaceId"</span><span class="p">:</span> <span class="s2">"eni-e5aa89a3"</span><span class="p">,</span>
+          <span class="s2">"PrivateIpAddresses"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"PrivateDnsName"</span><span class="p">:</span> <span class="s2">"ip-10-0-1-17.ec2.internal"</span><span class="p">,</span>
+                  <span class="s2">"Association"</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="s2">"PublicIp"</span><span class="p">:</span> <span class="s2">"203.0.113.12"</span><span class="p">,</span>
+                      <span class="s2">"AssociationId"</span><span class="p">:</span> <span class="s2">"eipassoc-0fbb766a"</span><span class="p">,</span>
+                      <span class="s2">"PublicDnsName"</span><span class="p">:</span> <span class="s2">"ec2-203-0-113-12.compute-1.amazonaws.com"</span><span class="p">,</span>
+                      <span class="s2">"IpOwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span>
+                  <span class="p">},</span>
+                  <span class="s2">"Primary"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                  <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.17"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"RequesterManaged"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+          <span class="s2">"Ipv6Addresses"</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s2">"PrivateDnsName"</span><span class="p">:</span> <span class="s2">"ip-10-0-1-17.ec2.internal"</span><span class="p">,</span>
+          <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1d"</span><span class="p">,</span>
+          <span class="s2">"Attachment"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"attached"</span><span class="p">,</span>
+              <span class="s2">"DeviceIndex"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="s2">"AttachTime"</span><span class="p">:</span> <span class="s2">"2013-11-30T23:36:42.000Z"</span><span class="p">,</span>
+              <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-1234567890abcdef0"</span><span class="p">,</span>
+              <span class="s2">"DeleteOnTermination"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">"AttachmentId"</span><span class="p">:</span> <span class="s2">"eni-attach-66c4350a"</span><span class="p">,</span>
+              <span class="s2">"InstanceOwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span>
+          <span class="p">},</span>
+          <span class="s2">"Groups"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"GroupName"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+                  <span class="s2">"GroupId"</span><span class="p">:</span> <span class="s2">"sg-8637d3e3"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"SubnetId"</span><span class="p">:</span> <span class="s2">"subnet-b61f49f0"</span><span class="p">,</span>
+          <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+          <span class="s2">"TagSet"</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.17"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+          <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"in-use"</span><span class="p">,</span>
+          <span class="s2">"MacAddress"</span><span class="p">:</span> <span class="s2">"02:58:f5:ef:4b:06"</span><span class="p">,</span>
+          <span class="s2">"SourceDestCheck"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+          <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-a01106c2"</span><span class="p">,</span>
+          <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Primary network interface"</span><span class="p">,</span>
+          <span class="s2">"Association"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"PublicIp"</span><span class="p">:</span> <span class="s2">"198.51.100.0"</span><span class="p">,</span>
+              <span class="s2">"IpOwnerId"</span><span class="p">:</span> <span class="s2">"amazon"</span>
+          <span class="p">},</span>
+          <span class="s2">"NetworkInterfaceId"</span><span class="p">:</span> <span class="s2">"eni-f9ba99bf"</span><span class="p">,</span>
+          <span class="s2">"PrivateIpAddresses"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"Association"</span><span class="p">:</span> <span class="p">{</span>
+                      <span class="s2">"PublicIp"</span><span class="p">:</span> <span class="s2">"198.51.100.0"</span><span class="p">,</span>
+                      <span class="s2">"IpOwnerId"</span><span class="p">:</span> <span class="s2">"amazon"</span>
+                  <span class="p">},</span>
+                  <span class="s2">"Primary"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                  <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.149"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"RequesterManaged"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+          <span class="s2">"Ipv6Addresses"</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1d"</span><span class="p">,</span>
+          <span class="s2">"Attachment"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"attached"</span><span class="p">,</span>
+              <span class="s2">"DeviceIndex"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="s2">"AttachTime"</span><span class="p">:</span> <span class="s2">"2013-11-30T23:35:33.000Z"</span><span class="p">,</span>
+              <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-0598c7d356eba48d7"</span><span class="p">,</span>
+              <span class="s2">"DeleteOnTermination"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+              <span class="s2">"AttachmentId"</span><span class="p">:</span> <span class="s2">"eni-attach-1b9db777"</span><span class="p">,</span>
+              <span class="s2">"InstanceOwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span>
+          <span class="p">},</span>
+          <span class="s2">"Groups"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"GroupName"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+                  <span class="s2">"GroupId"</span><span class="p">:</span> <span class="s2">"sg-8637d3e3"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"SubnetId"</span><span class="p">:</span> <span class="s2">"subnet-b61f49f0"</span><span class="p">,</span>
+          <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+          <span class="s2">"TagSet"</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.149"</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example describes network interfaces that have a tag with the key <tt class="docutils literal"><span class="pre">Purpose</span></tt> and the value <tt class="docutils literal"><span class="pre">Prod</span></tt>.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-network-interfaces --filters Name=tag:Purpose,Values=Prod</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"NetworkInterfaces"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+          <span class="s2">"MacAddress"</span><span class="p">:</span> <span class="s2">"12:2c:bd:f9:bf:17"</span><span class="p">,</span>
+          <span class="s2">"SourceDestCheck"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+          <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-8941ebec"</span><span class="p">,</span>
+          <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"ProdENI"</span><span class="p">,</span>
+          <span class="s2">"NetworkInterfaceId"</span><span class="p">:</span> <span class="s2">"eni-b9a5ac93"</span><span class="p">,</span>
+          <span class="s2">"PrivateIpAddresses"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"PrivateDnsName"</span><span class="p">:</span> <span class="s2">"ip-10-0-1-55.ec2.internal"</span><span class="p">,</span>
+                  <span class="s2">"Primary"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                  <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.55"</span>
+              <span class="p">},</span>
+              <span class="p">{</span>
+                  <span class="s2">"PrivateDnsName"</span><span class="p">:</span> <span class="s2">"ip-10-0-1-117.ec2.internal"</span><span class="p">,</span>
+                  <span class="s2">"Primary"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                  <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.117"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"RequesterManaged"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+          <span class="s2">"PrivateDnsName"</span><span class="p">:</span> <span class="s2">"ip-10-0-1-55.ec2.internal"</span><span class="p">,</span>
+          <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1d"</span><span class="p">,</span>
+          <span class="s2">"Ipv6Addresses"</span><span class="p">:</span> <span class="p">[],</span>
+          <span class="s2">"Groups"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"GroupName"</span><span class="p">:</span> <span class="s2">"MySG"</span><span class="p">,</span>
+                  <span class="s2">"GroupId"</span><span class="p">:</span> <span class="s2">"sg-905002f5"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"SubnetId"</span><span class="p">:</span> <span class="s2">"subnet-31d6c219"</span><span class="p">,</span>
+          <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+          <span class="s2">"TagSet"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Prod"</span><span class="p">,</span>
+                  <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"Purpose"</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"PrivateIpAddress"</span><span class="p">:</span> <span class="s2">"10.0.1.55"</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>NetworkInterfaces -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about one or more network interfaces.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a network interface.</p>
+<p>Association -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The association information for an Elastic IP address (IPv4) associated with the network interface.</p>
+<p>AllocationId -&gt; (string)</p>
+<blockquote>
+<div>The allocation ID.</div>
+</blockquote>
+<p>AssociationId -&gt; (string)</p>
+<blockquote>
+<div>The association ID.</div>
+</blockquote>
+<p>IpOwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Elastic IP address owner.</div>
+</blockquote>
+<p>PublicDnsName -&gt; (string)</p>
+<blockquote>
+<div>The public DNS name.</div>
+</blockquote>
+<p>PublicIp -&gt; (string)</p>
+<blockquote>
+<div>The address of the Elastic IP address bound to the network interface.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Attachment -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The network interface attachment.</p>
+<p>AttachTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp indicating when the attachment initiated.</div>
+</blockquote>
+<p>AttachmentId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the network interface attachment.</div>
+</blockquote>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the network interface is deleted when the instance is terminated.</div>
+</blockquote>
+<p>DeviceIndex -&gt; (integer)</p>
+<blockquote>
+<div>The device index of the network interface attachment on the instance.</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the instance.</div>
+</blockquote>
+<p>InstanceOwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID of the owner of the instance.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The attachment state.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>A description.</div>
+</blockquote>
+<p>Groups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any security groups for the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a security group.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the security group.</div>
+</blockquote>
+<p>GroupId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InterfaceType -&gt; (string)</p>
+<blockquote>
+<div>The type of network interface.</div>
+</blockquote>
+<p>Ipv6Addresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IPv6 addresses associated with the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv6 address associated with a network interface.</p>
+<p>Ipv6Address -&gt; (string)</p>
+<blockquote>
+<div>The IPv6 address.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MacAddress -&gt; (string)</p>
+<blockquote>
+<div>The MAC address.</div>
+</blockquote>
+<p>NetworkInterfaceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the network interface.</div>
+</blockquote>
+<p>OutpostArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Outpost.</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID of the owner of the network interface.</div>
+</blockquote>
+<p>PrivateDnsName -&gt; (string)</p>
+<blockquote>
+<div>The private DNS name.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The IPv4 address of the network interface within the subnet.</div>
+</blockquote>
+<p>PrivateIpAddresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The private IPv4 addresses associated with the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the private IPv4 address of a network interface.</p>
+<p>Association -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The association information for an Elastic IP address (IPv4) associated with the network interface.</p>
+<p>AllocationId -&gt; (string)</p>
+<blockquote>
+<div>The allocation ID.</div>
+</blockquote>
+<p>AssociationId -&gt; (string)</p>
+<blockquote>
+<div>The association ID.</div>
+</blockquote>
+<p>IpOwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Elastic IP address owner.</div>
+</blockquote>
+<p>PublicDnsName -&gt; (string)</p>
+<blockquote>
+<div>The public DNS name.</div>
+</blockquote>
+<p>PublicIp -&gt; (string)</p>
+<blockquote>
+<div>The address of the Elastic IP address bound to the network interface.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Primary -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether this IPv4 address is the primary private IPv4 address of the network interface.</div>
+</blockquote>
+<p>PrivateDnsName -&gt; (string)</p>
+<blockquote>
+<div>The private DNS name.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 address.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RequesterId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the entity that launched the instance on your behalf (for example, AWS Management Console or Auto Scaling).</div>
+</blockquote>
+<p>RequesterManaged -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the network interface is being managed by AWS.</div>
+</blockquote>
+<p>SourceDestCheck -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether traffic to or from the instance is validated.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the network interface.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet.</div>
+</blockquote>
+<p>TagSet -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token to use to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

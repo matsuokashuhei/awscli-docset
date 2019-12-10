@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>backtrack-db-cluster — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rds" href="index.html">
+    <link rel="next" title="copy-db-cluster-parameter-group" href="copy-db-cluster-parameter-group.html">
+    <link rel="prev" title="authorize-db-security-group-ingress" href="authorize-db-security-group-ingress.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="backtrack-db-cluster">
+<span id="cli-aws-rds-backtrack-db-cluster"></span><h1>backtrack-db-cluster<a class="headerlink" href="#backtrack-db-cluster" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Backtracks a DB cluster to a specific time, without creating a new DB cluster.</p>
+<p>For more information on backtracking, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html">Backtracking an Aurora DB Cluster</a> in the <em>Amazon Aurora User Guide.</em></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This action only applies to Aurora DB clusters.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/BacktrackDBCluster">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  backtrack-db-cluster
+--db-cluster-identifier &lt;value&gt;
+--backtrack-to &lt;value&gt;
+[--force | --no-force]
+[--use-earliest-time-on-point-in-time-unavailable | --no-use-earliest-time-on-point-in-time-unavailable]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--db-cluster-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The DB cluster identifier of the DB cluster to be backtracked. This parameter is stored as a lowercase string.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must contain from 1 to 63 alphanumeric characters or hyphens.</li>
+<li>First character must be a letter.</li>
+<li>Can't end with a hyphen or contain two consecutive hyphens.</li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">my-cluster1</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--backtrack-to</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The timestamp of the time to backtrack the DB cluster to, specified in ISO 8601 format. For more information about ISO 8601, see the <a class="reference external" href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia page.</a></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the specified time isn't a consistent time for the DB cluster, Aurora automatically chooses the nearest possible consistent time for the DB cluster.</p>
+</div>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must contain a valid ISO 8601 timestamp.</li>
+<li>Can't contain a timestamp set in the future.</li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">2017-07-08T18:00Z</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--force</span></tt> | <tt class="docutils literal"><span class="pre">--no-force</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether to force the DB cluster to backtrack when binary logging is enabled. Otherwise, an error occurs when binary logging is enabled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--use-earliest-time-on-point-in-time-unavailable</span></tt> | <tt class="docutils literal"><span class="pre">--no-use-earliest-time-on-point-in-time-unavailable</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether to backtrack the DB cluster to the earliest possible backtrack time when <em>BacktrackTo</em> is set to a timestamp earlier than the earliest backtrack time. When this parameter is disabled and <em>BacktrackTo</em> is set to a timestamp earlier than the earliest backtrack time, an error occurs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To backtrack an Aurora DB cluster</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">backtrack-db-cluster</span></tt> example backtracks the specified DB cluster sample-cluster to March 19, 2018, at 10 a.m.</p>
+<div class="highlight-python">
+<pre>aws rds backtrack-db-cluster --db-cluster-identifier sample-cluster --backtrack-to 2018-03-19T10:00:00+00:00</pre>
+</div>
+<p>This command outputs a JSON block that acknowledges the change to the RDS resource.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DBClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.</div>
+</blockquote>
+<p>BacktrackIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains the backtrack identifier.</div>
+</blockquote>
+<p>BacktrackTo -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp of the time to which the DB cluster was backtracked.</div>
+</blockquote>
+<p>BacktrackedFrom -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp of the time from which the DB cluster was backtracked.</div>
+</blockquote>
+<p>BacktrackRequestCreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp of the time at which the backtrack was requested.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the backtrack. This property returns one of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">applying</span></tt> - The backtrack is currently being applied to or rolled back from the DB cluster.</li>
+<li>
+<tt class="docutils literal"><span class="pre">completed</span></tt> - The backtrack has successfully been applied to or rolled back from the DB cluster.</li>
+<li>
+<tt class="docutils literal"><span class="pre">failed</span></tt> - An error occurred while the backtrack was applied to or rolled back from the DB cluster.</li>
+<li>
+<tt class="docutils literal"><span class="pre">pending</span></tt> - The backtrack is currently pending application to or rollback from the DB cluster.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

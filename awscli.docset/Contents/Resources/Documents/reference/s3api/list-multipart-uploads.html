@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-multipart-uploads — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="list-object-versions" href="list-object-versions.html">
+    <link rel="prev" title="list-buckets" href="list-buckets.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-multipart-uploads">
+<span id="cli-aws-s3api-list-multipart-uploads"></span><h1>list-multipart-uploads<a class="headerlink" href="#list-multipart-uploads" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This operation lists in-progress multipart uploads. An in-progress multipart upload is a multipart upload that has been initiated using the Initiate Multipart Upload request, but has not yet been completed or aborted.</p>
+<p>This operation returns at most 1,000 multipart uploads in the response. 1,000 multipart uploads is the maximum number of uploads a response can include, which is also the default value. You can further limit the number of uploads in a response by specifying the <tt class="docutils literal"><span class="pre">max-uploads</span></tt> parameter in the response. If additional multipart uploads satisfy the list criteria, the response will contain an <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> element with the value true. To list the additional multipart uploads, use the <tt class="docutils literal"><span class="pre">key-marker</span></tt> and <tt class="docutils literal"><span class="pre">upload-id-marker</span></tt> request parameters.</p>
+<p>In the response, the uploads are sorted by key. If your application has initiated more than one multipart upload using the same object key, then uploads in the response are first sorted by key. Additionally, uploads are sorted in ascending order within each key by the upload initiation time.</p>
+<p>For more information on multipart uploads, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/uploadobjusingmpu.html">Uploading Objects Using Multipart Upload</a> .</p>
+<p>For information on permissions required to use the multipart upload API, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and Permissions</a> .</p>
+<p>The following operations are related to <tt class="docutils literal"><span class="pre">ListMultipartUploads</span></tt> :</p>
+<ul class="simple">
+<li>CreateMultipartUpload</li>
+<li>UploadPart</li>
+<li>CompleteMultipartUpload</li>
+<li>ListParts</li>
+<li>AbortMultipartUpload</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListMultipartUploads">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-multipart-uploads</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Uploads</span></tt>, <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-multipart-uploads
+--bucket &lt;value&gt;
+[--delimiter &lt;value&gt;]
+[--encoding-type &lt;value&gt;]
+[--prefix &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Name of the bucket to which the multipart upload was initiated.</p>
+<p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <em>AccessPointName</em> -<em>AccountId</em> .s3-accesspoint.*Region* .amazonaws.com. When using this operation using an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delimiter</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Character you use to group keys.</p>
+<p>All keys that contain the same string between the prefix, if specified, and the first occurrence of the delimiter after the prefix are grouped under a single result element, <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt> . If you don't specify the prefix parameter, then the substring starts at the beginning of the key. The keys that are grouped under <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt> result element are not returned elsewhere in the response.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--encoding-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">url</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--prefix</span></tt> (string)</p>
+<blockquote>
+<div>Lists in-progress uploads only for those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different grouping of keys. (You can think of using prefix to make groups in the same way you'd use a folder in a file system.)</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command lists all of the active multipart uploads for a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api list-multipart-uploads --bucket my-bucket</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Uploads"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Initiator"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"username"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::0123456789012:user/username"</span>
+            <span class="p">},</span>
+            <span class="s2">"Initiated"</span><span class="p">:</span> <span class="s2">"2015-06-02T18:01:30.000Z"</span><span class="p">,</span>
+            <span class="s2">"UploadId"</span><span class="p">:</span> <span class="s2">"dfRtDYU0WWCCcH43C3WFbkRONycyCpTJJvxu2i5GYkZljF.Yxwh6XG7WfS2vC4to6HiV6Yjlx.cph0gtNBtJ8P3URCSbB7rjxI5iEwVDmgaXZOGgkk5nVTW16HOQ5l0R"</span><span class="p">,</span>
+            <span class="s2">"StorageClass"</span><span class="p">:</span> <span class="s2">"STANDARD"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"multipart/01"</span><span class="p">,</span>
+            <span class="s2">"Owner"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"aws-account-name"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"100719349fc3b6dcd7c820a124bf7aecd408092c3d7b51b38494939801fc248b"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"CommonPrefixes"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In progress multipart uploads incur storage costs in Amazon S3. Complete or abort an active multipart upload to remove its parts from your account.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Bucket -&gt; (string)</p>
+<blockquote>
+<div>Name of the bucket to which the multipart upload was initiated.</div>
+</blockquote>
+<p>KeyMarker -&gt; (string)</p>
+<blockquote>
+<div>The key at or after which the listing began.</div>
+</blockquote>
+<p>UploadIdMarker -&gt; (string)</p>
+<blockquote>
+<div>Upload ID after which listing began.</div>
+</blockquote>
+<p>NextKeyMarker -&gt; (string)</p>
+<blockquote>
+<div>When a list is truncated, this element specifies the value that should be used for the key-marker request parameter in a subsequent request.</div>
+</blockquote>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>When a prefix is provided in the request, this field contains the specified prefix. The result contains only keys starting with the specified prefix.</div>
+</blockquote>
+<p>Delimiter -&gt; (string)</p>
+<blockquote>
+<div>Contains the delimiter you specified in the request. If you don't specify a delimiter in your request, this element is absent from the response.</div>
+</blockquote>
+<p>NextUploadIdMarker -&gt; (string)</p>
+<blockquote>
+<div>When a list is truncated, this element specifies the value that should be used for the <tt class="docutils literal"><span class="pre">upload-id-marker</span></tt> request parameter in a subsequent request.</div>
+</blockquote>
+<p>MaxUploads -&gt; (integer)</p>
+<blockquote>
+<div>Maximum number of multipart uploads that could have been included in the response.</div>
+</blockquote>
+<p>IsTruncated -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the returned list of multipart uploads is truncated. A value of true indicates that the list was truncated. The list can be truncated if the number of multipart uploads exceeds the limit allowed or specified by max uploads.</div>
+</blockquote>
+<p>Uploads -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Container for elements related to a particular multipart upload. A response can contain zero or more <tt class="docutils literal"><span class="pre">Upload</span></tt> elements.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Container for the <tt class="docutils literal"><span class="pre">MultipartUpload</span></tt> for the Amazon S3 object.</p>
+<p>UploadId -&gt; (string)</p>
+<blockquote>
+<div>Upload ID that identifies the multipart upload.</div>
+</blockquote>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>Key of the object for which the multipart upload was initiated.</div>
+</blockquote>
+<p>Initiated -&gt; (timestamp)</p>
+<blockquote>
+<div>Date and time at which the multipart upload was initiated.</div>
+</blockquote>
+<p>StorageClass -&gt; (string)</p>
+<blockquote>
+<div>The class of storage used to store the object.</div>
+</blockquote>
+<p>Owner -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the owner of the object that is part of the multipart upload.</p>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>Container for the display name of the owner.</div>
+</blockquote>
+<p>ID -&gt; (string)</p>
+<blockquote>
+<div>Container for the ID of the owner.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Initiator -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies who initiated the multipart upload.</p>
+<p>ID -&gt; (string)</p>
+<blockquote>
+<div>If the principal is an AWS account, it provides the Canonical User ID. If the principal is an IAM User, it provides a user ARN value.</div>
+</blockquote>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>Name of the Principal.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CommonPrefixes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>If you specify a delimiter in the request, then the result returns each distinct key prefix containing the delimiter in a <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt> element. The distinct key prefixes are returned in the <tt class="docutils literal"><span class="pre">Prefix</span></tt> child element.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Container for all (if there are any) keys between Prefix and the next occurrence of the string specified by a delimiter. CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix. For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/.</p>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>Container for the specified common prefix.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EncodingType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Encoding type used by Amazon S3 to encode object keys in the response.</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">encoding-type</span></tt> request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">Delimiter</span></tt> , <tt class="docutils literal"><span class="pre">KeyMarker</span></tt> , <tt class="docutils literal"><span class="pre">Prefix</span></tt> , <tt class="docutils literal"><span class="pre">NextKeyMarker</span></tt> , <tt class="docutils literal"><span class="pre">Key</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

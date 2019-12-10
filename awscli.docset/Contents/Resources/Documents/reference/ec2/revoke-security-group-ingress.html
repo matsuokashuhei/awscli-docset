@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>revoke-security-group-ingress — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="run-instances" href="run-instances.html">
+    <link rel="prev" title="revoke-security-group-egress" href="revoke-security-group-egress.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="revoke-security-group-ingress">
+<span id="cli-aws-ec2-revoke-security-group-ingress"></span><h1>revoke-security-group-ingress<a class="headerlink" href="#revoke-security-group-ingress" title="Permalink to this headline">¶</a>
+</h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To specify multiple rules in a single command use the <tt class="docutils literal"><span class="pre">--ip-permissions</span></tt> option</p>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Removes the specified ingress rules from a security group. To remove a rule, the values that you specify (for example, ports) must match the existing rule's values exactly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">[EC2-Classic only] If the values you specify do not match the existing rule's values, no error is returned. Use  DescribeSecurityGroups to verify that the rule has been removed.</p>
+</div>
+<p>Each rule consists of the protocol and the CIDR range or source security group. For the TCP and UDP protocols, you must also specify the destination port or range of ports. For the ICMP protocol, you must also specify the ICMP type and code. If the security group rule has a description, you do not have to specify the description to revoke the rule.</p>
+<p>Rule changes are propagated to instances within the security group as quickly as possible. However, a small delay might occur.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RevokeSecurityGroupIngress">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  revoke-security-group-ingress
+[--group-id &lt;value&gt;]
+[--group-name &lt;value&gt;]
+[--ip-permissions &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--protocol &lt;value&gt;]
+[--port &lt;value&gt;]
+[--cidr &lt;value&gt;]
+[--source-group &lt;value&gt;]
+[--group-owner &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--group-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--group-name</span></tt> (string)</p>
+<blockquote>
+<div>[EC2-Classic, default VPC] The name of the security group. You must specify either the security group ID or the security group name in the request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ip-permissions</span></tt> (list)</p>
+<blockquote>
+<div>The sets of IP permissions. You can't specify a source security group and a CIDR IP address range in the same set of permissions.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>FromPort=integer,IpProtocol=string,IpRanges=[{CidrIp=string,Description=string},{CidrIp=string,Description=string}],Ipv6Ranges=[{CidrIpv6=string,Description=string},{CidrIpv6=string,Description=string}],PrefixListIds=[{Description=string,PrefixListId=string},{Description=string,PrefixListId=string}],ToPort=integer,UserIdGroupPairs=[{Description=string,GroupId=string,GroupName=string,PeeringStatus=string,UserId=string,VpcId=string,VpcPeeringConnectionId=string},{Description=string,GroupId=string,GroupName=string,PeeringStatus=string,UserId=string,VpcId=string,VpcPeeringConnectionId=string}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "FromPort": integer,
+    "IpProtocol": "string",
+    "IpRanges": [
+      {
+        "CidrIp": "string",
+        "Description": "string"
+      }
+      ...
+    ],
+    "Ipv6Ranges": [
+      {
+        "CidrIpv6": "string",
+        "Description": "string"
+      }
+      ...
+    ],
+    "PrefixListIds": [
+      {
+        "Description": "string",
+        "PrefixListId": "string"
+      }
+      ...
+    ],
+    "ToPort": integer,
+    "UserIdGroupPairs": [
+      {
+        "Description": "string",
+        "GroupId": "string",
+        "GroupName": "string",
+        "PeeringStatus": "string",
+        "UserId": "string",
+        "VpcId": "string",
+        "VpcPeeringConnectionId": "string"
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The IP protocol: <tt class="docutils literal"><span class="pre">tcp</span></tt> | <tt class="docutils literal"><span class="pre">udp</span></tt> | <tt class="docutils literal"><span class="pre">icmp</span></tt></p>
+<p>(VPC only) Use <tt class="docutils literal"><span class="pre">all</span></tt> to specify all protocols.</p>
+<p>If this argument is provided without also providing the <tt class="docutils literal"><span class="pre">port</span></tt> argument, then it will be applied to all ports for the specified protocol.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>For TCP or UDP: The range of ports to allow. A single integer or a range (<tt class="docutils literal"><span class="pre">min-max</span></tt> ).</p>
+<p>For ICMP: A single integer or a range (<tt class="docutils literal"><span class="pre">type-code</span></tt> ) representing the ICMP type number and the ICMP code number respectively. A value of -1 indicates all ICMP codes for all ICMP types. A value of -1 just for <tt class="docutils literal"><span class="pre">type</span></tt> indicates all ICMP codes for the specified ICMP type.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cidr</span></tt> (string)</p>
+<blockquote>
+<div>The CIDR IP range.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-group</span></tt> (string)</p>
+<blockquote>
+<div>The name or ID of the source security group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--group-owner</span></tt> (string)</p>
+<blockquote>
+<div>The AWS account ID that owns the source security group. Cannot be used when specifying a CIDR IP address.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To remove a rule from a security group</strong></p>
+<p>This example removes TCP port 22 access for the <tt class="docutils literal"><span class="pre">203.0.113.0/24</span></tt> address range from the security group named <tt class="docutils literal"><span class="pre">MySecurityGroup</span></tt>. If the command succeeds, no output is returned.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 revoke-security-group-ingress --group-name MySecurityGroup --protocol tcp --port 22 --cidr 203.0.113.0/24</pre>
+</div>
+<p><strong>[EC2-VPC] To remove a rule using the IP permissions set</strong></p>
+<p>This example uses the <tt class="docutils literal"><span class="pre">ip-permissions</span></tt> parameter to remove an inbound rule that allows the ICMP message <tt class="docutils literal"><span class="pre">Destination</span> <span class="pre">Unreachable:</span> <span class="pre">Fragmentation</span> <span class="pre">Needed</span> <span class="pre">and</span> <span class="pre">Don't</span> <span class="pre">Fragment</span> <span class="pre">was</span> <span class="pre">Set</span></tt> (Type 3, Code 4). If the command succeeds, no output is returned. For more information about quoting JSON-formatted parameters, see <a class="reference external" href="http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#quoting-strings">Quoting Strings</a>.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 revoke-security-group-ingress --group-id sg-123abc12 --ip-permissions '[{"IpProtocol": "icmp", "FromPort": 3, "ToPort": 4, "IpRanges": [{"CidrIp": "0.0.0.0/0"}]}]'</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

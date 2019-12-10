@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-resource-metrics — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="pi" href="index.html">
+    <link rel="next" title="pinpoint" href="../pinpoint/index.html">
+    <link rel="prev" title="describe-dimension-keys" href="describe-dimension-keys.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-resource-metrics">
+<span id="cli-aws-pi-get-resource-metrics"></span><h1>get-resource-metrics<a class="headerlink" href="#get-resource-metrics" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieve Performance Insights metrics for a set of data sources, over a time period. You can provide specific dimension groups and dimensions, and provide aggregation and filtering criteria for each group.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/pi-2018-02-27/GetResourceMetrics">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-resource-metrics
+--service-type &lt;value&gt;
+--identifier &lt;value&gt;
+--metric-queries &lt;value&gt;
+--start-time &lt;value&gt;
+--end-time &lt;value&gt;
+[--period-in-seconds &lt;value&gt;]
+[--max-results &lt;value&gt;]
+[--next-token &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--service-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The AWS service for which Performance Insights will return metrics. The only valid value for <em>ServiceType</em> is: <tt class="docutils literal"><span class="pre">RDS</span></tt></p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">RDS</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from this data source.</p>
+<p>To use an Amazon RDS instance as a data source, you specify its <tt class="docutils literal"><span class="pre">DbiResourceId</span></tt> value - for example: <tt class="docutils literal"><span class="pre">db-FAIHNTYBKTGAUSUZQYPDS2GW4A</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--metric-queries</span></tt> (list)</p>
+<blockquote>
+<div>An array of one or more queries to perform. Each query must specify a Performance Insights metric, and can optionally specify aggregation and filtering criteria.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Metric=string,GroupBy={Group=string,Dimensions=[string,string],Limit=integer},Filter={KeyName1=string,KeyName2=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Metric": "string",
+    "GroupBy": {
+      "Group": "string",
+      "Dimensions": ["string", ...],
+      "Limit": integer
+    },
+    "Filter": {"string": "string"
+      ...}
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The date and time specifying the beginning of the requested time series data. You can't specify a <tt class="docutils literal"><span class="pre">StartTime</span></tt> that's earlier than 7 days ago. The value specified is <em>inclusive</em> - data points equal to or greater than <tt class="docutils literal"><span class="pre">StartTime</span></tt> will be returned.</p>
+<p>The value for <tt class="docutils literal"><span class="pre">StartTime</span></tt> must be earlier than the value for <tt class="docutils literal"><span class="pre">EndTime</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The date and time specifiying the end of the requested time series data. The value specified is <em>exclusive</em> - data points less than (but not equal to) <tt class="docutils literal"><span class="pre">EndTime</span></tt> will be returned.</p>
+<p>The value for <tt class="docutils literal"><span class="pre">EndTime</span></tt> must be later than the value for <tt class="docutils literal"><span class="pre">StartTime</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--period-in-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The granularity, in seconds, of the data points returned from Performance Insights. A period can be as short as one second, or as long as one day (86400 seconds). Valid values are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">1</span></tt> (one second)</li>
+<li>
+<tt class="docutils literal"><span class="pre">60</span></tt> (one minute)</li>
+<li>
+<tt class="docutils literal"><span class="pre">300</span></tt> (five minutes)</li>
+<li>
+<tt class="docutils literal"><span class="pre">3600</span></tt> (one hour)</li>
+<li>
+<tt class="docutils literal"><span class="pre">86400</span></tt> (twenty-four hours)</li>
+</ul>
+<p>If you don't specify <tt class="docutils literal"><span class="pre">PeriodInSeconds</span></tt> , then Performance Insights will choose a value for you, with a goal of returning roughly 100-200 data points in the response.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of items to return in the response. If more items exist than the specified <tt class="docutils literal"><span class="pre">MaxRecords</span></tt> value, a pagination token is included in the response so that the remaining results can be retrieved.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the token, up to the value specified by <tt class="docutils literal"><span class="pre">MaxRecords</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get resource metrics</strong></p>
+<p>This example requests data points for the <em>db.wait_event</em> dimension group, and for the <em>db.wait_event.name</em> dimension within that group. In the response, the relevant data points are grouped by the requested dimension (<em>db.wait_event.name</em>).</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws pi get-resource-metrics --service-type RDS --identifier db-LKCGOBK26374TPTDFXOIWVCPPM --start-time 1527026400 --end-time 1527080400 --period-in-seconds 300 --metric db.load.avg --metric-queries file://metric-queries.json</pre>
+</div>
+<p>The arguments for <tt class="docutils literal"><span class="pre">--metric-queries</span></tt> are stored in a JSON file, <tt class="docutils literal"><span class="pre">metric-queries.json</span></tt>.  Here are the contents of that file:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"Metric"</span><span class="p">:</span> <span class="s2">"db.load.avg"</span><span class="p">,</span>
+        <span class="s2">"GroupBy"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Group"</span><span class="p">:</span><span class="s2">"db.wait_event"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "AlignedEndTime": 1.5270804E9,
+    "AlignedStartTime": 1.5270264E9,
+    "Identifier": "db-LKCGOBK26374TPTDFXOIWVCPPM",
+    "MetricList": [
+        {
+            "Key": {
+                "Metric": "db.load.avg"
+            },
+            "DataPoints": [
+                {
+                    "Timestamp": 1527026700.0,
+                    "Value": 1.3533333333333333
+                },
+                {
+                    "Timestamp": 1527027000.0,
+                    "Value": 0.88
+                },
+                &lt;...remaining output omitted...&gt;
+            ]
+        },
+        {
+            "Key": {
+                "Metric": "db.load.avg",
+                "Dimensions": {
+                    "db.wait_event.name": "wait/synch/mutex/innodb/aurora_lock_thread_slot_futex"
+                }
+            },
+            "DataPoints": [
+                {
+                    "Timestamp": 1527026700.0,
+                    "Value": 0.8566666666666667
+                },
+                {
+                    "Timestamp": 1527027000.0,
+                    "Value": 0.8633333333333333
+                },
+                &lt;...remaining output omitted...&gt;
+            ],
+        },
+            &lt;...remaining output omitted...&gt;
+    ]
+}</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>AlignedStartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The start time for the returned metrics, after alignment to a granular boundary (as specified by <tt class="docutils literal"><span class="pre">PeriodInSeconds</span></tt> ). <tt class="docutils literal"><span class="pre">AlignedStartTime</span></tt> will be less than or equal to the value of the user-specified <tt class="docutils literal"><span class="pre">StartTime</span></tt> .</div>
+</blockquote>
+<p>AlignedEndTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The end time for the returned metrics, after alignment to a granular boundary (as specified by <tt class="docutils literal"><span class="pre">PeriodInSeconds</span></tt> ). <tt class="docutils literal"><span class="pre">AlignedEndTime</span></tt> will be greater than or equal to the value of the user-specified <tt class="docutils literal"><span class="pre">Endtime</span></tt> .</div>
+</blockquote>
+<p>Identifier -&gt; (string)</p>
+<blockquote>
+<div>
+<p>An immutable, AWS Region-unique identifier for a data source. Performance Insights gathers metrics from this data source.</p>
+<p>To use an Amazon RDS instance as a data source, you specify its <tt class="docutils literal"><span class="pre">DbiResourceId</span></tt> value - for example: <tt class="docutils literal"><span class="pre">db-FAIHNTYBKTGAUSUZQYPDS2GW4A</span></tt></p>
+</div>
+</blockquote>
+<p>MetricList -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of metric results,, where each array element contains all of the data points for a particular dimension.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A time-ordered series of data points, correpsonding to a dimension of a Performance Insights metric.</p>
+<p>Key -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The dimension(s) to which the data points apply.</p>
+<p>Metric -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of a Performance Insights metric to be measured.</p>
+<p>Valid values for <tt class="docutils literal"><span class="pre">Metric</span></tt> are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">db.load.avg</span></tt> - a scaled representation of the number of active sessions for the database engine.</li>
+<li>
+<tt class="docutils literal"><span class="pre">db.sampledload.avg</span></tt> - the raw number of active sessions for the database engine.</li>
+</ul>
+</div>
+</blockquote>
+<p>Dimensions -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The valid dimensions for the metric.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DataPoints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of timestamp-value pairs, representing measurements over a period of time.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A timestamp, and a single numerical value, which together represent a measurement at a particular point in time.</p>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The time, in epoch format, associated with a particular <tt class="docutils literal"><span class="pre">Value</span></tt> .</div>
+</blockquote>
+<p>Value -&gt; (double)</p>
+<blockquote>
+<div>The actual value associated with a particular <tt class="docutils literal"><span class="pre">Timestamp</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the token, up to the value specified by <tt class="docutils literal"><span class="pre">MaxRecords</span></tt> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>post-content — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lex-runtime" href="index.html">
+    <link rel="next" title="post-text" href="post-text.html">
+    <link rel="prev" title="get-session" href="get-session.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="post-content">
+<span id="cli-aws-lex-runtime-post-content"></span><h1>post-content<a class="headerlink" href="#post-content" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Sends user input (text or speech) to Amazon Lex. Clients use this API to send text and audio requests to Amazon Lex at runtime. Amazon Lex interprets the user input using the machine learning model that it built for the bot.</p>
+<p>The <tt class="docutils literal"><span class="pre">PostContent</span></tt> operation supports audio input at 8kHz and 16kHz. You can use 8kHz audio to achieve higher speech recognition accuracy in telephone audio applications.</p>
+<p>In response, Amazon Lex returns the next message to convey to the user. Consider the following example messages:</p>
+<ul class="simple">
+<li>For a user input "I would like a pizza," Amazon Lex might return a response with a message eliciting slot data (for example, <tt class="docutils literal"><span class="pre">PizzaSize</span></tt> ): "What size pizza would you like?".</li>
+<li>After the user provides all of the pizza order information, Amazon Lex might return a response with a message to get user confirmation: "Order the pizza?".</li>
+<li>After the user replies "Yes" to the confirmation prompt, Amazon Lex might return a conclusion statement: "Thank you, your cheese pizza has been ordered.".</li>
+</ul>
+<p>Not all Amazon Lex messages require a response from the user. For example, conclusion statements do not require a response. Some messages require only a yes or no response. In addition to the <tt class="docutils literal"><span class="pre">message</span></tt> , Amazon Lex provides additional context about the message in the response that you can use to enhance client behavior, such as displaying the appropriate client user interface. Consider the following examples:</p>
+<ul class="simple">
+<li>If the message is to elicit slot data, Amazon Lex returns the following context information:<ul>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-lex-dialog-state</span></tt> header set to <tt class="docutils literal"><span class="pre">ElicitSlot</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-lex-intent-name</span></tt> header set to the intent name in the current context</li>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-lex-slot-to-elicit</span></tt> header set to the slot name for which the <tt class="docutils literal"><span class="pre">message</span></tt> is eliciting information</li>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-lex-slots</span></tt> header set to a map of slots configured for the intent with their current values</li>
+</ul>
+</li>
+<li>If the message is a confirmation prompt, the <tt class="docutils literal"><span class="pre">x-amz-lex-dialog-state</span></tt> header is set to <tt class="docutils literal"><span class="pre">Confirmation</span></tt> and the <tt class="docutils literal"><span class="pre">x-amz-lex-slot-to-elicit</span></tt> header is omitted.</li>
+<li>If the message is a clarification prompt configured for the intent, indicating that the user intent is not understood, the <tt class="docutils literal"><span class="pre">x-amz-dialog-state</span></tt> header is set to <tt class="docutils literal"><span class="pre">ElicitIntent</span></tt> and the <tt class="docutils literal"><span class="pre">x-amz-slot-to-elicit</span></tt> header is omitted.</li>
+</ul>
+<p>In addition, Amazon Lex also returns your application-specific <tt class="docutils literal"><span class="pre">sessionAttributes</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html">Managing Conversation Context</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/PostContent">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  post-content
+--bot-name &lt;value&gt;
+--bot-alias &lt;value&gt;
+--user-id &lt;value&gt;
+[--session-attributes &lt;value&gt;]
+[--request-attributes &lt;value&gt;]
+--content-type &lt;value&gt;
+[--accept &lt;value&gt;]
+--input-stream &lt;value&gt;
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bot-name</span></tt> (string)</p>
+<blockquote>
+<div>Name of the Amazon Lex bot.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bot-alias</span></tt> (string)</p>
+<blockquote>
+<div>Alias of the Amazon Lex bot.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--user-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ID of the client application user. Amazon Lex uses this to identify a user's conversation with your bot. At runtime, each request must contain the <tt class="docutils literal"><span class="pre">userID</span></tt> field.</p>
+<p>To decide the user ID to use for your application, consider the following factors.</p>
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">userID</span></tt> field must not contain any personally identifiable information of the user, for example, name, personal identification numbers, or other end user personal information.</li>
+<li>If you want a user to start a conversation on one device and continue on another device, use a user-specific identifier.</li>
+<li>If you want the same user to be able to have two independent conversations on two different devices, choose a device-specific identifier.</li>
+<li>A user can't have two independent conversations with two different versions of the same bot. For example, a user can't have a conversation with the PROD and BETA versions of the same bot. If you anticipate that a user will need to have conversation with two different versions, for example, while testing, include the bot alias in the user ID to separate the two conversations.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--session-attributes</span></tt> (JSON)</p>
+<blockquote>
+<div>
+<p>You pass this value as the <tt class="docutils literal"><span class="pre">x-amz-lex-session-attributes</span></tt> HTTP header.</p>
+<p>Application-specific information passed between Amazon Lex and a client application. The value must be a JSON serialized and base64 encoded map with string keys and values. The total size of the <tt class="docutils literal"><span class="pre">sessionAttributes</span></tt> and <tt class="docutils literal"><span class="pre">requestAttributes</span></tt> headers is limited to 12 KB.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs">Setting Session Attributes</a> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-attributes</span></tt> (JSON)</p>
+<blockquote>
+<div>
+<p>You pass this value as the <tt class="docutils literal"><span class="pre">x-amz-lex-request-attributes</span></tt> HTTP header.</p>
+<p>Request-specific information passed between Amazon Lex and a client application. The value must be a JSON serialized and base64 encoded map with string keys and values. The total size of the <tt class="docutils literal"><span class="pre">requestAttributes</span></tt> and <tt class="docutils literal"><span class="pre">sessionAttributes</span></tt> headers is limited to 12 KB.</p>
+<p>The namespace <tt class="docutils literal"><span class="pre">x-amz-lex:</span></tt> is reserved for special attributes. Don't create any request attributes with the prefix <tt class="docutils literal"><span class="pre">x-amz-lex:</span></tt> .</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs">Setting Request Attributes</a> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>You pass this value as the <tt class="docutils literal"><span class="pre">Content-Type</span></tt> HTTP header.</p>
+<p>Indicates the audio format or text. The header value must start with one of the following prefixes:</p>
+<ul class="simple">
+<li>PCM format, audio data must be in little-endian byte order.<ul>
+<li>audio/l16; rate=16000; channels=1</li>
+<li>audio/x-l16; sample-rate=16000; channel-count=1</li>
+<li>audio/lpcm; sample-rate=8000; sample-size-bits=16; channel-count=1; is-big-endian=false</li>
+</ul>
+</li>
+<li>Opus format<ul>
+<li>audio/x-cbr-opus-with-preamble; preamble-size=0; bit-rate=256000; frame-size-milliseconds=4</li>
+</ul>
+</li>
+<li>Text format<ul>
+<li>text/plain; charset=utf-8</li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--accept</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>You pass this value as the <tt class="docutils literal"><span class="pre">Accept</span></tt> HTTP header.</p>
+<p>The message Amazon Lex returns in the response can be either text or speech based on the <tt class="docutils literal"><span class="pre">Accept</span></tt> HTTP header value in the request.</p>
+<ul class="simple">
+<li>If the value is <tt class="docutils literal"><span class="pre">text/plain;</span> <span class="pre">charset=utf-8</span></tt> , Amazon Lex returns text in the response.</li>
+<li>If the value begins with <tt class="docutils literal"><span class="pre">audio/</span></tt> , Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to generate the speech (using the configuration you specified in the <tt class="docutils literal"><span class="pre">Accept</span></tt> header). For example, if you specify <tt class="docutils literal"><span class="pre">audio/mpeg</span></tt> as the value, Amazon Lex returns speech in the MPEG format.</li>
+<li>If the value is <tt class="docutils literal"><span class="pre">audio/pcm</span></tt> , the speech returned is <tt class="docutils literal"><span class="pre">audio/pcm</span></tt> in 16-bit, little endian format.</li>
+<li>The following are the accepted values:<ul>
+<li>audio/mpeg</li>
+<li>audio/ogg</li>
+<li>audio/pcm</li>
+<li>text/plain; charset=utf-8</li>
+<li>audio/* (defaults to mpeg)</li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input-stream</span></tt> (blob)</p>
+<blockquote>
+<div>
+<p>User input in PCM or Opus audio format or text format as described in the <tt class="docutils literal"><span class="pre">Content-Type</span></tt> HTTP header.</p>
+<p>You can stream audio data to Amazon Lex or you can create a local buffer that captures all of the audio data before sending. In general, you get better performance if you stream audio data rather than buffering the data locally.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the content will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>contentType -&gt; (string)</p>
+<blockquote>
+<div>Content type as specified in the <tt class="docutils literal"><span class="pre">Accept</span></tt> HTTP header in the request.</div>
+</blockquote>
+<p>intentName -&gt; (string)</p>
+<blockquote>
+<div>Current user intent that Amazon Lex is aware of.</div>
+</blockquote>
+<p>slots -&gt; (JSON)</p>
+<blockquote>
+<div>
+<p>Map of zero or more intent slots (name/value pairs) Amazon Lex detected from the user input during the conversation. The field is base-64 encoded.</p>
+<p>Amazon Lex creates a resolution list containing likely values for a slot. The value that it returns is determined by the <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> selected when the slot type was created or updated. If <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> is set to <tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt> , the value provided by the user is returned, if the user value is similar to the slot values. If <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> is set to <tt class="docutils literal"><span class="pre">TOP_RESOLUTION</span></tt> Amazon Lex returns the first value in the resolution list or, if there is no resolution list, null. If you don't specify a <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> , the default is <tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt> .</p>
+</div>
+</blockquote>
+<p>sessionAttributes -&gt; (JSON)</p>
+<blockquote>
+<div>Map of key/value pairs representing the session-specific context information.</div>
+</blockquote>
+<p>sentimentResponse -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The sentiment expressed in and utterance.</p>
+<p>When the bot is configured to send utterances to Amazon Comprehend for sentiment analysis, this field contains the result of the analysis.</p>
+</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The message to convey to the user. The message can come from the bot's configuration or from a Lambda function.</p>
+<p>If the intent is not configured with a Lambda function, or if the Lambda function returned <tt class="docutils literal"><span class="pre">Delegate</span></tt> as the <tt class="docutils literal"><span class="pre">dialogAction.type</span></tt> in its response, Amazon Lex decides on the next course of action and selects an appropriate message from the bot's configuration based on the current interaction context. For example, if Amazon Lex isn't able to understand user input, it uses a clarification prompt message.</p>
+<p>When you create an intent you can assign messages to groups. When messages are assigned to groups Amazon Lex returns one message from each group in the response. The message field is an escaped JSON string containing the messages. For more information about the structure of the JSON string returned, see  msg-prompts-formats .</p>
+<p>If the Lambda function returns a message, Amazon Lex passes it to the client in its response.</p>
+</div>
+</blockquote>
+<p>messageFormat -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The format of the response message. One of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">PlainText</span></tt> - The message contains plain UTF-8 text.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CustomPayload</span></tt> - The message is a custom format for the client.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SSML</span></tt> - The message contains text formatted for voice output.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Composite</span></tt> - The message contains an escaped JSON object containing one or more messages from the groups that messages were assigned to when the intent was created.</li>
+</ul>
+</div>
+</blockquote>
+<p>dialogState -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Identifies the current state of the user interaction. Amazon Lex returns one of the following values as <tt class="docutils literal"><span class="pre">dialogState</span></tt> . The client can optionally use this information to customize the user interface.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ElicitIntent</span></tt> - Amazon Lex wants to elicit the user's intent. Consider the following examples:  For example, a user might utter an intent ("I want to order a pizza"). If Amazon Lex cannot infer the user intent from this utterance, it will return this dialog state.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ConfirmIntent</span></tt> - Amazon Lex is expecting a "yes" or "no" response.  For example, Amazon Lex wants user confirmation before fulfilling an intent. Instead of a simple "yes" or "no" response, a user might respond with additional information. For example, "yes, but make it a thick crust pizza" or "no, I want to order a drink." Amazon Lex can process such additional information (in these examples, update the crust type slot or change the intent from OrderPizza to OrderDrink).</li>
+<li>
+<tt class="docutils literal"><span class="pre">ElicitSlot</span></tt> - Amazon Lex is expecting the value of a slot for the current intent.  For example, suppose that in the response Amazon Lex sends this message: "What size pizza would you like?". A user might reply with the slot value (e.g., "medium"). The user might also provide additional information in the response (e.g., "medium thick crust pizza"). Amazon Lex can process such additional information appropriately.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Fulfilled</span></tt> - Conveys that the Lambda function has successfully fulfilled the intent.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ReadyForFulfillment</span></tt> - Conveys that the client has to fulfill the request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Failed</span></tt> - Conveys that the conversation with the user failed.  This can happen for various reasons, including that the user does not provide an appropriate response to prompts from the service (you can configure how many times Amazon Lex can prompt a user for specific information), or if the Lambda function fails to fulfill the intent.</li>
+</ul>
+</div>
+</blockquote>
+<p>slotToElicit -&gt; (string)</p>
+<blockquote>
+<div>If the <tt class="docutils literal"><span class="pre">dialogState</span></tt> value is <tt class="docutils literal"><span class="pre">ElicitSlot</span></tt> , returns the name of the slot for which Amazon Lex is eliciting a value.</div>
+</blockquote>
+<p>inputTranscript -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The text used to process the request.</p>
+<p>If the input was an audio stream, the <tt class="docutils literal"><span class="pre">inputTranscript</span></tt> field contains the text extracted from the audio stream. This is the text that is actually processed to recognize intents and slot values. You can use this information to determine if Amazon Lex is correctly processing the audio that you send.</p>
+</div>
+</blockquote>
+<p>audioStream -&gt; (blob)</p>
+<blockquote>
+<div>The prompt (or statement) to convey to the user. This is based on the bot configuration and context. For example, if Amazon Lex did not understand the user intent, it sends the <tt class="docutils literal"><span class="pre">clarificationPrompt</span></tt> configured for the bot. If the intent requires confirmation before taking the fulfillment action, it sends the <tt class="docutils literal"><span class="pre">confirmationPrompt</span></tt> . Another example: Suppose that the Lambda function successfully fulfilled the intent, and sent a message to convey to the user. Then Amazon Lex sends that message in the response.</div>
+</blockquote>
+<p>sessionId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the session.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

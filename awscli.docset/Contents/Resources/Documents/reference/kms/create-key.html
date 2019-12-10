@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-key — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="decrypt" href="decrypt.html">
+    <link rel="prev" title="create-grant" href="create-grant.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-key">
+<span id="cli-aws-kms-create-key"></span><h1>create-key<a class="headerlink" href="#create-key" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a unique customer managed <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master-keys">customer master key</a> (CMK) in your AWS account and Region. You cannot use this operation to create a CMK in a different AWS account.</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">CreateKey</span></tt> operation to create symmetric or asymmetric CMKs.</p>
+<ul class="simple">
+<li>
+<strong>Symmetric CMKs</strong> contain a 256-bit symmetric key that never leaves AWS KMS unencrypted. To use the CMK, you must call AWS KMS. You can use a symmetric CMK to encrypt and decrypt small amounts of data, but they are typically used to generate <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#data-keys">data keys</a> or data key pairs. For details, see  GenerateDataKey and  GenerateDataKeyPair .</li>
+<li>
+<strong>Asymmetric CMKs</strong> can contain an RSA key pair or an Elliptic Curve (ECC) key pair. The private key in an asymmetric CMK never leaves AWS KMS unencrypted. However, you can use the  GetPublicKey operation to download the public key so it can be used outside of AWS KMS. CMKs with RSA key pairs can be used to encrypt or decrypt data or sign and verify messages (but not both). CMKs with ECC key pairs can be used only to sign and verify messages.</li>
+</ul>
+<p>For information about symmetric and asymmetric CMKs, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric CMKs</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>To create different types of CMKs, use the following guidance:</p>
+<blockquote>
+<div>Asymmetric CMKs</div>
+</blockquote>
+<p>To create an asymmetric CMK, use the <tt class="docutils literal"><span class="pre">CustomerMasterKeySpec</span></tt> parameter to specify the type of key material in the CMK. Then, use the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> parameter to determine whether the CMK will be used to encrypt and decrypt or sign and verify. You can't change these properties after the CMK is created.</p>
+<blockquote>
+<div>Symmetric CMKs</div>
+</blockquote>
+<p>When creating a symmetric CMK, you don't need to specify the <tt class="docutils literal"><span class="pre">CustomerMasterKeySpec</span></tt> or <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> parameters. The default value for <tt class="docutils literal"><span class="pre">CustomerMasterKeySpec</span></tt> , <tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt> , and the default value for <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> , <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> , are the only valid values for symmetric CMKs.</p>
+<blockquote>
+<div>Imported Key Material</div>
+</blockquote>
+<p>To import your own key material, begin by creating a symmetric CMK with no key material. To do this, use the <tt class="docutils literal"><span class="pre">Origin</span></tt> parameter of <tt class="docutils literal"><span class="pre">CreateKey</span></tt> with a value of <tt class="docutils literal"><span class="pre">EXTERNAL</span></tt> . Next, use  GetParametersForImport operation to get a public key and import token, and use the public key to encrypt your key material. Then, use  ImportKeyMaterial with your import token to import the key material. For step-by-step instructions, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html">Importing Key Material</a> in the * <em>AWS Key Management Service Developer Guide</em> * . You cannot import the key material into an asymmetric CMK.</p>
+<blockquote>
+<div>Custom Key Stores</div>
+</blockquote>
+<p>To create a symmetric CMK in a <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> , use the <tt class="docutils literal"><span class="pre">CustomKeyStoreId</span></tt> parameter to specify the custom key store. You must also use the <tt class="docutils literal"><span class="pre">Origin</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">AWS_CLOUDHSM</span></tt> . The AWS CloudHSM cluster that is associated with the custom key store must have at least two active HSMs in different Availability Zones in the AWS Region.</p>
+<p>You cannot create an asymmetric CMK in a custom key store. For information about custom key stores in AWS KMS see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">Using Custom Key Stores</a> in the * <em>AWS Key Management Service Developer Guide</em> * .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CreateKey">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-key
+[--policy &lt;value&gt;]
+[--description &lt;value&gt;]
+[--key-usage &lt;value&gt;]
+[--customer-master-key-spec &lt;value&gt;]
+[--origin &lt;value&gt;]
+[--custom-key-store-id &lt;value&gt;]
+[--bypass-policy-lockout-safety-check | --no-bypass-policy-lockout-safety-check]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--policy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The key policy to attach to the CMK.</p>
+<p>If you provide a key policy, it must meet the following criteria:</p>
+<ul class="simple">
+<li>If you don't set <tt class="docutils literal"><span class="pre">BypassPolicyLockoutSafetyCheck</span></tt> to true, the key policy must allow the principal that is making the <tt class="docutils literal"><span class="pre">CreateKey</span></tt> request to make a subsequent  PutKeyPolicy request on the CMK. This reduces the risk that the CMK becomes unmanageable. For more information, refer to the scenario in the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam">Default Key Policy</a> section of the * <em>AWS Key Management Service Developer Guide</em> * .</li>
+<li>Each statement in the key policy must contain one or more principals. The principals in the key policy must exist and be visible to AWS KMS. When you create a new AWS principal (for example, an IAM user or role), you might need to enforce a delay before including the new principal in a key policy because the new principal might not be immediately visible to AWS KMS. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency">Changes that I make are not always immediately visible</a> in the <em>AWS Identity and Access Management User Guide</em> .</li>
+</ul>
+<p>If you do not provide a key policy, AWS KMS attaches a default key policy to the CMK. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default">Default Key Policy</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>The key policy size limit is 32 kilobytes (32768 bytes).</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A description of the CMK.</p>
+<p>Use a description that helps you decide whether the CMK is appropriate for a task.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key-usage</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Determines the cryptographic operations for which you can use the CMK. The default value is <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> . This parameter is required only for asymmetric CMKs. You can't change the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> value after the CMK is created.</p>
+<p>Select only one valid value.</p>
+<ul class="simple">
+<li>For symmetric CMKs, omit the parameter or specify <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> .</li>
+<li>For asymmetric CMKs with RSA key material, specify <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> or <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> .</li>
+<li>For asymmetric CMKs with ECC key material, specify <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> .</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--customer-master-key-spec</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the type of CMK to create. The <tt class="docutils literal"><span class="pre">CustomerMasterKeySpec</span></tt> determines whether the CMK contains a symmetric key or an asymmetric key pair. It also determines the encryption algorithms or signing algorithms that the CMK supports. You can't change the <tt class="docutils literal"><span class="pre">CustomerMasterKeySpec</span></tt> after the CMK is created. To further restrict the algorithms that can be used with the CMK, use its key policy or IAM policy.</p>
+<p>For help with choosing a key spec for your CMK, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html#cmk-key-spec">Selecting a Customer Master Key Spec</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>The default value, <tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt> , creates a CMK with a 256-bit symmetric key.</p>
+<p>AWS KMS supports the following key specs for CMKs:</p>
+<ul class="simple">
+<li>Symmetric key (default)<ul>
+<li>
+<tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt> (AES-256-GCM)</li>
+</ul>
+</li>
+<li>Asymmetric RSA key pairs<ul>
+<li><tt class="docutils literal"><span class="pre">RSA_2048</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSA_3072</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSA_4096</span></tt></li>
+</ul>
+</li>
+<li>Asymmetric NIST-recommended elliptic curve key pairs<ul>
+<li>
+<tt class="docutils literal"><span class="pre">ECC_NIST_P256</span></tt> (secp256r1)</li>
+<li>
+<tt class="docutils literal"><span class="pre">ECC_NIST_P384</span></tt> (secp384r1)</li>
+<li>
+<tt class="docutils literal"><span class="pre">ECC_NIST_P521</span></tt> (secp521r1)</li>
+</ul>
+</li>
+<li>Other asymmetric elliptic curve key pairs<ul>
+<li>
+<tt class="docutils literal"><span class="pre">ECC_SECG_P256K1</span></tt> (secp256k1), commonly used for cryptocurrencies.</li>
+</ul>
+</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">RSA_2048</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSA_3072</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSA_4096</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECC_NIST_P256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECC_NIST_P384</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECC_NIST_P521</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECC_SECG_P256K1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--origin</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The source of the key material for the CMK. You cannot change the origin after you create the CMK. The default is <tt class="docutils literal"><span class="pre">AWS_KMS</span></tt> , which means AWS KMS creates the key material.</p>
+<p>When the parameter value is <tt class="docutils literal"><span class="pre">EXTERNAL</span></tt> , AWS KMS creates a CMK without key material so that you can import key material from your existing key management infrastructure. For more information about importing key material into AWS KMS, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html">Importing Key Material</a> in the <em>AWS Key Management Service Developer Guide</em> . This value is valid only for symmetric CMKs.</p>
+<p>When the parameter value is <tt class="docutils literal"><span class="pre">AWS_CLOUDHSM</span></tt> , AWS KMS creates the CMK in an AWS KMS <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> and creates its key material in the associated AWS CloudHSM cluster. You must also use the <tt class="docutils literal"><span class="pre">CustomKeyStoreId</span></tt> parameter to identify the custom key store. This value is valid only for symmetric CMKs.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AWS_KMS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">EXTERNAL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS_CLOUDHSM</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--custom-key-store-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Creates the CMK in the specified <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> and the key material in its associated AWS CloudHSM cluster. To create a CMK in a custom key store, you must also specify the <tt class="docutils literal"><span class="pre">Origin</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">AWS_CLOUDHSM</span></tt> . The AWS CloudHSM cluster that is associated with the custom key store must have at least two active HSMs, each in a different Availability Zone in the Region.</p>
+<p>This parameter is valid only for symmetric CMKs. You cannot create an asymmetric CMK in a custom key store.</p>
+<p>To find the ID of a custom key store, use the  DescribeCustomKeyStores operation.</p>
+<p>The response includes the custom key store ID and the ID of the AWS CloudHSM cluster.</p>
+<p>This operation is part of the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">Custom Key Store feature</a> feature in AWS KMS, which combines the convenience and extensive integration of AWS KMS with the isolation and control of a single-tenant key store.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bypass-policy-lockout-safety-check</span></tt> | <tt class="docutils literal"><span class="pre">--no-bypass-policy-lockout-safety-check</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A flag to indicate whether to bypass the key policy lockout safety check.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Setting this value to true increases the risk that the CMK becomes unmanageable. Do not set this value to true indiscriminately.</p>
+<p class="last">For more information, refer to the scenario in the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam">Default Key Policy</a> section in the * <em>AWS Key Management Service Developer Guide</em> * .</p>
+</div>
+<p>Use this parameter only when you include a policy in the request and you intend to prevent the principal that is making the request from making a subsequent  PutKeyPolicy request on the CMK.</p>
+<p>The default value is false.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more tags. Each tag consists of a tag key and a tag value. Both the tag key and the tag value are required, but the tag value can be an empty (null) string.</p>
+<p>When you add tags to an AWS resource, AWS generates a cost allocation report with usage and costs aggregated by tags. For information about adding, changing, deleting and listing tags for CMKs, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/tagging-keys.html">Tagging Keys</a> .</p>
+<p>Use this parameter to tag the CMK when it is created. To add tags to an existing CMK, use the  TagResource operation.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>TagKey=string,TagValue=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "TagKey": "string",
+    "TagValue": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a customer managed CMK in AWS KMS</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-key</span></tt> example creates a customer managed CMK.</p>
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">--tags</span></tt> parameter uses shorthand syntax to add a tag with a key name <tt class="docutils literal"><span class="pre">Purpose</span></tt> and value of <tt class="docutils literal"><span class="pre">Test</span></tt>. For information about using shorthand syntax, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-shorthand.html">Using Shorthand Syntax with the AWS Command Line Interface</a> in the <em>AWS CLI User Guide</em>.</li>
+<li>The <tt class="docutils literal"><span class="pre">--description</span> <span class="pre">parameter</span></tt> adds an optional description.</li>
+</ul>
+<p>Because this doesn't specify a policy, the CMK gets the <cite>default key policy &lt;https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default&gt;__. To view the key policy, use the ``get-key-policy`</cite> command. To change the key policy, use the <tt class="docutils literal"><span class="pre">put-key-policy</span></tt> command.</p>
+<div class="highlight-python">
+<pre>aws kms create-key \
+    --tags TagKey=Purpose,TagValue=Test \
+    --description "Development test key"</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">create-key</span></tt> command returns the key metadata, including the key ID and ARN of the new CMK. You can use these values to identify the CMK to other AWS KMS operations. The output does not include the tags. To view the tags for a CMK, use the <tt class="docutils literal"><span class="pre">list-resource-tags</span> <span class="pre">command</span></tt>.</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"KeyMetadata"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"AWSAccountId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+        <span class="s2">"KeyId"</span><span class="p">:</span> <span class="s2">"1234abcd-12ab-34cd-56ef-1234567890ab"</span><span class="p">,</span>
+        <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:kms:us-west-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab"</span><span class="p">,</span>
+        <span class="s2">"CreationDate"</span><span class="p">:</span> <span class="mf">1566160362.664</span><span class="p">,</span>
+        <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Development test key"</span><span class="p">,</span>
+        <span class="s2">"KeyUsage"</span><span class="p">:</span> <span class="s2">"ENCRYPT_DECRYPT"</span><span class="p">,</span>
+        <span class="s2">"KeyState"</span><span class="p">:</span> <span class="s2">"Enabled"</span><span class="p">,</span>
+        <span class="s2">"Origin"</span><span class="p">:</span> <span class="s2">"AWS_KMS"</span><span class="p">,</span>
+        <span class="s2">"KeyManager"</span><span class="p">:</span> <span class="s2">"CUSTOMER"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note: The <tt class="docutils literal"><span class="pre">create-key</span></tt> command does not let you specify an alias, To create an alias that points to the new CMK, use the <tt class="docutils literal"><span class="pre">create-alias</span></tt> command.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html">Creating Keys</a> in the <em>AWS Key Management Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>KeyMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Metadata associated with the CMK.</p>
+<p>AWSAccountId -&gt; (string)</p>
+<blockquote>
+<div>The twelve-digit account ID of the AWS account that owns the CMK.</div>
+</blockquote>
+<p>KeyId -&gt; (string)</p>
+<blockquote>
+<div>The globally unique identifier for the CMK.</div>
+</blockquote>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the CMK. For examples, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">AWS Key Management Service (AWS KMS)</a> in the Example ARNs section of the <em>AWS General Reference</em> .</div>
+</blockquote>
+<p>CreationDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the CMK was created.</div>
+</blockquote>
+<p>Enabled -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the CMK is enabled. When <tt class="docutils literal"><span class="pre">KeyState</span></tt> is <tt class="docutils literal"><span class="pre">Enabled</span></tt> this value is true, otherwise it is false.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the CMK.</div>
+</blockquote>
+<p>KeyUsage -&gt; (string)</p>
+<blockquote>
+<div>The cryptographic operations for which you can use the CMK.</div>
+</blockquote>
+<p>KeyState -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The state of the CMK.</p>
+<p>For more information about how key state affects the use of a CMK, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects the Use of a Customer Master Key</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>DeletionDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time after which AWS KMS deletes the CMK. This value is present only when <tt class="docutils literal"><span class="pre">KeyState</span></tt> is <tt class="docutils literal"><span class="pre">PendingDeletion</span></tt> .</div>
+</blockquote>
+<p>ValidTo -&gt; (timestamp)</p>
+<blockquote>
+<div>The time at which the imported key material expires. When the key material expires, AWS KMS deletes the key material and the CMK becomes unusable. This value is present only for CMKs whose <tt class="docutils literal"><span class="pre">Origin</span></tt> is <tt class="docutils literal"><span class="pre">EXTERNAL</span></tt> and whose <tt class="docutils literal"><span class="pre">ExpirationModel</span></tt> is <tt class="docutils literal"><span class="pre">KEY_MATERIAL_EXPIRES</span></tt> , otherwise this value is omitted.</div>
+</blockquote>
+<p>Origin -&gt; (string)</p>
+<blockquote>
+<div>The source of the CMK's key material. When this value is <tt class="docutils literal"><span class="pre">AWS_KMS</span></tt> , AWS KMS created the key material. When this value is <tt class="docutils literal"><span class="pre">EXTERNAL</span></tt> , the key material was imported from your existing key management infrastructure or the CMK lacks key material. When this value is <tt class="docutils literal"><span class="pre">AWS_CLOUDHSM</span></tt> , the key material was created in the AWS CloudHSM cluster associated with a custom key store.</div>
+</blockquote>
+<p>CustomKeyStoreId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> that contains the CMK. This value is present only when the CMK is created in a custom key store.</div>
+</blockquote>
+<p>CloudHsmClusterId -&gt; (string)</p>
+<blockquote>
+<div>The cluster ID of the AWS CloudHSM cluster that contains the key material for the CMK. When you create a CMK in a <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> , AWS KMS creates the key material for the CMK in the associated AWS CloudHSM cluster. This value is present only when the CMK is created in a custom key store.</div>
+</blockquote>
+<p>ExpirationModel -&gt; (string)</p>
+<blockquote>
+<div>Specifies whether the CMK's key material expires. This value is present only when <tt class="docutils literal"><span class="pre">Origin</span></tt> is <tt class="docutils literal"><span class="pre">EXTERNAL</span></tt> , otherwise this value is omitted.</div>
+</blockquote>
+<p>KeyManager -&gt; (string)</p>
+<blockquote>
+<div>The manager of the CMK. CMKs in your AWS account are either customer managed or AWS managed. For more information about the difference, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#master_keys">Customer Master Keys</a> in the <em>AWS Key Management Service Developer Guide</em> .</div>
+</blockquote>
+<p>CustomerMasterKeySpec -&gt; (string)</p>
+<blockquote>
+<div>Describes the type of key material in the CMK.</div>
+</blockquote>
+<p>EncryptionAlgorithms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of encryption algorithms that the CMK supports. You cannot use the CMK with other encryption algorithms within AWS KMS.</p>
+<p>This field appears only when the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> of the CMK is <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>SigningAlgorithms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of signing algorithms that the CMK supports. You cannot use the CMK with other signing algorithms within AWS KMS.</p>
+<p>This field appears only when the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> of the CMK is <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

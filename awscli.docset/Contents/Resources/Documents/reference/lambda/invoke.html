@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>invoke — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lambda" href="index.html">
+    <link rel="next" title="list-aliases" href="list-aliases.html">
+    <link rel="prev" title="get-provisioned-concurrency-config" href="get-provisioned-concurrency-config.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="invoke">
+<span id="cli-aws-lambda-invoke"></span><h1>invoke<a class="headerlink" href="#invoke" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. To invoke a function asynchronously, set <tt class="docutils literal"><span class="pre">InvocationType</span></tt> to <tt class="docutils literal"><span class="pre">Event</span></tt> .</p>
+<p>For <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html">synchronous invocation</a> , details about the function response, including errors, are included in the response body and headers. For either invocation type, you can find more information in the <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html">execution log</a> and <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html">trace</a> .</p>
+<p>When an error occurs, your function may be invoked multiple times. Retry behavior varies by error type, client, event source, and invocation type. For example, if you invoke a function asynchronously and it returns an error, Lambda executes the function up to two more times. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html">Retry Behavior</a> .</p>
+<p>For <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html">asynchronous invocation</a> , Lambda adds events to a queue before sending them to your function. If your function does not have enough capacity to keep up with the queue, events may be lost. Occasionally, your function may receive the same event multiple times, even if no error occurs. To retain events that were not processed, configure your function with a <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq">dead-letter queue</a> .</p>
+<p>The status code in the API response doesn't reflect function errors. Error codes are reserved for errors that prevent your function from executing, such as permissions errors, <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/limits.html">limit errors</a> , or issues with your function's code and configuration. For example, Lambda returns <tt class="docutils literal"><span class="pre">TooManyRequestsException</span></tt> if executing the function would cause you to exceed a concurrency limit at either the account level (<tt class="docutils literal"><span class="pre">ConcurrentInvocationLimitExceeded</span></tt> ) or function level (<tt class="docutils literal"><span class="pre">ReservedFunctionConcurrentInvocationLimitExceeded</span></tt> ).</p>
+<p>For functions with a long timeout, your client might be disconnected during synchronous invocation while it waits for a response. Configure your HTTP client, SDK, firewall, proxy, or operating system to allow for long connections with timeout or keep-alive settings.</p>
+<p>This operation requires permission for the <tt class="docutils literal"><span class="pre">lambda:InvokeFunction</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Invoke">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  invoke
+--function-name &lt;value&gt;
+[--invocation-type &lt;value&gt;]
+[--log-type &lt;value&gt;]
+[--client-context &lt;value&gt;]
+[--payload &lt;value&gt;]
+[--qualifier &lt;value&gt;]
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--function-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the Lambda function, version, or alias.</p>
+<blockquote>
+<div><strong>Name formats</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<strong>Function name</strong> - <tt class="docutils literal"><span class="pre">my-function</span></tt> (name-only), <tt class="docutils literal"><span class="pre">my-function:v1</span></tt> (with alias).</li>
+<li>
+<strong>Function ARN</strong> - <tt class="docutils literal"><span class="pre">arn:aws:lambda:us-west-2:123456789012:function:my-function</span></tt> .</li>
+<li>
+<strong>Partial ARN</strong> - <tt class="docutils literal"><span class="pre">123456789012:function:my-function</span></tt> .</li>
+</ul>
+<p>You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--invocation-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Choose from the following options.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">RequestResponse</span></tt> (default) - Invoke the function synchronously. Keep the connection open until the function returns a response or times out. The API response includes the function response and additional data.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Event</span></tt> - Invoke the function asynchronously. Send events that fail multiple times to the function's dead-letter queue (if it's configured). The API response only includes a status code.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DryRun</span></tt> - Validate parameter values and verify that the user or role has permission to invoke the function.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Event</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RequestResponse</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DryRun</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Set to <tt class="docutils literal"><span class="pre">Tail</span></tt> to include the execution log in the response.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">None</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Tail</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-context</span></tt> (string)</p>
+<blockquote>
+<div>Up to 3583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--payload</span></tt> (blob)</p>
+<blockquote>
+<div>The JSON that you want to provide to your Lambda function as input.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--qualifier</span></tt> (string)</p>
+<blockquote>
+<div>Specify a version or alias to invoke a published version of the function.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the content will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To invoke a Lambda function synchronously</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">invoke</span></tt> example invokes the <tt class="docutils literal"><span class="pre">my-function</span></tt> function synchronously.</p>
+<div class="highlight-python">
+<pre>aws lambda invoke
+    --function-name my-function \
+    --payload '{ "name": "Bob" }' \
+    response.json</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ExecutedVersion"</span><span class="p">:</span> <span class="s2">"$LATEST"</span><span class="p">,</span>
+    <span class="s2">"StatusCode"</span><span class="p">:</span> <span class="mi">200</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html">Synchronous Invocation</a> in the <em>AWS Lambda Developer Guide</em>.</p>
+<p><strong>Example 2: To invoke a Lambda function asynchronously</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">invoke</span></tt> example invokes the <tt class="docutils literal"><span class="pre">my-function</span></tt> function asynchronously.</p>
+<div class="highlight-python">
+<pre>aws lambda invoke
+    --function-name my-function \
+    --invocation-type Event \
+    --payload '{ "name": "Bob" }' \
+    response.json</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"StatusCode"</span><span class="p">:</span> <span class="mi">202</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html">Asynchronous Invocation</a> in the <em>AWS Lambda Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>StatusCode -&gt; (integer)</p>
+<blockquote>
+<div>The HTTP status code is in the 200 range for a successful request. For the <tt class="docutils literal"><span class="pre">RequestResponse</span></tt> invocation type, this status code is 200. For the <tt class="docutils literal"><span class="pre">Event</span></tt> invocation type, this status code is 202. For the <tt class="docutils literal"><span class="pre">DryRun</span></tt> invocation type, the status code is 204.</div>
+</blockquote>
+<p>FunctionError -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If present, indicates that an error occurred during function execution. Details about the error are included in the response payload.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Handled</span></tt> - The runtime caught an error thrown by the function and formatted it into a JSON document.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Unhandled</span></tt> - The runtime didn't handle the error. For example, the function ran out of memory or timed out.</li>
+</ul>
+</div>
+</blockquote>
+<p>LogResult -&gt; (string)</p>
+<blockquote>
+<div>The last 4 KB of the execution log, which is base64 encoded.</div>
+</blockquote>
+<p>Payload -&gt; (blob)</p>
+<blockquote>
+<div>The response from the function, or an error object.</div>
+</blockquote>
+<p>ExecutedVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the function that executed. When you invoke a function with an alias, this indicates which version the alias resolved to.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

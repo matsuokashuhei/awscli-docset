@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-reusable-delegation-set — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="route53" href="index.html">
+    <link rel="next" title="create-traffic-policy" href="create-traffic-policy.html">
+    <link rel="prev" title="create-query-logging-config" href="create-query-logging-config.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-reusable-delegation-set">
+<span id="cli-aws-route53-create-reusable-delegation-set"></span><h1>create-reusable-delegation-set<a class="headerlink" href="#create-reusable-delegation-set" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a delegation set (a group of four name servers) that can be reused by multiple hosted zones. If a hosted zoned ID is specified, <tt class="docutils literal"><span class="pre">CreateReusableDelegationSet</span></tt> marks the delegation set associated with that zone as reusable.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can't associate a reusable delegation set with a private hosted zone.</p>
+</div>
+<p>For information about using a reusable delegation set to configure white label name servers, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html">Configuring White Label Name Servers</a> .</p>
+<p>The process for migrating existing hosted zones to use a reusable delegation set is comparable to the process for configuring white label name servers. You need to perform the following steps:</p>
+<ul class="simple">
+<li>Create a reusable delegation set.</li>
+<li>Recreate hosted zones, and reduce the TTL to 60 seconds or less.</li>
+<li>Recreate resource record sets in the new hosted zones.</li>
+<li>Change the registrar's name servers to use the name servers for the new hosted zones.</li>
+<li>Monitor traffic for the website or application.</li>
+<li>Change TTLs back to their original values.</li>
+</ul>
+<p>If you want to migrate existing hosted zones to use a reusable delegation set, the existing hosted zones can't use any of the name servers that are assigned to the reusable delegation set. If one or more hosted zones do use one or more name servers that are assigned to the reusable delegation set, you can do one of the following:</p>
+<ul class="simple">
+<li>For small numbers of hosted zones—up to a few hundred—it's relatively easy to create reusable delegation sets until you get one that has four name servers that don't overlap with any of the name servers in your hosted zones.</li>
+<li>For larger numbers of hosted zones, the easiest solution is to use more than one reusable delegation set.</li>
+<li>For larger numbers of hosted zones, you can also migrate hosted zones that have overlapping name servers to hosted zones that don't have overlapping name servers, then migrate the hosted zones again to use the reusable delegation set.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateReusableDelegationSet">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-reusable-delegation-set
+--caller-reference &lt;value&gt;
+[--hosted-zone-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--caller-reference</span></tt> (string)</p>
+<blockquote>
+<div>A unique string that identifies the request, and that allows you to retry failed <tt class="docutils literal"><span class="pre">CreateReusableDelegationSet</span></tt> requests without the risk of executing the operation twice. You must use a unique <tt class="docutils literal"><span class="pre">CallerReference</span></tt> string every time you submit a <tt class="docutils literal"><span class="pre">CreateReusableDelegationSet</span></tt> request. <tt class="docutils literal"><span class="pre">CallerReference</span></tt> can be any unique string, for example a date/time stamp.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--hosted-zone-id</span></tt> (string)</p>
+<blockquote>
+<div>If you want to mark the delegation set for an existing hosted zone as reusable, the ID for that hosted zone.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DelegationSet -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains name server information.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID that Amazon Route 53 assigns to a reusable delegation set.</div>
+</blockquote>
+<p>CallerReference -&gt; (string)</p>
+<blockquote>
+<div>The value that you specified for <tt class="docutils literal"><span class="pre">CallerReference</span></tt> when you created the reusable delegation set.</div>
+</blockquote>
+<p>NameServers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A complex type that contains a list of the authoritative name servers for a hosted zone or for a reusable delegation set.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Location -&gt; (string)</p>
+<blockquote>
+<div>The unique URL representing the new reusable delegation set.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

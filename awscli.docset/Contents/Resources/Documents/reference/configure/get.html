@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="configure" href="index.html">
+    <link rel="next" title="list" href="list.html">
+    <link rel="prev" title="add-model" href="add-model.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get">
+<span id="cli-aws-configure-get"></span><h1>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Get a configuration value from the config file.</p>
+<p>The <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">get</span></tt> command can be used to print a configuration value in
+the AWS config file.  The <tt class="docutils literal"><span class="pre">get</span></tt> command supports two types of configuration
+values, <em>unqualified</em> and <em>qualified</em> config values.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">get</span></tt> only looks at values in the AWS configuration
+file.  It does <strong>not</strong> resolve configuration variables specified anywhere else,
+including environment variables, command line arguments, etc.</p>
+<div class="section" id="unqualified-names">
+<h3>Unqualified Names<a class="headerlink" href="#unqualified-names" title="Permalink to this headline">¶</a>
+</h3>
+<p>Every value in the AWS configuration file must be placed in a section (denoted
+by <tt class="docutils literal"><span class="pre">[section-name]</span></tt> in the config file).  To retrieve a value from the
+config file, the section name and the config name must be known.</p>
+<p>An unqualified configuration name refers to a name that is not scoped to a
+specific section in the configuration file.  Sections are specified by
+separating parts with the <tt class="docutils literal"><span class="pre">"."</span></tt> character (<tt class="docutils literal"><span class="pre">section.config-name</span></tt>).  An
+unqualified name will be scoped to the current profile.  For example,
+<tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">get</span> <span class="pre">aws_access_key_id</span></tt> will retrieve the <tt class="docutils literal"><span class="pre">aws_access_key_id</span></tt>
+from the current profile,  or the <tt class="docutils literal"><span class="pre">default</span></tt> profile if no profile is
+specified.  You can still provide a <tt class="docutils literal"><span class="pre">--profile</span></tt> argument to the <tt class="docutils literal"><span class="pre">aws</span>
+<span class="pre">configure</span> <span class="pre">get</span></tt> command.  For example, <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">get</span> <span class="pre">region</span> <span class="pre">--profile</span>
+<span class="pre">testing</span></tt> will print the region value for the <tt class="docutils literal"><span class="pre">testing</span></tt> profile.</p>
+</div>
+<div class="section" id="qualified-names">
+<h3>Qualified Names<a class="headerlink" href="#qualified-names" title="Permalink to this headline">¶</a>
+</h3>
+<p>A qualified name is a name that has at least one <tt class="docutils literal"><span class="pre">"."</span></tt> character in the name.
+This name provides a way to specify the config section from which to retrieve
+the config variable.  When a qualified name is provided to <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span>
+<span class="pre">get</span></tt>, the currently specified profile is ignored.  Section names that have
+the format <tt class="docutils literal"><span class="pre">[profile</span> <span class="pre">profile-name]</span></tt> can be specified by using the
+<tt class="docutils literal"><span class="pre">profile.profile-name.config-name</span></tt> syntax, and the default profile can be
+specified using the <tt class="docutils literal"><span class="pre">default.config-name</span></tt> syntax.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>aws configure get varname [--profile profile-name]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">varname</span></tt> (string)
+The name of the config value to retrieve.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>Suppose you had the following config file:</p>
+<div class="highlight-python">
+<pre>[default]
+aws_access_key_id=default_access_key
+aws_secret_access_key=default_secret_key
+
+[preview]
+cloudsearch=true
+
+[profile testing]
+aws_access_key_id=testing_access_key
+aws_secret_access_key=testing_secret_key
+region=us-west-2</pre>
+</div>
+<p>The following commands would have the corresponding output:</p>
+<div class="highlight-python">
+<pre>$ aws configure get aws_access_key_id
+default_access_key
+
+$ aws configure get default.aws_access_key_id
+default_access_key
+
+$ aws configure get aws_access_key_id --profile testing
+testing_access_key
+
+$ aws configure get profile.testing.aws_access_key_id
+testing_access_key
+
+$ aws configure get preview.cloudsearch
+true
+
+$ aws configure get preview.does-not-exist
+$
+$ echo $?
+1</pre>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>rm — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3" href="index.html">
+    <link rel="next" title="sync" href="sync.html">
+    <link rel="prev" title="rb" href="rb.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="rm">
+<span id="cli-aws-s3-rm"></span><h1>rm<a class="headerlink" href="#rm" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Deletes an S3 object.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  rm
+&lt;S3Uri&gt;
+[--dryrun]
+[--quiet]
+[--recursive]
+[--request-payer &lt;value&gt;]
+[--include &lt;value&gt;]
+[--exclude &lt;value&gt;]
+[--only-show-errors]
+[--page-size &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">paths</span></tt> (string)</p>
+<p><tt class="docutils literal"><span class="pre">--dryrun</span></tt> (boolean)
+Displays the operations that would be performed using the specified command without actually running them.</p>
+<p><tt class="docutils literal"><span class="pre">--quiet</span></tt> (boolean)
+Does not display the operations performed from the specified command.</p>
+<p><tt class="docutils literal"><span class="pre">--recursive</span></tt> (boolean)
+Command is performed on all files or objects under the specified directory or prefix.</p>
+<p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)
+Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. Documentation on downloading objects from requester pays buckets can be found at <a class="reference external" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">http://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html</a></p>
+<p><tt class="docutils literal"><span class="pre">--include</span></tt> (string)
+Don't exclude files or objects in the command that match the specified pattern. See <a class="reference external" href="http://docs.aws.amazon.com/cli/latest/reference/s3/index.html#use-of-exclude-and-include-filters">Use of Exclude and Include Filters</a> for details.</p>
+<p><tt class="docutils literal"><span class="pre">--exclude</span></tt> (string)
+Exclude all files or objects from the command that matches the specified pattern.</p>
+<p><tt class="docutils literal"><span class="pre">--only-show-errors</span></tt> (boolean)
+Only errors and warnings are displayed. All other output is suppressed.</p>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)
+The number of results to return in each response to a list operation. The default value is 1000 (the maximum allowed). Using a lower value may help if an operation times out.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following <tt class="docutils literal"><span class="pre">rm</span></tt> command deletes a single s3 object:</p>
+<div class="highlight-python">
+<pre>aws s3 rm s3://mybucket/test2.txt</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>delete: s3://mybucket/test2.txt</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">rm</span></tt> command recursively deletes all objects under a specified bucket and prefix when passed with the
+parameter <tt class="docutils literal"><span class="pre">--recursive</span></tt>.  In this example, the bucket <tt class="docutils literal"><span class="pre">mybucket</span></tt> contains the objects <tt class="docutils literal"><span class="pre">test1.txt</span></tt> and
+<tt class="docutils literal"><span class="pre">test2.txt</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3 rm s3://mybucket --recursive</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>delete: s3://mybucket/test1.txt
+delete: s3://mybucket/test2.txt</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">rm</span></tt> command recursively deletes all objects under a specified bucket and prefix when passed with the
+parameter <tt class="docutils literal"><span class="pre">--recursive</span></tt> while excluding some objects by using an <tt class="docutils literal"><span class="pre">--exclude</span></tt> parameter.  In this example, the bucket
+<tt class="docutils literal"><span class="pre">mybucket</span></tt> has the objects <tt class="docutils literal"><span class="pre">test1.txt</span></tt> and <tt class="docutils literal"><span class="pre">test2.jpg</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3 rm s3://mybucket/ --recursive --exclude "*.jpg"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>delete: s3://mybucket/test1.txt</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">rm</span></tt> command recursively deletes all objects under a specified bucket and prefix when passed with the
+parameter <tt class="docutils literal"><span class="pre">--recursive</span></tt> while excluding all objects under a particular prefix by using an <tt class="docutils literal"><span class="pre">--exclude</span></tt> parameter.  In
+this example, the bucket <tt class="docutils literal"><span class="pre">mybucket</span></tt> has the objects <tt class="docutils literal"><span class="pre">test1.txt</span></tt> and <tt class="docutils literal"><span class="pre">another/test.txt</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3 rm s3://mybucket/ --recursive --exclude "another/*"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>delete: s3://mybucket/test1.txt</pre>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

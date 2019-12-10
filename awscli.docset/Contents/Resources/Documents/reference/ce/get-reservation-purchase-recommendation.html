@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-reservation-purchase-recommendation — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ce" href="index.html">
+    <link rel="next" title="get-reservation-utilization" href="get-reservation-utilization.html">
+    <link rel="prev" title="get-reservation-coverage" href="get-reservation-coverage.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-reservation-purchase-recommendation">
+<span id="cli-aws-ce-get-reservation-purchase-recommendation"></span><h1>get-reservation-purchase-recommendation<a class="headerlink" href="#get-reservation-purchase-recommendation" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets recommendations for which reservations to purchase. These recommendations could help you reduce your costs. Reservations provide a discounted hourly rate (up to 75%) compared to On-Demand pricing.</p>
+<p>AWS generates your recommendations by identifying your On-Demand usage during a specific time period and collecting your usage into categories that are eligible for a reservation. After AWS has these categories, it simulates every combination of reservations in each category of usage to identify the best number of each type of RI to purchase to maximize your estimated savings.</p>
+<p>For example, AWS automatically aggregates your Amazon EC2 Linux, shared tenancy, and c4 family usage in the US West (Oregon) Region and recommends that you buy size-flexible regional reservations to apply to the c4 family usage. AWS recommends the smallest size instance in an instance family. This makes it easier to purchase a size-flexible RI. AWS also shows the equal number of normalized units so that you can purchase any instance size that you want. For this example, your RI recommendation would be for <tt class="docutils literal"><span class="pre">c4.large</span></tt> because that is the smallest size instance in the c4 instance family.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationPurchaseRecommendation">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-reservation-purchase-recommendation
+[--account-id &lt;value&gt;]
+--service &lt;value&gt;
+[--account-scope &lt;value&gt;]
+[--lookback-period-in-days &lt;value&gt;]
+[--term-in-years &lt;value&gt;]
+[--payment-option &lt;value&gt;]
+[--service-specification &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--next-page-token &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--account-id</span></tt> (string)</p>
+<blockquote>
+<div>The account ID that is associated with the recommendation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service</span></tt> (string)</p>
+<blockquote>
+<div>The specific service that you want recommendations for.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--account-scope</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The account scope that you want recommendations for. <tt class="docutils literal"><span class="pre">PAYER</span></tt> means that AWS includes the master account and any member accounts when it calculates its recommendations. <tt class="docutils literal"><span class="pre">LINKED</span></tt> means that AWS includes only member accounts when it calculates its recommendations.</p>
+<p>Valid values are <tt class="docutils literal"><span class="pre">PAYER</span></tt> and <tt class="docutils literal"><span class="pre">LINKED</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">PAYER</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LINKED</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--lookback-period-in-days</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The number of previous days that you want AWS to consider when it calculates your recommendations.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SEVEN_DAYS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">THIRTY_DAYS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SIXTY_DAYS</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--term-in-years</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The reservation term that you want recommendations for.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ONE_YEAR</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">THREE_YEARS</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--payment-option</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The reservation purchase option that you want recommendations for.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NO_UPFRONT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">PARTIAL_UPFRONT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ALL_UPFRONT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LIGHT_UTILIZATION</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">MEDIUM_UTILIZATION</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HEAVY_UTILIZATION</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-specification</span></tt> (structure)</p>
+<blockquote>
+<div>The hardware specifications for the service instances that you want recommendations for, such as standard or convertible Amazon EC2 instances.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>EC2Specification={OfferingClass=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"EC2Specification"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"OfferingClass"</span><span class="p">:</span> <span class="s2">"STANDARD"</span><span class="o">|</span><span class="s2">"CONVERTIBLE"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>The number of recommendations that you want returned in a single response object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-page-token</span></tt> (string)</p>
+<blockquote>
+<div>The pagination token that indicates the next set of results that you want to retrieve.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve the reservation recommendations for Partial Upfront EC2 RIs with a three year term</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-reservation-purchase-recommendation</span></tt> example retrieves recommendations for Partial Upfront EC2 instances with a three-year term, based on the last 60 days of EC2 usage.</p>
+<div class="highlight-python">
+<pre>aws ce get-reservation-purchase-recommendation \
+    --service "Amazon Redshift" \
+    --lookback-period-in-days SIXTY_DAYS \
+    --term-in-years THREE_YEARS \
+    --payment-option PARTIAL_UPFRONT</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Recommendations"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"Metadata"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"GenerationTimestamp"</span><span class="p">:</span> <span class="s2">"2018-08-08T15:20:57Z"</span><span class="p">,</span>
+        <span class="s2">"RecommendationId"</span><span class="p">:</span> <span class="s2">"00d59dde-a1ad-473f-8ff2-iexample3330b"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Metadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about this specific recommendation call, such as the time stamp for when Cost Explorer generated this recommendation.</p>
+<p>RecommendationId -&gt; (string)</p>
+<blockquote>
+<div>The ID for this specific recommendation.</div>
+</blockquote>
+<p>GenerationTimestamp -&gt; (string)</p>
+<blockquote>
+<div>The time stamp for when AWS made this recommendation.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Recommendations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Recommendations for reservations to purchase.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A specific reservation that AWS recommends for purchase.</p>
+<p>AccountScope -&gt; (string)</p>
+<blockquote>
+<div>The account scope that AWS recommends that you purchase this instance for. For example, you can purchase this reservation for an entire organization in AWS Organizations.</div>
+</blockquote>
+<p>LookbackPeriodInDays -&gt; (string)</p>
+<blockquote>
+<div>How many days of previous usage that AWS considers when making this recommendation.</div>
+</blockquote>
+<p>TermInYears -&gt; (string)</p>
+<blockquote>
+<div>The term of the reservation that you want recommendations for, in years.</div>
+</blockquote>
+<p>PaymentOption -&gt; (string)</p>
+<blockquote>
+<div>The payment option for the reservation. For example, <tt class="docutils literal"><span class="pre">AllUpfront</span></tt> or <tt class="docutils literal"><span class="pre">NoUpfront</span></tt> .</div>
+</blockquote>
+<p>ServiceSpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Hardware specifications for the service that you want recommendations for.</p>
+<p>EC2Specification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon EC2 hardware specifications that you want AWS to provide recommendations for.</p>
+<p>OfferingClass -&gt; (string)</p>
+<blockquote>
+<div>Whether you want a recommendation for standard or convertible reservations.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RecommendationDetails -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Details about the recommended purchases.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details about your recommended reservation purchase.</p>
+<p>AccountId -&gt; (string)</p>
+<blockquote>
+<div>The account that this RI recommendation is for.</div>
+</blockquote>
+<p>InstanceDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about the instances that AWS recommends that you purchase.</p>
+<p>EC2InstanceDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon EC2 instances that AWS recommends that you purchase.</p>
+<p>Family -&gt; (string)</p>
+<blockquote>
+<div>The instance family of the recommended reservation.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The type of instance that AWS recommends.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region of the recommended reservation.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone of the recommended reservation.</div>
+</blockquote>
+<p>Platform -&gt; (string)</p>
+<blockquote>
+<div>The platform of the recommended reservation. The platform is the specific combination of operating system, license model, and software on an instance.</div>
+</blockquote>
+<p>Tenancy -&gt; (string)</p>
+<blockquote>
+<div>Whether the recommended reservation is dedicated or shared.</div>
+</blockquote>
+<p>CurrentGeneration -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommendation is for a current-generation instance.</div>
+</blockquote>
+<p>SizeFlexEligible -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommended reservation is size flexible.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RDSInstanceDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon RDS instances that AWS recommends that you purchase.</p>
+<p>Family -&gt; (string)</p>
+<blockquote>
+<div>The instance family of the recommended reservation.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The type of instance that AWS recommends.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region of the recommended reservation.</div>
+</blockquote>
+<p>DatabaseEngine -&gt; (string)</p>
+<blockquote>
+<div>The database engine that the recommended reservation supports.</div>
+</blockquote>
+<p>DatabaseEdition -&gt; (string)</p>
+<blockquote>
+<div>The database edition that the recommended reservation supports.</div>
+</blockquote>
+<p>DeploymentOption -&gt; (string)</p>
+<blockquote>
+<div>Whether the recommendation is for a reservation in a single Availability Zone or a reservation with a backup in a second Availability Zone.</div>
+</blockquote>
+<p>LicenseModel -&gt; (string)</p>
+<blockquote>
+<div>The license model that the recommended reservation supports.</div>
+</blockquote>
+<p>CurrentGeneration -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommendation is for a current-generation instance.</div>
+</blockquote>
+<p>SizeFlexEligible -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommended reservation is size flexible.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RedshiftInstanceDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon Redshift instances that AWS recommends that you purchase.</p>
+<p>Family -&gt; (string)</p>
+<blockquote>
+<div>The instance family of the recommended reservation.</div>
+</blockquote>
+<p>NodeType -&gt; (string)</p>
+<blockquote>
+<div>The type of node that AWS recommends.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region of the recommended reservation.</div>
+</blockquote>
+<p>CurrentGeneration -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommendation is for a current-generation instance.</div>
+</blockquote>
+<p>SizeFlexEligible -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommended reservation is size flexible.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ElastiCacheInstanceDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The ElastiCache instances that AWS recommends that you purchase.</p>
+<p>Family -&gt; (string)</p>
+<blockquote>
+<div>The instance family of the recommended reservation.</div>
+</blockquote>
+<p>NodeType -&gt; (string)</p>
+<blockquote>
+<div>The type of node that AWS recommends.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region of the recommended reservation.</div>
+</blockquote>
+<p>ProductDescription -&gt; (string)</p>
+<blockquote>
+<div>The description of the recommended reservation.</div>
+</blockquote>
+<p>CurrentGeneration -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommendation is for a current generation instance.</div>
+</blockquote>
+<p>SizeFlexEligible -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommended reservation is size flexible.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ESInstanceDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon ES instances that AWS recommends that you purchase.</p>
+<p>InstanceClass -&gt; (string)</p>
+<blockquote>
+<div>The class of instance that AWS recommends.</div>
+</blockquote>
+<p>InstanceSize -&gt; (string)</p>
+<blockquote>
+<div>The size of instance that AWS recommends.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region of the recommended reservation.</div>
+</blockquote>
+<p>CurrentGeneration -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommendation is for a current-generation instance.</div>
+</blockquote>
+<p>SizeFlexEligible -&gt; (boolean)</p>
+<blockquote>
+<div>Whether the recommended reservation is size flexible.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RecommendedNumberOfInstancesToPurchase -&gt; (string)</p>
+<blockquote>
+<div>The number of instances that AWS recommends that you purchase.</div>
+</blockquote>
+<p>RecommendedNormalizedUnitsToPurchase -&gt; (string)</p>
+<blockquote>
+<div>The number of normalized units that AWS recommends that you purchase.</div>
+</blockquote>
+<p>MinimumNumberOfInstancesUsedPerHour -&gt; (string)</p>
+<blockquote>
+<div>The minimum number of instances that you used in an hour during the historical period. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>MinimumNormalizedUnitsUsedPerHour -&gt; (string)</p>
+<blockquote>
+<div>The minimum number of normalized units that you used in an hour during the historical period. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>MaximumNumberOfInstancesUsedPerHour -&gt; (string)</p>
+<blockquote>
+<div>The maximum number of instances that you used in an hour during the historical period. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>MaximumNormalizedUnitsUsedPerHour -&gt; (string)</p>
+<blockquote>
+<div>The maximum number of normalized units that you used in an hour during the historical period. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>AverageNumberOfInstancesUsedPerHour -&gt; (string)</p>
+<blockquote>
+<div>The average number of instances that you used in an hour during the historical period. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>AverageNormalizedUnitsUsedPerHour -&gt; (string)</p>
+<blockquote>
+<div>The average number of normalized units that you used in an hour during the historical period. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>AverageUtilization -&gt; (string)</p>
+<blockquote>
+<div>The average utilization of your instances. AWS uses this to calculate your recommended reservation purchases.</div>
+</blockquote>
+<p>EstimatedBreakEvenInMonths -&gt; (string)</p>
+<blockquote>
+<div>How long AWS estimates that it takes for this instance to start saving you money, in months.</div>
+</blockquote>
+<p>CurrencyCode -&gt; (string)</p>
+<blockquote>
+<div>The currency code that AWS used to calculate the costs for this instance.</div>
+</blockquote>
+<p>EstimatedMonthlySavingsAmount -&gt; (string)</p>
+<blockquote>
+<div>How much AWS estimates that this specific recommendation could save you in a month.</div>
+</blockquote>
+<p>EstimatedMonthlySavingsPercentage -&gt; (string)</p>
+<blockquote>
+<div>How much AWS estimates that this specific recommendation could save you in a month, as a percentage of your overall costs.</div>
+</blockquote>
+<p>EstimatedMonthlyOnDemandCost -&gt; (string)</p>
+<blockquote>
+<div>How much AWS estimates that you spend on On-Demand Instances in a month.</div>
+</blockquote>
+<p>EstimatedReservationCostForLookbackPeriod -&gt; (string)</p>
+<blockquote>
+<div>How much AWS estimates that you would have spent for all usage during the specified historical period if you had a reservation.</div>
+</blockquote>
+<p>UpfrontCost -&gt; (string)</p>
+<blockquote>
+<div>How much purchasing this instance costs you upfront.</div>
+</blockquote>
+<p>RecurringStandardMonthlyCost -&gt; (string)</p>
+<blockquote>
+<div>How much purchasing this instance costs you on a monthly basis.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RecommendationSummary -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A summary about the recommended purchase.</p>
+<p>TotalEstimatedMonthlySavingsAmount -&gt; (string)</p>
+<blockquote>
+<div>The total amount that AWS estimates that this recommendation could save you in a month.</div>
+</blockquote>
+<p>TotalEstimatedMonthlySavingsPercentage -&gt; (string)</p>
+<blockquote>
+<div>The total amount that AWS estimates that this recommendation could save you in a month, as a percentage of your costs.</div>
+</blockquote>
+<p>CurrencyCode -&gt; (string)</p>
+<blockquote>
+<div>The currency code used for this recommendation.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextPageToken -&gt; (string)</p>
+<blockquote>
+<div>The pagination token for the next set of retrievable results.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

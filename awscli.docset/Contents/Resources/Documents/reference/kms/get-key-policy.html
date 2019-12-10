@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-key-policy — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="get-key-rotation-status" href="get-key-rotation-status.html">
+    <link rel="prev" title="generate-random" href="generate-random.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-key-policy">
+<span id="cli-aws-kms-get-key-policy"></span><h1>get-key-policy<a class="headerlink" href="#get-key-policy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets a key policy attached to the specified customer master key (CMK). You cannot perform this operation on a CMK in a different AWS account.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GetKeyPolicy">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-key-policy
+--key-id &lt;value&gt;
+--policy-name &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A unique identifier for the customer master key (CMK).</p>
+<p>Specify the key ID or the Amazon Resource Name (ARN) of the CMK.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--policy-name</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the name of the key policy. The only valid name is <tt class="docutils literal"><span class="pre">default</span></tt> . To get the names of key policies, use  ListKeyPolicies .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To copy a key policy from one CMK to another CMK</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-key-policy</span></tt> example gets the key policy from one CMK and saves it in a text file. Then, it replaces the policy of a different CMK using the text file as the policy input.</p>
+<p>Because the <tt class="docutils literal"><span class="pre">--policy</span></tt> parameter of <tt class="docutils literal"><span class="pre">put-key-policy</span></tt> requires a string, you must use the <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> option to return the output as a text string instead of JSON.</p>
+<div class="highlight-python">
+<pre>aws kms get-key-policy \
+    --policy-name default \
+    --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+    --query Policy \
+    --output text &gt; policy.txt
+
+aws kms put-key-policy \
+    --policy-name default \
+    --key-id 0987dcba-09fe-87dc-65ba-ab0987654321 \
+    --policy file://policy.txt</pre>
+</div>
+<p>This command produces no output.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/APIReference/API_PutKeyPolicy.html">PutKeyPolicy</a> in the <em>AWS KMS API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Policy -&gt; (string)</p>
+<blockquote>
+<div>A key policy document in JSON format.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

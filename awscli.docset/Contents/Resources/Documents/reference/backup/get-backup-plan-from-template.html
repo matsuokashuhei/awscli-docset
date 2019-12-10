@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-backup-plan-from-template — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="backup" href="index.html">
+    <link rel="next" title="get-backup-selection" href="get-backup-selection.html">
+    <link rel="prev" title="get-backup-plan-from-json" href="get-backup-plan-from-json.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-backup-plan-from-template">
+<span id="cli-aws-backup-get-backup-plan-from-template"></span><h1>get-backup-plan-from-template<a class="headerlink" href="#get-backup-plan-from-template" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns the template specified by its <tt class="docutils literal"><span class="pre">templateId</span></tt> as a backup plan.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetBackupPlanFromTemplate">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-backup-plan-from-template
+--backup-plan-template-id &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--backup-plan-template-id</span></tt> (string)</p>
+<blockquote>
+<div>Uniquely identifies a stored backup plan template.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get an existing backup plan from a template</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-backup-plan-from-template</span></tt> example gets an existing backup plan from a template that specifies a daily backup with a 35 day retention.</p>
+<div class="highlight-python">
+<pre>aws backup get-backup-plan-from-template \
+    --backup-plan-template-id "87c0c1ef-254d-4180-8fef-2e76a2c38aaa"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"BackupPlanDocument"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Rules"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"RuleName"</span><span class="p">:</span> <span class="s2">"DailyBackups"</span><span class="p">,</span>
+                <span class="s2">"ScheduleExpression"</span><span class="p">:</span> <span class="s2">"cron(0 5 ? * * *)"</span><span class="p">,</span>
+                <span class="s2">"StartWindowMinutes"</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span>
+                <span class="s2">"Lifecycle"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"DeleteAfterDays"</span><span class="p">:</span> <span class="mi">35</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/aws-backup/latest/devguide/creating-a-backup-plan.html">Creating a Backup Plan</a> in the <em>AWS Backup Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>BackupPlanDocument -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Returns the body of a backup plan based on the target template, including the name, rules, and backup vault of the plan.</p>
+<p>BackupPlanName -&gt; (string)</p>
+<blockquote>
+<div>The display name of a backup plan.</div>
+</blockquote>
+<p>Rules -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of <tt class="docutils literal"><span class="pre">BackupRule</span></tt> objects, each of which specifies a scheduled task that is used to back up a selection of resources.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Specifies a scheduled task used to back up a selection of resources.</p>
+<p>RuleName -&gt; (string)</p>
+<blockquote>
+<div>An optional display name for a backup rule.</div>
+</blockquote>
+<p>TargetBackupVaultName -&gt; (string)</p>
+<blockquote>
+<div>The name of a logical container where backups are stored. Backup vaults are identified by names that are unique to the account used to create them and the AWS Region where they are created. They consist of lowercase letters, numbers, and hyphens.</div>
+</blockquote>
+<p>ScheduleExpression -&gt; (string)</p>
+<blockquote>
+<div>A CRON expression specifying when AWS Backup initiates a backup job.</div>
+</blockquote>
+<p>StartWindowMinutes -&gt; (long)</p>
+<blockquote>
+<div>An optional value that specifies a period of time in minutes after a backup is scheduled before a job is canceled if it doesn't start successfully.</div>
+</blockquote>
+<p>CompletionWindowMinutes -&gt; (long)</p>
+<blockquote>
+<div>A value in minutes after a backup job is successfully started before it must be completed or it is canceled by AWS Backup. This value is optional.</div>
+</blockquote>
+<p>Lifecycle -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The lifecycle defines when a protected resource is transitioned to cold storage and when it expires. AWS Backup transitions and expires backups automatically according to the lifecycle that you define.</p>
+<p>Backups transitioned to cold storage must be stored in cold storage for a minimum of 90 days. Therefore, the “expire after days” setting must be 90 days greater than the “transition to cold after days” setting. The “transition to cold after days” setting cannot be changed after a backup has been transitioned to cold.</p>
+<p>MoveToColdStorageAfterDays -&gt; (long)</p>
+<blockquote>
+<div>Specifies the number of days after creation that a recovery point is moved to cold storage.</div>
+</blockquote>
+<p>DeleteAfterDays -&gt; (long)</p>
+<blockquote>
+<div>Specifies the number of days after creation that a recovery point is deleted. Must be greater than <tt class="docutils literal"><span class="pre">MoveToColdStorageAfterDays</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RecoveryPointTags -&gt; (map)</p>
+<blockquote>
+<div>
+<p>An array of key-value pair strings that are assigned to resources that are associated with this rule when restored from backup.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>RuleId -&gt; (string)</p>
+<blockquote>
+<div>Uniquely identifies a rule that is used to schedule the backup of a selection of resources.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

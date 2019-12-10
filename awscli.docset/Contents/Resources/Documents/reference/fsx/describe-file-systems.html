@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-file-systems — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="fsx" href="index.html">
+    <link rel="next" title="list-tags-for-resource" href="list-tags-for-resource.html">
+    <link rel="prev" title="describe-backups" href="describe-backups.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-file-systems">
+<span id="cli-aws-fsx-describe-file-systems"></span><h1>describe-file-systems<a class="headerlink" href="#describe-file-systems" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns the description of specific Amazon FSx file systems, if a <tt class="docutils literal"><span class="pre">FileSystemIds</span></tt> value is provided for that file system. Otherwise, it returns descriptions of all file systems owned by your AWS account in the AWS Region of the endpoint that you're calling.</p>
+<p>When retrieving all file system descriptions, you can optionally specify the <tt class="docutils literal"><span class="pre">MaxResults</span></tt> parameter to limit the number of descriptions in a response. If more file system descriptions remain, Amazon FSx returns a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the response. In this case, send a later request with the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter set to the value of <tt class="docutils literal"><span class="pre">NextToken</span></tt> from the last response.</p>
+<p>This action is used in an iterative process to retrieve a list of your file system descriptions. <tt class="docutils literal"><span class="pre">DescribeFileSystems</span></tt> is called first without a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value. Then the action continues to be called with the <tt class="docutils literal"><span class="pre">NextToken</span></tt> parameter set to the value of the last <tt class="docutils literal"><span class="pre">NextToken</span></tt> value until a response has no <tt class="docutils literal"><span class="pre">NextToken</span></tt> .</p>
+<p>When using this action, keep the following in mind:</p>
+<ul class="simple">
+<li>The implementation might return fewer than <tt class="docutils literal"><span class="pre">MaxResults</span></tt> file system descriptions while still including a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value.</li>
+<li>The order of file systems returned in the response of one <tt class="docutils literal"><span class="pre">DescribeFileSystems</span></tt> call and the order of file systems returned across the responses of a multicall iteration is unspecified.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/DescribeFileSystems">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-file-systems</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">FileSystems</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-file-systems
+[--file-system-ids &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--file-system-ids</span></tt> (list)</p>
+<blockquote>
+<div>(Optional) IDs of the file systems whose descriptions you want to retrieve (String).</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FileSystems -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of file system descriptions.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A description of a specific Amazon FSx file system.</p>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account that created the file system. If the file system was created by an AWS Identity and Access Management (IAM) user, the AWS account to which the IAM user belongs is the owner.</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time that the file system was created, in seconds (since 1970-01-01T00:00:00Z), also known as Unix time.</div>
+</blockquote>
+<p>FileSystemId -&gt; (string)</p>
+<blockquote>
+<div>The system-generated, unique 17-digit ID of the file system.</div>
+</blockquote>
+<p>FileSystemType -&gt; (string)</p>
+<blockquote>
+<div>The type of Amazon FSx file system, either <tt class="docutils literal"><span class="pre">LUSTRE</span></tt> or <tt class="docutils literal"><span class="pre">WINDOWS</span></tt> .</div>
+</blockquote>
+<p>Lifecycle -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The lifecycle status of the file system, following are the possible values and what they mean:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">AVAILABLE</span></tt> - The file system is in a healthy state, and is reachable and available for use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CREATING</span></tt> - Amazon FSx is creating the new file system.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DELETING</span></tt> - Amazon FSx is deleting an existing file system.</li>
+<li>
+<tt class="docutils literal"><span class="pre">FAILED</span></tt> - An existing file system has experienced an unrecoverable failure. When creating a new file system, Amazon FSx was unable to create the file system.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MISCONFIGURED</span></tt> indicates that the file system is in a failed but recoverable state.</li>
+<li>
+<tt class="docutils literal"><span class="pre">UPDATING</span></tt> indicates that the file system is undergoing a customer initiated update.</li>
+</ul>
+</div>
+</blockquote>
+<p>FailureDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A structure providing details of any failures that occur when creating the file system has failed.</p>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>A message describing any failures that occurred during file system creation.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>StorageCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The storage capacity of the file system in gigabytes (GB).</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the primary VPC for the file system.</div>
+</blockquote>
+<p>SubnetIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The ID of the subnet to contain the endpoint for the file system. One and only one is supported. The file system is launched in the Availability Zone associated with this subnet.</p>
+<p>(string)</p>
+<blockquote>
+<div>The ID for a subnet. A <em>subnet</em> is a range of IP addresses in your virtual private cloud (VPC). For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html">VPC and Subnets</a> in the <em>Amazon VPC User Guide.</em>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NetworkInterfaceIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of the elastic network interface from which a specific file system is accessible. The elastic network interface is automatically created in the same VPC that the Amazon FSx file system was created in. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html">Elastic Network Interfaces</a> in the <em>Amazon EC2 User Guide.</em></p>
+<p>For an Amazon FSx for Windows File Server file system, you can have one network interface ID. For an Amazon FSx for Lustre file system, you can have more than one.</p>
+<p>(string)</p>
+<blockquote>
+<div>An elastic network interface ID. An elastic network interface is a logical networking component in a virtual private cloud (VPC) that represents a virtual network card. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html">Elastic Network Interfaces</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DNSName -&gt; (string)</p>
+<blockquote>
+<div>The DNS name for the file system.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS Key Management Service (AWS KMS) key used to encrypt the file system's data for an Amazon FSx for Windows File Server file system.</div>
+</blockquote>
+<p>ResourceARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the file system resource.</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The tags to associate with the file system. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">Tagging Your Amazon EC2 Resources</a> in the <em>Amazon EC2 User Guide</em> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Specifies a key-value pair for a resource tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>A value that specifies the <tt class="docutils literal"><span class="pre">TagKey</span></tt> , the name of the tag. Tag keys must be unique for the resource to which they are attached.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>A value that specifies the <tt class="docutils literal"><span class="pre">TagValue</span></tt> , the value assigned to the corresponding tag key. Tag values can be null and don't have to be unique in a tag set. For example, you can have a key-value pair in a tag set of <tt class="docutils literal"><span class="pre">finances</span> <span class="pre">:</span> <span class="pre">April</span></tt> and also of <tt class="docutils literal"><span class="pre">payroll</span> <span class="pre">:</span> <span class="pre">April</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>WindowsConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration for this Microsoft Windows file system.</p>
+<p>ActiveDirectoryId -&gt; (string)</p>
+<blockquote>
+<div>The ID for an existing Microsoft Active Directory instance that the file system should join when it's created.</div>
+</blockquote>
+<p>SelfManagedActiveDirectoryConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration of the self-managed Microsoft Active Directory (AD) directory to which the Windows File Server instance is joined.</p>
+<p>DomainName -&gt; (string)</p>
+<blockquote>
+<div>The fully qualified domain name of the self-managed AD directory.</div>
+</blockquote>
+<p>OrganizationalUnitDistinguishedName -&gt; (string)</p>
+<blockquote>
+<div>The fully qualified distinguished name of the organizational unit within the self-managed AD directory to which the Windows File Server instance is joined.</div>
+</blockquote>
+<p>FileSystemAdministratorsGroup -&gt; (string)</p>
+<blockquote>
+<div>The name of the domain group whose members have administrative privileges for the FSx file system.</div>
+</blockquote>
+<p>UserName -&gt; (string)</p>
+<blockquote>
+<div>The user name for the service account on your self-managed AD domain that FSx uses to join to your AD domain.</div>
+</blockquote>
+<p>DnsIps -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of up to two IP addresses of DNS servers or domain controllers in the self-managed AD directory.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DeploymentType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Specifies the file system deployment type, valid values are the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">MULTI_AZ_1</span></tt> - Specifies a high availability file system that is configured for Multi-AZ redundancy to tolerate temporary Availability Zone (AZ) unavailability.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SINGLE_AZ_1</span></tt> - (Default) Specifies a file system that is configured for single AZ redundancy.</li>
+</ul>
+</div>
+</blockquote>
+<p>RemoteAdministrationEndpoint -&gt; (string)</p>
+<blockquote>
+<div>
+<p>For <tt class="docutils literal"><span class="pre">MULTI_AZ_1</span></tt> deployment types, use this endpoint when performing administrative tasks on the file system using Amazon FSx Remote PowerShell.</p>
+<p>For <tt class="docutils literal"><span class="pre">SINGLE_AZ_1</span></tt> deployment types, this is the DNS name of the file system.</p>
+<p>This endpoint is temporarily unavailable when the file system is undergoing maintenance.</p>
+</div>
+</blockquote>
+<p>PreferredSubnetId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>For <tt class="docutils literal"><span class="pre">MULTI_AZ_1</span></tt> deployment types, it specifies the ID of the subnet where the preferred file server is located. Must be one of the two subnet IDs specified in <tt class="docutils literal"><span class="pre">SubnetIds</span></tt> property. Amazon FSx serves traffic from this subnet except in the event of a failover to the secondary file server.</p>
+<p>For <tt class="docutils literal"><span class="pre">SINGLE_AZ_1</span></tt> deployment types, this value is the same as that for <tt class="docutils literal"><span class="pre">SubnetIDs</span></tt> .</p>
+</div>
+</blockquote>
+<p>PreferredFileServerIp -&gt; (string)</p>
+<blockquote>
+<div>
+<p>For <tt class="docutils literal"><span class="pre">MULTI_AZ_1</span></tt> deployment types, the IP address of the primary, or preferred, file server.</p>
+<p>Use this IP address when mounting the file system on Linux SMB clients or Windows SMB clients that are not joined to a Microsoft Active Directory. Applicable for both <tt class="docutils literal"><span class="pre">SINGLE_AZ_1</span></tt> and <tt class="docutils literal"><span class="pre">MULTI_AZ_1</span></tt> deployment types. This IP address is temporarily unavailable when the file system is undergoing maintenance. For Linux and Windows SMB clients that are joined to an Active Directory, use the file system's DNSName instead. For more information and instruction on mapping and mounting file shares, see <a class="reference external" href="https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html">https://docs.aws.amazon.com/fsx/latest/WindowsGuide/accessing-file-shares.html</a> .</p>
+</div>
+</blockquote>
+<p>ThroughputCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The throughput of an Amazon FSx file system, measured in megabytes per second.</div>
+</blockquote>
+<p>MaintenanceOperationsInProgress -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of maintenance operations in progress for this file system.</p>
+<p>(string)</p>
+<blockquote>
+<div>An enumeration specifying the currently ongoing maintenance operation.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>WeeklyMaintenanceStartTime -&gt; (string)</p>
+<blockquote>
+<div>The preferred time to perform weekly maintenance, in the UTC time zone.</div>
+</blockquote>
+<p>DailyAutomaticBackupStartTime -&gt; (string)</p>
+<blockquote>
+<div>The preferred time to take daily automatic backups, in the UTC time zone.</div>
+</blockquote>
+<p>AutomaticBackupRetentionDays -&gt; (integer)</p>
+<blockquote>
+<div>The number of days to retain automatic backups. Setting this to 0 disables automatic backups. You can retain automatic backups for a maximum of 35 days.</div>
+</blockquote>
+<p>CopyTagsToBackups -&gt; (boolean)</p>
+<blockquote>
+<div>A boolean flag indicating whether tags on the file system should be copied to backups. This value defaults to false. If it's set to true, all tags on the file system are copied to all automatic backups and any user-initiated backups where the user doesn't specify any tags. If this value is true, and you specify one or more tags, only the specified tags are copied to backups.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LustreConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration for the Amazon FSx for Lustre file system.</p>
+<p>WeeklyMaintenanceStartTime -&gt; (string)</p>
+<blockquote>
+<div>The UTC time that you want to begin your weekly maintenance window.</div>
+</blockquote>
+<p>DataRepositoryConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The data repository configuration object for Lustre file systems returned in the response of the <tt class="docutils literal"><span class="pre">CreateFileSystem</span></tt> operation.</p>
+<p>ImportPath -&gt; (string)</p>
+<blockquote>
+<div>The import path to the Amazon S3 bucket (and optional prefix) that you're using as the data repository for your FSx for Lustre file system, for example <tt class="docutils literal"><span class="pre">s3://import-bucket/optional-prefix</span></tt> . If a prefix is specified after the Amazon S3 bucket name, only object keys with that prefix are loaded into the file system.</div>
+</blockquote>
+<p>ExportPath -&gt; (string)</p>
+<blockquote>
+<div>The export path to the Amazon S3 bucket (and prefix) that you are using to store new and changed Lustre file system files in S3.</div>
+</blockquote>
+<p>ImportedFileChunkSize -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>For files imported from a data repository, this value determines the stripe count and maximum amount of data per file (in MiB) stored on a single physical disk. The maximum number of disks that a single file can be striped across is limited by the total number of disks that make up the file system.</p>
+<p>The default chunk size is 1,024 MiB (1 GiB) and can go as high as 512,000 MiB (500 GiB). Amazon S3 objects have a maximum size of 5 TB.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>Present if there are more file systems than returned in the response (String). You can use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the later request to fetch the descriptions.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-domain — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="create-endpoint" href="create-endpoint.html">
+    <link rel="prev" title="create-compilation-job" href="create-compilation-job.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-domain">
+<span id="cli-aws-sagemaker-create-domain"></span><h1>create-domain<a class="headerlink" href="#create-domain" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a Domain for Amazon SageMaker Amazon SageMaker Studio (Studio), which can be accessed by end-users in a web browser. A Domain has an associated directory, list of authorized users, and a variety of security, application, policies, and Amazon Virtual Private Cloud configurations. An AWS account is limited to one Domain, per region. Users within a domain can share notebook files and other artifacts with each other. When a Domain is created, an Amazon Elastic File System (EFS) is also created for use by all of the users within the Domain. Each user receives a private home directory within the EFS for notebooks, Git repositories, and data files.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateDomain">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-domain
+--domain-name &lt;value&gt;
+--auth-mode &lt;value&gt;
+--default-user-settings &lt;value&gt;
+--subnet-ids &lt;value&gt;
+--vpc-id &lt;value&gt;
+[--tags &lt;value&gt;]
+[--home-efs-file-system-kms-key-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--domain-name</span></tt> (string)</p>
+<blockquote>
+<div>A name for the domain.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auth-mode</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The mode of authentication that member use to access the domain.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SSO</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">IAM</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--default-user-settings</span></tt> (structure)</p>
+<blockquote>
+<div>The default user settings.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ExecutionRole=string,SecurityGroups=string,string,SharingSettings={NotebookOutputOption=string,S3OutputPath=string,S3KmsKeyId=string},JupyterServerAppSettings={DefaultResourceSpec={EnvironmentArn=string,InstanceType=string}},KernelGatewayAppSettings={DefaultResourceSpec={EnvironmentArn=string,InstanceType=string}},TensorBoardAppSettings={DefaultResourceSpec={EnvironmentArn=string,InstanceType=string}}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ExecutionRole"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"SecurityGroups"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"SharingSettings"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"NotebookOutputOption"</span><span class="p">:</span> <span class="s2">"Allowed"</span><span class="o">|</span><span class="s2">"Disabled"</span><span class="p">,</span>
+    <span class="s2">"S3OutputPath"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"S3KmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"JupyterServerAppSettings"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"DefaultResourceSpec"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"EnvironmentArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"system"</span><span class="o">|</span><span class="s2">"ml.t3.micro"</span><span class="o">|</span><span class="s2">"ml.t3.small"</span><span class="o">|</span><span class="s2">"ml.t3.medium"</span><span class="o">|</span><span class="s2">"ml.t3.large"</span><span class="o">|</span><span class="s2">"ml.t3.xlarge"</span><span class="o">|</span><span class="s2">"ml.t3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.large"</span><span class="o">|</span><span class="s2">"ml.m5.xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.8xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.16xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.large"</span><span class="o">|</span><span class="s2">"ml.c5.xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.9xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.18xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.16xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.2xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.4xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.8xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.12xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.16xlarge"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"KernelGatewayAppSettings"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"DefaultResourceSpec"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"EnvironmentArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"system"</span><span class="o">|</span><span class="s2">"ml.t3.micro"</span><span class="o">|</span><span class="s2">"ml.t3.small"</span><span class="o">|</span><span class="s2">"ml.t3.medium"</span><span class="o">|</span><span class="s2">"ml.t3.large"</span><span class="o">|</span><span class="s2">"ml.t3.xlarge"</span><span class="o">|</span><span class="s2">"ml.t3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.large"</span><span class="o">|</span><span class="s2">"ml.m5.xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.8xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.16xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.large"</span><span class="o">|</span><span class="s2">"ml.c5.xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.9xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.18xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.16xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.2xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.4xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.8xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.12xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.16xlarge"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"TensorBoardAppSettings"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"DefaultResourceSpec"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"EnvironmentArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"system"</span><span class="o">|</span><span class="s2">"ml.t3.micro"</span><span class="o">|</span><span class="s2">"ml.t3.small"</span><span class="o">|</span><span class="s2">"ml.t3.medium"</span><span class="o">|</span><span class="s2">"ml.t3.large"</span><span class="o">|</span><span class="s2">"ml.t3.xlarge"</span><span class="o">|</span><span class="s2">"ml.t3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.large"</span><span class="o">|</span><span class="s2">"ml.m5.xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.8xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.16xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.large"</span><span class="o">|</span><span class="s2">"ml.c5.xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.9xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.18xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.16xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.2xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.4xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.8xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.12xlarge"</span><span class="o">|</span><span class="s2">"ml.g4dn.16xlarge"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--subnet-ids</span></tt> (list)</p>
+<blockquote>
+<div>Security setting to limit to a set of subnets.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--vpc-id</span></tt> (string)</p>
+<blockquote>
+<div>Security setting to limit the domain's communication to a Amazon Virtual Private Cloud.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>Each tag consists of a key and an optional value. Tag keys must be unique per resource.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--home-efs-file-system-kms-key-id</span></tt> (string)</p>
+<blockquote>
+<div>The AWS Key Management Service encryption key ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DomainArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the created domain.</div>
+</blockquote>
+<p>Url -&gt; (string)</p>
+<blockquote>
+<div>The URL to the created domain.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

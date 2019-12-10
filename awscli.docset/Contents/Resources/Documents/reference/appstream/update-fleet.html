@@ -1,0 +1,474 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-fleet — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="appstream" href="index.html">
+    <link rel="next" title="update-image-permissions" href="update-image-permissions.html">
+    <link rel="prev" title="update-directory-config" href="update-directory-config.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-fleet">
+<span id="cli-aws-appstream-update-fleet"></span><h1>update-fleet<a class="headerlink" href="#update-fleet" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates the specified fleet.</p>
+<p>If the fleet is in the <tt class="docutils literal"><span class="pre">STOPPED</span></tt> state, you can update any attribute except the fleet name. If the fleet is in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state, you can update the <tt class="docutils literal"><span class="pre">DisplayName</span></tt> , <tt class="docutils literal"><span class="pre">ComputeCapacity</span></tt> , <tt class="docutils literal"><span class="pre">ImageARN</span></tt> , <tt class="docutils literal"><span class="pre">ImageName</span></tt> , <tt class="docutils literal"><span class="pre">IdleDisconnectTimeoutInSeconds</span></tt> , and <tt class="docutils literal"><span class="pre">DisconnectTimeoutInSeconds</span></tt> attributes. If the fleet is in the <tt class="docutils literal"><span class="pre">STARTING</span></tt> or <tt class="docutils literal"><span class="pre">STOPPING</span></tt> state, you can't update it.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/appstream-2016-12-01/UpdateFleet">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-fleet
+[--image-name &lt;value&gt;]
+[--image-arn &lt;value&gt;]
+[--name &lt;value&gt;]
+[--instance-type &lt;value&gt;]
+[--compute-capacity &lt;value&gt;]
+[--vpc-config &lt;value&gt;]
+[--max-user-duration-in-seconds &lt;value&gt;]
+[--disconnect-timeout-in-seconds &lt;value&gt;]
+[--delete-vpc-config | --no-delete-vpc-config]
+[--description &lt;value&gt;]
+[--display-name &lt;value&gt;]
+[--enable-default-internet-access | --no-enable-default-internet-access]
+[--domain-join-info &lt;value&gt;]
+[--idle-disconnect-timeout-in-seconds &lt;value&gt;]
+[--attributes-to-delete &lt;value&gt;]
+[--iam-role-arn &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--image-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the image used to create the fleet.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--image-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the public, private, or shared image to use.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>A unique name for the fleet.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The instance type to use when launching fleet instances. The following instance types are available:</p>
+<ul class="simple">
+<li>stream.standard.medium</li>
+<li>stream.standard.large</li>
+<li>stream.compute.large</li>
+<li>stream.compute.xlarge</li>
+<li>stream.compute.2xlarge</li>
+<li>stream.compute.4xlarge</li>
+<li>stream.compute.8xlarge</li>
+<li>stream.memory.large</li>
+<li>stream.memory.xlarge</li>
+<li>stream.memory.2xlarge</li>
+<li>stream.memory.4xlarge</li>
+<li>stream.memory.8xlarge</li>
+<li>stream.graphics-design.large</li>
+<li>stream.graphics-design.xlarge</li>
+<li>stream.graphics-design.2xlarge</li>
+<li>stream.graphics-design.4xlarge</li>
+<li>stream.graphics-desktop.2xlarge</li>
+<li>stream.graphics-pro.4xlarge</li>
+<li>stream.graphics-pro.8xlarge</li>
+<li>stream.graphics-pro.16xlarge</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--compute-capacity</span></tt> (structure)</p>
+<blockquote>
+<div>The desired capacity for the fleet.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">DesiredInstances</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DesiredInstances"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--vpc-config</span></tt> (structure)</p>
+<blockquote>
+<div>The VPC configuration for the fleet.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">SubnetIds</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">SecurityGroupIds</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"SubnetIds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"SecurityGroupIds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--max-user-duration-in-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The maximum amount of time that a streaming session can remain active, in seconds. If users are still connected to a streaming instance five minutes before this limit is reached, they are prompted to save any open documents before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance.</p>
+<p>Specify a value between 600 and 360000.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--disconnect-timeout-in-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time that a streaming session remains active after users disconnect. If users try to reconnect to the streaming session after a disconnection or network interruption within this time interval, they are connected to their previous session. Otherwise, they are connected to a new session with a new streaming instance.</p>
+<p>Specify a value between 60 and 360000.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delete-vpc-config</span></tt> | <tt class="docutils literal"><span class="pre">--no-delete-vpc-config</span></tt> (boolean)</p>
+<blockquote>
+<div>Deletes the VPC association for the specified fleet.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>The description to display.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--display-name</span></tt> (string)</p>
+<blockquote>
+<div>The fleet name to display.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--enable-default-internet-access</span></tt> | <tt class="docutils literal"><span class="pre">--no-enable-default-internet-access</span></tt> (boolean)</p>
+<blockquote>
+<div>Enables or disables default internet access for the fleet.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--domain-join-info</span></tt> (structure)</p>
+<blockquote>
+<div>The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory domain.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">DirectoryName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">OrganizationalUnitDistinguishedName</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DirectoryName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"OrganizationalUnitDistinguishedName"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--idle-disconnect-timeout-in-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time that users can be idle (inactive) before they are disconnected from their streaming session and the <tt class="docutils literal"><span class="pre">DisconnectTimeoutInSeconds</span></tt> time interval begins. Users are notified before they are disconnected due to inactivity. If users try to reconnect to the streaming session before the time interval specified in <tt class="docutils literal"><span class="pre">DisconnectTimeoutInSeconds</span></tt> elapses, they are connected to their previous session. Users are considered idle when they stop providing keyboard or mouse input during their streaming session. File uploads and downloads, audio in, audio out, and pixels changing do not qualify as user activity. If users continue to be idle after the time interval in <tt class="docutils literal"><span class="pre">IdleDisconnectTimeoutInSeconds</span></tt> elapses, they are disconnected.</p>
+<p>To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value between 60 and 3600. The default value is 0.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you enable this feature, we recommend that you specify a value that corresponds exactly to a whole number of minutes (for example, 60, 120, and 180). If you don't do this, the value is rounded to the nearest minute. For example, if you specify a value of 70, users are disconnected after 1 minute of inactivity. If you specify a value that is at the midpoint between two different minutes, the value is rounded up. For example, if you specify a value of 90, users are disconnected after 2 minutes of inactivity.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--attributes-to-delete</span></tt> (list)</p>
+<blockquote>
+<div>The fleet attributes to delete.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  VPC_CONFIGURATION
+  VPC_CONFIGURATION_SECURITY_GROUP_IDS
+  DOMAIN_JOIN_INFO
+  IAM_ROLE_ARN</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--iam-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the IAM role to apply to the fleet. To assume a role, a fleet instance calls the AWS Security Token Service (STS) <tt class="docutils literal"><span class="pre">AssumeRole</span></tt> API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the <strong>AppStream_Machine_Role</strong> credential profile on the instance.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances</a> in the <em>Amazon AppStream 2.0 Administration Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Fleet -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the fleet.</p>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the fleet.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the fleet.</div>
+</blockquote>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>The fleet name to display.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description to display.</div>
+</blockquote>
+<p>ImageName -&gt; (string)</p>
+<blockquote>
+<div>The name of the image used to create the fleet.</div>
+</blockquote>
+<p>ImageArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN for the public, private, or shared image.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The instance type to use when launching fleet instances. The following instance types are available:</p>
+<ul class="simple">
+<li>stream.standard.medium</li>
+<li>stream.standard.large</li>
+<li>stream.compute.large</li>
+<li>stream.compute.xlarge</li>
+<li>stream.compute.2xlarge</li>
+<li>stream.compute.4xlarge</li>
+<li>stream.compute.8xlarge</li>
+<li>stream.memory.large</li>
+<li>stream.memory.xlarge</li>
+<li>stream.memory.2xlarge</li>
+<li>stream.memory.4xlarge</li>
+<li>stream.memory.8xlarge</li>
+<li>stream.graphics-design.large</li>
+<li>stream.graphics-design.xlarge</li>
+<li>stream.graphics-design.2xlarge</li>
+<li>stream.graphics-design.4xlarge</li>
+<li>stream.graphics-desktop.2xlarge</li>
+<li>stream.graphics-pro.4xlarge</li>
+<li>stream.graphics-pro.8xlarge</li>
+<li>stream.graphics-pro.16xlarge</li>
+</ul>
+</div>
+</blockquote>
+<p>FleetType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The fleet type.</p>
+<blockquote>
+<div>ALWAYS_ON</div>
+</blockquote>
+<p>Provides users with instant-on access to their apps. You are charged for all running instances in your fleet, even if no users are streaming apps.</p>
+<blockquote>
+<div>ON_DEMAND</div>
+</blockquote>
+<p>Provide users with access to applications after they connect, which takes one to two minutes. You are charged for instance streaming when users are connected and a small hourly fee for instances that are not streaming apps.</p>
+</div>
+</blockquote>
+<p>ComputeCapacityStatus -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The capacity status for the fleet.</p>
+<p>Desired -&gt; (integer)</p>
+<blockquote>
+<div>The desired number of streaming instances.</div>
+</blockquote>
+<p>Running -&gt; (integer)</p>
+<blockquote>
+<div>The total number of simultaneous streaming instances that are running.</div>
+</blockquote>
+<p>InUse -&gt; (integer)</p>
+<blockquote>
+<div>The number of instances in use for streaming.</div>
+</blockquote>
+<p>Available -&gt; (integer)</p>
+<blockquote>
+<div>The number of currently available instances that can be used to stream sessions.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MaxUserDurationInSeconds -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The maximum amount of time that a streaming session can remain active, in seconds. If users are still connected to a streaming instance five minutes before this limit is reached, they are prompted to save any open documents before being disconnected. After this time elapses, the instance is terminated and replaced by a new instance.</p>
+<p>Specify a value between 600 and 360000.</p>
+</div>
+</blockquote>
+<p>DisconnectTimeoutInSeconds -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time that a streaming session remains active after users disconnect. If they try to reconnect to the streaming session after a disconnection or network interruption within this time interval, they are connected to their previous session. Otherwise, they are connected to a new session with a new streaming instance.</p>
+<p>Specify a value between 60 and 360000.</p>
+</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The current state for the fleet.</div>
+</blockquote>
+<p>VpcConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The VPC configuration for the fleet.</p>
+<p>SubnetIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The identifiers of the subnets to which a network interface is attached from the fleet instance or image builder instance. Fleet instances use one or more subnets. Image builder instances use one subnet.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>SecurityGroupIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The identifiers of the security groups for the fleet or image builder.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CreatedTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the fleet was created.</div>
+</blockquote>
+<p>FleetErrors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The fleet errors.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a fleet error.</p>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The error code.</div>
+</blockquote>
+<p>ErrorMessage -&gt; (string)</p>
+<blockquote>
+<div>The error message.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EnableDefaultInternetAccess -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether default internet access is enabled for the fleet.</div>
+</blockquote>
+<p>DomainJoinInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The name of the directory and organizational unit (OU) to use to join the fleet to a Microsoft Active Directory domain.</p>
+<p>DirectoryName -&gt; (string)</p>
+<blockquote>
+<div>The fully qualified name of the directory (for example, corp.example.com).</div>
+</blockquote>
+<p>OrganizationalUnitDistinguishedName -&gt; (string)</p>
+<blockquote>
+<div>The distinguished name of the organizational unit for computer accounts.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IdleDisconnectTimeoutInSeconds -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time that users can be idle (inactive) before they are disconnected from their streaming session and the <tt class="docutils literal"><span class="pre">DisconnectTimeoutInSeconds</span></tt> time interval begins. Users are notified before they are disconnected due to inactivity. If users try to reconnect to the streaming session before the time interval specified in <tt class="docutils literal"><span class="pre">DisconnectTimeoutInSeconds</span></tt> elapses, they are connected to their previous session. Users are considered idle when they stop providing keyboard or mouse input during their streaming session. File uploads and downloads, audio in, audio out, and pixels changing do not qualify as user activity. If users continue to be idle after the time interval in <tt class="docutils literal"><span class="pre">IdleDisconnectTimeoutInSeconds</span></tt> elapses, they are disconnected.</p>
+<p>To prevent users from being disconnected due to inactivity, specify a value of 0. Otherwise, specify a value between 60 and 3600. The default value is 0.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you enable this feature, we recommend that you specify a value that corresponds exactly to a whole number of minutes (for example, 60, 120, and 180). If you don't do this, the value is rounded to the nearest minute. For example, if you specify a value of 70, users are disconnected after 1 minute of inactivity. If you specify a value that is at the midpoint between two different minutes, the value is rounded up. For example, if you specify a value of 90, users are disconnected after 2 minutes of inactivity.</p>
+</div>
+</div>
+</blockquote>
+<p>IamRoleArn -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM role that is applied to the fleet. To assume a role, the fleet instance calls the AWS Security Token Service (STS) <tt class="docutils literal"><span class="pre">AssumeRole</span></tt> API operation and passes the ARN of the role to use. The operation creates a new session with temporary credentials. AppStream 2.0 retrieves the temporary credentials and creates the <strong>AppStream_Machine_Role</strong> credential profile on the instance.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/appstream2/latest/developerguide/using-iam-roles-to-grant-permissions-to-applications-scripts-streaming-instances.html">Using an IAM Role to Grant Permissions to Applications and Scripts Running on AppStream 2.0 Streaming Instances</a> in the <em>Amazon AppStream 2.0 Administration Guide</em> .</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

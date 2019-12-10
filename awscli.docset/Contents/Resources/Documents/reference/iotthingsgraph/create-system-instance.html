@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-system-instance — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iotthingsgraph" href="index.html">
+    <link rel="next" title="create-system-template" href="create-system-template.html">
+    <link rel="prev" title="create-flow-template" href="create-flow-template.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-system-instance">
+<span id="cli-aws-iotthingsgraph-create-system-instance"></span><h1>create-system-instance<a class="headerlink" href="#create-system-instance" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a system instance.</p>
+<p>This action validates the system instance, prepares the deployment-related resources. For Greengrass deployments, it updates the Greengrass group that is specified by the <tt class="docutils literal"><span class="pre">greengrassGroupName</span></tt> parameter. It also adds a file to the S3 bucket specified by the <tt class="docutils literal"><span class="pre">s3BucketName</span></tt> parameter. You need to call <tt class="docutils literal"><span class="pre">DeploySystemInstance</span></tt> after running this action.</p>
+<p>For Greengrass deployments, since this action modifies and adds resources to a Greengrass group and an S3 bucket on the caller's behalf, the calling identity must have write permissions to both the specified Greengrass group and S3 bucket. Otherwise, the call will fail with an authorization error.</p>
+<p>For cloud deployments, this action requires a <tt class="docutils literal"><span class="pre">flowActionsRoleArn</span></tt> value. This is an IAM role that has permissions to access AWS services, such as AWS Lambda and AWS IoT, that the flow uses when it executes.</p>
+<p>If the definition document doesn't specify a version of the user's namespace, the latest version will be used by default.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iotthingsgraph-2018-09-06/CreateSystemInstance">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-system-instance
+[--tags &lt;value&gt;]
+--definition &lt;value&gt;
+--target &lt;value&gt;
+[--greengrass-group-name &lt;value&gt;]
+[--s3-bucket-name &lt;value&gt;]
+[--metrics-configuration &lt;value&gt;]
+[--flow-actions-role-arn &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>Metadata, consisting of key-value pairs, that can be used to categorize your system instances.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>key=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "key": "string",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--definition</span></tt> (structure)</p>
+<blockquote>
+<div>A document that defines an entity.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">language</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"language"</span><span class="p">:</span> <span class="s2">"GRAPHQL"</span><span class="p">,</span>
+  <span class="s2">"text"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--target</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The target type of the deployment. Valid values are <tt class="docutils literal"><span class="pre">GREENGRASS</span></tt> and <tt class="docutils literal"><span class="pre">CLOUD</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">GREENGRASS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">CLOUD</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--greengrass-group-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the Greengrass group where the system instance will be deployed. This value is required if the value of the <tt class="docutils literal"><span class="pre">target</span></tt> parameter is <tt class="docutils literal"><span class="pre">GREENGRASS</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--s3-bucket-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the Amazon Simple Storage Service bucket that will be used to store and deploy the system instance's resource file. This value is required if the value of the <tt class="docutils literal"><span class="pre">target</span></tt> parameter is <tt class="docutils literal"><span class="pre">GREENGRASS</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--metrics-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>An object that specifies whether cloud metrics are collected in a deployment and, if so, what role is used to collect metrics.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">cloudMetricEnabled</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">metricRuleRoleArn</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"cloudMetricEnabled"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"metricRuleRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--flow-actions-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the IAM role that AWS IoT Things Graph will assume when it executes the flow. This role must have read and write access to AWS Lambda and AWS IoT and any other AWS services that the flow uses when it executes. This value is required if the value of the <tt class="docutils literal"><span class="pre">target</span></tt> parameter is <tt class="docutils literal"><span class="pre">CLOUD</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a system instance</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-system-instance</span></tt> example creates a system instance. The value of <tt class="docutils literal"><span class="pre">MySystemInstanceDefinition</span></tt> is the GraphQL that models the system instance.</p>
+<div class="highlight-python">
+<pre>aws iotthingsgraph create-system-instance -\
+    -definition language=GRAPHQL,text="MySystemInstanceDefinition" \
+    --target CLOUD \
+    --flow-actions-role-arn myRoleARN</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"summary"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"urn:tdm:us-west-2/123456789012/default:Deployment:Room218"</span><span class="p">,</span>
+        <span class="s2">"arn"</span><span class="p">:</span> <span class="s2">"arn:aws:iotthingsgraph:us-west-2:123456789012:Deployment/default/Room218"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"NOT_DEPLOYED"</span><span class="p">,</span>
+        <span class="s2">"target"</span><span class="p">:</span> <span class="s2">"CLOUD"</span><span class="p">,</span>
+        <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1559249315.208</span><span class="p">,</span>
+        <span class="s2">"updatedAt"</span><span class="p">:</span> <span class="mf">1559249315.208</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-sysdeploy.html">Working with Systems and Flow Configurations</a> in the <em>AWS IoT Things Graph User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>summary -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The summary object that describes the new system instance.</p>
+<p>id -&gt; (string)</p>
+<blockquote>
+<div>The ID of the system instance.</div>
+</blockquote>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the system instance.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the system instance.</div>
+</blockquote>
+<p>target -&gt; (string)</p>
+<blockquote>
+<div>The target of the system instance.</div>
+</blockquote>
+<p>greengrassGroupName -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Greengrass group where the system instance is deployed.</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date when the system instance was created.</div>
+</blockquote>
+<p>updatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the system instance was last updated.</div>
+</blockquote>
+<p>greengrassGroupId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Greengrass group where the system instance is deployed.</div>
+</blockquote>
+<p>greengrassGroupVersionId -&gt; (string)</p>
+<blockquote>
+<div>The version of the Greengrass group where the system instance is deployed.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>send-automation-signal — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="send-command" href="send-command.html">
+    <link rel="prev" title="resume-session" href="resume-session.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="send-automation-signal">
+<span id="cli-aws-ssm-send-automation-signal"></span><h1>send-automation-signal<a class="headerlink" href="#send-automation-signal" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Sends a signal to an Automation execution to change the current behavior or status of the execution.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendAutomationSignal">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  send-automation-signal
+--automation-execution-id &lt;value&gt;
+--signal-type &lt;value&gt;
+[--payload &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--automation-execution-id</span></tt> (string)</p>
+<blockquote>
+<div>The unique identifier for an existing Automation execution that you want to send the signal to.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--signal-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of signal to send to an Automation execution.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Approve</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Reject</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">StartStep</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">StopStep</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Resume</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--payload</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>The data sent with the signal. The data schema depends on the type of signal used in the request.</p>
+<p>For <tt class="docutils literal"><span class="pre">Approve</span></tt> and <tt class="docutils literal"><span class="pre">Reject</span></tt> signal types, the payload is an optional comment that you can send with the signal type. For example:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">Comment="Looks</span> <span class="pre">good"</span></tt></div>
+</blockquote>
+<p>For <tt class="docutils literal"><span class="pre">StartStep</span></tt> and <tt class="docutils literal"><span class="pre">Resume</span></tt> signal types, you must send the name of the Automation step to start or resume as the payload. For example:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">StepName="step1"</span></tt></div>
+</blockquote>
+<p>For the <tt class="docutils literal"><span class="pre">StopStep</span></tt> signal type, you must send the step execution ID as the payload. For example:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">StepExecutionId="97fff367-fc5a-4299-aed8-0123456789ab"</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": ["string", ...]
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To send a signal to an Automation execution</strong></p>
+<p>This example sends the Approve signal to an Automation execution. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm send-automation-signal --automation-execution-id 4105a4fc-f944-11e6-9d32-0a1b2c3d495h --signal-type "Approve"</pre>
+</div>
+<p><strong>To send an approve signal with a comment to an Automation execution</strong></p>
+<p>This example sends the Approve signal with a comment to an Automation execution. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm send-automation-signal --automation-execution-id 4105a4fc-f944-11e6-9d32-0a1b2c3d495h --signal-type "Approve" --payload "Comment=Approved"</pre>
+</div>
+<p><strong>To start an Automation step</strong></p>
+<p>This example starts the specified step in an Automation execution. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm send-automation-signal --automation-execution-id 4105a4fc-f944-11e6-9d32-0a1b2c3d495h --signal-type "StartStep" --payload "StepName=stopInstances"</pre>
+</div>
+<p><strong>To resume an Automation step</strong></p>
+<p>This example resumes the specified step in an Automation execution. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm send-automation-signal --automation-execution-id 4105a4fc-f944-11e6-9d32-0a1b2c3d495h --signal-type "Resume" --payload "StepName=stopInstances"</pre>
+</div>
+<p><strong>To stop an Automation step</strong></p>
+<p>This example stops the specified step that is currently in progress within an Automation execution. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm send-automation-signal --automation-execution-id 4105a4fc-f944-11e6-9d32-0a1b2c3d495h --signal-type "StopStep" --payload "StepExecutionId=35de5ba9-e3de-45ae-8c95-0123456789ab"</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

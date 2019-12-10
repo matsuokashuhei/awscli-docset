@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>sign — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="tag-resource" href="tag-resource.html">
+    <link rel="prev" title="schedule-key-deletion" href="schedule-key-deletion.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="sign">
+<span id="cli-aws-kms-sign"></span><h1>sign<a class="headerlink" href="#sign" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_signature">digital signature</a> for a message or message digest by using the private key in an asymmetric CMK. To verify the signature, use the  Verify operation, or use the public key in the same asymmetric CMK outside of AWS KMS. For information about symmetric and asymmetric CMKs, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric CMKs</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>Digital signatures are generated and verified by using asymmetric key pair, such as an RSA or ECC pair that is represented by an asymmetric customer master key (CMK). The key owner (or an authorized user) uses their private key to sign a message. Anyone with the public key can verify that the message was signed with that particular private key and that the message hasn't changed since it was signed.</p>
+<p>To use the <tt class="docutils literal"><span class="pre">Sign</span></tt> operation, provide the following information:</p>
+<ul class="simple">
+<li>Use the <tt class="docutils literal"><span class="pre">KeyId</span></tt> parameter to identify an asymmetric CMK with a <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> value of <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> . To get the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> value of a CMK, use the  DescribeKey operation. The caller must have <tt class="docutils literal"><span class="pre">kms:Sign</span></tt> permission on the CMK.</li>
+<li>Use the <tt class="docutils literal"><span class="pre">Message</span></tt> parameter to specify the message or message digest to sign. You can submit messages of up to 4096 bytes. To sign a larger message, generate a hash digest of the message, and then provide the hash digest in the <tt class="docutils literal"><span class="pre">Message</span></tt> parameter. To indicate whether the message is a full message or a digest, use the <tt class="docutils literal"><span class="pre">MessageType</span></tt> parameter.</li>
+<li>Choose a signing algorithm that is compatible with the CMK.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When signing a message, be sure to record the CMK and the signing algorithm. This information is required to verify the signature.</p>
+</div>
+<p>To verify the signature that this operation generates, use the  Verify operation. Or use the  GetPublicKey operation to download the public key and then use the public key to verify the signature outside of AWS KMS.</p>
+<p>The CMK that you use for this operation must be in a compatible key state. For details, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Sign">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  sign
+--key-id &lt;value&gt;
+--message &lt;value&gt;
+[--message-type &lt;value&gt;]
+[--grant-tokens &lt;value&gt;]
+--signing-algorithm &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Identifies an asymmetric CMK. AWS KMS uses the private key in the asymmetric CMK to sign the message. The <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> type of the CMK must be <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> . To find the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> of a CMK, use the  DescribeKey operation.</p>
+<p>To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with <tt class="docutils literal"><span class="pre">"alias/"</span></tt> . To specify a CMK in a different AWS account, you must use the key ARN or alias ARN.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Alias name: <tt class="docutils literal"><span class="pre">alias/ExampleAlias</span></tt>
+</li>
+<li>Alias ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey . To get the alias name and alias ARN, use  ListAliases .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--message</span></tt> (blob)</p>
+<blockquote>
+<div>
+<p>Specifies the message or message digest to sign. Messages can be 0-4096 bytes. To sign a larger message, provide the message digest.</p>
+<p>If you provide a message, AWS KMS generates a hash digest of the message and then signs it.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--message-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Tells AWS KMS whether the value of the <tt class="docutils literal"><span class="pre">Message</span></tt> parameter is a message or message digest. To indicate a message, enter <tt class="docutils literal"><span class="pre">RAW</span></tt> . To indicate a message digest, enter <tt class="docutils literal"><span class="pre">DIGEST</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">RAW</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DIGEST</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-tokens</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of grant tokens.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--signing-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the signing algorithm to use when signing the message.</p>
+<p>Choose an algorithm that is compatible with the type and size of the specified asymmetric CMK.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">RSASSA_PSS_SHA_256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSASSA_PSS_SHA_384</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSASSA_PSS_SHA_512</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSASSA_PKCS1_V1_5_SHA_256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSASSA_PKCS1_V1_5_SHA_384</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSASSA_PKCS1_V1_5_SHA_512</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECDSA_SHA_256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECDSA_SHA_384</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ECDSA_SHA_512</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>KeyId -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the asymmetric CMK that was used to sign the message.</div>
+</blockquote>
+<p>Signature -&gt; (blob)</p>
+<blockquote>
+<div>The cryptographic signature that was generated for the message.</div>
+</blockquote>
+<p>SigningAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>The signing algorithm that was used to sign the message.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

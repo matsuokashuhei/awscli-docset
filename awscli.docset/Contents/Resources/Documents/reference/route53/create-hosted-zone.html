@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-hosted-zone — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="route53" href="index.html">
+    <link rel="next" title="create-query-logging-config" href="create-query-logging-config.html">
+    <link rel="prev" title="create-health-check" href="create-health-check.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-hosted-zone">
+<span id="cli-aws-route53-create-hosted-zone"></span><h1>create-hosted-zone<a class="headerlink" href="#create-hosted-zone" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new public or private hosted zone. You create records in a public hosted zone to define how you want to route traffic on the internet for a domain, such as example.com, and its subdomains (apex.example.com, acme.example.com). You create records in a private hosted zone to define how you want to route traffic for a domain and its subdomains within one or more Amazon Virtual Private Clouds (Amazon VPCs).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You can't convert a public hosted zone to a private hosted zone or vice versa. Instead, you must create a new hosted zone with the same name and create new resource record sets.</p>
+</div>
+<p>For more information about charges for hosted zones, see <a class="reference external" href="http://aws.amazon.com/route53/pricing/">Amazon Route 53 Pricing</a> .</p>
+<p>Note the following:</p>
+<ul class="simple">
+<li>You can't create a hosted zone for a top-level domain (TLD) such as .com.</li>
+<li>For public hosted zones, Amazon Route 53 automatically creates a default SOA record and four NS records for the zone. For more information about SOA and NS records, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html">NS and SOA Records that Route 53 Creates for a Hosted Zone</a> in the <em>Amazon Route 53 Developer Guide</em> . If you want to use the same name servers for multiple public hosted zones, you can optionally associate a reusable delegation set with the hosted zone. See the <tt class="docutils literal"><span class="pre">DelegationSetId</span></tt> element.</li>
+<li>If your domain is registered with a registrar other than Route 53, you must update the name servers with your registrar to make Route 53 the DNS service for the domain. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html">Migrating DNS Service for an Existing Domain to Amazon Route 53</a> in the <em>Amazon Route 53 Developer Guide</em> .</li>
+</ul>
+<p>When you submit a <tt class="docutils literal"><span class="pre">CreateHostedZone</span></tt> request, the initial status of the hosted zone is <tt class="docutils literal"><span class="pre">PENDING</span></tt> . For public hosted zones, this means that the NS and SOA records are not yet available on all Route 53 DNS servers. When the NS and SOA records are available, the status of the zone changes to <tt class="docutils literal"><span class="pre">INSYNC</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateHostedZone">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-hosted-zone
+--name &lt;value&gt;
+[--vpc &lt;value&gt;]
+--caller-reference &lt;value&gt;
+[--hosted-zone-config &lt;value&gt;]
+[--delegation-set-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the domain. Specify a fully qualified domain name, for example, <em>www.example.com</em> . The trailing dot is optional; Amazon Route 53 assumes that the domain name is fully qualified. This means that Route 53 treats <em>www.example.com</em> (without a trailing dot) and <em>www.example.com.</em> (with a trailing dot) as identical.</p>
+<p>If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your domain name is registered with a registrar other than Route 53, change the name servers for your domain to the set of <tt class="docutils literal"><span class="pre">NameServers</span></tt> that <tt class="docutils literal"><span class="pre">CreateHostedZone</span></tt> returns in <tt class="docutils literal"><span class="pre">DelegationSet</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>(Private hosted zones only) A complex type that contains information about the Amazon VPC that you're associating with this hosted zone.</p>
+<p>You can specify only one Amazon VPC when you create a private hosted zone. To associate additional Amazon VPCs with the hosted zone, use <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_AssociateVPCWithHostedZone.html">AssociateVPCWithHostedZone</a> after you create a hosted zone.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">VPCRegion</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">VPCId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"VPCRegion"</span><span class="p">:</span> <span class="s2">"us-east-1"</span><span class="o">|</span><span class="s2">"us-east-2"</span><span class="o">|</span><span class="s2">"us-west-1"</span><span class="o">|</span><span class="s2">"us-west-2"</span><span class="o">|</span><span class="s2">"eu-west-1"</span><span class="o">|</span><span class="s2">"eu-west-2"</span><span class="o">|</span><span class="s2">"eu-west-3"</span><span class="o">|</span><span class="s2">"eu-central-1"</span><span class="o">|</span><span class="s2">"ap-east-1"</span><span class="o">|</span><span class="s2">"me-south-1"</span><span class="o">|</span><span class="s2">"ap-southeast-1"</span><span class="o">|</span><span class="s2">"ap-southeast-2"</span><span class="o">|</span><span class="s2">"ap-south-1"</span><span class="o">|</span><span class="s2">"ap-northeast-1"</span><span class="o">|</span><span class="s2">"ap-northeast-2"</span><span class="o">|</span><span class="s2">"ap-northeast-3"</span><span class="o">|</span><span class="s2">"eu-north-1"</span><span class="o">|</span><span class="s2">"sa-east-1"</span><span class="o">|</span><span class="s2">"ca-central-1"</span><span class="o">|</span><span class="s2">"cn-north-1"</span><span class="p">,</span>
+  <span class="s2">"VPCId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--caller-reference</span></tt> (string)</p>
+<blockquote>
+<div>A unique string that identifies the request and that allows failed <tt class="docutils literal"><span class="pre">CreateHostedZone</span></tt> requests to be retried without the risk of executing the operation twice. You must use a unique <tt class="docutils literal"><span class="pre">CallerReference</span></tt> string every time you submit a <tt class="docutils literal"><span class="pre">CreateHostedZone</span></tt> request. <tt class="docutils literal"><span class="pre">CallerReference</span></tt> can be any unique string, for example, a date/time stamp.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--hosted-zone-config</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>(Optional) A complex type that contains the following optional values:</p>
+<ul class="simple">
+<li>For public and private hosted zones, an optional comment</li>
+<li>For private hosted zones, an optional <tt class="docutils literal"><span class="pre">PrivateZone</span></tt> element</li>
+</ul>
+<p>If you don't specify a comment or the <tt class="docutils literal"><span class="pre">PrivateZone</span></tt> element, omit <tt class="docutils literal"><span class="pre">HostedZoneConfig</span></tt> and the other elements.</p>
+</div>
+</blockquote>
+<p>Note do <strong>not</strong> include <tt class="docutils literal"><span class="pre">PrivateZone</span></tt> in this input structure. Its value is returned in the output to the command.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Comment</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">PrivateZone</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"PrivateZone"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--delegation-set-id</span></tt> (string)</p>
+<blockquote>
+<div>If you want to associate a reusable delegation set with this hosted zone, the ID that Amazon Route 53 assigned to the reusable delegation set when you created it. For more information about reusable delegation sets, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateReusableDelegationSet.html">CreateReusableDelegationSet</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a hosted zone</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-hosted-zone</span></tt> command adds a hosted zone named <tt class="docutils literal"><span class="pre">example.com</span></tt> using the caller reference <tt class="docutils literal"><span class="pre">2014-04-01-18:47</span></tt>. The optional comment includes a space, so it must be enclosed in quotation marks:</p>
+<div class="highlight-python">
+<pre>aws route53 create-hosted-zone --name example.com --caller-reference 2014-04-01-18:47 --hosted-zone-config Comment="command-line version"</pre>
+</div>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/AboutHZWorkingWith.html">Working with Hosted Zones</a> in the <em>Amazon Route 53 Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>HostedZone -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains general information about the hosted zone.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID that Amazon Route 53 assigned to the hosted zone when you created it.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of the domain. For public hosted zones, this is the name that you have registered with your DNS registrar.</p>
+<p>For information about how to specify characters other than <tt class="docutils literal"><span class="pre">a-z</span></tt> , <tt class="docutils literal"><span class="pre">0-9</span></tt> , and <tt class="docutils literal"><span class="pre">-</span></tt> (hyphen) and how to specify internationalized domain names, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateHostedZone.html">CreateHostedZone</a> .</p>
+</div>
+</blockquote>
+<p>CallerReference -&gt; (string)</p>
+<blockquote>
+<div>The value that you specified for <tt class="docutils literal"><span class="pre">CallerReference</span></tt> when you created the hosted zone.</div>
+</blockquote>
+<p>Config -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that includes the <tt class="docutils literal"><span class="pre">Comment</span></tt> and <tt class="docutils literal"><span class="pre">PrivateZone</span></tt> elements. If you omitted the <tt class="docutils literal"><span class="pre">HostedZoneConfig</span></tt> and <tt class="docutils literal"><span class="pre">Comment</span></tt> elements from the request, the <tt class="docutils literal"><span class="pre">Config</span></tt> and <tt class="docutils literal"><span class="pre">Comment</span></tt> elements don't appear in the response.</p>
+<p>Comment -&gt; (string)</p>
+<blockquote>
+<div>Any comments that you want to include about the hosted zone.</div>
+</blockquote>
+<p>PrivateZone -&gt; (boolean)</p>
+<blockquote>
+<div>A value that indicates whether this is a private hosted zone.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ResourceRecordSetCount -&gt; (long)</p>
+<blockquote>
+<div>The number of resource record sets in the hosted zone.</div>
+</blockquote>
+<p>LinkedService -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>If the hosted zone was created by another service, the service that created the hosted zone. When a hosted zone is created by another service, you can't edit or delete it using Route 53.</p>
+<p>ServicePrincipal -&gt; (string)</p>
+<blockquote>
+<div>If the health check or hosted zone was created by another service, the service that created the resource. When a resource is created by another service, you can't edit or delete it using Amazon Route 53.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>If the health check or hosted zone was created by another service, an optional description that can be provided by the other service. When a resource is created by another service, you can't edit or delete it using Amazon Route 53.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ChangeInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about the <tt class="docutils literal"><span class="pre">CreateHostedZone</span></tt> request.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID of the request.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current state of the request. <tt class="docutils literal"><span class="pre">PENDING</span></tt> indicates that this request has not yet been applied to all Amazon Route 53 DNS servers.</div>
+</blockquote>
+<p>SubmittedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the change request was submitted in <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a> and Coordinated Universal Time (UTC). For example, the value <tt class="docutils literal"><span class="pre">2017-03-27T17:48:16.751Z</span></tt> represents March 27, 2017 at 17:48:16.751 UTC.</div>
+</blockquote>
+<p>Comment -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A complex type that describes change information about changes made to your hosted zone.</p>
+<p>This element contains an ID that you use when performing a <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get detailed information about the change.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DelegationSet -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that describes the name servers for this hosted zone.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID that Amazon Route 53 assigns to a reusable delegation set.</div>
+</blockquote>
+<p>CallerReference -&gt; (string)</p>
+<blockquote>
+<div>The value that you specified for <tt class="docutils literal"><span class="pre">CallerReference</span></tt> when you created the reusable delegation set.</div>
+</blockquote>
+<p>NameServers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A complex type that contains a list of the authoritative name servers for a hosted zone or for a reusable delegation set.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VPC -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about an Amazon VPC that you associated with this hosted zone.</p>
+<p>VPCRegion -&gt; (string)</p>
+<blockquote>
+<div>(Private hosted zones only) The region that an Amazon VPC was created in.</div>
+</blockquote>
+<p>VPCId -&gt; (string)</p>
+<blockquote>
+<div>(Private hosted zones only) The ID of an Amazon VPC.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Location -&gt; (string)</p>
+<blockquote>
+<div>The unique URL representing the new hosted zone.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-lifecycle-policy — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecr" href="index.html">
+    <link rel="next" title="set-repository-policy" href="set-repository-policy.html">
+    <link rel="prev" title="put-image-tag-mutability" href="put-image-tag-mutability.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-lifecycle-policy">
+<span id="cli-aws-ecr-put-lifecycle-policy"></span><h1>put-lifecycle-policy<a class="headerlink" href="#put-lifecycle-policy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates or updates a lifecycle policy. For information about lifecycle policy syntax, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html">Lifecycle Policy Template</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutLifecyclePolicy">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-lifecycle-policy
+[--registry-id &lt;value&gt;]
+--repository-name &lt;value&gt;
+--lifecycle-policy-text &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--registry-id</span></tt> (string)</p>
+<blockquote>
+<div>The AWS account ID associated with the registry that contains the repository. If you donot specify a registry, the default registry is assumed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--repository-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the repository to receive the policy.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--lifecycle-policy-text</span></tt> (string)</p>
+<blockquote>
+<div>The JSON repository policy text to apply to the repository.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a lifecycle policy</strong></p>
+<p>This example creates a lifecycle policy defined by <tt class="docutils literal"><span class="pre">policy.json`</span> <span class="pre">for</span> <span class="pre">a</span> <span class="pre">repository</span> <span class="pre">called</span>
+<span class="pre">``project-a/amazon-ecs-sample</span></tt> in the default registry for an account.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ecr put-lifecycle-policy --repository-name "project-a/amazon-ecs-sample" --lifecycle-policy-text "file://policy.json"</pre>
+</div>
+<p>JSON file format:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"rules"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"rulePriority"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"description"</span><span class="p">:</span> <span class="s2">"Expire images older than 14 days"</span><span class="p">,</span>
+            <span class="s2">"selection"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"tagStatus"</span><span class="p">:</span> <span class="s2">"untagged"</span><span class="p">,</span>
+                <span class="s2">"countType"</span><span class="p">:</span> <span class="s2">"sinceImagePushed"</span><span class="p">,</span>
+                <span class="s2">"countUnit"</span><span class="p">:</span> <span class="s2">"days"</span><span class="p">,</span>
+                <span class="s2">"countNumber"</span><span class="p">:</span> <span class="mi">14</span>
+            <span class="p">},</span>
+            <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"expire"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"registryId"</span><span class="p">:</span> <span class="s2">"&lt;aws_account_id&gt;"</span><span class="p">,</span>
+  <span class="s2">"repositoryName"</span><span class="p">:</span> <span class="s2">"project-a/amazon-ecs-sample"</span><span class="p">,</span>
+  <span class="s2">"lifecyclePolicyText"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">rules</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">rulePriority</span><span class="se">\"</span><span class="s2">:1,</span><span class="se">\"</span><span class="s2">description</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Expire images older than 14 days</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">selection</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">tagStatus</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">untagged</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">countType</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">sinceImagePushed</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">countUnit</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">days</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">countNumber</span><span class="se">\"</span><span class="s2">:14},</span><span class="se">\"</span><span class="s2">action</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">expire</span><span class="se">\"</span><span class="s2">}}]}"</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>registryId -&gt; (string)</p>
+<blockquote>
+<div>The registry ID associated with the request.</div>
+</blockquote>
+<p>repositoryName -&gt; (string)</p>
+<blockquote>
+<div>The repository name associated with the request.</div>
+</blockquote>
+<p>lifecyclePolicyText -&gt; (string)</p>
+<blockquote>
+<div>The JSON repository policy text.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

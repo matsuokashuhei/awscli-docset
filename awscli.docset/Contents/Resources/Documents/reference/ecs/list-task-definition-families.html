@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-task-definition-families — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecs" href="index.html">
+    <link rel="next" title="list-task-definitions" href="list-task-definitions.html">
+    <link rel="prev" title="list-tags-for-resource" href="list-tags-for-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-task-definition-families">
+<span id="cli-aws-ecs-list-task-definition-families"></span><h1>list-task-definition-families<a class="headerlink" href="#list-task-definition-families" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns a list of task definition families that are registered to your account (which may include task definition families that no longer have any <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> task definition revisions).</p>
+<p>You can filter out task definition families that do not contain any <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> task definition revisions by setting the <tt class="docutils literal"><span class="pre">status</span></tt> parameter to <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> . You can also filter the results with the <tt class="docutils literal"><span class="pre">familyPrefix</span></tt> parameter.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ListTaskDefinitionFamilies">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-task-definition-families</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">families</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-task-definition-families
+[--family-prefix &lt;value&gt;]
+[--status &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--family-prefix</span></tt> (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">familyPrefix</span></tt> is a string that is used to filter the results of <tt class="docutils literal"><span class="pre">ListTaskDefinitionFamilies</span></tt> . If you specify a <tt class="docutils literal"><span class="pre">familyPrefix</span></tt> , only task definition family names that begin with the <tt class="docutils literal"><span class="pre">familyPrefix</span></tt> string are returned.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--status</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The task definition family status with which to filter the <tt class="docutils literal"><span class="pre">ListTaskDefinitionFamilies</span></tt> results. By default, both <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> and <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definition families are listed. If this parameter is set to <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> , only task definition families that have an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> task definition revision are returned. If this parameter is set to <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> , only task definition families that do not have any <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> task definition revisions are returned. If you paginate the resulting output, be sure to keep the <tt class="docutils literal"><span class="pre">status</span></tt> value constant in each subsequent request.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ACTIVE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">INACTIVE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ALL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To list the registered task definition families</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">list-task-definition-families</span></tt> example lists all of the registered task definition families.</p>
+<div class="highlight-python">
+<pre>aws ecs list-task-definition-families</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"families"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"node-js-app"</span><span class="p">,</span>
+        <span class="s2">"web-timer"</span><span class="p">,</span>
+        <span class="s2">"hpcc"</span><span class="p">,</span>
+        <span class="s2">"hpcc-c4-8xlarge"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To filter the registered task definition families</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">list-task-definition-families</span></tt> example lists the task definition revisions that start with "hpcc".</p>
+<div class="highlight-python">
+<pre>aws ecs list-task-definition-families --family-prefix hpcc</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"families"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"hpcc"</span><span class="p">,</span>
+        <span class="s2">"hpcc-c4-8xlarge"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#family">Task Definition Parameters</a> in the <em>Amazon ECS Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>families -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of task definition family names that match the <tt class="docutils literal"><span class="pre">ListTaskDefinitionFamilies</span></tt> request.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">nextToken</span></tt> value to include in a future <tt class="docutils literal"><span class="pre">ListTaskDefinitionFamilies</span></tt> request. When the results of a <tt class="docutils literal"><span class="pre">ListTaskDefinitionFamilies</span></tt> request exceed <tt class="docutils literal"><span class="pre">maxResults</span></tt> , this value can be used to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

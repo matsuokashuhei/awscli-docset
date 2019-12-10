@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-session — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lex-runtime" href="index.html">
+    <link rel="next" title="license-manager" href="../license-manager/index.html">
+    <link rel="prev" title="post-text" href="post-text.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-session">
+<span id="cli-aws-lex-runtime-put-session"></span><h1>put-session<a class="headerlink" href="#put-session" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new session or modifies an existing session with an Amazon Lex bot. Use this operation to enable your application to set the state of the bot.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lex/latest/dg/how-session-api.html">Managing Sessions</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/runtime.lex-2016-11-28/PutSession">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-session
+--bot-name &lt;value&gt;
+--bot-alias &lt;value&gt;
+--user-id &lt;value&gt;
+[--session-attributes &lt;value&gt;]
+[--dialog-action &lt;value&gt;]
+[--recent-intent-summary-view &lt;value&gt;]
+[--accept &lt;value&gt;]
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bot-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bot that contains the session data.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bot-alias</span></tt> (string)</p>
+<blockquote>
+<div>The alias in use for the bot that contains the session data.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--user-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the client application user. Amazon Lex uses this to identify a user's conversation with your bot.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--session-attributes</span></tt> (map)</p>
+<blockquote>
+<div>Map of key/value pairs representing the session-specific context information. It contains application information passed between Amazon Lex and a client application.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dialog-action</span></tt> (structure)</p>
+<blockquote>
+<div>Sets the next action that the bot should take to fulfill the conversation.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>type=string,intentName=string,slots={KeyName1=string,KeyName2=string},slotToElicit=string,fulfillmentState=string,message=string,messageFormat=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "type": "ElicitIntent"|"ConfirmIntent"|"ElicitSlot"|"Close"|"Delegate",
+  "intentName": "string",
+  "slots": {"string": "string"
+    ...},
+  "slotToElicit": "string",
+  "fulfillmentState": "Fulfilled"|"Failed"|"ReadyForFulfillment",
+  "message": "string",
+  "messageFormat": "PlainText"|"CustomPayload"|"SSML"|"Composite"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--recent-intent-summary-view</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A summary of the recent intents for the bot. You can use the intent summary view to set a checkpoint label on an intent and modify attributes of intents. You can also use it to remove or add intent summary objects to the list.</p>
+<p>An intent that you modify or add to the list must make sense for the bot. For example, the intent name must be valid for the bot. You must provide valid values for:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">intentName</span></tt></li>
+<li>slot names</li>
+<li><tt class="docutils literal"><span class="pre">slotToElict</span></tt></li>
+</ul>
+<p>If you send the <tt class="docutils literal"><span class="pre">recentIntentSummaryView</span></tt> parameter in a <tt class="docutils literal"><span class="pre">PutSession</span></tt> request, the contents of the new summary view replaces the old summary view. For example, if a <tt class="docutils literal"><span class="pre">GetSession</span></tt> request returns three intents in the summary view and you call <tt class="docutils literal"><span class="pre">PutSession</span></tt> with one intent in the summary view, the next call to <tt class="docutils literal"><span class="pre">GetSession</span></tt> will only return one intent.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>intentName=string,checkpointLabel=string,slots={KeyName1=string,KeyName2=string},confirmationStatus=string,dialogActionType=string,fulfillmentState=string,slotToElicit=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "intentName": "string",
+    "checkpointLabel": "string",
+    "slots": {"string": "string"
+      ...},
+    "confirmationStatus": "None"|"Confirmed"|"Denied",
+    "dialogActionType": "ElicitIntent"|"ConfirmIntent"|"ElicitSlot"|"Close"|"Delegate",
+    "fulfillmentState": "Fulfilled"|"Failed"|"ReadyForFulfillment",
+    "slotToElicit": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--accept</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The message that Amazon Lex returns in the response can be either text or speech based depending on the value of this field.</p>
+<ul class="simple">
+<li>If the value is <tt class="docutils literal"><span class="pre">text/plain;</span> <span class="pre">charset=utf-8</span></tt> , Amazon Lex returns text in the response.</li>
+<li>If the value begins with <tt class="docutils literal"><span class="pre">audio/</span></tt> , Amazon Lex returns speech in the response. Amazon Lex uses Amazon Polly to generate the speech in the configuration that you specify. For example, if you specify <tt class="docutils literal"><span class="pre">audio/mpeg</span></tt> as the value, Amazon Lex returns speech in the MPEG format.</li>
+<li>If the value is <tt class="docutils literal"><span class="pre">audio/pcm</span></tt> , the speech is returned as <tt class="docutils literal"><span class="pre">audio/pcm</span></tt> in 16-bit, little endian format.</li>
+<li>The following are the accepted values:<ul>
+<li><tt class="docutils literal"><span class="pre">audio/mpeg</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">audio/ogg</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">audio/pcm</span></tt></li>
+<li>
+<tt class="docutils literal"><span class="pre">audio/*</span></tt> (defaults to mpeg)</li>
+<li><tt class="docutils literal"><span class="pre">text/plain;</span> <span class="pre">charset=utf-8</span></tt></li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the content will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>contentType -&gt; (string)</p>
+<blockquote>
+<div>Content type as specified in the <tt class="docutils literal"><span class="pre">Accept</span></tt> HTTP header in the request.</div>
+</blockquote>
+<p>intentName -&gt; (string)</p>
+<blockquote>
+<div>The name of the current intent.</div>
+</blockquote>
+<p>slots -&gt; (JSON)</p>
+<blockquote>
+<div>
+<p>Map of zero or more intent slots Amazon Lex detected from the user input during the conversation.</p>
+<p>Amazon Lex creates a resolution list containing likely values for a slot. The value that it returns is determined by the <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> selected when the slot type was created or updated. If <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> is set to <tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt> , the value provided by the user is returned, if the user value is similar to the slot values. If <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> is set to <tt class="docutils literal"><span class="pre">TOP_RESOLUTION</span></tt> Amazon Lex returns the first value in the resolution list or, if there is no resolution list, null. If you don't specify a <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> the default is <tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt> .</p>
+</div>
+</blockquote>
+<p>sessionAttributes -&gt; (JSON)</p>
+<blockquote>
+<div>Map of key/value pairs representing session-specific context information.</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The next message that should be presented to the user.</div>
+</blockquote>
+<p>messageFormat -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The format of the response message. One of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">PlainText</span></tt> - The message contains plain UTF-8 text.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CustomPayload</span></tt> - The message is a custom format for the client.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SSML</span></tt> - The message contains text formatted for voice output.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Composite</span></tt> - The message contains an escaped JSON object containing one or more messages from the groups that messages were assigned to when the intent was created.</li>
+</ul>
+</div>
+</blockquote>
+<p>dialogState -&gt; (string)</p>
+<blockquote>
+<div>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ConfirmIntent</span></tt> - Amazon Lex is expecting a "yes" or "no" response to confirm the intent before fulfilling an intent.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ElicitIntent</span></tt> - Amazon Lex wants to elicit the user's intent.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ElicitSlot</span></tt> - Amazon Lex is expecting the value of a slot for the current intent.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Failed</span></tt> - Conveys that the conversation with the user has failed. This can happen for various reasons, including the user does not provide an appropriate response to prompts from the service, or if the Lambda function fails to fulfill the intent.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Fulfilled</span></tt> - Conveys that the Lambda function has sucessfully fulfilled the intent.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ReadyForFulfillment</span></tt> - Conveys that the client has to fulfill the intent.</li>
+</ul>
+</div>
+</blockquote>
+<p>slotToElicit -&gt; (string)</p>
+<blockquote>
+<div>If the <tt class="docutils literal"><span class="pre">dialogState</span></tt> is <tt class="docutils literal"><span class="pre">ElicitSlot</span></tt> , returns the name of the slot for which Amazon Lex is eliciting a value.</div>
+</blockquote>
+<p>audioStream -&gt; (blob)</p>
+<blockquote>
+<div>The audio version of the message to convey to the user.</div>
+</blockquote>
+<p>sessionId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for the session.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

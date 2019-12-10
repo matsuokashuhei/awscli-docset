@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>detect-stack-set-drift — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudformation" href="index.html">
+    <link rel="next" title="estimate-template-cost" href="estimate-template-cost.html">
+    <link rel="prev" title="detect-stack-resource-drift" href="detect-stack-resource-drift.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="detect-stack-set-drift">
+<span id="cli-aws-cloudformation-detect-stack-set-drift"></span><h1>detect-stack-set-drift<a class="headerlink" href="#detect-stack-set-drift" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Detect drift on a stack set. When CloudFormation performs drift detection on a stack set, it performs drift detection on the stack associated with each stack instance in the stack set. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html">How CloudFormation Performs Drift Detection on a Stack Set</a> .</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">DetectStackSetDrift</span></tt> returns the <tt class="docutils literal"><span class="pre">OperationId</span></tt> of the stack set drift detection operation. Use this operation id with ``  DescribeStackSetOperation `` to monitor the progress of the drift detection operation. The drift detection operation may take some time, depending on the number of stack instances included in the stack set, as well as the number of resources included in each stack.</div>
+</blockquote>
+<p>Once the operation has completed, use the following actions to return drift information:</p>
+<ul class="simple">
+<li>Use ``  DescribeStackSet `` to return detailed informaiton about the stack set, including detailed information about the last <em>completed</em> drift operation performed on the stack set. (Information about drift operations that are in progress is not included.)</li>
+<li>Use ``  ListStackInstances `` to return a list of stack instances belonging to the stack set, including the drift status and last drift time checked of each instance.</li>
+<li>Use ``  DescribeStackInstance `` to return detailed information about a specific stack instance, including its drift status and last drift time checked.</li>
+</ul>
+<p>For more information on performing a drift detection operation on a stack set, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html">Detecting Unmanaged Changes in Stack Sets</a> .</p>
+<p>You can only run a single drift detection operation on a given stack set at one time.</p>
+<p>To stop a drift detection stack set operation, use ``  StopStackSetOperation `` .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DetectStackSetDrift">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  detect-stack-set-drift
+--stack-set-name &lt;value&gt;
+[--operation-preferences &lt;value&gt;]
+[--operation-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stack-set-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the stack set on which to perform the drift detection operation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--operation-preferences</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The user-specified preferences for how AWS CloudFormation performs a stack set operation.</p>
+<p>For more information on maximum concurrent accounts and failure tolerance, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options">Stack set operation options</a> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">RegionOrder</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">FailureToleranceCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">FailureTolerancePercentage</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxConcurrentCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxConcurrentPercentage</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"RegionOrder"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"FailureToleranceCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"FailureTolerancePercentage"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxConcurrentCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxConcurrentPercentage"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--operation-id</span></tt> (string)</p>
+<blockquote>
+<div><em>The ID of the stack set operation.</em></div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>OperationId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ID of the drift detection stack set operation.</p>
+<p>you can use this operation id with ``  DescribeStackSetOperation `` to monitor the progress of the drift detection operation.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

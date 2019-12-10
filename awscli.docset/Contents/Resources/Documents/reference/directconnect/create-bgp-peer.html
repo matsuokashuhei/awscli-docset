@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-bgp-peer — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="directconnect" href="index.html">
+    <link rel="next" title="create-connection" href="create-connection.html">
+    <link rel="prev" title="confirm-transit-virtual-interface" href="confirm-transit-virtual-interface.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-bgp-peer">
+<span id="cli-aws-directconnect-create-bgp-peer"></span><h1>create-bgp-peer<a class="headerlink" href="#create-bgp-peer" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a BGP peer on the specified virtual interface.</p>
+<p>You must create a BGP peer for the corresponding address family (IPv4/IPv6) in order to access AWS resources that also use that address family.</p>
+<p>If logical redundancy is not supported by the connection, interconnect, or LAG, the BGP peer cannot be in the same address family as an existing BGP peer on the virtual interface.</p>
+<p>When creating a IPv6 BGP peer, omit the Amazon address and customer address. IPv6 addresses are automatically assigned from the Amazon pool of IPv6 addresses; you cannot specify custom IPv6 addresses.</p>
+<p>For a public virtual interface, the Autonomous System Number (ASN) must be private or already whitelisted for the virtual interface.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/CreateBGPPeer">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-bgp-peer
+[--virtual-interface-id &lt;value&gt;]
+[--new-bgp-peer &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--virtual-interface-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the virtual interface.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--new-bgp-peer</span></tt> (structure)</p>
+<blockquote>
+<div>Information about the BGP peer.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">asn</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">authKey</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">addressFamily</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">amazonAddress</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">customerAddress</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"asn"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"authKey"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"addressFamily"</span><span class="p">:</span> <span class="s2">"ipv4"</span><span class="o">|</span><span class="s2">"ipv6"</span><span class="p">,</span>
+  <span class="s2">"amazonAddress"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"customerAddress"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create an IPv6 BGP peering session</strong></p>
+<p>The following example creates an IPv6 BGP peering session on private virtual interface <tt class="docutils literal"><span class="pre">dxvif-fg1vuj3d</span></tt>. The peer IPv6 addresses are automatically allocated by Amazon.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws directconnect create-bgp-peer --virtual-interface-id dxvif-fg1vuj3d --new-bgp-peer asn=64600,addressFamily=ipv6</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"virtualInterface"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"virtualInterfaceState"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+      <span class="s2">"asn"</span><span class="p">:</span> <span class="mi">65000</span><span class="p">,</span>
+      <span class="s2">"vlan"</span><span class="p">:</span> <span class="mi">125</span><span class="p">,</span>
+      <span class="s2">"customerAddress"</span><span class="p">:</span> <span class="s2">"169.254.255.2/30"</span><span class="p">,</span>
+      <span class="s2">"ownerAccount"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+      <span class="s2">"connectionId"</span><span class="p">:</span> <span class="s2">"dxcon-fguhmqlc"</span><span class="p">,</span>
+      <span class="s2">"addressFamily"</span><span class="p">:</span> <span class="s2">"ipv4"</span><span class="p">,</span>
+      <span class="s2">"virtualGatewayId"</span><span class="p">:</span> <span class="s2">"vgw-f9eb0c90"</span><span class="p">,</span>
+      <span class="s2">"virtualInterfaceId"</span><span class="p">:</span> <span class="s2">"dxvif-fg1vuj3d"</span><span class="p">,</span>
+      <span class="s2">"authKey"</span><span class="p">:</span> <span class="s2">"0xC_ukbCerl6EYA0example"</span><span class="p">,</span>
+      <span class="s2">"routeFilterPrefixes"</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="s2">"location"</span><span class="p">:</span> <span class="s2">"EqDC2"</span><span class="p">,</span>
+      <span class="s2">"bgpPeers"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+              <span class="s2">"bgpStatus"</span><span class="p">:</span> <span class="s2">"down"</span><span class="p">,</span>
+              <span class="s2">"customerAddress"</span><span class="p">:</span> <span class="s2">"169.254.255.2/30"</span><span class="p">,</span>
+              <span class="s2">"addressFamily"</span><span class="p">:</span> <span class="s2">"ipv4"</span><span class="p">,</span>
+              <span class="s2">"authKey"</span><span class="p">:</span> <span class="s2">"0xC_ukbCerl6EYA0uexample"</span><span class="p">,</span>
+              <span class="s2">"bgpPeerState"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+              <span class="s2">"amazonAddress"</span><span class="p">:</span> <span class="s2">"169.254.255.1/30"</span><span class="p">,</span>
+              <span class="s2">"asn"</span><span class="p">:</span> <span class="mi">65000</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+              <span class="s2">"bgpStatus"</span><span class="p">:</span> <span class="s2">"down"</span><span class="p">,</span>
+              <span class="s2">"customerAddress"</span><span class="p">:</span> <span class="s2">"2001:db8:1100:2f0:0:1:9cb4:4216/125"</span><span class="p">,</span>
+              <span class="s2">"addressFamily"</span><span class="p">:</span> <span class="s2">"ipv6"</span><span class="p">,</span>
+              <span class="s2">"authKey"</span><span class="p">:</span> <span class="s2">"0xS27kAIU_VHPjjAexample"</span><span class="p">,</span>
+              <span class="s2">"bgpPeerState"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+              <span class="s2">"amazonAddress"</span><span class="p">:</span> <span class="s2">"2001:db8:1100:2f0:0:1:9cb4:4211/125"</span><span class="p">,</span>
+              <span class="s2">"asn"</span><span class="p">:</span> <span class="mi">64600</span>
+          <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="s2">"customerRouterConfig"</span><span class="p">:</span> <span class="s2">"&lt;?xml version=</span><span class="se">\"</span><span class="s2">1.0</span><span class="se">\"</span><span class="s2"> encoding=</span><span class="se">\"</span><span class="s2">UTF-8</span><span class="se">\"</span><span class="s2">?&gt;</span><span class="se">\n</span><span class="s2">&lt;logical_connection id=</span><span class="se">\"</span><span class="s2">dxvif-fg1vuj3d</span><span class="se">\"</span><span class="s2">&gt;</span><span class="se">\n</span><span class="s2">  &lt;vlan&gt;125&lt;/vlan&gt;</span><span class="se">\n</span><span class="s2">  &lt;customer_address&gt;169.254.255.2/30&lt;/customer_address&gt;</span><span class="se">\n</span><span class="s2">  &lt;amazon_address&gt;169.254.255.1/30&lt;/amazon_address&gt;</span><span class="se">\n</span><span class="s2">  &lt;bgp_asn&gt;65000&lt;/bgp_asn&gt;</span><span class="se">\n</span><span class="s2">  &lt;bgp_auth_key&gt;0xC_ukbCerl6EYA0uexample&lt;/bgp_auth_key&gt;</span><span class="se">\n</span><span class="s2">  &lt;ipv6_customer_address&gt;2001:db8:1100:2f0:0:1:9cb4:4216/125&lt;/ipv6_customer_address&gt;</span><span class="se">\n</span><span class="s2">  &lt;ipv6_amazon_address&gt;2001:db8:1100:2f0:0:1:9cb4:4211/125&lt;/ipv6_amazon_address&gt;</span><span class="se">\n</span><span class="s2">  &lt;ipv6_bgp_asn&gt;64600&lt;/ipv6_bgp_asn&gt;</span><span class="se">\n</span><span class="s2">  &lt;ipv6_bgp_auth_key&gt;0xS27kAIU_VHPjjAexample&lt;/ipv6_bgp_auth_key&gt;</span><span class="se">\n</span><span class="s2">  &lt;amazon_bgp_asn&gt;7224&lt;/amazon_bgp_asn&gt;</span><span class="se">\n</span><span class="s2">  &lt;connection_type&gt;private&lt;/connection_type&gt;</span><span class="se">\n</span><span class="s2">&lt;/logical_connection&gt;</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
+      <span class="s2">"amazonAddress"</span><span class="p">:</span> <span class="s2">"169.254.255.1/30"</span><span class="p">,</span>
+      <span class="s2">"virtualInterfaceType"</span><span class="p">:</span> <span class="s2">"private"</span><span class="p">,</span>
+      <span class="s2">"virtualInterfaceName"</span><span class="p">:</span> <span class="s2">"Test"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>virtualInterface -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The virtual interface.</p>
+<p>ownerAccount -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS account that owns the virtual interface.</div>
+</blockquote>
+<p>virtualInterfaceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the virtual interface.</div>
+</blockquote>
+<p>location -&gt; (string)</p>
+<blockquote>
+<div>The location of the connection.</div>
+</blockquote>
+<p>connectionId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the connection.</div>
+</blockquote>
+<p>virtualInterfaceType -&gt; (string)</p>
+<blockquote>
+<div>The type of virtual interface. The possible values are <tt class="docutils literal"><span class="pre">private</span></tt> and <tt class="docutils literal"><span class="pre">public</span></tt> .</div>
+</blockquote>
+<p>virtualInterfaceName -&gt; (string)</p>
+<blockquote>
+<div>The name of the virtual interface assigned by the customer network.</div>
+</blockquote>
+<p>vlan -&gt; (integer)</p>
+<blockquote>
+<div>The ID of the VLAN.</div>
+</blockquote>
+<p>asn -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</p>
+<p>The valid values are 1-2147483647.</p>
+</div>
+</blockquote>
+<p>amazonSideAsn -&gt; (long)</p>
+<blockquote>
+<div>The autonomous system number (ASN) for the Amazon side of the connection.</div>
+</blockquote>
+<p>authKey -&gt; (string)</p>
+<blockquote>
+<div>The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.</div>
+</blockquote>
+<p>amazonAddress -&gt; (string)</p>
+<blockquote>
+<div>The IP address assigned to the Amazon interface.</div>
+</blockquote>
+<p>customerAddress -&gt; (string)</p>
+<blockquote>
+<div>The IP address assigned to the customer interface.</div>
+</blockquote>
+<p>addressFamily -&gt; (string)</p>
+<blockquote>
+<div>The address family for the BGP peer.</div>
+</blockquote>
+<p>virtualInterfaceState -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The state of the virtual interface. The following are the possible values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">confirming</span></tt> : The creation of the virtual interface is pending confirmation from the virtual interface owner. If the owner of the virtual interface is different from the owner of the connection on which it is provisioned, then the virtual interface will remain in this state until it is confirmed by the virtual interface owner.</li>
+<li>
+<tt class="docutils literal"><span class="pre">verifying</span></tt> : This state only applies to public virtual interfaces. Each public virtual interface needs validation before the virtual interface can be created.</li>
+<li>
+<tt class="docutils literal"><span class="pre">pending</span></tt> : A virtual interface is in this state from the time that it is created until the virtual interface is ready to forward traffic.</li>
+<li>
+<tt class="docutils literal"><span class="pre">available</span></tt> : A virtual interface that is able to forward traffic.</li>
+<li>
+<tt class="docutils literal"><span class="pre">down</span></tt> : A virtual interface that is BGP down.</li>
+<li>
+<tt class="docutils literal"><span class="pre">deleting</span></tt> : A virtual interface is in this state immediately after calling  DeleteVirtualInterface until it can no longer forward traffic.</li>
+<li>
+<tt class="docutils literal"><span class="pre">deleted</span></tt> : A virtual interface that cannot forward traffic.</li>
+<li>
+<tt class="docutils literal"><span class="pre">rejected</span></tt> : The virtual interface owner has declined creation of the virtual interface. If a virtual interface in the <tt class="docutils literal"><span class="pre">Confirming</span></tt> state is deleted by the virtual interface owner, the virtual interface enters the <tt class="docutils literal"><span class="pre">Rejected</span></tt> state.</li>
+<li>
+<tt class="docutils literal"><span class="pre">unknown</span></tt> : The state of the virtual interface is not available.</li>
+</ul>
+</div>
+</blockquote>
+<p>customerRouterConfig -&gt; (string)</p>
+<blockquote>
+<div>The customer router configuration.</div>
+</blockquote>
+<p>mtu -&gt; (integer)</p>
+<blockquote>
+<div>The maximum transmission unit (MTU), in bytes. The supported values are 1500 and 9001. The default value is 1500.</div>
+</blockquote>
+<p>jumboFrameCapable -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether jumbo frames (9001 MTU) are supported.</div>
+</blockquote>
+<p>virtualGatewayId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the virtual private gateway. Applies only to private virtual interfaces.</div>
+</blockquote>
+<p>directConnectGatewayId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Direct Connect gateway.</div>
+</blockquote>
+<p>routeFilterPrefixes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The routes to be advertised to the AWS network in this Region. Applies to public virtual interfaces.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a route filter prefix that a customer can advertise through Border Gateway Protocol (BGP) over a public virtual interface.</p>
+<p>cidr -&gt; (string)</p>
+<blockquote>
+<div>The CIDR block for the advertised route. Separate multiple routes using commas. An IPv6 CIDR must use /64 or shorter.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>bgpPeers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The BGP peers configured on this virtual interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a BGP peer.</p>
+<p>bgpPeerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the BGP peer.</div>
+</blockquote>
+<p>asn -&gt; (integer)</p>
+<blockquote>
+<div>The autonomous system (AS) number for Border Gateway Protocol (BGP) configuration.</div>
+</blockquote>
+<p>authKey -&gt; (string)</p>
+<blockquote>
+<div>The authentication key for BGP configuration. This string has a minimum length of 6 characters and and a maximun lenth of 80 characters.</div>
+</blockquote>
+<p>addressFamily -&gt; (string)</p>
+<blockquote>
+<div>The address family for the BGP peer.</div>
+</blockquote>
+<p>amazonAddress -&gt; (string)</p>
+<blockquote>
+<div>The IP address assigned to the Amazon interface.</div>
+</blockquote>
+<p>customerAddress -&gt; (string)</p>
+<blockquote>
+<div>The IP address assigned to the customer interface.</div>
+</blockquote>
+<p>bgpPeerState -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The state of the BGP peer. The following are the possible values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">verifying</span></tt> : The BGP peering addresses or ASN require validation before the BGP peer can be created. This state applies only to public virtual interfaces.</li>
+<li>
+<tt class="docutils literal"><span class="pre">pending</span></tt> : The BGP peer is created, and remains in this state until it is ready to be established.</li>
+<li>
+<tt class="docutils literal"><span class="pre">available</span></tt> : The BGP peer is ready to be established.</li>
+<li>
+<tt class="docutils literal"><span class="pre">deleting</span></tt> : The BGP peer is being deleted.</li>
+<li>
+<tt class="docutils literal"><span class="pre">deleted</span></tt> : The BGP peer is deleted and cannot be established.</li>
+</ul>
+</div>
+</blockquote>
+<p>bgpStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the BGP peer. The following are the possible values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">up</span></tt> : The BGP peer is established. This state does not indicate the state of the routing function. Ensure that you are receiving routes over the BGP session.</li>
+<li>
+<tt class="docutils literal"><span class="pre">down</span></tt> : The BGP peer is down.</li>
+<li>
+<tt class="docutils literal"><span class="pre">unknown</span></tt> : The BGP peer status is not available.</li>
+</ul>
+</div>
+</blockquote>
+<p>awsDeviceV2 -&gt; (string)</p>
+<blockquote>
+<div>The Direct Connect endpoint on which the BGP peer terminates.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region where the virtual interface is located.</div>
+</blockquote>
+<p>awsDeviceV2 -&gt; (string)</p>
+<blockquote>
+<div>The Direct Connect endpoint on which the virtual interface terminates.</div>
+</blockquote>
+<p>tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The tags associated with the virtual interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a tag.</p>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>The key.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

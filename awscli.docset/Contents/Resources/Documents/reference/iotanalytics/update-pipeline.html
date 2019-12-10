@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-pipeline — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iotanalytics" href="index.html">
+    <link rel="next" title="iotevents" href="../iotevents/index.html">
+    <link rel="prev" title="update-datastore" href="update-datastore.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-pipeline">
+<span id="cli-aws-iotanalytics-update-pipeline"></span><h1>update-pipeline<a class="headerlink" href="#update-pipeline" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates the settings of a pipeline. You must specify both a <tt class="docutils literal"><span class="pre">channel</span></tt> and a <tt class="docutils literal"><span class="pre">datastore</span></tt> activity and, optionally, as many as 23 additional activities in the <tt class="docutils literal"><span class="pre">pipelineActivities</span></tt> array.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/UpdatePipeline">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-pipeline
+--pipeline-name &lt;value&gt;
+--pipeline-activities &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--pipeline-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the pipeline to update.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--pipeline-activities</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of "PipelineActivity" objects. Activities perform transformations on your messages, such as removing, renaming or adding message attributes; filtering messages based on attribute values; invoking your Lambda functions on messages for advanced processing; or performing mathematical transformations to normalize device data.</p>
+<p>The list can be 2-25 <strong>PipelineActivity</strong> objects and must contain both a <tt class="docutils literal"><span class="pre">channel</span></tt> and a <tt class="docutils literal"><span class="pre">datastore</span></tt> activity. Each entry in the list must contain only one activity, for example:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">pipelineActivities</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">{</span> <span class="pre">"channel":</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">},</span> <span class="pre">{</span> <span class="pre">"lambda":</span> <span class="pre">{</span> <span class="pre">...</span> <span class="pre">}</span> <span class="pre">},</span> <span class="pre">...</span> <span class="pre">]</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>channel={name=string,channelName=string,next=string},lambda={name=string,lambdaName=string,batchSize=integer,next=string},datastore={name=string,datastoreName=string},addAttributes={name=string,attributes={KeyName1=string,KeyName2=string},next=string},removeAttributes={name=string,attributes=[string,string],next=string},selectAttributes={name=string,attributes=[string,string],next=string},filter={name=string,filter=string,next=string},math={name=string,attribute=string,math=string,next=string},deviceRegistryEnrich={name=string,attribute=string,thingName=string,roleArn=string,next=string},deviceShadowEnrich={name=string,attribute=string,thingName=string,roleArn=string,next=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "channel": {
+      "name": "string",
+      "channelName": "string",
+      "next": "string"
+    },
+    "lambda": {
+      "name": "string",
+      "lambdaName": "string",
+      "batchSize": integer,
+      "next": "string"
+    },
+    "datastore": {
+      "name": "string",
+      "datastoreName": "string"
+    },
+    "addAttributes": {
+      "name": "string",
+      "attributes": {"string": "string"
+        ...},
+      "next": "string"
+    },
+    "removeAttributes": {
+      "name": "string",
+      "attributes": ["string", ...],
+      "next": "string"
+    },
+    "selectAttributes": {
+      "name": "string",
+      "attributes": ["string", ...],
+      "next": "string"
+    },
+    "filter": {
+      "name": "string",
+      "filter": "string",
+      "next": "string"
+    },
+    "math": {
+      "name": "string",
+      "attribute": "string",
+      "math": "string",
+      "next": "string"
+    },
+    "deviceRegistryEnrich": {
+      "name": "string",
+      "attribute": "string",
+      "thingName": "string",
+      "roleArn": "string",
+      "next": "string"
+    },
+    "deviceShadowEnrich": {
+      "name": "string",
+      "attribute": "string",
+      "thingName": "string",
+      "roleArn": "string",
+      "next": "string"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update a pipeline</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-pipeline</span></tt> example modifies the settings of the specified pipeline. You must specify both a channel and a data store activity and, optionally, as many as 23 additional activities, in the <tt class="docutils literal"><span class="pre">pipelineActivities</span></tt> array.</p>
+<div class="highlight-python">
+<pre>aws iotanalytics update-pipeline \
+    --cli-input-json file://update-pipeline.json</pre>
+</div>
+<p>Contents of update-pipeline.json:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"pipelineName"</span><span class="p">:</span> <span class="s2">"mypipeline"</span><span class="p">,</span>
+    <span class="s2">"pipelineActivities"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"channel"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"myChannelActivity"</span><span class="p">,</span>
+                <span class="s2">"channelName"</span><span class="p">:</span> <span class="s2">"mychannel"</span><span class="p">,</span>
+                <span class="s2">"next"</span><span class="p">:</span> <span class="s2">"myMathActivity"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"datastore"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"myDatastoreActivity"</span><span class="p">,</span>
+                <span class="s2">"datastoreName"</span><span class="p">:</span> <span class="s2">"mydatastore"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"math"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"myMathActivity"</span><span class="p">,</span>
+                <span class="s2">"math"</span><span class="p">:</span> <span class="s2">"(((temp - 32) * 5.0) / 9.0) + 273.15"</span><span class="p">,</span>
+                <span class="s2">"attribute"</span><span class="p">:</span> <span class="s2">"tempK"</span><span class="p">,</span>
+                <span class="s2">"next"</span><span class="p">:</span> <span class="s2">"myDatastoreActivity"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This command produces no output.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_UpdatePipeline.html">UpdatePipeline</a> in the <em>AWS IoT Analytics API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-default-role — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="dlm" href="index.html">
+    <link rel="next" title="create-lifecycle-policy" href="create-lifecycle-policy.html">
+    <link rel="prev" title="dlm" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-default-role">
+<span id="cli-aws-dlm-create-default-role"></span><h1>create-default-role<a class="headerlink" href="#create-default-role" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates the default IAM role AWSDataLifecycleManagerDefaultRole which will be used by Lifecycle service.
+If the role does not exist, create-default-role will automatically create it and set its policy. If the role has been already created, create-default-role will not update its policy.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-default-role
+[--iam-endpoint &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--iam-endpoint</span></tt> (string)</p>
+<blockquote>
+<div>The IAM endpoint to call for creating the roles. This is optional and should only be specified when a custom endpoint should be called for IAM operations.</div>
+</blockquote>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create the required IAM role for Amazon DLM</strong></p>
+<p>Amazon DLM creates the <strong>AWSDataLifecycleManagerDefaultRole</strong> role the first time that you create a lifecycle policy using the AWS Management Console. If you are not using the console, you can use the following command to create this role.</p>
+<div class="highlight-python">
+<pre>aws dlm create-default-role</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"RolePolicy"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"2012-10-17"</span><span class="p">,</span>
+        <span class="s2">"Statement"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"Effect"</span><span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+                <span class="s2">"Action"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"ec2:CreateSnapshot"</span><span class="p">,</span>
+                    <span class="s2">"ec2:CreateSnapshots"</span><span class="p">,</span>
+                    <span class="s2">"ec2:DeleteSnapshot"</span><span class="p">,</span>
+                    <span class="s2">"ec2:DescribeInstances"</span><span class="p">,</span>
+                    <span class="s2">"ec2:DescribeVolumes"</span><span class="p">,</span>
+                    <span class="s2">"ec2:DescribeSnapshots"</span>
+                <span class="p">],</span>
+                <span class="s2">"Resource"</span><span class="p">:</span> <span class="s2">"*"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"Effect"</span><span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+                <span class="s2">"Action"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"ec2:CreateTags"</span>
+                <span class="p">],</span>
+                <span class="s2">"Resource"</span><span class="p">:</span> <span class="s2">"arn:aws:ec2:*::snapshot/*"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">"Role"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Path"</span><span class="p">:</span> <span class="s2">"/"</span><span class="p">,</span>
+        <span class="s2">"RoleName"</span><span class="p">:</span> <span class="s2">"AWSDataLifecycleManagerDefaultRole"</span><span class="p">,</span>
+        <span class="s2">"RoleId"</span><span class="p">:</span> <span class="s2">"AROA012345678901EXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:role/AWSDataLifecycleManagerDefaultRole"</span><span class="p">,</span>
+        <span class="s2">"CreateDate"</span><span class="p">:</span> <span class="s2">"2019-05-29T17:47:18Z"</span><span class="p">,</span>
+        <span class="s2">"AssumeRolePolicyDocument"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"2012-10-17"</span><span class="p">,</span>
+            <span class="s2">"Statement"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"Sid"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"Effect"</span><span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+                    <span class="s2">"Principal"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Service"</span><span class="p">:</span> <span class="s2">"dlm.amazonaws.com"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"sts:AssumeRole"</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

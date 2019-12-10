@@ -1,0 +1,811 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-records — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="dynamodbstreams" href="index.html">
+    <link rel="next" title="get-shard-iterator" href="get-shard-iterator.html">
+    <link rel="prev" title="describe-stream" href="describe-stream.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-records">
+<span id="cli-aws-dynamodbstreams-get-records"></span><h1>get-records<a class="headerlink" href="#get-records" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves the stream records from a given shard.</p>
+<p>Specify a shard iterator using the <tt class="docutils literal"><span class="pre">ShardIterator</span></tt> parameter. The shard iterator specifies the position in the shard from which you want to start reading stream records sequentially. If there are no stream records available in the portion of the shard that the iterator points to, <tt class="docutils literal"><span class="pre">GetRecords</span></tt> returns an empty list. Note that it might take multiple calls to get to a portion of the shard that contains stream records.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">GetRecords</span></tt> can retrieve a maximum of 1 MB of data or 1000 stream records, whichever comes first.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/streams-dynamodb-2012-08-10/GetRecords">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-records
+--shard-iterator &lt;value&gt;
+[--limit &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--shard-iterator</span></tt> (string)</p>
+<blockquote>
+<div>A shard iterator that was retrieved from a previous GetShardIterator operation. This iterator can be used to access the stream records in this shard.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--limit</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of records to return from the shard. The upper limit is 1000.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Records -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The stream records from the shard, which were retrieved using the shard iterator.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A description of a unique event within a stream.</p>
+<p>eventID -&gt; (string)</p>
+<blockquote>
+<div>A globally unique identifier for the event that was recorded in this stream record.</div>
+</blockquote>
+<p>eventName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of data modification that was performed on the DynamoDB table:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">INSERT</span></tt> - a new item was added to the table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MODIFY</span></tt> - one or more of an existing item's attributes were modified.</li>
+<li>
+<tt class="docutils literal"><span class="pre">REMOVE</span></tt> - the item was deleted from the table</li>
+</ul>
+</div>
+</blockquote>
+<p>eventVersion -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The version number of the stream record format. This number is updated whenever the structure of <tt class="docutils literal"><span class="pre">Record</span></tt> is modified.</p>
+<p>Client applications must not assume that <tt class="docutils literal"><span class="pre">eventVersion</span></tt> will remain at a particular value, as this number is subject to change at any time. In general, <tt class="docutils literal"><span class="pre">eventVersion</span></tt> will only increase as the low-level DynamoDB Streams API evolves.</p>
+</div>
+</blockquote>
+<p>eventSource -&gt; (string)</p>
+<blockquote>
+<div>The AWS service from which the stream record originated. For DynamoDB Streams, this is <tt class="docutils literal"><span class="pre">aws:dynamodb</span></tt> .</div>
+</blockquote>
+<p>awsRegion -&gt; (string)</p>
+<blockquote>
+<div>The region in which the <tt class="docutils literal"><span class="pre">GetRecords</span></tt> request was received.</div>
+</blockquote>
+<p>dynamodb -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The main body of the stream record, containing all of the DynamoDB-specific fields.</p>
+<p>ApproximateCreationDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The approximate date and time when the stream record was created, in <a class="reference external" href="http://www.epochconverter.com/">UNIX epoch time</a> format.</div>
+</blockquote>
+<p>Keys -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The primary key attribute(s) for the DynamoDB item that was modified.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NewImage -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The item in the DynamoDB table as it appeared after it was modified.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OldImage -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The item in the DynamoDB table as it appeared before it was modified.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents the data for an attribute. You can set one, and only one, of the elements.</p>
+<p>Each attribute in an item is a name-value pair. An attribute can be single-valued or multi-valued set. For example, a book item can have title and authors attributes. Each book has one title but can have many authors. The multi-valued attribute is a set; duplicate values are not allowed.</p>
+<p>S -&gt; (string)</p>
+<blockquote>
+<div>A String data type.</div>
+</blockquote>
+<p>N -&gt; (string)</p>
+<blockquote>
+<div>A Number data type.</div>
+</blockquote>
+<p>B -&gt; (blob)</p>
+<blockquote>
+<div>A Binary data type.</div>
+</blockquote>
+<p>SS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A String Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Number Set data type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BS -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A Binary Set data type.</p>
+<p>(blob)</p>
+</div>
+</blockquote>
+<p>M -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A Map data type.</p>
+<p>key -&gt; (string)</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>L -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A List data type.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NULL -&gt; (boolean)</p>
+<blockquote>
+<div>A Null data type.</div>
+</blockquote>
+<p>BOOL -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SequenceNumber -&gt; (string)</p>
+<blockquote>
+<div>The sequence number of the stream record.</div>
+</blockquote>
+<p>SizeBytes -&gt; (long)</p>
+<blockquote>
+<div>The size of the stream record, in bytes.</div>
+</blockquote>
+<p>StreamViewType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of data from the modified DynamoDB item that was captured in this stream record:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">KEYS_ONLY</span></tt> - only the key attributes of the modified item.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NEW_IMAGE</span></tt> - the entire item, as it appeared after it was modified.</li>
+<li>
+<tt class="docutils literal"><span class="pre">OLD_IMAGE</span></tt> - the entire item, as it appeared before it was modified.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NEW_AND_OLD_IMAGES</span></tt> - both the new and the old item images of the item.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>userIdentity -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Items that are deleted by the Time to Live process after expiration have the following fields:</p>
+<ul class="simple">
+<li>Records[].userIdentity.type "Service"</li>
+<li>Records[].userIdentity.principalId "dynamodb.amazonaws.com"</li>
+</ul>
+<p>PrincipalId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for the entity that made the call. For Time To Live, the principalId is "dynamodb.amazonaws.com".</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of the identity. For Time To Live, the type is "Service".</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextShardIterator -&gt; (string)</p>
+<blockquote>
+<div>The next position in the shard from which to start sequentially reading stream records. If set to <tt class="docutils literal"><span class="pre">null</span></tt> , the shard has been closed and the requested iterator will not return any more data.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

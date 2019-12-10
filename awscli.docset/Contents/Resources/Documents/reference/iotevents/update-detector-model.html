@@ -1,0 +1,538 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-detector-model — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iotevents" href="index.html">
+    <link rel="next" title="update-input" href="update-input.html">
+    <link rel="prev" title="untag-resource" href="untag-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-detector-model">
+<span id="cli-aws-iotevents-update-detector-model"></span><h1>update-detector-model<a class="headerlink" href="#update-detector-model" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates a detector model. Detectors (instances) spawned by the previous version are deleted and then re-created as new inputs arrive.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iotevents-2018-07-27/UpdateDetectorModel">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-detector-model
+--detector-model-name &lt;value&gt;
+--detector-model-definition &lt;value&gt;
+[--detector-model-description &lt;value&gt;]
+--role-arn &lt;value&gt;
+[--evaluation-method &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--detector-model-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the detector model that is updated.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--detector-model-definition</span></tt> (structure)</p>
+<blockquote>
+<div>Information that defines how a detector operates.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "states": [
+    {
+      "stateName": "string",
+      "onInput": {
+        "events": [
+          {
+            "eventName": "string",
+            "condition": "string",
+            "actions": [
+              {
+                "setVariable": {
+                  "variableName": "string",
+                  "value": "string"
+                },
+                "sns": {
+                  "targetArn": "string"
+                },
+                "iotTopicPublish": {
+                  "mqttTopic": "string"
+                },
+                "setTimer": {
+                  "timerName": "string",
+                  "seconds": integer
+                },
+                "clearTimer": {
+                  "timerName": "string"
+                },
+                "resetTimer": {
+                  "timerName": "string"
+                },
+                "lambda": {
+                  "functionArn": "string"
+                },
+                "iotEvents": {
+                  "inputName": "string"
+                },
+                "sqs": {
+                  "queueUrl": "string",
+                  "useBase64": true|false
+                },
+                "firehose": {
+                  "deliveryStreamName": "string",
+                  "separator": "string"
+                }
+              }
+              ...
+            ]
+          }
+          ...
+        ],
+        "transitionEvents": [
+          {
+            "eventName": "string",
+            "condition": "string",
+            "actions": [
+              {
+                "setVariable": {
+                  "variableName": "string",
+                  "value": "string"
+                },
+                "sns": {
+                  "targetArn": "string"
+                },
+                "iotTopicPublish": {
+                  "mqttTopic": "string"
+                },
+                "setTimer": {
+                  "timerName": "string",
+                  "seconds": integer
+                },
+                "clearTimer": {
+                  "timerName": "string"
+                },
+                "resetTimer": {
+                  "timerName": "string"
+                },
+                "lambda": {
+                  "functionArn": "string"
+                },
+                "iotEvents": {
+                  "inputName": "string"
+                },
+                "sqs": {
+                  "queueUrl": "string",
+                  "useBase64": true|false
+                },
+                "firehose": {
+                  "deliveryStreamName": "string",
+                  "separator": "string"
+                }
+              }
+              ...
+            ],
+            "nextState": "string"
+          }
+          ...
+        ]
+      },
+      "onEnter": {
+        "events": [
+          {
+            "eventName": "string",
+            "condition": "string",
+            "actions": [
+              {
+                "setVariable": {
+                  "variableName": "string",
+                  "value": "string"
+                },
+                "sns": {
+                  "targetArn": "string"
+                },
+                "iotTopicPublish": {
+                  "mqttTopic": "string"
+                },
+                "setTimer": {
+                  "timerName": "string",
+                  "seconds": integer
+                },
+                "clearTimer": {
+                  "timerName": "string"
+                },
+                "resetTimer": {
+                  "timerName": "string"
+                },
+                "lambda": {
+                  "functionArn": "string"
+                },
+                "iotEvents": {
+                  "inputName": "string"
+                },
+                "sqs": {
+                  "queueUrl": "string",
+                  "useBase64": true|false
+                },
+                "firehose": {
+                  "deliveryStreamName": "string",
+                  "separator": "string"
+                }
+              }
+              ...
+            ]
+          }
+          ...
+        ]
+      },
+      "onExit": {
+        "events": [
+          {
+            "eventName": "string",
+            "condition": "string",
+            "actions": [
+              {
+                "setVariable": {
+                  "variableName": "string",
+                  "value": "string"
+                },
+                "sns": {
+                  "targetArn": "string"
+                },
+                "iotTopicPublish": {
+                  "mqttTopic": "string"
+                },
+                "setTimer": {
+                  "timerName": "string",
+                  "seconds": integer
+                },
+                "clearTimer": {
+                  "timerName": "string"
+                },
+                "resetTimer": {
+                  "timerName": "string"
+                },
+                "lambda": {
+                  "functionArn": "string"
+                },
+                "iotEvents": {
+                  "inputName": "string"
+                },
+                "sqs": {
+                  "queueUrl": "string",
+                  "useBase64": true|false
+                },
+                "firehose": {
+                  "deliveryStreamName": "string",
+                  "separator": "string"
+                }
+              }
+              ...
+            ]
+          }
+          ...
+        ]
+      }
+    }
+    ...
+  ],
+  "initialStateName": "string"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--detector-model-description</span></tt> (string)</p>
+<blockquote>
+<div>A brief description of the detector model.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the role that grants permission to AWS IoT Events to perform its operations.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--evaluation-method</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>When set to <tt class="docutils literal"><span class="pre">SERIAL</span></tt> , variables are updated and event conditions evaluated in the order that the events are defined. When set to <tt class="docutils literal"><span class="pre">BATCH</span></tt> , variables are updated and events performed only after all event conditions are evaluated.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">BATCH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SERIAL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update a detector model</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-detector-model</span></tt> example updates the specified detector model. Detectors (instances) spawned by the previous version are deleted and then re-created as new inputs arrive.</p>
+<div class="highlight-python">
+<pre>aws iotevents update-detector-model \
+    --cli-input-json file://motorDetectorModel.update.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">motorDetectorModel.update.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"detectorModelName"</span><span class="p">:</span> <span class="s2">"motorDetectorModel"</span><span class="p">,</span>
+    <span class="s2">"detectorModelDefinition"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"states"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"stateName"</span><span class="p">:</span> <span class="s2">"Normal"</span><span class="p">,</span>
+                <span class="s2">"onEnter"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"events"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"init"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">,</span>
+                            <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="s2">"setVariable"</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">"variableName"</span><span class="p">:</span> <span class="s2">"pressureThresholdBreached"</span><span class="p">,</span>
+                                        <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"0"</span>
+                                    <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">]</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"onInput"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"transitionEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"Overpressurized"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"$input.PressureInput.sensorData.pressure &gt; 70"</span><span class="p">,</span>
+                            <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="s2">"setVariable"</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">"variableName"</span><span class="p">:</span> <span class="s2">"pressureThresholdBreached"</span><span class="p">,</span>
+                                        <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"$variable.pressureThresholdBreached + 3"</span>
+                                    <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">],</span>
+                            <span class="s2">"nextState"</span><span class="p">:</span> <span class="s2">"Dangerous"</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"stateName"</span><span class="p">:</span> <span class="s2">"Dangerous"</span><span class="p">,</span>
+                <span class="s2">"onEnter"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"events"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"Pressure Threshold Breached"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"$variable.pressureThresholdBreached &gt; 1"</span><span class="p">,</span>
+                            <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="s2">"sns"</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">"targetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:sns:us-east-1:123456789012:underPressureAction"</span>
+                                    <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">]</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"onInput"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"events"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"Overpressurized"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"$input.PressureInput.sensorData.pressure &gt; 70"</span><span class="p">,</span>
+                            <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="s2">"setVariable"</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">"variableName"</span><span class="p">:</span> <span class="s2">"pressureThresholdBreached"</span><span class="p">,</span>
+                                        <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"3"</span>
+                                    <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">]</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"Pressure Okay"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"$input.PressureInput.sensorData.pressure &lt;= 70"</span><span class="p">,</span>
+                            <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="s2">"setVariable"</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">"variableName"</span><span class="p">:</span> <span class="s2">"pressureThresholdBreached"</span><span class="p">,</span>
+                                        <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"$variable.pressureThresholdBreached - 1"</span>
+                                    <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">]</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">"transitionEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"BackToNormal"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"$input.PressureInput.sensorData.pressure &lt;= 70 &amp;&amp; $variable.pressureThresholdBreached &lt;= 1"</span><span class="p">,</span>
+                            <span class="s2">"nextState"</span><span class="p">:</span> <span class="s2">"Normal"</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"onExit"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"events"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"eventName"</span><span class="p">:</span> <span class="s2">"Normal Pressure Restored"</span><span class="p">,</span>
+                            <span class="s2">"condition"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">,</span>
+                            <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                    <span class="s2">"sns"</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">"targetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:sns:us-east-1:123456789012:pressureClearedAction"</span>
+                                    <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">]</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"initialStateName"</span><span class="p">:</span> <span class="s2">"Normal"</span>
+    <span class="p">},</span>
+    <span class="s2">"roleArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:role/IoTEventsRole"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"detectorModelConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ACTIVATING"</span><span class="p">,</span>
+        <span class="s2">"lastUpdateTime"</span><span class="p">:</span> <span class="mf">1560799387.719</span><span class="p">,</span>
+        <span class="s2">"roleArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:role/IoTEventsRole"</span><span class="p">,</span>
+        <span class="s2">"creationTime"</span><span class="p">:</span> <span class="mf">1560799387.719</span><span class="p">,</span>
+        <span class="s2">"detectorModelArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iotevents:us-west-2:123456789012:detectorModel/motorDetectorModel"</span><span class="p">,</span>
+        <span class="s2">"key"</span><span class="p">:</span> <span class="s2">"motorid"</span><span class="p">,</span>
+        <span class="s2">"detectorModelName"</span><span class="p">:</span> <span class="s2">"motorDetectorModel"</span><span class="p">,</span>
+        <span class="s2">"detectorModelVersion"</span><span class="p">:</span> <span class="s2">"2"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iotevents/latest/apireference/API_UpdateDetectorModel">UpdateDetectorModel</a> in the <em>AWS IoT Events API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>detectorModelConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about how the detector model is configured.</p>
+<p>detectorModelName -&gt; (string)</p>
+<blockquote>
+<div>The name of the detector model.</div>
+</blockquote>
+<p>detectorModelVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the detector model.</div>
+</blockquote>
+<p>detectorModelDescription -&gt; (string)</p>
+<blockquote>
+<div>A brief description of the detector model.</div>
+</blockquote>
+<p>detectorModelArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the detector model.</div>
+</blockquote>
+<p>roleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the role that grants permission to AWS IoT Events to perform its operations.</div>
+</blockquote>
+<p>creationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the detector model was created.</div>
+</blockquote>
+<p>lastUpdateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the detector model was last updated.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the detector model.</div>
+</blockquote>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>The input attribute key used to identify a device or system to create a detector (an instance of the detector model) and then to route each input received to the appropriate detector (instance). This parameter uses a JSON-path expression to specify the attribute-value pair in the message payload of each input that is used to identify the device associated with the input.</div>
+</blockquote>
+<p>evaluationMethod -&gt; (string)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">SERIAL</span></tt> , variables are updated and event conditions evaluated in the order that the events are defined. When set to <tt class="docutils literal"><span class="pre">BATCH</span></tt> , variables are updated and events performed only after all event conditions are evaluated.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

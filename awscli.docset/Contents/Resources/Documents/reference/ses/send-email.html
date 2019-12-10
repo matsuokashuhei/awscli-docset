@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>send-email — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ses" href="index.html">
+    <link rel="next" title="send-raw-email" href="send-raw-email.html">
+    <link rel="prev" title="send-custom-verification-email" href="send-custom-verification-email.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="send-email">
+<span id="cli-aws-ses-send-email"></span><h1>send-email<a class="headerlink" href="#send-email" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Composes an email message and immediately queues it for sending. In order to send email using the <tt class="docutils literal"><span class="pre">SendEmail</span></tt> operation, your message must meet the following requirements:</p>
+<ul class="simple">
+<li>The message must be sent from a verified email address or domain. If you attempt to send email using a non-verified address or domain, the operation will result in an "Email address not verified" error.</li>
+<li>If your account is still in the Amazon SES sandbox, you may only send to verified addresses or domains, or to email addresses associated with the Amazon SES Mailbox Simulator. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html">Verifying Email Addresses and Domains</a> in the <em>Amazon SES Developer Guide.</em>
+</li>
+<li>The maximum message size is 10 MB.</li>
+<li>The message must include at least one recipient email address. The recipient address can be a To: address, a CC: address, or a BCC: address. If a recipient email address is invalid (that is, it is not in the format <em>UserName@[SubDomain.]Domain.TopLevelDomain</em> ), the entire message will be rejected, even if the message contains other recipients that are valid.</li>
+<li>The message may not include more than 50 recipients, across the To:, CC: and BCC: fields. If you need to send an email message to a larger audience, you can divide your recipient list into groups of 50 or fewer, and then call the <tt class="docutils literal"><span class="pre">SendEmail</span></tt> operation several times to send the message to each group.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For every message that you send, the total number of recipients (including each recipient in the To:, CC: and BCC: fields) is counted against the maximum number of emails you can send in a 24-hour period (your <em>sending quota</em> ). For more information about sending quotas in Amazon SES, see <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html">Managing Your Amazon SES Sending Limits</a> in the <em>Amazon SES Developer Guide.</em></p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendEmail">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  send-email
+[--destination &lt;value&gt;]
+[--message &lt;value&gt;]
+[--reply-to-addresses &lt;value&gt;]
+[--return-path &lt;value&gt;]
+[--source-arn &lt;value&gt;]
+[--return-path-arn &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--configuration-set-name &lt;value&gt;]
+--from &lt;value&gt;
+[--to &lt;value&gt;]
+[--cc &lt;value&gt;]
+[--bcc &lt;value&gt;]
+[--subject &lt;value&gt;]
+[--text &lt;value&gt;]
+[--html &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--destination</span></tt> (structure)</p>
+<blockquote>
+<div>The destination for this email, composed of To:, CC:, and BCC: fields.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ToAddresses</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">CcAddresses</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">BccAddresses</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ToAddresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"CcAddresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"BccAddresses"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--message</span></tt> (structure)</p>
+<blockquote>
+<div>The message to be sent.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Subject={Data=string,Charset=string},Body={Text={Data=string,Charset=string},Html={Data=string,Charset=string}}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Subject"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Charset"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"Body"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Text"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"Charset"</span><span class="p">:</span> <span class="s2">"string"</span>
+    <span class="p">},</span>
+    <span class="s2">"Html"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"Charset"</span><span class="p">:</span> <span class="s2">"string"</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--reply-to-addresses</span></tt> (list)</p>
+<blockquote>
+<div>The reply-to email address(es) for the message. If the recipient replies to the message, each reply-to address will receive the reply.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--return-path</span></tt> (string)</p>
+<blockquote>
+<div>The email address that bounces and complaints will be forwarded to when feedback forwarding is enabled. If the message cannot be delivered to the recipient, then an error message will be returned from the recipient's ISP; this message will then be forwarded to the email address specified by the <tt class="docutils literal"><span class="pre">ReturnPath</span></tt> parameter. The <tt class="docutils literal"><span class="pre">ReturnPath</span></tt> parameter is never overwritten. This email address must be either individually verified with Amazon SES, or from a domain that has been verified with Amazon SES.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to send for the email address specified in the <tt class="docutils literal"><span class="pre">Source</span></tt> parameter.</p>
+<p>For example, if the owner of <tt class="docutils literal"><span class="pre">example.com</span></tt> (which has ARN <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> ) attaches a policy to it that authorizes you to send from <tt class="docutils literal"><span class="pre">user@example.com</span></tt> , then you would specify the <tt class="docutils literal"><span class="pre">SourceArn</span></tt> to be <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> , and the <tt class="docutils literal"><span class="pre">Source</span></tt> to be <tt class="docutils literal"><span class="pre">user@example.com</span></tt> .</p>
+<p>For more information about sending authorization, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer Guide</a> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--return-path-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to use the email address specified in the <tt class="docutils literal"><span class="pre">ReturnPath</span></tt> parameter.</p>
+<p>For example, if the owner of <tt class="docutils literal"><span class="pre">example.com</span></tt> (which has ARN <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> ) attaches a policy to it that authorizes you to use <tt class="docutils literal"><span class="pre">feedback@example.com</span></tt> , then you would specify the <tt class="docutils literal"><span class="pre">ReturnPathArn</span></tt> to be <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> , and the <tt class="docutils literal"><span class="pre">ReturnPath</span></tt> to be <tt class="docutils literal"><span class="pre">feedback@example.com</span></tt> .</p>
+<p>For more information about sending authorization, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer Guide</a> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of tags, in the form of name/value pairs, to apply to an email that you send using <tt class="docutils literal"><span class="pre">SendEmail</span></tt> . Tags correspond to characteristics of the email that you define, so that you can publish email sending events.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--configuration-set-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the configuration set to use when you send an email using <tt class="docutils literal"><span class="pre">SendEmail</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--from</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The email address that is sending the email. This email address must be either individually verified with Amazon SES, or from a domain that has been verified with Amazon SES. For information about verifying identities, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html">Amazon SES Developer Guide</a> .</p>
+<p>If you are sending on behalf of another user and have been permitted to do so by a sending authorization policy, then you must also specify the <tt class="docutils literal"><span class="pre">SourceArn</span></tt> parameter. For more information about sending authorization, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer Guide</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Amazon SES does not support the SMTPUTF8 extension, as described in <a class="reference external" href="https://tools.ietf.org/html/rfc6531">RFC6531</a> . For this reason, the <em>local part</em> of a source email address (the part of the email address that precedes the @ sign) may only contain <a class="reference external" href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a> . If the <em>domain part</em> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using Punycode, as described in <a class="reference external" href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a> . The sender name (also known as the <em>friendly name</em> ) may contain non-ASCII characters. These characters must be encoded using MIME encoded-word syntax, as described in <a class="reference external" href="https://tools.ietf.org/html/rfc2047">RFC 2047</a> . MIME encoded-word syntax uses the following form: <tt class="docutils literal"><span class="pre">=?charset?encoding?encoded-text?=</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--to</span></tt> (string)
+The email addresses of the primary recipients. You can specify multiple recipients as space-separated values</p>
+<p><tt class="docutils literal"><span class="pre">--cc</span></tt> (string)
+The email addresses of copy recipients (Cc). You can specify multiple recipients as space-separated values</p>
+<p><tt class="docutils literal"><span class="pre">--bcc</span></tt> (string)
+The email addresses of blind-carbon-copy recipients (Bcc). You can specify multiple recipients as space-separated values</p>
+<p><tt class="docutils literal"><span class="pre">--subject</span></tt> (string)
+The subject of the message</p>
+<p><tt class="docutils literal"><span class="pre">--text</span></tt> (string)
+The raw text body of the message</p>
+<p><tt class="docutils literal"><span class="pre">--html</span></tt> (string)
+The HTML body of the message</p>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To send a formatted email using Amazon SES</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">send-email</span></tt> command to send a formatted email:</p>
+<div class="highlight-python">
+<pre>aws ses send-email --from sender@example.com --destination file://destination.json --message file://message.json</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">"MessageId"</span><span class="p">:</span> <span class="s2">"EXAMPLEf3a5efcd1-51adec81-d2a4-4e3f-9fe2-5d85c1b23783-000000"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The destination and the message are JSON data structures saved in .json files in the current directory. These files are as follows:</p>
+<p><tt class="docutils literal"><span class="pre">destination.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ToAddresses"</span><span class="p">:</span>  <span class="p">[</span><span class="s2">"recipient1@example.com"</span><span class="p">,</span> <span class="s2">"recipient2@example.com"</span><span class="p">],</span>
+  <span class="s2">"CcAddresses"</span><span class="p">:</span>  <span class="p">[</span><span class="s2">"recipient3@example.com"</span><span class="p">],</span>
+  <span class="s2">"BccAddresses"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">message.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">"Subject"</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"Test email sent using the AWS CLI"</span><span class="p">,</span>
+       <span class="s2">"Charset"</span><span class="p">:</span> <span class="s2">"UTF-8"</span>
+   <span class="p">},</span>
+   <span class="s2">"Body"</span><span class="p">:</span> <span class="p">{</span>
+       <span class="s2">"Text"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"This is the message body in text format."</span><span class="p">,</span>
+           <span class="s2">"Charset"</span><span class="p">:</span> <span class="s2">"UTF-8"</span>
+       <span class="p">},</span>
+       <span class="s2">"Html"</span><span class="p">:</span> <span class="p">{</span>
+           <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"This message body contains HTML formatting. It can, for example, contain links like this one: &lt;a class=</span><span class="se">\"</span><span class="s2">ulink</span><span class="se">\"</span><span class="s2"> href=</span><span class="se">\"</span><span class="s2">http://docs.aws.amazon.com/ses/latest/DeveloperGuide</span><span class="se">\"</span><span class="s2"> target=</span><span class="se">\"</span><span class="s2">_blank</span><span class="se">\"</span><span class="s2">&gt;Amazon SES Developer Guide&lt;/a&gt;."</span><span class="p">,</span>
+           <span class="s2">"Charset"</span><span class="p">:</span> <span class="s2">"UTF-8"</span>
+       <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Replace the sender and recipient email addresses with the ones you want to use. Note that the sender's email address must be verified with Amazon SES. Until you are granted production access to Amazon SES, you must also verify the email address of each recipient
+unless the recipient is the Amazon SES mailbox simulator. For more information on verification, see <a class="reference external" href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html">Verifying Email Addresses and Domains in Amazon SES</a> in the <em>Amazon Simple Email Service Developer Guide</em>.</p>
+<p>The Message ID in the output indicates that the call to send-email was successful.</p>
+<p>If you don't receive the email, check your Junk box.</p>
+<p>For more information on sending formatted email, see <a class="reference external" href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-formatted.html">Sending Formatted Email Using the Amazon SES API</a> in the <em>Amazon Simple Email Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>MessageId -&gt; (string)</p>
+<blockquote>
+<div>The unique message identifier returned from the <tt class="docutils literal"><span class="pre">SendEmail</span></tt> action.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

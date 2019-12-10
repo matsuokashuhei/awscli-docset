@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-forecasts — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="forecast" href="index.html">
+    <link rel="next" title="list-predictors" href="list-predictors.html">
+    <link rel="prev" title="list-forecast-export-jobs" href="list-forecast-export-jobs.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-forecasts">
+<span id="cli-aws-forecast-list-forecasts"></span><h1>list-forecasts<a class="headerlink" href="#list-forecasts" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns a list of forecasts created using the  CreateForecast operation. For each forecast, this operation returns a summary of its properties, including its Amazon Resource Name (ARN). To retrieve the complete set of properties, specify the ARN with the  DescribeForecast operation. You can filter the list using an array of  Filter objects.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/forecast-2018-06-26/ListForecasts">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-forecasts</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Forecasts</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-forecasts
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>An array of filters. For each filter, you provide a condition and a match statement. The condition is either <tt class="docutils literal"><span class="pre">IS</span></tt> or <tt class="docutils literal"><span class="pre">IS_NOT</span></tt> , which specifies whether to include or exclude the forecasts that match the statement from the list, respectively. The match statement consists of a key and a value.</p>
+<blockquote>
+<div><strong>Filter properties</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Condition</span></tt> - The condition to apply. Valid values are <tt class="docutils literal"><span class="pre">IS</span></tt> and <tt class="docutils literal"><span class="pre">IS_NOT</span></tt> . To include the forecasts that match the statement, specify <tt class="docutils literal"><span class="pre">IS</span></tt> . To exclude matching forecasts, specify <tt class="docutils literal"><span class="pre">IS_NOT</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">Key</span></tt> - The name of the parameter to filter on. Valid values are <tt class="docutils literal"><span class="pre">DatasetGroupArn</span></tt> , <tt class="docutils literal"><span class="pre">PredictorArn</span></tt> , and <tt class="docutils literal"><span class="pre">Status</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">Value</span></tt> - The value to match.</li>
+</ul>
+<p>For example, to list all forecasts whose status is not ACTIVE, you would specify:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">"Filters":</span> <span class="pre">[</span> <span class="pre">{</span> <span class="pre">"Condition":</span> <span class="pre">"IS_NOT",</span> <span class="pre">"Key":</span> <span class="pre">"Status",</span> <span class="pre">"Value":</span> <span class="pre">"ACTIVE"</span> <span class="pre">}</span> <span class="pre">]</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string,Condition=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string",
+    "Condition": "IS"|"IS_NOT"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Forecasts -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of objects that summarize each forecast's properties.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides a summary of the forecast properties used in the  ListForecasts operation. To get the complete set of properties, call the  DescribeForecast operation, and provide the <tt class="docutils literal"><span class="pre">ForecastArn</span></tt> that is listed in the summary.</p>
+<p>ForecastArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the forecast.</div>
+</blockquote>
+<p>ForecastName -&gt; (string)</p>
+<blockquote>
+<div>The name of the forecast.</div>
+</blockquote>
+<p>PredictorArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the predictor used to generate the forecast.</div>
+</blockquote>
+<p>DatasetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the dataset group that provided the data used to train the predictor.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the forecast. States include:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ACTIVE</span></tt></li>
+<li>
+<tt class="docutils literal"><span class="pre">CREATE_PENDING</span></tt> , <tt class="docutils literal"><span class="pre">CREATE_IN_PROGRESS</span></tt> , <tt class="docutils literal"><span class="pre">CREATE_FAILED</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">DELETE_PENDING</span></tt> , <tt class="docutils literal"><span class="pre">DELETE_IN_PROGRESS</span></tt> , <tt class="docutils literal"><span class="pre">DELETE_FAILED</span></tt>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">Status</span></tt> of the forecast must be <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> before you can query or export the forecast.</p>
+</div>
+</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>If an error occurred, an informational message about the error.</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>When the forecast creation task was created.</div>
+</blockquote>
+<p>LastModificationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Initially, the same as <tt class="docutils literal"><span class="pre">CreationTime</span></tt> (status is <tt class="docutils literal"><span class="pre">CREATE_PENDING</span></tt> ). Updated when inference (creating the forecast) starts (status changed to <tt class="docutils literal"><span class="pre">CREATE_IN_PROGRESS</span></tt> ), and when inference is complete (status changed to <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> ) or fails (status changed to <tt class="docutils literal"><span class="pre">CREATE_FAILED</span></tt> ).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If the response is truncated, Amazon Forecast returns this token. To retrieve the next set of results, use the token in the next request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,622 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>batch-get-deployment-targets — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="deploy" href="index.html">
+    <link rel="next" title="batch-get-deployments" href="batch-get-deployments.html">
+    <link rel="prev" title="batch-get-deployment-groups" href="batch-get-deployment-groups.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="batch-get-deployment-targets">
+<span id="cli-aws-deploy-batch-get-deployment-targets"></span><h1>batch-get-deployment-targets<a class="headerlink" href="#batch-get-deployment-targets" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns an array of one or more targets associated with a deployment. This method works with all compute types and should be used instead of the deprecated <tt class="docutils literal"><span class="pre">BatchGetDeploymentInstances</span></tt> . The maximum number of targets that can be returned is 25.</p>
+<p>The type of targets returned depends on the deployment's compute platform:</p>
+<ul class="simple">
+<li>
+<strong>EC2/On-premises</strong> : Information about EC2 instance targets.</li>
+<li>
+<strong>AWS Lambda</strong> : Information about Lambda functions targets.</li>
+<li>
+<strong>Amazon ECS</strong> : Information about Amazon ECS service targets.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codedeploy-2014-10-06/BatchGetDeploymentTargets">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  batch-get-deployment-targets
+[--deployment-id &lt;value&gt;]
+[--target-ids &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--deployment-id</span></tt> (string)</p>
+<blockquote>
+<div>The unique ID of a deployment.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--target-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The unique IDs of the deployment targets. The compute platform of the deployment determines the type of the targets and their formats. The maximum number of deployment target IDs you can specify is 25.</p>
+<ul class="simple">
+<li>For deployments that use the EC2/On-premises compute platform, the target IDs are EC2 or on-premises instances IDs, and their target type is <tt class="docutils literal"><span class="pre">instanceTarget</span></tt> .</li>
+<li>For deployments that use the AWS Lambda compute platform, the target IDs are the names of Lambda functions, and their target type is <tt class="docutils literal"><span class="pre">instanceTarget</span></tt> .</li>
+<li>For deployments that use the Amazon ECS compute platform, the target IDs are pairs of Amazon ECS clusters and services specified using the format <tt class="docutils literal"><span class="pre">clustername:servicename</span></tt> . Their target type is <tt class="docutils literal"><span class="pre">ecsTarget</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve the targets associated with a deployment</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">batch-get-deployment-targets</span></tt> example returns information about one of the targets associated with the specified deployment.</p>
+<div class="highlight-python">
+<pre>aws deploy batch-get-deployment-targets \
+    --deployment-id "d-1A2B3C4D5" \
+    --target-ids "i-01a2b3c4d5e6f1111"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"deploymentTargets"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"deploymentTargetType"</span><span class="p">:</span> <span class="s2">"InstanceTarget"</span><span class="p">,</span>
+            <span class="s2">"instanceTarget"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"lifecycleEvents"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"startTime"</span><span class="p">:</span> <span class="mf">1556918592.162</span><span class="p">,</span>
+                        <span class="s2">"lifecycleEventName"</span><span class="p">:</span> <span class="s2">"ApplicationStop"</span><span class="p">,</span>
+                        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Succeeded"</span><span class="p">,</span>
+                        <span class="s2">"endTime"</span><span class="p">:</span> <span class="mf">1556918592.247</span><span class="p">,</span>
+                        <span class="s2">"diagnostics"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"scriptName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                            <span class="s2">"errorCode"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                            <span class="s2">"logTail"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                            <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Succeeded"</span>
+                        <span class="p">}</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"startTime"</span><span class="p">:</span> <span class="mf">1556918593.193</span><span class="p">,</span>
+                        <span class="s2">"lifecycleEventName"</span><span class="p">:</span> <span class="s2">"DownloadBundle"</span><span class="p">,</span>
+                        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Succeeded"</span><span class="p">,</span>
+                        <span class="s2">"endTime"</span><span class="p">:</span> <span class="mf">1556918593.981</span><span class="p">,</span>
+                        <span class="s2">"diagnostics"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"scriptName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                            <span class="s2">"errorCode"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                            <span class="s2">"logTail"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                            <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Succeeded"</span>
+                        <span class="p">}</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"startTime"</span><span class="p">:</span> <span class="mf">1556918594.805</span><span class="p">,</span>
+                        <span class="s2">"lifecycleEventName"</span><span class="p">:</span> <span class="s2">"BeforeInstall"</span><span class="p">,</span>
+                        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Succeeded"</span><span class="p">,</span>
+                        <span class="s2">"endTime"</span><span class="p">:</span> <span class="mf">1556918681.807</span><span class="p">,</span>
+                        <span class="s2">"diagnostics"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"scriptName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                            <span class="s2">"errorCode"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                            <span class="s2">"logTail"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                            <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Succeeded"</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"targetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ec2:us-west-2:123456789012:instance/i-01a2b3c4d5e6f1111"</span><span class="p">,</span>
+                <span class="s2">"deploymentId"</span><span class="p">:</span> <span class="s2">"d-1A2B3C4D5"</span><span class="p">,</span>
+                <span class="s2">"lastUpdatedAt"</span><span class="p">:</span> <span class="mf">1556918687.504</span><span class="p">,</span>
+                <span class="s2">"targetId"</span><span class="p">:</span> <span class="s2">"i-01a2b3c4d5e6f1111"</span><span class="p">,</span>
+                <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Succeeded"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codedeploy/latest/APIReference/API_BatchGetDeploymentTargets.html">BatchGetDeploymentTargets</a> in the <em>AWS CodeDeploy API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>deploymentTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of target objects for a deployment. Each target object contains details about the target, such as its status and lifecycle events. The type of the target objects depends on the deployment' compute platform.</p>
+<ul class="simple">
+<li>
+<strong>EC2/On-premises</strong> : Each target object is an EC2 or on-premises instance.</li>
+<li>
+<strong>AWS Lambda</strong> : The target object is a specific version of an AWS Lambda function.</li>
+<li>
+<strong>Amazon ECS</strong> : The target object is an Amazon ECS service.</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about the deployment target.</p>
+<p>deploymentTargetType -&gt; (string)</p>
+<blockquote>
+<div>The deployment type that is specific to the deployment's compute platform.</div>
+</blockquote>
+<p>instanceTarget -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the target for a deployment that uses the EC2/On-premises compute platform.</p>
+<p>deploymentId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of a deployment.</div>
+</blockquote>
+<p>targetId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of a deployment target that has a type of <tt class="docutils literal"><span class="pre">instanceTarget</span></tt> .</div>
+</blockquote>
+<p>targetArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the target.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status an EC2/On-premises deployment's target instance.</div>
+</blockquote>
+<p>lastUpdatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the target instance was updated by a deployment.</div>
+</blockquote>
+<p>lifecycleEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The lifecycle events of the deployment to this target instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a deployment lifecycle event.</p>
+<p>lifecycleEventName -&gt; (string)</p>
+<blockquote>
+<div>The deployment lifecycle event name, such as ApplicationStop, BeforeInstall, AfterInstall, ApplicationStart, or ValidateService.</div>
+</blockquote>
+<p>diagnostics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Diagnostic information about the deployment lifecycle event.</p>
+<p>errorCode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The associated error code:</p>
+<ul class="simple">
+<li>Success: The specified script ran.</li>
+<li>ScriptMissing: The specified script was not found in the specified location.</li>
+<li>ScriptNotExecutable: The specified script is not a recognized executable file type.</li>
+<li>ScriptTimedOut: The specified script did not finish running in the specified time period.</li>
+<li>ScriptFailed: The specified script failed to run as expected.</li>
+<li>UnknownError: The specified script did not run for an unknown reason.</li>
+</ul>
+</div>
+</blockquote>
+<p>scriptName -&gt; (string)</p>
+<blockquote>
+<div>The name of the script.</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The message associated with the error.</div>
+</blockquote>
+<p>logTail -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The last portion of the diagnostic log.</p>
+<p>If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>startTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates when the deployment lifecycle event started.</div>
+</blockquote>
+<p>endTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates when the deployment lifecycle event ended.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The deployment lifecycle event status:</p>
+<ul class="simple">
+<li>Pending: The deployment lifecycle event is pending.</li>
+<li>InProgress: The deployment lifecycle event is in progress.</li>
+<li>Succeeded: The deployment lifecycle event ran successfully.</li>
+<li>Failed: The deployment lifecycle event has failed.</li>
+<li>Skipped: The deployment lifecycle event has been skipped.</li>
+<li>Unknown: The deployment lifecycle event is unknown.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>instanceLabel -&gt; (string)</p>
+<blockquote>
+<div>A label that identifies whether the instance is an original target (<tt class="docutils literal"><span class="pre">BLUE</span></tt> ) or a replacement target (<tt class="docutils literal"><span class="pre">GREEN</span></tt> ).</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaTarget -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the target for a deployment that uses the AWS Lambda compute platform.</p>
+<p>deploymentId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of a deployment.</div>
+</blockquote>
+<p>targetId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of a deployment target that has a type of <tt class="docutils literal"><span class="pre">lambdaTarget</span></tt> .</div>
+</blockquote>
+<p>targetArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the target.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status an AWS Lambda deployment's target Lambda function.</div>
+</blockquote>
+<p>lastUpdatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the target Lambda function was updated by a deployment.</div>
+</blockquote>
+<p>lifecycleEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The lifecycle events of the deployment to this target Lambda function.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a deployment lifecycle event.</p>
+<p>lifecycleEventName -&gt; (string)</p>
+<blockquote>
+<div>The deployment lifecycle event name, such as ApplicationStop, BeforeInstall, AfterInstall, ApplicationStart, or ValidateService.</div>
+</blockquote>
+<p>diagnostics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Diagnostic information about the deployment lifecycle event.</p>
+<p>errorCode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The associated error code:</p>
+<ul class="simple">
+<li>Success: The specified script ran.</li>
+<li>ScriptMissing: The specified script was not found in the specified location.</li>
+<li>ScriptNotExecutable: The specified script is not a recognized executable file type.</li>
+<li>ScriptTimedOut: The specified script did not finish running in the specified time period.</li>
+<li>ScriptFailed: The specified script failed to run as expected.</li>
+<li>UnknownError: The specified script did not run for an unknown reason.</li>
+</ul>
+</div>
+</blockquote>
+<p>scriptName -&gt; (string)</p>
+<blockquote>
+<div>The name of the script.</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The message associated with the error.</div>
+</blockquote>
+<p>logTail -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The last portion of the diagnostic log.</p>
+<p>If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>startTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates when the deployment lifecycle event started.</div>
+</blockquote>
+<p>endTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates when the deployment lifecycle event ended.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The deployment lifecycle event status:</p>
+<ul class="simple">
+<li>Pending: The deployment lifecycle event is pending.</li>
+<li>InProgress: The deployment lifecycle event is in progress.</li>
+<li>Succeeded: The deployment lifecycle event ran successfully.</li>
+<li>Failed: The deployment lifecycle event has failed.</li>
+<li>Skipped: The deployment lifecycle event has been skipped.</li>
+<li>Unknown: The deployment lifecycle event is unknown.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A <tt class="docutils literal"><span class="pre">LambdaFunctionInfo</span></tt> object that describes a target Lambda function.</p>
+<p>functionName -&gt; (string)</p>
+<blockquote>
+<div>The name of a Lambda function.</div>
+</blockquote>
+<p>functionAlias -&gt; (string)</p>
+<blockquote>
+<div>The alias of a Lambda function. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html">Introduction to AWS Lambda Aliases</a> .</div>
+</blockquote>
+<p>currentVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of a Lambda function that production traffic points to.</div>
+</blockquote>
+<p>targetVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of a Lambda function that production traffic points to after the Lambda function is deployed.</div>
+</blockquote>
+<p>targetVersionWeight -&gt; (double)</p>
+<blockquote>
+<div>The percentage of production traffic that the target version of a Lambda function receives.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ecsTarget -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the target for a deployment that uses the Amazon ECS compute platform.</p>
+<p>deploymentId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of a deployment.</div>
+</blockquote>
+<p>targetId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of a deployment target that has a type of <tt class="docutils literal"><span class="pre">ecsTarget</span></tt> .</div>
+</blockquote>
+<p>targetArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the target.</div>
+</blockquote>
+<p>lastUpdatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the target Amazon ECS application was updated by a deployment.</div>
+</blockquote>
+<p>lifecycleEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The lifecycle events of the deployment to this target Amazon ECS application.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a deployment lifecycle event.</p>
+<p>lifecycleEventName -&gt; (string)</p>
+<blockquote>
+<div>The deployment lifecycle event name, such as ApplicationStop, BeforeInstall, AfterInstall, ApplicationStart, or ValidateService.</div>
+</blockquote>
+<p>diagnostics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Diagnostic information about the deployment lifecycle event.</p>
+<p>errorCode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The associated error code:</p>
+<ul class="simple">
+<li>Success: The specified script ran.</li>
+<li>ScriptMissing: The specified script was not found in the specified location.</li>
+<li>ScriptNotExecutable: The specified script is not a recognized executable file type.</li>
+<li>ScriptTimedOut: The specified script did not finish running in the specified time period.</li>
+<li>ScriptFailed: The specified script failed to run as expected.</li>
+<li>UnknownError: The specified script did not run for an unknown reason.</li>
+</ul>
+</div>
+</blockquote>
+<p>scriptName -&gt; (string)</p>
+<blockquote>
+<div>The name of the script.</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The message associated with the error.</div>
+</blockquote>
+<p>logTail -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The last portion of the diagnostic log.</p>
+<p>If available, AWS CodeDeploy returns up to the last 4 KB of the diagnostic log.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>startTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates when the deployment lifecycle event started.</div>
+</blockquote>
+<p>endTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates when the deployment lifecycle event ended.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The deployment lifecycle event status:</p>
+<ul class="simple">
+<li>Pending: The deployment lifecycle event is pending.</li>
+<li>InProgress: The deployment lifecycle event is in progress.</li>
+<li>Succeeded: The deployment lifecycle event ran successfully.</li>
+<li>Failed: The deployment lifecycle event has failed.</li>
+<li>Skipped: The deployment lifecycle event has been skipped.</li>
+<li>Unknown: The deployment lifecycle event is unknown.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status an Amazon ECS deployment's target ECS application.</div>
+</blockquote>
+<p>taskSetsInfo -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The <tt class="docutils literal"><span class="pre">ECSTaskSet</span></tt> objects associated with the ECS target.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a set of Amazon ECS tasks in an AWS CodeDeploy deployment. An Amazon ECS task set includes details such as the desired number of tasks, how many tasks are running, and whether the task set serves production traffic. An AWS CodeDeploy application that uses the Amazon ECS compute platform deploys a containerized application in an Amazon ECS service as a task set.</p>
+<p>identifer -&gt; (string)</p>
+<blockquote>
+<div>A unique ID of an <tt class="docutils literal"><span class="pre">ECSTaskSet</span></tt> .</div>
+</blockquote>
+<p>desiredCount -&gt; (long)</p>
+<blockquote>
+<div>The number of tasks in a task set. During a deployment that uses the Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new task set and uses this value to determine how many tasks to create. After the updated task set is created, CodeDeploy shifts traffic to the new task set.</div>
+</blockquote>
+<p>pendingCount -&gt; (long)</p>
+<blockquote>
+<div>The number of tasks in the task set that are in the <tt class="docutils literal"><span class="pre">PENDING</span></tt> status during an Amazon ECS deployment. A task in the <tt class="docutils literal"><span class="pre">PENDING</span></tt> state is preparing to enter the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state. A task set enters the <tt class="docutils literal"><span class="pre">PENDING</span></tt> status when it launches for the first time, or when it is restarted after being in the <tt class="docutils literal"><span class="pre">STOPPED</span></tt> state.</div>
+</blockquote>
+<p>runningCount -&gt; (long)</p>
+<blockquote>
+<div>The number of tasks in the task set that are in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> status during an Amazon ECS deployment. A task in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state is running and ready for use.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the task set. There are three valid task set statuses:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">PRIMARY</span></tt> : Indicates the task set is serving production traffic.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ACTIVE</span></tt> : Indicates the task set is not serving production traffic.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DRAINING</span></tt> : Indicates the tasks in the task set are being stopped and their corresponding targets are being deregistered from their target group.</li>
+</ul>
+</div>
+</blockquote>
+<p>trafficWeight -&gt; (double)</p>
+<blockquote>
+<div>The percentage of traffic served by this task set.</div>
+</blockquote>
+<p>targetGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The target group associated with the task set. The target group is used by AWS CodeDeploy to manage traffic to a task set.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>For blue/green deployments, the name of the target group that instances in the original environment are deregistered from, and instances in the replacement environment are registered with. For in-place deployments, the name of the target group that instances are deregistered from, so they are not serving traffic during a deployment, and then re-registered with after the deployment is complete.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskSetLabel -&gt; (string)</p>
+<blockquote>
+<div>A label that identifies whether the ECS task set is an original target (<tt class="docutils literal"><span class="pre">BLUE</span></tt> ) or a replacement target (<tt class="docutils literal"><span class="pre">GREEN</span></tt> ).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-content-moderation — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="get-face-detection" href="get-face-detection.html">
+    <link rel="prev" title="get-celebrity-recognition" href="get-celebrity-recognition.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-content-moderation">
+<span id="cli-aws-rekognition-get-content-moderation"></span><h1>get-content-moderation<a class="headerlink" href="#get-content-moderation" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets the unsafe content analysis results for a Amazon Rekognition Video analysis started by  StartContentModeration .</p>
+<p>Unsafe content analysis of a video is an asynchronous operation. You start analysis by calling  StartContentModeration which returns a job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ). When analysis finishes, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic registered in the initial call to <tt class="docutils literal"><span class="pre">StartContentModeration</span></tt> . To get the results of the unsafe content analysis, first check that the status value published to the Amazon SNS topic is <tt class="docutils literal"><span class="pre">SUCCEEDED</span></tt> . If so, call <tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> and pass the job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ) from the initial call to <tt class="docutils literal"><span class="pre">StartContentModeration</span></tt> .</p>
+<p>For more information, see Working with Stored Videos in the Amazon Rekognition Devlopers Guide.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> returns detected unsafe content labels, and the time they are detected, in an array, <tt class="docutils literal"><span class="pre">ModerationLabels</span></tt> , of  ContentModerationDetection objects.</div>
+</blockquote>
+<p>By default, the moderated labels are returned sorted by time, in milliseconds from the start of the video. You can also sort them by moderated label by specifying <tt class="docutils literal"><span class="pre">NAME</span></tt> for the <tt class="docutils literal"><span class="pre">SortBy</span></tt> input parameter.</p>
+<p>Since video analysis can return a large number of results, use the <tt class="docutils literal"><span class="pre">MaxResults</span></tt> parameter to limit the number of labels returned in a single call to <tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> . If there are more results than specified in <tt class="docutils literal"><span class="pre">MaxResults</span></tt> , the value of <tt class="docutils literal"><span class="pre">NextToken</span></tt> in the operation response contains a pagination token for getting the next set of results. To get the next page of results, call <tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> and populate the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter with the value of <tt class="docutils literal"><span class="pre">NextToken</span></tt> returned from the previous call to <tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> .</p>
+<p>For more information, see Detecting Unsafe Content in the Amazon Rekognition Developer Guide.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/GetContentModeration">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-content-moderation
+--job-id &lt;value&gt;
+[--max-results &lt;value&gt;]
+[--next-token &lt;value&gt;]
+[--sort-by &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--job-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier for the unsafe content job. Use <tt class="docutils literal"><span class="pre">JobId</span></tt> to identify the job in a subsequent call to <tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>Maximum number of results to return per paginated call. The largest value you can specify is 1000. If you specify a value greater than 1000, a maximum of 1000 results is returned. The default value is 1000.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>If the previous response was incomplete (because there is more data to retrieve), Amazon Rekognition returns a pagination token in the response. You can use this pagination token to retrieve the next set of unsafe content labels.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sort-by</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Sort to use for elements in the <tt class="docutils literal"><span class="pre">ModerationLabelDetections</span></tt> array. Use <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> to sort array elements by the time labels are detected. Use <tt class="docutils literal"><span class="pre">NAME</span></tt> to alphabetically group elements for a label together. Within each label group, the array element are sorted by detection confidence. The default sort is by <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NAME</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get the results of an unsafe content operation</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-content-moderation</span></tt> command displays the results of an unsafe content operation that you started previously by calling <tt class="docutils literal"><span class="pre">start-content-moderation</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws rekognition get-content-moderation \
+    --job-id 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"NextToken"</span><span class="p">:</span> <span class="s2">"dlhcKMHMzpCBGFukz6IO3JMcWiJAamCVhXHt3r6b4b5Tfbyw3q7o+Jeezt+ZpgfOnW9FCCgQ"</span><span class="p">,</span>
+    <span class="s2">"ModerationLabels"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"ModerationLabel"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">97.39583587646484</span><span class="p">,</span>
+                <span class="s2">"ParentName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Violence"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"ModerationLabel"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">97.39583587646484</span><span class="p">,</span>
+                <span class="s2">"ParentName"</span><span class="p">:</span> <span class="s2">"Violence"</span><span class="p">,</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Weapon Violence"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"JobStatus"</span><span class="p">:</span> <span class="s2">"SUCCEEDED"</span><span class="p">,</span>
+    <span class="s2">"VideoMetadata"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Format"</span><span class="p">:</span> <span class="s2">"QuickTime / MOV"</span><span class="p">,</span>
+        <span class="s2">"FrameRate"</span><span class="p">:</span> <span class="mf">29.97515869140625</span><span class="p">,</span>
+        <span class="s2">"Codec"</span><span class="p">:</span> <span class="s2">"h264"</span><span class="p">,</span>
+        <span class="s2">"DurationMillis"</span><span class="p">:</span> <span class="mi">6039</span><span class="p">,</span>
+        <span class="s2">"FrameHeight"</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+        <span class="s2">"FrameWidth"</span><span class="p">:</span> <span class="mi">1080</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/procedure-moderate-videos.html">Detecting Unsafe Stored Videos</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobStatus -&gt; (string)</p>
+<blockquote>
+<div>The current status of the unsafe content analysis job.</div>
+</blockquote>
+<p>StatusMessage -&gt; (string)</p>
+<blockquote>
+<div>If the job fails, <tt class="docutils literal"><span class="pre">StatusMessage</span></tt> provides a descriptive error message.</div>
+</blockquote>
+<p>VideoMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about a video that Amazon Rekognition analyzed. <tt class="docutils literal"><span class="pre">Videometadata</span></tt> is returned in every page of paginated responses from <tt class="docutils literal"><span class="pre">GetContentModeration</span></tt> .</p>
+<p>Codec -&gt; (string)</p>
+<blockquote>
+<div>Type of compression used in the analyzed video.</div>
+</blockquote>
+<p>DurationMillis -&gt; (long)</p>
+<blockquote>
+<div>Length of the video in milliseconds.</div>
+</blockquote>
+<p>Format -&gt; (string)</p>
+<blockquote>
+<div>Format of the analyzed video. Possible values are MP4, MOV and AVI.</div>
+</blockquote>
+<p>FrameRate -&gt; (float)</p>
+<blockquote>
+<div>Number of frames per second in the video.</div>
+</blockquote>
+<p>FrameHeight -&gt; (long)</p>
+<blockquote>
+<div>Vertical pixel dimension of the video.</div>
+</blockquote>
+<p>FrameWidth -&gt; (long)</p>
+<blockquote>
+<div>Horizontal pixel dimension of the video.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ModerationLabels -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The detected unsafe content labels and the time(s) they were detected.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about an unsafe content label detection in a stored video.</p>
+<p>Timestamp -&gt; (long)</p>
+<blockquote>
+<div>Time, in milliseconds from the beginning of the video, that the unsafe content label was detected.</div>
+</blockquote>
+<p>ModerationLabel -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The unsafe content label detected by in the stored video.</p>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>
+<p>Specifies the confidence that Amazon Rekognition has that the label has been correctly identified.</p>
+<p>If you don't specify the <tt class="docutils literal"><span class="pre">MinConfidence</span></tt> parameter in the call to <tt class="docutils literal"><span class="pre">DetectModerationLabels</span></tt> , the operation returns labels with a confidence value greater than or equal to 50 percent.</p>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The label name for the type of unsafe content detected in the image.</div>
+</blockquote>
+<p>ParentName -&gt; (string)</p>
+<blockquote>
+<div>The name for the parent label. Labels at the top level of the hierarchy have the parent label <tt class="docutils literal"><span class="pre">""</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent request to retrieve the next set of unsafe content labels.</div>
+</blockquote>
+<p>ModerationModelVersion -&gt; (string)</p>
+<blockquote>
+<div>Version number of the moderation detection model that was used to detect unsafe content.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

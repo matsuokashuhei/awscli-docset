@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>register-image — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="register-transit-gateway-multicast-group-members" href="register-transit-gateway-multicast-group-members.html">
+    <link rel="prev" title="reboot-instances" href="reboot-instances.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="register-image">
+<span id="cli-aws-ec2-register-image"></span><h1>register-image<a class="headerlink" href="#register-image" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html">Creating Your Own AMIs</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For Amazon EBS-backed instances,  CreateImage creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p>
+</div>
+<p>You can also use <tt class="docutils literal"><span class="pre">RegisterImage</span></tt> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html">Launching a Linux Instance from a Backup</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p>
+<p>Windows and some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. To create a new AMI for operating systems that require a billing product code, do the following:</p>
+<ul class="simple">
+<li>Launch an instance from an existing AMI with that billing product code.</li>
+<li>Customize the instance.</li>
+<li>Create a new AMI from the instance using  CreateImage to preserve the billing product code association.</li>
+</ul>
+<p>If you purchase a Reserved Instance to apply to an On-Demand Instance that was launched from an AMI with a billing product code, make sure that the Reserved Instance has the matching billing product code. If you purchase a Reserved Instance without the matching billing product code, the Reserved Instance will not be applied to the On-Demand Instance.</p>
+<p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RegisterImage">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  register-image
+[--image-location &lt;value&gt;]
+[--architecture &lt;value&gt;]
+[--block-device-mappings &lt;value&gt;]
+[--description &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--ena-support | --no-ena-support]
+[--kernel-id &lt;value&gt;]
+--name &lt;value&gt;
+[--billing-products &lt;value&gt;]
+[--ramdisk-id &lt;value&gt;]
+[--root-device-name &lt;value&gt;]
+[--sriov-net-support &lt;value&gt;]
+[--virtualization-type &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--image-location</span></tt> (string)</p>
+<blockquote>
+<div>The full path to your AMI manifest in Amazon S3 storage. The specified bucket must have the <tt class="docutils literal"><span class="pre">aws-exec-read</span></tt> canned access control list (ACL) to ensure that it can be accessed by Amazon EC2. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl">Canned ACLs</a> in the <em>Amazon S3 Service Developer Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--architecture</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The architecture of the AMI.</p>
+<p>Default: For Amazon EBS-backed AMIs, <tt class="docutils literal"><span class="pre">i386</span></tt> . For instance store-backed AMIs, the architecture specified in the manifest file.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">i386</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">x86_64</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">arm64</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--block-device-mappings</span></tt> (list)</p>
+<blockquote>
+<div>The block device mapping entries.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>DeviceName=string,VirtualName=string,Ebs={DeleteOnTermination=boolean,Iops=integer,SnapshotId=string,VolumeSize=integer,VolumeType=string,Encrypted=boolean,KmsKeyId=string},NoDevice=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "DeviceName": "string",
+    "VirtualName": "string",
+    "Ebs": {
+      "DeleteOnTermination": true|false,
+      "Iops": integer,
+      "SnapshotId": "string",
+      "VolumeSize": integer,
+      "VolumeType": "standard"|"io1"|"gp2"|"sc1"|"st1",
+      "Encrypted": true|false,
+      "KmsKeyId": "string"
+    },
+    "NoDevice": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description for your AMI.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ena-support</span></tt> | <tt class="docutils literal"><span class="pre">--no-ena-support</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Set to <tt class="docutils literal"><span class="pre">true</span></tt> to enable enhanced networking with ENA for the AMI and any instances that you launch from the AMI.</p>
+<p>This option is supported only for HVM AMIs. Specifying this option with a PV AMI can make instances launched from the AMI unreachable.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kernel-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the kernel.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A name for your AMI.</p>
+<p>Constraints: 3-128 alphanumeric characters, parentheses (()), square brackets ([]), spaces ( ), periods (.), slashes (/), dashes (-), single quotes ('), at-signs (@), or underscores(_)</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--billing-products</span></tt> (list)</p>
+<blockquote>
+<div>The billing product codes. Your account must be authorized to specify billing product codes. Otherwise, you can use the AWS Marketplace to bill for the use of an AMI.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--ramdisk-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the RAM disk.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--root-device-name</span></tt> (string)</p>
+<blockquote>
+<div>The device name of the root device volume (for example, <tt class="docutils literal"><span class="pre">/dev/sda1</span></tt> ).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sriov-net-support</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Set to <tt class="docutils literal"><span class="pre">simple</span></tt> to enable enhanced networking with the Intel 82599 Virtual Function interface for the AMI and any instances that you launch from the AMI.</p>
+<p>There is no way to disable <tt class="docutils literal"><span class="pre">sriovNetSupport</span></tt> at this time.</p>
+<p>This option is supported only for HVM AMIs. Specifying this option with a PV AMI can make instances launched from the AMI unreachable.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--virtualization-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of virtualization (<tt class="docutils literal"><span class="pre">hvm</span></tt> | <tt class="docutils literal"><span class="pre">paravirtual</span></tt> ).</p>
+<p>Default: <tt class="docutils literal"><span class="pre">paravirtual</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To register an AMI using a manifest file</strong></p>
+<p>This example registers an AMI using the specified manifest file in Amazon S3.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 register-image --image-location my-s3-bucket/myimage/image.manifest.xml --name "MyImage"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-61341708"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To add a block device mapping</strong></p>
+<p>Add the following parameter to your <tt class="docutils literal"><span class="pre">register-image</span></tt> command to add an Amazon EBS volume with the device name <tt class="docutils literal"><span class="pre">/dev/sdh</span></tt> and a volume size of 100:</p>
+<div class="highlight-python">
+<pre>--block-device-mappings "[{\"DeviceName\": \"/dev/sdh\",\"Ebs\":{\"VolumeSize\":100}}]"</pre>
+</div>
+<p>Add the following parameter to your <tt class="docutils literal"><span class="pre">register-image</span></tt> command to add <tt class="docutils literal"><span class="pre">ephemeral1</span></tt> as an instance store volume with the device name <tt class="docutils literal"><span class="pre">/dev/sdc</span></tt>:</p>
+<div class="highlight-python">
+<pre>--block-device-mappings "[{\"DeviceName\": \"/dev/sdc\",\"VirtualName\":\"ephemeral1\"}]"</pre>
+</div>
+<p>Add the following parameter to your <tt class="docutils literal"><span class="pre">register-image</span></tt> command to omit a device (for example, <tt class="docutils literal"><span class="pre">/dev/sdf</span></tt>):</p>
+<div class="highlight-python">
+<pre>--block-device-mappings "[{\"DeviceName\": \"/dev/sdf\",\"NoDevice\":\"\"}]"</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ImageId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the newly registered AMI.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

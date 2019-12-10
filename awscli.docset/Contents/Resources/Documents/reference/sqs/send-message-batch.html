@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>send-message-batch — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="sqs" href="index.html">
+    <link rel="next" title="set-queue-attributes" href="set-queue-attributes.html">
+    <link rel="prev" title="send-message" href="send-message.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="send-message-batch">
+<span id="cli-aws-sqs-send-message-batch"></span><h1>send-message-batch<a class="headerlink" href="#send-message-batch" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Delivers up to ten messages to the specified queue. This is a batch version of ``  SendMessage .`` For a FIFO queue, multiple messages within a single batch are enqueued in the order they are sent.</p>
+<p>The result of sending each message is reported individually in the response. Because the batch request can result in a combination of successful and unsuccessful actions, you should check for batch errors even when the call returns an HTTP status code of <tt class="docutils literal"><span class="pre">200</span></tt> .</p>
+<p>The maximum allowed individual message size and the maximum total payload size (the sum of the individual lengths of all of the batched messages) are both 256 KB (262,144 bytes).</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>A message can include only XML, JSON, and unformatted text. The following Unicode characters are allowed:</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">#x9</span></tt> | <tt class="docutils literal"><span class="pre">#xA</span></tt> | <tt class="docutils literal"><span class="pre">#xD</span></tt> | <tt class="docutils literal"><span class="pre">#x20</span></tt> to <tt class="docutils literal"><span class="pre">#xD7FF</span></tt> | <tt class="docutils literal"><span class="pre">#xE000</span></tt> to <tt class="docutils literal"><span class="pre">#xFFFD</span></tt> | <tt class="docutils literal"><span class="pre">#x10000</span></tt> to <tt class="docutils literal"><span class="pre">#x10FFFF</span></tt>
+</div>
+</blockquote>
+<p class="last">Any characters not included in this list will be rejected. For more information, see the <a class="reference external" href="http://www.w3.org/TR/REC-xml/#charsets">W3C specification for characters</a> .</p>
+</div>
+<p>If you don't specify the <tt class="docutils literal"><span class="pre">DelaySeconds</span></tt> parameter for an entry, Amazon SQS uses the default value for the queue.</p>
+<p>Some actions take lists of parameters. These lists are specified using the <tt class="docutils literal"><span class="pre">param.n</span></tt> notation. Values of <tt class="docutils literal"><span class="pre">n</span></tt> are integers starting from 1. For example, a parameter list with two elements looks like this:</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">Attribute.1=first</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">Attribute.2=second</span></tt></p>
+</div>
+</blockquote>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sqs-2012-11-05/SendMessageBatch">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  send-message-batch
+--queue-url &lt;value&gt;
+--entries &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--queue-url</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The URL of the Amazon SQS queue to which batched messages are sent.</p>
+<p>Queue URLs and names are case-sensitive.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--entries</span></tt> (list)</p>
+<blockquote>
+<div>A list of ``  SendMessageBatchRequestEntry `` items.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Id=string,MessageBody=string,DelaySeconds=integer,MessageAttributes={KeyName1={StringValue=string,BinaryValue=blob,StringListValues=[string,string],BinaryListValues=[blob,blob],DataType=string},KeyName2={StringValue=string,BinaryValue=blob,StringListValues=[string,string],BinaryListValues=[blob,blob],DataType=string}},MessageSystemAttributes={KeyName1={StringValue=string,BinaryValue=blob,StringListValues=[string,string],BinaryListValues=[blob,blob],DataType=string},KeyName2={StringValue=string,BinaryValue=blob,StringListValues=[string,string],BinaryListValues=[blob,blob],DataType=string}},MessageDeduplicationId=string,MessageGroupId=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Id": "string",
+    "MessageBody": "string",
+    "DelaySeconds": integer,
+    "MessageAttributes": {"string": {
+          "StringValue": "string",
+          "BinaryValue": blob,
+          "StringListValues": ["string", ...],
+          "BinaryListValues": [blob, ...],
+          "DataType": "string"
+        }
+      ...},
+    "MessageSystemAttributes": {"AWSTraceHeader": {
+          "StringValue": "string",
+          "BinaryValue": blob,
+          "StringListValues": ["string", ...],
+          "BinaryListValues": [blob, ...],
+          "DataType": "string"
+        }
+      ...},
+    "MessageDeduplicationId": "string",
+    "MessageGroupId": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To send multiple messages as a batch</strong></p>
+<p>This example sends 2 messages with the specified message bodies, delay periods, and message attributes, to the specified queue.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws sqs send-message-batch --queue-url https://sqs.us-east-1.amazonaws.com/80398EXAMPLE/MyQueue --entries file://send-message-batch.json</pre>
+</div>
+<p>Input file (send-message-batch.json):</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"FuelReport-0001-2015-09-16T140731Z"</span><span class="p">,</span>
+        <span class="s2">"MessageBody"</span><span class="p">:</span> <span class="s2">"Fuel report for account 0001 on 2015-09-16 at 02:07:31 PM."</span><span class="p">,</span>
+        <span class="s2">"DelaySeconds"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">"MessageAttributes"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"SellerName"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"Example Store"</span>
+      <span class="p">},</span>
+          <span class="s2">"City"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+        <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"Any City"</span>
+      <span class="p">},</span>
+          <span class="s2">"Region"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"WA"</span>
+      <span class="p">},</span>
+          <span class="s2">"PostalCode"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"99065"</span>
+          <span class="p">},</span>
+          <span class="s2">"PricePerGallon"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"Number"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"1.99"</span>
+      <span class="p">}</span>
+        <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"FuelReport-0002-2015-09-16T140930Z"</span><span class="p">,</span>
+        <span class="s2">"MessageBody"</span><span class="p">:</span> <span class="s2">"Fuel report for account 0002 on 2015-09-16 at 02:09:30 PM."</span><span class="p">,</span>
+        <span class="s2">"DelaySeconds"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s2">"MessageAttributes"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"SellerName"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"Example Fuels"</span>
+      <span class="p">},</span>
+          <span class="s2">"City"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+        <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"North Town"</span>
+      <span class="p">},</span>
+          <span class="s2">"Region"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"WA"</span>
+      <span class="p">},</span>
+          <span class="s2">"PostalCode"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"99123"</span>
+          <span class="p">},</span>
+          <span class="s2">"PricePerGallon"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DataType"</span><span class="p">:</span> <span class="s2">"Number"</span><span class="p">,</span>
+                <span class="s2">"StringValue"</span><span class="p">:</span> <span class="s2">"1.87"</span>
+      <span class="p">}</span>
+        <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Successful"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"MD5OfMessageBody"</span><span class="p">:</span> <span class="s2">"203c4a38...7943237e"</span><span class="p">,</span>
+      <span class="s2">"MD5OfMessageAttributes"</span><span class="p">:</span> <span class="s2">"10809b55...baf283ef"</span><span class="p">,</span>
+      <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"FuelReport-0001-2015-09-16T140731Z"</span><span class="p">,</span>
+      <span class="s2">"MessageId"</span><span class="p">:</span> <span class="s2">"d175070c-d6b8-4101-861d-adeb3EXAMPLE"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"MD5OfMessageBody"</span><span class="p">:</span> <span class="s2">"2cf0159a...c1980595"</span><span class="p">,</span>
+      <span class="s2">"MD5OfMessageAttributes"</span><span class="p">:</span> <span class="s2">"55623928...ae354a25"</span><span class="p">,</span>
+      <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"FuelReport-0002-2015-09-16T140930Z"</span><span class="p">,</span>
+      <span class="s2">"MessageId"</span><span class="p">:</span> <span class="s2">"f9b7d55d-0570-413e-b9c5-a9264EXAMPLE"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Successful -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of ``  SendMessageBatchResultEntry `` items.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Encloses a <tt class="docutils literal"><span class="pre">MessageId</span></tt> for a successfully-enqueued message in a ``  SendMessageBatch .``</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>An identifier for the message in this batch.</div>
+</blockquote>
+<p>MessageId -&gt; (string)</p>
+<blockquote>
+<div>An identifier for the message.</div>
+</blockquote>
+<p>MD5OfMessageBody -&gt; (string)</p>
+<blockquote>
+<div>An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information about MD5, see <a class="reference external" href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a> .</div>
+</blockquote>
+<p>MD5OfMessageAttributes -&gt; (string)</p>
+<blockquote>
+<div>An MD5 digest of the non-URL-encoded message attribute string. You can use this attribute to verify that Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information about MD5, see <a class="reference external" href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a> .</div>
+</blockquote>
+<p>MD5OfMessageSystemAttributes -&gt; (string)</p>
+<blockquote>
+<div>An MD5 digest of the non-URL-encoded message system attribute string. You can use this attribute to verify that Amazon SQS received the message correctly. Amazon SQS URL-decodes the message before creating the MD5 digest. For information about MD5, see <a class="reference external" href="https://www.ietf.org/rfc/rfc1321.txt">RFC1321</a> .</div>
+</blockquote>
+<p>SequenceNumber -&gt; (string)</p>
+<blockquote>
+<div>
+<p>This parameter applies only to FIFO (first-in-first-out) queues.</p>
+<p>The large, non-consecutive number that Amazon SQS assigns to each message.</p>
+<p>The length of <tt class="docutils literal"><span class="pre">SequenceNumber</span></tt> is 128 bits. As <tt class="docutils literal"><span class="pre">SequenceNumber</span></tt> continues to increase for a particular <tt class="docutils literal"><span class="pre">MessageGroupId</span></tt> .</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Failed -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of ``  BatchResultErrorEntry `` items with error details about each message that can't be enqueued.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Gives a detailed description of the result of an action on each entry in the request.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">Id</span></tt> of an entry in a batch request.</div>
+</blockquote>
+<p>SenderFault -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the error happened due to the producer.</div>
+</blockquote>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>An error code representing why the action failed on this entry.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>A message explaining why the action failed on this entry.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

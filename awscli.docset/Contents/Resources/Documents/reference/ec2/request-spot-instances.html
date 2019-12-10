@@ -1,0 +1,862 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>request-spot-instances — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="reset-ebs-default-kms-key-id" href="reset-ebs-default-kms-key-id.html">
+    <link rel="prev" title="request-spot-fleet" href="request-spot-fleet.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="request-spot-instances">
+<span id="cli-aws-ec2-request-spot-instances"></span><h1>request-spot-instances<a class="headerlink" href="#request-spot-instances" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a Spot Instance request.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-requests.html">Spot Instance Requests</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RequestSpotInstances">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  request-spot-instances
+[--availability-zone-group &lt;value&gt;]
+[--block-duration-minutes &lt;value&gt;]
+[--client-token &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--instance-count &lt;value&gt;]
+[--launch-group &lt;value&gt;]
+[--launch-specification &lt;value&gt;]
+[--spot-price &lt;value&gt;]
+[--type &lt;value&gt;]
+[--valid-from &lt;value&gt;]
+[--valid-until &lt;value&gt;]
+[--instance-interruption-behavior &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--availability-zone-group</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The user-specified name for a logical grouping of requests.</p>
+<p>When you specify an Availability Zone group in a Spot Instance request, all Spot Instances in the request are launched in the same Availability Zone. Instance proximity is maintained with this parameter, but the choice of Availability Zone is not. The group applies only to requests for Spot Instances of the same instance type. Any additional Spot Instance requests that are specified with the same Availability Zone group name are launched in that same Availability Zone, as long as at least one instance from the group is still active.</p>
+<p>If there is no active instance running in the Availability Zone group that you specify for a new Spot Instance request (all instances are terminated, the request is expired, or the maximum price you specified falls below current Spot price), then Amazon EC2 launches the instance in any Availability Zone where the constraint can be met. Consequently, the subsequent set of Spot Instances could be placed in a different zone from the original request, even if you specified the same Availability Zone group.</p>
+<p>Default: Instances are launched in any available Availability Zone.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--block-duration-minutes</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The required duration for the Spot Instances (also known as Spot blocks), in minutes. This value must be a multiple of 60 (60, 120, 180, 240, 300, or 360).</p>
+<p>The duration period starts as soon as your Spot Instance receives its instance ID. At the end of the duration period, Amazon EC2 marks the Spot Instance for termination and provides a Spot Instance termination notice, which gives the instance a two-minute warning before it terminates.</p>
+<p>You can't specify an Availability Zone group or a launch group if you specify a duration.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to Ensure Idempotency</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-count</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The maximum number of Spot Instances to launch.</p>
+<p>Default: 1</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--launch-group</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The instance launch group. Launch groups are Spot Instances that launch together and terminate together.</p>
+<p>Default: Instances are launched and terminated individually</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--launch-specification</span></tt> (structure)</p>
+<blockquote>
+<div>The launch specification.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "SecurityGroupIds": ["string", ...],
+  "SecurityGroups": ["string", ...],
+  "AddressingType": "string",
+  "BlockDeviceMappings": [
+    {
+      "DeviceName": "string",
+      "VirtualName": "string",
+      "Ebs": {
+        "DeleteOnTermination": true|false,
+        "Iops": integer,
+        "SnapshotId": "string",
+        "VolumeSize": integer,
+        "VolumeType": "standard"|"io1"|"gp2"|"sc1"|"st1",
+        "Encrypted": true|false,
+        "KmsKeyId": "string"
+      },
+      "NoDevice": "string"
+    }
+    ...
+  ],
+  "EbsOptimized": true|false,
+  "IamInstanceProfile": {
+    "Arn": "string",
+    "Name": "string"
+  },
+  "ImageId": "string",
+  "InstanceType": "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"i3en.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.12xlarge"|"c5d.18xlarge"|"c5d.24xlarge"|"c5d.metal"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"g4dn.xlarge"|"g4dn.2xlarge"|"g4dn.4xlarge"|"g4dn.8xlarge"|"g4dn.12xlarge"|"g4dn.16xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"u-18tb1.metal"|"u-24tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge"|"a1.metal"|"m5dn.large"|"m5dn.xlarge"|"m5dn.2xlarge"|"m5dn.4xlarge"|"m5dn.8xlarge"|"m5dn.12xlarge"|"m5dn.16xlarge"|"m5dn.24xlarge"|"m5n.large"|"m5n.xlarge"|"m5n.2xlarge"|"m5n.4xlarge"|"m5n.8xlarge"|"m5n.12xlarge"|"m5n.16xlarge"|"m5n.24xlarge"|"r5dn.large"|"r5dn.xlarge"|"r5dn.2xlarge"|"r5dn.4xlarge"|"r5dn.8xlarge"|"r5dn.12xlarge"|"r5dn.16xlarge"|"r5dn.24xlarge"|"r5n.large"|"r5n.xlarge"|"r5n.2xlarge"|"r5n.4xlarge"|"r5n.8xlarge"|"r5n.12xlarge"|"r5n.16xlarge"|"r5n.24xlarge"|"inf1.xlarge"|"inf1.2xlarge"|"inf1.6xlarge"|"inf1.24xlarge",
+  "KernelId": "string",
+  "KeyName": "string",
+  "Monitoring": {
+    "Enabled": true|false
+  },
+  "NetworkInterfaces": [
+    {
+      "AssociatePublicIpAddress": true|false,
+      "DeleteOnTermination": true|false,
+      "Description": "string",
+      "DeviceIndex": integer,
+      "Groups": ["string", ...],
+      "Ipv6AddressCount": integer,
+      "Ipv6Addresses": [
+        {
+          "Ipv6Address": "string"
+        }
+        ...
+      ],
+      "NetworkInterfaceId": "string",
+      "PrivateIpAddress": "string",
+      "PrivateIpAddresses": [
+        {
+          "Primary": true|false,
+          "PrivateIpAddress": "string"
+        }
+        ...
+      ],
+      "SecondaryPrivateIpAddressCount": integer,
+      "SubnetId": "string",
+      "InterfaceType": "string"
+    }
+    ...
+  ],
+  "Placement": {
+    "AvailabilityZone": "string",
+    "GroupName": "string",
+    "Tenancy": "default"|"dedicated"|"host"
+  },
+  "RamdiskId": "string",
+  "SubnetId": "string",
+  "UserData": "string"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--spot-price</span></tt> (string)</p>
+<blockquote>
+<div>The maximum price per hour that you are willing to pay for a Spot Instance. The default is the On-Demand price.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Spot Instance request type.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">one-time</span></tt></p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">one-time</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">persistent</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--valid-from</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The start date of the request. If this is a one-time request, the request becomes active at this date and time and remains active until all instances launch, the request expires, or the request is canceled. If the request is persistent, the request becomes active at this date and time and remains active until it expires or is canceled.</p>
+<p>The specified start date and time cannot be equal to the current date and time. You must specify a start date and time that occurs after the current date and time.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--valid-until</span></tt> (timestamp)</p>
+<blockquote>
+<div>The end date of the request. If this is a one-time request, the request remains active until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it remains active until it is canceled or this date is reached. The default end date is 7 days from the current date.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-interruption-behavior</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The behavior when a Spot Instance is interrupted. The default is <tt class="docutils literal"><span class="pre">terminate</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">hibernate</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">stop</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">terminate</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To request Spot Instances</strong></p>
+<p>This example command creates a one-time Spot Instance request for five instances in the specified Availability Zone.
+If your account supports EC2-VPC only, Amazon EC2 launches the instances in the default subnet of the specified Availability Zone.
+If your account supports EC2-Classic, Amazon EC2 launches the instances in EC2-Classic in the specified Availability Zone.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 request-spot-instances --spot-price "0.03" --instance-count 5 --type "one-time" --launch-specification file://specification.json</pre>
+</div>
+<p>Specification.json:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-1a2b3c4d"</span><span class="p">,</span>
+  <span class="s2">"KeyName"</span><span class="p">:</span> <span class="s2">"my-key-pair"</span><span class="p">,</span>
+  <span class="s2">"SecurityGroupIds"</span><span class="p">:</span> <span class="p">[</span> <span class="s2">"sg-1a2b3c4d"</span> <span class="p">],</span>
+  <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m3.medium"</span><span class="p">,</span>
+  <span class="s2">"Placement"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-west-2a"</span>
+  <span class="p">},</span>
+  <span class="s2">"IamInstanceProfile"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:instance-profile/my-iam-role"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"SpotInstanceRequests"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"Status"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"UpdateTime"</span><span class="p">:</span> <span class="s2">"2014-03-25T20:54:21.000Z"</span><span class="p">,</span>
+              <span class="s2">"Code"</span><span class="p">:</span> <span class="s2">"pending-evaluation"</span><span class="p">,</span>
+              <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Your Spot request has been submitted for review, and is pending evaluation."</span>
+          <span class="p">},</span>
+          <span class="s2">"ProductDescription"</span><span class="p">:</span> <span class="s2">"Linux/UNIX"</span><span class="p">,</span>
+          <span class="s2">"SpotInstanceRequestId"</span><span class="p">:</span> <span class="s2">"sir-df6f405d"</span><span class="p">,</span>
+          <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"open"</span><span class="p">,</span>
+          <span class="s2">"LaunchSpecification"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"Placement"</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-west-2a"</span>
+              <span class="p">},</span>
+              <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-1a2b3c4d"</span><span class="p">,</span>
+              <span class="s2">"KeyName"</span><span class="p">:</span> <span class="s2">"my-key-pair"</span><span class="p">,</span>
+              <span class="s2">"SecurityGroups"</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="p">{</span>
+                      <span class="s2">"GroupName"</span><span class="p">:</span> <span class="s2">"my-security-group"</span><span class="p">,</span>
+                      <span class="s2">"GroupId"</span><span class="p">:</span> <span class="s2">"sg-1a2b3c4d"</span>
+                  <span class="p">}</span>
+              <span class="p">],</span>
+              <span class="s2">"Monitoring"</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">false</span>
+              <span class="p">},</span>
+              <span class="s2">"IamInstanceProfile"</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:instance-profile/my-iam-role"</span>
+              <span class="p">},</span>
+              <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m3.medium"</span>
+          <span class="p">},</span>
+          <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"one-time"</span><span class="p">,</span>
+          <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2014-03-25T20:54:20.000Z"</span><span class="p">,</span>
+          <span class="s2">"SpotPrice"</span><span class="p">:</span> <span class="s2">"0.050000"</span>
+      <span class="p">},</span>
+      <span class="o">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example command creates a one-time Spot Instance request for five instances in the specified subnet.
+Amazon EC2 launches the instances in the specified subnet. If the VPC is a nondefault VPC, the instances
+do not receive a public IP address by default.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 request-spot-instances --spot-price "0.050" --instance-count 5 --type "one-time" --launch-specification file://specification.json</pre>
+</div>
+<p>Specification.json:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-1a2b3c4d"</span><span class="p">,</span>
+  <span class="s2">"SecurityGroupIds"</span><span class="p">:</span> <span class="p">[</span> <span class="s2">"sg-1a2b3c4d"</span> <span class="p">],</span>
+  <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m3.medium"</span><span class="p">,</span>
+  <span class="s2">"SubnetId"</span><span class="p">:</span> <span class="s2">"subnet-1a2b3c4d"</span><span class="p">,</span>
+  <span class="s2">"IamInstanceProfile"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:instance-profile/my-iam-role"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+  "SpotInstanceRequests": [
+      {
+          "Status": {
+             "UpdateTime": "2014-03-25T22:21:58.000Z",
+             "Code": "pending-evaluation",
+             "Message": "Your Spot request has been submitted for review, and is pending evaluation."
+          },
+          "ProductDescription": "Linux/UNIX",
+          "SpotInstanceRequestId": "sir-df6f405d",
+          "State": "open",
+          "LaunchSpecification": {
+             "Placement": {
+                 "AvailabilityZone": "us-west-2a"
+             }
+             "ImageId": "ami-1a2b3c4d"
+             "SecurityGroups": [
+                 {
+                     "GroupName": "my-security-group",
+                     "GroupID": "sg-1a2b3c4d"
+                 }
+             ]
+             "SubnetId": "subnet-1a2b3c4d",
+             "Monitoring": {
+                 "Enabled": false
+             },
+             "IamInstanceProfile": {
+                 "Arn": "arn:aws:iam::123456789012:instance-profile/my-iam-role"
+             },
+             "InstanceType": "m3.medium",
+         },
+         "Type": "one-time",
+         "CreateTime": "2014-03-25T22:21:58.000Z",
+         "SpotPrice": "0.050000"
+      },
+      ...
+  ]
+}</pre>
+</div>
+<p>This example assigns a public IP address to the Spot Instances that you launch in a nondefault VPC.
+Note that when you specify a network interface, you must include the subnet ID and security group ID
+using the network interface.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 request-spot-instances --spot-price "0.050" --instance-count 1 --type "one-time" --launch-specification file://specification.json</pre>
+</div>
+<p>Specification.json:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-1a2b3c4d"</span><span class="p">,</span>
+  <span class="s2">"KeyName"</span><span class="p">:</span> <span class="s2">"my-key-pair"</span><span class="p">,</span>
+  <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m3.medium"</span><span class="p">,</span>
+  <span class="s2">"NetworkInterfaces"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"DeviceIndex"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">"SubnetId"</span><span class="p">:</span> <span class="s2">"subnet-1a2b3c4d"</span><span class="p">,</span>
+      <span class="s2">"Groups"</span><span class="p">:</span> <span class="p">[</span> <span class="s2">"sg-1a2b3c4d"</span> <span class="p">],</span>
+      <span class="s2">"AssociatePublicIpAddress"</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"IamInstanceProfile"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:instance-profile/my-iam-role"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>SpotInstanceRequests -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more Spot Instance requests.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a Spot Instance request.</p>
+<p>ActualBlockHourlyPrice -&gt; (string)</p>
+<blockquote>
+<div>If you specified a duration and your Spot Instance request was fulfilled, this is the fixed hourly price in effect for the Spot Instance while it runs.</div>
+</blockquote>
+<p>AvailabilityZoneGroup -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone group. If you specify the same Availability Zone group for all Spot Instance requests, all Spot Instances are launched in the same Availability Zone.</div>
+</blockquote>
+<p>BlockDurationMinutes -&gt; (integer)</p>
+<blockquote>
+<div>The duration for the Spot Instance, in minutes.</div>
+</blockquote>
+<p>CreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the Spot Instance request was created, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z).</div>
+</blockquote>
+<p>Fault -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The fault codes for the Spot Instance request, if any.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The reason code for the Spot Instance state change.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The message for the Spot Instance state change.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The instance ID, if an instance has been launched to fulfill the Spot Instance request.</div>
+</blockquote>
+<p>LaunchGroup -&gt; (string)</p>
+<blockquote>
+<div>The instance launch group. Launch groups are Spot Instances that launch together and terminate together.</div>
+</blockquote>
+<p>LaunchSpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Additional information for launching instances.</p>
+<p>UserData -&gt; (string)</p>
+<blockquote>
+<div>The Base64-encoded user data for the instance.</div>
+</blockquote>
+<p>SecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more security groups. When requesting instances in a VPC, you must specify the IDs of the security groups. When requesting instances in EC2-Classic, you can specify the names or the IDs of the security groups.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a security group.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the security group.</div>
+</blockquote>
+<p>GroupId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AddressingType -&gt; (string)</p>
+<blockquote>
+<div>Deprecated.</div>
+</blockquote>
+<p>BlockDeviceMappings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more block device mapping entries.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a block device mapping.</p>
+<p>DeviceName -&gt; (string)</p>
+<blockquote>
+<div>The device name (for example, <tt class="docutils literal"><span class="pre">/dev/sdh</span></tt> or <tt class="docutils literal"><span class="pre">xvdh</span></tt> ).</div>
+</blockquote>
+<p>VirtualName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The virtual device name (<tt class="docutils literal"><span class="pre">ephemeral</span></tt> N). Instance store volumes are numbered starting from 0. An instance type with 2 available instance store volumes can specify mappings for <tt class="docutils literal"><span class="pre">ephemeral0</span></tt> and <tt class="docutils literal"><span class="pre">ephemeral1</span></tt> . The number of available instance store volumes depends on the instance type. After you connect to the instance, you must mount the volume.</p>
+<p>NVMe instance store volumes are automatically enumerated and assigned a device name. Including them in your block device mapping has no effect.</p>
+<p>Constraints: For M3 instances, you must specify instance store volumes in the block device mapping for the instance. When you launch an M3 instance, we ignore any instance store volumes specified in the block device mapping for the AMI.</p>
+</div>
+</blockquote>
+<p>Ebs -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Parameters used to automatically set up EBS volumes when the instance is launched.</p>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the EBS volume is deleted on instance termination. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#preserving-volumes-on-termination">Preserving Amazon EBS Volumes on Instance Termination</a> in the Amazon Elastic Compute Cloud User Guide.</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of I/O operations per second (IOPS) that the volume supports. For <tt class="docutils literal"><span class="pre">io1</span></tt> volumes, this represents the number of IOPS that are provisioned for the volume. For <tt class="docutils literal"><span class="pre">gp2</span></tt> volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Constraints: Range is 100-16,000 IOPS for <tt class="docutils literal"><span class="pre">gp2</span></tt> volumes and 100 to 64,000IOPS for <tt class="docutils literal"><span class="pre">io1</span></tt> volumes in most Regions. Maximum <tt class="docutils literal"><span class="pre">io1</span></tt> IOPS of 64,000 is guaranteed only on <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based instances</a> . Other instance families guarantee performance up to 32,000 IOPS. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Condition: This parameter is required for requests to create <tt class="docutils literal"><span class="pre">io1</span></tt> volumes; it is not used in requests to create <tt class="docutils literal"><span class="pre">gp2</span></tt> , <tt class="docutils literal"><span class="pre">st1</span></tt> , <tt class="docutils literal"><span class="pre">sc1</span></tt> , or <tt class="docutils literal"><span class="pre">standard</span></tt> volumes.</p>
+</div>
+</blockquote>
+<p>SnapshotId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the snapshot.</div>
+</blockquote>
+<p>VolumeSize -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The size of the volume, in GiB.</p>
+<p>Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the snapshot size.</p>
+<p>Constraints: 1-16384 for General Purpose SSD (<tt class="docutils literal"><span class="pre">gp2</span></tt> ), 4-16384 for Provisioned IOPS SSD (<tt class="docutils literal"><span class="pre">io1</span></tt> ), 500-16384 for Throughput Optimized HDD (<tt class="docutils literal"><span class="pre">st1</span></tt> ), 500-16384 for Cold HDD (<tt class="docutils literal"><span class="pre">sc1</span></tt> ), and 1-1024 for Magnetic (<tt class="docutils literal"><span class="pre">standard</span></tt> ) volumes. If you specify a snapshot, the volume size must be equal to or larger than the snapshot size.</p>
+</div>
+</blockquote>
+<p>VolumeType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The volume type. If you set the type to <tt class="docutils literal"><span class="pre">io1</span></tt> , you must also specify the IOPS that the volume supports.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">gp2</span></tt></p>
+</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>Indicates whether the encryption state of an EBS volume is changed while being restored from a backing snapshot. The effect of setting the encryption state to <tt class="docutils literal"><span class="pre">true</span></tt> depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether encryption by default is enabled. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-parameters">Amazon EBS Encryption</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>In no case can you remove encryption from an encrypted volume.</p>
+<p>Encrypted volumes can only be attached to instances that support Amazon EBS encryption. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances">Supported Instance Types</a> .</p>
+</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Identifier (key ID, key alias, ID ARN, or alias ARN) for a customer managed CMK under which the EBS volume is encrypted.</p>
+<p>This parameter is only supported on <tt class="docutils literal"><span class="pre">BlockDeviceMapping</span></tt> objects called by <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> , <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotFleet.html">RequestSpotFleet</a> , and <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html">RequestSpotInstances</a> .</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NoDevice -&gt; (string)</p>
+<blockquote>
+<div>Suppresses the specified device included in the block device mapping of the AMI.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EbsOptimized -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>Indicates whether the instance is optimized for EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>IamInstanceProfile -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The IAM instance profile.</p>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the instance profile.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the instance profile.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ImageId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AMI.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>KernelId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the kernel.</div>
+</blockquote>
+<p>KeyName -&gt; (string)</p>
+<blockquote>
+<div>The name of the key pair.</div>
+</blockquote>
+<p>NetworkInterfaces -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more network interfaces. If you specify a network interface, you must specify subnet IDs and security group IDs using the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a network interface.</p>
+<p>AssociatePublicIpAddress -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether to assign a public IPv4 address to an instance you launch in a VPC. The public IP address can only be assigned to a network interface for eth0, and can only be assigned to a new network interface, not an existing one. You cannot specify more than one network interface in the request. If launching into a default subnet, the default value is <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
+</blockquote>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>If set to <tt class="docutils literal"><span class="pre">true</span></tt> , the interface is deleted when the instance is terminated. You can specify <tt class="docutils literal"><span class="pre">true</span></tt> only if creating a new network interface when launching an instance.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the network interface. Applies only if creating a network interface when launching an instance.</div>
+</blockquote>
+<p>DeviceIndex -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The position of the network interface in the attachment order. A primary network interface has a device index of 0.</p>
+<p>If you specify a network interface when launching an instance, you must specify the device index.</p>
+</div>
+</blockquote>
+<p>Groups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of the security groups for the network interface. Applies only if creating a network interface when launching an instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Ipv6AddressCount -&gt; (integer)</p>
+<blockquote>
+<div>A number of IPv6 addresses to assign to the network interface. Amazon EC2 chooses the IPv6 addresses from the range of the subnet. You cannot specify this option and the option to assign specific IPv6 addresses in the same request. You can specify this option if you've specified a minimum number of instances to launch.</div>
+</blockquote>
+<p>Ipv6Addresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more IPv6 addresses to assign to the network interface. You cannot specify this option and the option to assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number of instances to launch.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv6 address.</p>
+<p>Ipv6Address -&gt; (string)</p>
+<blockquote>
+<div>The IPv6 address.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NetworkInterfaceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the network interface.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 address of the network interface. Applies only if creating a network interface when launching an instance. You cannot specify this option if you're launching more than one instance in a <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.</div>
+</blockquote>
+<p>PrivateIpAddresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more private IPv4 addresses to assign to the network interface. Only one private IPv4 address can be designated as primary. You cannot specify this option if you're launching more than one instance in a <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a secondary private IPv4 address for a network interface.</p>
+<p>Primary -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the private IPv4 address is the primary private IPv4 address. Only one IPv4 address can be designated as primary.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 addresses.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SecondaryPrivateIpAddressCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of secondary private IPv4 addresses. You can't specify this option and specify more than one private IP address using the private IP addresses option. You cannot specify this option if you're launching more than one instance in a <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> request.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet associated with the network interface. Applies only if creating a network interface when launching an instance.</div>
+</blockquote>
+<p>InterfaceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of network interface. To create an Elastic Fabric Adapter (EFA), specify <tt class="docutils literal"><span class="pre">efa</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html">Elastic Fabric Adapter</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>If you are not creating an EFA, specify <tt class="docutils literal"><span class="pre">interface</span></tt> or omit this parameter.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">interface</span></tt> | <tt class="docutils literal"><span class="pre">efa</span></tt></p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Placement -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The placement information for the instance.</p>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The Availability Zone.</p>
+<p>[Spot Fleet only] To specify multiple Availability Zones, separate them using commas; for example, "us-west-2a, us-west-2b".</p>
+</div>
+</blockquote>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the placement group.</div>
+</blockquote>
+<p>Tenancy -&gt; (string)</p>
+<blockquote>
+<div>The tenancy of the instance (if the instance is running in a VPC). An instance with a tenancy of <tt class="docutils literal"><span class="pre">dedicated</span></tt> runs on single-tenant hardware. The <tt class="docutils literal"><span class="pre">host</span></tt> tenancy is not supported for Spot Instances.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RamdiskId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the RAM disk.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet in which to launch the instance.</div>
+</blockquote>
+<p>Monitoring -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the monitoring of an instance.</p>
+<p>Enabled -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring is enabled.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LaunchedAvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone in which the request is launched.</div>
+</blockquote>
+<p>ProductDescription -&gt; (string)</p>
+<blockquote>
+<div>The product description associated with the Spot Instance.</div>
+</blockquote>
+<p>SpotInstanceRequestId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Spot Instance request.</div>
+</blockquote>
+<p>SpotPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum price per hour that you are willing to pay for a Spot Instance.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The state of the Spot Instance request. Spot status information helps track your Spot Instance requests. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html">Spot Status</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</div>
+</blockquote>
+<p>Status -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The status code and status message describing the Spot Instance request.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The status code. For a list of status codes, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html#spot-instance-bid-status-understand">Spot Status Codes</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The description for the status code.</div>
+</blockquote>
+<p>UpdateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time of the most recent status update, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z).</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the resource.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The Spot Instance request type.</div>
+</blockquote>
+<p>ValidFrom -&gt; (timestamp)</p>
+<blockquote>
+<div>The start date of the request, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z). The request becomes active at this date and time.</div>
+</blockquote>
+<p>ValidUntil -&gt; (timestamp)</p>
+<blockquote>
+<div>The end date of the request, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z). If this is a one-time request, it remains active until all instances launch, the request is canceled, or this date is reached. If the request is persistent, it remains active until it is canceled or this date is reached. The default end date is 7 days from the current date.</div>
+</blockquote>
+<p>InstanceInterruptionBehavior -&gt; (string)</p>
+<blockquote>
+<div>The behavior when a Spot Instance is interrupted.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

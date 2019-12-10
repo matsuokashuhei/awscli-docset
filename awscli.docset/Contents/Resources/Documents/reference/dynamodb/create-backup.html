@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-backup — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="dynamodb" href="index.html">
+    <link rel="next" title="create-global-table" href="create-global-table.html">
+    <link rel="prev" title="batch-write-item" href="batch-write-item.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-backup">
+<span id="cli-aws-dynamodb-create-backup"></span><h1>create-backup<a class="headerlink" href="#create-backup" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a backup for an existing table.</p>
+<p>Each time you create an on-demand backup, the entire table data is backed up. There is no limit to the number of on-demand backups that can be taken.</p>
+<p>When you create an on-demand backup, a time marker of the request is cataloged, and the backup is created asynchronously, by applying all changes until the time of the request to the last full table snapshot. Backup requests are processed instantaneously and become available for restore within minutes.</p>
+<p>You can call <tt class="docutils literal"><span class="pre">CreateBackup</span></tt> at a maximum rate of 50 times per second.</p>
+<p>All backups in DynamoDB work without consuming any provisioned throughput on the table.</p>
+<p>If you submit a backup request on 2018-12-14 at 14:25:00, the backup is guaranteed to contain all data committed to the table up to 14:24:00, and data committed after 14:26:00 will not be. The backup might contain data modifications made between 14:24:00 and 14:26:00. On-demand backup does not support causal consistency.</p>
+<p>Along with data, the following are also included on the backups:</p>
+<ul class="simple">
+<li>Global secondary indexes (GSIs)</li>
+<li>Local secondary indexes (LSIs)</li>
+<li>Streams</li>
+<li>Provisioned read and write capacity</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/CreateBackup">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-backup
+--table-name &lt;value&gt;
+--backup-name &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--table-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the table.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--backup-name</span></tt> (string)</p>
+<blockquote>
+<div>Specified name for the backup.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>BackupDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains the details of the backup created for the table.</p>
+<p>BackupArn -&gt; (string)</p>
+<blockquote>
+<div>ARN associated with the backup.</div>
+</blockquote>
+<p>BackupName -&gt; (string)</p>
+<blockquote>
+<div>Name of the requested backup.</div>
+</blockquote>
+<p>BackupSizeBytes -&gt; (long)</p>
+<blockquote>
+<div>Size of the backup in bytes.</div>
+</blockquote>
+<p>BackupStatus -&gt; (string)</p>
+<blockquote>
+<div>Backup can be in one of the following states: CREATING, ACTIVE, DELETED.</div>
+</blockquote>
+<p>BackupType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>BackupType:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">USER</span></tt> - You create and manage these using the on-demand backup feature.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SYSTEM</span></tt> - If you delete a table with point-in-time recovery enabled, a <tt class="docutils literal"><span class="pre">SYSTEM</span></tt> backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.</li>
+<li>
+<tt class="docutils literal"><span class="pre">AWS_BACKUP</span></tt> - On-demand backup created by you from AWS Backup service.</li>
+</ul>
+</div>
+</blockquote>
+<p>BackupCreationDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time at which the backup was created. This is the request time of the backup.</div>
+</blockquote>
+<p>BackupExpiryDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time at which the automatic on-demand backup created by DynamoDB will expire. This <tt class="docutils literal"><span class="pre">SYSTEM</span></tt> on-demand backup expires automatically 35 days after its creation.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

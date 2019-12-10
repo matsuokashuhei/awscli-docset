@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>admin-initiate-auth — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cognito-idp" href="index.html">
+    <link rel="next" title="admin-link-provider-for-user" href="admin-link-provider-for-user.html">
+    <link rel="prev" title="admin-get-user" href="admin-get-user.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="admin-initiate-auth">
+<span id="cli-aws-cognito-idp-admin-initiate-auth"></span><h1>admin-initiate-auth<a class="headerlink" href="#admin-initiate-auth" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Initiates the authentication flow, as an administrator.</p>
+<p>Calling this action requires developer credentials.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/AdminInitiateAuth">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  admin-initiate-auth
+--user-pool-id &lt;value&gt;
+--client-id &lt;value&gt;
+--auth-flow &lt;value&gt;
+[--auth-parameters &lt;value&gt;]
+[--client-metadata &lt;value&gt;]
+[--analytics-metadata &lt;value&gt;]
+[--context-data &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--user-pool-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the Amazon Cognito user pool.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-id</span></tt> (string)</p>
+<blockquote>
+<div>The app client ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auth-flow</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The authentication flow for this call to execute. The API action will depend on this value. For example:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">REFRESH_TOKEN_AUTH</span></tt> will take in a valid refresh token and return new tokens.</li>
+<li>
+<tt class="docutils literal"><span class="pre">USER_SRP_AUTH</span></tt> will take in <tt class="docutils literal"><span class="pre">USERNAME</span></tt> and <tt class="docutils literal"><span class="pre">SRP_A</span></tt> and return the SRP variables to be used for next challenge execution.</li>
+<li>
+<tt class="docutils literal"><span class="pre">USER_PASSWORD_AUTH</span></tt> will take in <tt class="docutils literal"><span class="pre">USERNAME</span></tt> and <tt class="docutils literal"><span class="pre">PASSWORD</span></tt> and return the next challenge or tokens.</li>
+</ul>
+<p>Valid values include:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">USER_SRP_AUTH</span></tt> : Authentication flow for the Secure Remote Password (SRP) protocol.</li>
+<li>
+<tt class="docutils literal"><span class="pre">REFRESH_TOKEN_AUTH</span></tt> /<tt class="docutils literal"><span class="pre">REFRESH_TOKEN</span></tt> : Authentication flow for refreshing the access token and ID token by supplying a valid refresh token.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CUSTOM_AUTH</span></tt> : Custom authentication flow.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ADMIN_NO_SRP_AUTH</span></tt> : Non-SRP authentication flow; you can pass in the USERNAME and PASSWORD directly if the flow is enabled for calling the app client.</li>
+<li>
+<tt class="docutils literal"><span class="pre">USER_PASSWORD_AUTH</span></tt> : Non-SRP authentication flow; USERNAME and PASSWORD are passed directly. If a user migration Lambda trigger is set, this flow will invoke the user migration Lambda if the USERNAME is not found in the user pool.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ADMIN_USER_PASSWORD_AUTH</span></tt> : Admin-based user password authentication. This replaces the <tt class="docutils literal"><span class="pre">ADMIN_NO_SRP_AUTH</span></tt> authentication flow. In this flow, Cognito receives the password in the request instead of using the SRP process to verify passwords.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">USER_SRP_AUTH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REFRESH_TOKEN_AUTH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REFRESH_TOKEN</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">CUSTOM_AUTH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ADMIN_NO_SRP_AUTH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">USER_PASSWORD_AUTH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ADMIN_USER_PASSWORD_AUTH</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auth-parameters</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>The authentication parameters. These are inputs corresponding to the <tt class="docutils literal"><span class="pre">AuthFlow</span></tt> that you are invoking. The required values depend on the value of <tt class="docutils literal"><span class="pre">AuthFlow</span></tt> :</p>
+<ul class="simple">
+<li>For <tt class="docutils literal"><span class="pre">USER_SRP_AUTH</span></tt> : <tt class="docutils literal"><span class="pre">USERNAME</span></tt> (required), <tt class="docutils literal"><span class="pre">SRP_A</span></tt> (required), <tt class="docutils literal"><span class="pre">SECRET_HASH</span></tt> (required if the app client is configured with a client secret), <tt class="docutils literal"><span class="pre">DEVICE_KEY</span></tt>
+</li>
+<li>For <tt class="docutils literal"><span class="pre">REFRESH_TOKEN_AUTH/REFRESH_TOKEN</span></tt> : <tt class="docutils literal"><span class="pre">REFRESH_TOKEN</span></tt> (required), <tt class="docutils literal"><span class="pre">SECRET_HASH</span></tt> (required if the app client is configured with a client secret), <tt class="docutils literal"><span class="pre">DEVICE_KEY</span></tt>
+</li>
+<li>For <tt class="docutils literal"><span class="pre">ADMIN_NO_SRP_AUTH</span></tt> : <tt class="docutils literal"><span class="pre">USERNAME</span></tt> (required), <tt class="docutils literal"><span class="pre">SECRET_HASH</span></tt> (if app client is configured with client secret), <tt class="docutils literal"><span class="pre">PASSWORD</span></tt> (required), <tt class="docutils literal"><span class="pre">DEVICE_KEY</span></tt>
+</li>
+<li>For <tt class="docutils literal"><span class="pre">CUSTOM_AUTH</span></tt> : <tt class="docutils literal"><span class="pre">USERNAME</span></tt> (required), <tt class="docutils literal"><span class="pre">SECRET_HASH</span></tt> (if app client is configured with client secret), <tt class="docutils literal"><span class="pre">DEVICE_KEY</span></tt>
+</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--client-metadata</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>A map of custom key-value pairs that you can provide as input for certain custom workflows that this action triggers.</p>
+<p>You create custom workflows by assigning AWS Lambda functions to user pool triggers. When you use the AdminInitiateAuth API action, Amazon Cognito invokes the AWS Lambda functions that are specified for various triggers. The ClientMetadata value is passed as input to the functions for only the following triggers:</p>
+<ul class="simple">
+<li>Pre signup</li>
+<li>Pre authentication</li>
+<li>User migration</li>
+</ul>
+<p>When Amazon Cognito invokes the functions for these triggers, it passes a JSON payload, which the function receives as input. This payload contains a <tt class="docutils literal"><span class="pre">validationData</span></tt> attribute, which provides the data that you assigned to the ClientMetadata parameter in your AdminInitiateAuth request. In your function code in AWS Lambda, you can process the <tt class="docutils literal"><span class="pre">validationData</span></tt> value to enhance your workflow for your specific needs.</p>
+<p>When you use the AdminInitiateAuth API action, Amazon Cognito also invokes the functions for the following triggers, but it does not provide the ClientMetadata value as input:</p>
+<ul class="simple">
+<li>Post authentication</li>
+<li>Custom message</li>
+<li>Pre token generation</li>
+<li>Create auth challenge</li>
+<li>Define auth challenge</li>
+<li>Verify auth challenge</li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html">Customizing User Pool Workflows with Lambda Triggers</a> in the <em>Amazon Cognito Developer Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Take the following limitations into consideration when you use the ClientMetadata parameter:</p>
+<ul class="last simple">
+<li>Amazon Cognito does not store the ClientMetadata value. This data is available only to AWS Lambda triggers that are assigned to a user pool to support custom workflows. If your user pool configuration does not include triggers, the ClientMetadata parameter serves no purpose.</li>
+<li>Amazon Cognito does not validate the ClientMetadata value.</li>
+<li>Amazon Cognito does not encrypt the the ClientMetadata value, so don't use it to provide sensitive information.</li>
+</ul>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--analytics-metadata</span></tt> (structure)</p>
+<blockquote>
+<div>The analytics metadata for collecting Amazon Pinpoint metrics for <tt class="docutils literal"><span class="pre">AdminInitiateAuth</span></tt> calls.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">AnalyticsEndpointId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"AnalyticsEndpointId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--context-data</span></tt> (structure)</p>
+<blockquote>
+<div>Contextual data such as the user's device fingerprint, IP address, or location used for evaluating the risk of an unexpected event by Amazon Cognito advanced security.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>IpAddress=string,ServerName=string,ServerPath=string,HttpHeaders=[{headerName=string,headerValue=string},{headerName=string,headerValue=string}],EncodedData=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "IpAddress": "string",
+  "ServerName": "string",
+  "ServerPath": "string",
+  "HttpHeaders": [
+    {
+      "headerName": "string",
+      "headerValue": "string"
+    }
+    ...
+  ],
+  "EncodedData": "string"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To initiate authorization</strong></p>
+<p>This example initiates authorization using the ADMIN_NO_SRP_AUTH flow for username <a class="reference external" href="mailto:jane%40example.com">jane<span>@</span>example<span>.</span>com</a></p>
+<p>The client must have sign-in API for server-based authentication (ADMIN_NO_SRP_AUTH) enabled.</p>
+<p>Use the session information in the return value to call <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/reference/cognito-idp/admin-respond-to-auth-challenge.html">admin-respond-to-auth-challenge</a>.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws cognito-idp admin-initiate-auth --user-pool-id us-west-2_aaaaaaaaa --client-id 3n4b5urk1ft4fl3mg5e62d9ado --auth-flow ADMIN_NO_SRP_AUTH --auth-parameters USERNAME=jane@example.com,PASSWORD=password</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ChallengeName"</span><span class="p">:</span> <span class="s2">"NEW_PASSWORD_REQUIRED"</span><span class="p">,</span>
+  <span class="s2">"Session"</span><span class="p">:</span> <span class="s2">"SESSION"</span><span class="p">,</span>
+  <span class="s2">"ChallengeParameters"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"USER_ID_FOR_SRP"</span><span class="p">:</span> <span class="s2">"84514837-dcbc-4af1-abff-f3c109334894"</span><span class="p">,</span>
+      <span class="s2">"requiredAttributes"</span><span class="p">:</span> <span class="s2">"[]"</span><span class="p">,</span>
+      <span class="s2">"userAttributes"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">email_verified</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">true</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">phone_number_verified</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">true</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">phone_number</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">+01xxx5550100</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">email</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">jane@example.com</span><span class="se">\"</span><span class="s2">}"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ChallengeName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of the challenge which you are responding to with this call. This is returned to you in the <tt class="docutils literal"><span class="pre">AdminInitiateAuth</span></tt> response if you need to pass another challenge.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">MFA_SETUP</span></tt> : If MFA is required, users who do not have at least one of the MFA methods set up are presented with an <tt class="docutils literal"><span class="pre">MFA_SETUP</span></tt> challenge. The user must set up at least one MFA type to continue to authenticate.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SELECT_MFA_TYPE</span></tt> : Selects the MFA type. Valid MFA options are <tt class="docutils literal"><span class="pre">SMS_MFA</span></tt> for text SMS MFA, and <tt class="docutils literal"><span class="pre">SOFTWARE_TOKEN_MFA</span></tt> for TOTP software token MFA.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SMS_MFA</span></tt> : Next challenge is to supply an <tt class="docutils literal"><span class="pre">SMS_MFA_CODE</span></tt> , delivered via SMS.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PASSWORD_VERIFIER</span></tt> : Next challenge is to supply <tt class="docutils literal"><span class="pre">PASSWORD_CLAIM_SIGNATURE</span></tt> , <tt class="docutils literal"><span class="pre">PASSWORD_CLAIM_SECRET_BLOCK</span></tt> , and <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> after the client-side SRP calculations.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CUSTOM_CHALLENGE</span></tt> : This is returned if your custom authentication flow determines that the user should pass another challenge before tokens are issued.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DEVICE_SRP_AUTH</span></tt> : If device tracking was enabled on your user pool and the previous challenges were passed, this challenge is returned so that Amazon Cognito can start tracking this device.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DEVICE_PASSWORD_VERIFIER</span></tt> : Similar to <tt class="docutils literal"><span class="pre">PASSWORD_VERIFIER</span></tt> , but for devices only.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ADMIN_NO_SRP_AUTH</span></tt> : This is returned if you need to authenticate with <tt class="docutils literal"><span class="pre">USERNAME</span></tt> and <tt class="docutils literal"><span class="pre">PASSWORD</span></tt> directly. An app client must be enabled to use this flow.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NEW_PASSWORD_REQUIRED</span></tt> : For users which are required to change their passwords after successful first login. This challenge should be passed with <tt class="docutils literal"><span class="pre">NEW_PASSWORD</span></tt> and any other required attributes.</li>
+</ul>
+</div>
+</blockquote>
+<p>Session -&gt; (string)</p>
+<blockquote>
+<div>The session which should be passed both ways in challenge-response calls to the service. If <tt class="docutils literal"><span class="pre">AdminInitiateAuth</span></tt> or <tt class="docutils literal"><span class="pre">AdminRespondToAuthChallenge</span></tt> API call determines that the caller needs to go through another challenge, they return a session with other challenge parameters. This session should be passed as it is to the next <tt class="docutils literal"><span class="pre">AdminRespondToAuthChallenge</span></tt> API call.</div>
+</blockquote>
+<p>ChallengeParameters -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The challenge parameters. These are returned to you in the <tt class="docutils literal"><span class="pre">AdminInitiateAuth</span></tt> response if you need to pass another challenge. The responses in this parameter should be used to compute inputs to the next call (<tt class="docutils literal"><span class="pre">AdminRespondToAuthChallenge</span></tt> ).</p>
+<p>All challenges require <tt class="docutils literal"><span class="pre">USERNAME</span></tt> and <tt class="docutils literal"><span class="pre">SECRET_HASH</span></tt> (if applicable).</p>
+<p>The value of the <tt class="docutils literal"><span class="pre">USER_ID_FOR_SRP</span></tt> attribute will be the user's actual username, not an alias (such as email address or phone number), even if you specified an alias in your call to <tt class="docutils literal"><span class="pre">AdminInitiateAuth</span></tt> . This is because, in the <tt class="docutils literal"><span class="pre">AdminRespondToAuthChallenge</span></tt> API <tt class="docutils literal"><span class="pre">ChallengeResponses</span></tt> , the <tt class="docutils literal"><span class="pre">USERNAME</span></tt> attribute cannot be an alias.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>AuthenticationResult -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The result of the authentication response. This is only returned if the caller does not need to pass another challenge. If the caller does need to pass another challenge before it gets tokens, <tt class="docutils literal"><span class="pre">ChallengeName</span></tt> , <tt class="docutils literal"><span class="pre">ChallengeParameters</span></tt> , and <tt class="docutils literal"><span class="pre">Session</span></tt> are returned.</p>
+<p>AccessToken -&gt; (string)</p>
+<blockquote>
+<div>The access token.</div>
+</blockquote>
+<p>ExpiresIn -&gt; (integer)</p>
+<blockquote>
+<div>The expiration period of the authentication result in seconds.</div>
+</blockquote>
+<p>TokenType -&gt; (string)</p>
+<blockquote>
+<div>The token type.</div>
+</blockquote>
+<p>RefreshToken -&gt; (string)</p>
+<blockquote>
+<div>The refresh token.</div>
+</blockquote>
+<p>IdToken -&gt; (string)</p>
+<blockquote>
+<div>The ID token.</div>
+</blockquote>
+<p>NewDeviceMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The new device metadata from an authentication result.</p>
+<p>DeviceKey -&gt; (string)</p>
+<blockquote>
+<div>The device key.</div>
+</blockquote>
+<p>DeviceGroupKey -&gt; (string)</p>
+<blockquote>
+<div>The device group key.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

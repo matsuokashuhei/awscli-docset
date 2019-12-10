@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>generate-data-key — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="generate-data-key-pair" href="generate-data-key-pair.html">
+    <link rel="prev" title="encrypt" href="encrypt.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="generate-data-key">
+<span id="cli-aws-kms-generate-data-key"></span><h1>generate-data-key<a class="headerlink" href="#generate-data-key" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Generates a unique symmetric data key. This operation returns a plaintext copy of the data key and a copy that is encrypted under a customer master key (CMK) that you specify. You can use the plaintext key to encrypt your data outside of AWS KMS and store the encrypted data key with the encrypted data.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GenerateDataKey</span></tt> returns a unique data key for each request. The bytes in the key are not related to the caller or CMK that is used to encrypt the data key.</div>
+</blockquote>
+<p>To generate a data key, specify the symmetric CMK that will be used to encrypt the data key. You cannot use an asymmetric CMK to generate data keys.</p>
+<p>You must also specify the length of the data key. Use either the <tt class="docutils literal"><span class="pre">KeySpec</span></tt> or <tt class="docutils literal"><span class="pre">NumberOfBytes</span></tt> parameters (but not both). For 128-bit and 256-bit data keys, use the <tt class="docutils literal"><span class="pre">KeySpec</span></tt> parameter.</p>
+<p>If the operation succeeds, the plaintext copy of the data key is in the <tt class="docutils literal"><span class="pre">Plaintext</span></tt> field of the response, and the encrypted copy of the data key in the <tt class="docutils literal"><span class="pre">CiphertextBlob</span></tt> field.</p>
+<p>To get only an encrypted copy of the data key, use  GenerateDataKeyWithoutPlaintext . To generate an asymmetric data key pair, use the  GenerateDataKeyPair or  GenerateDataKeyPairWithoutPlaintext operation. To get a cryptographically secure random byte string, use  GenerateRandom .</p>
+<p>You can use the optional encryption context to add additional security to the encryption operation. If you specify an <tt class="docutils literal"><span class="pre">EncryptionContext</span></tt> , you must specify the same encryption context (a case-sensitive exact match) when decrypting the encrypted data key. Otherwise, the request to decrypt fails with an InvalidCiphertextException. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>The CMK that you use for this operation must be in a compatible key state. For details, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>We recommend that you use the following pattern to encrypt data locally in your application:</p>
+<ul class="simple">
+<li>Use the <tt class="docutils literal"><span class="pre">GenerateDataKey</span></tt> operation to get a data encryption key.</li>
+<li>Use the plaintext data key (returned in the <tt class="docutils literal"><span class="pre">Plaintext</span></tt> field of the response) to encrypt data locally, then erase the plaintext data key from memory.</li>
+<li>Store the encrypted data key (returned in the <tt class="docutils literal"><span class="pre">CiphertextBlob</span></tt> field of the response) alongside the locally encrypted data.</li>
+</ul>
+<p>To decrypt data locally:</p>
+<ul class="simple">
+<li>Use the  Decrypt operation to decrypt the encrypted data key. The operation returns a plaintext copy of the data key.</li>
+<li>Use the plaintext data key to decrypt data locally, then erase the plaintext data key from memory.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateDataKey">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  generate-data-key
+--key-id &lt;value&gt;
+[--encryption-context &lt;value&gt;]
+[--number-of-bytes &lt;value&gt;]
+[--key-spec &lt;value&gt;]
+[--grant-tokens &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Identifies the symmetric CMK that encrypts the data key.</p>
+<p>To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with <tt class="docutils literal"><span class="pre">"alias/"</span></tt> . To specify a CMK in a different AWS account, you must use the key ARN or alias ARN.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Alias name: <tt class="docutils literal"><span class="pre">alias/ExampleAlias</span></tt>
+</li>
+<li>Alias ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey . To get the alias name and alias ARN, use  ListAliases .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--encryption-context</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>Specifies the encryption context that will be used when encrypting the data key.</p>
+<p>An <em>encryption context</em> is a collection of non-secret key-value pairs that represents additional authenticated data. When you use an encryption context to encrypt data, you must specify the same (an exact case-sensitive match) encryption context to decrypt the data. An encryption context is optional when encrypting with a symmetric CMK, but it is highly recommended.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--number-of-bytes</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>Specifies the length of the data key in bytes. For example, use the value 64 to generate a 512-bit data key (64 bytes is 512 bits). For 128-bit (16-byte) and 256-bit (32-byte) data keys, use the <tt class="docutils literal"><span class="pre">KeySpec</span></tt> parameter.</p>
+<p>You must specify either the <tt class="docutils literal"><span class="pre">KeySpec</span></tt> or the <tt class="docutils literal"><span class="pre">NumberOfBytes</span></tt> parameter (but not both) in every <tt class="docutils literal"><span class="pre">GenerateDataKey</span></tt> request.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key-spec</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the length of the data key. Use <tt class="docutils literal"><span class="pre">AES_128</span></tt> to generate a 128-bit symmetric key, or <tt class="docutils literal"><span class="pre">AES_256</span></tt> to generate a 256-bit symmetric key.</p>
+<p>You must specify either the <tt class="docutils literal"><span class="pre">KeySpec</span></tt> or the <tt class="docutils literal"><span class="pre">NumberOfBytes</span></tt> parameter (but not both) in every <tt class="docutils literal"><span class="pre">GenerateDataKey</span></tt> request.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AES_256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AES_128</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-tokens</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of grant tokens.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CiphertextBlob -&gt; (blob)</p>
+<blockquote>
+<div>The encrypted copy of the data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded.</div>
+</blockquote>
+<p>Plaintext -&gt; (blob)</p>
+<blockquote>
+<div>The plaintext data key. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded. Use this data key to encrypt your data outside of KMS. Then, remove it from memory as soon as possible.</div>
+</blockquote>
+<p>KeyId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the CMK that encrypted the data key.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

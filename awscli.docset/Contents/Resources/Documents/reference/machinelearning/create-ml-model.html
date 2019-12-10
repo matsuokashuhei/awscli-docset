@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-ml-model — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="machinelearning" href="index.html">
+    <link rel="next" title="create-realtime-endpoint" href="create-realtime-endpoint.html">
+    <link rel="prev" title="create-evaluation" href="create-evaluation.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-ml-model">
+<span id="cli-aws-machinelearning-create-ml-model"></span><h1>create-ml-model<a class="headerlink" href="#create-ml-model" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new <tt class="docutils literal"><span class="pre">MLModel</span></tt> using the <tt class="docutils literal"><span class="pre">DataSource</span></tt> and the recipe as information sources.</p>
+<p>An <tt class="docutils literal"><span class="pre">MLModel</span></tt> is nearly immutable. Users can update only the <tt class="docutils literal"><span class="pre">MLModelName</span></tt> and the <tt class="docutils literal"><span class="pre">ScoreThreshold</span></tt> in an <tt class="docutils literal"><span class="pre">MLModel</span></tt> without creating a new <tt class="docutils literal"><span class="pre">MLModel</span></tt> .</p>
+<p><tt class="docutils literal"><span class="pre">CreateMLModel</span></tt> is an asynchronous operation. In response to <tt class="docutils literal"><span class="pre">CreateMLModel</span></tt> , Amazon Machine Learning (Amazon ML) immediately returns and sets the <tt class="docutils literal"><span class="pre">MLModel</span></tt> status to <tt class="docutils literal"><span class="pre">PENDING</span></tt> . After the <tt class="docutils literal"><span class="pre">MLModel</span></tt> has been created and ready is for use, Amazon ML sets the status to <tt class="docutils literal"><span class="pre">COMPLETED</span></tt> .</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">GetMLModel</span></tt> operation to check the progress of the <tt class="docutils literal"><span class="pre">MLModel</span></tt> during the creation operation.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">CreateMLModel</span></tt> requires a <tt class="docutils literal"><span class="pre">DataSource</span></tt> with computed statistics, which can be created by setting <tt class="docutils literal"><span class="pre">ComputeStatistics</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> in <tt class="docutils literal"><span class="pre">CreateDataSourceFromRDS</span></tt> , <tt class="docutils literal"><span class="pre">CreateDataSourceFromS3</span></tt> , or <tt class="docutils literal"><span class="pre">CreateDataSourceFromRedshift</span></tt> operations.</div>
+</blockquote>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/machinelearning-2014-12-12/CreateMLModel">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-ml-model
+--ml-model-id &lt;value&gt;
+[--ml-model-name &lt;value&gt;]
+--ml-model-type &lt;value&gt;
+[--parameters &lt;value&gt;]
+--training-data-source-id &lt;value&gt;
+[--recipe &lt;value&gt;]
+[--recipe-uri &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--ml-model-id</span></tt> (string)</p>
+<blockquote>
+<div>A user-supplied ID that uniquely identifies the <tt class="docutils literal"><span class="pre">MLModel</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ml-model-name</span></tt> (string)</p>
+<blockquote>
+<div>A user-supplied name or description of the <tt class="docutils literal"><span class="pre">MLModel</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ml-model-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The category of supervised learning that this <tt class="docutils literal"><span class="pre">MLModel</span></tt> will address. Choose from the following types:</p>
+<ul class="simple">
+<li>Choose <tt class="docutils literal"><span class="pre">REGRESSION</span></tt> if the <tt class="docutils literal"><span class="pre">MLModel</span></tt> will be used to predict a numeric value.</li>
+<li>Choose <tt class="docutils literal"><span class="pre">BINARY</span></tt> if the <tt class="docutils literal"><span class="pre">MLModel</span></tt> result has two possible values.</li>
+<li>Choose <tt class="docutils literal"><span class="pre">MULTICLASS</span></tt> if the <tt class="docutils literal"><span class="pre">MLModel</span></tt> result has a limited number of values.</li>
+</ul>
+<p>For more information, see the <a class="reference external" href="http://docs.aws.amazon.com/machine-learning/latest/dg">Amazon Machine Learning Developer Guide</a> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">REGRESSION</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">BINARY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">MULTICLASS</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameters</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>A list of the training parameters in the <tt class="docutils literal"><span class="pre">MLModel</span></tt> . The list is implemented as a map of key-value pairs.</p>
+<p>The following is the current set of training parameters:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">sgd.maxMLModelSizeInBytes</span></tt> - The maximum allowed size of the model. Depending on the input data, the size of the model might affect its performance. The value is an integer that ranges from <tt class="docutils literal"><span class="pre">100000</span></tt> to <tt class="docutils literal"><span class="pre">2147483648</span></tt> . The default value is <tt class="docutils literal"><span class="pre">33554432</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">sgd.maxPasses</span></tt> - The number of times that the training process traverses the observations to build the <tt class="docutils literal"><span class="pre">MLModel</span></tt> . The value is an integer that ranges from <tt class="docutils literal"><span class="pre">1</span></tt> to <tt class="docutils literal"><span class="pre">10000</span></tt> . The default value is <tt class="docutils literal"><span class="pre">10</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">sgd.shuffleType</span></tt> - Whether Amazon ML shuffles the training data. Shuffling the data improves a model's ability to find the optimal solution for a variety of data types. The valid values are <tt class="docutils literal"><span class="pre">auto</span></tt> and <tt class="docutils literal"><span class="pre">none</span></tt> . The default value is <tt class="docutils literal"><span class="pre">none</span></tt> . We strongly recommend that you shuffle your data.</li>
+<li>
+<tt class="docutils literal"><span class="pre">sgd.l1RegularizationAmount</span></tt> - The coefficient regularization L1 norm. It controls overfitting the data by penalizing large coefficients. This tends to drive coefficients to zero, resulting in a sparse feature set. If you use this parameter, start by specifying a small value, such as <tt class="docutils literal"><span class="pre">1.0E-08</span></tt> . The value is a double that ranges from <tt class="docutils literal"><span class="pre">0</span></tt> to <tt class="docutils literal"><span class="pre">MAX_DOUBLE</span></tt> . The default is to not use L1 normalization. This parameter can't be used when <tt class="docutils literal"><span class="pre">L2</span></tt> is specified. Use this parameter sparingly.</li>
+<li>
+<tt class="docutils literal"><span class="pre">sgd.l2RegularizationAmount</span></tt> - The coefficient regularization L2 norm. It controls overfitting the data by penalizing large coefficients. This tends to drive coefficients to small, nonzero values. If you use this parameter, start by specifying a small value, such as <tt class="docutils literal"><span class="pre">1.0E-08</span></tt> . The value is a double that ranges from <tt class="docutils literal"><span class="pre">0</span></tt> to <tt class="docutils literal"><span class="pre">MAX_DOUBLE</span></tt> . The default is to not use L2 normalization. This parameter can't be used when <tt class="docutils literal"><span class="pre">L1</span></tt> is specified. Use this parameter sparingly.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--training-data-source-id</span></tt> (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">DataSource</span></tt> that points to the training data.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--recipe</span></tt> (string)</p>
+<blockquote>
+<div>The data recipe for creating the <tt class="docutils literal"><span class="pre">MLModel</span></tt> . You must specify either the recipe or its URI. If you don't specify a recipe or its URI, Amazon ML creates a default.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--recipe-uri</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Simple Storage Service (Amazon S3) location and file name that contains the <tt class="docutils literal"><span class="pre">MLModel</span></tt> recipe. You must specify either the recipe or its URI. If you don't specify a recipe or its URI, Amazon ML creates a default.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>MLModelId -&gt; (string)</p>
+<blockquote>
+<div>A user-supplied ID that uniquely identifies the <tt class="docutils literal"><span class="pre">MLModel</span></tt> . This value should be identical to the value of the <tt class="docutils literal"><span class="pre">MLModelId</span></tt> in the request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

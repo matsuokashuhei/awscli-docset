@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>submit-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="batch" href="index.html">
+    <link rel="next" title="terminate-job" href="terminate-job.html">
+    <link rel="prev" title="register-job-definition" href="register-job-definition.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="submit-job">
+<span id="cli-aws-batch-submit-job"></span><h1>submit-job<a class="headerlink" href="#submit-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Submits an AWS Batch job from a job definition. Parameters specified during  SubmitJob override parameters defined in the job definition.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/SubmitJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  submit-job
+--job-name &lt;value&gt;
+--job-queue &lt;value&gt;
+[--array-properties &lt;value&gt;]
+[--depends-on &lt;value&gt;]
+--job-definition &lt;value&gt;
+[--parameters &lt;value&gt;]
+[--container-overrides &lt;value&gt;]
+[--node-overrides &lt;value&gt;]
+[--retry-strategy &lt;value&gt;]
+[--timeout &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--job-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the job. The first character must be alphanumeric, and up to 128 letters (uppercase and lowercase), numbers, hyphens, and underscores are allowed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--job-queue</span></tt> (string)</p>
+<blockquote>
+<div>The job queue into which the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of the queue.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--array-properties</span></tt> (structure)</p>
+<blockquote>
+<div>The array properties for the submitted job, such as the size of the array. The array size can be between 2 and 10,000. If you specify array properties for a job, it becomes an array job. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html">Array Jobs</a> in the <em>AWS Batch User Guide</em> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">size</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"size"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--depends-on</span></tt> (list)</p>
+<blockquote>
+<div>A list of dependencies for the job. A job can depend upon a maximum of 20 jobs. You can specify a <tt class="docutils literal"><span class="pre">SEQUENTIAL</span></tt> type dependency without specifying a job ID for array jobs so that each child array job completes sequentially, starting at index 0. You can also specify an <tt class="docutils literal"><span class="pre">N_TO_N</span></tt> type dependency with a job ID for array jobs. In that case, each index child of this job must wait for the corresponding index child of each dependency to complete before it can begin.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>jobId=string,type=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "jobId": "string",
+    "type": "N_TO_N"|"SEQUENTIAL"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--job-definition</span></tt> (string)</p>
+<blockquote>
+<div>The job definition used by this job. This value can be either a <tt class="docutils literal"><span class="pre">name:revision</span></tt> or the Amazon Resource Name (ARN) for the job definition.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameters</span></tt> (map)</p>
+<blockquote>
+<div>Additional parameters passed to the job that replace parameter substitution placeholders that are set in the job definition. Parameters are specified as a key and value pair mapping. Parameters in a <tt class="docutils literal"><span class="pre">SubmitJob</span></tt> request override any corresponding parameter defaults from the job definition.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--container-overrides</span></tt> (structure)</p>
+<blockquote>
+<div>A list of container overrides in JSON format that specify the name of a container in the specified job definition and the overrides it should receive. You can override the default command for a container (that is specified in the job definition or the Docker image) with a <tt class="docutils literal"><span class="pre">command</span></tt> override. You can also override existing environment variables (that are specified in the job definition or Docker image) on a container or add new environment variables to it with an <tt class="docutils literal"><span class="pre">environment</span></tt> override.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>vcpus=integer,memory=integer,command=string,string,instanceType=string,environment=[{name=string,value=string},{name=string,value=string}],resourceRequirements=[{value=string,type=string},{value=string,type=string}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "vcpus": integer,
+  "memory": integer,
+  "command": ["string", ...],
+  "instanceType": "string",
+  "environment": [
+    {
+      "name": "string",
+      "value": "string"
+    }
+    ...
+  ],
+  "resourceRequirements": [
+    {
+      "value": "string",
+      "type": "GPU"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--node-overrides</span></tt> (structure)</p>
+<blockquote>
+<div>A list of node overrides in JSON format that specify the node range to target and the container overrides for that node range.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "numNodes": integer,
+  "nodePropertyOverrides": [
+    {
+      "targetNodes": "string",
+      "containerOverrides": {
+        "vcpus": integer,
+        "memory": integer,
+        "command": ["string", ...],
+        "instanceType": "string",
+        "environment": [
+          {
+            "name": "string",
+            "value": "string"
+          }
+          ...
+        ],
+        "resourceRequirements": [
+          {
+            "value": "string",
+            "type": "GPU"
+          }
+          ...
+        ]
+      }
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--retry-strategy</span></tt> (structure)</p>
+<blockquote>
+<div>The retry strategy to use for failed jobs from this  SubmitJob operation. When a retry strategy is specified here, it overrides the retry strategy defined in the job definition.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">attempts</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"attempts"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--timeout</span></tt> (structure)</p>
+<blockquote>
+<div>The timeout configuration for this  SubmitJob operation. You can specify a timeout duration after which AWS Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it is not retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html">Job Timeouts</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">attemptDurationSeconds</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"attemptDurationSeconds"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To submit a job</strong></p>
+<p>This example submits a simple container job called <cite>example</cite> to the <cite>HighPriority</cite> job queue.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws batch submit-job --job-name example --job-queue HighPriority  --job-definition sleep60</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"jobName"</span><span class="p">:</span> <span class="s2">"example"</span><span class="p">,</span>
+    <span class="s2">"jobId"</span><span class="p">:</span> <span class="s2">"876da822-4198-45f2-a252-6cea32512ea8"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>jobName -&gt; (string)</p>
+<blockquote>
+<div>The name of the job.</div>
+</blockquote>
+<p>jobId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the job.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

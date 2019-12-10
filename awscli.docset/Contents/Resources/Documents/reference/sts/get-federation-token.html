@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-federation-token — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="sts" href="index.html">
+    <link rel="next" title="get-session-token" href="get-session-token.html">
+    <link rel="prev" title="get-caller-identity" href="get-caller-identity.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-federation-token">
+<span id="cli-aws-sts-get-federation-token"></span><h1>get-federation-token<a class="headerlink" href="#get-federation-token" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns a set of temporary security credentials (consisting of an access key ID, a secret access key, and a security token) for a federated user. A typical use is in a proxy application that gets temporary security credentials on behalf of distributed applications inside a corporate network. You must call the <tt class="docutils literal"><span class="pre">GetFederationToken</span></tt> operation using the long-term security credentials of an IAM user. As a result, this call is appropriate in contexts where those credentials can be safely stored, usually in a server-based application. For a comparison of <tt class="docutils literal"><span class="pre">GetFederationToken</span></tt> with the other API operations that produce temporary credentials, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html">Requesting Temporary Security Credentials</a> and <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison">Comparing the AWS STS API operations</a> in the <em>IAM User Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can create a mobile-based or browser-based app that can authenticate users using a web identity provider like Login with Amazon, Facebook, Google, or an OpenID Connect-compatible identity provider. In this case, we recommend that you use <a class="reference external" href="http://aws.amazon.com/cognito/">Amazon Cognito</a> or <tt class="docutils literal"><span class="pre">AssumeRoleWithWebIdentity</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_assumerolewithwebidentity">Federation Through a Web-based Identity Provider</a> in the <em>IAM User Guide</em> .</p>
+</div>
+<p>You can also call <tt class="docutils literal"><span class="pre">GetFederationToken</span></tt> using the security credentials of an AWS account root user, but we do not recommend it. Instead, we recommend that you create an IAM user for the purpose of the proxy application. Then attach a policy to the IAM user that limits federated users to only the actions and resources that they need to access. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html">IAM Best Practices</a> in the <em>IAM User Guide</em> .</p>
+<blockquote>
+<div><strong>Session duration</strong></div>
+</blockquote>
+<p>The temporary credentials are valid for the specified duration, from 900 seconds (15 minutes) up to a maximum of 129,600 seconds (36 hours). The default session duration is 43,200 seconds (12 hours). Temporary credentials that are obtained by using AWS account root user credentials have a maximum duration of 3,600 seconds (1 hour).</p>
+<blockquote>
+<div><strong>Permissions</strong></div>
+</blockquote>
+<p>You can use the temporary credentials created by <tt class="docutils literal"><span class="pre">GetFederationToken</span></tt> in any AWS service except the following:</p>
+<ul class="simple">
+<li>You cannot call any IAM operations using the AWS CLI or the AWS API.</li>
+<li>You cannot call any STS operations except <tt class="docutils literal"><span class="pre">GetCallerIdentity</span></tt> .</li>
+</ul>
+<p>You must pass an inline or managed <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">session policy</a> to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies. The plain text that you use for both inline and managed session policies can't exceed 2,048 characters.</p>
+<p>Though the session policy parameters are optional, if you do not pass a policy, then the resulting federated user session has no permissions. When you pass session policies, the session permissions are the intersection of the IAM user policies and the session policies that you pass. This gives you a way to further restrict the permissions for a federated user. You cannot use session policies to grant more permissions than those that are defined in the permissions policy of the IAM user. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">Session Policies</a> in the <em>IAM User Guide</em> . For information about using <tt class="docutils literal"><span class="pre">GetFederationToken</span></tt> to create temporary security credentials, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getfederationtoken">GetFederationToken—Federation Through a Custom Identity Broker</a> .</p>
+<p>You can use the credentials to access a resource that has a resource-based policy. If that policy specifically references the federated user session in the <tt class="docutils literal"><span class="pre">Principal</span></tt> element of the policy, the session has the permissions allowed by the policy. These permissions are granted in addition to the permissions granted by the session policies.</p>
+<blockquote>
+<div><strong>Tags</strong></div>
+</blockquote>
+<p>(Optional) You can pass tag key-value pairs to your session. These are called session tags. For more information about session tags, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html">Passing Session Tags in STS</a> in the <em>IAM User Guide</em> .</p>
+<p>An administrator must grant you the permissions necessary to pass session tags. The administrator can also create granular permissions to allow you to pass only specific session tags. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_attribute-based-access-control.html">Tutorial: Using Tags for Attribute-Based Access Control</a> in the <em>IAM User Guide</em> .</p>
+<p>Tag key–value pairs are not case sensitive, but case is preserved. This means that you cannot have separate <tt class="docutils literal"><span class="pre">Department</span></tt> and <tt class="docutils literal"><span class="pre">department</span></tt> tag keys. Assume that the user that you are federating has the <tt class="docutils literal"><span class="pre">Department</span></tt> =``Marketing`` tag and you pass the <tt class="docutils literal"><span class="pre">department</span></tt> =``engineering`` session tag. <tt class="docutils literal"><span class="pre">Department</span></tt> and <tt class="docutils literal"><span class="pre">department</span></tt> are not saved as separate tags, and the session tag passed in the request takes precedence over the user tag.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/GetFederationToken">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-federation-token
+--name &lt;value&gt;
+[--policy &lt;value&gt;]
+[--policy-arns &lt;value&gt;]
+[--duration-seconds &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the federated user. The name is used as an identifier for the temporary security credentials (such as <tt class="docutils literal"><span class="pre">Bob</span></tt> ). For example, you can reference the federated user name in a resource-based policy, such as in an Amazon S3 bucket policy.</p>
+<p>The regex used to validate this parameter is a string of characters consisting of upper- and lower-case alphanumeric characters with no spaces. You can also include underscores or any of the following characters: =,.@-</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--policy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>An IAM policy in JSON format that you want to use as an inline session policy.</p>
+<p>You must pass an inline or managed <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">session policy</a> to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies.</p>
+<p>This parameter is optional. However, if you do not pass any session policies, then the resulting federated user session has no permissions.</p>
+<p>When you pass session policies, the session permissions are the intersection of the IAM user policies and the session policies that you pass. This gives you a way to further restrict the permissions for a federated user. You cannot use session policies to grant more permissions than those that are defined in the permissions policy of the IAM user. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">Session Policies</a> in the <em>IAM User Guide</em> .</p>
+<p>The resulting credentials can be used to access a resource that has a resource-based policy. If that policy specifically references the federated user session in the <tt class="docutils literal"><span class="pre">Principal</span></tt> element of the policy, the session has the permissions allowed by the policy. These permissions are granted in addition to the permissions that are granted by the session policies.</p>
+<p>The plain text that you use for both inline and managed session policies can't exceed 2,048 characters. The JSON policy characters can be any ASCII character from the space character to the end of the valid character list (u0020 through u00FF). It can also include the tab (u0009), linefeed (u000A), and carriage return (u000D) characters.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An AWS conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plain text meets the other requirements. The <tt class="docutils literal"><span class="pre">PackedPolicySize</span></tt> response element indicates by percentage how close the policies and tags for your request are to the upper size limit.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--policy-arns</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Names (ARNs) of the IAM managed policies that you want to use as a managed session policy. The policies must exist in the same account as the IAM user that is requesting federated access.</p>
+<p>You must pass an inline or managed <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">session policy</a> to this operation. You can pass a single JSON policy document to use as an inline session policy. You can also specify up to 10 managed policies to use as managed session policies. The plain text that you use for both inline and managed session policies can't exceed 2,048 characters. You can provide up to 10 managed policy ARNs. For more information about ARNs, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a> in the AWS General Reference.</p>
+<p>This parameter is optional. However, if you do not pass any session policies, then the resulting federated user session has no permissions.</p>
+<p>When you pass session policies, the session permissions are the intersection of the IAM user policies and the session policies that you pass. This gives you a way to further restrict the permissions for a federated user. You cannot use session policies to grant more permissions than those that are defined in the permissions policy of the IAM user. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session">Session Policies</a> in the <em>IAM User Guide</em> .</p>
+<p>The resulting credentials can be used to access a resource that has a resource-based policy. If that policy specifically references the federated user session in the <tt class="docutils literal"><span class="pre">Principal</span></tt> element of the policy, the session has the permissions allowed by the policy. These permissions are granted in addition to the permissions that are granted by the session policies.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An AWS conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plain text meets the other requirements. The <tt class="docutils literal"><span class="pre">PackedPolicySize</span></tt> response element indicates by percentage how close the policies and tags for your request are to the upper size limit.</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>arn=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "arn": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--duration-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>The duration, in seconds, that the session should last. Acceptable durations for federation sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours) as the default. Sessions obtained using AWS account root user credentials are restricted to a maximum of 3,600 seconds (one hour). If the specified duration is longer than one hour, the session obtained by using root user credentials defaults to one hour.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of session tags. Each session tag consists of a key name and an associated value. For more information about session tags, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_session-tags.html">Passing Session Tags in STS</a> in the <em>IAM User Guide</em> .</p>
+<p>This parameter is optional. You can pass up to 50 session tags. The plain text session tag keys can’t exceed 128 characters and the values can’t exceed 256 characters. For these and additional limits, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length">IAM and STS Character Limits</a> in the <em>IAM User Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An AWS conversion compresses the passed session policies and session tags into a packed binary format that has a separate limit. Your request can fail for this limit even if your plain text meets the other requirements. The <tt class="docutils literal"><span class="pre">PackedPolicySize</span></tt> response element indicates by percentage how close the policies and tags for your request are to the upper size limit.</p>
+</div>
+<p>You can pass a session tag with the same key as a tag that is already attached to the user you are federating. When you do, session tags override a user tag with the same key.</p>
+<p>Tag key–value pairs are not case sensitive, but case is preserved. This means that you cannot have separate <tt class="docutils literal"><span class="pre">Department</span></tt> and <tt class="docutils literal"><span class="pre">department</span></tt> tag keys. Assume that the role has the <tt class="docutils literal"><span class="pre">Department</span></tt> =``Marketing`` tag and you pass the <tt class="docutils literal"><span class="pre">department</span></tt> =``engineering`` session tag. <tt class="docutils literal"><span class="pre">Department</span></tt> and <tt class="docutils literal"><span class="pre">department</span></tt> are not saved as separate tags, and the session tag passed in the request takes precedence over the role tag.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Credentials -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The temporary security credentials, which include an access key ID, a secret access key, and a security (or session) token.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The size of the security token that STS API operations return is not fixed. We strongly recommend that you make no assumptions about the maximum size.</p>
+</div>
+<p>AccessKeyId -&gt; (string)</p>
+<blockquote>
+<div>The access key ID that identifies the temporary security credentials.</div>
+</blockquote>
+<p>SecretAccessKey -&gt; (string)</p>
+<blockquote>
+<div>The secret access key that can be used to sign requests.</div>
+</blockquote>
+<p>SessionToken -&gt; (string)</p>
+<blockquote>
+<div>The token that users must pass to the service API to use the temporary credentials.</div>
+</blockquote>
+<p>Expiration -&gt; (timestamp)</p>
+<blockquote>
+<div>The date on which the current credentials expire.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>FederatedUser -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifiers for the federated user associated with the credentials (such as <tt class="docutils literal"><span class="pre">arn:aws:sts::123456789012:federated-user/Bob</span></tt> or <tt class="docutils literal"><span class="pre">123456789012:Bob</span></tt> ). You can use the federated user's ARN in your resource-based policies, such as an Amazon S3 bucket policy.</p>
+<p>FederatedUserId -&gt; (string)</p>
+<blockquote>
+<div>The string that identifies the federated user associated with the credentials, similar to the unique ID of an IAM user.</div>
+</blockquote>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The ARN that specifies the federated user that is associated with the credentials. For more information about ARNs and how to use them in policies, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">IAM Identifiers</a> in the <em>IAM User Guide</em> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PackedPolicySize -&gt; (integer)</p>
+<blockquote>
+<div>A percentage value that indicates the packed size of the session policies and session tags combined passed in the request. The request fails if the packed size is greater than 100 percent, which means the policies and tags exceeded the allowed space.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

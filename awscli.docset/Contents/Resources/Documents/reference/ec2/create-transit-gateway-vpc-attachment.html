@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-transit-gateway-vpc-attachment — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="create-volume" href="create-volume.html">
+    <link rel="prev" title="create-transit-gateway-route-table" href="create-transit-gateway-route-table.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-transit-gateway-vpc-attachment">
+<span id="cli-aws-ec2-create-transit-gateway-vpc-attachment"></span><h1>create-transit-gateway-vpc-attachment<a class="headerlink" href="#create-transit-gateway-vpc-attachment" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Attaches the specified VPC to the specified transit gateway.</p>
+<p>If you attach a VPC with a CIDR range that overlaps the CIDR range of a VPC that is already attached, the new VPC CIDR range is not propagated to the default propagation route table.</p>
+<p>To send VPC traffic to an attached transit gateway, add a route to the VPC route table using  CreateRoute .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateTransitGatewayVpcAttachment">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-transit-gateway-vpc-attachment
+--transit-gateway-id &lt;value&gt;
+--vpc-id &lt;value&gt;
+--subnet-ids &lt;value&gt;
+[--options &lt;value&gt;]
+[--tag-specifications &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--transit-gateway-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the transit gateway.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the VPC.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--subnet-ids</span></tt> (list)</p>
+<blockquote>
+<div>The IDs of one or more subnets. You can specify only one subnet per Availability Zone. You must specify at least one subnet, but we recommend that you specify two subnets for better availability. The transit gateway uses one IP address from each specified subnet.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--options</span></tt> (structure)</p>
+<blockquote>
+<div>The VPC attachment options.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">DnsSupport</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Ipv6Support</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DnsSupport"</span><span class="p">:</span> <span class="s2">"enable"</span><span class="o">|</span><span class="s2">"disable"</span><span class="p">,</span>
+  <span class="s2">"Ipv6Support"</span><span class="p">:</span> <span class="s2">"enable"</span><span class="o">|</span><span class="s2">"disable"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tag-specifications</span></tt> (list)</p>
+<blockquote>
+<div>The tags to apply to the VPC attachment.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceType=string,Tags=[{Key=string,Value=string},{Key=string,Value=string}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceType": "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+    "Tags": [
+      {
+        "Key": "string",
+        "Value": "string"
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To associate a Transit Gateway with a VPC</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-transit-gateway-vpc-attachment</span></tt> example creates a transit gateway attachment to the specified VPC.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-transit-gateway-vpc-attachment \
+    --transit-gateway-id tgw-0262a0e521EXAMPLE \
+    --vpc-id vpc-07e8ffd50f49335df \
+    --subnet-id subnet-0752213d59efde95a</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"TransitGatewayVpcAttachment"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"TransitGatewayAttachmentId"</span><span class="p">:</span> <span class="s2">"tgw-attach-0a34fe6b4fea0ff4a"</span><span class="p">,</span>
+        <span class="s2">"TransitGatewayId"</span><span class="p">:</span> <span class="s2">"tgw-0262a0e521EXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-07e8ffd50fEXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"VpcOwnerId"</span><span class="p">:</span> <span class="s2">"111122223333"</span><span class="p">,</span>
+        <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+        <span class="s2">"SubnetIds"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"subnet-0752213d59efde95a"</span>
+        <span class="p">],</span>
+        <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="s2">"2019-07-10T17:33:46.000Z"</span><span class="p">,</span>
+        <span class="s2">"Options"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"DnsSupport"</span><span class="p">:</span> <span class="s2">"enable"</span><span class="p">,</span>
+            <span class="s2">"Ipv6Support"</span><span class="p">:</span> <span class="s2">"disable"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/tgw/tgw-vpc-attachments.html#create-vpc-attachment">Create a Transit Gateway Attachment to a VPC</a> in the <em>AWS Transit Gateways Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>TransitGatewayVpcAttachment -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the VPC attachment.</p>
+<p>TransitGatewayAttachmentId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the attachment.</div>
+</blockquote>
+<p>TransitGatewayId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the transit gateway.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC.</div>
+</blockquote>
+<p>VpcOwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS account that owns the VPC.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The state of the VPC attachment.</div>
+</blockquote>
+<p>SubnetIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of the subnets.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The creation time.</div>
+</blockquote>
+<p>Options -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The VPC attachment options.</p>
+<p>DnsSupport -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether DNS support is enabled.</div>
+</blockquote>
+<p>Ipv6Support -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether IPv6 support is enabled.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The tags for the VPC attachment.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-campaign — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="personalize" href="index.html">
+    <link rel="next" title="create-dataset" href="create-dataset.html">
+    <link rel="prev" title="create-batch-inference-job" href="create-batch-inference-job.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-campaign">
+<span id="cli-aws-personalize-create-campaign"></span><h1>create-campaign<a class="headerlink" href="#create-campaign" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a campaign by deploying a solution version. When a client calls the <a class="reference external" href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html">GetRecommendations</a> and <a class="reference external" href="https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetPersonalizedRanking.html">GetPersonalizedRanking</a> APIs, a campaign is specified in the request.</p>
+<blockquote>
+<div><strong>Minimum Provisioned TPS and Auto-Scaling</strong></div>
+</blockquote>
+<p>A transaction is a single <tt class="docutils literal"><span class="pre">GetRecommendations</span></tt> or <tt class="docutils literal"><span class="pre">GetPersonalizedRanking</span></tt> call. Transactions per second (TPS) is the throughput and unit of billing for Amazon Personalize. The minimum provisioned TPS (<tt class="docutils literal"><span class="pre">minProvisionedTPS</span></tt> ) specifies the baseline throughput provisioned by Amazon Personalize, and thus, the minimum billing charge. If your TPS increases beyond <tt class="docutils literal"><span class="pre">minProvisionedTPS</span></tt> , Amazon Personalize auto-scales the provisioned capacity up and down, but never below <tt class="docutils literal"><span class="pre">minProvisionedTPS</span></tt> , to maintain a 70% utilization. There's a short time delay while the capacity is increased that might cause loss of transactions. It's recommended to start with a low <tt class="docutils literal"><span class="pre">minProvisionedTPS</span></tt> , track your usage using Amazon CloudWatch metrics, and then increase the <tt class="docutils literal"><span class="pre">minProvisionedTPS</span></tt> as necessary.</p>
+<blockquote>
+<div><strong>Status</strong></div>
+</blockquote>
+<p>A campaign can be in one of the following states:</p>
+<ul class="simple">
+<li>CREATE PENDING CREATE IN_PROGRESS ACTIVE -or- CREATE FAILED</li>
+<li>DELETE PENDING DELETE IN_PROGRESS</li>
+</ul>
+<p>To get the campaign status, call  DescribeCampaign .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>Wait until the <tt class="docutils literal"><span class="pre">status</span></tt> of the campaign is <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> before asking the campaign for recommendations.</div>
+</blockquote>
+<p class="last"><strong>Related APIs</strong></p>
+</div>
+<ul class="simple">
+<li>ListCampaigns</li>
+<li>DescribeCampaign</li>
+<li>UpdateCampaign</li>
+<li>DeleteCampaign</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/personalize-2018-05-22/CreateCampaign">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-campaign
+--name &lt;value&gt;
+--solution-version-arn &lt;value&gt;
+--min-provisioned-tps &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>A name for the new campaign. The campaign name must be unique within your account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--solution-version-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the solution version to deploy.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--min-provisioned-tps</span></tt> (integer)</p>
+<blockquote>
+<div>Specifies the requested minimum provisioned transactions (recommendations) per second that Amazon Personalize will support.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>campaignArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the campaign.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-objects — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="list-objects-v2" href="list-objects-v2.html">
+    <link rel="prev" title="list-object-versions" href="list-object-versions.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-objects">
+<span id="cli-aws-s3api-list-objects"></span><h1>list-objects<a class="headerlink" href="#list-objects" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection criteria to return a subset of the objects in a bucket. A 200 OK response can contain valid or invalid XML. Be sure to design your application to parse the contents of the response and handle it appropriately.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This API has been revised. We recommend that you use the newer version,  ListObjectsV2 , when developing applications. For backward compatibility, Amazon S3 continues to support <tt class="docutils literal"><span class="pre">ListObjects</span></tt> .</p>
+</div>
+<p>The following operations are related to <tt class="docutils literal"><span class="pre">ListObjects</span></tt> :</p>
+<ul class="simple">
+<li>ListObjectsV2</li>
+<li>GetObject</li>
+<li>PutObject</li>
+<li>CreateBucket</li>
+<li>ListBuckets</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListObjects">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-objects</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Contents</span></tt>, <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-objects
+--bucket &lt;value&gt;
+[--delimiter &lt;value&gt;]
+[--encoding-type &lt;value&gt;]
+[--prefix &lt;value&gt;]
+[--request-payer &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bucket containing the objects.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delimiter</span></tt> (string)</p>
+<blockquote>
+<div>A delimiter is a character you use to group keys.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--encoding-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">url</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--prefix</span></tt> (string)</p>
+<blockquote>
+<div>Limits the response to keys that begin with the specified prefix.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Confirms that the requester knows that she or he will be charged for the list objects request. Bucket owners need not specify this parameter in their requests.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">list-objects</span></tt> command to display the names of all the objects in the specified bucket:</p>
+<div class="highlight-python">
+<pre>aws s3api list-objects --bucket text-content --query 'Contents[].{Key: Key, Size: Size}'</pre>
+</div>
+<p>The example uses the <tt class="docutils literal"><span class="pre">--query</span></tt> argument to filter the output of
+<tt class="docutils literal"><span class="pre">list-objects</span></tt> down to the key value and size for each object</p>
+<p>For more information about objects, see <a class="reference external" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingObjects.html">Working with Amazon S3 Objects</a> in the <em>Amazon S3 Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>IsTruncated -&gt; (boolean)</p>
+<blockquote>
+<div>A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria.</div>
+</blockquote>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>Indicates where in the bucket listing begins. Marker is included in the response if it was sent with the request.</div>
+</blockquote>
+<p>NextMarker -&gt; (string)</p>
+<blockquote>
+<div>When response is truncated (the IsTruncated element value in the response is true), you can use the key name in this field as marker in the subsequent request to get next set of objects. Amazon S3 lists objects in alphabetical order Note: This element is returned only if you have delimiter request parameter specified. If response does not include the NextMaker and it is truncated, you can use the value of the last Key in the response as the marker in the subsequent request to get the next set of object keys.</div>
+</blockquote>
+<p>Contents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Metadata about each object returned.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object consists of data and its descriptive metadata.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The name that you assign to an object. You use the object key to retrieve the object.</div>
+</blockquote>
+<p>LastModified -&gt; (timestamp)</p>
+<blockquote>
+<div>The date the Object was Last Modified</div>
+</blockquote>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>The entity tag is an MD5 hash of the object. ETag reflects only changes to the contents of an object, not its metadata.</div>
+</blockquote>
+<p>Size -&gt; (integer)</p>
+<blockquote>
+<div>Size in bytes of the object</div>
+</blockquote>
+<p>StorageClass -&gt; (string)</p>
+<blockquote>
+<div>The class of storage used to store the object.</div>
+</blockquote>
+<p>Owner -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The owner of the object</p>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>Container for the display name of the owner.</div>
+</blockquote>
+<p>ID -&gt; (string)</p>
+<blockquote>
+<div>Container for the ID of the owner.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>Bucket name.</div>
+</blockquote>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>Keys that begin with the indicated prefix.</div>
+</blockquote>
+<p>Delimiter -&gt; (string)</p>
+<blockquote>
+<div>Causes keys that contain the same string between the prefix and the first occurrence of the delimiter to be rolled up into a single result element in the <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt> collection. These rolled-up keys are not returned elsewhere in the response. Each rolled-up result counts as only one return against the <tt class="docutils literal"><span class="pre">MaxKeys</span></tt> value.</div>
+</blockquote>
+<p>MaxKeys -&gt; (integer)</p>
+<blockquote>
+<div>The maximum number of keys returned in the response body.</div>
+</blockquote>
+<p>CommonPrefixes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>All of the keys rolled up in a common prefix count as a single return when calculating the number of returns.</p>
+<p>A response can contain CommonPrefixes only if you specify a delimiter.</p>
+<p>CommonPrefixes contains all (if there are any) keys between Prefix and the next occurrence of the string specified by the delimiter.</p>
+<p>CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix.</p>
+<p>For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/. All of the keys that roll up into a common prefix count as a single return when calculating the number of returns.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Container for all (if there are any) keys between Prefix and the next occurrence of the string specified by a delimiter. CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix. For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/.</p>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>Container for the specified common prefix.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EncodingType -&gt; (string)</p>
+<blockquote>
+<div>Encoding type used by Amazon S3 to encode object keys in the response.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

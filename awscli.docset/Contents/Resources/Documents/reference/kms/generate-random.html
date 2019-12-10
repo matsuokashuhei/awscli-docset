@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>generate-random — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="get-key-policy" href="get-key-policy.html">
+    <link rel="prev" title="generate-data-key-without-plaintext" href="generate-data-key-without-plaintext.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="generate-random">
+<span id="cli-aws-kms-generate-random"></span><h1>generate-random<a class="headerlink" href="#generate-random" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns a random byte string that is cryptographically secure.</p>
+<p>By default, the random byte string is generated in AWS KMS. To generate the byte string in the AWS CloudHSM cluster that is associated with a <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> , specify the custom key store ID.</p>
+<p>For more information about entropy and random number generation, see the <a class="reference external" href="https://d0.awsstatic.com/whitepapers/KMS-Cryptographic-Details.pdf">AWS Key Management Service Cryptographic Details</a> whitepaper.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateRandom">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  generate-random
+[--number-of-bytes &lt;value&gt;]
+[--custom-key-store-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--number-of-bytes</span></tt> (integer)</p>
+<blockquote>
+<div>The length of the byte string.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--custom-key-store-id</span></tt> (string)</p>
+<blockquote>
+<div>Generates the random byte string in the AWS CloudHSM cluster that is associated with the specified <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a> . To find the ID of a custom key store, use the  DescribeCustomKeyStores operation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To generate a 256-bit random number</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">generate-random</span></tt> example generates a 256-bit (32-byte) random number.</p>
+<p>When you run this command, you must use the <tt class="docutils literal"><span class="pre">number-of-bytes</span></tt> parameter to specify the length of the random number in bytes.</p>
+<p>You don't specify a CMK when you run this command. Unless you specify a <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a>, AWS KMS generates the random number. It is not associated with any particular CMK.</p>
+<div class="highlight-python">
+<pre>aws kms generate-random --number-of-bytes 32</pre>
+</div>
+<p>In the output, the random number is in the <tt class="docutils literal"><span class="pre">Plaintext</span></tt> field.</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Plaintext"</span><span class="p">:</span> <span class="s2">"Hcl7v6T2E+Iangu357rhmlKZUnsb/LqzhHiNt6XNfQ0="</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To generate a 256-bit random number and save it to a file (Linux or macOs)</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">generate-random</span></tt> command to generate a 256-bit (32-byte), base64-encoded random byte string on a Linix or macOS computer. The example decodes the byte string and saves it in the <tt class="docutils literal"><span class="pre">ExampleRandom</span></tt> file.</p>
+<p>When you run this command, you must use the <tt class="docutils literal"><span class="pre">number-of-bytes</span></tt> parameter to specify the length of the random number in bytes.</p>
+<p>You don't specify a CMK when you run this command. Unless you specify a <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key store</a>, AWS KMS generates the random number. It is not associated with any particular CMK.</p>
+<ul>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--number-of-bytes</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">32</span></tt> requests a 32-byte (256-bit) string.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--output</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">text</span></tt> directs the AWS CLI to return the output as text, instead of JSON.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--query</span></tt> parameter extracts the value of the <tt class="docutils literal"><span class="pre">Plaintext</span></tt> property from the response.</p>
+</li>
+<li>
+<p class="first">The pipe operator ( | ) sends the output of the command to the <tt class="docutils literal"><span class="pre">base64</span></tt> utility, which decodes the extracted output.</p>
+</li>
+<li>
+<p class="first">The redirection operator (&gt;) saves the decoded byte string to the <tt class="docutils literal"><span class="pre">ExampleRandom</span></tt> file.</p>
+<blockquote>
+<div>
+<p>aws kms generate-random --number-of-bytes 32 --output text --query Plaintext | base64 --decode &gt; ExampleRandom</p>
+</div>
+</blockquote>
+</li>
+</ul>
+<p>This command produces no output.</p>
+<p><strong>Example 3: To generate a 256-bit random number and save it to a file(Windows Command Prompt)</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">generate-random</span></tt> command to generate a 256-bit (32-byte), base64-encoded random byte string. The example decodes the byte string and saves it in the <cite>ExampleRandom.base64</cite> file.</p>
+<p>This example is the same as the previous example, except that it uses the <tt class="docutils literal"><span class="pre">certutil</span></tt> utility in Windows to base64-decode the random byte string before saving it in a file.</p>
+<p>The first command generates the base64-encoded random byte string and saves it in a temporary file, <tt class="docutils literal"><span class="pre">ExampleRandom.base64</span></tt>. The second command uses the <tt class="docutils literal"><span class="pre">certutil</span> <span class="pre">-decode</span></tt> command to decode the base64-encoded byte string in the <tt class="docutils literal"><span class="pre">ExampleRandom.base64</span></tt> file. Then, it saves the decoded byte string in the <tt class="docutils literal"><span class="pre">ExampleRandom</span></tt> file.</p>
+<div class="highlight-python">
+<pre>aws kms generate-random --number-of-bytes 32 --output text --query Plaintext &gt; ExampleRandom.base64
+certutil -decode ExampleRandom.base64 ExampleRandom</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>Input Length = 18
+Output Length = 12
+CertUtil: -decode command completed successfully.</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateRandom.html">GenerateRandom</a> in the <em>AWS Key Management Service API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Plaintext -&gt; (blob)</p>
+<blockquote>
+<div>The random byte string. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

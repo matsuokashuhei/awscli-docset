@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-utterances-view — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lex-models" href="index.html">
+    <link rel="next" title="put-bot" href="put-bot.html">
+    <link rel="prev" title="get-slot-types" href="get-slot-types.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-utterances-view">
+<span id="cli-aws-lex-models-get-utterances-view"></span><h1>get-utterances-view<a class="headerlink" href="#get-utterances-view" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Use the <tt class="docutils literal"><span class="pre">GetUtterancesView</span></tt> operation to get information about the utterances that your users have made to your bot. You can use this list to tune the utterances that your bot responds to.</p>
+<p>For example, say that you have created a bot to order flowers. After your users have used your bot for a while, use the <tt class="docutils literal"><span class="pre">GetUtterancesView</span></tt> operation to see the requests that they have made and whether they have been successful. You might find that the utterance "I want flowers" is not being recognized. You could add this utterance to the <tt class="docutils literal"><span class="pre">OrderFlowers</span></tt> intent so that your bot recognizes that utterance.</p>
+<p>After you publish a new version of a bot, you can get information about the old version and the new so that you can compare the performance across the two versions.</p>
+<p>Utterance statistics are generated once a day. Data is available for the last 15 days. You can request information for up to 5 versions of your bot in each request. Amazon Lex returns the most frequent utterances received by the bot in the last 15 days. The response contains information about a maximum of 100 utterances for each version.</p>
+<p>If you set <tt class="docutils literal"><span class="pre">childDirected</span></tt> field to true when you created your bot, or if you opted out of participating in improving Amazon Lex, utterances are not available.</p>
+<p>This operation requires permissions for the <tt class="docutils literal"><span class="pre">lex:GetUtterancesView</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/GetUtterancesView">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-utterances-view
+--bot-name &lt;value&gt;
+--bot-versions &lt;value&gt;
+--status-type &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bot-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bot for which utterance information should be returned.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bot-versions</span></tt> (list)</p>
+<blockquote>
+<div>An array of bot versions for which utterance information should be returned. The limit is 5 versions per request.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--status-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>To return utterances that were recognized and handled, use <tt class="docutils literal"><span class="pre">Detected</span></tt> . To return utterances that were not recognized, use <tt class="docutils literal"><span class="pre">Missed</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Detected</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Missed</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>botName -&gt; (string)</p>
+<blockquote>
+<div>The name of the bot for which utterance information was returned.</div>
+</blockquote>
+<p>utterances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of  UtteranceList objects, each containing a list of  UtteranceData objects describing the utterances that were processed by your bot. The response contains a maximum of 100 <tt class="docutils literal"><span class="pre">UtteranceData</span></tt> objects for each version. Amazon Lex returns the most frequent utterances received by the bot in the last 15 days.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides a list of utterances that have been made to a specific version of your bot. The list contains a maximum of 100 utterances.</p>
+<p>botVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the bot that processed the list.</div>
+</blockquote>
+<p>utterances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more  UtteranceData objects that contain information about the utterances that have been made to a bot. The maximum number of object is 100.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides information about a single utterance that was made to your bot.</p>
+<p>utteranceString -&gt; (string)</p>
+<blockquote>
+<div>The text that was entered by the user or the text representation of an audio clip.</div>
+</blockquote>
+<p>count -&gt; (integer)</p>
+<blockquote>
+<div>The number of times that the utterance was processed.</div>
+</blockquote>
+<p>distinctUsers -&gt; (integer)</p>
+<blockquote>
+<div>The total number of individuals that used the utterance.</div>
+</blockquote>
+<p>firstUtteredDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date that the utterance was first recorded.</div>
+</blockquote>
+<p>lastUtteredDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date that the utterance was last recorded.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

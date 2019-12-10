@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-target-group — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elbv2" href="index.html">
+    <link rel="next" title="delete-listener" href="delete-listener.html">
+    <link rel="prev" title="create-rule" href="create-rule.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-target-group">
+<span id="cli-aws-elbv2-create-target-group"></span><h1>create-target-group<a class="headerlink" href="#create-target-group" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a target group.</p>
+<p>To register targets with the target group, use  RegisterTargets . To update the health check settings for the target group, use  ModifyTargetGroup . To monitor the health of targets in the target group, use  DescribeTargetHealth .</p>
+<p>To route traffic to the targets in a target group, specify the target group in an action using  CreateListener or  CreateRule .</p>
+<p>To delete a target group, use  DeleteTargetGroup .</p>
+<p>This operation is idempotent, which means that it completes at most one time. If you attempt to create multiple target groups with the same settings, each call succeeds.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html">Target Groups for Your Application Load Balancers</a> in the <em>Application Load Balancers Guide</em> or <a class="reference external" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-target-groups.html">Target Groups for Your Network Load Balancers</a> in the <em>Network Load Balancers Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateTargetGroup">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-target-group
+--name &lt;value&gt;
+[--protocol &lt;value&gt;]
+[--port &lt;value&gt;]
+[--vpc-id &lt;value&gt;]
+[--health-check-protocol &lt;value&gt;]
+[--health-check-port &lt;value&gt;]
+[--health-check-enabled | --no-health-check-enabled]
+[--health-check-path &lt;value&gt;]
+[--health-check-interval-seconds &lt;value&gt;]
+[--health-check-timeout-seconds &lt;value&gt;]
+[--healthy-threshold-count &lt;value&gt;]
+[--unhealthy-threshold-count &lt;value&gt;]
+[--matcher &lt;value&gt;]
+[--target-type &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the target group.</p>
+<p>This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The protocol to use for routing traffic to the targets. For Application Load Balancers, the supported protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, or TCP_UDP. A TCP_UDP listener must be associated with a TCP_UDP target group. If the target is a Lambda function, this parameter does not apply.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">HTTP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HTTPS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TLS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UDP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP_UDP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (integer)</p>
+<blockquote>
+<div>The port on which the targets receive traffic. This port is used unless you specify a port override when registering the target. If the target is a Lambda function, this parameter does not apply.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the virtual private cloud (VPC). If the target is a Lambda function, this parameter does not apply. Otherwise, this parameter is required.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The protocol the load balancer uses when performing health checks on targets. For Application Load Balancers, the default is HTTP. For Network Load Balancers, the default is TCP. The TCP protocol is supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are not supported for health checks.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">HTTP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HTTPS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TLS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UDP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP_UDP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-port</span></tt> (string)</p>
+<blockquote>
+<div>The port the load balancer uses when performing health checks on targets. The default is <tt class="docutils literal"><span class="pre">traffic-port</span></tt> , which is the port on which each target receives traffic from the load balancer.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-health-check-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>Indicates whether health checks are enabled. If the target type is <tt class="docutils literal"><span class="pre">lambda</span></tt> , health checks are disabled by default but can be enabled. If the target type is <tt class="docutils literal"><span class="pre">instance</span></tt> or <tt class="docutils literal"><span class="pre">ip</span></tt> , health checks are always enabled and cannot be disabled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-path</span></tt> (string)</p>
+<blockquote>
+<div>[HTTP/HTTPS health checks] The ping path that is the destination on the targets for health checks. The default is /.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-interval-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>The approximate amount of time, in seconds, between health checks of an individual target. For HTTP and HTTPS health checks, the range is 5–300 seconds. For TCP health checks, the supported values are 10 and 30 seconds. If the target type is <tt class="docutils literal"><span class="pre">instance</span></tt> or <tt class="docutils literal"><span class="pre">ip</span></tt> , the default is 30 seconds. If the target type is <tt class="docutils literal"><span class="pre">lambda</span></tt> , the default is 35 seconds.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-timeout-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>The amount of time, in seconds, during which no response from a target means a failed health check. For target groups with a protocol of HTTP or HTTPS, the default is 5 seconds. For target groups with a protocol of TCP or TLS, this value must be 6 seconds for HTTP health checks and 10 seconds for TCP and HTTPS health checks. If the target type is <tt class="docutils literal"><span class="pre">lambda</span></tt> , the default is 30 seconds.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--healthy-threshold-count</span></tt> (integer)</p>
+<blockquote>
+<div>The number of consecutive health checks successes required before considering an unhealthy target healthy. For target groups with a protocol of HTTP or HTTPS, the default is 5. For target groups with a protocol of TCP or TLS, the default is 3. If the target type is <tt class="docutils literal"><span class="pre">lambda</span></tt> , the default is 5.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--unhealthy-threshold-count</span></tt> (integer)</p>
+<blockquote>
+<div>The number of consecutive health check failures required before considering a target unhealthy. For target groups with a protocol of HTTP or HTTPS, the default is 2. For target groups with a protocol of TCP or TLS, this value must be the same as the healthy threshold count. If the target type is <tt class="docutils literal"><span class="pre">lambda</span></tt> , the default is 2.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--matcher</span></tt> (structure)</p>
+<blockquote>
+<div>[HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">HttpCode</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"HttpCode"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--target-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of target that you must specify when registering targets with this target group. You can't specify targets for a target group using more than one target type.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">instance</span></tt> - Targets are specified by instance ID. This is the default value. If the target group protocol is UDP or TCP_UDP, the target type must be <tt class="docutils literal"><span class="pre">instance</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">ip</span></tt> - Targets are specified by IP address. You can specify IP addresses from the subnets of the virtual private cloud (VPC) for the target group, the RFC 1918 range (10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16), and the RFC 6598 range (100.64.0.0/10). You can't specify publicly routable IP addresses.</li>
+<li>
+<tt class="docutils literal"><span class="pre">lambda</span></tt> - The target groups contains a single Lambda function.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">instance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ip</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lambda</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create a target group to route traffic to instances registered by instance ID</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-target-group</span></tt> example creates a target group for an Application Load Balancer where you register targets by instance ID (the target type is <tt class="docutils literal"><span class="pre">instance</span></tt>). This target group uses the HTTP protocol, port 80, and the default health check settings for an HTTP target group.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-target-group \
+    --name my-targets \
+    --protocol HTTP \
+    --port 80 \
+    --target-type instance \
+    --vpc-id vpc-3ac0fb5f</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"TargetGroups"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"TargetGroupName"</span><span class="p">:</span> <span class="s2">"my-targets"</span><span class="p">,</span>
+            <span class="s2">"Protocol"</span><span class="p">:</span> <span class="s2">"HTTP"</span><span class="p">,</span>
+            <span class="s2">"Port"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+            <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-3ac0fb5f"</span><span class="p">,</span>
+            <span class="s2">"TargetType"</span><span class="p">:</span> <span class="s2">"instance"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckEnabled"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"UnhealthyThresholdCount"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"HealthyThresholdCount"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s2">"HealthCheckPath"</span><span class="p">:</span> <span class="s2">"/"</span><span class="p">,</span>
+            <span class="s2">"Matcher"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"HttpCode"</span><span class="p">:</span> <span class="s2">"200"</span>
+            <span class="p">},</span>
+            <span class="s2">"HealthCheckProtocol"</span><span class="p">:</span> <span class="s2">"HTTP"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckPort"</span><span class="p">:</span> <span class="s2">"traffic-port"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckIntervalSeconds"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">"HealthCheckTimeoutSeconds"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s2">"TargetGroupArn"</span><span class="p">:</span> <span class="s2">"arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To create a target group to route traffic to an IP addresses</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-target-group</span></tt> example creates a target group for a Network Load Balancer where you register targets by IP address (the target type is <tt class="docutils literal"><span class="pre">ip</span></tt>). This target group uses the TCP protocol, port 80, and the default health check settings for a TCP target group.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-target-group \
+    --name my-ip-targets \
+    --protocol TCP \
+    --port 80 \
+    --target-type ip \
+    --vpc-id vpc-3ac0fb5f</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"TargetGroups"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"TargetGroupName"</span><span class="p">:</span> <span class="s2">"my-ip-targets"</span><span class="p">,</span>
+            <span class="s2">"Protocol"</span><span class="p">:</span> <span class="s2">"TCP"</span><span class="p">,</span>
+            <span class="s2">"Port"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+            <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-3ac0fb5f"</span><span class="p">,</span>
+            <span class="s2">"TargetType"</span><span class="p">:</span> <span class="s2">"ip"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckEnabled"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"UnhealthyThresholdCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"HealthyThresholdCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"HealthCheckProtocol"</span><span class="p">:</span> <span class="s2">"TCP"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckPort"</span><span class="p">:</span> <span class="s2">"traffic-port"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckIntervalSeconds"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">"HealthCheckTimeoutSeconds"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+            <span class="s2">"TargetGroupArn"</span><span class="p">:</span> <span class="s2">"arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-ip-targets/b6bba954d1361c78"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3: To create a target group to route traffic to a Lambda function</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-target-group</span></tt> example creates a target group for an Application Load Balancer where the target is a Lambda function (the target type is <tt class="docutils literal"><span class="pre">lambda</span></tt>). Health checks are disabled for this target group by default.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-target-group \
+    --name my-lambda-target \
+    --target-type lambda</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"TargetGroups"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"TargetGroupName"</span><span class="p">:</span> <span class="s2">"my-lambda-target"</span><span class="p">,</span>
+            <span class="s2">"TargetType"</span><span class="p">:</span> <span class="s2">"lambda"</span><span class="p">,</span>
+            <span class="s2">"HealthCheckEnabled"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"UnhealthyThresholdCount"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"HealthyThresholdCount"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="s2">"HealthCheckPath"</span><span class="p">:</span> <span class="s2">"/"</span><span class="p">,</span>
+            <span class="s2">"Matcher"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"HttpCode"</span><span class="p">:</span> <span class="s2">"200"</span>
+            <span class="p">},</span>
+            <span class="s2">"HealthCheckIntervalSeconds"</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+            <span class="s2">"HealthCheckTimeoutSeconds"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="s2">"TargetGroupArn"</span><span class="p">:</span> <span class="s2">"arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-lambda-target/a3003e085dbb8ddc"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>TargetGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the target group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a target group.</p>
+<p>TargetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the target group.</div>
+</blockquote>
+<p>TargetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the target group.</div>
+</blockquote>
+<p>Protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol to use for routing traffic to the targets.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port on which the targets are listening. Not used if the target is a Lambda function.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC for the targets.</div>
+</blockquote>
+<p>HealthCheckProtocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol to use to connect with the target.</div>
+</blockquote>
+<p>HealthCheckPort -&gt; (string)</p>
+<blockquote>
+<div>The port to use to connect with the target.</div>
+</blockquote>
+<p>HealthCheckEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether health checks are enabled.</div>
+</blockquote>
+<p>HealthCheckIntervalSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The approximate amount of time, in seconds, between health checks of an individual target.</div>
+</blockquote>
+<p>HealthCheckTimeoutSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The amount of time, in seconds, during which no response means a failed health check.</div>
+</blockquote>
+<p>HealthyThresholdCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of consecutive health checks successes required before considering an unhealthy target healthy.</div>
+</blockquote>
+<p>UnhealthyThresholdCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of consecutive health check failures required before considering the target unhealthy.</div>
+</blockquote>
+<p>HealthCheckPath -&gt; (string)</p>
+<blockquote>
+<div>The destination for the health check request.</div>
+</blockquote>
+<p>Matcher -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The HTTP codes to use when checking for a successful response from a target.</p>
+<p>HttpCode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The HTTP codes.</p>
+<p>For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299").</p>
+<p>For Network Load Balancers, this is 200–399.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LoadBalancerArns -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>TargetType -&gt; (string)</p>
+<blockquote>
+<div>The type of target that you must specify when registering targets with this target group. The possible values are <tt class="docutils literal"><span class="pre">instance</span></tt> (targets are specified by instance ID) or <tt class="docutils literal"><span class="pre">ip</span></tt> (targets are specified by IP address).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

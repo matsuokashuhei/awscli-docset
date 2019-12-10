@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-script — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="gamelift" href="index.html">
+    <link rel="next" title="create-vpc-peering-authorization" href="create-vpc-peering-authorization.html">
+    <link rel="prev" title="create-player-sessions" href="create-player-sessions.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-script">
+<span id="cli-aws-gamelift-create-script"></span><h1>create-script<a class="headerlink" href="#create-script" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new script record for your Realtime Servers script. Realtime scripts are JavaScript that provide configuration settings and optional custom game logic for your game. The script is deployed when you create a Realtime Servers fleet to host your game sessions. Script logic is executed during an active game session.</p>
+<p>To create a new script record, specify a script name and provide the script file(s). The script files and all dependencies must be zipped into a single file. You can pull the zip file from either of these locations:</p>
+<ul class="simple">
+<li>A locally available directory. Use the <em>ZipFile</em> parameter for this option.</li>
+<li>An Amazon Simple Storage Service (Amazon S3) bucket under your AWS account. Use the <em>StorageLocation</em> parameter for this option. You'll need to have an Identity Access Management (IAM) role that allows the Amazon GameLift service to access your S3 bucket.</li>
+</ul>
+<p>If the call is successful, a new script record is created with a unique script ID. If the script file is provided as a local file, the file is uploaded to an Amazon GameLift-owned S3 bucket and the script record's storage location reflects this location. If the script file is provided as an S3 bucket, Amazon GameLift accesses the file at this storage location as needed for deployment.</p>
+<blockquote>
+<div>
+<p><strong>Learn more</strong></p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/realtime-intro.html">Amazon GameLift Realtime Servers</a></p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/setting-up-role.html">Set Up a Role for Amazon GameLift Access</a></p>
+<p><strong>Related operations</strong></p>
+</div>
+</blockquote>
+<ul class="simple">
+<li>CreateScript</li>
+<li>ListScripts</li>
+<li>DescribeScript</li>
+<li>UpdateScript</li>
+<li>DeleteScript</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateScript">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-script
+[--name &lt;value&gt;]
+[--storage-location &lt;value&gt;]
+[--zip-file &lt;value&gt;]
+[--script-version &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>Descriptive label that is associated with a script. Script names do not need to be unique. You can use  UpdateScript to change this value later.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--storage-location</span></tt> (structure)</p>
+<blockquote>
+<div>Location of the Amazon S3 bucket where a zipped file containing your Realtime scripts is stored. The storage location must specify the Amazon S3 bucket name, the zip file name (the "key"), and a role ARN that allows Amazon GameLift to access the Amazon S3 storage location. The S3 bucket must be in the same region where you want to create a new script. By default, Amazon GameLift uploads the latest version of the zip file; if you have S3 object versioning turned on, you can use the <tt class="docutils literal"><span class="pre">ObjectVersion</span></tt> parameter to specify an earlier version.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Bucket</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Key</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">RoleArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ObjectVersion</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"RoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ObjectVersion"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--zip-file</span></tt> (blob)</p>
+<blockquote>
+<div>
+<p>Data object containing your Realtime scripts and dependencies as a zip file. The zip file can have one or multiple files. Maximum size of a zip file is 5 MB.</p>
+<p>When using the AWS CLI tool to create a script, this parameter is set to the zip file name. It must be prepended with the string "fileb://" to indicate that the file data is a binary object. For example: <tt class="docutils literal"><span class="pre">--zip-file</span> <span class="pre">fileb://myRealtimeScript.zip</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--script-version</span></tt> (string)</p>
+<blockquote>
+<div>Version that is associated with a build or script. Version strings do not need to be unique. You can use  UpdateScript to change this value later.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Script -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The newly created script record with a unique script ID. The new script's storage location reflects an Amazon S3 location: (1) If the script was uploaded from an S3 bucket under your account, the storage location reflects the information that was provided in the <em>CreateScript</em> request; (2) If the script file was uploaded from a local zip file, the storage location reflects an S3 location controls by the Amazon GameLift service.</p>
+<p>ScriptId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for a Realtime script</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>Descriptive label that is associated with a script. Script names do not need to be unique.</div>
+</blockquote>
+<p>Version -&gt; (string)</p>
+<blockquote>
+<div>Version that is associated with a build or script. Version strings do not need to be unique.</div>
+</blockquote>
+<p>SizeOnDisk -&gt; (long)</p>
+<blockquote>
+<div>File size of the uploaded Realtime script, expressed in bytes. When files are uploaded from an S3 location, this value remains at "0".</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
+</blockquote>
+<p>StorageLocation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Location in Amazon Simple Storage Service (Amazon S3) where build or script files are stored for access by Amazon GameLift. This location is specified in  CreateBuild ,  CreateScript , and  UpdateScript requests.</p>
+<p>Bucket -&gt; (string)</p>
+<blockquote>
+<div>Amazon S3 bucket identifier. This is the name of the S3 bucket.</div>
+</blockquote>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>Name of the zip file containing the build files or script files.</div>
+</blockquote>
+<p>RoleArn -&gt; (string)</p>
+<blockquote>
+<div>Amazon Resource Name (<a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a> ) for an IAM role that allows Amazon GameLift to access the S3 bucket.</div>
+</blockquote>
+<p>ObjectVersion -&gt; (string)</p>
+<blockquote>
+<div>Version of the file, if object versioning is turned on for the bucket. Amazon GameLift uses this information when retrieving files from an S3 bucket that you own. Use this parameter to specify a specific version of the file; if not set, the latest version of the file is retrieved.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

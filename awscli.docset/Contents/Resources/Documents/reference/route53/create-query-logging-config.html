@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-query-logging-config — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="route53" href="index.html">
+    <link rel="next" title="create-reusable-delegation-set" href="create-reusable-delegation-set.html">
+    <link rel="prev" title="create-hosted-zone" href="create-hosted-zone.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-query-logging-config">
+<span id="cli-aws-route53-create-query-logging-config"></span><h1>create-query-logging-config<a class="headerlink" href="#create-query-logging-config" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a configuration for DNS query logging. After you create a query logging configuration, Amazon Route 53 begins to publish log data to an Amazon CloudWatch Logs log group.</p>
+<p>DNS query logs contain information about the queries that Route 53 receives for a specified public hosted zone, such as the following:</p>
+<ul>
+<li>
+<p class="first">Route 53 edge location that responded to the DNS query</p>
+</li>
+<li>
+<p class="first">Domain or subdomain that was requested</p>
+</li>
+<li>
+<p class="first">DNS record type, such as A or AAAA</p>
+</li>
+<li>
+<p class="first">DNS response code, such as <tt class="docutils literal"><span class="pre">NoError</span></tt> or <tt class="docutils literal"><span class="pre">ServFail</span></tt></p>
+<p>Log Group and Resource Policy</p>
+</li>
+</ul>
+<p>Before you create a query logging configuration, perform the following operations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you create a query logging configuration using the Route 53 console, Route 53 performs these operations automatically.</p>
+</div>
+<ul class="simple">
+<li>Create a CloudWatch Logs log group, and make note of the ARN, which you specify when you create a query logging configuration. Note the following:<ul>
+<li>You must create the log group in the us-east-1 region.</li>
+<li>You must use the same AWS account to create the log group and the hosted zone that you want to configure query logging for.</li>
+<li>When you create log groups for query logging, we recommend that you use a consistent prefix, for example:  <a href="#id1"><span class="problematic" id="id2">``</span></a>/aws/route53/<em>hosted zone name</em> ``   In the next step, you'll create a resource policy, which controls access to one or more log groups and the associated AWS resources, such as Route 53 hosted zones. There's a limit on the number of resource policies that you can create, so we recommend that you use a consistent prefix so you can use the same resource policy for all the log groups that you create for query logging.</li>
+</ul>
+</li>
+<li>Create a CloudWatch Logs resource policy, and give it the permissions that Route 53 needs to create log streams and to send query logs to log streams. For the value of <tt class="docutils literal"><span class="pre">Resource</span></tt> , specify the ARN for the log group that you created in the previous step. To use the same resource policy for all the CloudWatch Logs log groups that you created for query logging configurations, replace the hosted zone name with <tt class="docutils literal"><span class="pre">*</span></tt> , for example:  <tt class="docutils literal"><span class="pre">arn:aws:logs:us-east-1:123412341234:log-group:/aws/route53/*</span></tt>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>You can't use the CloudWatch console to create or edit a resource policy. You must use the CloudWatch API, one of the AWS SDKs, or the AWS CLI.</div>
+</blockquote>
+<p class="last">Log Streams and Edge Locations</p>
+</div>
+<p>When Route 53 finishes creating the configuration for DNS query logging, it does the following:</p>
+<ul class="simple">
+<li>Creates a log stream for an edge location the first time that the edge location responds to DNS queries for the specified hosted zone. That log stream is used to log all queries that Route 53 responds to for that edge location.</li>
+<li>Begins to send query logs to the applicable log stream.</li>
+</ul>
+<p>The name of each log stream is in the following format:</p>
+<blockquote>
+<div>`` <em>hosted zone ID</em> /<em>edge location code</em> ``</div>
+</blockquote>
+<p>The edge location code is a three-letter code and an arbitrarily assigned number, for example, DFW3. The three-letter code typically corresponds with the International Air Transport Association airport code for an airport near the edge location. (These abbreviations might change in the future.) For a list of edge locations, see "The Route 53 Global Network" on the <a class="reference external" href="http://aws.amazon.com/route53/details/">Route 53 Product Details</a> page.</p>
+<blockquote>
+<div>Queries That Are Logged</div>
+</blockquote>
+<p>Query logs contain only the queries that DNS resolvers forward to Route 53. If a DNS resolver has already cached the response to a query (such as the IP address for a load balancer for example.com), the resolver will continue to return the cached response. It doesn't forward another query to Route 53 until the TTL for the corresponding resource record set expires. Depending on how many DNS queries are submitted for a resource record set, and depending on the TTL for that resource record set, query logs might contain information about only one query out of every several thousand queries that are submitted to DNS. For more information about how DNS works, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-dns-service.html">Routing Internet Traffic to Your Website or Web Application</a> in the <em>Amazon Route 53 Developer Guide</em> .</p>
+<blockquote>
+<div>Log File Format</div>
+</blockquote>
+<p>For a list of the values in each query log and the format of each value, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html">Logging DNS Queries</a> in the <em>Amazon Route 53 Developer Guide</em> .</p>
+<blockquote>
+<div>Pricing</div>
+</blockquote>
+<p>For information about charges for query logs, see <a class="reference external" href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a> .</p>
+<blockquote>
+<div>How to Stop Logging</div>
+</blockquote>
+<p>If you want Route 53 to stop sending query logs to CloudWatch Logs, delete the query logging configuration. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_DeleteQueryLoggingConfig.html">DeleteQueryLoggingConfig</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/CreateQueryLoggingConfig">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-query-logging-config
+--hosted-zone-id &lt;value&gt;
+--cloud-watch-logs-log-group-arn &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--hosted-zone-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the hosted zone that you want to log queries for. You can log queries only for public hosted zones.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cloud-watch-logs-log-group-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) for the log group that you want to Amazon Route 53 to send query logs to. This is the format of the ARN:</p>
+<p>arn:aws:logs:<em>region</em> :<em>account-id</em> :log-group:<em>log_group_name</em></p>
+<p>To get the ARN for a log group, you can use the CloudWatch console, the <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogGroups.html">DescribeLogGroups</a> API action, the <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/reference/logs/describe-log-groups.html">describe-log-groups</a> command, or the applicable command in one of the AWS SDKs.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>QueryLoggingConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains the ID for a query logging configuration, the ID of the hosted zone that you want to log queries for, and the ARN for the log group that you want Amazon Route 53 to send query logs to.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID for a configuration for DNS query logging.</div>
+</blockquote>
+<p>HostedZoneId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the hosted zone that CloudWatch Logs is logging queries for.</div>
+</blockquote>
+<p>CloudWatchLogsLogGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the CloudWatch Logs log group that Amazon Route 53 is publishing logs to.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Location -&gt; (string)</p>
+<blockquote>
+<div>The unique URL representing the new query logging configuration.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

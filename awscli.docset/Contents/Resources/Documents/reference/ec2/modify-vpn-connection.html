@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>modify-vpn-connection — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="modify-vpn-tunnel-certificate" href="modify-vpn-tunnel-certificate.html">
+    <link rel="prev" title="modify-vpc-tenancy" href="modify-vpc-tenancy.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="modify-vpn-connection">
+<span id="cli-aws-ec2-modify-vpn-connection"></span><h1>modify-vpn-connection<a class="headerlink" href="#modify-vpn-connection" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies the target gateway of an AWS Site-to-Site VPN connection. The following migration options are available:</p>
+<ul class="simple">
+<li>An existing virtual private gateway to a new virtual private gateway</li>
+<li>An existing virtual private gateway to a transit gateway</li>
+<li>An existing transit gateway to a new transit gateway</li>
+<li>An existing transit gateway to a virtual private gateway</li>
+</ul>
+<p>Before you perform the migration to the new gateway, you must configure the new gateway. Use  CreateVpnGateway to create a virtual private gateway, or  CreateTransitGateway to create a transit gateway.</p>
+<p>This step is required when you migrate from a virtual private gateway with static routes to a transit gateway.</p>
+<p>You must delete the static routes before you migrate to the new gateway.</p>
+<p>Keep a copy of the static route before you delete it. You will need to add back these routes to the transit gateway after the VPN connection migration is complete.</p>
+<p>After you migrate to the new gateway, you might need to modify your VPC route table. Use  CreateRoute and  DeleteRoute to make the changes described in <a class="reference external" href="https://docs.aws.amazon.com/vpn/latest/s2svpn/modify-vpn-target.html#step-update-routing">VPN Gateway Target Modification Required VPC Route Table Updates</a> in the <em>AWS Site-to-Site VPN User Guide</em> .</p>
+<p>When the new gateway is a transit gateway, modify the transit gateway route table to allow traffic between the VPC and the AWS Site-to-Site VPN connection. Use  CreateTransitGatewayRoute to add the routes.</p>
+<p>If you deleted VPN static routes, you must add the static routes to the transit gateway route table.</p>
+<p>After you perform this operation, the AWS VPN endpoint's IP addresses on the AWS side and the tunnel options remain intact. Your s2slong; connection will be temporarily unavailable for approximately 10 minutes while we provision the new endpoints</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyVpnConnection">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  modify-vpn-connection
+--vpn-connection-id &lt;value&gt;
+[--transit-gateway-id &lt;value&gt;]
+[--customer-gateway-id &lt;value&gt;]
+[--vpn-gateway-id &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--vpn-connection-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the VPN connection.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--transit-gateway-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the transit gateway.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--customer-gateway-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the customer gateway at your end of the VPN connection.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpn-gateway-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the virtual private gateway at the AWS side of the VPN connection.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To modify a VPN connection</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">modify-vpn-connection</span></tt> example changes the target gateway for VPN connection <tt class="docutils literal"><span class="pre">vpn-12345678901234567</span></tt> to virtual private gateway <tt class="docutils literal"><span class="pre">vgw-11223344556677889</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws ec2 modify-vpn-connection \
+    --vpn-connection-id vpn-12345678901234567 \
+    --vpn-gateway-id vgw-11223344556677889</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"VpnConnection"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"CustomerGatewayConfiguration"</span><span class="p">:</span> <span class="s2">"...configuration information..."</span><span class="p">,</span>
+        <span class="s2">"CustomerGatewayId"</span><span class="p">:</span> <span class="s2">"cgw-aabbccddee1122334"</span><span class="p">,</span>
+        <span class="s2">"Category"</span><span class="p">:</span> <span class="s2">"VPN"</span><span class="p">,</span>
+        <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"modifying"</span><span class="p">,</span>
+        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"ipsec.1"</span><span class="p">,</span>
+        <span class="s2">"VpnConnectionId"</span><span class="p">:</span> <span class="s2">"vpn-12345678901234567"</span><span class="p">,</span>
+        <span class="s2">"VpnGatewayId"</span><span class="p">:</span> <span class="s2">"vgw-11223344556677889"</span><span class="p">,</span>
+        <span class="s2">"Options"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"StaticRoutesOnly"</span><span class="p">:</span> <span class="n">false</span>
+        <span class="p">},</span>
+        <span class="s2">"VgwTelemetry"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"AcceptedRouteCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"LastStatusChange"</span><span class="p">:</span> <span class="s2">"2019-07-17T07:34:00.000Z"</span><span class="p">,</span>
+                <span class="s2">"OutsideIpAddress"</span><span class="p">:</span> <span class="s2">"18.210.3.222"</span><span class="p">,</span>
+                <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"DOWN"</span><span class="p">,</span>
+                <span class="s2">"StatusMessage"</span><span class="p">:</span> <span class="s2">"IPSEC IS DOWN"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"AcceptedRouteCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"LastStatusChange"</span><span class="p">:</span> <span class="s2">"2019-07-20T21:20:16.000Z"</span><span class="p">,</span>
+                <span class="s2">"OutsideIpAddress"</span><span class="p">:</span> <span class="s2">"34.193.129.33"</span><span class="p">,</span>
+                <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"DOWN"</span><span class="p">,</span>
+                <span class="s2">"StatusMessage"</span><span class="p">:</span> <span class="s2">"IPSEC IS DOWN"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>VpnConnection -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes a VPN connection.</p>
+<p>CustomerGatewayConfiguration -&gt; (string)</p>
+<blockquote>
+<div>The configuration information for the VPN connection's customer gateway (in the native XML format). This element is always present in the  CreateVpnConnection response; however, it's present in the  DescribeVpnConnections response only if the VPN connection is in the <tt class="docutils literal"><span class="pre">pending</span></tt> or <tt class="docutils literal"><span class="pre">available</span></tt> state.</div>
+</blockquote>
+<p>CustomerGatewayId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the customer gateway at your end of the VPN connection.</div>
+</blockquote>
+<p>Category -&gt; (string)</p>
+<blockquote>
+<div>The category of the VPN connection. A value of <tt class="docutils literal"><span class="pre">VPN</span></tt> indicates an AWS VPN connection. A value of <tt class="docutils literal"><span class="pre">VPN-Classic</span></tt> indicates an AWS Classic VPN connection.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The current state of the VPN connection.</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of VPN connection.</div>
+</blockquote>
+<p>VpnConnectionId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPN connection.</div>
+</blockquote>
+<p>VpnGatewayId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the virtual private gateway at the AWS side of the VPN connection.</div>
+</blockquote>
+<p>TransitGatewayId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the transit gateway associated with the VPN connection.</div>
+</blockquote>
+<p>Options -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The VPN connection options.</p>
+<p>EnableAcceleration -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether acceleration is enabled for the VPN connection.</div>
+</blockquote>
+<p>StaticRoutesOnly -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the VPN connection uses static routes only. Static routes must be used for devices that don't support BGP.</div>
+</blockquote>
+<p>TunnelOptions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Indicates the VPN tunnel options.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The VPN tunnel options.</p>
+<p>OutsideIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The external IP address of the VPN tunnel.</div>
+</blockquote>
+<p>TunnelInsideCidr -&gt; (string)</p>
+<blockquote>
+<div>The range of inside IP addresses for the tunnel.</div>
+</blockquote>
+<p>PreSharedKey -&gt; (string)</p>
+<blockquote>
+<div>The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and the customer gateway.</div>
+</blockquote>
+<p>Phase1LifetimeSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The lifetime for phase 1 of the IKE negotiation, in seconds.</div>
+</blockquote>
+<p>Phase2LifetimeSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The lifetime for phase 2 of the IKE negotiation, in seconds.</div>
+</blockquote>
+<p>RekeyMarginTimeSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the VPN connection performs an IKE rekey.</div>
+</blockquote>
+<p>RekeyFuzzPercentage -&gt; (integer)</p>
+<blockquote>
+<div>The percentage of the rekey window determined by <tt class="docutils literal"><span class="pre">RekeyMarginTimeSeconds</span></tt> during which the rekey time is randomly selected.</div>
+</blockquote>
+<p>ReplayWindowSize -&gt; (integer)</p>
+<blockquote>
+<div>The number of packets in an IKE replay window.</div>
+</blockquote>
+<p>DpdTimeoutSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The number of seconds after which a DPD timeout occurs.</div>
+</blockquote>
+<p>Phase1EncryptionAlgorithms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The permitted encryption algorithms for the VPN tunnel for phase 1 IKE negotiations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The encryption algorithm for phase 1 IKE negotiations.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value for the encryption algorithm.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Phase2EncryptionAlgorithms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The permitted encryption algorithms for the VPN tunnel for phase 2 IKE negotiations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The encryption algorithm for phase 2 IKE negotiations.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The encryption algorithm.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Phase1IntegrityAlgorithms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The permitted integrity algorithms for the VPN tunnel for phase 1 IKE negotiations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The integrity algorithm for phase 1 IKE negotiations.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value for the integrity algorithm.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Phase2IntegrityAlgorithms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The permitted integrity algorithms for the VPN tunnel for phase 2 IKE negotiations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The integrity algorithm for phase 2 IKE negotiations.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The integrity algorithm.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Phase1DHGroupNumbers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The permitted Diffie-Hellman group numbers for the VPN tunnel for phase 1 IKE negotiations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The Diffie-Hellmann group number for phase 1 IKE negotiations.</p>
+<p>Value -&gt; (integer)</p>
+<blockquote>
+<div>The Diffie-Hellmann group number.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Phase2DHGroupNumbers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The permitted Diffie-Hellman group numbers for the VPN tunnel for phase 2 IKE negotiations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The Diffie-Hellmann group number for phase 2 IKE negotiations.</p>
+<p>Value -&gt; (integer)</p>
+<blockquote>
+<div>The Diffie-Hellmann group number.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IkeVersions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IKE versions that are permitted for the VPN tunnel.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The internet key exchange (IKE) version permitted for the VPN tunnel.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The IKE version.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Routes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The static routes associated with the VPN connection.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a static route for a VPN connection.</p>
+<p>DestinationCidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The CIDR block associated with the local subnet of the customer data center.</div>
+</blockquote>
+<p>Source -&gt; (string)</p>
+<blockquote>
+<div>Indicates how the routes were provided.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The current state of the static route.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the VPN connection.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VgwTelemetry -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the VPN tunnel.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes telemetry for a VPN tunnel.</p>
+<p>AcceptedRouteCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of accepted routes.</div>
+</blockquote>
+<p>LastStatusChange -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time of the last change in status.</div>
+</blockquote>
+<p>OutsideIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The Internet-routable IP address of the virtual private gateway's outside interface.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the VPN tunnel.</div>
+</blockquote>
+<p>StatusMessage -&gt; (string)</p>
+<blockquote>
+<div>If an error occurs, a description of the error.</div>
+</blockquote>
+<p>CertificateArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the VPN tunnel endpoint certificate.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

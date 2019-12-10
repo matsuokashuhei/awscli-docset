@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-sampled-requests — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="wafv2" href="index.html">
+    <link rel="next" title="get-web-acl" href="get-web-acl.html">
+    <link rel="prev" title="get-rule-group" href="get-rule-group.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-sampled-requests">
+<span id="cli-aws-wafv2-get-sampled-requests"></span><h1>get-sampled-requests<a class="headerlink" href="#get-sampled-requests" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is the latest version of <strong>AWS WAF</strong> , named AWS WAFV2, released in November, 2019. For information, including how to migrate your AWS WAF resources from the prior release, see the <a class="reference external" href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a> .</p>
+</div>
+<p>Gets detailed information about a specified number of requests--a sample--that AWS WAF randomly selects from among the first 5,000 requests that your AWS resource received during a time range that you choose. You can specify a sample size of up to 500 requests, and you can specify any time range in the previous three hours.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> returns a time range, which is usually the time range that you specified. However, if your resource (such as a CloudFront distribution) received 5,000 requests before the specified time range elapsed, <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> returns an updated time range. This new time range indicates the actual period during which AWS WAF selected the requests in the sample.</div>
+</blockquote>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/GetSampledRequests">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-sampled-requests
+--web-acl-arn &lt;value&gt;
+--rule-metric-name &lt;value&gt;
+--scope &lt;value&gt;
+--time-window &lt;value&gt;
+--max-items &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--web-acl-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon resource name (ARN) of the <tt class="docutils literal"><span class="pre">WebACL</span></tt> for which you want a sample of requests.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--rule-metric-name</span></tt> (string)</p>
+<blockquote>
+<div>The metric name assigned to the <tt class="docutils literal"><span class="pre">Rule</span></tt> or <tt class="docutils literal"><span class="pre">RuleGroup</span></tt> for which you want a sample of requests.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--scope</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies whether this is for an AWS CloudFront distribution or for a regional application. A regional application can be an Application Load Balancer (ALB) or an API Gateway stage.</p>
+<p>To work with CloudFront, you must also specify the Region US East (N. Virginia) as follows:</p>
+<ul class="simple">
+<li>CLI - Specify the region when you use the CloudFront scope: <tt class="docutils literal"><span class="pre">--scope=CLOUDFRONT</span> <span class="pre">--region=us-east-1</span></tt> .</li>
+<li>API and SDKs - For all calls, use the Region endpoint us-east-1.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CLOUDFRONT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REGIONAL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--time-window</span></tt> (structure)</p>
+<blockquote>
+<div>The start date and time and the end date and time of the range for which you want <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> to return a sample of requests. Specify the date and time in the following format: <tt class="docutils literal"><span class="pre">"2016-09-27T14:50Z"</span></tt> . You can specify any time range in the previous three hours.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">StartTime</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span><span class="n">EndTime</span><span class="o">=</span><span class="n">timestamp</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"StartTime"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+  <span class="s2">"EndTime"</span><span class="p">:</span> <span class="n">timestamp</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (long)</p>
+<blockquote>
+<div>The number of requests that you want AWS WAF to return from among the first 5,000 requests that your AWS resource received during the time range. If your resource received fewer requests than the value of <tt class="docutils literal"><span class="pre">MaxItems</span></tt> , <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> returns information about all of them.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>SampledRequests -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A complex type that contains detailed information about each of the requests in the sample.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is the latest version of <strong>AWS WAF</strong> , named AWS WAFV2, released in November, 2019. For information, including how to migrate your AWS WAF resources from the prior release, see the <a class="reference external" href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a> .</p>
+</div>
+<p>Represents a single sampled web request. The response from  GetSampledRequests includes a <tt class="docutils literal"><span class="pre">SampledHTTPRequests</span></tt> complex type that appears as <tt class="docutils literal"><span class="pre">SampledRequests</span></tt> in the response syntax. <tt class="docutils literal"><span class="pre">SampledHTTPRequests</span></tt> contains an array of <tt class="docutils literal"><span class="pre">SampledHTTPRequest</span></tt> objects.</p>
+<p>Request -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains detailed information about the request.</p>
+<p>ClientIP -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The IP address that the request originated from. If the web ACL is associated with a CloudFront distribution, this is the value of one of the following fields in CloudFront access logs:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">c-ip</span></tt> , if the viewer did not use an HTTP proxy or a load balancer to send the request</li>
+<li>
+<tt class="docutils literal"><span class="pre">x-forwarded-for</span></tt> , if the viewer did use an HTTP proxy or a load balancer to send the request</li>
+</ul>
+</div>
+</blockquote>
+<p>Country -&gt; (string)</p>
+<blockquote>
+<div>The two-letter country code for the country that the request originated from. For a current list of country codes, see the Wikipedia entry <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> .</div>
+</blockquote>
+<p>URI -&gt; (string)</p>
+<blockquote>
+<div>The URI path of the request, which identifies the resource, for example, <tt class="docutils literal"><span class="pre">/images/daily-ad.jpg</span></tt> .</div>
+</blockquote>
+<p>Method -&gt; (string)</p>
+<blockquote>
+<div>The HTTP method specified in the sampled web request.</div>
+</blockquote>
+<p>HTTPVersion -&gt; (string)</p>
+<blockquote>
+<div>The HTTP version specified in the sampled web request, for example, <tt class="docutils literal"><span class="pre">HTTP/1.1</span></tt> .</div>
+</blockquote>
+<p>Headers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A complex type that contains the name and value for each header in the sampled web request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is the latest version of <strong>AWS WAF</strong> , named AWS WAFV2, released in November, 2019. For information, including how to migrate your AWS WAF resources from the prior release, see the <a class="reference external" href="https://docs.aws.amazon.com/waf/latest/developerguide/waf-chapter.html">AWS WAF Developer Guide</a> .</p>
+</div>
+<p>Part of the response from  GetSampledRequests . This is a complex type that appears as <tt class="docutils literal"><span class="pre">Headers</span></tt> in the response syntax. <tt class="docutils literal"><span class="pre">HTTPHeader</span></tt> contains the names and values of all of the headers that appear in one of the web requests.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the HTTP header.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value of the HTTP header.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Weight -&gt; (long)</p>
+<blockquote>
+<div>A value that indicates how one result in the response relates proportionally to other results in the response. For example, a result that has a weight of <tt class="docutils literal"><span class="pre">2</span></tt> represents roughly twice as many web requests as a result that has a weight of <tt class="docutils literal"><span class="pre">1</span></tt> .</div>
+</blockquote>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The time at which AWS WAF received the request from your AWS resource, in Unix time format (in seconds).</div>
+</blockquote>
+<p>Action -&gt; (string)</p>
+<blockquote>
+<div>The action for the <tt class="docutils literal"><span class="pre">Rule</span></tt> that the request matched: <tt class="docutils literal"><span class="pre">ALLOW</span></tt> , <tt class="docutils literal"><span class="pre">BLOCK</span></tt> , or <tt class="docutils literal"><span class="pre">COUNT</span></tt> .</div>
+</blockquote>
+<p>RuleNameWithinRuleGroup -&gt; (string)</p>
+<blockquote>
+<div>The name of the <tt class="docutils literal"><span class="pre">Rule</span></tt> that the request matched. For managed rule groups, the format for this name is <tt class="docutils literal"><span class="pre">vendor</span> <span class="pre">name#managed</span> <span class="pre">rule</span> <span class="pre">group</span> <span class="pre">name#rule</span> <span class="pre">name</span></tt> . For your own rule groups, the format for this name is <tt class="docutils literal"><span class="pre">rule</span> <span class="pre">group</span> <span class="pre">name#rule</span> <span class="pre">name</span></tt> . If the rule is not in a rule group, the format is <tt class="docutils literal"><span class="pre">rule</span> <span class="pre">name</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PopulationSize -&gt; (long)</p>
+<blockquote>
+<div>The total number of requests from which <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> got a sample of <tt class="docutils literal"><span class="pre">MaxItems</span></tt> requests. If <tt class="docutils literal"><span class="pre">PopulationSize</span></tt> is less than <tt class="docutils literal"><span class="pre">MaxItems</span></tt> , the sample includes every request that your AWS resource received during the specified time range.</div>
+</blockquote>
+<p>TimeWindow -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Usually, <tt class="docutils literal"><span class="pre">TimeWindow</span></tt> is the time range that you specified in the <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> request. However, if your AWS resource received more than 5,000 requests during the time range that you specified in the request, <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> returns the time range for the first 5,000 requests.</p>
+<p>StartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The beginning of the time range from which you want <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> to return a sample of the requests that your AWS resource received. Specify the date and time in the following format: <tt class="docutils literal"><span class="pre">"2016-09-27T14:50Z"</span></tt> . You can specify any time range in the previous three hours.</div>
+</blockquote>
+<p>EndTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The end of the time range from which you want <tt class="docutils literal"><span class="pre">GetSampledRequests</span></tt> to return a sample of the requests that your AWS resource received. Specify the date and time in the following format: <tt class="docutils literal"><span class="pre">"2016-09-27T14:50Z"</span></tt> . You can specify any time range in the previous three hours.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

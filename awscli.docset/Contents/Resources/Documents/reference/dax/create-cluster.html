@@ -1,0 +1,449 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-cluster — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="dax" href="index.html">
+    <link rel="next" title="create-parameter-group" href="create-parameter-group.html">
+    <link rel="prev" title="dax" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-cluster">
+<span id="cli-aws-dax-create-cluster"></span><h1>create-cluster<a class="headerlink" href="#create-cluster" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a DAX cluster. All nodes in the cluster run the same DAX caching software.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/dax-2017-04-19/CreateCluster">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-cluster
+--cluster-name &lt;value&gt;
+--node-type &lt;value&gt;
+[--description &lt;value&gt;]
+--replication-factor &lt;value&gt;
+[--availability-zones &lt;value&gt;]
+[--subnet-group-name &lt;value&gt;]
+[--security-group-ids &lt;value&gt;]
+[--preferred-maintenance-window &lt;value&gt;]
+[--notification-topic-arn &lt;value&gt;]
+--iam-role-arn &lt;value&gt;
+[--parameter-group-name &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--sse-specification &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The cluster identifier. This parameter is stored as a lowercase string.</p>
+<blockquote>
+<div><strong>Constraints:</strong></div>
+</blockquote>
+<ul class="simple">
+<li>A name must contain from 1 to 20 alphanumeric characters or hyphens.</li>
+<li>The first character must be a letter.</li>
+<li>A name cannot end with a hyphen or contain two consecutive hyphens.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--node-type</span></tt> (string)</p>
+<blockquote>
+<div>The compute and memory capacity of the nodes in the cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description of the cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--replication-factor</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of nodes in the DAX cluster. A replication factor of 1 will create a single-node cluster, without any read replicas. For additional fault tolerance, you can create a multiple node cluster with one or more read replicas. To do this, set <tt class="docutils literal"><span class="pre">ReplicationFactor</span></tt> to a number between 3 (one primary and two read replicas) and 10 (one primary and nine read replicas). <tt class="docutils literal"><span class="pre">If</span> <span class="pre">the</span> <span class="pre">AvailabilityZones</span></tt> parameter is provided, its length must equal the <tt class="docutils literal"><span class="pre">ReplicationFactor</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AWS recommends that you have at least two read replicas per cluster.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--availability-zones</span></tt> (list)</p>
+<blockquote>
+<div>The Availability Zones (AZs) in which the cluster nodes will reside after the cluster has been created or updated. If provided, the length of this list must equal the <tt class="docutils literal"><span class="pre">ReplicationFactor</span></tt> parameter. If you omit this parameter, DAX will spread the nodes across Availability Zones for the highest availability.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--subnet-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the subnet group to be used for the replication group.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">DAX clusters can only run in an Amazon VPC environment. All of the subnets that you specify in a subnet group must exist in the same VPC.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of security group IDs to be assigned to each node in the DAX cluster. (Each of the security group ID is system-generated.)</p>
+<p>If this parameter is not specified, DAX assigns the default VPC security group to each node.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--preferred-maintenance-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the weekly time range during which maintenance on the DAX cluster is performed. It is specified as a range in the format ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum maintenance window is a 60 minute period. Valid values for <tt class="docutils literal"><span class="pre">ddd</span></tt> are:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">sun</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mon</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tue</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">wed</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">thu</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">fri</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sat</span></tt></li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">sun:05:00-sun:09:00</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you don't specify a preferred maintenance window when you create or modify a cache cluster, DAX assigns a 60-minute maintenance window on a randomly selected day of the week.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-topic-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the Amazon SNS topic to which notifications will be sent.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon SNS topic owner must be same as the DAX cluster owner.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--iam-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>A valid Amazon Resource Name (ARN) that identifies an IAM role. At runtime, DAX will assume this role and use the role's permissions to access DynamoDB on your behalf.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameter-group-name</span></tt> (string)</p>
+<blockquote>
+<div>The parameter group to be associated with the DAX cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A set of tags to associate with the DAX cluster.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--sse-specification</span></tt> (structure)</p>
+<blockquote>
+<div>Represents the settings used to enable server-side encryption on the cluster.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Enabled</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Cluster -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A description of the DAX cluster that you have created.</p>
+<p>ClusterName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DAX cluster.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the cluster.</div>
+</blockquote>
+<p>ClusterArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that uniquely identifies the cluster.</div>
+</blockquote>
+<p>TotalNodes -&gt; (integer)</p>
+<blockquote>
+<div>The total number of nodes in the cluster.</div>
+</blockquote>
+<p>ActiveNodes -&gt; (integer)</p>
+<blockquote>
+<div>The number of nodes in the cluster that are active (i.e., capable of serving requests).</div>
+</blockquote>
+<p>NodeType -&gt; (string)</p>
+<blockquote>
+<div>The node type for the nodes in the cluster. (All nodes in a DAX cluster are of the same type.)</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the cluster.</div>
+</blockquote>
+<p>ClusterDiscoveryEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration endpoint for this DAX cluster, consisting of a DNS name and a port number. Client applications can specify this endpoint, rather than an individual node endpoint, and allow the DAX client software to intelligently route requests and responses to nodes in the DAX cluster.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the endpoint.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that applications should use to connect to the endpoint.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NodeIdsToRemove -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of nodes to be removed from the cluster.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Nodes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of nodes that are currently in the cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents an individual node within a DAX cluster.</p>
+<p>NodeId -&gt; (string)</p>
+<blockquote>
+<div>A system-generated identifier for the node.</div>
+</blockquote>
+<p>Endpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The endpoint for the node, consisting of a DNS name and a port number. Client applications can connect directly to a node endpoint, if desired (as an alternative to allowing DAX client software to intelligently route requests and responses to nodes in the DAX cluster.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the endpoint.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that applications should use to connect to the endpoint.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NodeCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time (in UNIX epoch format) when the node was launched.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone (AZ) in which the node has been deployed.</div>
+</blockquote>
+<p>NodeStatus -&gt; (string)</p>
+<blockquote>
+<div>The current status of the node. For example: <tt class="docutils literal"><span class="pre">available</span></tt> .</div>
+</blockquote>
+<p>ParameterGroupStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the parameter group associated with this node. For example, <tt class="docutils literal"><span class="pre">in-sync</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PreferredMaintenanceWindow -&gt; (string)</p>
+<blockquote>
+<div>A range of time when maintenance of DAX cluster software will be performed. For example: <tt class="docutils literal"><span class="pre">sun:01:00-sun:09:00</span></tt> . Cluster maintenance normally takes less than 30 minutes, and is performed automatically within the maintenance window.</div>
+</blockquote>
+<p>NotificationConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes a notification topic and its status. Notification topics are used for publishing DAX events to subscribers using Amazon Simple Notification Service (SNS).</p>
+<p>TopicArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that identifies the topic.</div>
+</blockquote>
+<p>TopicStatus -&gt; (string)</p>
+<blockquote>
+<div>The current state of the topic.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SubnetGroup -&gt; (string)</p>
+<blockquote>
+<div>The subnet group where the DAX cluster is running.</div>
+</blockquote>
+<p>SecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of security groups, and the status of each, for the nodes in the cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An individual VPC security group and its status.</p>
+<p>SecurityGroupIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The unique ID for this security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of this security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IamRoleArn -&gt; (string)</p>
+<blockquote>
+<div>A valid Amazon Resource Name (ARN) that identifies an IAM role. At runtime, DAX will assume this role and use the role's permissions to access DynamoDB on your behalf.</div>
+</blockquote>
+<p>ParameterGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The parameter group being used by nodes in the cluster.</p>
+<p>ParameterGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the parameter group.</div>
+</blockquote>
+<p>ParameterApplyStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of parameter updates.</div>
+</blockquote>
+<p>NodeIdsToReboot -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The node IDs of one or more nodes to be rebooted.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SSEDescription -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The description of the server-side encryption status on the specified DAX cluster.</p>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The current state of server-side encryption:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ENABLING</span></tt> - Server-side encryption is being enabled.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ENABLED</span></tt> - Server-side encryption is enabled.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DISABLING</span></tt> - Server-side encryption is being disabled.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DISABLED</span></tt> - Server-side encryption is disabled.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

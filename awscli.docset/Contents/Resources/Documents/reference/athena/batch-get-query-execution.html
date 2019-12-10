@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>batch-get-query-execution — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="athena" href="index.html">
+    <link rel="next" title="create-named-query" href="create-named-query.html">
+    <link rel="prev" title="batch-get-named-query" href="batch-get-named-query.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="batch-get-query-execution">
+<span id="cli-aws-athena-batch-get-query-execution"></span><h1>batch-get-query-execution<a class="headerlink" href="#batch-get-query-execution" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns the details of a single query execution or a list of up to 50 query executions, which you provide as an array of query execution ID strings. Requires you to have access to the workgroup in which the queries ran. To get a list of query execution IDs, use  ListQueryExecutionsInput$WorkGroup . Query executions differ from named (saved) queries. Use  BatchGetNamedQueryInput to get details about named queries.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/athena-2017-05-18/BatchGetQueryExecution">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  batch-get-query-execution
+--query-execution-ids &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--query-execution-ids</span></tt> (list)</p>
+<blockquote>
+<div>An array of query execution IDs.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>QueryExecutions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about a query execution.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a single instance of a query execution.</p>
+<p>QueryExecutionId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for each query execution.</div>
+</blockquote>
+<p>Query -&gt; (string)</p>
+<blockquote>
+<div>The SQL query statements which the query execution ran.</div>
+</blockquote>
+<p>StatementType -&gt; (string)</p>
+<blockquote>
+<div>The type of query statement that was run. <tt class="docutils literal"><span class="pre">DDL</span></tt> indicates DDL query statements. <tt class="docutils literal"><span class="pre">DML</span></tt> indicates DML (Data Manipulation Language) query statements, such as <tt class="docutils literal"><span class="pre">CREATE</span> <span class="pre">TABLE</span> <span class="pre">AS</span> <span class="pre">SELECT</span></tt> . <tt class="docutils literal"><span class="pre">UTILITY</span></tt> indicates query statements other than DDL and DML, such as <tt class="docutils literal"><span class="pre">SHOW</span> <span class="pre">CREATE</span> <span class="pre">TABLE</span></tt> , or <tt class="docutils literal"><span class="pre">DESCRIBE</span> <span class="pre">table</span></tt> .</div>
+</blockquote>
+<p>ResultConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location in Amazon S3 where query results were stored and the encryption option, if any, used for query results. These are known as "client-side settings". If workgroup settings override client-side settings, then the query uses the location for the query results and the encryption configuration that are specified for the workgroup.</p>
+<p>OutputLocation -&gt; (string)</p>
+<blockquote>
+<div>The location in Amazon S3 where your query results are stored, such as <tt class="docutils literal"><span class="pre">s3://path/to/query/bucket/</span></tt> . To run the query, you must specify the query results location using one of the ways: either for individual queries using either this setting (client-side), or in the workgroup, using  WorkGroupConfiguration . If none of them is set, Athena issues an error that no output location is provided. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/querying.html">Query Results</a> . If workgroup settings override client-side settings, then the query uses the settings specified for the workgroup. See  WorkGroupConfiguration$EnforceWorkGroupConfiguration .</div>
+</blockquote>
+<p>EncryptionConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>If query results are encrypted in Amazon S3, indicates the encryption option used (for example, <tt class="docutils literal"><span class="pre">SSE-KMS</span></tt> or <tt class="docutils literal"><span class="pre">CSE-KMS</span></tt> ) and key information. This is a client-side setting. If workgroup settings override client-side settings, then the query uses the encryption configuration that is specified for the workgroup, and also uses the location for storing query results specified in the workgroup. See  WorkGroupConfiguration$EnforceWorkGroupConfiguration and <a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html">Workgroup Settings Override Client-Side Settings</a> .</p>
+<p>EncryptionOption -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (<tt class="docutils literal"><span class="pre">SSE-S3</span></tt> ), server-side encryption with KMS-managed keys (<tt class="docutils literal"><span class="pre">SSE-KMS</span></tt> ), or client-side encryption with KMS-managed keys (CSE-KMS) is used.</p>
+<p>If a query runs in a workgroup and the workgroup overrides client-side settings, then the workgroup's setting for encryption is used. It specifies whether query results must be encrypted, for all queries that run in this workgroup.</p>
+</div>
+</blockquote>
+<p>KmsKey -&gt; (string)</p>
+<blockquote>
+<div>For <tt class="docutils literal"><span class="pre">SSE-KMS</span></tt> and <tt class="docutils literal"><span class="pre">CSE-KMS</span></tt> , this is the KMS key ARN or ID.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>QueryExecutionContext -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The database in which the query execution occurred.</p>
+<p>Database -&gt; (string)</p>
+<blockquote>
+<div>The name of the database.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Status -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The completion date, current state, submission time, and state change reason (if applicable) for the query execution.</p>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The state of query execution. <tt class="docutils literal"><span class="pre">QUEUED</span></tt> state is listed but is not used by Athena and is reserved for future use. <tt class="docutils literal"><span class="pre">RUNNING</span></tt> indicates that the query has been submitted to the service, and Athena will execute the query as soon as resources are available. <tt class="docutils literal"><span class="pre">SUCCEEDED</span></tt> indicates that the query completed without errors. <tt class="docutils literal"><span class="pre">FAILED</span></tt> indicates that the query experienced an error and did not complete processing. <tt class="docutils literal"><span class="pre">CANCELLED</span></tt> indicates that a user input interrupted query execution.</div>
+</blockquote>
+<p>StateChangeReason -&gt; (string)</p>
+<blockquote>
+<div>Further detail about the status of the query.</div>
+</blockquote>
+<p>SubmissionDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the query was submitted.</div>
+</blockquote>
+<p>CompletionDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the query completed.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Statistics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The amount of data scanned during the query execution and the amount of time that it took to execute, and the type of statement that was run.</p>
+<p>EngineExecutionTimeInMillis -&gt; (long)</p>
+<blockquote>
+<div>The number of milliseconds that the query took to execute.</div>
+</blockquote>
+<p>DataScannedInBytes -&gt; (long)</p>
+<blockquote>
+<div>The number of bytes in the data that was queried.</div>
+</blockquote>
+<p>DataManifestLocation -&gt; (string)</p>
+<blockquote>
+<div>The location and file name of a data manifest file. The manifest file is saved to the Athena query results location in Amazon S3. The manifest file tracks files that the query wrote to Amazon S3. If the query fails, the manifest file also tracks files that the query intended to write. The manifest is useful for identifying orphaned files resulting from a failed query. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/athena/latest/ug/querying.html">Working with Query Results, Output Files, and Query History</a> in the <em>Amazon Athena User Guide</em> .</div>
+</blockquote>
+<p>TotalExecutionTimeInMillis -&gt; (long)</p>
+<blockquote>
+<div>The number of milliseconds that Athena took to run the query.</div>
+</blockquote>
+<p>QueryQueueTimeInMillis -&gt; (long)</p>
+<blockquote>
+<div>The number of milliseconds that the query was in your query queue waiting for resources. Note that if transient errors occur, Athena might automatically add the query back to the queue.</div>
+</blockquote>
+<p>QueryPlanningTimeInMillis -&gt; (long)</p>
+<blockquote>
+<div>The number of milliseconds that Athena took to plan the query processing flow. This includes the time spent retrieving table partitions from the data source. Note that because the query engine performs the query planning, query planning time is a subset of engine processing time.</div>
+</blockquote>
+<p>ServiceProcessingTimeInMillis -&gt; (long)</p>
+<blockquote>
+<div>The number of milliseconds that Athena took to finalize and publish the query results after the query engine finished running the query.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>WorkGroup -&gt; (string)</p>
+<blockquote>
+<div>The name of the workgroup in which the query ran.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>UnprocessedQueryExecutionIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the query executions that failed to run.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a query execution that failed to process.</p>
+<p>QueryExecutionId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier of the query execution.</div>
+</blockquote>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The error code returned when the query execution failed to process, if applicable.</div>
+</blockquote>
+<p>ErrorMessage -&gt; (string)</p>
+<blockquote>
+<div>The error message returned when the query execution failed to process, if applicable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

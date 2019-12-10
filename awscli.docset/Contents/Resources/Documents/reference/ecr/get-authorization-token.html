@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-authorization-token — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecr" href="index.html">
+    <link rel="next" title="get-download-url-for-layer" href="get-download-url-for-layer.html">
+    <link rel="prev" title="describe-repositories" href="describe-repositories.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-authorization-token">
+<span id="cli-aws-ecr-get-authorization-token"></span><h1>get-authorization-token<a class="headerlink" href="#get-authorization-token" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves a token that is valid for a specified registry for 12 hours. This command allows you to use the <tt class="docutils literal"><span class="pre">docker</span></tt> CLI to push and pull images with Amazon ECR. If you do not specify a registry, the default registry is assumed.</p>
+<p>The <tt class="docutils literal"><span class="pre">authorizationToken</span></tt> returned for each registry specified is a base64 encoded string that can be decoded and used in a <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">login</span></tt> command to authenticate to a registry. The AWS CLI offers an <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">ecr</span> <span class="pre">get-login</span></tt> command that simplifies the login process.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetAuthorizationToken">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-authorization-token
+[--registry-ids &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--registry-ids</span></tt> (list)</p>
+<blockquote>
+<div>A list of AWS account IDs that are associated with the registries for which to get authorization tokens. If you do not specify a registry, the default registry is assumed.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get an authorization token for your default registry</strong></p>
+<p>This example command gets an authorization token for your default registry.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ecr get-authorization-token</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"authorizationData"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"authorizationToken"</span><span class="p">:</span> <span class="s2">"QVdTOkN..."</span><span class="p">,</span>
+            <span class="s2">"expiresAt"</span><span class="p">:</span> <span class="mf">1448875853.241</span><span class="p">,</span>
+            <span class="s2">"proxyEndpoint"</span><span class="p">:</span> <span class="s2">"https://&lt;aws_account_id&gt;.dkr.ecr.us-west-2.amazonaws.com"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To get the decoded password for your default registry</strong></p>
+<p>This example command gets an authorization token for your default registry and
+returns the decoded password for you to use in a <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">login</span></tt> command.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Mac OSX users should use the <tt class="docutils literal"><span class="pre">-D</span></tt> option to <tt class="docutils literal"><span class="pre">base64</span></tt> to decode the
+token data.</p>
+</div>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ecr get-authorization-token --output text \
+--query 'authorizationData[].authorizationToken' \
+| base64 -D | cut -d: -f2</pre>
+</div>
+<p><strong>To `docker login` with your decoded password</strong></p>
+<p>This example command uses your decoded password to add authentication
+information to your Docker installation by using the <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">login</span></tt> command.
+The user name is <tt class="docutils literal"><span class="pre">AWS</span></tt>, and you can use any email you want (Amazon ECR does
+nothing with this information, but <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">login</span></tt> required the email field).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The final argument is the <tt class="docutils literal"><span class="pre">proxyEndpoint</span></tt> returned from
+<tt class="docutils literal"><span class="pre">get-authorization-token</span></tt> without the <tt class="docutils literal"><span class="pre">https://</span></tt> prefix.</p>
+</div>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>docker login -u AWS -p &lt;my_decoded_password&gt; -e &lt;any_email_address&gt; &lt;aws_account_id&gt;.dkr.ecr.us-west-2.amazonaws.com</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>WARNING: login credentials saved in $HOME/.docker/config.json
+Login Succeeded</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>authorizationData -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of authorization token data objects that correspond to the <tt class="docutils literal"><span class="pre">registryIds</span></tt> values in the request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing authorization data for an Amazon ECR registry.</p>
+<p>authorizationToken -&gt; (string)</p>
+<blockquote>
+<div>A base64-encoded string that contains authorization data for the specified Amazon ECR registry. When the string is decoded, it is presented in the format <tt class="docutils literal"><span class="pre">user:password</span></tt> for private registry authentication using <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">login</span></tt> .</div>
+</blockquote>
+<p>expiresAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix time in seconds and milliseconds when the authorization token expires. Authorization tokens are valid for 12 hours.</div>
+</blockquote>
+<p>proxyEndpoint -&gt; (string)</p>
+<blockquote>
+<div>The registry URL to use for this authorization token in a <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">login</span></tt> command. The Amazon ECR registry URL format is <tt class="docutils literal"><span class="pre">https://aws_account_id.dkr.ecr.region.amazonaws.com</span></tt> . For example, <tt class="docutils literal"><span class="pre">https://012345678910.dkr.ecr.us-east-1.amazonaws.com</span></tt> ..</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

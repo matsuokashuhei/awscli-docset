@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-stack-resources — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudformation" href="index.html">
+    <link rel="next" title="describe-stack-set" href="describe-stack-set.html">
+    <link rel="prev" title="describe-stack-resource-drifts" href="describe-stack-resource-drifts.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-stack-resources">
+<span id="cli-aws-cloudformation-describe-stack-resources"></span><h1>describe-stack-resources<a class="headerlink" href="#describe-stack-resources" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns AWS resource descriptions for running and deleted stacks. If <tt class="docutils literal"><span class="pre">StackName</span></tt> is specified, all the associated resources that are part of the stack are returned. If <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> is specified, the associated resources of the stack that the resource belongs to are returned.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only the first 100 resources will be returned. If your stack has more resources than this, you should use <tt class="docutils literal"><span class="pre">ListStackResources</span></tt> instead.</p>
+</div>
+<p>For deleted stacks, <tt class="docutils literal"><span class="pre">DescribeStackResources</span></tt> returns resource information for up to 90 days after the stack has been deleted.</p>
+<p>You must specify either <tt class="docutils literal"><span class="pre">StackName</span></tt> or <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> , but not both. In addition, you can specify <tt class="docutils literal"><span class="pre">LogicalResourceId</span></tt> to filter the returned result. For more information about resources, the <tt class="docutils literal"><span class="pre">LogicalResourceId</span></tt> and <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> , go to the <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/">AWS CloudFormation User Guide</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A <tt class="docutils literal"><span class="pre">ValidationError</span></tt> is returned if you specify both <tt class="docutils literal"><span class="pre">StackName</span></tt> and <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> in the same request.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackResources">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-stack-resources
+[--stack-name &lt;value&gt;]
+[--logical-resource-id &lt;value&gt;]
+[--physical-resource-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stack-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name or the unique stack ID that is associated with the stack, which are not always interchangeable:</p>
+<ul class="simple">
+<li>Running stacks: You can specify either the stack's name or its unique stack ID.</li>
+<li>Deleted stacks: You must specify the unique stack ID.</li>
+</ul>
+<p>Default: There is no default value.</p>
+<p>Required: Conditional. If you do not specify <tt class="docutils literal"><span class="pre">StackName</span></tt> , you must specify <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--logical-resource-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The logical name of the resource as specified in the template.</p>
+<p>Default: There is no default value.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--physical-resource-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS CloudFormation.</p>
+<p>For example, for an Amazon Elastic Compute Cloud (EC2) instance, <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> corresponds to the <tt class="docutils literal"><span class="pre">InstanceId</span></tt> . You can pass the EC2 <tt class="docutils literal"><span class="pre">InstanceId</span></tt> to <tt class="docutils literal"><span class="pre">DescribeStackResources</span></tt> to find which stack the instance belongs to and what other resources are part of the stack.</p>
+<p>Required: Conditional. If you do not specify <tt class="docutils literal"><span class="pre">PhysicalResourceId</span></tt> , you must specify <tt class="docutils literal"><span class="pre">StackName</span></tt> .</p>
+<p>Default: There is no default value.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get information about a stack resource</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-stack-resources</span></tt> example displays details for the resources in the specified stack.</p>
+<div class="highlight-python">
+<pre>aws cloudformation describe-stack-resources \
+    --stack-name my-stack</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"StackResources"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"StackName"</span><span class="p">:</span> <span class="s2">"my-stack"</span><span class="p">,</span>
+            <span class="s2">"StackId"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudformation:us-west-2:123456789012:stack/my-stack/d0a825a0-e4cd-xmpl-b9fb-061c69e99204"</span><span class="p">,</span>
+            <span class="s2">"LogicalResourceId"</span><span class="p">:</span> <span class="s2">"bucket"</span><span class="p">,</span>
+            <span class="s2">"PhysicalResourceId"</span><span class="p">:</span> <span class="s2">"my-stack-bucket-1vc62xmplgguf"</span><span class="p">,</span>
+            <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"AWS::S3::Bucket"</span><span class="p">,</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="s2">"2019-10-02T04:34:11.345Z"</span><span class="p">,</span>
+            <span class="s2">"ResourceStatus"</span><span class="p">:</span> <span class="s2">"CREATE_COMPLETE"</span><span class="p">,</span>
+            <span class="s2">"DriftInformation"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"StackResourceDriftStatus"</span><span class="p">:</span> <span class="s2">"IN_SYNC"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"StackName"</span><span class="p">:</span> <span class="s2">"my-stack"</span><span class="p">,</span>
+            <span class="s2">"StackId"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudformation:us-west-2:123456789012:stack/my-stack/d0a825a0-e4cd-xmpl-b9fb-061c69e99204"</span><span class="p">,</span>
+            <span class="s2">"LogicalResourceId"</span><span class="p">:</span> <span class="s2">"function"</span><span class="p">,</span>
+            <span class="s2">"PhysicalResourceId"</span><span class="p">:</span> <span class="s2">"my-function-SEZV4XMPL4S5"</span><span class="p">,</span>
+            <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"AWS::Lambda::Function"</span><span class="p">,</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="s2">"2019-10-02T05:34:27.989Z"</span><span class="p">,</span>
+            <span class="s2">"ResourceStatus"</span><span class="p">:</span> <span class="s2">"UPDATE_COMPLETE"</span><span class="p">,</span>
+            <span class="s2">"DriftInformation"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"StackResourceDriftStatus"</span><span class="p">:</span> <span class="s2">"IN_SYNC"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"StackName"</span><span class="p">:</span> <span class="s2">"my-stack"</span><span class="p">,</span>
+            <span class="s2">"StackId"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudformation:us-west-2:123456789012:stack/my-stack/d0a825a0-e4cd-xmpl-b9fb-061c69e99204"</span><span class="p">,</span>
+            <span class="s2">"LogicalResourceId"</span><span class="p">:</span> <span class="s2">"functionRole"</span><span class="p">,</span>
+            <span class="s2">"PhysicalResourceId"</span><span class="p">:</span> <span class="s2">"my-functionRole-HIZXMPLEOM9E"</span><span class="p">,</span>
+            <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"AWS::IAM::Role"</span><span class="p">,</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="s2">"2019-10-02T04:34:06.350Z"</span><span class="p">,</span>
+            <span class="s2">"ResourceStatus"</span><span class="p">:</span> <span class="s2">"CREATE_COMPLETE"</span><span class="p">,</span>
+            <span class="s2">"DriftInformation"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"StackResourceDriftStatus"</span><span class="p">:</span> <span class="s2">"IN_SYNC"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>StackResources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">StackResource</span></tt> structures.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The StackResource data type.</p>
+<p>StackName -&gt; (string)</p>
+<blockquote>
+<div>The name associated with the stack.</div>
+</blockquote>
+<p>StackId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier of the stack.</div>
+</blockquote>
+<p>LogicalResourceId -&gt; (string)</p>
+<blockquote>
+<div>The logical name of the resource specified in the template.</div>
+</blockquote>
+<p>PhysicalResourceId -&gt; (string)</p>
+<blockquote>
+<div>The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS CloudFormation.</div>
+</blockquote>
+<p>ResourceType -&gt; (string)</p>
+<blockquote>
+<div>Type of resource. (For more information, go to <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html">AWS Resource Types Reference</a> in the AWS CloudFormation User Guide.)</div>
+</blockquote>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>Time the status was updated.</div>
+</blockquote>
+<p>ResourceStatus -&gt; (string)</p>
+<blockquote>
+<div>Current status of the resource.</div>
+</blockquote>
+<p>ResourceStatusReason -&gt; (string)</p>
+<blockquote>
+<div>Success/failure message associated with the resource.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>User defined description associated with the resource.</div>
+</blockquote>
+<p>DriftInformation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about whether the resource's actual configuration differs, or has <em>drifted</em> , from its expected configuration, as defined in the stack template and any values specified as template parameters. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting Unregulated Configuration Changes to Stacks and Resources</a> .</p>
+<p>StackResourceDriftStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Status of the resource's actual configuration compared to its expected configuration</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">DELETED</span></tt> : The resource differs from its expected configuration in that it has been deleted.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MODIFIED</span></tt> : The resource differs from its expected configuration.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NOT_CHECKED</span></tt> : AWS CloudFormation has not checked if the resource differs from its expected configuration. Any resources that do not currently support drift detection have a status of <tt class="docutils literal"><span class="pre">NOT_CHECKED</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html">Resources that Support Drift Detection</a> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">IN_SYNC</span></tt> : The resources's actual configuration matches its expected configuration.</li>
+</ul>
+</div>
+</blockquote>
+<p>LastCheckTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>When AWS CloudFormation last checked if the resource had drifted from its expected configuration.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

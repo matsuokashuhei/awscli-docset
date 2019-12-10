@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>send-bounce — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ses" href="index.html">
+    <link rel="next" title="send-bulk-templated-email" href="send-bulk-templated-email.html">
+    <link rel="prev" title="reorder-receipt-rule-set" href="reorder-receipt-rule-set.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="send-bounce">
+<span id="cli-aws-ses-send-bounce"></span><h1>send-bounce<a class="headerlink" href="#send-bounce" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Generates and sends a bounce message to the sender of an email you received through Amazon SES. You can only use this API on an email up to 24 hours after you receive it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You cannot use this API to send generic bounces for mail that was not received by Amazon SES.</p>
+</div>
+<p>For information about receiving email through Amazon SES, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/receiving-email.html">Amazon SES Developer Guide</a> .</p>
+<p>You can execute this operation no more than once per second.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendBounce">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  send-bounce
+--original-message-id &lt;value&gt;
+--bounce-sender &lt;value&gt;
+[--explanation &lt;value&gt;]
+[--message-dsn &lt;value&gt;]
+--bounced-recipient-info-list &lt;value&gt;
+[--bounce-sender-arn &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--original-message-id</span></tt> (string)</p>
+<blockquote>
+<div>The message ID of the message to be bounced.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bounce-sender</span></tt> (string)</p>
+<blockquote>
+<div>The address to use in the "From" header of the bounce message. This must be an identity that you have verified with Amazon SES.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--explanation</span></tt> (string)</p>
+<blockquote>
+<div>Human-readable text for the bounce message to explain the failure. If not specified, the text will be auto-generated based on the bounced recipient information.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--message-dsn</span></tt> (structure)</p>
+<blockquote>
+<div>Message-related DSN fields. If not specified, Amazon SES will choose the values.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ReportingMta=string,ArrivalDate=timestamp,ExtensionFields=[{Name=string,Value=string},{Name=string,Value=string}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "ReportingMta": "string",
+  "ArrivalDate": timestamp,
+  "ExtensionFields": [
+    {
+      "Name": "string",
+      "Value": "string"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--bounced-recipient-info-list</span></tt> (list)</p>
+<blockquote>
+<div>A list of recipients of the bounced message, including the information required to create the Delivery Status Notifications (DSNs) for the recipients. You must specify at least one <tt class="docutils literal"><span class="pre">BouncedRecipientInfo</span></tt> in the list.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Recipient": "string",
+    "RecipientArn": "string",
+    "BounceType": "DoesNotExist"|"MessageTooLarge"|"ExceededQuota"|"ContentRejected"|"Undefined"|"TemporaryFailure",
+    "RecipientDsnFields": {
+      "FinalRecipient": "string",
+      "Action": "failed"|"delayed"|"delivered"|"relayed"|"expanded",
+      "RemoteMta": "string",
+      "Status": "string",
+      "DiagnosticCode": "string",
+      "LastAttemptDate": timestamp,
+      "ExtensionFields": [
+        {
+          "Name": "string",
+          "Value": "string"
+        }
+        ...
+      ]
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--bounce-sender-arn</span></tt> (string)</p>
+<blockquote>
+<div>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to use the address in the "From" header of the bounce. For more information about sending authorization, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Amazon SES Developer Guide</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>MessageId -&gt; (string)</p>
+<blockquote>
+<div>The message ID of the bounce message.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

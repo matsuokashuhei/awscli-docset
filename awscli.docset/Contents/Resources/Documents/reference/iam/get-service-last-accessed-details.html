@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-service-last-accessed-details — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iam" href="index.html">
+    <link rel="next" title="get-service-last-accessed-details-with-entities" href="get-service-last-accessed-details-with-entities.html">
+    <link rel="prev" title="get-server-certificate" href="get-server-certificate.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-service-last-accessed-details">
+<span id="cli-aws-iam-get-service-last-accessed-details"></span><h1>get-service-last-accessed-details<a class="headerlink" href="#get-service-last-accessed-details" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves a service last accessed report that was created using the <tt class="docutils literal"><span class="pre">GenerateServiceLastAccessedDetails</span></tt> operation. You can use the <tt class="docutils literal"><span class="pre">JobId</span></tt> parameter in <tt class="docutils literal"><span class="pre">GetServiceLastAccessedDetails</span></tt> to retrieve the status of your report job. When the report is complete, you can retrieve the generated report. The report includes a list of AWS services that the resource (user, group, role, or managed policy) can access.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Service last accessed data does not use other policy types when determining whether a resource could access a service. These other policy types include resource-based policies, access control lists, AWS Organizations policies, IAM permissions boundaries, and AWS STS assume role policies. It only applies permissions policy logic. For more about the evaluation of policy types, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics">Evaluating Policies</a> in the <em>IAM User Guide</em> .</p>
+</div>
+<p>For each service that the resource could access using permissions policies, the operation returns details about the most recent access attempt. If there was no attempt, the service is listed without details about the most recent attempt to access the service. If the operation fails, the <tt class="docutils literal"><span class="pre">GetServiceLastAccessedDetails</span></tt> operation returns the reason that it failed.</p>
+<p>The <tt class="docutils literal"><span class="pre">GetServiceLastAccessedDetails</span></tt> operation returns a list of services. This list includes the number of entities that have attempted to access the service and the date and time of the last attempt. It also returns the ARN of the following entity, depending on the resource ARN that you used to generate the report:</p>
+<ul class="simple">
+<li>
+<strong>User</strong> – Returns the user ARN that you used to generate the report</li>
+<li>
+<strong>Group</strong> – Returns the ARN of the group member (user) that last attempted to access the service</li>
+<li>
+<strong>Role</strong> – Returns the role ARN that you used to generate the report</li>
+<li>
+<strong>Policy</strong> – Returns the ARN of the user or role that last used the policy to attempt to access the service</li>
+</ul>
+<p>By default, the list is sorted by service namespace.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/GetServiceLastAccessedDetails">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-service-last-accessed-details
+--job-id &lt;value&gt;
+[--max-items &lt;value&gt;]
+[--marker &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--job-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the request generated by the  GenerateServiceLastAccessedDetails operation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>Use this only when paginating results to indicate the maximum number of items you want in the response. If additional items exist beyond the maximum you specify, the <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> response element is <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>If you do not include this parameter, the number of items defaults to 100. Note that IAM might return fewer results, even when there are more results available. In that case, the <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> response element returns <tt class="docutils literal"><span class="pre">true</span></tt> , and <tt class="docutils literal"><span class="pre">Marker</span></tt> contains a value to include in the subsequent call that tells the service where to continue from.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--marker</span></tt> (string)</p>
+<blockquote>
+<div>Use this parameter only when paginating results and only after you receive a response indicating that the results are truncated. Set it to the value of the <tt class="docutils literal"><span class="pre">Marker</span></tt> element in the response that you received to indicate where the next call should start.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve a service access report</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-service-last-accessed-details</span></tt> example retrieves a previously generated report that lists the services accessed by IAM entities. To generate a report, use the <tt class="docutils literal"><span class="pre">generate-service-last-accessed-details</span></tt> command.</p>
+<div class="highlight-python">
+<pre>aws iam get-service-last-accessed-details \
+    --job-id 2eb6c2b8-7b4c-3xmp-3c13-03b72c8cdfdc</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "JobStatus": "COMPLETED",
+    "JobCreationDate": "2019-10-01T03:50:35.929Z",
+    "ServicesLastAccessed": [
+        ...
+        {
+            "ServiceName": "AWS Lambda",
+            "LastAuthenticated": "2019-09-30T23:02:00Z",
+            "ServiceNamespace": "lambda",
+            "LastAuthenticatedEntity": "arn:aws:iam::123456789012:user/admin",
+            "TotalAuthenticatedEntities": 6
+        },
+    ]
+}</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the job.</div>
+</blockquote>
+<p>JobCreationDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time, in <a class="reference external" href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a> , when the report job was created.</div>
+</blockquote>
+<p>ServicesLastAccessed -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A <tt class="docutils literal"><span class="pre">ServiceLastAccessed</span></tt> object that contains details about the most recent attempt to access the service.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the most recent attempt to access the service.</p>
+<p>This data type is used as a response element in the  GetServiceLastAccessedDetails operation.</p>
+<p>ServiceName -&gt; (string)</p>
+<blockquote>
+<div>The name of the service in which access was attempted.</div>
+</blockquote>
+<p>LastAuthenticated -&gt; (timestamp)</p>
+<blockquote>
+<div>
+<p>The date and time, in <a class="reference external" href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a> , when an authenticated entity most recently attempted to access the service. AWS does not report unauthenticated requests.</p>
+<p>This field is null if no IAM entities attempted to access the service within the <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period">reporting period</a> .</p>
+</div>
+</blockquote>
+<p>ServiceNamespace -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The namespace of the service in which access was attempted.</p>
+<p>To learn the service namespace of a service, go to <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html">Actions, Resources, and Condition Keys for AWS Services</a> in the <em>IAM User Guide</em> . Choose the name of the service to view details for that service. In the first paragraph, find the service prefix. For example, <tt class="docutils literal"><span class="pre">(service</span> <span class="pre">prefix:</span> <span class="pre">a4b)</span></tt> . For more information about service namespaces, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces">AWS Service Namespaces</a> in the <em>AWS General Reference</em> .</p>
+</div>
+</blockquote>
+<p>LastAuthenticatedEntity -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the authenticated entity (user or role) that last attempted to access the service. AWS does not report unauthenticated requests.</p>
+<p>This field is null if no IAM entities attempted to access the service within the <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period">reporting period</a> .</p>
+</div>
+</blockquote>
+<p>TotalAuthenticatedEntities -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The total number of authenticated principals (root user, IAM users, or IAM roles) that have attempted to access the service.</p>
+<p>This field is null if no principals attempted to access the service within the <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period">reporting period</a> .</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>JobCompletionDate -&gt; (timestamp)</p>
+<blockquote>
+<div>
+<p>The date and time, in <a class="reference external" href="http://www.iso.org/iso/iso8601">ISO 8601 date-time format</a> , when the generated report job was completed or failed.</p>
+<p>This field is null if the job is still in progress, as indicated by a job status value of <tt class="docutils literal"><span class="pre">IN_PROGRESS</span></tt> .</p>
+</div>
+</blockquote>
+<p>IsTruncated -&gt; (boolean)</p>
+<blockquote>
+<div>A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the <tt class="docutils literal"><span class="pre">Marker</span></tt> request parameter to retrieve more items. Note that IAM might return fewer than the <tt class="docutils literal"><span class="pre">MaxItems</span></tt> number of results even when there are more results available. We recommend that you check <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> after every call to ensure that you receive all your results.</div>
+</blockquote>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>When <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , this element is present and contains the value to use for the <tt class="docutils literal"><span class="pre">Marker</span></tt> parameter in a subsequent pagination request.</div>
+</blockquote>
+<p>Error -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that contains details about the reason the operation failed.</p>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>Detailed information about the reason that the operation failed.</div>
+</blockquote>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The error code associated with the operation failure.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

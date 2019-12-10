@@ -1,0 +1,1105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>restore-db-instance-to-point-in-time — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rds" href="index.html">
+    <link rel="next" title="revoke-db-security-group-ingress" href="revoke-db-security-group-ingress.html">
+    <link rel="prev" title="restore-db-instance-from-s3" href="restore-db-instance-from-s3.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="restore-db-instance-to-point-in-time">
+<span id="cli-aws-rds-restore-db-instance-to-point-in-time"></span><h1>restore-db-instance-to-point-in-time<a class="headerlink" href="#restore-db-instance-to-point-in-time" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Restores a DB instance to an arbitrary point in time. You can restore to any point in time before the time identified by the LatestRestorableTime property. You can restore to a point up to the number of days specified by the BackupRetentionPeriod property.</p>
+<p>The target database is created with most of the original configuration, but in a system-selected Availability Zone, with the default security group, the default subnet group, and the default DB parameter group. By default, the new DB instance is created as a single-AZ deployment except when the instance is a SQL Server instance that has an option group that is associated with mirroring; in this case, the instance becomes a mirrored deployment and not a single-AZ deployment.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For Aurora, use <tt class="docutils literal"><span class="pre">RestoreDBClusterToPointInTime</span></tt> .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/RestoreDBInstanceToPointInTime">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  restore-db-instance-to-point-in-time
+[--source-db-instance-identifier &lt;value&gt;]
+--target-db-instance-identifier &lt;value&gt;
+[--restore-time &lt;value&gt;]
+[--use-latest-restorable-time | --no-use-latest-restorable-time]
+[--db-instance-class &lt;value&gt;]
+[--port &lt;value&gt;]
+[--availability-zone &lt;value&gt;]
+[--db-subnet-group-name &lt;value&gt;]
+[--multi-az | --no-multi-az]
+[--publicly-accessible | --no-publicly-accessible]
+[--auto-minor-version-upgrade | --no-auto-minor-version-upgrade]
+[--license-model &lt;value&gt;]
+[--db-name &lt;value&gt;]
+[--engine &lt;value&gt;]
+[--iops &lt;value&gt;]
+[--option-group-name &lt;value&gt;]
+[--copy-tags-to-snapshot | --no-copy-tags-to-snapshot]
+[--tags &lt;value&gt;]
+[--storage-type &lt;value&gt;]
+[--tde-credential-arn &lt;value&gt;]
+[--tde-credential-password &lt;value&gt;]
+[--vpc-security-group-ids &lt;value&gt;]
+[--domain &lt;value&gt;]
+[--domain-iam-role-name &lt;value&gt;]
+[--enable-iam-database-authentication | --no-enable-iam-database-authentication]
+[--enable-cloudwatch-logs-exports &lt;value&gt;]
+[--processor-features &lt;value&gt;]
+[--use-default-processor-features | --no-use-default-processor-features]
+[--db-parameter-group-name &lt;value&gt;]
+[--deletion-protection | --no-deletion-protection]
+[--source-dbi-resource-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--source-db-instance-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The identifier of the source DB instance from which to restore.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must match the identifier of an existing DB instance.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--target-db-instance-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the new DB instance to be created.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must contain from 1 to 63 letters, numbers, or hyphens</li>
+<li>First character must be a letter</li>
+<li>Can't end with a hyphen or contain two consecutive hyphens</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--restore-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The date and time to restore from.</p>
+<p>Valid Values: Value must be a time in Universal Coordinated Time (UTC) format</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must be before the latest restorable time for the DB instance</li>
+<li>Can't be specified if the <tt class="docutils literal"><span class="pre">UseLatestRestorableTime</span></tt> parameter is enabled</li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">2009-09-07T23:45:00Z</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--use-latest-restorable-time</span></tt> | <tt class="docutils literal"><span class="pre">--no-use-latest-restorable-time</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that indicates whether the DB instance is restored from the latest backup time. By default, the DB instance isn't restored from the latest backup time.</p>
+<p>Constraints: Can't be specified if the <tt class="docutils literal"><span class="pre">RestoreTime</span></tt> parameter is provided.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-instance-class</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The compute and memory capacity of the Amazon RDS DB instance, for example, <tt class="docutils literal"><span class="pre">db.m4.large</span></tt> . Not all DB instance classes are available in all AWS Regions, or for all database engines. For the full list of DB instance classes, and availability for your engine, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html">DB Instance Class</a> in the <em>Amazon RDS User Guide.</em></p>
+<p>Default: The same DBInstanceClass as the original DB instance.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The port number on which the database accepts connections.</p>
+<p>Constraints: Value must be <tt class="docutils literal"><span class="pre">1150-65535</span></tt></p>
+<p>Default: The same port as the original DB instance.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--availability-zone</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Availability Zone (AZ) where the DB instance will be created.</p>
+<p>Default: A random, system-chosen Availability Zone.</p>
+<p>Constraint: You can't specify the <tt class="docutils literal"><span class="pre">AvailabilityZone</span></tt> parameter if the DB instance is a Multi-AZ deployment.</p>
+<p>Example: <tt class="docutils literal"><span class="pre">us-east-1a</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-subnet-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The DB subnet group name to use for the new instance.</p>
+<p>Constraints: If supplied, must match the name of an existing DBSubnetGroup.</p>
+<p>Example: <tt class="docutils literal"><span class="pre">mySubnetgroup</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--multi-az</span></tt> | <tt class="docutils literal"><span class="pre">--no-multi-az</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that indicates whether the DB instance is a Multi-AZ deployment.</p>
+<p>Constraint: You can't specify the <tt class="docutils literal"><span class="pre">AvailabilityZone</span></tt> parameter if the DB instance is a Multi-AZ deployment.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--publicly-accessible</span></tt> | <tt class="docutils literal"><span class="pre">--no-publicly-accessible</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether the DB instance is publicly accessible. When the DB instance is publicly accessible, it is an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. When the DB instance isn't publicly accessible, it is an internal instance with a DNS name that resolves to a private IP address. For more information, see  CreateDBInstance .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auto-minor-version-upgrade</span></tt> | <tt class="docutils literal"><span class="pre">--no-auto-minor-version-upgrade</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether minor version upgrades are applied automatically to the DB instance during the maintenance window.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--license-model</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>License model information for the restored DB instance.</p>
+<p>Default: Same as source.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">license-included</span></tt> | <tt class="docutils literal"><span class="pre">bring-your-own-license</span></tt> | <tt class="docutils literal"><span class="pre">general-public-license</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The database name for the restored DB instance.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter isn't used for the MySQL or MariaDB engines.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The database engine to use for the new instance.</p>
+<p>Default: The same as source</p>
+<p>Constraint: Must be compatible with the engine of the source</p>
+<p>Valid Values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">mariadb</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mysql</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">oracle-ee</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">oracle-se2</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">oracle-se1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">oracle-se</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">postgres</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sqlserver-ee</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sqlserver-se</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sqlserver-ex</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sqlserver-web</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--iops</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The amount of Provisioned IOPS (input/output operations per second) to be initially allocated for the DB instance.</p>
+<p>Constraints: Must be an integer greater than 1000.</p>
+<blockquote>
+<div><strong>SQL Server</strong></div>
+</blockquote>
+<p>Setting the IOPS value for the SQL Server database engine isn't supported.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--option-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the option group to be used for the restored DB instance.</p>
+<p>Permanent options, such as the TDE option for Oracle Advanced Security TDE, can't be removed from an option group, and that option group can't be removed from a DB instance once it is associated with a DB instance</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-tags-to-snapshot</span></tt> | <tt class="docutils literal"><span class="pre">--no-copy-tags-to-snapshot</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether to copy all tags from the restored DB instance to snapshots of the DB instance. By default, tags are not copied.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of tags. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html">Tagging Amazon RDS Resources</a> in the <em>Amazon RDS User Guide.</em>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--storage-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the storage type to be associated with the DB instance.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">standard</span> <span class="pre">|</span> <span class="pre">gp2</span> <span class="pre">|</span> <span class="pre">io1</span></tt></p>
+<p>If you specify <tt class="docutils literal"><span class="pre">io1</span></tt> , you must also include a value for the <tt class="docutils literal"><span class="pre">Iops</span></tt> parameter.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">io1</span></tt> if the <tt class="docutils literal"><span class="pre">Iops</span></tt> parameter is specified, otherwise <tt class="docutils literal"><span class="pre">gp2</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tde-credential-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN from the key store with which to associate the instance for TDE encryption.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tde-credential-password</span></tt> (string)</p>
+<blockquote>
+<div>The password for the given ARN from the key store in order to access the device.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc-security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of EC2 VPC security groups to associate with this DB instance.</p>
+<p>Default: The default EC2 VPC security group for the DB subnet group's VPC.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--domain</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specify the Active Directory directory ID to restore the DB instance in. The domain must be created prior to this operation. Currently, only Microsoft SQL Server and Oracle DB instances can be created in an Active Directory Domain.</p>
+<p>For Microsoft SQL Server DB instances, Amazon RDS can use Windows Authentication to authenticate users that connect to the DB instance. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_SQLServerWinAuth.html">Using Windows Authentication with an Amazon RDS DB Instance Running Microsoft SQL Server</a> in the <em>Amazon RDS User Guide</em> .</p>
+<p>For Oracle DB instances, Amazon RDS can use Kerberos Authentication to authenticate users that connect to the DB instance. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-kerberos.html">Using Kerberos Authentication with Amazon RDS for Oracle</a> in the <em>Amazon RDS User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--domain-iam-role-name</span></tt> (string)</p>
+<blockquote>
+<div>Specify the name of the IAM role to be used when making API calls to the Directory Service.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--enable-iam-database-authentication</span></tt> | <tt class="docutils literal"><span class="pre">--no-enable-iam-database-authentication</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled. For information about the supported DB engines, see  CreateDBInstance .</p>
+<p>For more information about IAM database authentication, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html">IAM Database Authentication for MySQL and PostgreSQL</a> in the <em>Amazon RDS User Guide.</em></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--enable-cloudwatch-logs-exports</span></tt> (list)</p>
+<blockquote>
+<div>The list of logs that the restored DB instance is to export to CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch">Publishing Database Logs to Amazon CloudWatch Logs</a> in the <em>Amazon RDS User Guide</em> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--processor-features</span></tt> (list)</p>
+<blockquote>
+<div>The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--use-default-processor-features</span></tt> | <tt class="docutils literal"><span class="pre">--no-use-default-processor-features</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether the DB instance class of the DB instance uses its default processor features.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-parameter-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the DB parameter group to associate with this DB instance.</p>
+<p>If you do not specify a value for <tt class="docutils literal"><span class="pre">DBParameterGroupName</span></tt> , then the default <tt class="docutils literal"><span class="pre">DBParameterGroup</span></tt> for the specified DB engine is used.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>If supplied, must match the name of an existing DBParameterGroup.</li>
+<li>Must be 1 to 255 letters, numbers, or hyphens.</li>
+<li>First character must be a letter.</li>
+<li>Can't end with a hyphen or contain two consecutive hyphens.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--deletion-protection</span></tt> | <tt class="docutils literal"><span class="pre">--no-deletion-protection</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. By default, deletion protection is disabled. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">Deleting a DB Instance</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-dbi-resource-id</span></tt> (string)</p>
+<blockquote>
+<div>The resource ID of the source DB instance from which to restore.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To restore a DB instance to a point in time</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">restore-db-instance-to-point-in-time</span></tt> example restores <tt class="docutils literal"><span class="pre">test-instance</span></tt> to a new DB instance named <tt class="docutils literal"><span class="pre">restored-test-instance</span></tt>, as of the specified time.</p>
+<div class="highlight-python">
+<pre>aws rds restore-db-instance-to-point-in-time \
+    --source-db-instance-identifier test-instance \
+    --target-db-instance restored-test-instance \
+    --restore-time 2018-07-30T23:45:00.000Z</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "DBInstance": {
+        "AllocatedStorage": 20,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:123456789012:db:restored-test-instance",
+        "DBInstanceStatus": "creating",
+        "DBInstanceIdentifier": "restored-test-instance",
+        ...some output truncated...
+    }
+}</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DBInstance -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains the details of an Amazon RDS DB instance.</p>
+<p>This data type is used as a response element in the <tt class="docutils literal"><span class="pre">DescribeDBInstances</span></tt> action.</p>
+<p>DBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance.</div>
+</blockquote>
+<p>DBInstanceClass -&gt; (string)</p>
+<blockquote>
+<div>Contains the name of the compute and memory capacity class of the DB instance.</div>
+</blockquote>
+<p>Engine -&gt; (string)</p>
+<blockquote>
+<div>Provides the name of the database engine to be used for this DB instance.</div>
+</blockquote>
+<p>DBInstanceStatus -&gt; (string)</p>
+<blockquote>
+<div>Specifies the current state of this database.</div>
+</blockquote>
+<p>MasterUsername -&gt; (string)</p>
+<blockquote>
+<div>Contains the master username for the DB instance.</div>
+</blockquote>
+<p>DBName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The meaning of this parameter differs according to the database engine you use.</p>
+<blockquote>
+<div><strong>MySQL, MariaDB, SQL Server, PostgreSQL</strong></div>
+</blockquote>
+<p>Contains the name of the initial database of this instance that was provided at create time, if one was specified when the DB instance was created. This same name is returned for the life of the DB instance.</p>
+<p>Type: String</p>
+<blockquote>
+<div><strong>Oracle</strong></div>
+</blockquote>
+<p>Contains the Oracle System ID (SID) of the created DB instance. Not shown when the returned parameters do not apply to an Oracle DB instance.</p>
+</div>
+</blockquote>
+<p>Endpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the connection endpoint.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>Specifies the DNS address of the DB instance.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the port that the database engine is listening on.</div>
+</blockquote>
+<p>HostedZoneId -&gt; (string)</p>
+<blockquote>
+<div>Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AllocatedStorage -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the allocated storage size specified in gibibytes.</div>
+</blockquote>
+<p>InstanceCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Provides the date and time the DB instance was created.</div>
+</blockquote>
+<p>PreferredBackupWindow -&gt; (string)</p>
+<blockquote>
+<div>Specifies the daily time range during which automated backups are created if automated backups are enabled, as determined by the <tt class="docutils literal"><span class="pre">BackupRetentionPeriod</span></tt> .</div>
+</blockquote>
+<p>BackupRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the number of days for which automatic DB snapshots are retained.</div>
+</blockquote>
+<p>DBSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of DB security group elements containing <tt class="docutils literal"><span class="pre">DBSecurityGroup.Name</span></tt> and <tt class="docutils literal"><span class="pre">DBSecurityGroup.Status</span></tt> subelements.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>This data type is used as a response element in the following actions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ModifyDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RebootDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceFromDBSnapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceToPointInTime</span></tt></li>
+</ul>
+<p>DBSecurityGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DB security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the DB security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides a list of VPC security group elements that the DB instance belongs to.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>This data type is used as a response element for queries on VPC security group membership.</p>
+<p>VpcSecurityGroupId -&gt; (string)</p>
+<blockquote>
+<div>The name of the VPC security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the VPC security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DBParameterGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides the list of DB parameter groups applied to this DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The status of the DB parameter group.</p>
+<p>This data type is used as a response element in the following actions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CreateDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">CreateDBInstanceReadReplica</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DeleteDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ModifyDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RebootDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceFromDBSnapshot</span></tt></li>
+</ul>
+<p>DBParameterGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DB parameter group.</div>
+</blockquote>
+<p>ParameterApplyStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of parameter updates.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>Specifies the name of the Availability Zone the DB instance is located in.</div>
+</blockquote>
+<p>DBSubnetGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies information on the subnet group associated with the DB instance, including the name, description, and subnets in the subnet group.</p>
+<p>DBSubnetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DB subnet group.</div>
+</blockquote>
+<p>DBSubnetGroupDescription -&gt; (string)</p>
+<blockquote>
+<div>Provides the description of the DB subnet group.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>Provides the VpcId of the DB subnet group.</div>
+</blockquote>
+<p>SubnetGroupStatus -&gt; (string)</p>
+<blockquote>
+<div>Provides the status of the DB subnet group.</div>
+</blockquote>
+<p>Subnets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains a list of <tt class="docutils literal"><span class="pre">Subnet</span></tt> elements.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>This data type is used as a response element in the <tt class="docutils literal"><span class="pre">DescribeDBSubnetGroups</span></tt> action.</p>
+<p>SubnetIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Specifies the identifier of the subnet.</div>
+</blockquote>
+<p>SubnetAvailabilityZone -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains Availability Zone information.</p>
+<p>This data type is used as an element in the <tt class="docutils literal"><span class="pre">OrderableDBInstanceOption</span></tt> data type.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the Availability Zone.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SubnetStatus -&gt; (string)</p>
+<blockquote>
+<div>Specifies the status of the subnet.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DBSubnetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the DB subnet group.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PreferredMaintenanceWindow -&gt; (string)</p>
+<blockquote>
+<div>Specifies the weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</div>
+</blockquote>
+<p>PendingModifiedValues -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies that changes to the DB instance are pending. This element is only included when changes are pending. Specific changes are identified by subelements.</p>
+<p>DBInstanceClass -&gt; (string)</p>
+<blockquote>
+<div>Contains the new <tt class="docutils literal"><span class="pre">DBInstanceClass</span></tt> for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>AllocatedStorage -&gt; (integer)</p>
+<blockquote>
+<div>Contains the new <tt class="docutils literal"><span class="pre">AllocatedStorage</span></tt> size for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>MasterUserPassword -&gt; (string)</p>
+<blockquote>
+<div>Contains the pending or currently-in-progress change of the master credentials for the DB instance.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the pending port for the DB instance.</div>
+</blockquote>
+<p>BackupRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the pending number of days for which automated backups are retained.</div>
+</blockquote>
+<p>MultiAZ -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>Indicates the database engine version.</div>
+</blockquote>
+<p>LicenseModel -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The license model for the DB instance.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">license-included</span></tt> | <tt class="docutils literal"><span class="pre">bring-your-own-license</span></tt> | <tt class="docutils literal"><span class="pre">general-public-license</span></tt></p>
+</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>DBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains the new <tt class="docutils literal"><span class="pre">DBInstanceIdentifier</span></tt> for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>StorageType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the storage type to be associated with the DB instance.</div>
+</blockquote>
+<p>CACertificateIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Specifies the identifier of the CA certificate for the DB instance.</div>
+</blockquote>
+<p>DBSubnetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The new DB subnet group for the DB instance.</div>
+</blockquote>
+<p>PendingCloudwatchLogsExports -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A list of the log types whose configuration is still pending. In other words, these log types are in the process of being activated or deactivated.</p>
+<p>LogTypesToEnable -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Log types that are in the process of being deactivated. After they are deactivated, these log types aren't exported to CloudWatch Logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>LogTypesToDisable -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Log types that are in the process of being enabled. After they are enabled, these log types are exported to CloudWatch Logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ProcessorFeatures -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the processor features of a DB instance class.</p>
+<p>To specify the number of CPU cores, use the <tt class="docutils literal"><span class="pre">coreCount</span></tt> feature name for the <tt class="docutils literal"><span class="pre">Name</span></tt> parameter. To specify the number of threads per core, use the <tt class="docutils literal"><span class="pre">threadsPerCore</span></tt> feature name for the <tt class="docutils literal"><span class="pre">Name</span></tt> parameter.</p>
+<p>You can set the processor features of the DB instance class for a DB instance when you call one of the following actions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CreateDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ModifyDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceFromDBSnapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceFromS3</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceToPointInTime</span></tt></li>
+</ul>
+<p>You can view the valid processor values for a particular instance class by calling the <tt class="docutils literal"><span class="pre">DescribeOrderableDBInstanceOptions</span></tt> action and specifying the instance class for the <tt class="docutils literal"><span class="pre">DBInstanceClass</span></tt> parameter.</p>
+<p>In addition, you can use the following actions for DB instance class processor information:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">DescribeDBInstances</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DescribeDBSnapshots</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DescribeValidDBInstanceModifications</span></tt></li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor">Configuring the Processor of the DB Instance Class</a> in the <em>Amazon RDS User Guide.</em></p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the processor feature. Valid names are <tt class="docutils literal"><span class="pre">coreCount</span></tt> and <tt class="docutils literal"><span class="pre">threadsPerCore</span></tt> .</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value of a processor feature name.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LatestRestorableTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Specifies the latest time to which a database can be restored with point-in-time restore.</div>
+</blockquote>
+<p>MultiAZ -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies if the DB instance is a Multi-AZ deployment.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>Indicates the database engine version.</div>
+</blockquote>
+<p>AutoMinorVersionUpgrade -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that minor version patches are applied automatically.</div>
+</blockquote>
+<p>ReadReplicaSourceDBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains the identifier of the source DB instance if this DB instance is a Read Replica.</div>
+</blockquote>
+<p>ReadReplicaDBInstanceIdentifiers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains one or more identifiers of the Read Replicas associated with this DB instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ReadReplicaDBClusterIdentifiers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains one or more identifiers of Aurora DB clusters to which the RDS DB instance is replicated as a Read Replica. For example, when you create an Aurora Read Replica of an RDS MySQL DB instance, the Aurora MySQL DB cluster for the Aurora Read Replica is shown. This output does not contain information about cross region Aurora Read Replicas.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, each RDS DB instance can have only one Aurora Read Replica.</p>
+</div>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>LicenseModel -&gt; (string)</p>
+<blockquote>
+<div>License model information for this DB instance.</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the Provisioned IOPS (I/O operations per second) value.</div>
+</blockquote>
+<p>OptionGroupMemberships -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides the list of option group memberships for this DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides information on the option groups the DB instance is a member of.</p>
+<p>OptionGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the option group that the instance belongs to.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the DB instance's option group membership. Valid values are: <tt class="docutils literal"><span class="pre">in-sync</span></tt> , <tt class="docutils literal"><span class="pre">pending-apply</span></tt> , <tt class="docutils literal"><span class="pre">pending-removal</span></tt> , <tt class="docutils literal"><span class="pre">pending-maintenance-apply</span></tt> , <tt class="docutils literal"><span class="pre">pending-maintenance-removal</span></tt> , <tt class="docutils literal"><span class="pre">applying</span></tt> , <tt class="docutils literal"><span class="pre">removing</span></tt> , and <tt class="docutils literal"><span class="pre">failed</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CharacterSetName -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the name of the character set that this instance is associated with.</div>
+</blockquote>
+<p>SecondaryAvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the name of the secondary Availability Zone for a DB instance with multi-AZ support.</div>
+</blockquote>
+<p>PubliclyAccessible -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies the accessibility options for the DB instance. A value of true specifies an Internet-facing instance with a publicly resolvable DNS name, which resolves to a public IP address. A value of false specifies an internal instance with a DNS name that resolves to a private IP address.</div>
+</blockquote>
+<p>StatusInfos -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The status of a Read Replica. If the instance isn't a Read Replica, this is blank.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides a list of status information for a DB instance.</p>
+<p>StatusType -&gt; (string)</p>
+<blockquote>
+<div>This value is currently "read replication."</div>
+</blockquote>
+<p>Normal -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that is true if the instance is operating normally, or false if the instance is in an error state.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>Status of the DB instance. For a StatusType of Read Replica, the values can be replicating, replication stop point set, replication stop point reached, error, stopped, or terminated.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>Details of the error if there is an error for the instance. If the instance isn't in an error state, this value is blank.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>StorageType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the storage type associated with DB instance.</div>
+</blockquote>
+<p>TdeCredentialArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN from the key store with which the instance is associated for TDE encryption.</div>
+</blockquote>
+<p>DbInstancePort -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the port that the DB instance listens on. If the DB instance is part of a DB cluster, this can be a different port than the DB cluster port.</div>
+</blockquote>
+<p>DBClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>If the DB instance is a member of a DB cluster, contains the name of the DB cluster that the DB instance is a member of.</div>
+</blockquote>
+<p>StorageEncrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the DB instance is encrypted.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">StorageEncrypted</span></tt> is true, the AWS KMS key identifier for the encrypted DB instance.</div>
+</blockquote>
+<p>DbiResourceId -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed.</div>
+</blockquote>
+<p>CACertificateIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the CA certificate for this DB instance.</div>
+</blockquote>
+<p>DomainMemberships -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Active Directory Domain membership records associated with the DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An Active Directory Domain membership record associated with the DB instance.</p>
+<p>Domain -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the Active Directory Domain.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the DB instance's Active Directory Domain membership, such as joined, pending-join, failed etc).</div>
+</blockquote>
+<p>FQDN -&gt; (string)</p>
+<blockquote>
+<div>The fully qualified domain name of the Active Directory Domain.</div>
+</blockquote>
+<p>IAMRoleName -&gt; (string)</p>
+<blockquote>
+<div>The name of the IAM role to be used when making API calls to the Directory Service.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CopyTagsToSnapshot -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>Specifies whether tags are copied from the DB instance to snapshots of the DB instance.</p>
+<blockquote>
+<div><strong>Amazon Aurora</strong></div>
+</blockquote>
+<p>Not applicable. Copying tags to snapshots is managed by the DB cluster. Setting this value for an Aurora DB instance has no effect on the DB cluster setting. For more information, see <tt class="docutils literal"><span class="pre">DBCluster</span></tt> .</p>
+</div>
+</blockquote>
+<p>MonitoringInterval -&gt; (integer)</p>
+<blockquote>
+<div>The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance.</div>
+</blockquote>
+<p>EnhancedMonitoringResourceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log stream that receives the Enhanced Monitoring metrics data for the DB instance.</div>
+</blockquote>
+<p>MonitoringRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN for the IAM role that permits RDS to send Enhanced Monitoring metrics to Amazon CloudWatch Logs.</div>
+</blockquote>
+<p>PromotionTier -&gt; (integer)</p>
+<blockquote>
+<div>A value that specifies the order in which an Aurora Replica is promoted to the primary instance after a failure of the existing primary instance. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance">Fault Tolerance for an Aurora DB Cluster</a> in the <em>Amazon Aurora User Guide</em> .</div>
+</blockquote>
+<p>DBInstanceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the DB instance.</div>
+</blockquote>
+<p>Timezone -&gt; (string)</p>
+<blockquote>
+<div>The time zone of the DB instance. In most cases, the <tt class="docutils literal"><span class="pre">Timezone</span></tt> element is empty. <tt class="docutils literal"><span class="pre">Timezone</span></tt> content appears only for Microsoft SQL Server DB instances that were created with a time zone specified.</div>
+</blockquote>
+<p>IAMDatabaseAuthenticationEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false.</p>
+<p>IAM database authentication can be enabled for the following database engines</p>
+<ul class="simple">
+<li>For MySQL 5.6, minor version 5.6.34 or higher</li>
+<li>For MySQL 5.7, minor version 5.7.16 or higher</li>
+<li>Aurora 5.6 or higher. To enable IAM database authentication for Aurora, see DBCluster Type.</li>
+</ul>
+</div>
+</blockquote>
+<p>PerformanceInsightsEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>True if Performance Insights is enabled for the DB instance, and otherwise false.</div>
+</blockquote>
+<p>PerformanceInsightsKMSKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.</div>
+</blockquote>
+<p>PerformanceInsightsRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>The amount of time, in days, to retain Performance Insights data. Valid values are 7 or 731 (2 years).</div>
+</blockquote>
+<p>EnabledCloudwatchLogsExports -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of log types that this DB instance is configured to export to CloudWatch Logs.</p>
+<p>Log types vary by DB engine. For information about the log types for each DB engine, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html">Amazon RDS Database Log Files</a> in the <em>Amazon RDS User Guide.</em></p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ProcessorFeatures -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The number of CPU cores and the number of threads per core for the DB instance class of the DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the processor features of a DB instance class.</p>
+<p>To specify the number of CPU cores, use the <tt class="docutils literal"><span class="pre">coreCount</span></tt> feature name for the <tt class="docutils literal"><span class="pre">Name</span></tt> parameter. To specify the number of threads per core, use the <tt class="docutils literal"><span class="pre">threadsPerCore</span></tt> feature name for the <tt class="docutils literal"><span class="pre">Name</span></tt> parameter.</p>
+<p>You can set the processor features of the DB instance class for a DB instance when you call one of the following actions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CreateDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ModifyDBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceFromDBSnapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceFromS3</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RestoreDBInstanceToPointInTime</span></tt></li>
+</ul>
+<p>You can view the valid processor values for a particular instance class by calling the <tt class="docutils literal"><span class="pre">DescribeOrderableDBInstanceOptions</span></tt> action and specifying the instance class for the <tt class="docutils literal"><span class="pre">DBInstanceClass</span></tt> parameter.</p>
+<p>In addition, you can use the following actions for DB instance class processor information:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">DescribeDBInstances</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DescribeDBSnapshots</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DescribeValidDBInstanceModifications</span></tt></li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor">Configuring the Processor of the DB Instance Class</a> in the <em>Amazon RDS User Guide.</em></p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the processor feature. Valid names are <tt class="docutils literal"><span class="pre">coreCount</span></tt> and <tt class="docutils literal"><span class="pre">threadsPerCore</span></tt> .</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value of a processor feature name.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DeletionProtection -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates if the DB instance has deletion protection enabled. The database can't be deleted when deletion protection is enabled. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html">Deleting a DB Instance</a> .</div>
+</blockquote>
+<p>AssociatedRoles -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The AWS Identity and Access Management (IAM) roles associated with the DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an AWS Identity and Access Management (IAM) role that is associated with a DB instance.</p>
+<p>RoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role that is associated with the DB instance.</div>
+</blockquote>
+<p>FeatureName -&gt; (string)</p>
+<blockquote>
+<div>The name of the feature associated with the AWS Identity and Access Management (IAM) role. For the list of supported feature names, see <tt class="docutils literal"><span class="pre">DBEngineVersion</span></tt> .</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Describes the state of association between the IAM role and the DB instance. The Status property returns one of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ACTIVE</span></tt> - the IAM role ARN is associated with the DB instance and can be used to access other AWS services on your behalf.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PENDING</span></tt> - the IAM role ARN is being associated with the DB instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">INVALID</span></tt> - the IAM role ARN is associated with the DB instance, but the DB instance is unable to assume the IAM role in order to access other AWS services on your behalf.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ListenerEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the listener connection endpoint for SQL Server Always On.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>Specifies the DNS address of the DB instance.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the port that the database engine is listening on.</div>
+</blockquote>
+<p>HostedZoneId -&gt; (string)</p>
+<blockquote>
+<div>Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MaxAllocatedStorage -&gt; (integer)</p>
+<blockquote>
+<div>The upper limit to which Amazon RDS can automatically scale the storage of the DB instance.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

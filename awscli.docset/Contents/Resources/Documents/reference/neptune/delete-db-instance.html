@@ -1,0 +1,646 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>delete-db-instance — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="neptune" href="index.html">
+    <link rel="next" title="delete-db-parameter-group" href="delete-db-parameter-group.html">
+    <link rel="prev" title="delete-db-cluster-snapshot" href="delete-db-cluster-snapshot.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="delete-db-instance">
+<span id="cli-aws-neptune-delete-db-instance"></span><h1>delete-db-instance<a class="headerlink" href="#delete-db-instance" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>The DeleteDBInstance action deletes a previously provisioned DB instance. When you delete a DB instance, all automated backups for that instance are deleted and can't be recovered. Manual DB snapshots of the DB instance to be deleted by <tt class="docutils literal"><span class="pre">DeleteDBInstance</span></tt> are not deleted.</p>
+<p>If you request a final DB snapshot the status of the Amazon Neptune DB instance is <tt class="docutils literal"><span class="pre">deleting</span></tt> until the DB snapshot is created. The API action <tt class="docutils literal"><span class="pre">DescribeDBInstance</span></tt> is used to monitor the status of this operation. The action can't be canceled or reverted once submitted.</p>
+<p>Note that when a DB instance is in a failure state and has a status of <tt class="docutils literal"><span class="pre">failed</span></tt> , <tt class="docutils literal"><span class="pre">incompatible-restore</span></tt> , or <tt class="docutils literal"><span class="pre">incompatible-network</span></tt> , you can only delete it when the <tt class="docutils literal"><span class="pre">SkipFinalSnapshot</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You can't delete a DB instance if it is the only instance in the DB cluster.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/neptune-2014-10-31/DeleteDBInstance">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  delete-db-instance
+--db-instance-identifier &lt;value&gt;
+[--skip-final-snapshot | --no-skip-final-snapshot]
+[--final-db-snapshot-identifier &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--db-instance-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The DB instance identifier for the DB instance to be deleted. This parameter isn't case-sensitive.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must match the name of an existing DB instance.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--skip-final-snapshot</span></tt> | <tt class="docutils literal"><span class="pre">--no-skip-final-snapshot</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Determines whether a final DB snapshot is created before the DB instance is deleted. If <tt class="docutils literal"><span class="pre">true</span></tt> is specified, no DBSnapshot is created. If <tt class="docutils literal"><span class="pre">false</span></tt> is specified, a DB snapshot is created before the DB instance is deleted.</p>
+<p>Note that when a DB instance is in a failure state and has a status of 'failed', 'incompatible-restore', or 'incompatible-network', it can only be deleted when the SkipFinalSnapshot parameter is set to "true".</p>
+<p>Specify <tt class="docutils literal"><span class="pre">true</span></tt> when deleting a Read Replica.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The FinalDBSnapshotIdentifier parameter must be specified if SkipFinalSnapshot is <tt class="docutils literal"><span class="pre">false</span></tt> .</p>
+</div>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--final-db-snapshot-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The DBSnapshotIdentifier of the new DBSnapshot created when SkipFinalSnapshot is set to <tt class="docutils literal"><span class="pre">false</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Specifying this parameter and also setting the SkipFinalShapshot parameter to true results in an error.</p>
+</div>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must be 1 to 255 letters or numbers.</li>
+<li>First character must be a letter</li>
+<li>Cannot end with a hyphen or contain two consecutive hyphens</li>
+<li>Cannot be specified when deleting a Read Replica.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DBInstance -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains the details of an Amazon Neptune DB instance.</p>
+<p>This data type is used as a response element in the  DescribeDBInstances action.</p>
+<p>DBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains a user-supplied database identifier. This identifier is the unique key that identifies a DB instance.</div>
+</blockquote>
+<p>DBInstanceClass -&gt; (string)</p>
+<blockquote>
+<div>Contains the name of the compute and memory capacity class of the DB instance.</div>
+</blockquote>
+<p>Engine -&gt; (string)</p>
+<blockquote>
+<div>Provides the name of the database engine to be used for this DB instance.</div>
+</blockquote>
+<p>DBInstanceStatus -&gt; (string)</p>
+<blockquote>
+<div>Specifies the current state of this database.</div>
+</blockquote>
+<p>MasterUsername -&gt; (string)</p>
+<blockquote>
+<div>Contains the master username for the DB instance.</div>
+</blockquote>
+<p>DBName -&gt; (string)</p>
+<blockquote>
+<div>The database name.</div>
+</blockquote>
+<p>Endpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the connection endpoint.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>Specifies the DNS address of the DB instance.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the port that the database engine is listening on.</div>
+</blockquote>
+<p>HostedZoneId -&gt; (string)</p>
+<blockquote>
+<div>Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AllocatedStorage -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the allocated storage size specified in gibibytes.</div>
+</blockquote>
+<p>InstanceCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Provides the date and time the DB instance was created.</div>
+</blockquote>
+<p>PreferredBackupWindow -&gt; (string)</p>
+<blockquote>
+<div>Specifies the daily time range during which automated backups are created if automated backups are enabled, as determined by the <tt class="docutils literal"><span class="pre">BackupRetentionPeriod</span></tt> .</div>
+</blockquote>
+<p>BackupRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the number of days for which automatic DB snapshots are retained.</div>
+</blockquote>
+<p>DBSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides List of DB security group elements containing only <tt class="docutils literal"><span class="pre">DBSecurityGroup.Name</span></tt> and <tt class="docutils literal"><span class="pre">DBSecurityGroup.Status</span></tt> subelements.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Specifies membership in a designated DB security group.</p>
+<p>DBSecurityGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DB security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the DB security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides a list of VPC security group elements that the DB instance belongs to.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>This data type is used as a response element for queries on VPC security group membership.</p>
+<p>VpcSecurityGroupId -&gt; (string)</p>
+<blockquote>
+<div>The name of the VPC security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the VPC security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DBParameterGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides the list of DB parameter groups applied to this DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The status of the DB parameter group.</p>
+<p>This data type is used as a response element in the following actions:</p>
+<ul class="simple">
+<li>CreateDBInstance</li>
+<li>DeleteDBInstance</li>
+<li>ModifyDBInstance</li>
+<li>RebootDBInstance</li>
+</ul>
+<p>DBParameterGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DP parameter group.</div>
+</blockquote>
+<p>ParameterApplyStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of parameter updates.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>Specifies the name of the Availability Zone the DB instance is located in.</div>
+</blockquote>
+<p>DBSubnetGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies information on the subnet group associated with the DB instance, including the name, description, and subnets in the subnet group.</p>
+<p>DBSubnetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the DB subnet group.</div>
+</blockquote>
+<p>DBSubnetGroupDescription -&gt; (string)</p>
+<blockquote>
+<div>Provides the description of the DB subnet group.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>Provides the VpcId of the DB subnet group.</div>
+</blockquote>
+<p>SubnetGroupStatus -&gt; (string)</p>
+<blockquote>
+<div>Provides the status of the DB subnet group.</div>
+</blockquote>
+<p>Subnets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains a list of  Subnet elements.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Specifies a subnet.</p>
+<p>This data type is used as a response element in the  DescribeDBSubnetGroups action.</p>
+<p>SubnetIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Specifies the identifier of the subnet.</div>
+</blockquote>
+<p>SubnetAvailabilityZone -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the EC2 Availability Zone that the subnet is in.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the availability zone.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SubnetStatus -&gt; (string)</p>
+<blockquote>
+<div>Specifies the status of the subnet.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DBSubnetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the DB subnet group.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PreferredMaintenanceWindow -&gt; (string)</p>
+<blockquote>
+<div>Specifies the weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</div>
+</blockquote>
+<p>PendingModifiedValues -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies that changes to the DB instance are pending. This element is only included when changes are pending. Specific changes are identified by subelements.</p>
+<p>DBInstanceClass -&gt; (string)</p>
+<blockquote>
+<div>Contains the new <tt class="docutils literal"><span class="pre">DBInstanceClass</span></tt> for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>AllocatedStorage -&gt; (integer)</p>
+<blockquote>
+<div>Contains the new <tt class="docutils literal"><span class="pre">AllocatedStorage</span></tt> size for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>MasterUserPassword -&gt; (string)</p>
+<blockquote>
+<div>Contains the pending or currently-in-progress change of the master credentials for the DB instance.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the pending port for the DB instance.</div>
+</blockquote>
+<p>BackupRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the pending number of days for which automated backups are retained.</div>
+</blockquote>
+<p>MultiAZ -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that the Single-AZ DB instance is to change to a Multi-AZ deployment.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>Indicates the database engine version.</div>
+</blockquote>
+<p>LicenseModel -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The license model for the DB instance.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">license-included</span></tt> | <tt class="docutils literal"><span class="pre">bring-your-own-license</span></tt> | <tt class="docutils literal"><span class="pre">general-public-license</span></tt></p>
+</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the new Provisioned IOPS value for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>DBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains the new <tt class="docutils literal"><span class="pre">DBInstanceIdentifier</span></tt> for the DB instance that will be applied or is currently being applied.</div>
+</blockquote>
+<p>StorageType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the storage type to be associated with the DB instance.</div>
+</blockquote>
+<p>CACertificateIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Specifies the identifier of the CA certificate for the DB instance.</div>
+</blockquote>
+<p>DBSubnetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The new DB subnet group for the DB instance.</div>
+</blockquote>
+<p>PendingCloudwatchLogsExports -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the CloudWatch logs to be exported.</p>
+<p>LogTypesToEnable -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Log types that are in the process of being deactivated. After they are deactivated, these log types aren't exported to CloudWatch Logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>LogTypesToDisable -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Log types that are in the process of being enabled. After they are enabled, these log types are exported to CloudWatch Logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LatestRestorableTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Specifies the latest time to which a database can be restored with point-in-time restore.</div>
+</blockquote>
+<p>MultiAZ -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies if the DB instance is a Multi-AZ deployment.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>Indicates the database engine version.</div>
+</blockquote>
+<p>AutoMinorVersionUpgrade -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that minor version patches are applied automatically.</div>
+</blockquote>
+<p>ReadReplicaSourceDBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains the identifier of the source DB instance if this DB instance is a Read Replica.</div>
+</blockquote>
+<p>ReadReplicaDBInstanceIdentifiers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains one or more identifiers of the Read Replicas associated with this DB instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ReadReplicaDBClusterIdentifiers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains one or more identifiers of DB clusters that are Read Replicas of this DB instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>LicenseModel -&gt; (string)</p>
+<blockquote>
+<div>License model information for this DB instance.</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the Provisioned IOPS (I/O operations per second) value.</div>
+</blockquote>
+<p>OptionGroupMemberships -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides the list of option group memberships for this DB instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides information on the option groups the DB instance is a member of.</p>
+<p>OptionGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the option group that the instance belongs to.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the DB instance's option group membership. Valid values are: <tt class="docutils literal"><span class="pre">in-sync</span></tt> , <tt class="docutils literal"><span class="pre">pending-apply</span></tt> , <tt class="docutils literal"><span class="pre">pending-removal</span></tt> , <tt class="docutils literal"><span class="pre">pending-maintenance-apply</span></tt> , <tt class="docutils literal"><span class="pre">pending-maintenance-removal</span></tt> , <tt class="docutils literal"><span class="pre">applying</span></tt> , <tt class="docutils literal"><span class="pre">removing</span></tt> , and <tt class="docutils literal"><span class="pre">failed</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CharacterSetName -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the name of the character set that this instance is associated with.</div>
+</blockquote>
+<p>SecondaryAvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the name of the secondary Availability Zone for a DB instance with multi-AZ support.</div>
+</blockquote>
+<p>PubliclyAccessible -&gt; (boolean)</p>
+<blockquote>
+<div>This flag should no longer be used.</div>
+</blockquote>
+<p>StatusInfos -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The status of a Read Replica. If the instance is not a Read Replica, this is blank.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides a list of status information for a DB instance.</p>
+<p>StatusType -&gt; (string)</p>
+<blockquote>
+<div>This value is currently "read replication."</div>
+</blockquote>
+<p>Normal -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that is true if the instance is operating normally, or false if the instance is in an error state.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>Status of the DB instance. For a StatusType of read replica, the values can be replicating, error, stopped, or terminated.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>Details of the error if there is an error for the instance. If the instance is not in an error state, this value is blank.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>StorageType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the storage type associated with DB instance.</div>
+</blockquote>
+<p>TdeCredentialArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN from the key store with which the instance is associated for TDE encryption.</div>
+</blockquote>
+<p>DbInstancePort -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the port that the DB instance listens on. If the DB instance is part of a DB cluster, this can be a different port than the DB cluster port.</div>
+</blockquote>
+<p>DBClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>If the DB instance is a member of a DB cluster, contains the name of the DB cluster that the DB instance is a member of.</div>
+</blockquote>
+<p>StorageEncrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Not supported: The encryption for DB instances is managed by the DB cluster.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>Not supported: The encryption for DB instances is managed by the DB cluster.</div>
+</blockquote>
+<p>DbiResourceId -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region-unique, immutable identifier for the DB instance. This identifier is found in AWS CloudTrail log entries whenever the AWS KMS key for the DB instance is accessed.</div>
+</blockquote>
+<p>CACertificateIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the CA certificate for this DB instance.</div>
+</blockquote>
+<p>DomainMemberships -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Not supported</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An Active Directory Domain membership record associated with a DB instance.</p>
+<p>Domain -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the Active Directory Domain.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the DB instance's Active Directory Domain membership, such as joined, pending-join, failed etc).</div>
+</blockquote>
+<p>FQDN -&gt; (string)</p>
+<blockquote>
+<div>The fully qualified domain name of the Active Directory Domain.</div>
+</blockquote>
+<p>IAMRoleName -&gt; (string)</p>
+<blockquote>
+<div>The name of the IAM role to be used when making API calls to the Directory Service.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CopyTagsToSnapshot -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether tags are copied from the DB instance to snapshots of the DB instance.</div>
+</blockquote>
+<p>MonitoringInterval -&gt; (integer)</p>
+<blockquote>
+<div>The interval, in seconds, between points when Enhanced Monitoring metrics are collected for the DB instance.</div>
+</blockquote>
+<p>EnhancedMonitoringResourceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log stream that receives the Enhanced Monitoring metrics data for the DB instance.</div>
+</blockquote>
+<p>MonitoringRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN for the IAM role that permits Neptune to send Enhanced Monitoring metrics to Amazon CloudWatch Logs.</div>
+</blockquote>
+<p>PromotionTier -&gt; (integer)</p>
+<blockquote>
+<div>A value that specifies the order in which a Read Replica is promoted to the primary instance after a failure of the existing primary instance.</div>
+</blockquote>
+<p>DBInstanceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the DB instance.</div>
+</blockquote>
+<p>Timezone -&gt; (string)</p>
+<blockquote>
+<div>Not supported.</div>
+</blockquote>
+<p>IAMDatabaseAuthenticationEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>True if AWS Identity and Access Management (IAM) authentication is enabled, and otherwise false.</div>
+</blockquote>
+<p>PerformanceInsightsEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>True if Performance Insights is enabled for the DB instance, and otherwise false.</div>
+</blockquote>
+<p>PerformanceInsightsKMSKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS KMS key identifier for encryption of Performance Insights data. The KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.</div>
+</blockquote>
+<p>EnabledCloudwatchLogsExports -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of log types that this DB instance is configured to export to CloudWatch Logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

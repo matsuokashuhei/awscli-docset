@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>request-certificate — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="acm" href="index.html">
+    <link rel="next" title="resend-validation-email" href="resend-validation-email.html">
+    <link rel="prev" title="renew-certificate" href="renew-certificate.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="request-certificate">
+<span id="cli-aws-acm-request-certificate"></span><h1>request-certificate<a class="headerlink" href="#request-certificate" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Requests an ACM certificate for use with other AWS services. To request an ACM certificate, you must specify a fully qualified domain name (FQDN) in the <tt class="docutils literal"><span class="pre">DomainName</span></tt> parameter. You can also specify additional FQDNs in the <tt class="docutils literal"><span class="pre">SubjectAlternativeNames</span></tt> parameter.</p>
+<p>If you are requesting a private certificate, domain validation is not required. If you are requesting a public certificate, each domain name that you specify must be validated to verify that you own or control the domain. You can use <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">DNS validation</a> or <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html">email validation</a> . We recommend that you use DNS validation. ACM issues public certificates after receiving approval from the domain owner.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/acm-2015-12-08/RequestCertificate">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  request-certificate
+--domain-name &lt;value&gt;
+[--validation-method &lt;value&gt;]
+[--subject-alternative-names &lt;value&gt;]
+[--idempotency-token &lt;value&gt;]
+[--domain-validation-options &lt;value&gt;]
+[--options &lt;value&gt;]
+[--certificate-authority-arn &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--domain-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Fully qualified domain name (FQDN), such as www.example.com, that you want to secure with an ACM certificate. Use an asterisk (*) to create a wildcard certificate that protects several sites in the same domain. For example, <a href="#id1"><span class="problematic" id="id2">*</span></a>.example.com protects www.example.com, site.example.com, and images.example.com.</p>
+<p>The first domain name you enter cannot exceed 64 octets, including periods. Each subsequent Subject Alternative Name (SAN), however, can be up to 253 octets in length.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--validation-method</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The method you want to use if you are requesting a public certificate to validate that you own or control domain. You can <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html">validate with DNS</a> or <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html">validate with email</a> . We recommend that you use DNS validation.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">EMAIL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DNS</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--subject-alternative-names</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Additional FQDNs to be included in the Subject Alternative Name extension of the ACM certificate. For example, add the name www.example.net to a certificate for which the <tt class="docutils literal"><span class="pre">DomainName</span></tt> field is www.example.com if users can reach your site by using either name. The maximum number of domain names that you can add to an ACM certificate is 100. However, the initial limit is 10 domain names. If you need more than 10 names, you must request a limit increase. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html">Limits</a> .</p>
+<p>The maximum length of a SAN DNS name is 253 octets. The name is made up of multiple labels separated by periods. No label can be longer than 63 octets. Consider the following examples:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">(63</span> <span class="pre">octets).(63</span> <span class="pre">octets).(63</span> <span class="pre">octets).(61</span> <span class="pre">octets)</span></tt> is legal because the total length is 253 octets (63+1+63+1+63+1+61) and no label exceeds 63 octets.</li>
+<li>
+<tt class="docutils literal"><span class="pre">(64</span> <span class="pre">octets).(63</span> <span class="pre">octets).(63</span> <span class="pre">octets).(61</span> <span class="pre">octets)</span></tt> is not legal because the total length exceeds 253 octets (64+1+63+1+63+1+61) and the first label exceeds 63 octets.</li>
+<li>
+<tt class="docutils literal"><span class="pre">(63</span> <span class="pre">octets).(63</span> <span class="pre">octets).(63</span> <span class="pre">octets).(62</span> <span class="pre">octets)</span></tt> is not legal because the total length of the DNS name (63+1+63+1+63+1+62) exceeds 253 octets.</li>
+</ul>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--idempotency-token</span></tt> (string)</p>
+<blockquote>
+<div>Customer chosen string that can be used to distinguish between calls to <tt class="docutils literal"><span class="pre">RequestCertificate</span></tt> . Idempotency tokens time out after one hour. Therefore, if you call <tt class="docutils literal"><span class="pre">RequestCertificate</span></tt> multiple times with the same idempotency token within one hour, ACM recognizes that you are requesting only one certificate and will issue only one. If you change the idempotency token for each call, ACM recognizes that you are requesting multiple certificates.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--domain-validation-options</span></tt> (list)</p>
+<blockquote>
+<div>The domain name that you want ACM to use to send you emails so that you can validate domain ownership.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>DomainName=string,ValidationDomain=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "DomainName": "string",
+    "ValidationDomain": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--options</span></tt> (structure)</p>
+<blockquote>
+<div>Currently, you can use this parameter to specify whether to add the certificate to a certificate transparency log. Certificate transparency makes it possible to detect SSL/TLS certificates that have been mistakenly or maliciously issued. Certificates that have not been logged typically produce an error message in a browser. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency">Opting Out of Certificate Transparency Logging</a> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">CertificateTransparencyLoggingPreference</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"CertificateTransparencyLoggingPreference"</span><span class="p">:</span> <span class="s2">"ENABLED"</span><span class="o">|</span><span class="s2">"DISABLED"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--certificate-authority-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the private certificate authority (CA) that will be used to issue the certificate. If you do not provide an ARN and you are trying to request a private certificate, ACM will attempt to issue a public certificate. For more information about private CAs, see the <a class="reference external" href="https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html">AWS Certificate Manager Private Certificate Authority (PCA)</a> user guide. The ARN must have the following form:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">arn:aws:acm-pca:region:account:certificate-authority/12345678-1234-1234-1234-123456789012</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>One or more resource tags to associate with the certificate.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To request a new ACM certificate</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">request-certificate</span></tt> command requests a new certificate for the www.example.com domain using DNS validation:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name www.example.com --validation-method DNS</pre>
+</div>
+<p>You can enter an idempotency token to distinguish between calls to <tt class="docutils literal"><span class="pre">request-certificate</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name www.example.com --validation-method DNS --idempotency-token 91adc45q</pre>
+</div>
+<p>You can enter one or more subject alternative names to request a certificate that will protect more than one apex domain:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name example.com --validation-method DNS --idempotency-token 91adc45q --subject-alternative-names www.example.net</pre>
+</div>
+<p>You can enter an alternative name that can also be used to reach your website:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name example.com --validation-method DNS --idempotency-token 91adc45q --subject-alternative-names www.example.com</pre>
+</div>
+<p>You can use an asterisk (*) as a wildcard to create a certificate for several subdomains in the same domain:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name example.com --validation-method DNS --idempotency-token 91adc45q --subject-alternative-names *.example.com</pre>
+</div>
+<p>You can also enter multiple alternative names:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name example.com --validation-method DNS --subject-alternative-names b.example.com c.example.com d.example.com</pre>
+</div>
+<p>If you are using email for validation, you can enter domain validation options to specify the domain to which the validation email will be sent:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name example.com --validation-method EMAIL --subject-alternative-names www.example.com --domain-validation-options DomainName=example.com,ValidationDomain=mail.example.com</pre>
+</div>
+<p>The following command opts out of certificate transparency logging when you request a new certificate:</p>
+<div class="highlight-python">
+<pre>aws acm request-certificate --domain-name www.example.com --validation-method DNS --certificate-options CertificateTransparencyLoggingPreference=DISABLED --idempotency-token 184627</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CertificateArn -&gt; (string)</p>
+<blockquote>
+<div>
+<p>String that contains the ARN of the issued certificate. This must be of the form:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

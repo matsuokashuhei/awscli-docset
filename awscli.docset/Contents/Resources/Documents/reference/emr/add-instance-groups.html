@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>add-instance-groups — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="emr" href="index.html">
+    <link rel="next" title="add-steps" href="add-steps.html">
+    <link rel="prev" title="add-instance-fleet" href="add-instance-fleet.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="add-instance-groups">
+<span id="cli-aws-emr-add-instance-groups"></span><h1>add-instance-groups<a class="headerlink" href="#add-instance-groups" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds an instance group to a running cluster.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  add-instance-groups
+--cluster-id &lt;value&gt;
+--instance-groups &lt;value&gt; [&lt;value&gt;...]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster-id</span></tt> (string)</p>
+<blockquote>
+<div>A unique string that identifies a cluster. The <tt class="docutils literal"><span class="pre">create-cluster</span></tt> command returns this identifier. You can use the <tt class="docutils literal"><span class="pre">list-clusters</span></tt> command to get cluster IDs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-groups</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Specifies the number and type of Amazon EC2 instances to create for each node type in a cluster, using uniform instance groups. You can specify either <tt class="docutils literal"><span class="pre">--instance-groups</span></tt> or <tt class="docutils literal"><span class="pre">--instance-fleets</span></tt> but not both. For more information, see the following topic in the EMR Management Guide:</p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-group-configuration.html">https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-group-configuration.html</a></p>
+<p>You can specify arguments individually using multiple <tt class="docutils literal"><span class="pre">InstanceGroupType</span></tt> argument blocks, one for the <tt class="docutils literal"><span class="pre">MASTER</span></tt> instance group, one for a <tt class="docutils literal"><span class="pre">CORE</span></tt> instance group, and optional, multiple <tt class="docutils literal"><span class="pre">TASK</span></tt> instance groups.</p>
+<p>If you specify inline JSON structures, enclose the entire <tt class="docutils literal"><span class="pre">InstanceGroupType</span></tt> argument block in single quotation marks.</p>
+<p>Each <tt class="docutils literal"><span class="pre">InstanceGroupType</span></tt> block takes the following inline arguments. Optional arguments are shown in [square brackets].</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">[Name]</span></tt> - An optional friendly name for the instance group.</li>
+<li>
+<tt class="docutils literal"><span class="pre">InstanceGroupType</span></tt> - <tt class="docutils literal"><span class="pre">MASTER</span></tt> , <tt class="docutils literal"><span class="pre">CORE</span></tt> , or <tt class="docutils literal"><span class="pre">TASK</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">InstanceType</span></tt> - The type of EC2 instance, for example <tt class="docutils literal"><span class="pre">m4.large</span></tt> , to use for all nodes in the instance group.</li>
+<li>
+<tt class="docutils literal"><span class="pre">InstanceCount</span></tt> - The number of EC2 instances to provision in the instance group.</li>
+<li>
+<tt class="docutils literal"><span class="pre">[BidPrice]</span></tt> - If specified, indicates that the instance group uses Spot Instances. This is the maximum price you are willing to pay for Spot Instances. Specify OnDemandPrice to set the amount equal to the On-Demand price, or specify an amount in USD.</li>
+<li>
+<tt class="docutils literal"><span class="pre">[EbsConfiguration]</span></tt> - Specifies additional Amazon EBS storage volumes attached to EC2 instances using an inline JSON structure.</li>
+<li>
+<tt class="docutils literal"><span class="pre">[AutoScalingPolicy]</span></tt> - Specifies an automatic scaling policy for the instance group using an inline JSON structure.</li>
+</ul>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "InstanceCount": integer,
+    "Name": "string",
+    "InstanceGroupType": "MASTER"|"CORE"|"TASK",
+    "AutoScalingPolicy": {
+      "Rules": [
+        {
+          "Action": {
+            "SimpleScalingPolicyConfiguration": {
+              "ScalingAdjustment": integer,
+              "CoolDown": integer,
+              "AdjustmentType": "CHANGE_IN_CAPACITY"|"PERCENT_CHANGE_IN_CAPACITY"|"EXACT_CAPACITY"
+            },
+            "Market": "ON_DEMAND"|"SPOT"
+          },
+          "Trigger": {
+            "CloudWatchAlarmDefinition": {
+              "EvaluationPeriods": integer,
+              "Dimensions": [
+                {
+                  "Key": "string",
+                  "Value": "string"
+                }
+                ...
+              ],
+              "Namespace": "string",
+              "Period": integer,
+              "ComparisonOperator": "string",
+              "Statistic": "string",
+              "Threshold": double,
+              "Unit": "string",
+              "MetricName": "string"
+            }
+          },
+          "Name": "string",
+          "Description": "string"
+        }
+        ...
+      ],
+      "Constraints": {
+        "MinCapacity": integer,
+        "MaxCapacity": integer
+      }
+    },
+    "EbsConfiguration": {
+      "EbsOptimized": true|false,
+      "EbsBlockDeviceConfigs": [
+        {
+          "VolumeSpecification": {
+            "Iops": integer,
+            "VolumeType": "string",
+            "SizeInGB": integer
+          },
+          "VolumesPerInstance": integer
+        }
+        ...
+      ]
+    },
+    "BidPrice": "string",
+    "InstanceType": "string",
+    "Configurations": [
+      {
+        "Properties": {"string": "string"
+          ...},
+        "Classification": "string",
+        "Configurations": [
+          {
+            "Properties": {"string": "string"
+              ...},
+            "Classification": "string"
+          }
+          ...
+        ]
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

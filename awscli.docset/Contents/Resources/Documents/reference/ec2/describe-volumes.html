@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-volumes — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-volumes-modifications" href="describe-volumes-modifications.html">
+    <link rel="prev" title="describe-volume-status" href="describe-volume-status.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-volumes">
+<span id="cli-aws-ec2-describe-volumes"></span><h1>describe-volumes<a class="headerlink" href="#describe-volumes" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the specified EBS volumes or all of your EBS volumes.</p>
+<p>If you are describing a long list of volumes, you can paginate the output to make the list more manageable. The <tt class="docutils literal"><span class="pre">MaxResults</span></tt> parameter sets the maximum number of results returned in a single page. If the list of results exceeds your <tt class="docutils literal"><span class="pre">MaxResults</span></tt> value, then that number of results is returned along with a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value that can be passed to a subsequent <tt class="docutils literal"><span class="pre">DescribeVolumes</span></tt> request to retrieve the remaining results.</p>
+<p>For more information about EBS volumes, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html">Amazon EBS Volumes</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVolumes">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-volumes</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Volumes</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-volumes
+[--filters &lt;value&gt;]
+[--volume-ids &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">attachment.attach-time</span></tt> - The time stamp when the attachment initiated.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.delete-on-termination</span></tt> - Whether the volume is deleted on instance termination.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.device</span></tt> - The device name specified in the block device mapping (for example, <tt class="docutils literal"><span class="pre">/dev/sda1</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.instance-id</span></tt> - The ID of the instance the volume is attached to.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.status</span></tt> - The attachment state (<tt class="docutils literal"><span class="pre">attaching</span></tt> | <tt class="docutils literal"><span class="pre">attached</span></tt> | <tt class="docutils literal"><span class="pre">detaching</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">availability-zone</span></tt> - The Availability Zone in which the volume was created.</li>
+<li>
+<tt class="docutils literal"><span class="pre">create-time</span></tt> - The time stamp when the volume was created.</li>
+<li>
+<tt class="docutils literal"><span class="pre">encrypted</span></tt> - Indicates whether the volume is encrypted (<tt class="docutils literal"><span class="pre">true</span></tt> | <tt class="docutils literal"><span class="pre">false</span></tt> )</li>
+<li>
+<tt class="docutils literal"><span class="pre">size</span></tt> - The size of the volume, in GiB.</li>
+<li>
+<tt class="docutils literal"><span class="pre">snapshot-id</span></tt> - The snapshot from which the volume was created.</li>
+<li>
+<tt class="docutils literal"><span class="pre">status</span></tt> - The status of the volume (<tt class="docutils literal"><span class="pre">creating</span></tt> | <tt class="docutils literal"><span class="pre">available</span></tt> | <tt class="docutils literal"><span class="pre">in-use</span></tt> | <tt class="docutils literal"><span class="pre">deleting</span></tt> | <tt class="docutils literal"><span class="pre">deleted</span></tt> | <tt class="docutils literal"><span class="pre">error</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag</span></tt> :key- The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <tt class="docutils literal"><span class="pre">Owner</span></tt> and the value <tt class="docutils literal"><span class="pre">TeamA</span></tt> , specify <tt class="docutils literal"><span class="pre">tag:Owner</span></tt> for the filter name and <tt class="docutils literal"><span class="pre">TeamA</span></tt> for the filter value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag-key</span></tt> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">volume-id</span></tt> - The volume ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">volume-type</span></tt> - The Amazon EBS volume type. This can be <tt class="docutils literal"><span class="pre">gp2</span></tt> for General Purpose SSD, <tt class="docutils literal"><span class="pre">io1</span></tt> for Provisioned IOPS SSD, <tt class="docutils literal"><span class="pre">st1</span></tt> for Throughput Optimized HDD, <tt class="docutils literal"><span class="pre">sc1</span></tt> for Cold HDD, or <tt class="docutils literal"><span class="pre">standard</span></tt> for Magnetic volumes.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--volume-ids</span></tt> (list)</p>
+<blockquote>
+<div>The volume IDs.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To describe all volumes</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-volumes</span></tt> example describes all of your volumes in the current Region.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-volumes</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Volumes"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1a"</span><span class="p">,</span>
+            <span class="s2">"Attachments"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"AttachTime"</span><span class="p">:</span> <span class="s2">"2013-12-18T22:35:00.000Z"</span><span class="p">,</span>
+                    <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-1234567890abcdef0"</span><span class="p">,</span>
+                    <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-049df61146c4d7901"</span><span class="p">,</span>
+                    <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"attached"</span><span class="p">,</span>
+                    <span class="s2">"DeleteOnTermination"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                    <span class="s2">"Device"</span><span class="p">:</span> <span class="s2">"/dev/sda1"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeType"</span><span class="p">:</span> <span class="s2">"gp2"</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-049df61146c4d7901"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"in-use"</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-1234567890abcdef0"</span><span class="p">,</span>
+            <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2013-12-18T22:35:00.084Z"</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1a"</span><span class="p">,</span>
+            <span class="s2">"Attachments"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeType"</span><span class="p">:</span> <span class="s2">"gp2"</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-1234567890abcdef0"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+            <span class="s2">"Iops"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+            <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2014-02-27T00:02:41.791Z"</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">100</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To describe volumes that are attached to a specific instance</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-volumes</span></tt> example describes all volumes that are both attached to the specified instance and set to delete when the instance terminates.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-volumes \
+    --region us-east-1 \
+    --filters Name=attachment.instance-id,Values=i-1234567890abcdef0 Name=attachment.delete-on-termination,Values=true</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Volumes"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1a"</span><span class="p">,</span>
+            <span class="s2">"Attachments"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"AttachTime"</span><span class="p">:</span> <span class="s2">"2013-12-18T22:35:00.000Z"</span><span class="p">,</span>
+                    <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-1234567890abcdef0"</span><span class="p">,</span>
+                    <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-049df61146c4d7901"</span><span class="p">,</span>
+                    <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"attached"</span><span class="p">,</span>
+                    <span class="s2">"DeleteOnTermination"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                    <span class="s2">"Device"</span><span class="p">:</span> <span class="s2">"/dev/sda1"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeType"</span><span class="p">:</span> <span class="s2">"gp2"</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-049df61146c4d7901"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"in-use"</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-1234567890abcdef0"</span><span class="p">,</span>
+            <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2013-12-18T22:35:00.084Z"</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">8</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3: To describe available volumes in a specific Availability Zone</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-volumes</span></tt> example describes all volumes that have a status of <tt class="docutils literal"><span class="pre">available</span></tt> and are in the specified Availability Zone.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-volumes \
+    --filters Name=status,Values=available Name=availability-zone,Values=us-east-1a</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Volumes"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1a"</span><span class="p">,</span>
+            <span class="s2">"Attachments"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeType"</span><span class="p">:</span> <span class="s2">"gp2"</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-1234567890abcdef0"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+            <span class="s2">"Iops"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+            <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2014-02-27T00:02:41.791Z"</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">100</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 4: To describe tagged volumes and filter the output</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-volumes</span></tt> example describes all volumes that have the tag key <tt class="docutils literal"><span class="pre">Name</span></tt> and a value that begins with <tt class="docutils literal"><span class="pre">Test</span></tt>. The output is then filtered with a query that displays only the tags and IDs of the volumes.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-volumes \
+    --filters Name=tag:Name,Values=Test* \
+    --query "Volumes[*].{ID:VolumeId,Tag:Tags}"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+       <span class="s2">"Tag"</span><span class="p">:</span> <span class="p">[</span>
+           <span class="p">{</span>
+               <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Test2"</span><span class="p">,</span>
+               <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"Name"</span>
+           <span class="p">}</span>
+       <span class="p">],</span>
+       <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"vol-1234567890abcdef0"</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+       <span class="s2">"Tag"</span><span class="p">:</span> <span class="p">[</span>
+           <span class="p">{</span>
+               <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Test1"</span><span class="p">,</span>
+               <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"Name"</span>
+           <span class="p">}</span>
+       <span class="p">],</span>
+       <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"vol-049df61146c4d7901"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Volumes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the volumes.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a volume.</p>
+<p>Attachments -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the volume attachments.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes volume attachment details.</p>
+<p>AttachTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp when the attachment initiated.</div>
+</blockquote>
+<p>Device -&gt; (string)</p>
+<blockquote>
+<div>The device name.</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the instance.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The attachment state of the volume.</div>
+</blockquote>
+<p>VolumeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the volume.</div>
+</blockquote>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the EBS volume is deleted on instance termination.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone for the volume.</div>
+</blockquote>
+<p>CreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp when volume creation was initiated.</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the volume is encrypted.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the volume encryption key for the volume.</div>
+</blockquote>
+<p>OutpostArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Outpost.</div>
+</blockquote>
+<p>Size -&gt; (integer)</p>
+<blockquote>
+<div>The size of the volume, in GiBs.</div>
+</blockquote>
+<p>SnapshotId -&gt; (string)</p>
+<blockquote>
+<div>The snapshot from which the volume was created, if applicable.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The volume state.</div>
+</blockquote>
+<p>VolumeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the volume.</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of I/O operations per second (IOPS) that the volume supports. For Provisioned IOPS SSD volumes, this represents the number of IOPS that are provisioned for the volume. For General Purpose SSD volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Constraints: Range is 100-16,000 IOPS for <tt class="docutils literal"><span class="pre">gp2</span></tt> volumes and 100 to 64,000IOPS for <tt class="docutils literal"><span class="pre">io1</span></tt> volumes, in most Regions. The maximum IOPS for <tt class="docutils literal"><span class="pre">io1</span></tt> of 64,000 is guaranteed only on <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based instances</a> . Other instance families guarantee performance up to 32,000 IOPS.</p>
+<p>Condition: This parameter is required for requests to create <tt class="docutils literal"><span class="pre">io1</span></tt> volumes; it is not used in requests to create <tt class="docutils literal"><span class="pre">gp2</span></tt> , <tt class="docutils literal"><span class="pre">st1</span></tt> , <tt class="docutils literal"><span class="pre">sc1</span></tt> , or <tt class="docutils literal"><span class="pre">standard</span></tt> volumes.</p>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the volume.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VolumeType -&gt; (string)</p>
+<blockquote>
+<div>The volume type. This can be <tt class="docutils literal"><span class="pre">gp2</span></tt> for General Purpose SSD, <tt class="docutils literal"><span class="pre">io1</span></tt> for Provisioned IOPS SSD, <tt class="docutils literal"><span class="pre">st1</span></tt> for Throughput Optimized HDD, <tt class="docutils literal"><span class="pre">sc1</span></tt> for Cold HDD, or <tt class="docutils literal"><span class="pre">standard</span></tt> for Magnetic volumes.</div>
+</blockquote>
+<p>FastRestored -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the volume was created using fast snapshot restore.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">NextToken</span></tt> value to include in a future <tt class="docutils literal"><span class="pre">DescribeVolumes</span></tt> request. When the results of a <tt class="docutils literal"><span class="pre">DescribeVolumes</span></tt> request exceed <tt class="docutils literal"><span class="pre">MaxResults</span></tt> , this value can be used to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-snapshots — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-spot-datafeed-subscription" href="describe-spot-datafeed-subscription.html">
+    <link rel="prev" title="describe-snapshot-attribute" href="describe-snapshot-attribute.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-snapshots">
+<span id="cli-aws-ec2-describe-snapshots"></span><h1>describe-snapshots<a class="headerlink" href="#describe-snapshots" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the specified EBS snapshots available to you or all of the EBS snapshots available to you.</p>
+<p>The snapshots available to you include public snapshots, private snapshots that you own, and private snapshots owned by other AWS accounts for which you have explicit create volume permissions.</p>
+<p>The create volume permissions fall into the following categories:</p>
+<ul class="simple">
+<li>
+<em>public</em> : The owner of the snapshot granted create volume permissions for the snapshot to the <tt class="docutils literal"><span class="pre">all</span></tt> group. All AWS accounts have create volume permissions for these snapshots.</li>
+<li>
+<em>explicit</em> : The owner of the snapshot granted create volume permissions to a specific AWS account.</li>
+<li>
+<em>implicit</em> : An AWS account has implicit create volume permissions for all snapshots it owns.</li>
+</ul>
+<p>The list of snapshots returned can be modified by specifying snapshot IDs, snapshot owners, or AWS accounts with create volume permissions. If no options are specified, Amazon EC2 returns all snapshots for which you have create volume permissions.</p>
+<p>If you specify one or more snapshot IDs, only snapshots that have the specified IDs are returned. If you specify an invalid snapshot ID, an error is returned. If you specify a snapshot ID for which you do not have access, it is not included in the returned results.</p>
+<p>If you specify one or more snapshot owners using the <tt class="docutils literal"><span class="pre">OwnerIds</span></tt> option, only snapshots from the specified owners and for which you have access are returned. The results can include the AWS account IDs of the specified owners, <tt class="docutils literal"><span class="pre">amazon</span></tt> for snapshots owned by Amazon, or <tt class="docutils literal"><span class="pre">self</span></tt> for snapshots that you own.</p>
+<p>If you specify a list of restorable users, only snapshots with create snapshot permissions for those users are returned. You can specify AWS account IDs (if you own the snapshots), <tt class="docutils literal"><span class="pre">self</span></tt> for snapshots for which you own or have explicit permissions, or <tt class="docutils literal"><span class="pre">all</span></tt> for public snapshots.</p>
+<p>If you are describing a long list of snapshots, you can paginate the output to make the list more manageable. The <tt class="docutils literal"><span class="pre">MaxResults</span></tt> parameter sets the maximum number of results returned in a single page. If the list of results exceeds your <tt class="docutils literal"><span class="pre">MaxResults</span></tt> value, then that number of results is returned along with a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value that can be passed to a subsequent <tt class="docutils literal"><span class="pre">DescribeSnapshots</span></tt> request to retrieve the remaining results.</p>
+<p>For more information about EBS snapshots, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html">Amazon EBS Snapshots</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeSnapshots">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-snapshots</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Snapshots</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-snapshots
+[--filters &lt;value&gt;]
+[--owner-ids &lt;value&gt;]
+[--restorable-by-user-ids &lt;value&gt;]
+[--snapshot-ids &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">description</span></tt> - A description of the snapshot.</li>
+<li>
+<tt class="docutils literal"><span class="pre">encrypted</span></tt> - Indicates whether the snapshot is encrypted (<tt class="docutils literal"><span class="pre">true</span></tt> | <tt class="docutils literal"><span class="pre">false</span></tt> )</li>
+<li>
+<tt class="docutils literal"><span class="pre">owner-alias</span></tt> - Value from an Amazon-maintained list (<tt class="docutils literal"><span class="pre">amazon</span></tt> | <tt class="docutils literal"><span class="pre">self</span></tt> | <tt class="docutils literal"><span class="pre">all</span></tt> | <tt class="docutils literal"><span class="pre">aws-marketplace</span></tt> | <tt class="docutils literal"><span class="pre">microsoft</span></tt> ) of snapshot owners. Not to be confused with the user-configured AWS account alias, which is set from the IAM console.</li>
+<li>
+<tt class="docutils literal"><span class="pre">owner-id</span></tt> - The ID of the AWS account that owns the snapshot.</li>
+<li>
+<tt class="docutils literal"><span class="pre">progress</span></tt> - The progress of the snapshot, as a percentage (for example, 80%).</li>
+<li>
+<tt class="docutils literal"><span class="pre">snapshot-id</span></tt> - The snapshot ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">start-time</span></tt> - The time stamp when the snapshot was initiated.</li>
+<li>
+<tt class="docutils literal"><span class="pre">status</span></tt> - The status of the snapshot (<tt class="docutils literal"><span class="pre">pending</span></tt> | <tt class="docutils literal"><span class="pre">completed</span></tt> | <tt class="docutils literal"><span class="pre">error</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag</span></tt> :key- The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <tt class="docutils literal"><span class="pre">Owner</span></tt> and the value <tt class="docutils literal"><span class="pre">TeamA</span></tt> , specify <tt class="docutils literal"><span class="pre">tag:Owner</span></tt> for the filter name and <tt class="docutils literal"><span class="pre">TeamA</span></tt> for the filter value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag-key</span></tt> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">volume-id</span></tt> - The ID of the volume the snapshot is for.</li>
+<li>
+<tt class="docutils literal"><span class="pre">volume-size</span></tt> - The size of the volume, in GiB.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--owner-ids</span></tt> (list)</p>
+<blockquote>
+<div>Describes the snapshots owned by these owners.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--restorable-by-user-ids</span></tt> (list)</p>
+<blockquote>
+<div>The IDs of the AWS accounts that can create volumes from the snapshot.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--snapshot-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The snapshot IDs.</p>
+<p>Default: Describes the snapshots for which you have create volume permissions.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To describe a snapshot</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-snapshots</span></tt> example describes the specified snapshot.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-snapshots \
+    --snapshot-ids snap-1234567890abcdef0</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Snapshots"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is my snapshot"</span><span class="p">,</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-049df61146c4d7901"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"completed"</span><span class="p">,</span>
+            <span class="s2">"VolumeSize"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+            <span class="s2">"StartTime"</span><span class="p">:</span> <span class="s2">"2014-02-28T21:28:32.000Z"</span><span class="p">,</span>
+            <span class="s2">"Progress"</span><span class="p">:</span> <span class="s2">"100%"</span><span class="p">,</span>
+            <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"012345678910"</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-1234567890abcdef0"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To describe snapshots using filters</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-snapshots</span></tt> example describes all snapshots owned by the specified AWS account that are in the <tt class="docutils literal"><span class="pre">pending</span></tt> state.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-snapshots \
+    --owner-ids 012345678910 \
+    --filters Name=status,Values=pending</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Snapshots"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is my copied snapshot"</span><span class="p">,</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-1234567890abcdef0"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+            <span class="s2">"VolumeSize"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+            <span class="s2">"StartTime"</span><span class="p">:</span> <span class="s2">"2014-02-28T21:37:27.000Z"</span><span class="p">,</span>
+            <span class="s2">"Progress"</span><span class="p">:</span> <span class="s2">"87%"</span><span class="p">,</span>
+            <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"012345678910"</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-066877671789bd71b"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3: To describe tagged snapshots and filter the output</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-snapshots</span></tt> example describes all snapshots that have the tag <tt class="docutils literal"><span class="pre">Group=Prod</span></tt>. The output is filtered to display only the snapshot IDs and the time the snapshot was started.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-snapshots \
+    --filters Name=tag:Group,Values=Prod \
+    --query "Snapshots[*].{ID:SnapshotId,Time:StartTime}"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"snap-1234567890abcdef0"</span><span class="p">,</span>
+        <span class="s2">"Time"</span><span class="p">:</span> <span class="s2">"2014-08-04T12:48:18.000Z"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Snapshots -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the snapshots.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a snapshot.</p>
+<p>DataEncryptionKeyId -&gt; (string)</p>
+<blockquote>
+<div>The data encryption key identifier for the snapshot. This value is a unique identifier that corresponds to the data encryption key that was used to encrypt the original volume or snapshot copy. Because data encryption keys are inherited by volumes created from snapshots, and vice versa, if snapshots share the same data encryption key identifier, then they belong to the same volume/snapshot lineage. This parameter is only returned by  DescribeSnapshots .</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description for the snapshot.</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the snapshot is encrypted.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used to protect the volume encryption key for the parent volume.</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID of the EBS snapshot owner.</div>
+</blockquote>
+<p>Progress -&gt; (string)</p>
+<blockquote>
+<div>The progress of the snapshot, as a percentage.</div>
+</blockquote>
+<p>SnapshotId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the snapshot. Each snapshot receives a unique identifier when it is created.</div>
+</blockquote>
+<p>StartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp when the snapshot was initiated.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The snapshot state.</div>
+</blockquote>
+<p>StateMessage -&gt; (string)</p>
+<blockquote>
+<div>Encrypted Amazon EBS snapshots are copied asynchronously. If a snapshot copy operation fails (for example, if the proper AWS Key Management Service (AWS KMS) permissions are not obtained) this field displays error state details to help you diagnose why the error occurred. This parameter is only returned by  DescribeSnapshots .</div>
+</blockquote>
+<p>VolumeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the volume that was used to create the snapshot. Snapshots created by the  CopySnapshot action have an arbitrary volume ID that should not be used for any purpose.</div>
+</blockquote>
+<p>VolumeSize -&gt; (integer)</p>
+<blockquote>
+<div>The size of the volume, in GiB.</div>
+</blockquote>
+<p>OwnerAlias -&gt; (string)</p>
+<blockquote>
+<div>Value from an Amazon-maintained list (<tt class="docutils literal"><span class="pre">amazon</span></tt> | <tt class="docutils literal"><span class="pre">self</span></tt> | <tt class="docutils literal"><span class="pre">all</span></tt> | <tt class="docutils literal"><span class="pre">aws-marketplace</span></tt> | <tt class="docutils literal"><span class="pre">microsoft</span></tt> ) of snapshot owners. Not to be confused with the user-configured AWS account alias, which is set from the IAM console.</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the snapshot.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">NextToken</span></tt> value to include in a future <tt class="docutils literal"><span class="pre">DescribeSnapshots</span></tt> request. When the results of a <tt class="docutils literal"><span class="pre">DescribeSnapshots</span></tt> request exceed <tt class="docutils literal"><span class="pre">MaxResults</span></tt> , this value can be used to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

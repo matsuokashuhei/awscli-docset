@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-custom-key-store — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="update-key-description" href="update-key-description.html">
+    <link rel="prev" title="update-alias" href="update-alias.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-custom-key-store">
+<span id="cli-aws-kms-update-custom-key-store"></span><h1>update-custom-key-store<a class="headerlink" href="#update-custom-key-store" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Changes the properties of a custom key store. Use the <tt class="docutils literal"><span class="pre">CustomKeyStoreId</span></tt> parameter to identify the custom key store you want to edit. Use the remaining parameters to change the properties of the custom key store.</p>
+<p>You can only update a custom key store that is disconnected. To disconnect the custom key store, use  DisconnectCustomKeyStore . To reconnect the custom key store after the update completes, use  ConnectCustomKeyStore . To find the connection state of a custom key store, use the  DescribeCustomKeyStores operation.</p>
+<p>Use the parameters of <tt class="docutils literal"><span class="pre">UpdateCustomKeyStore</span></tt> to edit your keystore settings.</p>
+<ul class="simple">
+<li>Use the <strong>NewCustomKeyStoreName</strong> parameter to change the friendly name of the custom key store to the value that you specify.</li>
+<li>Use the <strong>KeyStorePassword</strong> parameter tell AWS KMS the current password of the ` <tt class="docutils literal"><span class="pre">kmsuser</span></tt> crypto user (CU) &lt;<a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-store-concepts.html#concept-kmsuser">https://docs.aws.amazon.com/kms/latest/developerguide/key-store-concepts.html#concept-kmsuser</a>&gt;`__ in the associated AWS CloudHSM cluster. You can use this parameter to <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/fix-keystore.html#fix-keystore-password">fix connection failures</a> that occur when AWS KMS cannot log into the associated cluster because the <tt class="docutils literal"><span class="pre">kmsuser</span></tt> password has changed. This value does not change the password in the AWS CloudHSM cluster.</li>
+<li>Use the <strong>CloudHsmClusterId</strong> parameter to associate the custom key store with a different, but related, AWS CloudHSM cluster. You can use this parameter to repair a custom key store if its AWS CloudHSM cluster becomes corrupted or is deleted, or when you need to create or restore a cluster from a backup.</li>
+</ul>
+<p>If the operation succeeds, it returns a JSON object with no properties.</p>
+<p>This operation is part of the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">Custom Key Store feature</a> feature in AWS KMS, which combines the convenience and extensive integration of AWS KMS with the isolation and control of a single-tenant key store.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UpdateCustomKeyStore">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-custom-key-store
+--custom-key-store-id &lt;value&gt;
+[--new-custom-key-store-name &lt;value&gt;]
+[--key-store-password &lt;value&gt;]
+[--cloud-hsm-cluster-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--custom-key-store-id</span></tt> (string)</p>
+<blockquote>
+<div>Identifies the custom key store that you want to update. Enter the ID of the custom key store. To find the ID of a custom key store, use the  DescribeCustomKeyStores operation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--new-custom-key-store-name</span></tt> (string)</p>
+<blockquote>
+<div>Changes the friendly name of the custom key store to the value that you specify. The custom key store name must be unique in the AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key-store-password</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Enter the current password of the <tt class="docutils literal"><span class="pre">kmsuser</span></tt> crypto user (CU) in the AWS CloudHSM cluster that is associated with the custom key store.</p>
+<p>This parameter tells AWS KMS the current password of the <tt class="docutils literal"><span class="pre">kmsuser</span></tt> crypto user (CU). It does not set or change the password of any users in the AWS CloudHSM cluster.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cloud-hsm-cluster-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Associates the custom key store with a related AWS CloudHSM cluster.</p>
+<p>Enter the cluster ID of the cluster that you used to create the custom key store or a cluster that shares a backup history and has the same cluster certificate as the original cluster. You cannot use this parameter to associate a custom key store with an unrelated cluster. In addition, the replacement cluster must <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/create-keystore.html#before-keystore">fulfill the requirements</a> for a cluster associated with a custom key store. To view the cluster certificate of a cluster, use the <a class="reference external" href="https://docs.aws.amazon.com/cloudhsm/latest/APIReference/API_DescribeClusters.html">DescribeClusters</a> operation.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To edit custom key store settings</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-custom-key-store</span></tt> example provides the current password for the <tt class="docutils literal"><span class="pre">kmsuser</span></tt> in the CloudHSM cluster that is associated with the specified key store. This command doesn't change the <tt class="docutils literal"><span class="pre">kmsuser</span></tt> password. It just tells AWS KMS the current password. If KMS doesn't have the current <tt class="docutils literal"><span class="pre">kmsuser</span></tt> password, it cannot connect to the custom key store.</p>
+<p><strong>NOTE:</strong> Before updating the custom key store, you must disconnect it. Use the <tt class="docutils literal"><span class="pre">disconnect-custom-key-store</span></tt> command. After the command completes, you can reconnect the custom key store. Use the <tt class="docutils literal"><span class="pre">connect-custom-key-store</span></tt> command.</p>
+<div class="highlight-python">
+<pre>aws kms update-custom-key-store \
+    --custom-key-store-id cks-1234567890abcdef0 \
+    --key-store-password ExamplePassword</pre>
+</div>
+<p>This command does not return any output. To verify that the password change was effective, connect the custom key store.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/update-keystore.html">Editing Custom Key Store Settings</a> in the <em>AWS Key Management Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

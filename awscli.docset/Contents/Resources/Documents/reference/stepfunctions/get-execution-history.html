@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-execution-history — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="stepfunctions" href="index.html">
+    <link rel="next" title="list-activities" href="list-activities.html">
+    <link rel="prev" title="get-activity-task" href="get-activity-task.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-execution-history">
+<span id="cli-aws-stepfunctions-get-execution-history"></span><h1>get-execution-history<a class="headerlink" href="#get-execution-history" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns the history of the specified execution as a list of events. By default, the results are returned in ascending order of the <tt class="docutils literal"><span class="pre">timeStamp</span></tt> of the events. Use the <tt class="docutils literal"><span class="pre">reverseOrder</span></tt> parameter to get the latest events first.</p>
+<p>If <tt class="docutils literal"><span class="pre">nextToken</span></tt> is returned, there are more results available. The value of <tt class="docutils literal"><span class="pre">nextToken</span></tt> is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an <em>HTTP 400 InvalidToken</em> error.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/states-2016-11-23/GetExecutionHistory">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">get-execution-history</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">events</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-execution-history
+--execution-arn &lt;value&gt;
+[--reverse-order | --no-reverse-order]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--execution-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the execution.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--reverse-order</span></tt> | <tt class="docutils literal"><span class="pre">--no-reverse-order</span></tt> (boolean)</p>
+<blockquote>
+<div>Lists events in descending order of their <tt class="docutils literal"><span class="pre">timeStamp</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>events -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of events that occurred in the execution.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the events of an execution.</p>
+<p>timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time the event occurred.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the event.</div>
+</blockquote>
+<p>id -&gt; (long)</p>
+<blockquote>
+<div>The id of the event. Events are numbered sequentially, starting at one.</div>
+</blockquote>
+<p>previousEventId -&gt; (long)</p>
+<blockquote>
+<div>The id of the previous event.</div>
+</blockquote>
+<p>activityFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an activity that failed during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>activityScheduleFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an activity schedule event that failed during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>activityScheduledEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an activity scheduled during an execution.</p>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the scheduled activity.</div>
+</blockquote>
+<p>input -&gt; (string)</p>
+<blockquote>
+<div>The JSON data input to the activity task.</div>
+</blockquote>
+<p>timeoutInSeconds -&gt; (long)</p>
+<blockquote>
+<div>The maximum allowed duration of the activity task.</div>
+</blockquote>
+<p>heartbeatInSeconds -&gt; (long)</p>
+<blockquote>
+<div>The maximum allowed duration between two heartbeats for the activity task.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>activityStartedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the start of an activity during an execution.</p>
+<p>workerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the worker that the task is assigned to. These names are provided by the workers when calling  GetActivityTask .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>activitySucceededEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an activity that successfully terminated during an execution.</p>
+<p>output -&gt; (string)</p>
+<blockquote>
+<div>The JSON data output by the activity task.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>activityTimedOutEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an activity timeout that occurred during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the timeout.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the failure of a task.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskScheduledEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a task that was scheduled.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>region -&gt; (string)</p>
+<blockquote>
+<div>The region of the scheduled task</div>
+</blockquote>
+<p>parameters -&gt; (string)</p>
+<blockquote>
+<div>The JSON data passed to the resource referenced in a task state.</div>
+</blockquote>
+<p>timeoutInSeconds -&gt; (long)</p>
+<blockquote>
+<div>The maximum allowed duration of the task.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskStartFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a task that failed to start.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskStartedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a task that was started.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskSubmitFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a task that where the submit failed.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskSubmittedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a submitted task.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>output -&gt; (string)</p>
+<blockquote>
+<div>The response from a resource when a task has started.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskSucceededEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a task that succeeded.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>output -&gt; (string)</p>
+<blockquote>
+<div>The full JSON response from a resource when a task has succeeded. This response becomes the output of the related task.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskTimedOutEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a task that timed out.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The action of the resource called by a task state.</div>
+</blockquote>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The service name of the resource in a task state.</div>
+</blockquote>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>executionFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an execution failure event.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>executionStartedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the start of the execution.</p>
+<p>input -&gt; (string)</p>
+<blockquote>
+<div>The JSON data input to the execution.</div>
+</blockquote>
+<p>roleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role used for executing AWS Lambda tasks.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>executionSucceededEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the successful termination of the execution.</p>
+<p>output -&gt; (string)</p>
+<blockquote>
+<div>The JSON data output by the execution.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>executionAbortedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an abort of an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>executionTimedOutEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about the execution timeout that occurred during the execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the timeout.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>mapStateStartedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about Map state that was started.</p>
+<p>length -&gt; (integer)</p>
+<blockquote>
+<div>The size of the array for Map state iterations.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>mapIterationStartedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an iteration of a Map state that was started.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the iteration’s parent Map state.</div>
+</blockquote>
+<p>index -&gt; (integer)</p>
+<blockquote>
+<div>The index of the array belonging to the Map state iteration.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>mapIterationSucceededEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an iteration of a Map state that succeeded.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the iteration’s parent Map state.</div>
+</blockquote>
+<p>index -&gt; (integer)</p>
+<blockquote>
+<div>The index of the array belonging to the Map state iteration.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>mapIterationFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an iteration of a Map state that failed.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the iteration’s parent Map state.</div>
+</blockquote>
+<p>index -&gt; (integer)</p>
+<blockquote>
+<div>The index of the array belonging to the Map state iteration.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>mapIterationAbortedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an iteration of a Map state that was aborted.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the iteration’s parent Map state.</div>
+</blockquote>
+<p>index -&gt; (integer)</p>
+<blockquote>
+<div>The index of the array belonging to the Map state iteration.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a lambda function that failed during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionScheduleFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a failed lambda function schedule event that occurred during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionScheduledEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a lambda function scheduled during an execution.</p>
+<p>resource -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the scheduled lambda function.</div>
+</blockquote>
+<p>input -&gt; (string)</p>
+<blockquote>
+<div>The JSON data input to the lambda function.</div>
+</blockquote>
+<p>timeoutInSeconds -&gt; (long)</p>
+<blockquote>
+<div>The maximum allowed duration of the lambda function.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionStartFailedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a lambda function that failed to start during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionSucceededEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a lambda function that terminated successfully during an execution.</p>
+<p>output -&gt; (string)</p>
+<blockquote>
+<div>The JSON data output by the lambda function.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lambdaFunctionTimedOutEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a lambda function timeout that occurred during an execution.</p>
+<p>error -&gt; (string)</p>
+<blockquote>
+<div>The error code of the failure.</div>
+</blockquote>
+<p>cause -&gt; (string)</p>
+<blockquote>
+<div>A more detailed explanation of the cause of the timeout.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>stateEnteredEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about a state entered during an execution.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the state.</div>
+</blockquote>
+<p>input -&gt; (string)</p>
+<blockquote>
+<div>The string that contains the JSON input data for the state.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>stateExitedEventDetails -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains details about an exit from a state during an execution.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of the state.</p>
+<p>A name must <em>not</em> contain:</p>
+<ul class="simple">
+<li>white space</li>
+<li>brackets `` { } [ ]``</li>
+<li>wildcard characters <tt class="docutils literal"><span class="pre">?</span> <span class="pre">*</span></tt>
+</li>
+<li>special characters <tt class="docutils literal"><span class="pre">"</span> <span class="pre">#</span> <span class="pre">%</span> <span class="pre">\</span> <span class="pre">^</span> <span class="pre">|</span> <span class="pre">~</span> <span class="pre">`</span> <span class="pre">$</span> <span class="pre">,</span> <span class="pre">;</span> <span class="pre">:</span> <span class="pre">/</span></tt>
+</li>
+<li>control characters (<tt class="docutils literal"><span class="pre">U+0000-001F</span></tt> , <tt class="docutils literal"><span class="pre">U+007F-009F</span></tt> )</li>
+</ul>
+</div>
+</blockquote>
+<p>output -&gt; (string)</p>
+<blockquote>
+<div>The JSON output data of the state.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">nextToken</span></tt> is returned, there are more results available. The value of <tt class="docutils literal"><span class="pre">nextToken</span></tt> is a unique pagination token for each page. Make the call again using the returned token to retrieve the next page. Keep all other arguments unchanged. Each pagination token expires after 24 hours. Using an expired pagination token will return an <em>HTTP 400 InvalidToken</em> error.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

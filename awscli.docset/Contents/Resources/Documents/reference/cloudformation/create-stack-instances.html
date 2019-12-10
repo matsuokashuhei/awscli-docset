@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-stack-instances — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudformation" href="index.html">
+    <link rel="next" title="create-stack-set" href="create-stack-set.html">
+    <link rel="prev" title="create-stack" href="create-stack.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-stack-instances">
+<span id="cli-aws-cloudformation-create-stack-instances"></span><h1>create-stack-instances<a class="headerlink" href="#create-stack-instances" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates stack instances for the specified accounts, within the specified regions. A stack instance refers to a stack in a specific account and region. <tt class="docutils literal"><span class="pre">Accounts</span></tt> and <tt class="docutils literal"><span class="pre">Regions</span></tt> are required parameters—you must specify at least one account and one region.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateStackInstances">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-stack-instances
+--stack-set-name &lt;value&gt;
+--accounts &lt;value&gt;
+--regions &lt;value&gt;
+[--parameter-overrides &lt;value&gt;]
+[--operation-preferences &lt;value&gt;]
+[--operation-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stack-set-name</span></tt> (string)</p>
+<blockquote>
+<div>The name or unique ID of the stack set that you want to create stack instances from.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--accounts</span></tt> (list)</p>
+<blockquote>
+<div>The names of one or more AWS accounts that you want to create stack instances in the specified region(s) for.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--regions</span></tt> (list)</p>
+<blockquote>
+<div>The names of one or more regions where you want to create stack instances using the specified AWS account(s).</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--parameter-overrides</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of stack set parameters whose values you want to override in the selected stack instances.</p>
+<p>Any overridden parameter values will be applied to all stack instances in the specified accounts and regions. When specifying parameters and their values, be aware of how AWS CloudFormation sets parameter values during stack instance operations:</p>
+<ul class="simple">
+<li>To override the current value for a parameter, include the parameter and specify its value.</li>
+<li>To leave a parameter set to its present value, you can do one of the following:<ul>
+<li>Do not include the parameter in the list.</li>
+<li>Include the parameter and specify <tt class="docutils literal"><span class="pre">UsePreviousValue</span></tt> as <tt class="docutils literal"><span class="pre">true</span></tt> . (You cannot specify both a value and set <tt class="docutils literal"><span class="pre">UsePreviousValue</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> .)</li>
+</ul>
+</li>
+<li>To set all overridden parameter back to the values specified in the stack set, specify a parameter list but do not include any parameters.</li>
+<li>To leave all parameters set to their present values, do not specify this property at all.</li>
+</ul>
+<p>During stack set updates, any parameter values overridden for a stack instance are not updated, but retain their overridden value.</p>
+<p>You can only override the parameter <em>values</em> that are specified in the stack set; to add or delete a parameter itself, use <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_UpdateStackSet.html">UpdateStackSet</a> to update the stack set template.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ParameterKey=string,ParameterValue=string,UsePreviousValue=boolean,ResolvedValue=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ParameterKey": "string",
+    "ParameterValue": "string",
+    "UsePreviousValue": true|false,
+    "ResolvedValue": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--operation-preferences</span></tt> (structure)</p>
+<blockquote>
+<div>Preferences for how AWS CloudFormation performs this stack set operation.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">RegionOrder</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">FailureToleranceCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">FailureTolerancePercentage</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxConcurrentCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxConcurrentPercentage</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"RegionOrder"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"FailureToleranceCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"FailureTolerancePercentage"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxConcurrentCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxConcurrentPercentage"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--operation-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier for this stack set operation.</p>
+<p>The operation ID also functions as an idempotency token, to ensure that AWS CloudFormation performs the stack set operation only once, even if you retry the request multiple times. You might retry stack set operation requests to ensure that AWS CloudFormation successfully received them.</p>
+<p>If you don't specify an operation ID, the SDK generates one automatically.</p>
+<p>Repeating this stack set operation with a new operation ID retries all stack instances whose status is <tt class="docutils literal"><span class="pre">OUTDATED</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create stack instances</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-stack-instances</span></tt> example creates instances of a stack set in two accounts and in four regions. The fault tolerance setting ensures that the update is attempted in all accounts and regions, even if some stacks cannot be created.</p>
+<div class="highlight-python">
+<pre>aws cloudformation create-stack-instances \
+    --stack-set-name my-stack-set \
+    --accounts 123456789012 223456789012 \
+    --regions us-east-1 us-east-2 us-west-1 us-west-2 \
+    --operation-preferences FailureToleranceCount=7</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"OperationId"</span><span class="p">:</span> <span class="s2">"d7995c31-83c2-xmpl-a3d4-e9ca2811563f"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To create a stack set, use the <tt class="docutils literal"><span class="pre">create-stack-set</span></tt> command.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>OperationId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for this stack set operation.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

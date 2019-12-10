@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-resource-data-sync — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="delete-activation" href="delete-activation.html">
+    <link rel="prev" title="create-patch-baseline" href="create-patch-baseline.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-resource-data-sync">
+<span id="cli-aws-ssm-create-resource-data-sync"></span><h1>create-resource-data-sync<a class="headerlink" href="#create-resource-data-sync" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>A resource data sync helps you view data from multiple sources in a single location. Systems Manager offers two types of resource data sync: <tt class="docutils literal"><span class="pre">SyncToDestination</span></tt> and <tt class="docutils literal"><span class="pre">SyncFromSource</span></tt> .</p>
+<p>You can configure Systems Manager Inventory to use the <tt class="docutils literal"><span class="pre">SyncToDestination</span></tt> type to synchronize Inventory data from multiple AWS Regions to a single Amazon S3 bucket. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html">Configuring Resource Data Sync for Inventory</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>You can configure Systems Manager Explorer to use the <tt class="docutils literal"><span class="pre">SyncToDestination</span></tt> type to synchronize operational work items (OpsItems) and operational data (OpsData) from multiple AWS Regions to a single Amazon S3 bucket. You can also configure Explorer to use the <tt class="docutils literal"><span class="pre">SyncFromSource</span></tt> type. This type synchronizes OpsItems and OpsData from multiple AWS accounts and Regions by using AWS Organizations. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html">Setting Up Explorer to Display Data from Multiple Accounts and Regions</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>A resource data sync is an asynchronous operation that returns immediately. After a successful initial sync is completed, the system continuously syncs data. To check the status of a sync, use the  ListResourceDataSync .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, data is not encrypted in Amazon S3. We strongly recommend that you enable encryption in Amazon S3 to ensure secure data storage. We also recommend that you secure access to the Amazon S3 bucket by creating a restrictive bucket policy.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/CreateResourceDataSync">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-resource-data-sync
+--sync-name &lt;value&gt;
+[--s3-destination &lt;value&gt;]
+[--sync-type &lt;value&gt;]
+[--sync-source &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--sync-name</span></tt> (string)</p>
+<blockquote>
+<div>A name for the configuration.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--s3-destination</span></tt> (structure)</p>
+<blockquote>
+<div>Amazon S3 configuration details for the sync.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">BucketName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Prefix</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">SyncFormat</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Region</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">AWSKMSKeyARN</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"BucketName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"SyncFormat"</span><span class="p">:</span> <span class="s2">"JsonSerDe"</span><span class="p">,</span>
+  <span class="s2">"Region"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"AWSKMSKeyARN"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--sync-type</span></tt> (string)</p>
+<blockquote>
+<div>Specify <tt class="docutils literal"><span class="pre">SyncToDestination</span></tt> to create a resource data sync that synchronizes data from multiple AWS Regions to an Amazon S3 bucket. Specify <tt class="docutils literal"><span class="pre">SyncFromSource</span></tt> to synchronize data from multiple AWS accounts and Regions, as listed in AWS Organizations.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sync-source</span></tt> (structure)</p>
+<blockquote>
+<div>Specify information about the data sources to synchronize.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "SourceType": "string",
+  "AwsOrganizationsSource": {
+    "OrganizationSourceType": "string",
+    "OrganizationalUnits": [
+      {
+        "OrganizationalUnitId": "string"
+      }
+      ...
+    ]
+  },
+  "SourceRegions": ["string", ...],
+  "IncludeFutureRegions": true|false
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a resource data sync</strong></p>
+<p>This example creates a resource data sync. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm create-resource-data-sync --sync-name "ssm-resource-data-sync" --s3-destination "BucketName=ssm-bucket,Prefix=inventory,SyncFormat=JsonSerDe,Region=us-east-1"</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-attributes — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="sdb" href="index.html">
+    <link rel="next" title="select" href="select.html">
+    <link rel="prev" title="list-domains" href="list-domains.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-attributes">
+<span id="cli-aws-sdb-put-attributes"></span><h1>put-attributes<a class="headerlink" href="#put-attributes" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>The PutAttributes operation creates or replaces attributes in an item. The client may specify new attributes using a combination of the <tt class="docutils literal"><span class="pre">Attribute.X.Name</span></tt> and <tt class="docutils literal"><span class="pre">Attribute.X.Value</span></tt> parameters. The client specifies the first attribute by the parameters <tt class="docutils literal"><span class="pre">Attribute.0.Name</span></tt> and <tt class="docutils literal"><span class="pre">Attribute.0.Value</span></tt> , the second attribute by the parameters <tt class="docutils literal"><span class="pre">Attribute.1.Name</span></tt> and <tt class="docutils literal"><span class="pre">Attribute.1.Value</span></tt> , and so on.</p>
+<p>Attributes are uniquely identified in an item by their name/value combination. For example, a single item can have the attributes <tt class="docutils literal"><span class="pre">{</span> <span class="pre">"first_name",</span> <span class="pre">"first_value"</span> <span class="pre">}</span></tt> and <tt class="docutils literal"><span class="pre">{</span> <span class="pre">"first_name",</span> <span class="pre">second_value"</span> <span class="pre">}</span></tt> . However, it cannot have two attribute instances where both the <tt class="docutils literal"><span class="pre">Attribute.X.Name</span></tt> and <tt class="docutils literal"><span class="pre">Attribute.X.Value</span></tt> are the same.</p>
+<p>Optionally, the requestor can supply the <tt class="docutils literal"><span class="pre">Replace</span></tt> parameter for each individual attribute. Setting this value to <tt class="docutils literal"><span class="pre">true</span></tt> causes the new attribute value to replace the existing attribute value(s). For example, if an item has the attributes <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'a',</span> <span class="pre">'1'</span> <span class="pre">}</span></tt> , <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'b',</span> <span class="pre">'2'}</span></tt> and <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'b',</span> <span class="pre">'3'</span> <span class="pre">}</span></tt> and the requestor calls <tt class="docutils literal"><span class="pre">PutAttributes</span></tt> using the attributes <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'b',</span> <span class="pre">'4'</span> <span class="pre">}</span></tt> with the <tt class="docutils literal"><span class="pre">Replace</span></tt> parameter set to true, the final attributes of the item are changed to <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'a',</span> <span class="pre">'1'</span> <span class="pre">}</span></tt> and <tt class="docutils literal"><span class="pre">{</span> <span class="pre">'b',</span> <span class="pre">'4'</span> <span class="pre">}</span></tt> , which replaces the previous values of the 'b' attribute with the new value.</p>
+<p>You cannot specify an empty string as an attribute name.</p>
+<p>Because Amazon SimpleDB makes multiple copies of client data and uses an eventual consistency update model, an immediate  GetAttributes or  Select operation (read) immediately after a  PutAttributes or  DeleteAttributes operation (write) might not return the updated data.</p>
+<p>The following limitations are enforced for this operation:</p>
+<ul class="simple">
+<li>256 total attribute name-value pairs per item</li>
+<li>One billion attributes per domain</li>
+<li>10 GB of total user data storage per domain</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sdb-2009-04-15/PutAttributes">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><strong>AWS CLI support for this service is only available in a preview stage.</strong> You can enable this service by running: <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">set</span> <span class="pre">preview.sdb</span> <span class="pre">true</span></tt></p>
+</div>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-attributes
+--domain-name &lt;value&gt;
+--item-name &lt;value&gt;
+--attributes &lt;value&gt;
+[--expected &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--domain-name</span></tt> (string)
+The name of the domain in which to perform the operation.</p>
+<p><tt class="docutils literal"><span class="pre">--item-name</span></tt> (string)
+The name of the item.</p>
+<p><tt class="docutils literal"><span class="pre">--attributes</span></tt> (list)
+The list of attributes.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Value=string,Replace=boolean ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Value": "string",
+    "Replace": true|false
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--expected</span></tt> (structure)
+The update condition which, if specified, determines whether the specified attributes will be updated or not. The update condition must be satisfied in order for this request to be processed and the attributes to be updated.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Name</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Value</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Exists</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Exists"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

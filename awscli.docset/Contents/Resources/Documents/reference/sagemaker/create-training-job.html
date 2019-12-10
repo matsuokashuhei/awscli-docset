@@ -1,0 +1,466 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-training-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="create-transform-job" href="create-transform-job.html">
+    <link rel="prev" title="create-processing-job" href="create-processing-job.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-training-job">
+<span id="cli-aws-sagemaker-create-training-job"></span><h1>create-training-job<a class="headerlink" href="#create-training-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Starts a model training job. After training completes, Amazon SageMaker saves the resulting model artifacts to an Amazon S3 location that you specify.</p>
+<p>If you choose to host your model using Amazon SageMaker hosting services, you can use the resulting model artifacts as part of the model. You can also use the artifacts in a machine learning service other than Amazon SageMaker, provided that you know how to use them for inferences.</p>
+<p>In the request body, you provide the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">AlgorithmSpecification</span></tt> - Identifies the training algorithm to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">HyperParameters</span></tt> - Specify these algorithm-specific parameters to enable the estimation of model parameters during training. Hyperparameters can be tuned to optimize this learning process. For a list of hyperparameters for each training algorithm provided by Amazon SageMaker, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html">Algorithms</a> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">InputDataConfig</span></tt> - Describes the training dataset and the Amazon S3, EFS, or FSx location where it is stored.</li>
+<li>
+<tt class="docutils literal"><span class="pre">OutputDataConfig</span></tt> - Identifies the Amazon S3 bucket where you want Amazon SageMaker to save the results of model training.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ResourceConfig</span></tt> - Identifies the resources, ML compute instances, and ML storage volumes to deploy for model training. In distributed training, you specify more than one instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">EnableManagedSpotTraining</span></tt> - Optimize the cost of training machine learning models by up to 80% by using Amazon EC2 Spot instances. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html">Managed Spot Training</a> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">RoleARN</span></tt> - The Amazon Resource Number (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during model training. You must grant this role the necessary permissions so that Amazon SageMaker can successfully complete model training.</li>
+<li>
+<tt class="docutils literal"><span class="pre">StoppingCondition</span></tt> - To help cap training costs, use <tt class="docutils literal"><span class="pre">MaxRuntimeInSeconds</span></tt> to set a time limit for training. Use <tt class="docutils literal"><span class="pre">MaxWaitTimeInSeconds</span></tt> to specify how long you are willing to wait for a managed spot training job to complete.</li>
+</ul>
+<p>For more information about Amazon SageMaker, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html">How It Works</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateTrainingJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-training-job
+--training-job-name &lt;value&gt;
+[--hyper-parameters &lt;value&gt;]
+--algorithm-specification &lt;value&gt;
+--role-arn &lt;value&gt;
+[--input-data-config &lt;value&gt;]
+--output-data-config &lt;value&gt;
+--resource-config &lt;value&gt;
+[--vpc-config &lt;value&gt;]
+--stopping-condition &lt;value&gt;
+[--tags &lt;value&gt;]
+[--enable-network-isolation | --no-enable-network-isolation]
+[--enable-inter-container-traffic-encryption | --no-enable-inter-container-traffic-encryption]
+[--enable-managed-spot-training | --no-enable-managed-spot-training]
+[--checkpoint-config &lt;value&gt;]
+[--debug-hook-config &lt;value&gt;]
+[--debug-rule-configurations &lt;value&gt;]
+[--tensor-board-output-config &lt;value&gt;]
+[--experiment-config &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--training-job-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the training job. The name must be unique within an AWS Region in an AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--hyper-parameters</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>Algorithm-specific parameters that influence the quality of the model. You set hyperparameters before you start the learning process. For a list of hyperparameters for each training algorithm provided by Amazon SageMaker, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html">Algorithms</a> .</p>
+<p>You can specify a maximum of 100 hyperparameters. Each hyperparameter is a key-value pair. Each key and value is limited to 256 characters, as specified by the <tt class="docutils literal"><span class="pre">Length</span> <span class="pre">Constraint</span></tt> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--algorithm-specification</span></tt> (structure)</p>
+<blockquote>
+<div>The registry path of the Docker image that contains the training algorithm and algorithm-specific metadata, including the input mode. For more information about algorithms provided by Amazon SageMaker, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html">Algorithms</a> . For information about providing your own algorithms, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html">Using Your Own Algorithms with Amazon SageMaker</a> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>TrainingImage=string,AlgorithmName=string,TrainingInputMode=string,MetricDefinitions=[{Name=string,Regex=string},{Name=string,Regex=string}],EnableSageMakerMetricsTimeSeries=boolean</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "TrainingImage": "string",
+  "AlgorithmName": "string",
+  "TrainingInputMode": "Pipe"|"File",
+  "MetricDefinitions": [
+    {
+      "Name": "string",
+      "Regex": "string"
+    }
+    ...
+  ],
+  "EnableSageMakerMetricsTimeSeries": true|false
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.</p>
+<p>During model training, Amazon SageMaker needs your permission to read input data from an S3 bucket, download a Docker image that contains training code, write model artifacts to an S3 bucket, write logs to Amazon CloudWatch Logs, and publish metrics to Amazon CloudWatch. You grant permissions for all of these tasks to an IAM role. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon SageMaker Roles</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To be able to pass this role to Amazon SageMaker, the caller of this API must have the <tt class="docutils literal"><span class="pre">iam:PassRole</span></tt> permission.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input-data-config</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>An array of <tt class="docutils literal"><span class="pre">Channel</span></tt> objects. Each channel is a named input source. <tt class="docutils literal"><span class="pre">InputDataConfig</span></tt> describes the input data and its location.</p>
+<p>Algorithms can accept input data from one or more channels. For example, an algorithm might have two channels of input data, <tt class="docutils literal"><span class="pre">training_data</span></tt> and <tt class="docutils literal"><span class="pre">validation_data</span></tt> . The configuration for each channel provides the S3, EFS, or FSx location where the input data is stored. It also provides information about the stored data: the MIME type, compression method, and whether the data is wrapped in RecordIO format.</p>
+<p>Depending on the input mode that the algorithm supports, Amazon SageMaker either copies input data files from an S3 bucket to a local directory in the Docker container, or makes it available as input streams. For example, if you specify an EFS location, input data files will be made available as input streams. They do not need to be downloaded.</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ChannelName": "string",
+    "DataSource": {
+      "S3DataSource": {
+        "S3DataType": "ManifestFile"|"S3Prefix"|"AugmentedManifestFile",
+        "S3Uri": "string",
+        "S3DataDistributionType": "FullyReplicated"|"ShardedByS3Key",
+        "AttributeNames": ["string", ...]
+      },
+      "FileSystemDataSource": {
+        "FileSystemId": "string",
+        "FileSystemAccessMode": "rw"|"ro",
+        "FileSystemType": "EFS"|"FSxLustre",
+        "DirectoryPath": "string"
+      }
+    },
+    "ContentType": "string",
+    "CompressionType": "None"|"Gzip",
+    "RecordWrapperType": "None"|"RecordIO",
+    "InputMode": "Pipe"|"File",
+    "ShuffleConfig": {
+      "Seed": long
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--output-data-config</span></tt> (structure)</p>
+<blockquote>
+<div>Specifies the path to the S3 location where you want to store model artifacts. Amazon SageMaker creates subfolders for the artifacts.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KmsKeyId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3OutputPath</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3OutputPath"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-config</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The resources, including the ML compute instances and ML storage volumes, to use for model training.</p>
+<p>ML storage volumes store model artifacts and incremental states. Training algorithms might also use ML storage volumes for scratch space. If you want Amazon SageMaker to use the ML storage volume to store the training data, choose <tt class="docutils literal"><span class="pre">File</span></tt> as the <tt class="docutils literal"><span class="pre">TrainingInputMode</span></tt> in the algorithm specification. For distributed training algorithms, specify an instance count greater than 1.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">InstanceType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">InstanceCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">VolumeSizeInGB</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">VolumeKmsKeyId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"ml.m4.xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.10xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.16xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.large"</span><span class="o">|</span><span class="s2">"ml.m5.xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.24xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p2.xlarge"</span><span class="o">|</span><span class="s2">"ml.p2.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p2.16xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.16xlarge"</span><span class="o">|</span><span class="s2">"ml.p3dn.24xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.9xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.18xlarge"</span><span class="p">,</span>
+  <span class="s2">"InstanceCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"VolumeSizeInGB"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"VolumeKmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--vpc-config</span></tt> (structure)</p>
+<blockquote>
+<div>A  VpcConfig object that specifies the VPC that you want your training job to connect to. Control access to and from your training container by configuring the VPC. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html">Protect Training Jobs by Using an Amazon Virtual Private Cloud</a> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">SecurityGroupIds</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">Subnets</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"SecurityGroupIds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"Subnets"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--stopping-condition</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Specifies a limit to how long a model training job can run. When the job reaches the time limit, Amazon SageMaker ends the training job. Use this API to cap model training costs.</p>
+<p>To stop a job, Amazon SageMaker sends the algorithm the <tt class="docutils literal"><span class="pre">SIGTERM</span></tt> signal, which delays job termination for 120 seconds. Algorithms can use this 120-second window to save the model artifacts, so the results of training are not lost.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">MaxRuntimeInSeconds</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxWaitTimeInSeconds</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"MaxRuntimeInSeconds"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxWaitTimeInSeconds"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>An array of key-value pairs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using Cost Allocation Tags</a> in the <em>AWS Billing and Cost Management User Guide</em> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--enable-network-isolation</span></tt> | <tt class="docutils literal"><span class="pre">--no-enable-network-isolation</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Isolates the training container. No inbound or outbound network calls can be made, except for calls between peers within a training cluster for distributed training. If you enable network isolation for training jobs that are configured to use a VPC, Amazon SageMaker downloads and uploads customer data and model artifacts through the specified VPC, but the training container does not have network access.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Semantic Segmentation built-in algorithm does not support network isolation.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--enable-inter-container-traffic-encryption</span></tt> | <tt class="docutils literal"><span class="pre">--no-enable-inter-container-traffic-encryption</span></tt> (boolean)</p>
+<blockquote>
+<div>To encrypt all communications between ML compute instances in distributed training, choose <tt class="docutils literal"><span class="pre">True</span></tt> . Encryption provides greater security for distributed training, but training might take longer. How long it takes depends on the amount of communication between compute instances, especially if you use a deep learning algorithm in distributed training. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/train-encrypt.html">Protect Communications Between ML Compute Instances in a Distributed Training Job</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--enable-managed-spot-training</span></tt> | <tt class="docutils literal"><span class="pre">--no-enable-managed-spot-training</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>To train models using managed spot training, choose <tt class="docutils literal"><span class="pre">True</span></tt> . Managed spot training provides a fully managed and scalable infrastructure for training machine learning models. this option is useful when training jobs can be interrupted and when there is flexibility when the training job is run.</p>
+<p>The complete and intermediate results of jobs are stored in an Amazon S3 bucket, and can be used as a starting point to train models incrementally. Amazon SageMaker provides metrics and logs in CloudWatch. They can be used to see when managed spot training jobs are running, interrupted, resumed, or completed.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--checkpoint-config</span></tt> (structure)</p>
+<blockquote>
+<div>Contains information about the output location for managed spot training checkpoint data.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3Uri</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">LocalPath</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3Uri"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"LocalPath"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--debug-hook-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configuration information for the debug hook parameters, collection configuration, and storage paths.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>LocalPath=string,S3OutputPath=string,HookParameters={KeyName1=string,KeyName2=string},CollectionConfigurations=[{CollectionName=string,CollectionParameters={KeyName1=string,KeyName2=string}},{CollectionName=string,CollectionParameters={KeyName1=string,KeyName2=string}}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "LocalPath": "string",
+  "S3OutputPath": "string",
+  "HookParameters": {"string": "string"
+    ...},
+  "CollectionConfigurations": [
+    {
+      "CollectionName": "string",
+      "CollectionParameters": {"string": "string"
+        ...}
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--debug-rule-configurations</span></tt> (list)</p>
+<blockquote>
+<div>Configuration information for debugging rules.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>RuleConfigurationName=string,LocalPath=string,S3OutputPath=string,RuleEvaluatorImage=string,InstanceType=string,VolumeSizeInGB=integer,RuleParameters={KeyName1=string,KeyName2=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "RuleConfigurationName": "string",
+    "LocalPath": "string",
+    "S3OutputPath": "string",
+    "RuleEvaluatorImage": "string",
+    "InstanceType": "ml.t3.medium"|"ml.t3.large"|"ml.t3.xlarge"|"ml.t3.2xlarge"|"ml.m4.xlarge"|"ml.m4.2xlarge"|"ml.m4.4xlarge"|"ml.m4.10xlarge"|"ml.m4.16xlarge"|"ml.c4.xlarge"|"ml.c4.2xlarge"|"ml.c4.4xlarge"|"ml.c4.8xlarge"|"ml.p2.xlarge"|"ml.p2.8xlarge"|"ml.p2.16xlarge"|"ml.p3.2xlarge"|"ml.p3.8xlarge"|"ml.p3.16xlarge"|"ml.c5.xlarge"|"ml.c5.2xlarge"|"ml.c5.4xlarge"|"ml.c5.9xlarge"|"ml.c5.18xlarge"|"ml.m5.large"|"ml.m5.xlarge"|"ml.m5.2xlarge"|"ml.m5.4xlarge"|"ml.m5.12xlarge"|"ml.m5.24xlarge"|"ml.r5.large"|"ml.r5.xlarge"|"ml.r5.2xlarge"|"ml.r5.4xlarge"|"ml.r5.8xlarge"|"ml.r5.12xlarge"|"ml.r5.16xlarge"|"ml.r5.24xlarge",
+    "VolumeSizeInGB": integer,
+    "RuleParameters": {"string": "string"
+      ...}
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tensor-board-output-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configuration of storage locations for TensorBoard output.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">LocalPath</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3OutputPath</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"LocalPath"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3OutputPath"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--experiment-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configuration for the experiment.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ExperimentName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TrialName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TrialComponentDisplayName</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ExperimentName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TrialName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TrialComponentDisplayName"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>TrainingJobArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the training job.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

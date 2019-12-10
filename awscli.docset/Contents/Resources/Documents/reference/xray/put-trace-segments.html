@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-trace-segments — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="xray" href="index.html">
+    <link rel="next" title="update-group" href="update-group.html">
+    <link rel="prev" title="put-telemetry-records" href="put-telemetry-records.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-trace-segments">
+<span id="cli-aws-xray-put-trace-segments"></span><h1>put-trace-segments<a class="headerlink" href="#put-trace-segments" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Uploads segment documents to AWS X-Ray. The X-Ray SDK generates segment documents and sends them to the X-Ray daemon, which uploads them in batches. A segment document can be a completed segment, an in-progress segment, or an array of subsegments.</p>
+<p>Segments must include the following fields. For the full segment document schema, see <a class="reference external" href="https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html">AWS X-Ray Segment Documents</a> in the <em>AWS X-Ray Developer Guide</em> .</p>
+<blockquote>
+<div><strong>Required Segment Document Fields</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">name</span></tt> - The name of the service that handled the request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">id</span></tt> - A 64-bit identifier for the segment, unique among segments in the same trace, in 16 hexadecimal digits.</li>
+<li>
+<tt class="docutils literal"><span class="pre">trace_id</span></tt> - A unique identifier that connects all segments and subsegments originating from a single client request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">start_time</span></tt> - Time the segment or subsegment was created, in floating point seconds in epoch time, accurate to milliseconds. For example, <tt class="docutils literal"><span class="pre">1480615200.010</span></tt> or <tt class="docutils literal"><span class="pre">1.480615200010E9</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">end_time</span></tt> - Time the segment or subsegment was closed. For example, <tt class="docutils literal"><span class="pre">1480615200.090</span></tt> or <tt class="docutils literal"><span class="pre">1.480615200090E9</span></tt> . Specify either an <tt class="docutils literal"><span class="pre">end_time</span></tt> or <tt class="docutils literal"><span class="pre">in_progress</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">in_progress</span></tt> - Set to <tt class="docutils literal"><span class="pre">true</span></tt> instead of specifying an <tt class="docutils literal"><span class="pre">end_time</span></tt> to record that a segment has been started, but is not complete. Send an in progress segment when your application receives a request that will take a long time to serve, to trace the fact that the request was received. When the response is sent, send the complete segment to overwrite the in-progress segment.</li>
+</ul>
+<p>A <tt class="docutils literal"><span class="pre">trace_id</span></tt> consists of three numbers separated by hyphens. For example, 1-58406520-a006649127e371903a2de979. This includes:</p>
+<blockquote>
+<div><strong>Trace ID Format</strong></div>
+</blockquote>
+<ul class="simple">
+<li>The version number, i.e. <tt class="docutils literal"><span class="pre">1</span></tt> .</li>
+<li>The time of the original request, in Unix epoch time, in 8 hexadecimal digits. For example, 10:00AM December 2nd, 2016 PST in epoch time is <tt class="docutils literal"><span class="pre">1480615200</span></tt> seconds, or <tt class="docutils literal"><span class="pre">58406520</span></tt> in hexadecimal.</li>
+<li>A 96-bit identifier for the trace, globally unique, in 24 hexadecimal digits.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/xray-2016-04-12/PutTraceSegments">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-trace-segments
+--trace-segment-documents &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--trace-segment-documents</span></tt> (list)</p>
+<blockquote>
+<div>A string containing a JSON document defining one or more segments or subsegments.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To upload a segment</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-trace-segments</span></tt> example uploads segment documents to AWS X-Ray. The segment document is consumed as a list of JSON segment documents.</p>
+<div class="highlight-python">
+<pre>aws xray put-trace-segments \
+    --trace-segment-documents "{\"id\":\"20312a0e2b8809f4\",\"name\":\"DynamoDB\",\"trace_id\":\"1-5832862d-a43aafded3334a971fe312db\",\"start_time\":1.479706157195E9,\"end_time\":1.479706157202E9,\"parent_id\":\"79736b962fe3239e\",\"http\":{\"response\":{\"content_length\":60,\"status\":200}},\"inferred\":true,\"aws\":{\"consistent_read\":false,\"table_name\":\"scorekeep-session-xray\",\"operation\":\"GetItem\",\"request_id\":\"SCAU23OM6M8FO38UASGC7785ARVV4KQNSO5AEMVJF66Q9ASUAAJG\",\"resource_names\":[\"scorekeep-session-xray\"]},\"origin\":\"AWS::DynamoDB::Table\"}"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"UnprocessedTraceSegments"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/en_pv/xray/latest/devguide/xray-api-sendingdata.html#xray-api-segments">Sending Trace Data to AWS X-Ray</a> in the <em>AWS X-Ray Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>UnprocessedTraceSegments -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Segments that failed processing.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a segment that failed processing.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The segment's ID.</div>
+</blockquote>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The error that caused processing to fail.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The error message.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

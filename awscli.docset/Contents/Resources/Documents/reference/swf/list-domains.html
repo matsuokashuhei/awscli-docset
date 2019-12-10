@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-domains — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="swf" href="index.html">
+    <link rel="next" title="list-open-workflow-executions" href="list-open-workflow-executions.html">
+    <link rel="prev" title="list-closed-workflow-executions" href="list-closed-workflow-executions.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-domains">
+<span id="cli-aws-swf-list-domains"></span><h1>list-domains<a class="headerlink" href="#list-domains" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns the list of domains registered in the account. The results may be split into multiple pages. To retrieve subsequent pages, make the call again using the nextPageToken returned by the initial call.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>This operation is eventually consistent. The results are best effort and may not exactly reflect recent updates and changes.</div>
+</blockquote>
+<p class="last"><strong>Access Control</strong></p>
+</div>
+<p>You can use IAM policies to control this action's access to Amazon SWF resources as follows:</p>
+<ul class="simple">
+<li>Use a <tt class="docutils literal"><span class="pre">Resource</span></tt> element with the domain name to limit the action to only specified domains. The element must be set to <tt class="docutils literal"><span class="pre">arn:aws:swf::AccountID:domain/*</span></tt> , where <em>AccountID</em> is the account ID, with no dashes.</li>
+<li>Use an <tt class="docutils literal"><span class="pre">Action</span></tt> element to allow or deny permission to call this action.</li>
+<li>You cannot use an IAM policy to constrain this action's parameters.</li>
+</ul>
+<p>If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's <tt class="docutils literal"><span class="pre">cause</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">OPERATION_NOT_PERMITTED</span></tt> . For details and example IAM policies, see <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to Amazon SWF Workflows</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/ListDomains">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-domains</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">domainInfos</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-domains
+--registration-status &lt;value&gt;
+[--reverse-order | --no-reverse-order]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--registration-status</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the registration status of the domains to list.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">REGISTERED</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DEPRECATED</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--reverse-order</span></tt> | <tt class="docutils literal"><span class="pre">--no-reverse-order</span></tt> (boolean)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">true</span></tt> , returns the results in reverse order. By default, the results are returned in ascending alphabetical order by <tt class="docutils literal"><span class="pre">name</span></tt> of the domains.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<div class="section" id="listing-your-domains">
+<h3>Listing your Domains<a class="headerlink" href="#listing-your-domains" title="Permalink to this headline">¶</a>
+</h3>
+<p>To list the SWF domains that you have registered for your account, you can use <tt class="docutils literal"><span class="pre">swf</span> <span class="pre">list-domains</span></tt>. There is only one
+required parameter: <tt class="docutils literal"><span class="pre">--registration-status</span></tt>, which you can set to either <tt class="docutils literal"><span class="pre">REGISTERED</span></tt> or <tt class="docutils literal"><span class="pre">DEPRECATED</span></tt>.</p>
+<p>Here's a typical example:</p>
+<div class="highlight-python">
+<pre>aws swf list-domains --registration-status REGISTERED</pre>
+</div>
+<p>Result:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"domainInfos"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"REGISTERED"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"DataFrobotz"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"REGISTERED"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"erontest"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you set <tt class="docutils literal"><span class="pre">--registration-status</span></tt> to <tt class="docutils literal"><span class="pre">DEPRECATED</span></tt>, you will see deprecated domains (domains that can not register
+new workflows or activities, but that can still be queried). For example:</p>
+<div class="highlight-python">
+<pre>aws swf list-domains --registration-status DEPRECATED</pre>
+</div>
+<p>Result:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"domainInfos"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"DEPRECATED"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"MyNeatNewDomain"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you have many domains, you can set the <tt class="docutils literal"><span class="pre">--maximum-page-size</span></tt> option to limit the number of results returned. If
+there are more results to return than the maximum number that you specified, you will receive a <tt class="docutils literal"><span class="pre">nextPageToken</span></tt> that
+you can send to the next call to <tt class="docutils literal"><span class="pre">list-domains</span></tt> to retrieve additional entries.</p>
+<p>Here's an example of using <tt class="docutils literal"><span class="pre">--maximum-page-size</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws swf list-domains --registration-status REGISTERED --maximum-page-size 1</pre>
+</div>
+<p>Result:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"domainInfos"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"REGISTERED"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"DataFrobotz"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"nextPageToken"</span><span class="p">:</span> <span class="s2">"AAAAKgAAAAEAAAAAAAAAA2QJKNtidVgd49TTeNwYcpD+QKT2ynuEbibcQWe2QKrslMGe63gpS0MgZGpcpoKttL4OCXRFn98Xif557it+wSZUsvUDtImjDLvguyuyyFdIZtvIxIKEOPm3k2r4OjAGaFsGOuVbrKljvla7wdU7FYH3OlkNCP8b7PBj9SBkUyGoiAghET74P93AuVIIkdKGtQ=="</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When you make the call again, this time supplying the value of <tt class="docutils literal"><span class="pre">nextPageToken</span></tt> in the <tt class="docutils literal"><span class="pre">--next-page-token</span></tt> argument,
+you'll get another page of results:</p>
+<div class="highlight-python">
+<pre>aws swf list-domains --registration-status REGISTERED --maximum-page-size 1 --next-page-token "AAAAKgAAAAEAAAAAAAAAA2QJKNtidVgd49TTeNwYcpD+QKT2ynuEbibcQWe2QKrslMGe63gpS0MgZGpcpoKttL4OCXRFn98Xif557it+wSZUsvUDtImjDLvguyuyyFdIZtvIxIKEOPm3k2r4OjAGaFsGOuVbrKljvla7wdU7FYH3OlkNCP8b7PBj9SBkUyGoiAghET74P93AuVIIkdKGtQ=="</pre>
+</div>
+<p>Result:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"domainInfos"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"REGISTERED"</span><span class="p">,</span>
+      <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"erontest"</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When there are no further pages of results to retrieve, <tt class="docutils literal"><span class="pre">nextPageToken</span></tt> will not be returned in the results.</p>
+</div>
+<div class="section" id="see-also">
+<h3>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a>
+</h3>
+<ul class="simple">
+<li>
+<a class="reference external" href="http://docs.aws.amazon.com/amazonswf/latest/apireference/API_ListDomains.html">ListDomains</a>
+in the <em>Amazon Simple Workflow Service API Reference</em>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>domainInfos -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of DomainInfo structures.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains general information about a domain.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the domain. This name is unique within the account.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the domain:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">REGISTERED</span></tt> – The domain is properly registered and available. You can use this domain for registering types and creating new workflow executions.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DEPRECATED</span></tt> – The domain was deprecated using  DeprecateDomain , but is still in use. You should not create new workflow executions in this domain.</li>
+</ul>
+</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>The description of the domain provided through  RegisterDomain .</div>
+</blockquote>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the domain.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextPageToken -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If a <tt class="docutils literal"><span class="pre">NextPageToken</span></tt> was returned by a previous call, there are more results available. To retrieve the next page of results, make the call again using the returned token in <tt class="docutils literal"><span class="pre">nextPageToken</span></tt> . Keep all other arguments unchanged.</p>
+<p>The configured <tt class="docutils literal"><span class="pre">maximumPageSize</span></tt> determines how many results can be returned in a single call.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

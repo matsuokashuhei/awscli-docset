@@ -1,0 +1,544 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>compare-faces — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="create-collection" href="create-collection.html">
+    <link rel="prev" title="rekognition" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="compare-faces">
+<span id="cli-aws-rekognition-compare-faces"></span><h1>compare-faces<a class="headerlink" href="#compare-faces" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Compares a face in the <em>source</em> input image with each of the 100 largest faces detected in the <em>target</em> input image.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the source image contains multiple faces, the service detects the largest face and compares it with each face detected in the target image.</p>
+</div>
+<p>You pass the input and target images either as base64-encoded image bytes or as references to images in an Amazon S3 bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes isn't supported. The image must be formatted as a PNG or JPEG file.</p>
+<p>In response, the operation returns an array of face matches ordered by similarity score in descending order. For each face match, the response provides a bounding box of the face, facial landmarks, pose details (pitch, role, and yaw), quality (brightness and sharpness), and confidence value (indicating the level of confidence that the bounding box contains a face). The response also provides a similarity score, which indicates how closely the faces match.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>By default, only faces with a similarity score of greater than or equal to 80% are returned in the response. You can change this value by specifying the <tt class="docutils literal"><span class="pre">SimilarityThreshold</span></tt> parameter.</div>
+</blockquote>
+<p class="last"><tt class="docutils literal"><span class="pre">CompareFaces</span></tt> also returns an array of faces that don't match the source image. For each face, it returns a bounding box, confidence value, landmarks, pose details, and quality. The response also returns information about the face in the source image, including the bounding box of the face and confidence value.</p>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">QualityFilter</span></tt> input parameter allows you to filter out detected faces that don’t meet a required quality bar. The quality bar is based on a variety of common use cases. Use <tt class="docutils literal"><span class="pre">QualityFilter</span></tt> to set the quality bar by specifying <tt class="docutils literal"><span class="pre">LOW</span></tt> , <tt class="docutils literal"><span class="pre">MEDIUM</span></tt> , or <tt class="docutils literal"><span class="pre">HIGH</span></tt> . If you do not want to filter detected faces, specify <tt class="docutils literal"><span class="pre">NONE</span></tt> . The default value is <tt class="docutils literal"><span class="pre">NONE</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To use quality filtering, you need a collection associated with version 3 of the face model or higher. To get the version of the face model associated with a collection, call  DescribeCollection .</p>
+</div>
+<p>If the image doesn't contain Exif metadata, <tt class="docutils literal"><span class="pre">CompareFaces</span></tt> returns orientation information for the source and target images. Use these values to display the images with the correct image orientation.</p>
+<p>If no faces are detected in the source or target images, <tt class="docutils literal"><span class="pre">CompareFaces</span></tt> returns an <tt class="docutils literal"><span class="pre">InvalidParameterException</span></tt> error.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is a stateless API operation. That is, data returned by this operation doesn't persist.</p>
+</div>
+<p>For an example, see Comparing Faces in Images in the Amazon Rekognition Developer Guide.</p>
+<p>This operation requires permissions to perform the <tt class="docutils literal"><span class="pre">rekognition:CompareFaces</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/CompareFaces">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  compare-faces
+[--source-image &lt;value&gt;]
+[--target-image &lt;value&gt;]
+[--similarity-threshold &lt;value&gt;]
+[--quality-filter &lt;value&gt;]
+[--target-image-bytes &lt;value&gt;]
+[--source-image-bytes &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--source-image</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.</p>
+<p>If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the <tt class="docutils literal"><span class="pre">Bytes</span></tt> field. For more information, see Images in the Amazon Rekognition developer guide.</p>
+<p>To specify a local file use <tt class="docutils literal"><span class="pre">--source-image-bytes</span></tt> instead.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Bytes=blob,S3Object={Bucket=string,Name=string,Version=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bytes"</span><span class="p">:</span> <span class="n">blob</span><span class="p">,</span>
+  <span class="s2">"S3Object"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--target-image</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The target image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.</p>
+<p>If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the <tt class="docutils literal"><span class="pre">Bytes</span></tt> field. For more information, see Images in the Amazon Rekognition developer guide.</p>
+<p>To specify a local file use <tt class="docutils literal"><span class="pre">--target-image-bytes</span></tt> instead.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Bytes=blob,S3Object={Bucket=string,Name=string,Version=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bytes"</span><span class="p">:</span> <span class="n">blob</span><span class="p">,</span>
+  <span class="s2">"S3Object"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--similarity-threshold</span></tt> (float)</p>
+<blockquote>
+<div>The minimum level of confidence in the face matches that a match must meet to be included in the <tt class="docutils literal"><span class="pre">FaceMatches</span></tt> array.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--quality-filter</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A filter that specifies a quality bar for how much filtering is done to identify faces. Filtered faces aren't compared. If you specify <tt class="docutils literal"><span class="pre">AUTO</span></tt> , Amazon Rekognition chooses the quality bar. If you specify <tt class="docutils literal"><span class="pre">LOW</span></tt> , <tt class="docutils literal"><span class="pre">MEDIUM</span></tt> , or <tt class="docutils literal"><span class="pre">HIGH</span></tt> , filtering removes all faces that don’t meet the chosen quality bar. The quality bar is based on a variety of common use cases. Low-quality detections can occur for a number of reasons. Some examples are an object that's misidentified as a face, a face that's too blurry, or a face with a pose that's too extreme to use. If you specify <tt class="docutils literal"><span class="pre">NONE</span></tt> , no filtering is performed. The default value is <tt class="docutils literal"><span class="pre">NONE</span></tt> .</p>
+<p>To use quality filtering, the collection you are using must be associated with version 3 of the face model or higher.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NONE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AUTO</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LOW</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">MEDIUM</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HIGH</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--target-image-bytes</span></tt> (blob)</p>
+<blockquote>
+<div>The content of the image to be uploaded. To specify the content of a local file use the fileb:// prefix. Example: fileb://image.png</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-image-bytes</span></tt> (blob)</p>
+<blockquote>
+<div>The content of the image to be uploaded. To specify the content of a local file use the fileb:// prefix. Example: fileb://image.png</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To compare faces in two images</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">compare-faces</span></tt> command compares faces in two images stored in an Amazon S3 bucket.</p>
+<div class="highlight-python">
+<pre>aws rekognition compare-faces \
+    --source-image '{"S3Object":{"Bucket":"MyImageS3Bucket","Name":"source.jpg"}}' \
+    --target-image '{"S3Object":{"Bucket":"MyImageS3Bucket","Name":"target.jpg"}}'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"UnmatchedFaces"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"FaceMatches"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Face"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.12368916720151901</span><span class="p">,</span>
+                    <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.16007372736930847</span><span class="p">,</span>
+                    <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.5901257991790771</span><span class="p">,</span>
+                    <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.25140416622161865</span>
+                <span class="p">},</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
+                <span class="s2">"Pose"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Yaw"</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.7351467609405518</span><span class="p">,</span>
+                    <span class="s2">"Roll"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.10309021919965744</span><span class="p">,</span>
+                    <span class="s2">"Pitch"</span><span class="p">:</span> <span class="mf">0.8637830018997192</span>
+                <span class="p">},</span>
+                <span class="s2">"Quality"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Sharpness"</span><span class="p">:</span> <span class="mf">95.51618957519531</span><span class="p">,</span>
+                    <span class="s2">"Brightness"</span><span class="p">:</span> <span class="mf">65.29893493652344</span>
+                <span class="p">},</span>
+                <span class="s2">"Landmarks"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26721030473709106</span><span class="p">,</span>
+                        <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6204193830490112</span><span class="p">,</span>
+                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeLeft"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26831310987472534</span><span class="p">,</span>
+                        <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6776827573776245</span><span class="p">,</span>
+                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeRight"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3514654338359833</span><span class="p">,</span>
+                        <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6241428852081299</span><span class="p">,</span>
+                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthLeft"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.35258132219314575</span><span class="p">,</span>
+                        <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6713621020317078</span><span class="p">,</span>
+                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthRight"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3140771687030792</span><span class="p">,</span>
+                        <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6428444981575012</span><span class="p">,</span>
+                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"nose"</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">"Similarity"</span><span class="p">:</span> <span class="mf">100.0</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"SourceImageFace"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.12368916720151901</span><span class="p">,</span>
+            <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.16007372736930847</span><span class="p">,</span>
+            <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.5901257991790771</span><span class="p">,</span>
+            <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.25140416622161865</span>
+        <span class="p">},</span>
+        <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">100.0</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/faces-comparefaces.html">Comparing Faces in Images</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>SourceImageFace -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The face in the source image that was used for comparison.</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box of the face.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Confidence level that the selected bounding box contains a face.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>FaceMatches -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of faces in the target image that match the source image face. Each <tt class="docutils literal"><span class="pre">CompareFacesMatch</span></tt> object provides the bounding box, the confidence level that the bounding box contains a face, and the similarity score for the face in the bounding box and the face in the source image.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides information about a face in a target image that matches the source image face analyzed by <tt class="docutils literal"><span class="pre">CompareFaces</span></tt> . The <tt class="docutils literal"><span class="pre">Face</span></tt> property contains the bounding box of the face in the target image. The <tt class="docutils literal"><span class="pre">Similarity</span></tt> property is the confidence that the source image face matches the face in the bounding box.</p>
+<p>Similarity -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence that the faces match.</div>
+</blockquote>
+<p>Face -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides face metadata (bounding box and confidence that the bounding box actually contains a face).</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box of the face.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence that what the bounding box contains is a face.</div>
+</blockquote>
+<p>Landmarks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of facial landmarks.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Indicates the location of the landmark on the face.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of landmark.</div>
+</blockquote>
+<p>X -&gt; (float)</p>
+<blockquote>
+<div>The x-coordinate from the top left of the landmark expressed as the ratio of the width of the image. For example, if the image is 700 x 200 and the x-coordinate of the landmark is at 350 pixels, this value is 0.5.</div>
+</blockquote>
+<p>Y -&gt; (float)</p>
+<blockquote>
+<div>The y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the image is 700 x 200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Pose -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates the pose of the face as determined by its pitch, roll, and yaw.</p>
+<p>Roll -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the roll axis.</div>
+</blockquote>
+<p>Yaw -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the yaw axis.</div>
+</blockquote>
+<p>Pitch -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the pitch axis.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Quality -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies face image brightness and sharpness.</p>
+<p>Brightness -&gt; (float)</p>
+<blockquote>
+<div>Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a brighter face image.</div>
+</blockquote>
+<p>Sharpness -&gt; (float)</p>
+<blockquote>
+<div>Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a sharper face image.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>UnmatchedFaces -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of faces in the target image that did not match the source image face.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides face metadata for target image faces that are analyzed by <tt class="docutils literal"><span class="pre">CompareFaces</span></tt> and <tt class="docutils literal"><span class="pre">RecognizeCelebrities</span></tt> .</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box of the face.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence that what the bounding box contains is a face.</div>
+</blockquote>
+<p>Landmarks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of facial landmarks.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Indicates the location of the landmark on the face.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of landmark.</div>
+</blockquote>
+<p>X -&gt; (float)</p>
+<blockquote>
+<div>The x-coordinate from the top left of the landmark expressed as the ratio of the width of the image. For example, if the image is 700 x 200 and the x-coordinate of the landmark is at 350 pixels, this value is 0.5.</div>
+</blockquote>
+<p>Y -&gt; (float)</p>
+<blockquote>
+<div>The y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the image is 700 x 200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Pose -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates the pose of the face as determined by its pitch, roll, and yaw.</p>
+<p>Roll -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the roll axis.</div>
+</blockquote>
+<p>Yaw -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the yaw axis.</div>
+</blockquote>
+<p>Pitch -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the pitch axis.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Quality -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies face image brightness and sharpness.</p>
+<p>Brightness -&gt; (float)</p>
+<blockquote>
+<div>Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a brighter face image.</div>
+</blockquote>
+<p>Sharpness -&gt; (float)</p>
+<blockquote>
+<div>Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a sharper face image.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SourceImageOrientationCorrection -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of <tt class="docutils literal"><span class="pre">SourceImageOrientationCorrection</span></tt> is always null.</p>
+<p>If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata.</p>
+<p>Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.</p>
+</div>
+</blockquote>
+<p>TargetImageOrientationCorrection -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of <tt class="docutils literal"><span class="pre">TargetImageOrientationCorrection</span></tt> is always null.</p>
+<p>If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata.</p>
+<p>Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-stream — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kinesis" href="index.html">
+    <link rel="next" title="describe-stream-consumer" href="describe-stream-consumer.html">
+    <link rel="prev" title="describe-limits" href="describe-limits.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-stream">
+<span id="cli-aws-kinesis-describe-stream"></span><h1>describe-stream<a class="headerlink" href="#describe-stream" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the specified Kinesis data stream.</p>
+<p>The information returned includes the stream name, Amazon Resource Name (ARN), creation time, enhanced metric configuration, and shard map. The shard map is an array of shard objects. For each shard object, there is the hash key and sequence number ranges that the shard spans, and the IDs of any earlier shards that played in a role in creating the shard. Every record ingested in the stream is identified by a sequence number, which is assigned when the record is put into the stream.</p>
+<p>You can limit the number of shards returned by each call. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-retrieve-shards.html">Retrieving Shards from a Stream</a> in the <em>Amazon Kinesis Data Streams Developer Guide</em> .</p>
+<p>There are no guarantees about the chronological order shards returned. To process shards in chronological order, use the ID of the parent shard to track the lineage to the oldest shard.</p>
+<p>This operation has a limit of 10 transactions per second per account.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStream">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-stream</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">StreamDescription.Shards</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-stream
+--stream-name &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stream-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the stream to describe.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>StreamDescription -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The current status of the stream, the stream Amazon Resource Name (ARN), an array of shard objects that comprise the stream, and whether there are more shards available.</p>
+<p>StreamName -&gt; (string)</p>
+<blockquote>
+<div>The name of the stream being described.</div>
+</blockquote>
+<p>StreamARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the stream being described.</div>
+</blockquote>
+<p>StreamStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The current status of the stream being described. The stream status is one of the following states:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CREATING</span></tt> - The stream is being created. Kinesis Data Streams immediately returns and sets <tt class="docutils literal"><span class="pre">StreamStatus</span></tt> to <tt class="docutils literal"><span class="pre">CREATING</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">DELETING</span></tt> - The stream is being deleted. The specified stream is in the <tt class="docutils literal"><span class="pre">DELETING</span></tt> state until Kinesis Data Streams completes the deletion.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ACTIVE</span></tt> - The stream exists and is ready for read and write operations or deletion. You should perform read and write operations only on an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> stream.</li>
+<li>
+<tt class="docutils literal"><span class="pre">UPDATING</span></tt> - Shards in the stream are being merged or split. Read and write operations continue to work while the stream is in the <tt class="docutils literal"><span class="pre">UPDATING</span></tt> state.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shards -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The shards that comprise the stream.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A uniquely identified group of data records in a Kinesis data stream.</p>
+<p>ShardId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier of the shard within the stream.</div>
+</blockquote>
+<p>ParentShardId -&gt; (string)</p>
+<blockquote>
+<div>The shard ID of the shard's parent.</div>
+</blockquote>
+<p>AdjacentParentShardId -&gt; (string)</p>
+<blockquote>
+<div>The shard ID of the shard adjacent to the shard's parent.</div>
+</blockquote>
+<p>HashKeyRange -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The range of possible hash key values for the shard, which is a set of ordered contiguous positive integers.</p>
+<p>StartingHashKey -&gt; (string)</p>
+<blockquote>
+<div>The starting hash key of the hash key range.</div>
+</blockquote>
+<p>EndingHashKey -&gt; (string)</p>
+<blockquote>
+<div>The ending hash key of the hash key range.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SequenceNumberRange -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The range of possible sequence numbers for the shard.</p>
+<p>StartingSequenceNumber -&gt; (string)</p>
+<blockquote>
+<div>The starting sequence number for the range.</div>
+</blockquote>
+<p>EndingSequenceNumber -&gt; (string)</p>
+<blockquote>
+<div>The ending sequence number for the range. Shards that are in the OPEN state have an ending sequence number of <tt class="docutils literal"><span class="pre">null</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HasMoreShards -&gt; (boolean)</p>
+<blockquote>
+<div>If set to <tt class="docutils literal"><span class="pre">true</span></tt> , more shards in the stream are available to describe.</div>
+</blockquote>
+<p>RetentionPeriodHours -&gt; (integer)</p>
+<blockquote>
+<div>The current retention period, in hours.</div>
+</blockquote>
+<p>StreamCreationTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The approximate time that the stream was created.</div>
+</blockquote>
+<p>EnhancedMonitoring -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Represents the current enhanced monitoring settings of the stream.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents enhanced metrics types.</p>
+<p>ShardLevelMetrics -&gt; (list)</p>
+<blockquote>
+<div>
+<p>List of shard-level metrics.</p>
+<p>The following are the valid shard-level metrics. The value "<tt class="docutils literal"><span class="pre">ALL</span></tt> " enhances every metric.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">IncomingBytes</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">IncomingRecords</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">OutgoingBytes</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">OutgoingRecords</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">WriteProvisionedThroughputExceeded</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ReadProvisionedThroughputExceeded</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">IteratorAgeMilliseconds</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ALL</span></tt></li>
+</ul>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html">Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch</a> in the <em>Amazon Kinesis Data Streams Developer Guide</em> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EncryptionType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The server-side encryption type used on the stream. This parameter can be one of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">NONE</span></tt> : Do not encrypt the records in the stream.</li>
+<li>
+<tt class="docutils literal"><span class="pre">KMS</span></tt> : Use server-side encryption on the records in the stream using a customer-managed AWS KMS key.</li>
+</ul>
+</div>
+</blockquote>
+<p>KeyId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique identifier, a fully specified ARN to either an alias or a key, or an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias <tt class="docutils literal"><span class="pre">aws/kinesis</span></tt> .</p>
+<ul class="simple">
+<li>Key ARN example: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</span></tt>
+</li>
+<li>Alias ARN example: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-1:123456789012:alias/MyAliasName</span></tt>
+</li>
+<li>Globally unique key ID example: <tt class="docutils literal"><span class="pre">12345678-1234-1234-1234-123456789012</span></tt>
+</li>
+<li>Alias name example: <tt class="docutils literal"><span class="pre">alias/MyAliasName</span></tt>
+</li>
+<li>Master key owned by Kinesis Data Streams: <tt class="docutils literal"><span class="pre">alias/aws/kinesis</span></tt>
+</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

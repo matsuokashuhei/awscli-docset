@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-dataset — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iotanalytics" href="index.html">
+    <link rel="next" title="create-dataset-content" href="create-dataset-content.html">
+    <link rel="prev" title="create-channel" href="create-channel.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-dataset">
+<span id="cli-aws-iotanalytics-create-dataset"></span><h1>create-dataset<a class="headerlink" href="#create-dataset" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a data set. A data set stores data retrieved from a data store by applying a "queryAction" (a SQL query) or a "containerAction" (executing a containerized application). This operation creates the skeleton of a data set. The data set can be populated manually by calling "CreateDatasetContent" or automatically according to a "trigger" you specify.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iotanalytics-2017-11-27/CreateDataset">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-dataset
+--dataset-name &lt;value&gt;
+--actions &lt;value&gt;
+[--triggers &lt;value&gt;]
+[--content-delivery-rules &lt;value&gt;]
+[--retention-period &lt;value&gt;]
+[--versioning-configuration &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--dataset-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the data set.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--actions</span></tt> (list)</p>
+<blockquote>
+<div>A list of actions that create the data set contents.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "actionName": "string",
+    "queryAction": {
+      "sqlQuery": "string",
+      "filters": [
+        {
+          "deltaTime": {
+            "offsetSeconds": integer,
+            "timeExpression": "string"
+          }
+        }
+        ...
+      ]
+    },
+    "containerAction": {
+      "image": "string",
+      "executionRoleArn": "string",
+      "resourceConfiguration": {
+        "computeType": "ACU_1"|"ACU_2",
+        "volumeSizeInGB": integer
+      },
+      "variables": [
+        {
+          "name": "string",
+          "stringValue": "string",
+          "doubleValue": double,
+          "datasetContentVersionValue": {
+            "datasetName": "string"
+          },
+          "outputFileUriValue": {
+            "fileName": "string"
+          }
+        }
+        ...
+      ]
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--triggers</span></tt> (list)</p>
+<blockquote>
+<div>A list of triggers. A trigger causes data set contents to be populated at a specified time interval or when another data set's contents are created. The list of triggers can be empty or contain up to five <strong>DataSetTrigger</strong> objects.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>schedule={expression=string},dataset={name=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "schedule": {
+      "expression": "string"
+    },
+    "dataset": {
+      "name": "string"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--content-delivery-rules</span></tt> (list)</p>
+<blockquote>
+<div>When data set contents are created they are delivered to destinations specified here.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "entryName": "string",
+    "destination": {
+      "iotEventsDestinationConfiguration": {
+        "inputName": "string",
+        "roleArn": "string"
+      },
+      "s3DestinationConfiguration": {
+        "bucket": "string",
+        "key": "string",
+        "glueConfiguration": {
+          "tableName": "string",
+          "databaseName": "string"
+        },
+        "roleArn": "string"
+      }
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--retention-period</span></tt> (structure)</p>
+<blockquote>
+<div>[Optional] How long, in days, versions of data set contents are kept for the data set. If not specified or set to null, versions of data set contents are retained for at most 90 days. The number of versions of data set contents retained is determined by the <tt class="docutils literal"><span class="pre">versioningConfiguration</span></tt> parameter. (For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions">https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions</a>)</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">unlimited</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">numberOfDays</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"unlimited"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"numberOfDays"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--versioning-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>[Optional] How many versions of data set contents are kept. If not specified or set to null, only the latest version plus the latest succeeded version (if they are different) are kept for the time period specified by the "retentionPeriod" parameter. (For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions">https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions</a>)</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">unlimited</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">maxVersions</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"unlimited"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"maxVersions"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>Metadata which can be used to manage the data set.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>key=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "key": "string",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a dataset</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-dataset</span></tt> example creates a dataset. A dataset stores data retrieved from a data store by applying a <tt class="docutils literal"><span class="pre">queryAction</span></tt> (a SQL query) or a <tt class="docutils literal"><span class="pre">containerAction</span></tt> (executing a containerized application). This operation creates the skeleton of a dataset. You can populate the dataset manually by calling <tt class="docutils literal"><span class="pre">CreateDatasetContent</span></tt> or automatically according to a <tt class="docutils literal"><span class="pre">trigger</span></tt> you specify.</p>
+<div class="highlight-python">
+<pre>aws iotanalytics create-dataset \
+    --cli-input-json file://create-dataset.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">create-dataset.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"datasetName"</span><span class="p">:</span> <span class="s2">"mydataset"</span><span class="p">,</span>
+    <span class="s2">"actions"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"actionName"</span><span class="p">:</span> <span class="s2">"myDatasetAction"</span><span class="p">,</span>
+            <span class="s2">"queryAction"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"sqlQuery"</span><span class="p">:</span> <span class="s2">"SELECT * FROM mydatastore"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"retentionPeriod"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"unlimited"</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">},</span>
+    <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"key"</span><span class="p">:</span> <span class="s2">"Environment"</span><span class="p">,</span>
+            <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"Production"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"datasetName"</span><span class="p">:</span> <span class="s2">"mydataset"</span><span class="p">,</span>
+    <span class="s2">"retentionPeriod"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"unlimited"</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">},</span>
+    <span class="s2">"datasetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iotanalytics:us-west-2:123456789012:dataset/mydataset"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iotanalytics/latest/APIReference/API_CreateDataset.html">CreateDataset</a> in the <em>AWS IoT Analytics API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>datasetName -&gt; (string)</p>
+<blockquote>
+<div>The name of the data set.</div>
+</blockquote>
+<p>datasetArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the data set.</div>
+</blockquote>
+<p>retentionPeriod -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>How long, in days, data set contents are kept for the data set.</p>
+<p>unlimited -&gt; (boolean)</p>
+<blockquote>
+<div>If true, message data is kept indefinitely.</div>
+</blockquote>
+<p>numberOfDays -&gt; (integer)</p>
+<blockquote>
+<div>The number of days that message data is kept. The "unlimited" parameter must be false.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

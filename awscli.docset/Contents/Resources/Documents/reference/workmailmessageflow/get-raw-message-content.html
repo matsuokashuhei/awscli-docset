@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-raw-message-content — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="workmailmessageflow" href="index.html">
+    <link rel="next" title="workspaces" href="../workspaces/index.html">
+    <link rel="prev" title="workmailmessageflow" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-raw-message-content">
+<span id="cli-aws-workmailmessageflow-get-raw-message-content"></span><h1>get-raw-message-content<a class="headerlink" href="#get-raw-message-content" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves the raw content of an in-transit email message, in MIME format.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/workmailmessageflow-2019-05-01/GetRawMessageContent">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-raw-message-content
+--message-id &lt;value&gt;
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--message-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the email message to retrieve.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the content will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get the raw content of an email message</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-raw-message-content</span></tt> example gets the raw content of an in-transit email message and sends it to a text file named <tt class="docutils literal"><span class="pre">test</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws workmailmessageflow get-raw-message-content \
+    --message-id a1b2cd34-ef5g-6h7j-kl8m-npq9012345rs \
+    test</pre>
+</div>
+<p>Contents of file <tt class="docutils literal"><span class="pre">test</span></tt> after command runs:</p>
+<div class="highlight-python">
+<pre>Subject: Hello World
+From: =?UTF-8?Q?marymajor_marymajor?= &lt;marymajor@example.com&gt;
+To: =?UTF-8?Q?mateojackson=40example=2Enet?= &lt;mateojackson@example.net&gt;
+Date: Thu, 7 Nov 2019 19:22:46 +0000
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="=_EXAMPLE+"
+References: &lt;mail.1ab23c45.5de6.7f890g123hj45678@storage.wm.amazon.com&gt;
+X-Priority: 3 (Normal)
+X-Mailer: Amazon WorkMail
+Thread-Index: EXAMPLE
+Thread-Topic: Hello World
+Message-Id: &lt;mail.1ab23c45.5de6.7f890g123hj45678@storage.wm.amazon.com&gt;
+
+This is a multi-part message in MIME format. Your mail reader does not
+understand MIME message format.
+--=_EXAMPLE+
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+hello world
+
+
+--=_EXAMPLE+
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+&lt;!DOCTYPE HTML&gt;&lt;html&gt;
+&lt;head&gt;
+&lt;meta name=3D"Generator" content=3D"Amazon WorkMail v3.0-4510"&gt;
+&lt;meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"&gt;=
+
+&lt;title&gt;testing&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p style=3D"margin: 0px; font-family: Arial, Tahoma, Helvetica, sans-seri=
+f; font-size: small;"&gt;hello world&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+--=_EXAMPLE+--</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/workmail/latest/adminguide/lambda-content.html">Retrieving Message Content with AWS Lambda</a> in the <em>Amazon WorkMail Administrator Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>messageContent -&gt; (blob)</p>
+<blockquote>
+<div>The raw content of the email message, in MIME format.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

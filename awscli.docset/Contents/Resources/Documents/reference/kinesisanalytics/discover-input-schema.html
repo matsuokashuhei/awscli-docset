@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>discover-input-schema — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kinesisanalytics" href="index.html">
+    <link rel="next" title="list-applications" href="list-applications.html">
+    <link rel="prev" title="describe-application" href="describe-application.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="discover-input-schema">
+<span id="cli-aws-kinesisanalytics-discover-input-schema"></span><h1>discover-input-schema<a class="headerlink" href="#discover-input-schema" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for version 1 of the Amazon Kinesis Data Analytics API, which only supports SQL applications. Version 2 of the API supports SQL and Java applications. For more information about version 2, see <a class="reference external" href="/kinesisanalytics/latest/apiv2/Welcome.html">Amazon Kinesis Data Analytics API V2 Documentation</a> .</p>
+</div>
+<p>Infers a schema by evaluating sample records on the specified streaming source (Amazon Kinesis stream or Amazon Kinesis Firehose delivery stream) or S3 object. In the response, the operation returns the inferred schema and also the sample records that the operation used to infer the schema.</p>
+<p>You can use the inferred schema when configuring a streaming source for your application. For conceptual information, see <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html">Configuring Application Input</a> . Note that when you create an application using the Amazon Kinesis Analytics console, the console uses this operation to infer a schema and show it in the console user interface.</p>
+<p>This operation requires permissions to perform the <tt class="docutils literal"><span class="pre">kinesisanalytics:DiscoverInputSchema</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/DiscoverInputSchema">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  discover-input-schema
+[--resource-arn &lt;value&gt;]
+[--role-arn &lt;value&gt;]
+[--input-starting-position-configuration &lt;value&gt;]
+[--s3-configuration &lt;value&gt;]
+[--input-processing-configuration &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--resource-arn</span></tt> (string)</p>
+<blockquote>
+<div>Amazon Resource Name (ARN) of the streaming source.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>ARN of the IAM role that Amazon Kinesis Analytics can assume to access the stream on your behalf.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input-starting-position-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>Point at which you want Amazon Kinesis Analytics to start reading records from the specified streaming source discovery purposes.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">InputStartingPosition</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InputStartingPosition"</span><span class="p">:</span> <span class="s2">"NOW"</span><span class="o">|</span><span class="s2">"TRIM_HORIZON"</span><span class="o">|</span><span class="s2">"LAST_STOPPED_POINT"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--s3-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>Specify this parameter to discover a schema from data in an Amazon S3 object.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">RoleARN</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BucketARN</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">FileKey</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"RoleARN"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"BucketARN"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"FileKey"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--input-processing-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>The <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html">InputProcessingConfiguration</a> to use to preprocess the records before discovering the schema of the records.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>InputLambdaProcessor={ResourceARN=string,RoleARN=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InputLambdaProcessor"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"ResourceARN"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"RoleARN"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>InputSchema -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Schema inferred from the streaming source. It identifies the format of the data in the streaming source and how each data element maps to corresponding columns in the in-application stream that you can create.</p>
+<p>RecordFormat -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the format of the records on the streaming source.</p>
+<p>RecordFormatType -&gt; (string)</p>
+<blockquote>
+<div>The type of record format.</div>
+</blockquote>
+<p>MappingParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>When configuring application input at the time of creating or updating an application, provides additional mapping information specific to the record format (such as JSON, CSV, or record fields delimited by some delimiter) on the streaming source.</p>
+<p>JSONMappingParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides additional mapping information when JSON is the record format on the streaming source.</p>
+<p>RecordRowPath -&gt; (string)</p>
+<blockquote>
+<div>Path to the top-level parent that contains the records.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CSVMappingParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides additional mapping information when the record format uses delimiters (for example, CSV).</p>
+<p>RecordRowDelimiter -&gt; (string)</p>
+<blockquote>
+<div>Row delimiter. For example, in a CSV format, <em>'n'</em> is the typical row delimiter.</div>
+</blockquote>
+<p>RecordColumnDelimiter -&gt; (string)</p>
+<blockquote>
+<div>Column delimiter. For example, in a CSV format, a comma (",") is the typical column delimiter.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RecordEncoding -&gt; (string)</p>
+<blockquote>
+<div>Specifies the encoding of the records in the streaming source. For example, UTF-8.</div>
+</blockquote>
+<p>RecordColumns -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">RecordColumn</span></tt> objects.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the mapping of each data element in the streaming source to the corresponding column in the in-application stream.</p>
+<p>Also used to describe the format of the reference data source.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>Name of the column created in the in-application input stream or reference table.</div>
+</blockquote>
+<p>Mapping -&gt; (string)</p>
+<blockquote>
+<div>Reference to the data element in the streaming input or the reference data source. This element is required if the <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_RecordFormat.html#analytics-Type-RecordFormat-RecordFormatTypel">RecordFormatType</a> is <tt class="docutils literal"><span class="pre">JSON</span></tt> .</div>
+</blockquote>
+<p>SqlType -&gt; (string)</p>
+<blockquote>
+<div>Type of column created in the in-application input stream or reference table.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ParsedInputRecords -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of elements, where each element corresponds to a row in a stream record (a stream record can have more than one row).</p>
+<p>(list)</p>
+<blockquote>
+<div>(string)</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ProcessedInputRecords -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Stream data that was modified by the processor specified in the <tt class="docutils literal"><span class="pre">InputProcessingConfiguration</span></tt> parameter.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>RawInputRecords -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Raw stream data that was sampled to infer the schema.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

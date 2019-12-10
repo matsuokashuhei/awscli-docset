@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-change-set — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudformation" href="index.html">
+    <link rel="next" title="create-stack" href="create-stack.html">
+    <link rel="prev" title="continue-update-rollback" href="continue-update-rollback.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-change-set">
+<span id="cli-aws-cloudformation-create-change-set"></span><h1>create-change-set<a class="headerlink" href="#create-change-set" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a list of changes that will be applied to a stack so that you can review the changes before executing them. You can create a change set for a stack that doesn't exist or an existing stack. If you create a change set for a stack that doesn't exist, the change set shows all of the resources that AWS CloudFormation will create. If you create a change set for an existing stack, AWS CloudFormation compares the stack's information with the information that you submit in the change set and lists the differences. Use change sets to understand which resources AWS CloudFormation will create or change, and how it will change resources in an existing stack, before you create or update a stack.</p>
+<p>To create a change set for a stack that doesn't exist, for the <tt class="docutils literal"><span class="pre">ChangeSetType</span></tt> parameter, specify <tt class="docutils literal"><span class="pre">CREATE</span></tt> . To create a change set for an existing stack, specify <tt class="docutils literal"><span class="pre">UPDATE</span></tt> for the <tt class="docutils literal"><span class="pre">ChangeSetType</span></tt> parameter. To create a change set for an import operation, specify <tt class="docutils literal"><span class="pre">IMPORT</span></tt> for the <tt class="docutils literal"><span class="pre">ChangeSetType</span></tt> parameter. After the <tt class="docutils literal"><span class="pre">CreateChangeSet</span></tt> call successfully completes, AWS CloudFormation starts creating the change set. To check the status of the change set or to review it, use the  DescribeChangeSet action.</p>
+<p>When you are satisfied with the changes the change set will make, execute the change set by using the  ExecuteChangeSet action. AWS CloudFormation doesn't make changes until you execute the change set.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-change-set
+--stack-name &lt;value&gt;
+[--template-body &lt;value&gt;]
+[--template-url &lt;value&gt;]
+[--use-previous-template | --no-use-previous-template]
+[--parameters &lt;value&gt;]
+[--capabilities &lt;value&gt;]
+[--resource-types &lt;value&gt;]
+[--role-arn &lt;value&gt;]
+[--rollback-configuration &lt;value&gt;]
+[--notification-arns &lt;value&gt;]
+[--tags &lt;value&gt;]
+--change-set-name &lt;value&gt;
+[--client-token &lt;value&gt;]
+[--description &lt;value&gt;]
+[--change-set-type &lt;value&gt;]
+[--resources-to-import &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stack-name</span></tt> (string)</p>
+<blockquote>
+<div>The name or the unique ID of the stack for which you are creating a change set. AWS CloudFormation generates the change set by comparing this stack's information with the information that you submit, such as a modified template or different parameter input values.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--template-body</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A structure that contains the body of the revised template, with a minimum length of 1 byte and a maximum length of 51,200 bytes. AWS CloudFormation generates the change set by comparing this template with the template of the stack that you specified.</p>
+<p>Conditional: You must specify only <tt class="docutils literal"><span class="pre">TemplateBody</span></tt> or <tt class="docutils literal"><span class="pre">TemplateURL</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--template-url</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The location of the file that contains the revised template. The URL must point to a template (max size: 460,800 bytes) that is located in an S3 bucket. AWS CloudFormation generates the change set by comparing this template with the stack that you specified.</p>
+<p>Conditional: You must specify only <tt class="docutils literal"><span class="pre">TemplateBody</span></tt> or <tt class="docutils literal"><span class="pre">TemplateURL</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--use-previous-template</span></tt> | <tt class="docutils literal"><span class="pre">--no-use-previous-template</span></tt> (boolean)</p>
+<blockquote>
+<div>Whether to reuse the template that is associated with the stack to create the change set.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameters</span></tt> (list)</p>
+<blockquote>
+<div>A list of <tt class="docutils literal"><span class="pre">Parameter</span></tt> structures that specify input parameters for the change set. For more information, see the  Parameter data type.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ParameterKey=string,ParameterValue=string,UsePreviousValue=boolean,ResolvedValue=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ParameterKey": "string",
+    "ParameterValue": "string",
+    "UsePreviousValue": true|false,
+    "ResolvedValue": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--capabilities</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>In some cases, you must explicitly acknowledge that your stack template contains certain capabilities in order for AWS CloudFormation to create the stack.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CAPABILITY_IAM</span></tt> and <tt class="docutils literal"><span class="pre">CAPABILITY_NAMED_IAM</span></tt>   Some stack templates might include resources that can affect permissions in your AWS account; for example, by creating new AWS Identity and Access Management (IAM) users. For those stacks, you must explicitly acknowledge this by specifying one of these capabilities. The following IAM resources require you to specify either the <tt class="docutils literal"><span class="pre">CAPABILITY_IAM</span></tt> or <tt class="docutils literal"><span class="pre">CAPABILITY_NAMED_IAM</span></tt> capability.<ul>
+<li>If you have IAM resources, you can specify either capability.</li>
+<li>If you have IAM resources with custom names, you <em>must</em> specify <tt class="docutils literal"><span class="pre">CAPABILITY_NAMED_IAM</span></tt> .</li>
+<li>If you don't specify either of these capabilities, AWS CloudFormation returns an <tt class="docutils literal"><span class="pre">InsufficientCapabilities</span></tt> error.</li>
+</ul>
+</li>
+</ul>
+<p>If your stack template contains these resources, we recommend that you review all permissions associated with them and edit their permissions if necessary.</p>
+<blockquote>
+<div>
+<ul class="simple">
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">AWS::IAM::AccessKey</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">AWS::IAM::Group</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html">AWS::IAM::InstanceProfile</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html">AWS::IAM::Policy</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html">AWS::IAM::Role</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-user.html">AWS::IAM::User</a></li>
+<li><a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html">AWS::IAM::UserToGroupAddition</a></li>
+</ul>
+</div>
+</blockquote>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities">Acknowledging IAM Resources in AWS CloudFormation Templates</a> .</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CAPABILITY_AUTO_EXPAND</span></tt>   Some template contain macros. Macros perform custom processing on templates; this can include simple actions like find-and-replace operations, all the way to extensive transformations of entire templates. Because of this, users typically create a change set from the processed template, so that they can review the changes resulting from the macros before actually creating the stack. If your stack template contains one or more macros, and you choose to create a stack directly from the processed template, without first reviewing the resulting changes in a change set, you must acknowledge this capability. This includes the <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/create-reusable-transform-function-snippets-and-add-to-your-template-with-aws-include-transform.html">AWS::Include</a> and <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-serverless.html">AWS::Serverless</a> transforms, which are macros hosted by AWS CloudFormation.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>This capacity does not apply to creating change sets, and specifying it when creating change sets has no effect. Also, change sets do not currently support nested stacks. If you want to create a stack from a stack template that contains macros <em>and</em> nested stacks, you must create or update the stack directly from the template using the  CreateStack or  UpdateStack action, and specifying this capability.</div>
+</blockquote>
+<p class="last">For more information on macros, see <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html">Using AWS CloudFormation Macros to Perform Custom Processing on Templates</a> .</p>
+</div>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  CAPABILITY_IAM
+  CAPABILITY_NAMED_IAM
+  CAPABILITY_AUTO_EXPAND</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-types</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The template resource types that you have permissions to work with if you execute this change set, such as <tt class="docutils literal"><span class="pre">AWS::EC2::Instance</span></tt> , <tt class="docutils literal"><span class="pre">AWS::EC2::*</span></tt> , or <tt class="docutils literal"><span class="pre">Custom::MyCustomInstance</span></tt> .</p>
+<p>If the list of resource types doesn't include a resource type that you're updating, the stack update fails. By default, AWS CloudFormation grants permissions to all resource types. AWS Identity and Access Management (IAM) uses this parameter for condition keys in IAM policies for AWS CloudFormation. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html">Controlling Access with AWS Identity and Access Management</a> in the AWS CloudFormation User Guide.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes when executing the change set. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS CloudFormation uses this role for all future operations on the stack. As long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.</p>
+<p>If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--rollback-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>The rollback triggers for AWS CloudFormation to monitor during stack creation and updating operations, and for the specified monitoring period afterwards.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>RollbackTriggers=[{Arn=string,Type=string},{Arn=string,Type=string}],MonitoringTimeInMinutes=integer</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "RollbackTriggers": [
+    {
+      "Arn": "string",
+      "Type": "string"
+    }
+    ...
+  ],
+  "MonitoringTimeInMinutes": integer
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--notification-arns</span></tt> (list)</p>
+<blockquote>
+<div>The Amazon Resource Names (ARNs) of Amazon Simple Notification Service (Amazon SNS) topics that AWS CloudFormation associates with the stack. To remove all associated notification topics, specify an empty list.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>Key-value pairs to associate with this stack. AWS CloudFormation also propagates these tags to resources in the stack. You can specify a maximum of 50 tags.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--change-set-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the change set. The name must be unique among all change sets that are associated with the specified stack.</p>
+<p>A change set name can contain only alphanumeric, case sensitive characters and hyphens. It must start with an alphabetic character and cannot exceed 128 characters.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>A unique identifier for this <tt class="docutils literal"><span class="pre">CreateChangeSet</span></tt> request. Specify this token if you plan to retry requests so that AWS CloudFormation knows that you're not attempting to create another change set with the same name. You might retry <tt class="docutils literal"><span class="pre">CreateChangeSet</span></tt> requests to ensure that AWS CloudFormation successfully received them.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description to help you identify this change set.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--change-set-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of change set operation. To create a change set for a new stack, specify <tt class="docutils literal"><span class="pre">CREATE</span></tt> . To create a change set for an existing stack, specify <tt class="docutils literal"><span class="pre">UPDATE</span></tt> . To create a change set for an import operation, specify <tt class="docutils literal"><span class="pre">IMPORT</span></tt> .</p>
+<p>If you create a change set for a new stack, AWS Cloudformation creates a stack with a unique stack ID, but no template or resources. The stack will be in the ` <tt class="docutils literal"><span class="pre">REVIEW_IN_PROGRESS</span></tt> <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks">https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks</a>.html#d0e11995`__ state until you execute the change set.</p>
+<p>By default, AWS CloudFormation specifies <tt class="docutils literal"><span class="pre">UPDATE</span></tt> . You can't use the <tt class="docutils literal"><span class="pre">UPDATE</span></tt> type to create a change set for a new stack or the <tt class="docutils literal"><span class="pre">CREATE</span></tt> type to create a change set for an existing stack.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CREATE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UPDATE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">IMPORT</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resources-to-import</span></tt> (list)</p>
+<blockquote>
+<div>The resources to import into your stack.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceType=string,LogicalResourceId=string,ResourceIdentifier={KeyName1=string,KeyName2=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceType": "string",
+    "LogicalResourceId": "string",
+    "ResourceIdentifier": {"string": "string"
+      ...}
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a change set</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-change-set</span></tt> example creates a change set with the <tt class="docutils literal"><span class="pre">CAPABILITY_IAM</span></tt> capability. The file <tt class="docutils literal"><span class="pre">template.yaml</span></tt> is an AWS CloudFormation template in the current folder that defines a stack that includes IAM resources.</p>
+<div class="highlight-python">
+<pre>aws cloudformation create-change-set \
+    --stack-name my-application \
+    --change-set-name my-change-set \
+    --template-body file://template.yaml \
+    --capabilities CAPABILITY_IAM</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudformation:us-west-2:123456789012:changeSet/my-change-set/bc9555ba-a949-xmpl-bfb8-f41d04ec5784"</span><span class="p">,</span>
+    <span class="s2">"StackId"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudformation:us-west-2:123456789012:stack/my-application/d0a825a0-e4cd-xmpl-b9fb-061c69e99204"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the change set.</div>
+</blockquote>
+<p>StackId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of the stack.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

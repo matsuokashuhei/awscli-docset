@@ -1,0 +1,514 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>modify-db-cluster — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="docdb" href="index.html">
+    <link rel="next" title="modify-db-cluster-parameter-group" href="modify-db-cluster-parameter-group.html">
+    <link rel="prev" title="list-tags-for-resource" href="list-tags-for-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="modify-db-cluster">
+<span id="cli-aws-docdb-modify-db-cluster"></span><h1>modify-db-cluster<a class="headerlink" href="#modify-db-cluster" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies a setting for an Amazon DocumentDB DB cluster. You can change one or more database configuration parameters by specifying these parameters and the new values in the request.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/ModifyDBCluster">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  modify-db-cluster
+--db-cluster-identifier &lt;value&gt;
+[--new-db-cluster-identifier &lt;value&gt;]
+[--apply-immediately | --no-apply-immediately]
+[--backup-retention-period &lt;value&gt;]
+[--db-cluster-parameter-group-name &lt;value&gt;]
+[--vpc-security-group-ids &lt;value&gt;]
+[--port &lt;value&gt;]
+[--master-user-password &lt;value&gt;]
+[--preferred-backup-window &lt;value&gt;]
+[--preferred-maintenance-window &lt;value&gt;]
+[--cloudwatch-logs-export-configuration &lt;value&gt;]
+[--engine-version &lt;value&gt;]
+[--deletion-protection | --no-deletion-protection]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--db-cluster-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The DB cluster identifier for the cluster that is being modified. This parameter is not case sensitive.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must match the identifier of an existing <tt class="docutils literal"><span class="pre">DBCluster</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--new-db-cluster-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The new DB cluster identifier for the DB cluster when renaming a DB cluster. This value is stored as a lowercase string.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must contain from 1 to 63 letters, numbers, or hyphens.</li>
+<li>The first character must be a letter.</li>
+<li>Cannot end with a hyphen or contain two consecutive hyphens.</li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">my-cluster2</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--apply-immediately</span></tt> | <tt class="docutils literal"><span class="pre">--no-apply-immediately</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that specifies whether the changes in this request and any pending changes are asynchronously applied as soon as possible, regardless of the <tt class="docutils literal"><span class="pre">PreferredMaintenanceWindow</span></tt> setting for the DB cluster. If this parameter is set to <tt class="docutils literal"><span class="pre">false</span></tt> , changes to the DB cluster are applied during the next maintenance window.</p>
+<p>The <tt class="docutils literal"><span class="pre">ApplyImmediately</span></tt> parameter affects only the <tt class="docutils literal"><span class="pre">NewDBClusterIdentifier</span></tt> and <tt class="docutils literal"><span class="pre">MasterUserPassword</span></tt> values. If you set this parameter value to <tt class="docutils literal"><span class="pre">false</span></tt> , the changes to the <tt class="docutils literal"><span class="pre">NewDBClusterIdentifier</span></tt> and <tt class="docutils literal"><span class="pre">MasterUserPassword</span></tt> values are applied during the next maintenance window. All other changes are applied immediately, regardless of the value of the <tt class="docutils literal"><span class="pre">ApplyImmediately</span></tt> parameter.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--backup-retention-period</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of days for which automated backups are retained. You must specify a minimum value of 1.</p>
+<p>Default: 1</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must be a value from 1 to 35.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-cluster-parameter-group-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the DB cluster parameter group to use for the DB cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc-security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>A list of virtual private cloud (VPC) security groups that the DB cluster will belong to.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The port number on which the DB cluster accepts connections.</p>
+<p>Constraints: Must be a value from <tt class="docutils literal"><span class="pre">1150</span></tt> to <tt class="docutils literal"><span class="pre">65535</span></tt> .</p>
+<p>Default: The same port as the original DB cluster.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--master-user-password</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The password for the master database user. This password can contain any printable ASCII character except forward slash (/), double quote ("), or the "at" symbol (@).</p>
+<p>Constraints: Must contain from 8 to 100 characters.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--preferred-backup-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The daily time range during which automated backups are created if automated backups are enabled, using the <tt class="docutils literal"><span class="pre">BackupRetentionPeriod</span></tt> parameter.</p>
+<p>The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must be in the format <tt class="docutils literal"><span class="pre">hh24:mi-hh24:mi</span></tt> .</li>
+<li>Must be in Universal Coordinated Time (UTC).</li>
+<li>Must not conflict with the preferred maintenance window.</li>
+<li>Must be at least 30 minutes.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--preferred-maintenance-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</p>
+<p>Format: <tt class="docutils literal"><span class="pre">ddd:hh24:mi-ddd:hh24:mi</span></tt></p>
+<p>The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring on a random day of the week.</p>
+<p>Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun</p>
+<p>Constraints: Minimum 30-minute window.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cloudwatch-logs-export-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>The configuration setting for the log types to be enabled for export to Amazon CloudWatch Logs for a specific DB instance or DB cluster. The <tt class="docutils literal"><span class="pre">EnableLogTypes</span></tt> and <tt class="docutils literal"><span class="pre">DisableLogTypes</span></tt> arrays determine which logs are exported (or not exported) to CloudWatch Logs.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">EnableLogTypes</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">DisableLogTypes</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"EnableLogTypes"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"DisableLogTypes"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--engine-version</span></tt> (string)</p>
+<blockquote>
+<div>The version number of the database engine to which you want to upgrade. Changing this parameter results in an outage. The change is applied during the next maintenance window unless the <tt class="docutils literal"><span class="pre">ApplyImmediately</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--deletion-protection</span></tt> | <tt class="docutils literal"><span class="pre">--no-deletion-protection</span></tt> (boolean)</p>
+<blockquote>
+<div>Specifies whether this cluster can be deleted. If <tt class="docutils literal"><span class="pre">DeletionProtection</span></tt> is enabled, the cluster cannot be deleted unless it is modified and <tt class="docutils literal"><span class="pre">DeletionProtection</span></tt> is disabled. <tt class="docutils literal"><span class="pre">DeletionProtection</span></tt> protects clusters from being accidentally deleted.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To modify an Amazon DocumentDB cluster</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">modify-db-cluster</span></tt> example modifies the Amazon DocumentDB cluster <tt class="docutils literal"><span class="pre">sample-cluster</span></tt> by making the retention period for automatic backups 7 days, and changing the preferred windows for both backups and maintenance. All changes are applied at the next maintenance window.</p>
+<div class="highlight-python">
+<pre>aws docdb modify-db-cluster \
+    --db-cluster-identifier sample-cluster \
+    --no-apply-immediately \
+    --backup-retention-period 7 \
+    --preferred-backup-window 18:00-18:30 \
+    --preferred-maintenance-window sun:20:00-sun:20:30</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"DBCluster"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Endpoint"</span><span class="p">:</span> <span class="s2">"sample-cluster.cluster-corcjozrlsfc.us-west-2.docdb.amazonaws.com"</span><span class="p">,</span>
+        <span class="s2">"DBClusterMembers"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"DBClusterParameterGroupStatus"</span><span class="p">:</span> <span class="s2">"in-sync"</span><span class="p">,</span>
+                <span class="s2">"DBInstanceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster"</span><span class="p">,</span>
+                <span class="s2">"IsClusterWriter"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="s2">"PromotionTier"</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"DBClusterParameterGroupStatus"</span><span class="p">:</span> <span class="s2">"in-sync"</span><span class="p">,</span>
+                <span class="s2">"DBInstanceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+                <span class="s2">"IsClusterWriter"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"PromotionTier"</span><span class="p">:</span> <span class="mi">2</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"HostedZoneId"</span><span class="p">:</span> <span class="s2">"ZNKXH85TT8WVW"</span><span class="p">,</span>
+        <span class="s2">"StorageEncrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"PreferredBackupWindow"</span><span class="p">:</span> <span class="s2">"18:00-18:30"</span><span class="p">,</span>
+        <span class="s2">"MultiAZ"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"EngineVersion"</span><span class="p">:</span> <span class="s2">"3.6.0"</span><span class="p">,</span>
+        <span class="s2">"MasterUsername"</span><span class="p">:</span> <span class="s2">"master-user"</span><span class="p">,</span>
+        <span class="s2">"ReaderEndpoint"</span><span class="p">:</span> <span class="s2">"sample-cluster.cluster-ro-corcjozrlsfc.us-west-2.docdb.amazonaws.com"</span><span class="p">,</span>
+        <span class="s2">"DBSubnetGroup"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+        <span class="s2">"LatestRestorableTime"</span><span class="p">:</span> <span class="s2">"2019-03-18T22:08:13.408Z"</span><span class="p">,</span>
+        <span class="s2">"EarliestRestorableTime"</span><span class="p">:</span> <span class="s2">"2019-03-15T20:30:47.020Z"</span><span class="p">,</span>
+        <span class="s2">"PreferredMaintenanceWindow"</span><span class="p">:</span> <span class="s2">"sun:20:00-sun:20:30"</span><span class="p">,</span>
+        <span class="s2">"AssociatedRoles"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"EnabledCloudwatchLogsExports"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"audit"</span>
+        <span class="p">],</span>
+        <span class="s2">"Engine"</span><span class="p">:</span> <span class="s2">"docdb"</span><span class="p">,</span>
+        <span class="s2">"DBClusterParameterGroup"</span><span class="p">:</span> <span class="s2">"default.docdb3.6"</span><span class="p">,</span>
+        <span class="s2">"DBClusterArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:cluster:sample-cluster"</span><span class="p">,</span>
+        <span class="s2">"BackupRetentionPeriod"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s2">"DBClusterIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster"</span><span class="p">,</span>
+        <span class="s2">"AvailabilityZones"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"us-west-2a"</span><span class="p">,</span>
+            <span class="s2">"us-west-2c"</span><span class="p">,</span>
+            <span class="s2">"us-west-2b"</span>
+        <span class="p">],</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+        <span class="s2">"DbClusterResourceId"</span><span class="p">:</span> <span class="s2">"cluster-UP4EF2PVDDFVHHDJQTYDAIGHLE"</span><span class="p">,</span>
+        <span class="s2">"ClusterCreateTime"</span><span class="p">:</span> <span class="s2">"2019-03-15T20:29:58.836Z"</span><span class="p">,</span>
+        <span class="s2">"VpcSecurityGroups"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"VpcSecurityGroupId"</span><span class="p">:</span> <span class="s2">"sg-77186e0d"</span><span class="p">,</span>
+                <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"active"</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"Port"</span><span class="p">:</span> <span class="mi">27017</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-modify.html">Modifying an Amazon DocumentDB Cluster</a> in the <em>Amazon DocumentDB Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DBCluster -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Detailed information about a DB cluster.</p>
+<p>AvailabilityZones -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides the list of Amazon EC2 Availability Zones that instances in the DB cluster can be created in.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>BackupRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the number of days for which automatic DB snapshots are retained.</div>
+</blockquote>
+<p>DBClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.</div>
+</blockquote>
+<p>DBClusterParameterGroup -&gt; (string)</p>
+<blockquote>
+<div>Specifies the name of the DB cluster parameter group for the DB cluster.</div>
+</blockquote>
+<p>DBSubnetGroup -&gt; (string)</p>
+<blockquote>
+<div>Specifies information on the subnet group that is associated with the DB cluster, including the name, description, and subnets in the subnet group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>Specifies the current state of this DB cluster.</div>
+</blockquote>
+<p>PercentProgress -&gt; (string)</p>
+<blockquote>
+<div>Specifies the progress of the operation as a percentage.</div>
+</blockquote>
+<p>EarliestRestorableTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The earliest time to which a database can be restored with point-in-time restore.</div>
+</blockquote>
+<p>Endpoint -&gt; (string)</p>
+<blockquote>
+<div>Specifies the connection endpoint for the primary instance of the DB cluster.</div>
+</blockquote>
+<p>ReaderEndpoint -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The reader endpoint for the DB cluster. The reader endpoint for a DB cluster load balances connections across the Amazon DocumentDB replicas that are available in a DB cluster. As clients request new connections to the reader endpoint, Amazon DocumentDB distributes the connection requests among the Amazon DocumentDB replicas in the DB cluster. This functionality can help balance your read workload across multiple Amazon DocumentDB replicas in your DB cluster.</p>
+<p>If a failover occurs, and the Amazon DocumentDB replica that you are connected to is promoted to be the primary instance, your connection is dropped. To continue sending your read workload to other Amazon DocumentDB replicas in the cluster, you can then reconnect to the reader endpoint.</p>
+</div>
+</blockquote>
+<p>MultiAZ -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the DB cluster has instances in multiple Availability Zones.</div>
+</blockquote>
+<p>Engine -&gt; (string)</p>
+<blockquote>
+<div>Provides the name of the database engine to be used for this DB cluster.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>Indicates the database engine version.</div>
+</blockquote>
+<p>LatestRestorableTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Specifies the latest time to which a database can be restored with point-in-time restore.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the port that the database engine is listening on.</div>
+</blockquote>
+<p>MasterUsername -&gt; (string)</p>
+<blockquote>
+<div>Contains the master user name for the DB cluster.</div>
+</blockquote>
+<p>PreferredBackupWindow -&gt; (string)</p>
+<blockquote>
+<div>Specifies the daily time range during which automated backups are created if automated backups are enabled, as determined by the <tt class="docutils literal"><span class="pre">BackupRetentionPeriod</span></tt> .</div>
+</blockquote>
+<p>PreferredMaintenanceWindow -&gt; (string)</p>
+<blockquote>
+<div>Specifies the weekly time range during which system maintenance can occur, in Universal Coordinated Time (UTC).</div>
+</blockquote>
+<p>DBClusterMembers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides the list of instances that make up the DB cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains information about an instance that is part of a DB cluster.</p>
+<p>DBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Specifies the instance identifier for this member of the DB cluster.</div>
+</blockquote>
+<p>IsClusterWriter -&gt; (boolean)</p>
+<blockquote>
+<div>A value that is <tt class="docutils literal"><span class="pre">true</span></tt> if the cluster member is the primary instance for the DB cluster and <tt class="docutils literal"><span class="pre">false</span></tt> otherwise.</div>
+</blockquote>
+<p>DBClusterParameterGroupStatus -&gt; (string)</p>
+<blockquote>
+<div>Specifies the status of the DB cluster parameter group for this member of the DB cluster.</div>
+</blockquote>
+<p>PromotionTier -&gt; (integer)</p>
+<blockquote>
+<div>A value that specifies the order in which an Amazon DocumentDB replica is promoted to the primary instance after a failure of the existing primary instance.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides a list of virtual private cloud (VPC) security groups that the DB cluster belongs to.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Used as a response element for queries on virtual private cloud (VPC) security group membership.</p>
+<p>VpcSecurityGroupId -&gt; (string)</p>
+<blockquote>
+<div>The name of the VPC security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the VPC security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HostedZoneId -&gt; (string)</p>
+<blockquote>
+<div>Specifies the ID that Amazon Route 53 assigns when you create a hosted zone.</div>
+</blockquote>
+<p>StorageEncrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the DB cluster is encrypted.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">StorageEncrypted</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , the AWS KMS key identifier for the encrypted DB cluster.</div>
+</blockquote>
+<p>DbClusterResourceId -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region-unique, immutable identifier for the DB cluster. This identifier is found in AWS CloudTrail log entries whenever the AWS KMS key for the DB cluster is accessed.</div>
+</blockquote>
+<p>DBClusterArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the DB cluster.</div>
+</blockquote>
+<p>AssociatedRoles -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Provides a list of the AWS Identity and Access Management (IAM) roles that are associated with the DB cluster. IAM roles that are associated with a DB cluster grant permission for the DB cluster to access other AWS services on your behalf.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an AWS Identity and Access Management (IAM) role that is associated with a DB cluster.</p>
+<p>RoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role that is associated with the DB cluster.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Describes the state of association between the IAM role and the DB cluster. The <tt class="docutils literal"><span class="pre">Status</span></tt> property returns one of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ACTIVE</span></tt> - The IAM role ARN is associated with the DB cluster and can be used to access other AWS services on your behalf.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PENDING</span></tt> - The IAM role ARN is being associated with the DB cluster.</li>
+<li>
+<tt class="docutils literal"><span class="pre">INVALID</span></tt> - The IAM role ARN is associated with the DB cluster, but the DB cluster cannot assume the IAM role to access other AWS services on your behalf.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ClusterCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Specifies the time when the DB cluster was created, in Universal Coordinated Time (UTC).</div>
+</blockquote>
+<p>EnabledCloudwatchLogsExports -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of log types that this DB cluster is configured to export to Amazon CloudWatch Logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>DeletionProtection -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether this cluster can be deleted. If <tt class="docutils literal"><span class="pre">DeletionProtection</span></tt> is enabled, the cluster cannot be deleted unless it is modified and <tt class="docutils literal"><span class="pre">DeletionProtection</span></tt> is disabled. <tt class="docutils literal"><span class="pre">DeletionProtection</span></tt> protects clusters from being accidentally deleted.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

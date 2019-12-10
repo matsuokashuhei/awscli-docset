@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-images — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecr" href="index.html">
+    <link rel="next" title="describe-repositories" href="describe-repositories.html">
+    <link rel="prev" title="describe-image-scan-findings" href="describe-image-scan-findings.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-images">
+<span id="cli-aws-ecr-describe-images"></span><h1>describe-images<a class="headerlink" href="#describe-images" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns metadata about the images in a repository, including image size, image tags, and creation date.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Beginning with Docker version 1.9, the Docker client compresses image layers before pushing them to a V2 Docker registry. The output of the <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">images</span></tt> command shows the uncompressed image size, so it may return a larger image size than the image sizes returned by  DescribeImages .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImages">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-images</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">imageDetails</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-images
+[--registry-id &lt;value&gt;]
+--repository-name &lt;value&gt;
+[--image-ids &lt;value&gt;]
+[--filter &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--registry-id</span></tt> (string)</p>
+<blockquote>
+<div>The AWS account ID associated with the registry that contains the repository in which to describe images. If you do not specify a registry, the default registry is assumed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--repository-name</span></tt> (string)</p>
+<blockquote>
+<div>The repository that contains the images to describe.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--image-ids</span></tt> (list)</p>
+<blockquote>
+<div>The list of image IDs for the requested repository.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>imageDigest=string,imageTag=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "imageDigest": "string",
+    "imageTag": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>The filter key and value with which to filter your <tt class="docutils literal"><span class="pre">DescribeImages</span></tt> results.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">tagStatus</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"tagStatus"</span><span class="p">:</span> <span class="s2">"TAGGED"</span><span class="o">|</span><span class="s2">"UNTAGGED"</span><span class="o">|</span><span class="s2">"ANY"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe an image in a repository</strong></p>
+<p>The folowing <tt class="docutils literal"><span class="pre">describe-images</span></tt> example displays details about an image in the <tt class="docutils literal"><span class="pre">cluster-autoscaler</span></tt> repository with the tag <tt class="docutils literal"><span class="pre">v1.13.6</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws ecr describe-images \
+    --repository-name cluster-autoscaler \
+    --image-ids imageTag=v1.13.6</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"imageDetails"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"registryId"</span><span class="p">:</span> <span class="s2">"012345678910"</span><span class="p">,</span>
+            <span class="s2">"repositoryName"</span><span class="p">:</span> <span class="s2">"cluster-autoscaler"</span><span class="p">,</span>
+            <span class="s2">"imageDigest"</span><span class="p">:</span> <span class="s2">"sha256:4a1c6567c38904384ebc64e35b7eeddd8451110c299e3368d2210066487d97e5"</span><span class="p">,</span>
+            <span class="s2">"imageTags"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"v1.13.6"</span>
+            <span class="p">],</span>
+            <span class="s2">"imageSizeInBytes"</span><span class="p">:</span> <span class="mi">48318255</span><span class="p">,</span>
+            <span class="s2">"imagePushedAt"</span><span class="p">:</span> <span class="mf">1565128275.0</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>imageDetails -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of  ImageDetail objects that contain data about the image.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that describes an image returned by a  DescribeImages operation.</p>
+<p>registryId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID associated with the registry to which this image belongs.</div>
+</blockquote>
+<p>repositoryName -&gt; (string)</p>
+<blockquote>
+<div>The name of the repository to which this image belongs.</div>
+</blockquote>
+<p>imageDigest -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">sha256</span></tt> digest of the image manifest.</div>
+</blockquote>
+<p>imageTags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of tags associated with this image.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>imageSizeInBytes -&gt; (long)</p>
+<blockquote>
+<div>
+<p>The size, in bytes, of the image in the repository.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Beginning with Docker version 1.9, the Docker client compresses image layers before pushing them to a V2 Docker registry. The output of the <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">images</span></tt> command shows the uncompressed image size, so it may return a larger image size than the image sizes returned by  DescribeImages .</p>
+</div>
+</div>
+</blockquote>
+<p>imagePushedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time, expressed in standard JavaScript date format, at which the current image was pushed to the repository.</div>
+</blockquote>
+<p>imageScanStatus -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The current state of the scan.</p>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The current state of an image scan.</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>The description of the image scan status.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>imageScanFindingsSummary -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A summary of the last completed image scan.</p>
+<p>imageScanCompletedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The time of the last completed image scan.</div>
+</blockquote>
+<p>vulnerabilitySourceUpdatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The time when the vulnerability data was last scanned.</div>
+</blockquote>
+<p>findingSeverityCounts -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The image vulnerability counts, sorted by severity.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (integer)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">nextToken</span></tt> value to include in a future <tt class="docutils literal"><span class="pre">DescribeImages</span></tt> request. When the results of a <tt class="docutils literal"><span class="pre">DescribeImages</span></tt> request exceed <tt class="docutils literal"><span class="pre">maxResults</span></tt> , this value can be used to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

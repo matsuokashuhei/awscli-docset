@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>detect-custom-labels — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="detect-faces" href="detect-faces.html">
+    <link rel="prev" title="describe-stream-processor" href="describe-stream-processor.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="detect-custom-labels">
+<span id="cli-aws-rekognition-detect-custom-labels"></span><h1>detect-custom-labels<a class="headerlink" href="#detect-custom-labels" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Detects custom labels in a supplied image by using an Amazon Rekognition Custom Labels model.</p>
+<p>You specify which version of a model version to use by using the <tt class="docutils literal"><span class="pre">ProjectVersionArn</span></tt> input parameter.</p>
+<p>You pass the input image as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be either a PNG or JPEG formatted file.</p>
+<p>For each object that the model version detects on an image, the API returns a (<tt class="docutils literal"><span class="pre">CustomLabel</span></tt> ) object in an array (<tt class="docutils literal"><span class="pre">CustomLabels</span></tt> ). Each <tt class="docutils literal"><span class="pre">CustomLabel</span></tt> object provides the label name (<tt class="docutils literal"><span class="pre">Name</span></tt> ), the level of confidence that the image contains the object (<tt class="docutils literal"><span class="pre">Confidence</span></tt> ), and object location information, if it exists, for the label on the image (<tt class="docutils literal"><span class="pre">Geometry</span></tt> ).</p>
+<p>During training model calculates a threshold value that determines if a prediction for a label is true. By default, <tt class="docutils literal"><span class="pre">DetectCustomLabels</span></tt> doesn't return labels whose confidence value is below the model's calculated threshold value. To filter labels that are returned, specify a value for <tt class="docutils literal"><span class="pre">MinConfidence</span></tt> that is higher than the model's calculated threshold. You can get the model's calculated threshold from the model's training results shown in the Amazon Rekognition Custom Labels console. To get all labels, regardless of confidence, specify a <tt class="docutils literal"><span class="pre">MinConfidence</span></tt> value of 0.</p>
+<p>You can also add the <tt class="docutils literal"><span class="pre">MaxResults</span></tt> parameter to limit the number of labels returned.</p>
+<p>This is a stateless API operation. That is, the operation does not persist any data.</p>
+<p>This operation requires permissions to perform the <tt class="docutils literal"><span class="pre">rekognition:DetectCustomLabels</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/DetectCustomLabels">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  detect-custom-labels
+--project-version-arn &lt;value&gt;
+[--image &lt;value&gt;]
+[--max-results &lt;value&gt;]
+[--min-confidence &lt;value&gt;]
+[--image-bytes &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--project-version-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the model version that you want to use.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--image</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Provides the input image either as bytes or an S3 object.</p>
+<p>You pass image bytes to an Amazon Rekognition API operation by using the <tt class="docutils literal"><span class="pre">Bytes</span></tt> property. For example, you would use the <tt class="docutils literal"><span class="pre">Bytes</span></tt> property to pass an image loaded from a local file system. Image bytes passed by using the <tt class="docutils literal"><span class="pre">Bytes</span></tt> property must be base64-encoded. Your code may not need to encode image bytes if you are using an AWS SDK to call Amazon Rekognition API operations.</p>
+<p>For more information, see Analyzing an Image Loaded from a Local File System in the Amazon Rekognition Developer Guide.</p>
+<p>You pass images stored in an S3 bucket to an Amazon Rekognition API operation by using the <tt class="docutils literal"><span class="pre">S3Object</span></tt> property. Images stored in an S3 bucket do not need to be base64-encoded.</p>
+<p>The region for the S3 bucket containing the S3 object must match the region you use for Amazon Rekognition operations.</p>
+<p>If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes using the Bytes property is not supported. You must first upload the image to an Amazon S3 bucket and then call the operation using the S3Object property.</p>
+<p>For Amazon Rekognition to process an S3 object, the user must have permission to access the S3 object. For more information, see Resource Based Policies in the Amazon Rekognition Developer Guide.</p>
+<p>To specify a local file use <tt class="docutils literal"><span class="pre">--image-bytes</span></tt> instead.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Bytes=blob,S3Object={Bucket=string,Name=string,Version=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bytes"</span><span class="p">:</span> <span class="n">blob</span><span class="p">,</span>
+  <span class="s2">"S3Object"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>Maximum number of results you want the service to return in the response. The service returns the specified number of highest confidence labels ranked from highest confidence to lowest.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--min-confidence</span></tt> (float)</p>
+<blockquote>
+<div>Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with a confidence lower than this specified value. If you specify a value of 0, all labels are return, regardless of the default thresholds that the model version applies.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--image-bytes</span></tt> (blob)</p>
+<blockquote>
+<div>The content of the image to be uploaded. To specify the content of a local file use the fileb:// prefix. Example: fileb://image.png</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CustomLabels -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of custom labels detected in the input image.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A custom label detected in an image by a call to  DetectCustomLabels .</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the custom label.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>The confidence that the model has in the detection of the custom label. The range is 0-100. A higher value indicates a higher confidence.</div>
+</blockquote>
+<p>Geometry -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location of the detected object on the image that corresponds to the custom label. Includes an axis aligned coarse bounding box surrounding the object and a finer grain polygon for more accurate spatial information.</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An axis-aligned coarse representation of the detected item's location on the image.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Polygon -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Within the bounding box, a fine-grained polygon around the detected item.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The X and Y coordinates of a point on an image. The X and Y values returned are ratios of the overall image size. For example, if the input image is 700x200 and the operation returns X=0.5 and Y=0.25, then the point is at the (350,50) pixel coordinate on the image.</p>
+<p>An array of <tt class="docutils literal"><span class="pre">Point</span></tt> objects, <tt class="docutils literal"><span class="pre">Polygon</span></tt> , is returned by  DetectText and by  DetectCustomLabels . <tt class="docutils literal"><span class="pre">Polygon</span></tt> represents a fine-grained polygon around a detected item. For more information, see Geometry in the Amazon Rekognition Developer Guide.</p>
+<p>X -&gt; (float)</p>
+<blockquote>
+<div>The value of the X coordinate for a point on a <tt class="docutils literal"><span class="pre">Polygon</span></tt> .</div>
+</blockquote>
+<p>Y -&gt; (float)</p>
+<blockquote>
+<div>The value of the Y coordinate for a point on a <tt class="docutils literal"><span class="pre">Polygon</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

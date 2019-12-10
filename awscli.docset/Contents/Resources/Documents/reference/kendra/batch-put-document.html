@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>batch-put-document — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kendra" href="index.html">
+    <link rel="next" title="create-data-source" href="create-data-source.html">
+    <link rel="prev" title="batch-delete-document" href="batch-delete-document.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="batch-put-document">
+<span id="cli-aws-kendra-batch-put-document"></span><h1>batch-put-document<a class="headerlink" href="#batch-put-document" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds one or more documents to an index.</p>
+<p>The <tt class="docutils literal"><span class="pre">BatchPutDocument</span></tt> operation enables you to ingest inline documents or a set of documents stored in an Amazon S3 bucket. Use this operation to ingest your text and unstructured text into an index, add custom attributes to the documents, and to attach an access control list to the documents added to the index.</p>
+<p>The documents are indexed asynchronously. You can see the progress of the batch using AWS CloudWatch. Any error messages related to processing the batch are sent to your AWS CloudWatch log.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kendra-2019-02-03/BatchPutDocument">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  batch-put-document
+--index-id &lt;value&gt;
+[--role-arn &lt;value&gt;]
+--documents &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--index-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the index to add the documents to. You need to create the index first using the  CreateIndex operation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of a role that is allowed to run the <tt class="docutils literal"><span class="pre">BatchPutDocument</span></tt> operation. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html">IAM Roles for Amazon Kendra</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--documents</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more documents to add to the index.</p>
+<p>Each document is limited to 5 Mb, the total size of the list is limited to 50 Mb.</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Id": "string",
+    "Title": "string",
+    "Blob": blob,
+    "S3Path": {
+      "Bucket": "string",
+      "Key": "string"
+    },
+    "Attributes": [
+      {
+        "Key": "string",
+        "Value": {
+          "StringValue": "string",
+          "StringListValue": ["string", ...],
+          "LongValue": long,
+          "DateValue": timestamp
+        }
+      }
+      ...
+    ],
+    "AccessControlList": [
+      {
+        "Name": "string",
+        "Type": "USER"|"GROUP",
+        "Access": "ALLOW"|"DENY"
+      }
+      ...
+    ],
+    "ContentType": "PDF"|"HTML"|"MS_WORD"|"PLAIN_TEXT"|"PPT"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FailedDocuments -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of documents that were not added to the index because the document failed a validation check. Each document contains an error message that indicates why the document couldn't be added to the index.</p>
+<p>If there was an error adding a document to an index the error is reported in your AWS CloudWatch log.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides information about a document that could not be indexed.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier of the document.</div>
+</blockquote>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The type of error that caused the document to fail to be indexed.</div>
+</blockquote>
+<p>ErrorMessage -&gt; (string)</p>
+<blockquote>
+<div>A description of the reason why the document could not be indexed.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

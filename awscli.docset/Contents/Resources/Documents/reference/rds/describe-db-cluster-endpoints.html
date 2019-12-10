@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-db-cluster-endpoints — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rds" href="index.html">
+    <link rel="next" title="describe-db-cluster-parameter-groups" href="describe-db-cluster-parameter-groups.html">
+    <link rel="prev" title="describe-db-cluster-backtracks" href="describe-db-cluster-backtracks.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-db-cluster-endpoints">
+<span id="cli-aws-rds-describe-db-cluster-endpoints"></span><h1>describe-db-cluster-endpoints<a class="headerlink" href="#describe-db-cluster-endpoints" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns information about endpoints for an Amazon Aurora DB cluster.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This action only applies to Aurora DB clusters.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBClusterEndpoints">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-db-cluster-endpoints</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">DBClusterEndpoints</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-db-cluster-endpoints
+[--db-cluster-identifier &lt;value&gt;]
+[--db-cluster-endpoint-identifier &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--db-cluster-identifier</span></tt> (string)</p>
+<blockquote>
+<div>The DB cluster identifier of the DB cluster associated with the endpoint. This parameter is stored as a lowercase string.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-cluster-endpoint-identifier</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the endpoint to describe. This parameter is stored as a lowercase string.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>A set of name-value pairs that define which endpoints to include in the output. The filters are specified as name-value pairs, in the format <tt class="docutils literal"><span class="pre">Name=*endpoint_type*</span> <span class="pre">,Values=*endpoint_type1*</span> <span class="pre">,*endpoint_type2*</span> <span class="pre">,...</span></tt> . <tt class="docutils literal"><span class="pre">Name</span></tt> can be one of: <tt class="docutils literal"><span class="pre">db-cluster-endpoint-type</span></tt> , <tt class="docutils literal"><span class="pre">db-cluster-endpoint-custom-type</span></tt> , <tt class="docutils literal"><span class="pre">db-cluster-endpoint-id</span></tt> , <tt class="docutils literal"><span class="pre">db-cluster-endpoint-status</span></tt> . <tt class="docutils literal"><span class="pre">Values</span></tt> for the <tt class="docutils literal"><span class="pre">db-cluster-endpoint-type</span></tt> filter can be one or more of: <tt class="docutils literal"><span class="pre">reader</span></tt> , <tt class="docutils literal"><span class="pre">writer</span></tt> , <tt class="docutils literal"><span class="pre">custom</span></tt> . <tt class="docutils literal"><span class="pre">Values</span></tt> for the <tt class="docutils literal"><span class="pre">db-cluster-endpoint-custom-type</span></tt> filter can be one or more of: <tt class="docutils literal"><span class="pre">reader</span></tt> , <tt class="docutils literal"><span class="pre">any</span></tt> . <tt class="docutils literal"><span class="pre">Values</span></tt> for the <tt class="docutils literal"><span class="pre">db-cluster-endpoint-status</span></tt> filter can be one or more of: <tt class="docutils literal"><span class="pre">available</span></tt> , <tt class="docutils literal"><span class="pre">creating</span></tt> , <tt class="docutils literal"><span class="pre">deleting</span></tt> , <tt class="docutils literal"><span class="pre">modifying</span></tt> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe DB cluster endpoints</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-db-cluster-endpoints</span></tt> example retrieves details for your DB cluster endpoints.</p>
+<div class="highlight-python">
+<pre>aws rds describe-db-cluster-endpoints</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"DBClusterEndpoints"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"DBClusterIdentifier"</span><span class="p">:</span> <span class="s2">"my-database-1"</span><span class="p">,</span>
+            <span class="s2">"Endpoint"</span><span class="p">:</span> <span class="s2">"my-database-1.cluster-cnpexample.us-east-1.rds.amazonaws.com"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"creating"</span><span class="p">,</span>
+            <span class="s2">"EndpointType"</span><span class="p">:</span> <span class="s2">"WRITER"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"DBClusterIdentifier"</span><span class="p">:</span> <span class="s2">"my-database-1"</span><span class="p">,</span>
+            <span class="s2">"Endpoint"</span><span class="p">:</span> <span class="s2">"my-database-1.cluster-ro-cnpexample.us-east-1.rds.amazonaws.com"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"creating"</span><span class="p">,</span>
+            <span class="s2">"EndpointType"</span><span class="p">:</span> <span class="s2">"READER"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"DBClusterIdentifier"</span><span class="p">:</span> <span class="s2">"mydbcluster"</span><span class="p">,</span>
+            <span class="s2">"Endpoint"</span><span class="p">:</span> <span class="s2">"mydbcluster.cluster-cnpexamle.us-east-1.rds.amazonaws.com"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+            <span class="s2">"EndpointType"</span><span class="p">:</span> <span class="s2">"WRITER"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"DBClusterIdentifier"</span><span class="p">:</span> <span class="s2">"mydbcluster"</span><span class="p">,</span>
+            <span class="s2">"Endpoint"</span><span class="p">:</span> <span class="s2">"mydbcluster.cluster-ro-cnpexample.us-east-1.rds.amazonaws.com"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+            <span class="s2">"EndpointType"</span><span class="p">:</span> <span class="s2">"READER"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Overview.Endpoints.html">Amazon Aurora Connection Management</a> in the <em>Amazon Aurora User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>An optional pagination token provided by a previous <tt class="docutils literal"><span class="pre">DescribeDBClusterEndpoints</span></tt> request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <tt class="docutils literal"><span class="pre">MaxRecords</span></tt> .</div>
+</blockquote>
+<p>DBClusterEndpoints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains the details of the endpoints associated with the cluster and matching any filter conditions.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>This data type represents the information you need to connect to an Amazon Aurora DB cluster. This data type is used as a response element in the following actions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CreateDBClusterEndpoint</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DescribeDBClusterEndpoints</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ModifyDBClusterEndpoint</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DeleteDBClusterEndpoint</span></tt></li>
+</ul>
+<p>For the data structure that represents Amazon RDS DB instance endpoints, see <tt class="docutils literal"><span class="pre">Endpoint</span></tt> .</p>
+<p>DBClusterEndpointIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The identifier associated with the endpoint. This parameter is stored as a lowercase string.</div>
+</blockquote>
+<p>DBClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The DB cluster identifier of the DB cluster associated with the endpoint. This parameter is stored as a lowercase string.</div>
+</blockquote>
+<p>DBClusterEndpointResourceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>A unique system-generated identifier for an endpoint. It remains the same for the whole life of the endpoint.</div>
+</blockquote>
+<p>Endpoint -&gt; (string)</p>
+<blockquote>
+<div>The DNS address of the endpoint.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the endpoint. One of: <tt class="docutils literal"><span class="pre">creating</span></tt> , <tt class="docutils literal"><span class="pre">available</span></tt> , <tt class="docutils literal"><span class="pre">deleting</span></tt> , <tt class="docutils literal"><span class="pre">modifying</span></tt> .</div>
+</blockquote>
+<p>EndpointType -&gt; (string)</p>
+<blockquote>
+<div>The type of the endpoint. One of: <tt class="docutils literal"><span class="pre">READER</span></tt> , <tt class="docutils literal"><span class="pre">WRITER</span></tt> , <tt class="docutils literal"><span class="pre">CUSTOM</span></tt> .</div>
+</blockquote>
+<p>CustomEndpointType -&gt; (string)</p>
+<blockquote>
+<div>The type associated with a custom endpoint. One of: <tt class="docutils literal"><span class="pre">READER</span></tt> , <tt class="docutils literal"><span class="pre">WRITER</span></tt> , <tt class="docutils literal"><span class="pre">ANY</span></tt> .</div>
+</blockquote>
+<p>StaticMembers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>List of DB instance identifiers that are part of the custom endpoint group.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ExcludedMembers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>List of DB instance identifiers that aren't part of the custom endpoint group. All other eligible instances are reachable through the custom endpoint. Only relevant if the list of static members is empty.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>DBClusterEndpointArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the endpoint.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

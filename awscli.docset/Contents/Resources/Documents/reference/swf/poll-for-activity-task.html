@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>poll-for-activity-task — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="swf" href="index.html">
+    <link rel="next" title="poll-for-decision-task" href="poll-for-decision-task.html">
+    <link rel="prev" title="list-workflow-types" href="list-workflow-types.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="poll-for-activity-task">
+<span id="cli-aws-swf-poll-for-activity-task"></span><h1>poll-for-activity-task<a class="headerlink" href="#poll-for-activity-task" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Used by workers to get an  ActivityTask from the specified activity <tt class="docutils literal"><span class="pre">taskList</span></tt> . This initiates a long poll, where the service holds the HTTP connection open and responds as soon as a task becomes available. The maximum time the service holds on to the request before responding is 60 seconds. If no task is available within 60 seconds, the poll returns an empty result. An empty result, in this context, means that an ActivityTask is returned, but that the value of taskToken is an empty string. If a task is returned, the worker should use its type to identify and process it correctly.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<blockquote>
+<div>Workers should set their client side socket timeout to at least 70 seconds (10 seconds higher than the maximum time service may hold the poll request).</div>
+</blockquote>
+<p class="last"><strong>Access Control</strong></p>
+</div>
+<p>You can use IAM policies to control this action's access to Amazon SWF resources as follows:</p>
+<ul class="simple">
+<li>Use a <tt class="docutils literal"><span class="pre">Resource</span></tt> element with the domain name to limit the action to only specified domains.</li>
+<li>Use an <tt class="docutils literal"><span class="pre">Action</span></tt> element to allow or deny permission to call this action.</li>
+<li>Constrain the <tt class="docutils literal"><span class="pre">taskList.name</span></tt> parameter by using a <tt class="docutils literal"><span class="pre">Condition</span></tt> element with the <tt class="docutils literal"><span class="pre">swf:taskList.name</span></tt> key to allow the action to access only certain task lists.</li>
+</ul>
+<p>If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's <tt class="docutils literal"><span class="pre">cause</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">OPERATION_NOT_PERMITTED</span></tt> . For details and example IAM policies, see <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to Amazon SWF Workflows</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/PollForActivityTask">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  poll-for-activity-task
+--domain &lt;value&gt;
+--task-list &lt;value&gt;
+[--identity &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--domain</span></tt> (string)</p>
+<blockquote>
+<div>The name of the domain that contains the task lists being polled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--task-list</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the task list to poll for activity tasks.</p>
+<p>The specified string must not start or end with whitespace. It must not contain a <tt class="docutils literal"><span class="pre">:</span></tt> (colon), <tt class="docutils literal"><span class="pre">/</span></tt> (slash), <tt class="docutils literal"><span class="pre">|</span></tt> (vertical bar), or any control characters (<tt class="docutils literal"><span class="pre">\u0000-\u001f</span></tt> | <tt class="docutils literal"><span class="pre">\u007f-\u009f</span></tt> ). Also, it must not <em>be</em> the literal string <tt class="docutils literal"><span class="pre">arn</span></tt> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--identity</span></tt> (string)</p>
+<blockquote>
+<div>Identity of the worker making the request, recorded in the <tt class="docutils literal"><span class="pre">ActivityTaskStarted</span></tt> event in the workflow history. This enables diagnostic tracing when problems arise. The form of this identity is user defined.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>taskToken -&gt; (string)</p>
+<blockquote>
+<div>The opaque string used as a handle on the task. This token is used by workers to communicate progress and response information back to the system about the task.</div>
+</blockquote>
+<p>activityId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID of the task.</div>
+</blockquote>
+<p>startedEventId -&gt; (long)</p>
+<blockquote>
+<div>The ID of the <tt class="docutils literal"><span class="pre">ActivityTaskStarted</span></tt> event recorded in the history.</div>
+</blockquote>
+<p>workflowExecution -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The workflow execution that started this activity task.</p>
+<p>workflowId -&gt; (string)</p>
+<blockquote>
+<div>The user defined identifier associated with the workflow execution.</div>
+</blockquote>
+<p>runId -&gt; (string)</p>
+<blockquote>
+<div>A system-generated unique identifier for the workflow execution.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>activityType -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The type of this activity task.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of this activity.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The combination of activity type name and version must be unique within a domain.</p>
+</div>
+</div>
+</blockquote>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The version of this activity.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The combination of activity type name and version must be unique with in a domain.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>input -&gt; (string)</p>
+<blockquote>
+<div>The inputs provided when the activity task was scheduled. The form of the input is user defined and should be meaningful to the activity implementation.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

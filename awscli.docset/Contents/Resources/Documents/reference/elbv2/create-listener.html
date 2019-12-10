@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-listener — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elbv2" href="index.html">
+    <link rel="next" title="create-load-balancer" href="create-load-balancer.html">
+    <link rel="prev" title="add-tags" href="add-tags.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-listener">
+<span id="cli-aws-elbv2-create-listener"></span><h1>create-listener<a class="headerlink" href="#create-listener" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a listener for the specified Application Load Balancer or Network Load Balancer.</p>
+<p>To update a listener, use  ModifyListener . When you are finished with a listener, you can delete it using  DeleteListener . If you are finished with both the listener and the load balancer, you can delete them both using  DeleteLoadBalancer .</p>
+<p>This operation is idempotent, which means that it completes at most one time. If you attempt to create multiple listeners with the same settings, each call succeeds.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html">Listeners for Your Application Load Balancers</a> in the <em>Application Load Balancers Guide</em> and <a class="reference external" href="https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-listeners.html">Listeners for Your Network Load Balancers</a> in the <em>Network Load Balancers Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateListener">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-listener
+--load-balancer-arn &lt;value&gt;
+--protocol &lt;value&gt;
+--port &lt;value&gt;
+[--ssl-policy &lt;value&gt;]
+[--certificates &lt;value&gt;]
+--default-actions &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--load-balancer-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the load balancer.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The protocol for connections from clients to the load balancer. For Application Load Balancers, the supported protocols are HTTP and HTTPS. For Network Load Balancers, the supported protocols are TCP, TLS, UDP, and TCP_UDP.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">HTTP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HTTPS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TLS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UDP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP_UDP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (integer)</p>
+<blockquote>
+<div>The port on which the load balancer is listening.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ssl-policy</span></tt> (string)</p>
+<blockquote>
+<div>[HTTPS and TLS listeners] The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--certificates</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>[HTTPS and TLS listeners] The default certificate for the listener. You must provide exactly one certificate. Set <tt class="docutils literal"><span class="pre">CertificateArn</span></tt> to the certificate ARN but do not set <tt class="docutils literal"><span class="pre">IsDefault</span></tt> .</p>
+<p>To create a certificate list for the listener, use  AddListenerCertificates .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>CertificateArn=string,IsDefault=boolean ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "CertificateArn": "string",
+    "IsDefault": true|false
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--default-actions</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The actions for the default rule. The rule must include one forward action or one or more fixed-response actions.</p>
+<p>If the action type is <tt class="docutils literal"><span class="pre">forward</span></tt> , you specify one or more target groups. The protocol of the target group must be HTTP or HTTPS for an Application Load Balancer. The protocol of the target group must be TCP, TLS, UDP, or TCP_UDP for a Network Load Balancer.</p>
+<p>[HTTPS listeners] If the action type is <tt class="docutils literal"><span class="pre">authenticate-oidc</span></tt> , you authenticate users through an identity provider that is OpenID Connect (OIDC) compliant.</p>
+<p>[HTTPS listeners] If the action type is <tt class="docutils literal"><span class="pre">authenticate-cognito</span></tt> , you authenticate users through the user pools supported by Amazon Cognito.</p>
+<p>[Application Load Balancer] If the action type is <tt class="docutils literal"><span class="pre">redirect</span></tt> , you redirect specified client requests from one URL to another.</p>
+<p>[Application Load Balancer] If the action type is <tt class="docutils literal"><span class="pre">fixed-response</span></tt> , you drop specified client requests and return a custom HTTP response.</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Type": "forward"|"authenticate-oidc"|"authenticate-cognito"|"redirect"|"fixed-response",
+    "TargetGroupArn": "string",
+    "AuthenticateOidcConfig": {
+      "Issuer": "string",
+      "AuthorizationEndpoint": "string",
+      "TokenEndpoint": "string",
+      "UserInfoEndpoint": "string",
+      "ClientId": "string",
+      "ClientSecret": "string",
+      "SessionCookieName": "string",
+      "Scope": "string",
+      "SessionTimeout": long,
+      "AuthenticationRequestExtraParams": {"string": "string"
+        ...},
+      "OnUnauthenticatedRequest": "deny"|"allow"|"authenticate",
+      "UseExistingClientSecret": true|false
+    },
+    "AuthenticateCognitoConfig": {
+      "UserPoolArn": "string",
+      "UserPoolClientId": "string",
+      "UserPoolDomain": "string",
+      "SessionCookieName": "string",
+      "Scope": "string",
+      "SessionTimeout": long,
+      "AuthenticationRequestExtraParams": {"string": "string"
+        ...},
+      "OnUnauthenticatedRequest": "deny"|"allow"|"authenticate"
+    },
+    "Order": integer,
+    "RedirectConfig": {
+      "Protocol": "string",
+      "Port": "string",
+      "Host": "string",
+      "Path": "string",
+      "Query": "string",
+      "StatusCode": "HTTP_301"|"HTTP_302"
+    },
+    "FixedResponseConfig": {
+      "MessageBody": "string",
+      "StatusCode": "string",
+      "ContentType": "string"
+    },
+    "ForwardConfig": {
+      "TargetGroups": [
+        {
+          "TargetGroupArn": "string",
+          "Weight": integer
+        }
+        ...
+      ],
+      "TargetGroupStickinessConfig": {
+        "Enabled": true|false,
+        "DurationSeconds": integer
+      }
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create an HTTP listener</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-listener</span></tt> example creates an HTTP listener for the specified Application Load Balancer that forwards requests to the specified target group.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-listener \
+    --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188 \
+    --protocol HTTP \
+    --port 80 \
+    --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067</pre>
+</div>
+<p><strong>Example 2: To create an HTTPS listener</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-listener</span></tt> example creates an HTTPS listener for the specified Application Load Balancer that forwards requests to the specified target group. You must specify an SSL certificate for an HTTPS listener. You can create and manage certificates using AWS Certificate Manager (ACM). Alternatively, you can create a certificate using SSL/TLS tools, get the certificate signed by a certificate authority (CA), and upload the certificate to AWS Identity and Access Management (IAM).</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-listener \
+    --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188 \
+    --protocol HTTPS \
+    --port 443 \
+    --certificates CertificateArn=arn:aws:acm:us-west-2:123456789012:certificate/3dcb0a41-bd72-4774-9ad9-756919c40557 \
+    --ssl-policy ELBSecurityPolicy-2016-08 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067</pre>
+</div>
+<p><strong>Example 3: To create a TCP listener</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-listener</span></tt> example creates a TCP listener for the specified Network Load Balancer that forwards requests to the specified target group.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-listener \
+    --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/net/my-network-load-balancer/5d1b75f4f1cee11e \
+    --protocol TCP \
+    --port 80 \
+    --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-tcp-targets/b6bba954d1361c78</pre>
+</div>
+<p><strong>Example 4: To create a TLS listener</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-listener</span></tt> example creates a TLS listener for the specified Network Load Balancer that forwards requests to the specified target group. You must specify an SSL certificate for a TLS listener.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-listener \
+    --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188 \
+    --protocol TLS --port 443 --certificates CertificateArn=arn:aws:acm:us-west-2:123456789012:certificate/3dcb0a41-bd72-4774-9ad9-756919c40557 \
+    --ssl-policy ELBSecurityPolicy-2016-08 \
+    --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067</pre>
+</div>
+<p><strong>Example 5: To create a UDP listener</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-listener</span></tt> example creates a UDP listener for the specified Network Load Balancer that forwards requests to the specified target group.</p>
+<div class="highlight-python">
+<pre>aws elbv2 create-listener \
+    --load-balancer-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/net/my-network-load-balancer/5d1b75f4f1cee11e \
+    --protocol UDP \
+    --port 53 \
+    --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-tcp-targets/b6bba954d1361c78</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Listeners -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the listener.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a listener.</p>
+<p>ListenerArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the listener.</div>
+</blockquote>
+<p>LoadBalancerArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the load balancer.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port on which the load balancer is listening.</div>
+</blockquote>
+<p>Protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol for connections from clients to the load balancer.</div>
+</blockquote>
+<p>Certificates -&gt; (list)</p>
+<blockquote>
+<div>
+<p>[HTTPS or TLS listener] The default certificate for the listener.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about an SSL server certificate.</p>
+<p>CertificateArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the certificate.</div>
+</blockquote>
+<p>IsDefault -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the certificate is the default certificate. Do not set this value when specifying a certificate as an input. This value is not included in the output when describing a listener, but is included when describing listener certificates.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SslPolicy -&gt; (string)</p>
+<blockquote>
+<div>[HTTPS or TLS listener] The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.</div>
+</blockquote>
+<p>DefaultActions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The default actions for the listener.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about an action.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of action.</div>
+</blockquote>
+<p>TargetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the target group. Specify only when <tt class="docutils literal"><span class="pre">Type</span></tt> is <tt class="docutils literal"><span class="pre">forward</span></tt> and you want to route to a single target group. To route to one or more target groups, use <tt class="docutils literal"><span class="pre">ForwardConfig</span></tt> instead.</div>
+</blockquote>
+<p>AuthenticateOidcConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>[HTTPS listeners] Information about an identity provider that is compliant with OpenID Connect (OIDC). Specify only when <tt class="docutils literal"><span class="pre">Type</span></tt> is <tt class="docutils literal"><span class="pre">authenticate-oidc</span></tt> .</p>
+<p>Issuer -&gt; (string)</p>
+<blockquote>
+<div>The OIDC issuer identifier of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.</div>
+</blockquote>
+<p>AuthorizationEndpoint -&gt; (string)</p>
+<blockquote>
+<div>The authorization endpoint of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.</div>
+</blockquote>
+<p>TokenEndpoint -&gt; (string)</p>
+<blockquote>
+<div>The token endpoint of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.</div>
+</blockquote>
+<p>UserInfoEndpoint -&gt; (string)</p>
+<blockquote>
+<div>The user info endpoint of the IdP. This must be a full URL, including the HTTPS protocol, the domain, and the path.</div>
+</blockquote>
+<p>ClientId -&gt; (string)</p>
+<blockquote>
+<div>The OAuth 2.0 client identifier.</div>
+</blockquote>
+<p>ClientSecret -&gt; (string)</p>
+<blockquote>
+<div>The OAuth 2.0 client secret. This parameter is required if you are creating a rule. If you are modifying a rule, you can omit this parameter if you set <tt class="docutils literal"><span class="pre">UseExistingClientSecret</span></tt> to true.</div>
+</blockquote>
+<p>SessionCookieName -&gt; (string)</p>
+<blockquote>
+<div>The name of the cookie used to maintain session information. The default is AWSELBAuthSessionCookie.</div>
+</blockquote>
+<p>Scope -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The set of user claims to be requested from the IdP. The default is <tt class="docutils literal"><span class="pre">openid</span></tt> .</p>
+<p>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</p>
+</div>
+</blockquote>
+<p>SessionTimeout -&gt; (long)</p>
+<blockquote>
+<div>The maximum duration of the authentication session, in seconds. The default is 604800 seconds (7 days).</div>
+</blockquote>
+<p>AuthenticationRequestExtraParams -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The query parameters (up to 10) to include in the redirect request to the authorization endpoint.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>OnUnauthenticatedRequest -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The behavior if the user is not authenticated. The following are possible values:</p>
+<ul class="simple">
+<li>deny- Return an HTTP 401 Unauthorized error.</li>
+<li>allow- Allow the request to be forwarded to the target.</li>
+<li>authenticate- Redirect the request to the IdP authorization endpoint. This is the default value.</li>
+</ul>
+</div>
+</blockquote>
+<p>UseExistingClientSecret -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether to use the existing client secret when modifying a rule. If you are creating a rule, you can omit this parameter or set it to false.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AuthenticateCognitoConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>[HTTPS listeners] Information for using Amazon Cognito to authenticate users. Specify only when <tt class="docutils literal"><span class="pre">Type</span></tt> is <tt class="docutils literal"><span class="pre">authenticate-cognito</span></tt> .</p>
+<p>UserPoolArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Amazon Cognito user pool.</div>
+</blockquote>
+<p>UserPoolClientId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Amazon Cognito user pool client.</div>
+</blockquote>
+<p>UserPoolDomain -&gt; (string)</p>
+<blockquote>
+<div>The domain prefix or fully-qualified domain name of the Amazon Cognito user pool.</div>
+</blockquote>
+<p>SessionCookieName -&gt; (string)</p>
+<blockquote>
+<div>The name of the cookie used to maintain session information. The default is AWSELBAuthSessionCookie.</div>
+</blockquote>
+<p>Scope -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The set of user claims to be requested from the IdP. The default is <tt class="docutils literal"><span class="pre">openid</span></tt> .</p>
+<p>To verify which scope values your IdP supports and how to separate multiple values, see the documentation for your IdP.</p>
+</div>
+</blockquote>
+<p>SessionTimeout -&gt; (long)</p>
+<blockquote>
+<div>The maximum duration of the authentication session, in seconds. The default is 604800 seconds (7 days).</div>
+</blockquote>
+<p>AuthenticationRequestExtraParams -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The query parameters (up to 10) to include in the redirect request to the authorization endpoint.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>OnUnauthenticatedRequest -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The behavior if the user is not authenticated. The following are possible values:</p>
+<ul class="simple">
+<li>deny- Return an HTTP 401 Unauthorized error.</li>
+<li>allow- Allow the request to be forwarded to the target.</li>
+<li>authenticate- Redirect the request to the IdP authorization endpoint. This is the default value.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Order -&gt; (integer)</p>
+<blockquote>
+<div>The order for the action. This value is required for rules with multiple actions. The action with the lowest value for order is performed first. The last action to be performed must be one of the following types of actions: a <tt class="docutils literal"><span class="pre">forward</span></tt> , <tt class="docutils literal"><span class="pre">fixed-response</span></tt> , or <tt class="docutils literal"><span class="pre">redirect</span></tt> .</div>
+</blockquote>
+<p>RedirectConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>[Application Load Balancer] Information for creating a redirect action. Specify only when <tt class="docutils literal"><span class="pre">Type</span></tt> is <tt class="docutils literal"><span class="pre">redirect</span></tt> .</p>
+<p>Protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol. You can specify HTTP, HTTPS, or #{protocol}. You can redirect HTTP to HTTP, HTTP to HTTPS, and HTTPS to HTTPS. You cannot redirect HTTPS to HTTP.</div>
+</blockquote>
+<p>Port -&gt; (string)</p>
+<blockquote>
+<div>The port. You can specify a value from 1 to 65535 or #{port}.</div>
+</blockquote>
+<p>Host -&gt; (string)</p>
+<blockquote>
+<div>The hostname. This component is not percent-encoded. The hostname can contain #{host}.</div>
+</blockquote>
+<p>Path -&gt; (string)</p>
+<blockquote>
+<div>The absolute path, starting with the leading "/". This component is not percent-encoded. The path can contain #{host}, #{path}, and #{port}.</div>
+</blockquote>
+<p>Query -&gt; (string)</p>
+<blockquote>
+<div>The query parameters, URL-encoded when necessary, but not percent-encoded. Do not include the leading "?", as it is automatically added. You can specify any of the reserved keywords.</div>
+</blockquote>
+<p>StatusCode -&gt; (string)</p>
+<blockquote>
+<div>The HTTP redirect code. The redirect is either permanent (HTTP 301) or temporary (HTTP 302).</div>
+</blockquote>
+</div>
+</blockquote>
+<p>FixedResponseConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>[Application Load Balancer] Information for creating an action that returns a custom HTTP response. Specify only when <tt class="docutils literal"><span class="pre">Type</span></tt> is <tt class="docutils literal"><span class="pre">fixed-response</span></tt> .</p>
+<p>MessageBody -&gt; (string)</p>
+<blockquote>
+<div>The message.</div>
+</blockquote>
+<p>StatusCode -&gt; (string)</p>
+<blockquote>
+<div>The HTTP response code (2XX, 4XX, or 5XX).</div>
+</blockquote>
+<p>ContentType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The content type.</p>
+<p>Valid Values: text/plain | text/css | text/html | application/javascript | application/json</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ForwardConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information for creating an action that distributes requests among one or more target groups. For Network Load Balancers, you can specify a single target group. Specify only when <tt class="docutils literal"><span class="pre">Type</span></tt> is <tt class="docutils literal"><span class="pre">forward</span></tt> . If you specify both <tt class="docutils literal"><span class="pre">ForwardConfig</span></tt> and <tt class="docutils literal"><span class="pre">TargetGroupArn</span></tt> , you can specify only one target group using <tt class="docutils literal"><span class="pre">ForwardConfig</span></tt> and it must be the same target group specified in <tt class="docutils literal"><span class="pre">TargetGroupArn</span></tt> .</p>
+<p>TargetGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more target groups. For Network Load Balancers, you can specify a single target group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about how traffic will be distributed between multiple target groups in a forward rule.</p>
+<p>TargetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the target group.</div>
+</blockquote>
+<p>Weight -&gt; (integer)</p>
+<blockquote>
+<div>The weight. The range is 0 to 999.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>TargetGroupStickinessConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The target group stickiness for the rule.</p>
+<p>Enabled -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether target group stickiness is enabled.</div>
+</blockquote>
+<p>DurationSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The time period, in seconds, during which requests from a client should be routed to the same target group. The range is 1-604800 seconds (7 days).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

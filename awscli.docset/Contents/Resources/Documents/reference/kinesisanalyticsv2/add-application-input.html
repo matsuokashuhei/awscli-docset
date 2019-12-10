@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>add-application-input — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kinesisanalyticsv2" href="index.html">
+    <link rel="next" title="add-application-input-processing-configuration" href="add-application-input-processing-configuration.html">
+    <link rel="prev" title="add-application-cloud-watch-logging-option" href="add-application-cloud-watch-logging-option.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="add-application-input">
+<span id="cli-aws-kinesisanalyticsv2-add-application-input"></span><h1>add-application-input<a class="headerlink" href="#add-application-input" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds a streaming source to your SQL-based Amazon Kinesis Data Analytics application.</p>
+<p>You can add a streaming source when you create an application, or you can use this operation to add a streaming source after you create an application. For more information, see  CreateApplication .</p>
+<p>Any configuration update, including adding a streaming source using this operation, results in a new version of the application. You can use the  DescribeApplication operation to find the current application version.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/AddApplicationInput">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  add-application-input
+--application-name &lt;value&gt;
+--current-application-version-id &lt;value&gt;
+--input &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--application-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of your existing application to which you want to add the streaming source.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--current-application-version-id</span></tt> (long)</p>
+<blockquote>
+<div>The current version of your application. You can use the  DescribeApplication operation to find the current application version.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input</span></tt> (structure)</p>
+<blockquote>
+<div>The  Input to add.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "NamePrefix": "string",
+  "InputProcessingConfiguration": {
+    "InputLambdaProcessor": {
+      "ResourceARN": "string"
+    }
+  },
+  "KinesisStreamsInput": {
+    "ResourceARN": "string"
+  },
+  "KinesisFirehoseInput": {
+    "ResourceARN": "string"
+  },
+  "InputParallelism": {
+    "Count": integer
+  },
+  "InputSchema": {
+    "RecordFormat": {
+      "RecordFormatType": "JSON"|"CSV",
+      "MappingParameters": {
+        "JSONMappingParameters": {
+          "RecordRowPath": "string"
+        },
+        "CSVMappingParameters": {
+          "RecordRowDelimiter": "string",
+          "RecordColumnDelimiter": "string"
+        }
+      }
+    },
+    "RecordEncoding": "string",
+    "RecordColumns": [
+      {
+        "Name": "string",
+        "Mapping": "string",
+        "SqlType": "string"
+      }
+      ...
+    ]
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ApplicationARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the application.</div>
+</blockquote>
+<p>ApplicationVersionId -&gt; (long)</p>
+<blockquote>
+<div>Provides the current application version.</div>
+</blockquote>
+<p>InputDescriptions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Describes the application input configuration.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the application input configuration for an SQL-based Amazon Kinesis Data Analytics application.</p>
+<p>InputId -&gt; (string)</p>
+<blockquote>
+<div>The input ID that is associated with the application input. This is the ID that Kinesis Data Analytics assigns to each input configuration that you add to your application.</div>
+</blockquote>
+<p>NamePrefix -&gt; (string)</p>
+<blockquote>
+<div>The in-application name prefix.</div>
+</blockquote>
+<p>InAppStreamNames -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Returns the in-application stream names that are mapped to the stream source.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>InputProcessingConfigurationDescription -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The description of the preprocessor that executes on records in this input before the application's code is run.</p>
+<p>InputLambdaProcessorDescription -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides configuration information about the associated  InputLambdaProcessorDescription</p>
+<p>ResourceARN -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the AWS Lambda function that is used to preprocess the records in the stream.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To specify an earlier version of the Lambda function than the latest, include the Lambda function version in the Lambda function ARN. For more information about Lambda ARNs, see <a class="reference external" href="/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda">Example ARNs: AWS Lambda</a></p>
+</div>
+</div>
+</blockquote>
+<p>RoleARN -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM role that is used to access the AWS Lambda function.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Provided for backward compatibility. Applications that are created with the current API version have an application-level service execution role rather than a resource-level role.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>KinesisStreamsInputDescription -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>If a Kinesis data stream is configured as a streaming source, provides the Kinesis data stream's Amazon Resource Name (ARN).</p>
+<p>ResourceARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Kinesis data stream.</div>
+</blockquote>
+<p>RoleARN -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM role that Kinesis Data Analytics can assume to access the stream.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Provided for backward compatibility. Applications that are created with the current API version have an application-level service execution role rather than a resource-level role.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>KinesisFirehoseInputDescription -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>If a Kinesis Data Firehose delivery stream is configured as a streaming source, provides the delivery stream's ARN.</p>
+<p>ResourceARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the delivery stream.</div>
+</blockquote>
+<p>RoleARN -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM role that Kinesis Data Analytics assumes to access the stream.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Provided for backward compatibility. Applications that are created with the current API version have an application-level service execution role rather than a resource-level role.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InputSchema -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.</p>
+<p>RecordFormat -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the format of the records on the streaming source.</p>
+<p>RecordFormatType -&gt; (string)</p>
+<blockquote>
+<div>The type of record format.</div>
+</blockquote>
+<p>MappingParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>When you configure application input at the time of creating or updating an application, provides additional mapping information specific to the record format (such as JSON, CSV, or record fields delimited by some delimiter) on the streaming source.</p>
+<p>JSONMappingParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides additional mapping information when JSON is the record format on the streaming source.</p>
+<p>RecordRowPath -&gt; (string)</p>
+<blockquote>
+<div>The path to the top-level parent that contains the records.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CSVMappingParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides additional mapping information when the record format uses delimiters (for example, CSV).</p>
+<p>RecordRowDelimiter -&gt; (string)</p>
+<blockquote>
+<div>The row delimiter. For example, in a CSV format, <em>'n'</em> is the typical row delimiter.</div>
+</blockquote>
+<p>RecordColumnDelimiter -&gt; (string)</p>
+<blockquote>
+<div>The column delimiter. For example, in a CSV format, a comma (",") is the typical column delimiter.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RecordEncoding -&gt; (string)</p>
+<blockquote>
+<div>Specifies the encoding of the records in the streaming source. For example, UTF-8.</div>
+</blockquote>
+<p>RecordColumns -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">RecordColumn</span></tt> objects.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>For an SQL-based Amazon Kinesis Data Analytics application, describes the mapping of each data element in the streaming source to the corresponding column in the in-application stream.</p>
+<p>Also used to describe the format of the reference data source.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the column that is created in the in-application input stream or reference table.</div>
+</blockquote>
+<p>Mapping -&gt; (string)</p>
+<blockquote>
+<div>A reference to the data element in the streaming input or the reference data source.</div>
+</blockquote>
+<p>SqlType -&gt; (string)</p>
+<blockquote>
+<div>The type of column created in the in-application input stream or reference table.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InputParallelism -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the configured parallelism (number of in-application streams mapped to the streaming source).</p>
+<p>Count -&gt; (integer)</p>
+<blockquote>
+<div>The number of in-application streams to create.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InputStartingPositionConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The point at which the application is configured to read from the input stream.</p>
+<p>InputStartingPosition -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The starting position on the stream.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">NOW</span></tt> - Start reading just after the most recent record in the stream, and start at the request timestamp that the customer issued.</li>
+<li>
+<tt class="docutils literal"><span class="pre">TRIM_HORIZON</span></tt> - Start reading at the last untrimmed record in the stream, which is the oldest record available in the stream. This option is not available for an Amazon Kinesis Data Firehose delivery stream.</li>
+<li>
+<tt class="docutils literal"><span class="pre">LAST_STOPPED_POINT</span></tt> - Resume reading from where the application last stopped reading.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

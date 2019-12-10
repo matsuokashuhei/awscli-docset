@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-bot — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lex-models" href="index.html">
+    <link rel="next" title="put-bot-alias" href="put-bot-alias.html">
+    <link rel="prev" title="get-utterances-view" href="get-utterances-view.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-bot">
+<span id="cli-aws-lex-models-put-bot"></span><h1>put-bot<a class="headerlink" href="#put-bot" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an Amazon Lex conversational bot or replaces an existing bot. When you create or update a bot you are only required to specify a name, a locale, and whether the bot is directed toward children under age 13. You can use this to add intents later, or to remove intents from an existing bot. When you create a bot with the minimum information, the bot is created or updated but Amazon Lex returns the response <tt class="docutils literal"><span class="pre">FAILED</span></tt> . You can build the bot after you add one or more intents. For more information about Amazon Lex bots, see  how-it-works .</p>
+<p>If you specify the name of an existing bot, the fields in the request replace the existing values in the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version of the bot. Amazon Lex removes any fields that you don't provide values for in the request, except for the <tt class="docutils literal"><span class="pre">idleTTLInSeconds</span></tt> and <tt class="docutils literal"><span class="pre">privacySettings</span></tt> fields, which are set to their default values. If you don't specify values for required fields, Amazon Lex throws an exception.</p>
+<p>This operation requires permissions for the <tt class="docutils literal"><span class="pre">lex:PutBot</span></tt> action. For more information, see  security-iam .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/PutBot">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-bot
+--name &lt;value&gt;
+[--description &lt;value&gt;]
+[--intents &lt;value&gt;]
+[--clarification-prompt &lt;value&gt;]
+[--abort-statement &lt;value&gt;]
+[--idle-session-ttl-in-seconds &lt;value&gt;]
+[--voice-id &lt;value&gt;]
+[--checksum &lt;value&gt;]
+[--process-behavior &lt;value&gt;]
+--locale &lt;value&gt;
+--child-directed | --no-child-directed
+[--detect-sentiment | --no-detect-sentiment]
+[--create-version | --no-create-version]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bot. The name is <em>not</em> case sensitive.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description of the bot.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--intents</span></tt> (list)</p>
+<blockquote>
+<div>An array of <tt class="docutils literal"><span class="pre">Intent</span></tt> objects. Each intent represents a command that a user can express. For example, a pizza ordering bot might support an OrderPizza intent. For more information, see  how-it-works .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>intentName=string,intentVersion=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "intentName": "string",
+    "intentVersion": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--clarification-prompt</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>When Amazon Lex doesn't understand the user's intent, it uses this message to get clarification. To specify how many times Amazon Lex should repeat the clarification prompt, use the <tt class="docutils literal"><span class="pre">maxAttempts</span></tt> field. If Amazon Lex still doesn't understand, it sends the message in the <tt class="docutils literal"><span class="pre">abortStatement</span></tt> field.</p>
+<p>When you create a clarification prompt, make sure that it suggests the correct response from the user. for example, for a bot that orders pizza and drinks, you might create this clarification prompt: "What would you like to do? You can say 'Order a pizza' or 'Order a drink.'"</p>
+<p>If you have defined a fallback intent, it will be invoked if the clarification prompt is repeated the number of times defined in the <tt class="docutils literal"><span class="pre">maxAttempts</span></tt> field. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html">AMAZON.FallbackIntent</a> .</p>
+<p>If you don't define a clarification prompt, at runtime Amazon Lex will return a 400 Bad Request exception in three cases:</p>
+<ul class="simple">
+<li>Follow-up prompt - When the user responds to a follow-up prompt but does not provide an intent. For example, in response to a follow-up prompt that says "Would you like anything else today?" the user says "Yes." Amazon Lex will return a 400 Bad Request exception because it does not have a clarification prompt to send to the user to get an intent.</li>
+<li>Lambda function - When using a Lambda function, you return an <tt class="docutils literal"><span class="pre">ElicitIntent</span></tt> dialog type. Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad Request exception.</li>
+<li>PutSession operation - When using the <tt class="docutils literal"><span class="pre">PutSession</span></tt> operation, you send an <tt class="docutils literal"><span class="pre">ElicitIntent</span></tt> dialog type. Since Amazon Lex does not have a clarification prompt to get an intent from the user, it returns a 400 Bad Request exception.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>messages=[{contentType=string,content=string,groupNumber=integer},{contentType=string,content=string,groupNumber=integer}],maxAttempts=integer,responseCard=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "messages": [
+    {
+      "contentType": "PlainText"|"SSML"|"CustomPayload",
+      "content": "string",
+      "groupNumber": integer
+    }
+    ...
+  ],
+  "maxAttempts": integer,
+  "responseCard": "string"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--abort-statement</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>When Amazon Lex can't understand the user's input in context, it tries to elicit the information a few times. After that, Amazon Lex sends the message defined in <tt class="docutils literal"><span class="pre">abortStatement</span></tt> to the user, and then aborts the conversation. To set the number of retries, use the <tt class="docutils literal"><span class="pre">valueElicitationPrompt</span></tt> field for the slot type.</p>
+<p>For example, in a pizza ordering bot, Amazon Lex might ask a user "What type of crust would you like?" If the user's response is not one of the expected responses (for example, "thin crust, "deep dish," etc.), Amazon Lex tries to elicit a correct response a few more times.</p>
+<p>For example, in a pizza ordering application, <tt class="docutils literal"><span class="pre">OrderPizza</span></tt> might be one of the intents. This intent might require the <tt class="docutils literal"><span class="pre">CrustType</span></tt> slot. You specify the <tt class="docutils literal"><span class="pre">valueElicitationPrompt</span></tt> field when you create the <tt class="docutils literal"><span class="pre">CrustType</span></tt> slot.</p>
+<p>If you have defined a fallback intent the abort statement will not be sent to the user, the fallback intent is used instead. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lex/latest/dg/built-in-intent-fallback.html">AMAZON.FallbackIntent</a> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>messages=[{contentType=string,content=string,groupNumber=integer},{contentType=string,content=string,groupNumber=integer}],responseCard=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "messages": [
+    {
+      "contentType": "PlainText"|"SSML"|"CustomPayload",
+      "content": "string",
+      "groupNumber": integer
+    }
+    ...
+  ],
+  "responseCard": "string"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--idle-session-ttl-in-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The maximum time in seconds that Amazon Lex retains the data gathered in a conversation.</p>
+<p>A user interaction session remains active for the amount of time specified. If no conversation occurs during this time, the session expires and Amazon Lex deletes any data provided before the timeout.</p>
+<p>For example, suppose that a user chooses the OrderPizza intent, but gets sidetracked halfway through placing an order. If the user doesn't complete the order within the specified time, Amazon Lex discards the slot information that it gathered, and the user must start over.</p>
+<p>If you don't include the <tt class="docutils literal"><span class="pre">idleSessionTTLInSeconds</span></tt> element in a <tt class="docutils literal"><span class="pre">PutBot</span></tt> operation request, Amazon Lex uses the default value. This is also true if the request replaces an existing bot.</p>
+<p>The default is 300 seconds (5 minutes).</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--voice-id</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Polly voice ID that you want Amazon Lex to use for voice interactions with the user. The locale configured for the voice must match the locale of the bot. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/polly/latest/dg/voicelist.html">Voices in Amazon Polly</a> in the <em>Amazon Polly Developer Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--checksum</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Identifies a specific revision of the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version.</p>
+<p>When you create a new bot, leave the <tt class="docutils literal"><span class="pre">checksum</span></tt> field blank. If you specify a checksum you get a <tt class="docutils literal"><span class="pre">BadRequestException</span></tt> exception.</p>
+<p>When you want to update a bot, set the <tt class="docutils literal"><span class="pre">checksum</span></tt> field to the checksum of the most recent revision of the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version. If you don't specify the <tt class="docutils literal"><span class="pre">checksum</span></tt> field, or if the checksum does not match the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version, you get a <tt class="docutils literal"><span class="pre">PreconditionFailedException</span></tt> exception.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--process-behavior</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>If you set the <tt class="docutils literal"><span class="pre">processBehavior</span></tt> element to <tt class="docutils literal"><span class="pre">BUILD</span></tt> , Amazon Lex builds the bot so that it can be run. If you set the element to <tt class="docutils literal"><span class="pre">SAVE</span></tt> Amazon Lex saves the bot, but doesn't build it.</p>
+<p>If you don't specify this value, the default value is <tt class="docutils literal"><span class="pre">BUILD</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SAVE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">BUILD</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--locale</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the target locale for the bot. Any intent used in the bot must be compatible with the locale of the bot.</p>
+<p>The default is <tt class="docutils literal"><span class="pre">en-US</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">en-US</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">en-GB</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">de-DE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--child-directed</span></tt> | <tt class="docutils literal"><span class="pre">--no-child-directed</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>For each Amazon Lex bot created with the Amazon Lex Model Building Service, you must specify whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to the Children's Online Privacy Protection Act (COPPA) by specifying <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> in the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field. By specifying <tt class="docutils literal"><span class="pre">true</span></tt> in the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field, you confirm that your use of Amazon Lex <strong>is</strong> related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. By specifying <tt class="docutils literal"><span class="pre">false</span></tt> in the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field, you confirm that your use of Amazon Lex <strong>is not</strong> related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. You may not specify a default value for the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field that does not accurately reflect whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA.</p>
+<p>If your use of Amazon Lex relates to a website, program, or other application that is directed in whole or in part, to children under age 13, you must obtain any required verifiable parental consent under COPPA. For information regarding the use of Amazon Lex in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13, see the <a class="reference external" href="https://aws.amazon.com/lex/faqs#data-security">Amazon Lex FAQ.</a></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--detect-sentiment</span></tt> | <tt class="docutils literal"><span class="pre">--no-detect-sentiment</span></tt> (boolean)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">true</span></tt> user utterances are sent to Amazon Comprehend for sentiment analysis. If you don't specify <tt class="docutils literal"><span class="pre">detectSentiment</span></tt> , the default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--create-version</span></tt> | <tt class="docutils literal"><span class="pre">--no-create-version</span></tt> (boolean)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">true</span></tt> a new numbered version of the bot is created. This is the same as calling the <tt class="docutils literal"><span class="pre">CreateBotVersion</span></tt> operation. If you don't specify <tt class="docutils literal"><span class="pre">createVersion</span></tt> , the default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the bot.</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>A description of the bot.</div>
+</blockquote>
+<p>intents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of <tt class="docutils literal"><span class="pre">Intent</span></tt> objects. For more information, see  PutBot .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Identifies the specific version of an intent.</p>
+<p>intentName -&gt; (string)</p>
+<blockquote>
+<div>The name of the intent.</div>
+</blockquote>
+<p>intentVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the intent.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>clarificationPrompt -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The prompts that Amazon Lex uses when it doesn't understand the user's intent. For more information, see  PutBot .</p>
+<p>messages -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of objects, each of which provides a message string and its type. You can specify the message string in plain text or in Speech Synthesis Markup Language (SSML).</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The message object that provides the message text and its type.</p>
+<p>contentType -&gt; (string)</p>
+<blockquote>
+<div>The content type of the message string.</div>
+</blockquote>
+<p>content -&gt; (string)</p>
+<blockquote>
+<div>The text of the message.</div>
+</blockquote>
+<p>groupNumber -&gt; (integer)</p>
+<blockquote>
+<div>Identifies the message group that the message belongs to. When a group is assigned to a message, Amazon Lex returns one message from each group in the response.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>maxAttempts -&gt; (integer)</p>
+<blockquote>
+<div>The number of times to prompt the user for information.</div>
+</blockquote>
+<p>responseCard -&gt; (string)</p>
+<blockquote>
+<div>A response card. Amazon Lex uses this prompt at runtime, in the <tt class="docutils literal"><span class="pre">PostText</span></tt> API response. It substitutes session attributes and slot values for placeholders in the response card. For more information, see  ex-resp-card .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>abortStatement -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The message that Amazon Lex uses to abort a conversation. For more information, see  PutBot .</p>
+<p>messages -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A collection of message objects.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The message object that provides the message text and its type.</p>
+<p>contentType -&gt; (string)</p>
+<blockquote>
+<div>The content type of the message string.</div>
+</blockquote>
+<p>content -&gt; (string)</p>
+<blockquote>
+<div>The text of the message.</div>
+</blockquote>
+<p>groupNumber -&gt; (integer)</p>
+<blockquote>
+<div>Identifies the message group that the message belongs to. When a group is assigned to a message, Amazon Lex returns one message from each group in the response.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>responseCard -&gt; (string)</p>
+<blockquote>
+<div>At runtime, if the client is using the <a class="reference external" href="http://docs.aws.amazon.com/lex/latest/dg/API_runtime_PostText.html">PostText</a> API, Amazon Lex includes the response card in the response. It substitutes all of the session attributes and slot values for placeholders in the response card.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>When you send a request to create a bot with <tt class="docutils literal"><span class="pre">processBehavior</span></tt> set to <tt class="docutils literal"><span class="pre">BUILD</span></tt> , Amazon Lex sets the <tt class="docutils literal"><span class="pre">status</span></tt> response element to <tt class="docutils literal"><span class="pre">BUILDING</span></tt> .</p>
+<p>In the <tt class="docutils literal"><span class="pre">READY_BASIC_TESTING</span></tt> state you can test the bot with user inputs that exactly match the utterances configured for the bot's intents and values in the slot types.</p>
+<p>If Amazon Lex can't build the bot, Amazon Lex sets <tt class="docutils literal"><span class="pre">status</span></tt> to <tt class="docutils literal"><span class="pre">FAILED</span></tt> . Amazon Lex returns the reason for the failure in the <tt class="docutils literal"><span class="pre">failureReason</span></tt> response element.</p>
+<p>When you set <tt class="docutils literal"><span class="pre">processBehavior</span></tt> to <tt class="docutils literal"><span class="pre">SAVE</span></tt> , Amazon Lex sets the status code to <tt class="docutils literal"><span class="pre">NOT</span> <span class="pre">BUILT</span></tt> .</p>
+<p>When the bot is in the <tt class="docutils literal"><span class="pre">READY</span></tt> state you can test and publish the bot.</p>
+</div>
+</blockquote>
+<p>failureReason -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">status</span></tt> is <tt class="docutils literal"><span class="pre">FAILED</span></tt> , Amazon Lex provides the reason that it failed to build the bot.</div>
+</blockquote>
+<p>lastUpdatedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date that the bot was updated. When you create a resource, the creation date and last updated date are the same.</div>
+</blockquote>
+<p>createdDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date that the bot was created.</div>
+</blockquote>
+<p>idleSessionTTLInSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The maximum length of time that Amazon Lex retains the data gathered in a conversation. For more information, see  PutBot .</div>
+</blockquote>
+<p>voiceId -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Polly voice ID that Amazon Lex uses for voice interaction with the user. For more information, see  PutBot .</div>
+</blockquote>
+<p>checksum -&gt; (string)</p>
+<blockquote>
+<div>Checksum of the bot that you created.</div>
+</blockquote>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>The version of the bot. For a new bot, the version is always <tt class="docutils literal"><span class="pre">$LATEST</span></tt> .</div>
+</blockquote>
+<p>locale -&gt; (string)</p>
+<blockquote>
+<div>The target locale for the bot.</div>
+</blockquote>
+<p>childDirected -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>For each Amazon Lex bot created with the Amazon Lex Model Building Service, you must specify whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to the Children's Online Privacy Protection Act (COPPA) by specifying <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> in the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field. By specifying <tt class="docutils literal"><span class="pre">true</span></tt> in the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field, you confirm that your use of Amazon Lex <strong>is</strong> related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. By specifying <tt class="docutils literal"><span class="pre">false</span></tt> in the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field, you confirm that your use of Amazon Lex <strong>is not</strong> related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA. You may not specify a default value for the <tt class="docutils literal"><span class="pre">childDirected</span></tt> field that does not accurately reflect whether your use of Amazon Lex is related to a website, program, or other application that is directed or targeted, in whole or in part, to children under age 13 and subject to COPPA.</p>
+<p>If your use of Amazon Lex relates to a website, program, or other application that is directed in whole or in part, to children under age 13, you must obtain any required verifiable parental consent under COPPA. For information regarding the use of Amazon Lex in connection with websites, programs, or other applications that are directed or targeted, in whole or in part, to children under age 13, see the <a class="reference external" href="https://aws.amazon.com/lex/faqs#data-security">Amazon Lex FAQ.</a></p>
+</div>
+</blockquote>
+<p>createVersion -&gt; (boolean)</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">True</span></tt> if a new version of the bot was created. If the <tt class="docutils literal"><span class="pre">createVersion</span></tt> field was not specified in the request, the <tt class="docutils literal"><span class="pre">createVersion</span></tt> field is set to false in the response.</div>
+</blockquote>
+<p>detectSentiment -&gt; (boolean)</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">true</span></tt> if the bot is configured to send user utterances to Amazon Comprehend for sentiment analysis. If the <tt class="docutils literal"><span class="pre">detectSentiment</span></tt> field was not specified in the request, the <tt class="docutils literal"><span class="pre">detectSentiment</span></tt> field is <tt class="docutils literal"><span class="pre">false</span></tt> in the response.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

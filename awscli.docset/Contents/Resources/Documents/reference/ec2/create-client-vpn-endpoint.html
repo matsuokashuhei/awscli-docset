@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-client-vpn-endpoint — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="create-client-vpn-route" href="create-client-vpn-route.html">
+    <link rel="prev" title="create-capacity-reservation" href="create-capacity-reservation.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-client-vpn-endpoint">
+<span id="cli-aws-ec2-create-client-vpn-endpoint"></span><h1>create-client-vpn-endpoint<a class="headerlink" href="#create-client-vpn-endpoint" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a Client VPN endpoint. A Client VPN endpoint is the resource you create and configure to enable and manage client VPN sessions. It is the destination endpoint at which all client VPN sessions are terminated.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateClientVpnEndpoint">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-client-vpn-endpoint
+--client-cidr-block &lt;value&gt;
+--server-certificate-arn &lt;value&gt;
+--authentication-options &lt;value&gt;
+--connection-log-options &lt;value&gt;
+[--dns-servers &lt;value&gt;]
+[--transport-protocol &lt;value&gt;]
+[--description &lt;value&gt;]
+[--split-tunnel | --no-split-tunnel]
+[--dry-run | --no-dry-run]
+[--client-token &lt;value&gt;]
+[--tag-specifications &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--client-cidr-block</span></tt> (string)</p>
+<blockquote>
+<div>The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes that you add manually. The address range cannot be changed after the Client VPN endpoint has been created. The CIDR block should be /22 or greater.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-certificate-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the server certificate. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/acm/latest/userguide/">AWS Certificate Manager User Guide</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--authentication-options</span></tt> (list)</p>
+<blockquote>
+<div>Information about the authentication method to be used to authenticate clients.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Type=string,ActiveDirectory={DirectoryId=string},MutualAuthentication={ClientRootCertificateChainArn=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Type": "certificate-authentication"|"directory-service-authentication",
+    "ActiveDirectory": {
+      "DirectoryId": "string"
+    },
+    "MutualAuthentication": {
+      "ClientRootCertificateChainArn": "string"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--connection-log-options</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Information about the client connection logging options.</p>
+<p>If you enable client connection logging, data about client connections is sent to a Cloudwatch Logs log stream. The following information is logged:</p>
+<ul class="simple">
+<li>Client connection requests</li>
+<li>Client connection results (successful and unsuccessful)</li>
+<li>Reasons for unsuccessful client connection requests</li>
+<li>Client connection termination time</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Enabled</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">CloudwatchLogGroup</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">CloudwatchLogStream</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"CloudwatchLogGroup"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CloudwatchLogStream"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dns-servers</span></tt> (list)</p>
+<blockquote>
+<div>Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--transport-protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The transport protocol to be used by the VPN session.</p>
+<p>Default value: <tt class="docutils literal"><span class="pre">udp</span></tt></p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">tcp</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">udp</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A brief description of the Client VPN endpoint.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--split-tunnel</span></tt> | <tt class="docutils literal"><span class="pre">--no-split-tunnel</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Indicates whether split-tunnel is enabled on the AWS Client VPN endpoint.</p>
+<p>By default, split-tunnel on a VPN endpoint is disabled.</p>
+<p>For information about split-tunnel VPN endpoints, see <a class="reference external" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN Endpoint</a> in the <em>AWS Client VPN Administrator Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure Idempotency</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tag-specifications</span></tt> (list)</p>
+<blockquote>
+<div>The tags to apply to the Client VPN endpoint during creation.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceType=string,Tags=[{Key=string,Value=string},{Key=string,Value=string}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceType": "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+    "Tags": [
+      {
+        "Key": "string",
+        "Value": "string"
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a Client VPN endpoint</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-client-vpn-endpoint</span></tt> example creates a Client VPN endpoint that uses mutual authentication and specifies a value for the client CIDR block.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-client-vpn-endpoint \
+    --client-cidr-block "172.31.0.0/16" \
+    --server-certificate-arn arn:aws:acm:ap-south-1:123456789012:certificate/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE \
+    --authentication-options Type=certificate-authentication,MutualAuthentication={ClientRootCertificateChainArn=arn:aws:acm:ap-south-1:123456789012:certificate/a1b2c3d4-5678-90ab-cdef-22222EXAMPLE} \
+    --connection-log-options Enabled=false</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ClientVpnEndpointId"</span><span class="p">:</span> <span class="s2">"cvpn-endpoint-123456789123abcde"</span><span class="p">,</span>
+    <span class="s2">"Status"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Code"</span><span class="p">:</span> <span class="s2">"pending-associate"</span>
+    <span class="p">},</span>
+    <span class="s2">"DnsName"</span><span class="p">:</span> <span class="s2">"cvpn-endpoint-123456789123abcde.prod.clientvpn.ap-south-1.amazonaws.com"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-endpoints.html">Client VPN Endpoints</a> in the <em>AWS Client VPN Administrator Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ClientVpnEndpointId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Client VPN endpoint.</div>
+</blockquote>
+<p>Status -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The current state of the Client VPN endpoint.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The state of the Client VPN endpoint. Possible states include:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">pending-associate</span></tt> - The Client VPN endpoint has been created but no target networks have been associated. The Client VPN endpoint cannot accept connections.</li>
+<li>
+<tt class="docutils literal"><span class="pre">available</span></tt> - The Client VPN endpoint has been created and a target network has been associated. The Client VPN endpoint can accept connections.</li>
+<li>
+<tt class="docutils literal"><span class="pre">deleting</span></tt> - The Client VPN endpoint is being deleted. The Client VPN endpoint cannot accept connections.</li>
+<li>
+<tt class="docutils literal"><span class="pre">deleted</span></tt> - The Client VPN endpoint has been deleted. The Client VPN endpoint cannot accept connections.</li>
+</ul>
+</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>A message about the status of the Client VPN endpoint.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DnsName -&gt; (string)</p>
+<blockquote>
+<div>The DNS name to be used by clients when establishing their VPN session.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-lifecycle-hook — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="autoscaling" href="index.html">
+    <link rel="next" title="put-notification-configuration" href="put-notification-configuration.html">
+    <link rel="prev" title="exit-standby" href="exit-standby.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-lifecycle-hook">
+<span id="cli-aws-autoscaling-put-lifecycle-hook"></span><h1>put-lifecycle-hook<a class="headerlink" href="#put-lifecycle-hook" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates or updates a lifecycle hook for the specified Auto Scaling group.</p>
+<p>A lifecycle hook tells Amazon EC2 Auto Scaling to perform an action on an instance when the instance launches (before it is put into service) or as the instance terminates (before it is fully terminated).</p>
+<p>This step is a part of the procedure for adding a lifecycle hook to an Auto Scaling group:</p>
+<ul class="simple">
+<li>(Optional) Create a Lambda function and a rule that allows CloudWatch Events to invoke your Lambda function when Amazon EC2 Auto Scaling launches or terminates instances.</li>
+<li>(Optional) Create a notification target and an IAM role. The target can be either an Amazon SQS queue or an Amazon SNS topic. The role allows Amazon EC2 Auto Scaling to publish lifecycle notifications to the target.</li>
+<li><strong>Create the lifecycle hook. Specify whether the hook is used when the instances launch or terminate.</strong></li>
+<li>If you need more time, record the lifecycle action heartbeat to keep the instance in a pending state using  RecordLifecycleActionHeartbeat .</li>
+<li>If you finish before the timeout period ends, complete the lifecycle action using  CompleteLifecycleAction .</li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html">Amazon EC2 Auto Scaling Lifecycle Hooks</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+<p>If you exceed your maximum limit of lifecycle hooks, which by default is 50 per Auto Scaling group, the call fails.</p>
+<p>You can view the lifecycle hooks for an Auto Scaling group using  DescribeLifecycleHooks . If you are no longer using a lifecycle hook, you can delete it using  DeleteLifecycleHook .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/PutLifecycleHook">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-lifecycle-hook
+--lifecycle-hook-name &lt;value&gt;
+--auto-scaling-group-name &lt;value&gt;
+[--lifecycle-transition &lt;value&gt;]
+[--role-arn &lt;value&gt;]
+[--notification-target-arn &lt;value&gt;]
+[--notification-metadata &lt;value&gt;]
+[--heartbeat-timeout &lt;value&gt;]
+[--default-result &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--lifecycle-hook-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the lifecycle hook.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auto-scaling-group-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the Auto Scaling group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--lifecycle-transition</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The instance state to which you want to attach the lifecycle hook. The valid values are:</p>
+<ul class="simple">
+<li>autoscaling:EC2_INSTANCE_LAUNCHING</li>
+<li>autoscaling:EC2_INSTANCE_TERMINATING</li>
+</ul>
+<p>Conditional: This parameter is required for new lifecycle hooks, but optional when updating existing hooks.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM role that allows the Auto Scaling group to publish to the specified notification target, for example, an Amazon SNS topic or an Amazon SQS queue.</p>
+<p>Conditional: This parameter is required for new lifecycle hooks, but optional when updating existing hooks.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-target-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the notification target that Amazon EC2 Auto Scaling uses to notify you when an instance is in the transition state for the lifecycle hook. This target can be either an SQS queue or an SNS topic.</p>
+<p>If you specify an empty string, this overrides the current ARN.</p>
+<p>This operation uses the JSON format when sending notifications to an Amazon SQS queue, and an email key-value pair format when sending notifications to an Amazon SNS topic.</p>
+<p>When you specify a notification target, Amazon EC2 Auto Scaling sends it a test message. Test messages contain the following additional key-value pair: <tt class="docutils literal"><span class="pre">"Event":</span> <span class="pre">"autoscaling:TEST_NOTIFICATION"</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-metadata</span></tt> (string)</p>
+<blockquote>
+<div>Additional information that you want to include any time Amazon EC2 Auto Scaling sends a message to the notification target.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--heartbeat-timeout</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The maximum time, in seconds, that can elapse before the lifecycle hook times out. The range is from <tt class="docutils literal"><span class="pre">30</span></tt> to <tt class="docutils literal"><span class="pre">7200</span></tt> seconds. The default value is <tt class="docutils literal"><span class="pre">3600</span></tt> seconds (1 hour).</p>
+<p>If the lifecycle hook times out, Amazon EC2 Auto Scaling performs the action that you specified in the <tt class="docutils literal"><span class="pre">DefaultResult</span></tt> parameter. You can prevent the lifecycle hook from timing out by calling  RecordLifecycleActionHeartbeat .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--default-result</span></tt> (string)</p>
+<blockquote>
+<div>Defines the action the Auto Scaling group should take when the lifecycle hook timeout elapses or if an unexpected failure occurs. This parameter can be either <tt class="docutils literal"><span class="pre">CONTINUE</span></tt> or <tt class="docutils literal"><span class="pre">ABANDON</span></tt> . The default value is <tt class="docutils literal"><span class="pre">ABANDON</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a lifecycle hook</strong></p>
+<p>This example creates a lifecycle hook:</p>
+<div class="highlight-python">
+<pre>aws autoscaling put-lifecycle-hook --lifecycle-hook-name my-lifecycle-hook --auto-scaling-group-name my-auto-scaling-group --lifecycle-transition autoscaling:EC2_INSTANCE_LAUNCHING --notification-target-arn arn:aws:sns:us-west-2:123456789012:my-sns-topic --role-arn arn:aws:iam::123456789012:role/my-auto-scaling-role</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html#adding-lifecycle-hooks">Add Lifecycle Hooks</a> in the <em>Amazon EC2 Auto Scaling User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

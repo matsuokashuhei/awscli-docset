@@ -1,0 +1,698 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-fleet — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="gamelift" href="index.html">
+    <link rel="next" title="create-game-session" href="create-game-session.html">
+    <link rel="prev" title="create-build" href="create-build.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-fleet">
+<span id="cli-aws-gamelift-create-fleet"></span><h1>create-fleet<a class="headerlink" href="#create-fleet" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new fleet to run your game servers. whether they are custom game builds or Realtime Servers with game-specific script. A fleet is a set of Amazon Elastic Compute Cloud (Amazon EC2) instances, each of which can host multiple game sessions. When creating a fleet, you choose the hardware specifications, set some configuration options, and specify the game server to deploy on the new fleet.</p>
+<p>To create a new fleet, you must provide the following: (1) a fleet name, (2) an EC2 instance type and fleet type (spot or on-demand), (3) the build ID for your game build or script ID if using Realtime Servers, and (4) a run-time configuration, which determines how game servers will run on each instance in the fleet.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When creating a Realtime Servers fleet, we recommend using a minimal version of the Realtime script (see this <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/realtime-script.html#realtime-script-examples">working code example</a> ). This will make it much easier to troubleshoot any fleet creation issues. Once the fleet is active, you can update your Realtime script as needed.</p>
+</div>
+<p>If the <tt class="docutils literal"><span class="pre">CreateFleet</span></tt> call is successful, Amazon GameLift performs the following tasks. You can track the process of a fleet by checking the fleet status or by monitoring fleet creation events:</p>
+<ul class="simple">
+<li>Creates a fleet record. Status: <tt class="docutils literal"><span class="pre">NEW</span></tt> .</li>
+<li>Begins writing events to the fleet event log, which can be accessed in the Amazon GameLift console. Sets the fleet's target capacity to 1 (desired instances), which triggers Amazon GameLift to start one new EC2 instance.</li>
+<li>Downloads the game build or Realtime script to the new instance and installs it. Statuses: <tt class="docutils literal"><span class="pre">DOWNLOADING</span></tt> , <tt class="docutils literal"><span class="pre">VALIDATING</span></tt> , <tt class="docutils literal"><span class="pre">BUILDING</span></tt> .</li>
+<li>Starts launching server processes on the instance. If the fleet is configured to run multiple server processes per instance, Amazon GameLift staggers each launch by a few seconds. Status: <tt class="docutils literal"><span class="pre">ACTIVATING</span></tt> .</li>
+<li>Sets the fleet's status to <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> as soon as one server process is ready to host a game session.</li>
+</ul>
+<blockquote>
+<div>
+<p><strong>Learn more</strong></p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html">Working with Fleets</a></p>
+<p><a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-creating-debug.html">Debug Fleet Creation Issues</a></p>
+<p><strong>Related operations</strong></p>
+</div>
+</blockquote>
+<ul class="simple">
+<li>CreateFleet</li>
+<li>ListFleets</li>
+<li>DeleteFleet</li>
+<li>Describe fleets:<ul>
+<li>DescribeFleetAttributes</li>
+<li>DescribeFleetCapacity</li>
+<li>DescribeFleetPortSettings</li>
+<li>DescribeFleetUtilization</li>
+<li>DescribeRuntimeConfiguration</li>
+<li>DescribeEC2InstanceLimits</li>
+<li>DescribeFleetEvents</li>
+</ul>
+</li>
+<li>Update fleets:<ul>
+<li>UpdateFleetAttributes</li>
+<li>UpdateFleetCapacity</li>
+<li>UpdateFleetPortSettings</li>
+<li>UpdateRuntimeConfiguration</li>
+</ul>
+</li>
+<li>Manage fleet actions:<ul>
+<li>StartFleetActions</li>
+<li>StopFleetActions</li>
+</ul>
+</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateFleet">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-fleet
+--name &lt;value&gt;
+[--description &lt;value&gt;]
+[--build-id &lt;value&gt;]
+[--script-id &lt;value&gt;]
+[--server-launch-path &lt;value&gt;]
+[--server-launch-parameters &lt;value&gt;]
+[--log-paths &lt;value&gt;]
+--ec2-instance-type &lt;value&gt;
+[--ec2-inbound-permissions &lt;value&gt;]
+[--new-game-session-protection-policy &lt;value&gt;]
+[--runtime-configuration &lt;value&gt;]
+[--resource-creation-limit-policy &lt;value&gt;]
+[--metric-groups &lt;value&gt;]
+[--peer-vpc-aws-account-id &lt;value&gt;]
+[--peer-vpc-id &lt;value&gt;]
+[--fleet-type &lt;value&gt;]
+[--instance-role-arn &lt;value&gt;]
+[--certificate-configuration &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>Descriptive label that is associated with a fleet. Fleet names do not need to be unique.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>Human-readable description of a fleet.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--build-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for a build to be deployed on the new fleet. The custom game server build must have been successfully uploaded to Amazon GameLift and be in a <tt class="docutils literal"><span class="pre">READY</span></tt> status. This fleet setting cannot be changed once the fleet is created.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--script-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for a Realtime script to be deployed on the new fleet. The Realtime script must have been successfully uploaded to Amazon GameLift. This fleet setting cannot be changed once the fleet is created.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-launch-path</span></tt> (string)</p>
+<blockquote>
+<div>This parameter is no longer used. Instead, specify a server launch path using the <tt class="docutils literal"><span class="pre">RuntimeConfiguration</span></tt> parameter. (Requests that specify a server launch path and launch parameters instead of a run-time configuration will continue to work.)</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-launch-parameters</span></tt> (string)</p>
+<blockquote>
+<div>This parameter is no longer used. Instead, specify server launch parameters in the <tt class="docutils literal"><span class="pre">RuntimeConfiguration</span></tt> parameter. (Requests that specify a server launch path and launch parameters instead of a run-time configuration will continue to work.)</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-paths</span></tt> (list)</p>
+<blockquote>
+<div>This parameter is no longer used. Instead, to specify where Amazon GameLift should store log files once a server process shuts down, use the Amazon GameLift server API <tt class="docutils literal"><span class="pre">ProcessReady()</span></tt> and specify one or more directory paths in <tt class="docutils literal"><span class="pre">logParameters</span></tt> . See more information in the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api-ref.html#gamelift-sdk-server-api-ref-dataypes-process">Server API Reference</a> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--ec2-instance-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Name of an EC2 instance type that is supported in Amazon GameLift. A fleet instance type determines the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. Amazon GameLift supports the following EC2 instance types. See <a class="reference external" href="http://aws.amazon.com/ec2/instance-types/">Amazon EC2 Instance Types</a> for detailed descriptions.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">t2.micro</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">t2.small</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">t2.medium</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">t2.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c3.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c3.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c3.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c3.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c3.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c4.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c4.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c4.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c4.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c4.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.9xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.12xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.18xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">c5.24xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r3.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r3.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r3.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r3.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r3.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r4.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r4.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r4.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r4.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r4.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r4.16xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.12xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.16xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">r5.24xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m3.medium</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m3.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m3.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m3.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m4.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m4.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m4.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m4.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m4.10xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.12xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.16xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">m5.24xlarge</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ec2-inbound-permissions</span></tt> (list)</p>
+<blockquote>
+<div>Range of IP addresses and port settings that permit inbound traffic to access game sessions that running on the fleet. For fleets using a custom game build, this parameter is required before game sessions running on the fleet can accept connections. For Realtime Servers fleets, Amazon GameLift automatically sets TCP and UDP ranges for use by the Realtime servers. You can specify multiple permission settings or add more by updating the fleet.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>FromPort=integer,ToPort=integer,IpRange=string,Protocol=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "FromPort": integer,
+    "ToPort": integer,
+    "IpRange": "string",
+    "Protocol": "TCP"|"UDP"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--new-game-session-protection-policy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Game session protection policy to apply to all instances in this fleet. If this parameter is not set, instances in this fleet default to no protection. You can change a fleet's protection policy using  UpdateFleetAttributes , but this change will only affect sessions created after the policy change. You can also set protection for individual instances using  UpdateGameSession .</p>
+<ul class="simple">
+<li>
+<strong>NoProtection</strong> -- The game session can be terminated during a scale-down event.</li>
+<li>
+<strong>FullProtection</strong> -- If the game session is in an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status, it cannot be terminated during a scale-down event.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NoProtection</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">FullProtection</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--runtime-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>Instructions for launching server processes on each instance in the fleet. Server processes run either a custom game build executable or a Realtime Servers script. The run-time configuration lists the types of server processes to run on an instance and includes the following configuration settings: the server executable or launch script file, launch parameters, and the number of processes to run concurrently on each instance. A CreateFleet request must include a run-time configuration with at least one server process configuration.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ServerProcesses=[{LaunchPath=string,Parameters=string,ConcurrentExecutions=integer},{LaunchPath=string,Parameters=string,ConcurrentExecutions=integer}],MaxConcurrentGameSessionActivations=integer,GameSessionActivationTimeoutSeconds=integer</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "ServerProcesses": [
+    {
+      "LaunchPath": "string",
+      "Parameters": "string",
+      "ConcurrentExecutions": integer
+    }
+    ...
+  ],
+  "MaxConcurrentGameSessionActivations": integer,
+  "GameSessionActivationTimeoutSeconds": integer
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-creation-limit-policy</span></tt> (structure)</p>
+<blockquote>
+<div>Policy that limits the number of game sessions an individual player can create over a span of time for this fleet.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">NewGameSessionsPerCreator</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">PolicyPeriodInMinutes</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"NewGameSessionsPerCreator"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"PolicyPeriodInMinutes"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--metric-groups</span></tt> (list)</p>
+<blockquote>
+<div>Name of an Amazon CloudWatch metric group to add this fleet to. A metric group aggregates the metrics for all fleets in the group. Specify an existing metric group name, or provide a new name to create a new metric group. A fleet can only be included in one metric group at a time.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--peer-vpc-aws-account-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for the AWS account with the VPC that you want to peer your Amazon GameLift fleet with. You can find your Account ID in the AWS Management Console under account settings.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--peer-vpc-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for a VPC with resources to be accessed by your Amazon GameLift fleet. The VPC must be in the same region where your fleet is deployed. Look up a VPC ID using the <a class="reference external" href="https://console.aws.amazon.com/vpc/">VPC Dashboard</a> in the AWS Management Console. Learn more about VPC peering in <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/vpc-peering.html">VPC Peering with Amazon GameLift Fleets</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--fleet-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Indicates whether to use on-demand instances or spot instances for this fleet. If empty, the default is ON_DEMAND. Both categories of instances use identical hardware and configurations based on the instance type selected for this fleet. Learn more about <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-ec2-instances.html#gamelift-ec2-instances-spot">On-Demand versus Spot Instances</a> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ON_DEMAND</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SPOT</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for an AWS IAM role that manages access to your AWS services. With an instance role ARN set, any application that runs on an instance in this fleet can assume the role, including install scripts, server processes, daemons (background processes). Create a role or look up a role's ARN using the <a class="reference external" href="https://console.aws.amazon.com/iam/">IAM dashboard</a> in the AWS Management Console. Learn more about using on-box credentials for your game servers at <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-resources.html">Access external resources from a game server</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--certificate-configuration</span></tt> (structure)</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">CertificateType</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"CertificateType"</span><span class="p">:</span> <span class="s2">"DISABLED"</span><span class="o">|</span><span class="s2">"GENERATED"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create a basic Linux fleet</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-fleet</span></tt> example creates a minimally configured fleet of on-demand Linux instances to host a custom server build. You can complete the configuration by using <tt class="docutils literal"><span class="pre">update-fleet</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws gamelift create-fleet \
+    --name MegaFrogRace.NA.v2 \
+    --description 'Hosts for v2 North America' \
+    --build-id build-1111aaaa-22bb-33cc-44dd-5555eeee66ff  \
+    --certificate-configuration 'CertificateType=GENERATED' \
+    --ec2-instance-type c4.large \
+    --fleet-type ON_DEMAND \
+    --runtime-configuration 'ServerProcesses=[{LaunchPath=/local/game/release-na/MegaFrogRace_Server.exe,ConcurrentExecutions=1}]'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"FleetAttributes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"BuildId"</span><span class="p">:</span> <span class="s2">"build-1111aaaa-22bb-33cc-44dd-5555eeee66ff"</span><span class="p">,</span>
+        <span class="s2">"CertificateConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"CertificateType"</span><span class="p">:</span> <span class="s2">"GENERATED"</span>
+        <span class="p">},</span>
+        <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="mf">1496365885.44</span><span class="p">,</span>
+        <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Hosts for v2 North America"</span><span class="p">,</span>
+        <span class="s2">"FleetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:gamelift:us-west-2:444455556666:fleet/fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"FleetId"</span><span class="p">:</span> <span class="s2">"fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"FleetType"</span><span class="p">:</span> <span class="s2">"ON_DEMAND"</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"c4.large"</span><span class="p">,</span>
+        <span class="s2">"MetricGroups"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">],</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"MegaFrogRace.NA.v2"</span><span class="p">,</span>
+        <span class="s2">"NewGameSessionProtectionPolicy"</span><span class="p">:</span> <span class="s2">"NoProtection"</span><span class="p">,</span>
+        <span class="s2">"OperatingSystem"</span><span class="p">:</span> <span class="s2">"AMAZON_LINUX"</span><span class="p">,</span>
+        <span class="s2">"ServerLaunchPath"</span><span class="p">:</span> <span class="s2">"/local/game/release-na/MegaFrogRace_Server.exe"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"NEW"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To create a basic Windows fleet</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-fleet</span></tt> example creates a minimally configured fleet of spot Windows instances to host a custom server build. You can complete the configuration by using <tt class="docutils literal"><span class="pre">update-fleet</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws gamelift create-fleet \
+    --name MegaFrogRace.NA.v2 \
+    --description 'Hosts for v2 North America' \
+    --build-id build-2222aaaa-33bb-44cc-55dd-6666eeee77ff  \
+    --certificate-configuration 'CertificateType=GENERATED' \
+    --ec2-instance-type c4.large \
+    --fleet-type SPOT \
+    --runtime-configuration 'ServerProcesses=[{LaunchPath==C:\game\Bin64.Release.Dedicated\MegaFrogRace_Server.exe,ConcurrentExecutions=1}]'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"FleetAttributes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"BuildId"</span><span class="p">:</span> <span class="s2">"build-2222aaaa-33bb-44cc-55dd-6666eeee77ff"</span><span class="p">,</span>
+        <span class="s2">"CertificateConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"CertificateType"</span><span class="p">:</span> <span class="s2">"GENERATED"</span>
+        <span class="p">},</span>
+        <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="mf">1496365885.44</span><span class="p">,</span>
+        <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Hosts for v2 North America"</span><span class="p">,</span>
+        <span class="s2">"FleetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:gamelift:us-west-2:444455556666:fleet/fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"FleetId"</span><span class="p">:</span> <span class="s2">"fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"FleetType"</span><span class="p">:</span> <span class="s2">"SPOT"</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"c4.large"</span><span class="p">,</span>
+        <span class="s2">"MetricGroups"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"default"</span><span class="p">],</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"MegaFrogRace.NA.v2"</span><span class="p">,</span>
+        <span class="s2">"NewGameSessionProtectionPolicy"</span><span class="p">:</span> <span class="s2">"NoProtection"</span><span class="p">,</span>
+        <span class="s2">"OperatingSystem"</span><span class="p">:</span> <span class="s2">"WINDOWS_2012"</span><span class="p">,</span>
+        <span class="s2">"ServerLaunchPath"</span><span class="p">:</span> <span class="s2">"C:\game\Bin64.Release.Dedicated\MegaFrogRace_Server.exe"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"NEW"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3: To create a fully configured fleet</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-fleet</span></tt> example creates a fleet of Spot Windows instances for a custom server build, with most commonly used configuration settings provided.</p>
+<div class="highlight-python">
+<pre>aws gamelift create-fleet \
+    --name MegaFrogRace.NA.v2 \
+    --description 'Hosts for v2 North America' \
+    --build-id build-2222aaaa-33bb-44cc-55dd-6666eeee77ff \
+    --certificate-configuration 'CertificateType=GENERATED' \
+    --ec2-instance-type c4.large \
+    --ec2-inbound-permissions 'FromPort=33435,ToPort=33435,IpRange=10.24.34.0/23,Protocol=UDP' \
+    --fleet-type SPOT \
+    --new-game-session-protection-policy FullProtection \
+    --runtime-configuration file://runtime-config.json \
+    --metric-groups default \
+    --instance-role-arn 'arn:aws:iam::444455556666:role/GameLiftS3Access'</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">runtime-config.json</span></tt>:</p>
+<div class="highlight-python">
+<pre>GameSessionActivationTimeoutSeconds=300,
+MaxConcurrentGameSessionActivations=2,
+ServerProcesses=[
+    {LaunchPath=C:\game\Bin64.Release.Dedicated\MegaFrogRace_Server.exe,Parameters=-debug,ConcurrentExecutions=1},
+    {LaunchPath=C:\game\Bin64.Release.Dedicated\MegaFrogRace_Server.exe,ConcurrentExecutions=1}]</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"FleetAttributes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"InstanceRoleArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:role/GameLiftS3Access"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"NEW"</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"c4.large"</span><span class="p">,</span>
+        <span class="s2">"FleetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:gamelift:us-west-2:123456789012:fleet/fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"FleetId"</span><span class="p">:</span> <span class="s2">"fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Hosts for v2 North America"</span><span class="p">,</span>
+        <span class="s2">"FleetType"</span><span class="p">:</span> <span class="s2">"SPOT"</span><span class="p">,</span>
+        <span class="s2">"OperatingSystem"</span><span class="p">:</span> <span class="s2">"WINDOWS_2012"</span><span class="p">,</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"MegaFrogRace.NA.v2"</span><span class="p">,</span>
+        <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="mf">1569309011.11</span><span class="p">,</span>
+        <span class="s2">"MetricGroups"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"default"</span>
+        <span class="p">],</span>
+        <span class="s2">"BuildId"</span><span class="p">:</span> <span class="s2">"build-2222aaaa-33bb-44cc-55dd-6666eeee77ff"</span><span class="p">,</span>
+        <span class="s2">"ServerLaunchParameters"</span><span class="p">:</span> <span class="s2">"abc"</span><span class="p">,</span>
+        <span class="s2">"ServerLaunchPath"</span><span class="p">:</span> <span class="s2">"C:</span><span class="se">\\</span><span class="s2">game</span><span class="se">\\</span><span class="s2">Bin64.Release.Dedicated</span><span class="se">\\</span><span class="s2">MegaFrogRace_Server.exe"</span><span class="p">,</span>
+        <span class="s2">"NewGameSessionProtectionPolicy"</span><span class="p">:</span> <span class="s2">"FullProtection"</span><span class="p">,</span>
+        <span class="s2">"CertificateConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"CertificateType"</span><span class="p">:</span> <span class="s2">"GENERATED"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 4: To create a Realtime Servers fleet</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-fleet</span></tt> example creates a fleet of Spot instances with a Realtime configuration script that has been uploaded to Amazon GameLift. All Realtime servers are deployed onto Linux machines. For the purposes of this example, assume that the uploaded Realtime script includes multiple script files, with the Init() function located in the script file called "MainScript.js". As shown, this file is identified as the launch script in the runtime configuration.</p>
+<div class="highlight-python">
+<pre>aws gamelift create-fleet \
+    --name MegaFrogRace.NA.realtime \
+    --description 'Mega Frog Race Realtime fleet' \
+    --script-id script-1111aaaa-22bb-33cc-44dd-5555eeee66ff \
+    --ec2-instance-type c4.large \
+    --fleet-type SPOT \
+    --certificate-configuration 'CertificateType=GENERATED' \
+    --runtime-configuration 'ServerProcesses=[{LaunchPath=/local/game/MainScript.js,Parameters=+map Winter444,ConcurrentExecutions=5}]'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"FleetAttributes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"FleetId"</span><span class="p">:</span> <span class="s2">"fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"NEW"</span><span class="p">,</span>
+        <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="mf">1569310745.212</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"c4.large"</span><span class="p">,</span>
+        <span class="s2">"NewGameSessionProtectionPolicy"</span><span class="p">:</span> <span class="s2">"NoProtection"</span><span class="p">,</span>
+        <span class="s2">"CertificateConfiguration"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"CertificateType"</span><span class="p">:</span> <span class="s2">"GENERATED"</span>
+        <span class="p">},</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"MegaFrogRace.NA.realtime"</span><span class="p">,</span>
+        <span class="s2">"ScriptId"</span><span class="p">:</span> <span class="s2">"script-1111aaaa-22bb-33cc-44dd-5555eeee66ff"</span><span class="p">,</span>
+        <span class="s2">"FleetArn"</span><span class="p">:</span> <span class="s2">"arn:aws:gamelift:us-west-2:123456789012:fleet/fleet-2222bbbb-33cc-44dd-55ee-6666ffff77aa"</span><span class="p">,</span>
+        <span class="s2">"FleetType"</span><span class="p">:</span> <span class="s2">"SPOT"</span><span class="p">,</span>
+        <span class="s2">"MetricGroups"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"default"</span>
+        <span class="p">],</span>
+        <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Mega Frog Race Realtime fleet"</span><span class="p">,</span>
+        <span class="s2">"OperatingSystem"</span><span class="p">:</span> <span class="s2">"AMAZON_LINUX"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FleetAttributes -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Properties for the newly created fleet.</p>
+<p>FleetId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for a fleet.</div>
+</blockquote>
+<p>FleetArn -&gt; (string)</p>
+<blockquote>
+<div>Identifier for a fleet that is unique across all regions.</div>
+</blockquote>
+<p>FleetType -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether the fleet uses on-demand or spot instances. A spot instance in use may be interrupted with a two-minute notification.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>EC2 instance type indicating the computing resources of each instance in the fleet, including CPU, memory, storage, and networking capacity. See <a class="reference external" href="http://aws.amazon.com/ec2/instance-types/">Amazon EC2 Instance Types</a> for detailed descriptions.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>Human-readable description of the fleet.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>Descriptive label that is associated with a fleet. Fleet names do not need to be unique.</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
+</blockquote>
+<p>TerminationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time stamp indicating when this data object was terminated. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Current status of the fleet.</p>
+<p>Possible fleet statuses include the following:</p>
+<ul class="simple">
+<li>
+<strong>NEW</strong> -- A new fleet has been defined and desired instances is set to 1.</li>
+<li>
+<strong>DOWNLOADING/VALIDATING/BUILDING/ACTIVATING</strong> -- Amazon GameLift is setting up the new fleet, creating new instances with the game build or Realtime script and starting server processes.</li>
+<li>
+<strong>ACTIVE</strong> -- Hosts can now accept game sessions.</li>
+<li>
+<strong>ERROR</strong> -- An error occurred when downloading, validating, building, or activating the fleet.</li>
+<li>
+<strong>DELETING</strong> -- Hosts are responding to a delete fleet request.</li>
+<li>
+<strong>TERMINATED</strong> -- The fleet no longer exists.</li>
+</ul>
+</div>
+</blockquote>
+<p>BuildId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for a build.</div>
+</blockquote>
+<p>ScriptId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for a Realtime script.</div>
+</blockquote>
+<p>ServerLaunchPath -&gt; (string)</p>
+<blockquote>
+<div>Path to a game server executable in the fleet's build, specified for fleets created before 2016-08-04 (or AWS SDK v. 0.12.16). Server launch paths for fleets created after this date are specified in the fleet's  RuntimeConfiguration .</div>
+</blockquote>
+<p>ServerLaunchParameters -&gt; (string)</p>
+<blockquote>
+<div>Game server launch parameters specified for fleets created before 2016-08-04 (or AWS SDK v. 0.12.16). Server launch parameters for fleets created after this date are specified in the fleet's  RuntimeConfiguration .</div>
+</blockquote>
+<p>LogPaths -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Location of default log files. When a server process is shut down, Amazon GameLift captures and stores any log files in this location. These logs are in addition to game session logs; see more on game session logs in the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-api-server-code">Amazon GameLift Developer Guide</a> . If no default log path for a fleet is specified, Amazon GameLift automatically uploads logs that are stored on each instance at <tt class="docutils literal"><span class="pre">C:\game\logs</span></tt> (for Windows) or <tt class="docutils literal"><span class="pre">/local/game/logs</span></tt> (for Linux). Use the Amazon GameLift console to access stored logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NewGameSessionProtectionPolicy -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Type of game session protection to set for all new instances started in the fleet.</p>
+<ul class="simple">
+<li>
+<strong>NoProtection</strong> -- The game session can be terminated during a scale-down event.</li>
+<li>
+<strong>FullProtection</strong> -- If the game session is in an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status, it cannot be terminated during a scale-down event.</li>
+</ul>
+</div>
+</blockquote>
+<p>OperatingSystem -&gt; (string)</p>
+<blockquote>
+<div>Operating system of the fleet's computing resources. A fleet's operating system depends on the OS specified for the build that is deployed on this fleet.</div>
+</blockquote>
+<p>ResourceCreationLimitPolicy -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Fleet policy to limit the number of game sessions an individual player can create over a span of time.</p>
+<p>NewGameSessionsPerCreator -&gt; (integer)</p>
+<blockquote>
+<div>Maximum number of game sessions that an individual can create during the policy period.</div>
+</blockquote>
+<p>PolicyPeriodInMinutes -&gt; (integer)</p>
+<blockquote>
+<div>Time span used in evaluating the resource creation limit policy.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MetricGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Names of metric groups that this fleet is included in. In Amazon CloudWatch, you can view metrics for an individual fleet or aggregated metrics for fleets that are in a fleet metric group. A fleet can be included in only one metric group at a time.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>StoppedActions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>List of fleet actions that have been suspended using  StopFleetActions . This includes auto-scaling.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>InstanceRoleArn -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for an AWS IAM role that manages access to your AWS services. With an instance role ARN set, any application that runs on an instance in this fleet can assume the role, including install scripts, server processes, daemons (background processes). Create a role or look up a role's ARN using the <a class="reference external" href="https://console.aws.amazon.com/iam/">IAM dashboard</a> in the AWS Management Console. Learn more about using on-box credentials for your game servers at <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-resources.html">Access external resources from a game server</a> .</div>
+</blockquote>
+<p>CertificateConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>CertificateType -&gt; (string)</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

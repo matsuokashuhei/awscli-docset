@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-application — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kinesisanalytics" href="index.html">
+    <link rel="next" title="delete-application" href="delete-application.html">
+    <link rel="prev" title="add-application-reference-data-source" href="add-application-reference-data-source.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-application">
+<span id="cli-aws-kinesisanalytics-create-application"></span><h1>create-application<a class="headerlink" href="#create-application" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This documentation is for version 1 of the Amazon Kinesis Data Analytics API, which only supports SQL applications. Version 2 of the API supports SQL and Java applications. For more information about version 2, see <a class="reference external" href="/kinesisanalytics/latest/apiv2/Welcome.html">Amazon Kinesis Data Analytics API V2 Documentation</a> .</p>
+</div>
+<p>Creates an Amazon Kinesis Analytics application. You can configure each application with one streaming source as input, application code to process the input, and up to three destinations where you want Amazon Kinesis Analytics to write the output data from your application. For an overview, see <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works.html">How it Works</a> .</p>
+<p>In the input configuration, you map the streaming source to an in-application stream, which you can think of as a constantly updating table. In the mapping, you must provide a schema for the in-application stream and map each data column in the in-application stream to a data element in the streaming source.</p>
+<p>Your application code is one or more SQL statements that read input data, transform it, and generate output. Your application code can create one or more SQL artifacts like SQL streams or pumps.</p>
+<p>In the output configuration, you can configure the application to write data from in-application streams created in your applications to up to three destinations.</p>
+<p>To read data from your source stream or write data to destination streams, Amazon Kinesis Analytics needs your permissions. You grant these permissions by creating IAM roles. This operation requires permissions to perform the <tt class="docutils literal"><span class="pre">kinesisanalytics:CreateApplication</span></tt> action.</p>
+<p>For introductory exercises to create an Amazon Kinesis Analytics application, see <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html">Getting Started</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kinesisanalytics-2015-08-14/CreateApplication">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-application
+--application-name &lt;value&gt;
+[--application-description &lt;value&gt;]
+[--inputs &lt;value&gt;]
+[--outputs &lt;value&gt;]
+[--cloud-watch-logging-options &lt;value&gt;]
+[--application-code &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--application-name</span></tt> (string)</p>
+<blockquote>
+<div>Name of your Amazon Kinesis Analytics application (for example, <tt class="docutils literal"><span class="pre">sample-app</span></tt> ).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--application-description</span></tt> (string)</p>
+<blockquote>
+<div>Summary description of the application.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--inputs</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Use this parameter to configure the application input.</p>
+<p>You can configure your application to receive input from a single streaming source. In this configuration, you map this streaming source to an in-application stream that is created. Your application code can then query the in-application stream like a table (you can think of it as a constantly updating table).</p>
+<p>For the streaming source, you provide its Amazon Resource Name (ARN) and format of data on the stream (for example, JSON, CSV, etc.). You also must provide an IAM role that Amazon Kinesis Analytics can assume to read this stream on your behalf.</p>
+<p>To create the in-application stream, you need to specify a schema to transform your data into a schematized version used in SQL. In the schema, you provide the necessary mapping of the data elements in the streaming source to record columns in the in-app stream.</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "NamePrefix": "string",
+    "InputProcessingConfiguration": {
+      "InputLambdaProcessor": {
+        "ResourceARN": "string",
+        "RoleARN": "string"
+      }
+    },
+    "KinesisStreamsInput": {
+      "ResourceARN": "string",
+      "RoleARN": "string"
+    },
+    "KinesisFirehoseInput": {
+      "ResourceARN": "string",
+      "RoleARN": "string"
+    },
+    "InputParallelism": {
+      "Count": integer
+    },
+    "InputSchema": {
+      "RecordFormat": {
+        "RecordFormatType": "JSON"|"CSV",
+        "MappingParameters": {
+          "JSONMappingParameters": {
+            "RecordRowPath": "string"
+          },
+          "CSVMappingParameters": {
+            "RecordRowDelimiter": "string",
+            "RecordColumnDelimiter": "string"
+          }
+        }
+      },
+      "RecordEncoding": "string",
+      "RecordColumns": [
+        {
+          "Name": "string",
+          "Mapping": "string",
+          "SqlType": "string"
+        }
+        ...
+      ]
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--outputs</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>You can configure application output to write data from any of the in-application streams to up to three destinations.</p>
+<p>These destinations can be Amazon Kinesis streams, Amazon Kinesis Firehose delivery streams, AWS Lambda destinations, or any combination of the three.</p>
+<p>In the configuration, you specify the in-application stream name, the destination stream or Lambda function Amazon Resource Name (ARN), and the format to use when writing data. You must also provide an IAM role that Amazon Kinesis Analytics can assume to write to the destination stream or Lambda function on your behalf.</p>
+<p>In the output configuration, you also provide the output stream or Lambda function ARN. For stream destinations, you provide the format of data in the stream (for example, JSON, CSV). You also must provide an IAM role that Amazon Kinesis Analytics can assume to write to the stream or Lambda function on your behalf.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,KinesisStreamsOutput={ResourceARN=string,RoleARN=string},KinesisFirehoseOutput={ResourceARN=string,RoleARN=string},LambdaOutput={ResourceARN=string,RoleARN=string},DestinationSchema={RecordFormatType=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "KinesisStreamsOutput": {
+      "ResourceARN": "string",
+      "RoleARN": "string"
+    },
+    "KinesisFirehoseOutput": {
+      "ResourceARN": "string",
+      "RoleARN": "string"
+    },
+    "LambdaOutput": {
+      "ResourceARN": "string",
+      "RoleARN": "string"
+    },
+    "DestinationSchema": {
+      "RecordFormatType": "JSON"|"CSV"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cloud-watch-logging-options</span></tt> (list)</p>
+<blockquote>
+<div>Use this parameter to configure a CloudWatch log stream to monitor application configuration errors. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html">Working with Amazon CloudWatch Logs</a> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>LogStreamARN=string,RoleARN=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "LogStreamARN": "string",
+    "RoleARN": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--application-code</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>One or more SQL statements that read input data, transform it, and generate output. For example, you can write a SQL statement that reads data from one in-application stream, generates a running average of the number of advertisement clicks by vendor, and insert resulting rows in another in-application stream using pumps. For more information about the typical pattern, see <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html">Application Code</a> .</p>
+<p>You can provide such series of SQL statements, where output of one statement can be used as the input for the next statement. You store intermediate results by creating in-application streams and pumps.</p>
+<p>Note that the application code must create the streams with names specified in the <tt class="docutils literal"><span class="pre">Outputs</span></tt> . For example, if your <tt class="docutils literal"><span class="pre">Outputs</span></tt> defines output streams named <tt class="docutils literal"><span class="pre">ExampleOutputStream1</span></tt> and <tt class="docutils literal"><span class="pre">ExampleOutputStream2</span></tt> , then your application code must create these streams.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html">Using Tagging</a> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ApplicationSummary -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>In response to your <tt class="docutils literal"><span class="pre">CreateApplication</span></tt> request, Amazon Kinesis Analytics returns a response with a summary of the application it created, including the application Amazon Resource Name (ARN), name, and status.</p>
+<p>ApplicationName -&gt; (string)</p>
+<blockquote>
+<div>Name of the application.</div>
+</blockquote>
+<p>ApplicationARN -&gt; (string)</p>
+<blockquote>
+<div>ARN of the application.</div>
+</blockquote>
+<p>ApplicationStatus -&gt; (string)</p>
+<blockquote>
+<div>Status of the application.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

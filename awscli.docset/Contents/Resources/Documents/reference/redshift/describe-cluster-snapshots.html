@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-cluster-snapshots — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="redshift" href="index.html">
+    <link rel="next" title="describe-cluster-subnet-groups" href="describe-cluster-subnet-groups.html">
+    <link rel="prev" title="describe-cluster-security-groups" href="describe-cluster-security-groups.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-cluster-snapshots">
+<span id="cli-aws-redshift-describe-cluster-snapshots"></span><h1>describe-cluster-snapshots<a class="headerlink" href="#describe-cluster-snapshots" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns one or more snapshot objects, which contain metadata about your cluster snapshots. By default, this operation returns information about all snapshots of all clusters that are owned by you AWS customer account. No information is returned for snapshots owned by inactive AWS customer accounts.</p>
+<p>If you specify both tag keys and tag values in the same request, Amazon Redshift returns all snapshots that match any combination of the specified keys and values. For example, if you have <tt class="docutils literal"><span class="pre">owner</span></tt> and <tt class="docutils literal"><span class="pre">environment</span></tt> for tag keys, and <tt class="docutils literal"><span class="pre">admin</span></tt> and <tt class="docutils literal"><span class="pre">test</span></tt> for tag values, all snapshots that have any combination of those values are returned. Only snapshots that you own are returned in the response; shared snapshots are not returned with the tag key and tag value request parameters.</p>
+<p>If both tag keys and values are omitted from the request, snapshots are returned regardless of whether they have tag keys or values associated with them.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/DescribeClusterSnapshots">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-cluster-snapshots</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Snapshots</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-cluster-snapshots
+[--cluster-identifier &lt;value&gt;]
+[--snapshot-identifier &lt;value&gt;]
+[--snapshot-type &lt;value&gt;]
+[--start-time &lt;value&gt;]
+[--end-time &lt;value&gt;]
+[--owner-account &lt;value&gt;]
+[--tag-keys &lt;value&gt;]
+[--tag-values &lt;value&gt;]
+[--cluster-exists | --no-cluster-exists]
+[--sorting-entities &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster-identifier</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the cluster which generated the requested snapshots.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--snapshot-identifier</span></tt> (string)</p>
+<blockquote>
+<div>The snapshot identifier of the snapshot about which to return information.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--snapshot-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of snapshots for which you are requesting information. By default, snapshots of all types are returned.</p>
+<p>Valid Values: <tt class="docutils literal"><span class="pre">automated</span></tt> | <tt class="docutils literal"><span class="pre">manual</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>A value that requests only snapshots created at or after the specified time. The time value is specified in ISO 8601 format. For more information about ISO 8601, go to the <a class="reference external" href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia page.</a></p>
+<p>Example: <tt class="docutils literal"><span class="pre">2012-07-16T18:00:00Z</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>A time value that requests only snapshots created at or before the specified time. The time value is specified in ISO 8601 format. For more information about ISO 8601, go to the <a class="reference external" href="http://en.wikipedia.org/wiki/ISO_8601">ISO8601 Wikipedia page.</a></p>
+<p>Example: <tt class="docutils literal"><span class="pre">2012-07-16T18:00:00Z</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--owner-account</span></tt> (string)</p>
+<blockquote>
+<div>The AWS customer account used to create or copy the snapshot. Use this field to filter the results to snapshots owned by a particular account. To describe snapshots you own, either specify your AWS customer account, or do not specify the parameter.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tag-keys</span></tt> (list)</p>
+<blockquote>
+<div>A tag key or keys for which you want to return all matching cluster snapshots that are associated with the specified key or keys. For example, suppose that you have snapshots that are tagged with keys called <tt class="docutils literal"><span class="pre">owner</span></tt> and <tt class="docutils literal"><span class="pre">environment</span></tt> . If you specify both of these tag keys in the request, Amazon Redshift returns a response with the snapshots that have either or both of these tag keys associated with them.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tag-values</span></tt> (list)</p>
+<blockquote>
+<div>A tag value or values for which you want to return all matching cluster snapshots that are associated with the specified tag value or values. For example, suppose that you have snapshots that are tagged with values called <tt class="docutils literal"><span class="pre">admin</span></tt> and <tt class="docutils literal"><span class="pre">test</span></tt> . If you specify both of these tag values in the request, Amazon Redshift returns a response with the snapshots that have either or both of these tag values associated with them.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cluster-exists</span></tt> | <tt class="docutils literal"><span class="pre">--no-cluster-exists</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that indicates whether to return snapshots only for an existing cluster. You can perform table-level restore only by using a snapshot of an existing cluster, that is, a cluster that has not been deleted. Values for this parameter work as follows:</p>
+<ul class="simple">
+<li>If <tt class="docutils literal"><span class="pre">ClusterExists</span></tt> is set to <tt class="docutils literal"><span class="pre">true</span></tt> , <tt class="docutils literal"><span class="pre">ClusterIdentifier</span></tt> is required.</li>
+<li>If <tt class="docutils literal"><span class="pre">ClusterExists</span></tt> is set to <tt class="docutils literal"><span class="pre">false</span></tt> and <tt class="docutils literal"><span class="pre">ClusterIdentifier</span></tt> isn't specified, all snapshots associated with deleted clusters (orphaned snapshots) are returned.</li>
+<li>If <tt class="docutils literal"><span class="pre">ClusterExists</span></tt> is set to <tt class="docutils literal"><span class="pre">false</span></tt> and <tt class="docutils literal"><span class="pre">ClusterIdentifier</span></tt> is specified for a deleted cluster, snapshots associated with that cluster are returned.</li>
+<li>If <tt class="docutils literal"><span class="pre">ClusterExists</span></tt> is set to <tt class="docutils literal"><span class="pre">false</span></tt> and <tt class="docutils literal"><span class="pre">ClusterIdentifier</span></tt> is specified for an existing cluster, no snapshots are returned.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sorting-entities</span></tt> (list)</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Attribute=string,SortOrder=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Attribute": "SOURCE_TYPE"|"TOTAL_SIZE"|"CREATE_TIME",
+    "SortOrder": "ASC"|"DESC"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<div class="section" id="get-a-description-of-all-cluster-snapshots">
+<h3>Get a Description of All Cluster Snapshots<a class="headerlink" href="#get-a-description-of-all-cluster-snapshots" title="Permalink to this headline">¶</a>
+</h3>
+<p>This example returns a description of all cluster snapshots for the
+account.  By default, the output is in JSON format.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws redshift describe-cluster-snapshots</pre>
+</div>
+<p>Result:</p>
+<div class="highlight-python">
+<pre>{
+   "Snapshots": [
+      {
+         "Status": "available",
+         "SnapshotCreateTime": "2013-07-17T22:02:22.852Z",
+         "EstimatedSecondsToCompletion": -1,
+         "AvailabilityZone": "us-east-1a",
+         "ClusterVersion": "1.0",
+         "MasterUsername": "adminuser",
+         "Encrypted": false,
+         "OwnerAccount": "111122223333",
+         "BackupProgressInMegabytes": 20.0,
+         "ElapsedTimeInSeconds": 0,
+         "DBName": "dev",
+         "CurrentBackupRateInMegabytesPerSecond: 0.0,
+         "ClusterCreateTime": "2013-01-22T21:59:29.559Z",
+         "ActualIncrementalBackupSizeInMegabytes"; 20.0
+         "SnapshotType": "automated",
+         "NodeType": "dw.hs1.xlarge",
+         "ClusterIdentifier": "mycluster",
+         "Port": 5439,
+         "TotalBackupSizeInMegabytes": 20.0,
+         "NumberOfNodes": "2",
+         "SnapshotIdentifier": "cm:mycluster-2013-01-22-22-04-18"
+      },
+      {
+         "EstimatedSecondsToCompletion": 0,
+         "OwnerAccount": "111122223333",
+         "CurrentBackupRateInMegabytesPerSecond: 0.1534,
+         "ActualIncrementalBackupSizeInMegabytes"; 11.0,
+         "NumberOfNodes": "2",
+         "Status": "available",
+         "ClusterVersion": "1.0",
+         "MasterUsername": "adminuser",
+         "AccountsWithRestoreAccess": [
+            {
+               "AccountID": "444455556666"
+            } ],
+         "TotalBackupSizeInMegabytes": 20.0,
+         "DBName": "dev",
+         "BackupProgressInMegabytes": 11.0,
+         "ClusterCreateTime": "2013-01-22T21:59:29.559Z",
+         "ElapsedTimeInSeconds": 0,
+         "ClusterIdentifier": "mycluster",
+         "SnapshotCreateTime": "2013-07-17T22:04:18.947Z",
+         "AvailabilityZone": "us-east-1a",
+         "NodeType": "dw.hs1.xlarge",
+         "Encrypted": false,
+         "SnapshotType": "manual",
+         "Port": 5439,
+         "SnapshotIdentifier": "my-snapshot-id"
+      } ]
+   }
+   (...remaining output omitted...)</pre>
+</div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>A value that indicates the starting point for the next set of response records in a subsequent request. If a value is returned in a response, you can retrieve the next set of records by providing this returned marker value in the <tt class="docutils literal"><span class="pre">Marker</span></tt> parameter and retrying the command. If the <tt class="docutils literal"><span class="pre">Marker</span></tt> field is empty, all response records have been retrieved for the request.</div>
+</blockquote>
+<p>Snapshots -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of  Snapshot instances.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a snapshot.</p>
+<p>SnapshotIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The snapshot identifier that is provided in the request.</div>
+</blockquote>
+<p>ClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the cluster for which the snapshot was taken.</div>
+</blockquote>
+<p>SnapshotCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time (in UTC format) when Amazon Redshift began the snapshot. A snapshot contains a copy of the cluster data as of this exact time.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The snapshot status. The value of the status depends on the API operation used:</p>
+<ul class="simple">
+<li>CreateClusterSnapshot and  CopyClusterSnapshot returns status as "creating".</li>
+<li>DescribeClusterSnapshots returns status as "creating", "available", "final snapshot", or "failed".</li>
+<li>DeleteClusterSnapshot returns status as "deleted".</li>
+</ul>
+</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port that the cluster is listening on.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone in which the cluster was created.</div>
+</blockquote>
+<p>ClusterCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time (UTC) when the cluster was originally created.</div>
+</blockquote>
+<p>MasterUsername -&gt; (string)</p>
+<blockquote>
+<div>The master user name for the cluster.</div>
+</blockquote>
+<p>ClusterVersion -&gt; (string)</p>
+<blockquote>
+<div>The version ID of the Amazon Redshift engine that is running on the cluster.</div>
+</blockquote>
+<p>SnapshotType -&gt; (string)</p>
+<blockquote>
+<div>The snapshot type. Snapshots created using  CreateClusterSnapshot and  CopyClusterSnapshot are of type "manual".</div>
+</blockquote>
+<p>NodeType -&gt; (string)</p>
+<blockquote>
+<div>The node type of the nodes in the cluster.</div>
+</blockquote>
+<p>NumberOfNodes -&gt; (integer)</p>
+<blockquote>
+<div>The number of nodes in the cluster.</div>
+</blockquote>
+<p>DBName -&gt; (string)</p>
+<blockquote>
+<div>The name of the database that was created when the cluster was created.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The VPC identifier of the cluster if the snapshot is from a cluster in a VPC. Otherwise, this field is not in the output.</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">true</span></tt> , the data in the snapshot is encrypted at rest.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS Key Management Service (KMS) key ID of the encryption key that was used to encrypt data in the cluster from which the snapshot was taken.</div>
+</blockquote>
+<p>EncryptedWithHSM -&gt; (boolean)</p>
+<blockquote>
+<div>A boolean that indicates whether the snapshot data is encrypted using the HSM keys of the source cluster. <tt class="docutils literal"><span class="pre">true</span></tt> indicates that the data is encrypted using HSM keys.</div>
+</blockquote>
+<p>AccountsWithRestoreAccess -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of the AWS customer accounts authorized to restore the snapshot. Returns <tt class="docutils literal"><span class="pre">null</span></tt> if no accounts are authorized. Visible only to the snapshot owner.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an AWS customer account authorized to restore a snapshot.</p>
+<p>AccountId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of an AWS customer account authorized to restore a snapshot.</div>
+</blockquote>
+<p>AccountAlias -&gt; (string)</p>
+<blockquote>
+<div>The identifier of an AWS support account authorized to restore a snapshot. For AWS support, the identifier is <tt class="docutils literal"><span class="pre">amazon-redshift-support</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OwnerAccount -&gt; (string)</p>
+<blockquote>
+<div>For manual snapshots, the AWS customer account used to create or copy the snapshot. For automatic snapshots, the owner of the cluster. The owner can perform all snapshot actions, such as sharing a manual snapshot.</div>
+</blockquote>
+<p>TotalBackupSizeInMegaBytes -&gt; (double)</p>
+<blockquote>
+<div>The size of the complete set of backup data that would be used to restore the cluster.</div>
+</blockquote>
+<p>ActualIncrementalBackupSizeInMegaBytes -&gt; (double)</p>
+<blockquote>
+<div>The size of the incremental backup.</div>
+</blockquote>
+<p>BackupProgressInMegaBytes -&gt; (double)</p>
+<blockquote>
+<div>The number of megabytes that have been transferred to the snapshot backup.</div>
+</blockquote>
+<p>CurrentBackupRateInMegaBytesPerSecond -&gt; (double)</p>
+<blockquote>
+<div>The number of megabytes per second being transferred to the snapshot backup. Returns <tt class="docutils literal"><span class="pre">0</span></tt> for a completed backup.</div>
+</blockquote>
+<p>EstimatedSecondsToCompletion -&gt; (long)</p>
+<blockquote>
+<div>The estimate of the time remaining before the snapshot backup will complete. Returns <tt class="docutils literal"><span class="pre">0</span></tt> for a completed backup.</div>
+</blockquote>
+<p>ElapsedTimeInSeconds -&gt; (long)</p>
+<blockquote>
+<div>The amount of time an in-progress snapshot backup has been running, or the amount of time it took a completed backup to finish.</div>
+</blockquote>
+<p>SourceRegion -&gt; (string)</p>
+<blockquote>
+<div>The source region from which the snapshot was copied.</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of tags for the cluster snapshot.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A tag consisting of a name/value pair for a resource.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The key, or name, for the resource tag.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value for the resource tag.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RestorableNodeTypes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of node types that this cluster snapshot is able to restore into.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>EnhancedVpcRouting -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>An option that specifies whether to create the cluster with enhanced VPC routing enabled. To create a cluster that uses enhanced VPC routing, the cluster must be in a VPC. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html">Enhanced VPC Routing</a> in the Amazon Redshift Cluster Management Guide.</p>
+<p>If this option is <tt class="docutils literal"><span class="pre">true</span></tt> , enhanced VPC routing is enabled.</p>
+<p>Default: false</p>
+</div>
+</blockquote>
+<p>MaintenanceTrackName -&gt; (string)</p>
+<blockquote>
+<div>The name of the maintenance track for the snapshot.</div>
+</blockquote>
+<p>ManualSnapshotRetentionPeriod -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of days that a manual snapshot is retained. If the value is -1, the manual snapshot is retained indefinitely.</p>
+<p>The value must be either -1 or an integer between 1 and 3,653.</p>
+</div>
+</blockquote>
+<p>ManualSnapshotRemainingDays -&gt; (integer)</p>
+<blockquote>
+<div>The number of days until a manual snapshot will pass its retention period.</div>
+</blockquote>
+<p>SnapshotRetentionStartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp representing the start of the retention period for the snapshot.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

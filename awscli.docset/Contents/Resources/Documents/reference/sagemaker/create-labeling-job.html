@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-labeling-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="create-model" href="create-model.html">
+    <link rel="prev" title="create-hyper-parameter-tuning-job" href="create-hyper-parameter-tuning-job.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-labeling-job">
+<span id="cli-aws-sagemaker-create-labeling-job"></span><h1>create-labeling-job<a class="headerlink" href="#create-labeling-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a job that uses workers to label the data objects in your input dataset. You can use the labeled data to train machine learning models.</p>
+<p>You can select your workforce from one of three providers:</p>
+<ul class="simple">
+<li>A private workforce that you create. It can include employees, contractors, and outside experts. Use a private workforce when want the data to stay within your organization or when a specific set of skills is required.</li>
+<li>One or more vendors that you select from the AWS Marketplace. Vendors provide expertise in specific areas.</li>
+<li>The Amazon Mechanical Turk workforce. This is the largest workforce, but it should only be used for public data or data that has been stripped of any personally identifiable information.</li>
+</ul>
+<p>You can also use <em>automated data labeling</em> to reduce the number of data objects that need to be labeled by a human. Automated data labeling uses <em>active learning</em> to determine if a data object can be labeled by machine or if it needs to be sent to a human worker. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html">Using Automated Data Labeling</a> .</p>
+<p>The data objects to be labeled are contained in an Amazon S3 bucket. You create a <em>manifest file</em> that describes the location of each object. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sms-data.html">Using Input and Output Data</a> .</p>
+<p>The output can be used as the manifest file for another labeling job or as training data for your machine learning models.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateLabelingJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-labeling-job
+--labeling-job-name &lt;value&gt;
+--label-attribute-name &lt;value&gt;
+--input-config &lt;value&gt;
+--output-config &lt;value&gt;
+--role-arn &lt;value&gt;
+[--label-category-config-s3-uri &lt;value&gt;]
+[--stopping-conditions &lt;value&gt;]
+[--labeling-job-algorithms-config &lt;value&gt;]
+--human-task-config &lt;value&gt;
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--labeling-job-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the labeling job. This name is used to identify the job in a list of labeling jobs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--label-attribute-name</span></tt> (string)</p>
+<blockquote>
+<div>The attribute name to use for the label in the output manifest file. This is the key for the key/value pair formed with the label that a worker assigns to the object. The name can't end with "-metadata". If you are running a semantic segmentation labeling job, the attribute name must end with "-ref". If you are running any other kind of labeling job, the attribute name must not end with "-ref".</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input-config</span></tt> (structure)</p>
+<blockquote>
+<div>Input data for the labeling job, such as the Amazon S3 location of the data objects and the location of the manifest file that describes the data objects.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>DataSource={S3DataSource={ManifestS3Uri=string}},DataAttributes={ContentClassifiers=[string,string]}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DataSource"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"S3DataSource"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"ManifestS3Uri"</span><span class="p">:</span> <span class="s2">"string"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"DataAttributes"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"ContentClassifiers"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"FreeOfPersonallyIdentifiableInformation"</span><span class="o">|</span><span class="s2">"FreeOfAdultContent"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--output-config</span></tt> (structure)</p>
+<blockquote>
+<div>The location of the output data and the AWS Key Management Service key ID for the key used to encrypt the output data, if any.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3OutputPath</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KmsKeyId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3OutputPath"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Number (ARN) that Amazon SageMaker assumes to perform tasks on your behalf during data labeling. You must grant this role the necessary permissions so that Amazon SageMaker can successfully complete data labeling.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--label-category-config-s3-uri</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The S3 URL of the file that defines the categories used to label the data objects.</p>
+<p>The file is a JSON structure in the following format:</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">{</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">"document-version":</span> <span class="pre">"2018-11-28"</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">"labels":</span> <span class="pre">[</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">{</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">"label":</span> <span class="pre">"*label</span> <span class="pre">1*</span> <span class="pre">"</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">},</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">{</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">"label":</span> <span class="pre">"*label</span> <span class="pre">2*</span> <span class="pre">"</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">},</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">...</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">{</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">"label":</span> <span class="pre">"*label</span> <span class="pre">n*</span> <span class="pre">"</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">}</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">]</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">}</span></tt></p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--stopping-conditions</span></tt> (structure)</p>
+<blockquote>
+<div>A set of conditions for stopping the labeling job. If any of the conditions are met, the job is automatically stopped. You can use these conditions to control the cost of data labeling.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">MaxHumanLabeledObjectCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxPercentageOfInputDatasetLabeled</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"MaxHumanLabeledObjectCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxPercentageOfInputDatasetLabeled"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--labeling-job-algorithms-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configures the information required to perform automated data labeling.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>LabelingJobAlgorithmSpecificationArn=string,InitialActiveLearningModelArn=string,LabelingJobResourceConfig={VolumeKmsKeyId=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"LabelingJobAlgorithmSpecificationArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"InitialActiveLearningModelArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"LabelingJobResourceConfig"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"VolumeKmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--human-task-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configures the labeling task and how it is presented to workers; including, but not limited to price, keywords, and batch size (task count).</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>WorkteamArn=string,UiConfig={UiTemplateS3Uri=string},PreHumanTaskLambdaArn=string,TaskKeywords=string,string,TaskTitle=string,TaskDescription=string,NumberOfHumanWorkersPerDataObject=integer,TaskTimeLimitInSeconds=integer,TaskAvailabilityLifetimeInSeconds=integer,MaxConcurrentTaskCount=integer,AnnotationConsolidationConfig={AnnotationConsolidationLambdaArn=string},PublicWorkforceTaskPrice={AmountInUsd={Dollars=integer,Cents=integer,TenthFractionsOfACent=integer}}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"WorkteamArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"UiConfig"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"UiTemplateS3Uri"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"PreHumanTaskLambdaArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TaskKeywords"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"TaskTitle"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TaskDescription"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"NumberOfHumanWorkersPerDataObject"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"TaskTimeLimitInSeconds"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"TaskAvailabilityLifetimeInSeconds"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxConcurrentTaskCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"AnnotationConsolidationConfig"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"AnnotationConsolidationLambdaArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"PublicWorkforceTaskPrice"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"AmountInUsd"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Dollars"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+      <span class="s2">"Cents"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+      <span class="s2">"TenthFractionsOfACent"</span><span class="p">:</span> <span class="n">integer</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>An array of key/value pairs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using Cost Allocation Tags</a> in the <em>AWS Billing and Cost Management User Guide</em> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>LabelingJobArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the labeling job. You use this ARN to identify the labeling job.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

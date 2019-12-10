@@ -1,0 +1,506 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-capacity-reservation — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="create-client-vpn-endpoint" href="create-client-vpn-endpoint.html">
+    <link rel="prev" title="copy-snapshot" href="copy-snapshot.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-capacity-reservation">
+<span id="cli-aws-ec2-create-capacity-reservation"></span><h1>create-capacity-reservation<a class="headerlink" href="#create-capacity-reservation" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new Capacity Reservation with the specified attributes.</p>
+<p>Capacity Reservations enable you to reserve capacity for your Amazon EC2 instances in a specific Availability Zone for any duration. This gives you the flexibility to selectively add capacity reservations and still get the Regional RI discounts for that usage. By creating Capacity Reservations, you ensure that you always have access to Amazon EC2 capacity when you need it, for as long as you need it. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-capacity-reservations.html">Capacity Reservations</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Your request to create a Capacity Reservation could fail if Amazon EC2 does not have sufficient capacity to fulfill the request. If your request fails due to Amazon EC2 capacity constraints, either try again at a later time, try in a different Availability Zone, or request a smaller capacity reservation. If your application is flexible across instance types and sizes, try to create a Capacity Reservation with different instance attributes.</p>
+<p>Your request could also fail if the requested quantity exceeds your On-Demand Instance limit for the selected instance type. If your request fails due to limit constraints, increase your On-Demand Instance limit for the required instance type and try again. For more information about increasing your instance limits, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-resource-limits.html">Amazon EC2 Service Limits</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateCapacityReservation">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-capacity-reservation
+[--client-token &lt;value&gt;]
+--instance-type &lt;value&gt;
+--instance-platform &lt;value&gt;
+[--availability-zone &lt;value&gt;]
+[--availability-zone-id &lt;value&gt;]
+[--tenancy &lt;value&gt;]
+--instance-count &lt;value&gt;
+[--ebs-optimized | --no-ebs-optimized]
+[--ephemeral-storage | --no-ephemeral-storage]
+[--end-date &lt;value&gt;]
+[--end-date-type &lt;value&gt;]
+[--instance-match-criteria &lt;value&gt;]
+[--tag-specifications &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">How to Ensure Idempotency</a> .</p>
+<p>Constraint: Maximum 64 ASCII characters.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-type</span></tt> (string)</p>
+<blockquote>
+<div>The instance type for which to reserve capacity. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html">Instance Types</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-platform</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of operating system for which to reserve capacity.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Linux/UNIX</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Red</span> <span class="pre">Hat</span> <span class="pre">Enterprise</span> <span class="pre">Linux</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SUSE</span> <span class="pre">Linux</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Windows</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Windows</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Windows</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span> <span class="pre">Enterprise</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Windows</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span> <span class="pre">Standard</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Windows</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span> <span class="pre">Web</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Linux</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span> <span class="pre">Standard</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Linux</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span> <span class="pre">Web</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Linux</span> <span class="pre">with</span> <span class="pre">SQL</span> <span class="pre">Server</span> <span class="pre">Enterprise</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--availability-zone</span></tt> (string)</p>
+<blockquote>
+<div>The Availability Zone in which to create the Capacity Reservation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--availability-zone-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the Availability Zone in which to create the Capacity Reservation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tenancy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Indicates the tenancy of the Capacity Reservation. A Capacity Reservation can have one of the following tenancy settings:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">default</span></tt> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dedicated</span></tt> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a single AWS account.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">default</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dedicated</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-count</span></tt> (integer)</p>
+<blockquote>
+<div>The number of instances for which to reserve capacity.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ebs-optimized</span></tt> | <tt class="docutils literal"><span class="pre">--no-ebs-optimized</span></tt> (boolean)</p>
+<blockquote>
+<div>Indicates whether the Capacity Reservation supports EBS-optimized instances. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS- optimized instance.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ephemeral-storage</span></tt> | <tt class="docutils literal"><span class="pre">--no-ephemeral-storage</span></tt> (boolean)</p>
+<blockquote>
+<div>Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-date</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The date and time at which the Capacity Reservation expires. When a Capacity Reservation expires, the reserved capacity is released and you can no longer launch instances into it. The Capacity Reservation's state changes to <tt class="docutils literal"><span class="pre">expired</span></tt> when it reaches its end date and time.</p>
+<p>You must provide an <tt class="docutils literal"><span class="pre">EndDate</span></tt> value if <tt class="docutils literal"><span class="pre">EndDateType</span></tt> is <tt class="docutils literal"><span class="pre">limited</span></tt> . Omit <tt class="docutils literal"><span class="pre">EndDate</span></tt> if <tt class="docutils literal"><span class="pre">EndDateType</span></tt> is <tt class="docutils literal"><span class="pre">unlimited</span></tt> .</p>
+<p>If the <tt class="docutils literal"><span class="pre">EndDateType</span></tt> is <tt class="docutils literal"><span class="pre">limited</span></tt> , the Capacity Reservation is cancelled within an hour from the specified time. For example, if you specify 5/31/2019, 13:30:55, the Capacity Reservation is guaranteed to end between 13:30:55 and 14:30:55 on 5/31/2019.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-date-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Indicates the way in which the Capacity Reservation ends. A Capacity Reservation can have one of the following end types:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">unlimited</span></tt> - The Capacity Reservation remains active until you explicitly cancel it. Do not provide an <tt class="docutils literal"><span class="pre">EndDate</span></tt> if the <tt class="docutils literal"><span class="pre">EndDateType</span></tt> is <tt class="docutils literal"><span class="pre">unlimited</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">limited</span></tt> - The Capacity Reservation expires automatically at a specified date and time. You must provide an <tt class="docutils literal"><span class="pre">EndDate</span></tt> value if the <tt class="docutils literal"><span class="pre">EndDateType</span></tt> value is <tt class="docutils literal"><span class="pre">limited</span></tt> .</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">unlimited</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">limited</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-match-criteria</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Indicates the type of instance launches that the Capacity Reservation accepts. The options include:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">open</span></tt> - The Capacity Reservation automatically matches all instances that have matching attributes (instance type, platform, and Availability Zone). Instances that have matching attributes run in the Capacity Reservation automatically without specifying any additional parameters.</li>
+<li>
+<tt class="docutils literal"><span class="pre">targeted</span></tt> - The Capacity Reservation only accepts instances that have matching attributes (instance type, platform, and Availability Zone), and explicitly target the Capacity Reservation. This ensures that only permitted instances can use the reserved capacity.</li>
+</ul>
+<p>Default: <tt class="docutils literal"><span class="pre">open</span></tt></p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">open</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">targeted</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tag-specifications</span></tt> (list)</p>
+<blockquote>
+<div>The tags to apply to the Capacity Reservation during launch.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceType=string,Tags=[{Key=string,Value=string},{Key=string,Value=string}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceType": "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+    "Tags": [
+      {
+        "Key": "string",
+        "Value": "string"
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create a Capacity Reservation</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-capacity-reservation</span></tt> example creates a capacity reservation in the <tt class="docutils literal"><span class="pre">eu-west-1a</span></tt> Availability Zone, into which you can launch three <tt class="docutils literal"><span class="pre">t2.medium</span></tt> instances running a Linux/Unix operating system. By default, the capacity reservation is created with open instance matching criteria and no support for ephemeral storage, and it remains active until you manually cancel it.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-capacity-reservation \
+    --availability-zone eu-west-1a \
+    --instance-type t2.medium \
+    --instance-platform Linux/UNIX \
+    --instance-count 3</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"CapacityReservation"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"CapacityReservationId"</span><span class="p">:</span> <span class="s2">"cr-1234abcd56EXAMPLE "</span><span class="p">,</span>
+        <span class="s2">"EndDateType"</span><span class="p">:</span> <span class="s2">"unlimited"</span><span class="p">,</span>
+        <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"eu-west-1a"</span><span class="p">,</span>
+        <span class="s2">"InstanceMatchCriteria"</span><span class="p">:</span> <span class="s2">"open"</span><span class="p">,</span>
+        <span class="s2">"EphemeralStorage"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"CreateDate"</span><span class="p">:</span> <span class="s2">"2019-08-16T09:27:35.000Z"</span><span class="p">,</span>
+        <span class="s2">"AvailableInstanceCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"InstancePlatform"</span><span class="p">:</span> <span class="s2">"Linux/UNIX"</span><span class="p">,</span>
+        <span class="s2">"TotalInstanceCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"active"</span><span class="p">,</span>
+        <span class="s2">"Tenancy"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+        <span class="s2">"EbsOptimized"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"t2.medium"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To create a Capacity Reservation that automatically ends at a specified date/time</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-capacity-reservation</span></tt> example creates a capacity reservation in the <tt class="docutils literal"><span class="pre">eu-west-1a</span></tt> Availability Zone, into which you can launch three <tt class="docutils literal"><span class="pre">m5.large</span></tt> instances running a Linux/Unix operating system. This capacity reservation automatically ends on 08/31/2019 at 23:59:59.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-capacity-reservation \
+    --availability-zone eu-west-1a \
+    --instance-type m5.large \
+    --instance-platform Linux/UNIX \
+    --instance-count 3 \
+    --end-date-type limited \
+    --end-date 2019-08-31T23:59:59Z</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"CapacityReservation"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"CapacityReservationId"</span><span class="p">:</span> <span class="s2">"cr-1234abcd56EXAMPLE "</span><span class="p">,</span>
+        <span class="s2">"EndDateType"</span><span class="p">:</span> <span class="s2">"limited"</span><span class="p">,</span>
+        <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"eu-west-1a"</span><span class="p">,</span>
+        <span class="s2">"EndDate"</span><span class="p">:</span> <span class="s2">"2019-08-31T23:59:59.000Z"</span><span class="p">,</span>
+        <span class="s2">"InstanceMatchCriteria"</span><span class="p">:</span> <span class="s2">"open"</span><span class="p">,</span>
+        <span class="s2">"EphemeralStorage"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"CreateDate"</span><span class="p">:</span> <span class="s2">"2019-08-16T10:15:53.000Z"</span><span class="p">,</span>
+        <span class="s2">"AvailableInstanceCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"InstancePlatform"</span><span class="p">:</span> <span class="s2">"Linux/UNIX"</span><span class="p">,</span>
+        <span class="s2">"TotalInstanceCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"active"</span><span class="p">,</span>
+        <span class="s2">"Tenancy"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+        <span class="s2">"EbsOptimized"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m5.large"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3: To create a Capacity Reservation that accepts only targeted instance launches</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-capacity-reservation</span></tt> example creates a capacity reservation that accepts only targeted instance launches.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-capacity-reservation \
+    --availability-zone eu-west-1a \
+    --instance-type m5.large \
+    --instance-platform Linux/UNIX \
+    --instance-count 3 \
+    --instance-match-criteria targeted</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"CapacityReservation"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"CapacityReservationId"</span><span class="p">:</span> <span class="s2">"cr-1234abcd56EXAMPLE "</span><span class="p">,</span>
+        <span class="s2">"EndDateType"</span><span class="p">:</span> <span class="s2">"unlimited"</span><span class="p">,</span>
+        <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"eu-west-1a"</span><span class="p">,</span>
+        <span class="s2">"InstanceMatchCriteria"</span><span class="p">:</span> <span class="s2">"targeted"</span><span class="p">,</span>
+        <span class="s2">"EphemeralStorage"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"CreateDate"</span><span class="p">:</span> <span class="s2">"2019-08-16T10:21:57.000Z"</span><span class="p">,</span>
+        <span class="s2">"AvailableInstanceCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"InstancePlatform"</span><span class="p">:</span> <span class="s2">"Linux/UNIX"</span><span class="p">,</span>
+        <span class="s2">"TotalInstanceCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"active"</span><span class="p">,</span>
+        <span class="s2">"Tenancy"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+        <span class="s2">"EbsOptimized"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+        <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m5.large"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/capacity-reservations-using.html#capacity-reservations-create">Creating a Capacity Reservation</a> in the <em>Amazon Elastic Compute Cloud User Guide for Linux Instances</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CapacityReservation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the Capacity Reservation.</p>
+<p>CapacityReservationId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Capacity Reservation.</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS account that owns the Capacity Reservation.</div>
+</blockquote>
+<p>CapacityReservationArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Capacity Reservation.</div>
+</blockquote>
+<p>AvailabilityZoneId -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone ID of the Capacity Reservation.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The type of instance for which the Capacity Reservation reserves capacity.</div>
+</blockquote>
+<p>InstancePlatform -&gt; (string)</p>
+<blockquote>
+<div>The type of operating system for which the Capacity Reservation reserves capacity.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone in which the capacity is reserved.</div>
+</blockquote>
+<p>Tenancy -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates the tenancy of the Capacity Reservation. A Capacity Reservation can have one of the following tenancy settings:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">default</span></tt> - The Capacity Reservation is created on hardware that is shared with other AWS accounts.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dedicated</span></tt> - The Capacity Reservation is created on single-tenant hardware that is dedicated to a single AWS account.</li>
+</ul>
+</div>
+</blockquote>
+<p>TotalInstanceCount -&gt; (integer)</p>
+<blockquote>
+<div>The total number of instances for which the Capacity Reservation reserves capacity.</div>
+</blockquote>
+<p>AvailableInstanceCount -&gt; (integer)</p>
+<blockquote>
+<div>The remaining capacity. Indicates the number of instances that can be launched in the Capacity Reservation.</div>
+</blockquote>
+<p>EbsOptimized -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the Capacity Reservation supports EBS-optimized instances. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS- optimized instance.</div>
+</blockquote>
+<p>EphemeralStorage -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the Capacity Reservation supports instances with temporary, block-level storage.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The current state of the Capacity Reservation. A Capacity Reservation can be in one of the following states:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">active</span></tt> - The Capacity Reservation is active and the capacity is available for your use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">expired</span></tt> - The Capacity Reservation expired automatically at the date and time specified in your request. The reserved capacity is no longer available for your use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">cancelled</span></tt> - The Capacity Reservation was manually cancelled. The reserved capacity is no longer available for your use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">pending</span></tt> - The Capacity Reservation request was successful but the capacity provisioning is still pending.</li>
+<li>
+<tt class="docutils literal"><span class="pre">failed</span></tt> - The Capacity Reservation request has failed. A request might fail due to invalid request parameters, capacity constraints, or instance limit constraints. Failed requests are retained for 60 minutes.</li>
+</ul>
+</div>
+</blockquote>
+<p>EndDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time at which the Capacity Reservation expires. When a Capacity Reservation expires, the reserved capacity is released and you can no longer launch instances into it. The Capacity Reservation's state changes to <tt class="docutils literal"><span class="pre">expired</span></tt> when it reaches its end date and time.</div>
+</blockquote>
+<p>EndDateType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates the way in which the Capacity Reservation ends. A Capacity Reservation can have one of the following end types:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">unlimited</span></tt> - The Capacity Reservation remains active until you explicitly cancel it.</li>
+<li>
+<tt class="docutils literal"><span class="pre">limited</span></tt> - The Capacity Reservation expires automatically at a specified date and time.</li>
+</ul>
+</div>
+</blockquote>
+<p>InstanceMatchCriteria -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates the type of instance launches that the Capacity Reservation accepts. The options include:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">open</span></tt> - The Capacity Reservation accepts all instances that have matching attributes (instance type, platform, and Availability Zone). Instances that have matching attributes launch into the Capacity Reservation automatically without specifying any additional parameters.</li>
+<li>
+<tt class="docutils literal"><span class="pre">targeted</span></tt> - The Capacity Reservation only accepts instances that have matching attributes (instance type, platform, and Availability Zone), and explicitly target the Capacity Reservation. This ensures that only permitted instances can use the reserved capacity.</li>
+</ul>
+</div>
+</blockquote>
+<p>CreateDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time at which the Capacity Reservation was created.</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the Capacity Reservation.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

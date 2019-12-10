@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>select-object-content — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="upload-part" href="upload-part.html">
+    <link rel="prev" title="restore-object" href="restore-object.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="select-object-content">
+<span id="cli-aws-s3api-select-object-content"></span><h1>select-object-content<a class="headerlink" href="#select-object-content" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This operation filters the contents of an Amazon S3 object based on a simple structured query language (SQL) statement. In the request, along with the SQL expression, you must also specify a data serialization format (JSON, CSV, or Apache Parquet) of the object. Amazon S3 uses this format to parse object data into records, and returns only records that match the specified SQL expression. You must also specify the data serialization format for the response.</p>
+<p>For more information about Amazon S3 Select, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/selecting-content-from-objects.html">Selecting Content from Objects</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+<p>For more information about using SQL with Amazon S3 Select, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-glacier-select-sql-reference.html">SQL Reference for Amazon S3 Select and Glacier Select</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+<blockquote>
+<div><strong>Permissions</strong></div>
+</blockquote>
+<p>You must have <tt class="docutils literal"><span class="pre">s3:GetObject</span></tt> permission for this operation. Amazon S3 Select does not support anonymous access. For more information about permissions, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html">Specifying Permissions in a Policy</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+<blockquote>
+<div><em>Object Data Formats</em></div>
+</blockquote>
+<p>You can use Amazon S3 Select to query objects that have the following format properties:</p>
+<ul class="simple">
+<li>
+<em>CSV, JSON, and Parquet</em> - Objects must be in CSV, JSON, or Parquet format.</li>
+<li>
+<em>UTF-8</em> - UTF-8 is the only encoding type Amazon S3 Select supports.</li>
+<li>
+<em>GZIP or BZIP2</em> - CSV and JSON files can be compressed using GZIP or BZIP2. GZIP and BZIP2 are the only compression formats that Amazon S3 Select supports for CSV and JSON files. Amazon S3 Select supports columnar compression for Parquet using GZIP or Snappy. Amazon S3 Select does not support whole-object compression for Parquet objects.</li>
+<li>
+<em>Server-side encryption</em> - Amazon S3 Select supports querying objects that are protected with server-side encryption. For objects that are encrypted with customer-provided encryption keys (SSE-C), you must use HTTPS, and you must use the headers that are documented in the  GetObject . For more information about SSE-C, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">Server-Side Encryption (Using Customer-Provided Encryption Keys)</a> in the <em>Amazon Simple Storage Service Developer Guide</em> . For objects that are encrypted with Amazon S3 managed encryption keys (SSE-S3) and customer master keys (CMKs) stored in AWS Key Management Service (SSE-KMS), server-side encryption is handled transparently, so you don't need to specify anything. For more information about server-side encryption, including SSE-S3 and SSE-KMS, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html">Protecting Data Using Server-Side Encryption</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</li>
+</ul>
+<blockquote>
+<div><strong>Working with the Response Body</strong></div>
+</blockquote>
+<p>Given the response size is unknown, Amazon S3 Select streams the response as a series of messages and includes a <tt class="docutils literal"><span class="pre">Transfer-Encoding</span></tt> header with <tt class="docutils literal"><span class="pre">chunked</span></tt> as its value in the response. For more information, see  RESTSelectObjectAppendix .</p>
+<blockquote>
+<div><strong>GetObject Support</strong></div>
+</blockquote>
+<p>The <tt class="docutils literal"><span class="pre">SelectObjectContent</span></tt> operation does not support the following <tt class="docutils literal"><span class="pre">GetObject</span></tt> functionality. For more information, see  GetObject .</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Range</span></tt> : While you can specify a scan range for a Amazon S3 Select request, see  SelectObjectContentRequest$ScanRange in the request parameters below, you cannot specify the range of bytes of an object to return.</li>
+<li>GLACIER, DEEP_ARCHIVE and REDUCED_REDUNDANCY storage classes: You cannot specify the GLACIER, DEEP_ARCHIVE, or <tt class="docutils literal"><span class="pre">REDUCED_REDUNDANCY</span></tt> storage classes. For more information, about storage classes see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#storage-class-intro">Storage Classes</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</li>
+</ul>
+<blockquote>
+<div><strong>Special Errors</strong></div>
+</blockquote>
+<p>For a list of special errors for this operation and for general information about Amazon S3 errors and a list of error codes, see  ErrorResponses</p>
+<blockquote>
+<div><strong>Related Resources</strong></div>
+</blockquote>
+<ul class="simple">
+<li>GetObject</li>
+<li>GetBucketLifecycleConfiguration</li>
+<li>PutBucketLifecycleConfiguration</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/SelectObjectContent">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  select-object-content
+--bucket &lt;value&gt;
+--key &lt;value&gt;
+[--sse-customer-algorithm &lt;value&gt;]
+[--sse-customer-key &lt;value&gt;]
+[--sse-customer-key-md5 &lt;value&gt;]
+--expression &lt;value&gt;
+--expression-type &lt;value&gt;
+[--request-progress &lt;value&gt;]
+--input-serialization &lt;value&gt;
+--output-serialization &lt;value&gt;
+[--scan-range &lt;value&gt;]
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The S3 bucket.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key</span></tt> (string)</p>
+<blockquote>
+<div>The object key.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>The SSE Algorithm used to encrypt the object. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">Server-Side Encryption (Using Customer-Provided Encryption Keys</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key</span></tt> (string)</p>
+<blockquote>
+<div>The SSE Customer Key. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">Server-Side Encryption (Using Customer-Provided Encryption Keys</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key-md5</span></tt> (string)</p>
+<blockquote>
+<div>The SSE Customer Key MD5. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">Server-Side Encryption (Using Customer-Provided Encryption Keys</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--expression</span></tt> (string)</p>
+<blockquote>
+<div>The expression that is used to query the object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--expression-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of the provided expression (for example, SQL).</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SQL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-progress</span></tt> (structure)</p>
+<blockquote>
+<div>Specifies if periodic request progress information should be enabled.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Enabled</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--input-serialization</span></tt> (structure)</p>
+<blockquote>
+<div>Describes the format of the data in the object that is being queried.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>CSV={FileHeaderInfo=string,Comments=string,QuoteEscapeCharacter=string,RecordDelimiter=string,FieldDelimiter=string,QuoteCharacter=string,AllowQuotedRecordDelimiter=boolean},CompressionType=string,JSON={Type=string},Parquet={}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"CSV"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"FileHeaderInfo"</span><span class="p">:</span> <span class="s2">"USE"</span><span class="o">|</span><span class="s2">"IGNORE"</span><span class="o">|</span><span class="s2">"NONE"</span><span class="p">,</span>
+    <span class="s2">"Comments"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"QuoteEscapeCharacter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"RecordDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"FieldDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"QuoteCharacter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"AllowQuotedRecordDelimiter"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+  <span class="p">},</span>
+  <span class="s2">"CompressionType"</span><span class="p">:</span> <span class="s2">"NONE"</span><span class="o">|</span><span class="s2">"GZIP"</span><span class="o">|</span><span class="s2">"BZIP2"</span><span class="p">,</span>
+  <span class="s2">"JSON"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"DOCUMENT"</span><span class="o">|</span><span class="s2">"LINES"</span>
+  <span class="p">},</span>
+  <span class="s2">"Parquet"</span><span class="p">:</span> <span class="p">{</span>
+
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--output-serialization</span></tt> (structure)</p>
+<blockquote>
+<div>Describes the format of the data that you want Amazon S3 to return in response.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>CSV={QuoteFields=string,QuoteEscapeCharacter=string,RecordDelimiter=string,FieldDelimiter=string,QuoteCharacter=string},JSON={RecordDelimiter=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"CSV"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"QuoteFields"</span><span class="p">:</span> <span class="s2">"ALWAYS"</span><span class="o">|</span><span class="s2">"ASNEEDED"</span><span class="p">,</span>
+    <span class="s2">"QuoteEscapeCharacter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"RecordDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"FieldDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"QuoteCharacter"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"JSON"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"RecordDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--scan-range</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the byte range of the object to get the records from. A record is processed when its first byte is contained by the range. This parameter is optional, but when specified, it must not be empty. See RFC 2616, Section 14.35.1 about how to specify the start and end of the range.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">ScanRange</span></tt> may be used in the following ways:</div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">scanrangestart50/startend100/end/scanrange</span></tt> - process only the records starting between the bytes 50 and 100 (inclusive, counting from zero)</li>
+<li>
+<tt class="docutils literal"><span class="pre">scanrangestart50/start/scanrange</span></tt> - process only the records starting after the byte 50</li>
+<li>
+<tt class="docutils literal"><span class="pre">scanrangeend50/end/scanrange</span></tt> - process only the records within the last 50 bytes of the file.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Start</span><span class="o">=</span><span class="nb">long</span><span class="p">,</span><span class="n">End</span><span class="o">=</span><span class="nb">long</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Start"</span><span class="p">:</span> <span class="nb">long</span><span class="p">,</span>
+  <span class="s2">"End"</span><span class="p">:</span> <span class="nb">long</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the records will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>This command generates no output.  The selected object content is written to the specified outfile.</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

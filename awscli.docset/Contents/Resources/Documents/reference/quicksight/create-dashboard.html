@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-dashboard — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="quicksight" href="index.html">
+    <link rel="next" title="create-data-set" href="create-data-set.html">
+    <link rel="prev" title="cancel-ingestion" href="cancel-ingestion.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-dashboard">
+<span id="cli-aws-quicksight-create-dashboard"></span><h1>create-dashboard<a class="headerlink" href="#create-dashboard" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a dashboard from a template. To first create a template, see the CreateTemplate API.</p>
+<p>A dashboard is an entity in QuickSight which identifies Quicksight reports, created from analyses. QuickSight dashboards are sharable. With the right permissions, you can create scheduled email reports from them. The <tt class="docutils literal"><span class="pre">CreateDashboard</span></tt> , <tt class="docutils literal"><span class="pre">DescribeDashboard</span></tt> and <tt class="docutils literal"><span class="pre">ListDashboardsByUser</span></tt> APIs act on the dashboard entity. If you have the correct permissions, you can create a dashboard from a template that exists in a different AWS account.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/CreateDashboard">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-dashboard
+--aws-account-id &lt;value&gt;
+--dashboard-id &lt;value&gt;
+--name &lt;value&gt;
+[--parameters &lt;value&gt;]
+[--permissions &lt;value&gt;]
+--source-entity &lt;value&gt;
+[--tags &lt;value&gt;]
+[--version-description &lt;value&gt;]
+[--dashboard-publish-options &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--aws-account-id</span></tt> (string)</p>
+<blockquote>
+<div>AWS account ID where you want to create the dashboard.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dashboard-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID for the dashboard, also added to IAM policy.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The display name of the dashboard.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameters</span></tt> (structure)</p>
+<blockquote>
+<div>A structure that contains the parameters of the dashboard. These are parameter overrides for a dashboard. A dashboard can have any type of parameters and some parameters might accept multiple values. You could use the following structure to override two string parameters that accept multiple values:</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "StringParameters": [
+    {
+      "Name": "string",
+      "Values": ["string", ...]
+    }
+    ...
+  ],
+  "IntegerParameters": [
+    {
+      "Name": "string",
+      "Values": [long, ...]
+    }
+    ...
+  ],
+  "DecimalParameters": [
+    {
+      "Name": "string",
+      "Values": [double, ...]
+    }
+    ...
+  ],
+  "DateTimeParameters": [
+    {
+      "Name": "string",
+      "Values": [timestamp, ...]
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--permissions</span></tt> (list)</p>
+<blockquote>
+<div>A structure that contains the permissions of the dashboard. You can use this for granting permissions with principal and action information.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Principal=string,Actions=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Principal": "string",
+    "Actions": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--source-entity</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Source entity from which the dashboard is created. The souce entity accepts the Amazon Resource Name (ARN) of the source template or analysis and also references the replacement datasets for the placeholders set when creating the template. The replacement datasets need to follow the same schema as the datasets for which placeholders were created when creating the template.</p>
+<p>If you are creating a dashboard from a source entity in a different AWS account, use the ARN of the source template.</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "SourceTemplate": {
+    "DataSetReferences": [
+      {
+        "DataSetPlaceholder": "string",
+        "DataSetArn": "string"
+      }
+      ...
+    ],
+    "Arn": "string"
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>Contains a map of the key-value pairs for the resource tag or tags assigned to the dashboard.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--version-description</span></tt> (string)</p>
+<blockquote>
+<div>A description for the first version of the dashboard being created.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dashboard-publish-options</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Publishing options when creating dashboard.</p>
+<ul class="simple">
+<li>AvailabilityStatus for AdHocFilteringOption - This can be either <tt class="docutils literal"><span class="pre">ENABLED</span></tt> or <tt class="docutils literal"><span class="pre">DISABLED</span></tt> . When This is set to set to <tt class="docutils literal"><span class="pre">DISABLED</span></tt> , QuickSight disables the left filter pane on the published dashboard, which can be used for AdHoc filtering. Enabled by default.</li>
+<li>AvailabilityStatus for ExportToCSVOption - This can be either <tt class="docutils literal"><span class="pre">ENABLED</span></tt> or <tt class="docutils literal"><span class="pre">DISABLED</span></tt> . The visual option to export data to CSV is disabled when this is set to <tt class="docutils literal"><span class="pre">DISABLED</span></tt> . Enabled by default.</li>
+<li>VisibilityState for SheetControlsOption - This can be either <tt class="docutils literal"><span class="pre">COLLAPSED</span></tt> or <tt class="docutils literal"><span class="pre">EXPANDED</span></tt> . The sheet controls pane is collapsed by default when set to true. Collapsed by default.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>AdHocFilteringOption={AvailabilityStatus=string},ExportToCSVOption={AvailabilityStatus=string},SheetControlsOption={VisibilityState=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"AdHocFilteringOption"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"AvailabilityStatus"</span><span class="p">:</span> <span class="s2">"ENABLED"</span><span class="o">|</span><span class="s2">"DISABLED"</span>
+  <span class="p">},</span>
+  <span class="s2">"ExportToCSVOption"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"AvailabilityStatus"</span><span class="p">:</span> <span class="s2">"ENABLED"</span><span class="o">|</span><span class="s2">"DISABLED"</span>
+  <span class="p">},</span>
+  <span class="s2">"SheetControlsOption"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"VisibilityState"</span><span class="p">:</span> <span class="s2">"EXPANDED"</span><span class="o">|</span><span class="s2">"COLLAPSED"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the dashboard.</div>
+</blockquote>
+<p>VersionArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the dashboard, including the version number of the first version that is created.</div>
+</blockquote>
+<p>DashboardId -&gt; (string)</p>
+<blockquote>
+<div>The ID for the dashboard.</div>
+</blockquote>
+<p>CreationStatus -&gt; (string)</p>
+<blockquote>
+<div>The creation status of the dashboard create request.</div>
+</blockquote>
+<p>Status -&gt; (integer)</p>
+<blockquote>
+<div>The HTTP status of the request.</div>
+</blockquote>
+<p>RequestId -&gt; (string)</p>
+<blockquote>
+<div>The AWS request ID for this operation.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

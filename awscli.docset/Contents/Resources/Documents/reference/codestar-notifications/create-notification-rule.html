@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-notification-rule — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="codestar-notifications" href="index.html">
+    <link rel="next" title="delete-notification-rule" href="delete-notification-rule.html">
+    <link rel="prev" title="codestar-notifications" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-notification-rule">
+<span id="cli-aws-codestar-notifications-create-notification-rule"></span><h1>create-notification-rule<a class="headerlink" href="#create-notification-rule" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a notification rule for a resource. The rule specifies the events you want notifications about and the targets (such as SNS topics) where you want to receive them.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codestar-notifications-2019-10-15/CreateNotificationRule">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-notification-rule
+--name &lt;value&gt;
+--event-type-ids &lt;value&gt;
+--resource &lt;value&gt;
+--targets &lt;value&gt;
+--detail-type &lt;value&gt;
+[--client-request-token &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--status &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name for the notification rule. Notifictaion rule names must be unique in your AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--event-type-ids</span></tt> (list)</p>
+<blockquote>
+<div>A list of event types associated with this notification rule. For a list of allowed events, see  EventTypeSummary .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the resource to associate with the notification rule. Supported resources include pipelines in AWS CodePipeline, repositories in AWS CodeCommit, and build projects in AWS CodeBuild.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--targets</span></tt> (list)</p>
+<blockquote>
+<div>A list of Amazon Resource Names (ARNs) of SNS topics to associate with the notification rule.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>TargetType=string,TargetAddress=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "TargetType": "string",
+    "TargetAddress": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--detail-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The level of detail to include in the notifications for this resource. BASIC will include only the contents of the event as it would appear in AWS CloudWatch. FULL will include any supplemental information provided by AWS CodeStar Notifications and/or the service for the resource for which the notification is created.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">BASIC</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">FULL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-request-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request with the same parameters is received and a token is included, the request returns information about the initial request that used that token.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The AWS SDKs prepopulate client request tokens. If you are using an AWS SDK, an idempotency token is created for you.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (map)</p>
+<blockquote>
+<div>A list of tags to apply to this notification rule. Key names cannot start with "aws".</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--status</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The status of the notification rule. The default value is ENABLED. If the status is set to DISABLED, notifications aren't sent for the notification rule.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ENABLED</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DISABLED</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a notification rule</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-notification-rule</span></tt> example uses a JSON file named <tt class="docutils literal"><span class="pre">rule.json</span></tt> to create a notification rule named <tt class="docutils literal"><span class="pre">MyNotificationRule</span></tt> for a repository named <tt class="docutils literal"><span class="pre">MyDemoRepo</span></tt> in the specified AWS acccount. Notifications with the <tt class="docutils literal"><span class="pre">FULL</span></tt> detail type are sent to the specified target Amazon SNS topic when branches and tags are created.</p>
+<div class="highlight-python">
+<pre>aws codestar-notifications create-notification-rule \
+    --cli-input-json file://rule.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">rule.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"MyNotificationRule"</span><span class="p">,</span>
+    <span class="s2">"EventTypeIds"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"codecommit-repository-branches-and-tags-created"</span>
+    <span class="p">],</span>
+    <span class="s2">"Resource"</span><span class="p">:</span> <span class="s2">"arn:aws:codecommit:us-east-1:123456789012:MyDemoRepo"</span><span class="p">,</span>
+    <span class="s2">"Targets"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"TargetType"</span><span class="p">:</span> <span class="s2">"SNS"</span><span class="p">,</span>
+            <span class="s2">"TargetAddress"</span><span class="p">:</span> <span class="s2">"arn:aws:sns:us-east-1:123456789012:MyNotificationTopic"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"ENABLED"</span><span class="p">,</span>
+    <span class="s2">"DetailType"</span><span class="p">:</span> <span class="s2">"FULL"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:codestar-notifications:us-east-1:123456789012:notificationrule/dc82df7a-EXAMPLE"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codestar-notifications/latest/userguide/notification-rule-create.html">Create a Notification rule</a> in the <em>AWS Developer Tools Console User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the notification rule.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

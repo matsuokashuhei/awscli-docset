@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-auto-scaling-group — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="autoscaling" href="index.html">
+    <link rel="next" title="create-launch-configuration" href="create-launch-configuration.html">
+    <link rel="prev" title="complete-lifecycle-action" href="complete-lifecycle-action.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-auto-scaling-group">
+<span id="cli-aws-autoscaling-create-auto-scaling-group"></span><h1>create-auto-scaling-group<a class="headerlink" href="#create-auto-scaling-group" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an Auto Scaling group with the specified name and attributes.</p>
+<p>If you exceed your maximum limit of Auto Scaling groups, the call fails. For information about viewing this limit, see  DescribeAccountLimits . For information about updating this limit, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html">Amazon EC2 Auto Scaling Limits</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/autoscaling-2011-01-01/CreateAutoScalingGroup">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-auto-scaling-group
+--auto-scaling-group-name &lt;value&gt;
+[--launch-configuration-name &lt;value&gt;]
+[--launch-template &lt;value&gt;]
+[--mixed-instances-policy &lt;value&gt;]
+[--instance-id &lt;value&gt;]
+--min-size &lt;value&gt;
+--max-size &lt;value&gt;
+[--desired-capacity &lt;value&gt;]
+[--default-cooldown &lt;value&gt;]
+[--availability-zones &lt;value&gt;]
+[--load-balancer-names &lt;value&gt;]
+[--target-group-arns &lt;value&gt;]
+[--health-check-type &lt;value&gt;]
+[--health-check-grace-period &lt;value&gt;]
+[--placement-group &lt;value&gt;]
+[--vpc-zone-identifier &lt;value&gt;]
+[--termination-policies &lt;value&gt;]
+[--new-instances-protected-from-scale-in | --no-new-instances-protected-from-scale-in]
+[--lifecycle-hook-specification-list &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--service-linked-role-arn &lt;value&gt;]
+[--max-instance-lifetime &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--auto-scaling-group-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the Auto Scaling group. This name must be unique per Region per account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--launch-configuration-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the launch configuration.</p>
+<p>If you do not specify <tt class="docutils literal"><span class="pre">LaunchConfigurationName</span></tt> , you must specify one of the following parameters: <tt class="docutils literal"><span class="pre">InstanceId</span></tt> , <tt class="docutils literal"><span class="pre">LaunchTemplate</span></tt> , or <tt class="docutils literal"><span class="pre">MixedInstancesPolicy</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--launch-template</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The launch template to use to launch instances.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_LaunchTemplateSpecification.html">LaunchTemplateSpecification</a> in the <em>Amazon EC2 Auto Scaling API Reference</em> .</p>
+<p>If you do not specify <tt class="docutils literal"><span class="pre">LaunchTemplate</span></tt> , you must specify one of the following parameters: <tt class="docutils literal"><span class="pre">InstanceId</span></tt> , <tt class="docutils literal"><span class="pre">LaunchConfigurationName</span></tt> , or <tt class="docutils literal"><span class="pre">MixedInstancesPolicy</span></tt> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">LaunchTemplateId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">LaunchTemplateName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Version</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"LaunchTemplateId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"LaunchTemplateName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--mixed-instances-policy</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>An embedded object that specifies a mixed instances policy. The required parameters must be specified. If optional parameters are unspecified, their default values are used.</p>
+<p>The policy includes parameters that not only define the distribution of On-Demand Instances and Spot Instances, the maximum price to pay for Spot Instances, and how the Auto Scaling group allocates instance types to fulfill On-Demand and Spot capacity, but also the parameters that specify the instance configuration information—the launch template and instance types.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_MixedInstancesPolicy.html">MixedInstancesPolicy</a> in the <em>Amazon EC2 Auto Scaling API Reference</em> and <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html">Auto Scaling Groups with Multiple Instance Types and Purchase Options</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+<p>You must specify one of the following parameters in your request: <tt class="docutils literal"><span class="pre">LaunchConfigurationName</span></tt> , <tt class="docutils literal"><span class="pre">LaunchTemplate</span></tt> , <tt class="docutils literal"><span class="pre">InstanceId</span></tt> , or <tt class="docutils literal"><span class="pre">MixedInstancesPolicy</span></tt> .</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "LaunchTemplate": {
+    "LaunchTemplateSpecification": {
+      "LaunchTemplateId": "string",
+      "LaunchTemplateName": "string",
+      "Version": "string"
+    },
+    "Overrides": [
+      {
+        "InstanceType": "string",
+        "WeightedCapacity": "string"
+      }
+      ...
+    ]
+  },
+  "InstancesDistribution": {
+    "OnDemandAllocationStrategy": "string",
+    "OnDemandBaseCapacity": integer,
+    "OnDemandPercentageAboveBaseCapacity": integer,
+    "SpotAllocationStrategy": "string",
+    "SpotInstancePools": integer,
+    "SpotMaxPrice": "string"
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--instance-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ID of the instance used to create a launch configuration for the group.</p>
+<p>When you specify an ID of an instance, Amazon EC2 Auto Scaling creates a new launch configuration and associates it with the group. This launch configuration derives its attributes from the specified instance, except for the block device mapping.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-asg-from-instance.html">Create an Auto Scaling Group Using an EC2 Instance</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+<p>You must specify one of the following parameters in your request: <tt class="docutils literal"><span class="pre">LaunchConfigurationName</span></tt> , <tt class="docutils literal"><span class="pre">LaunchTemplate</span></tt> , <tt class="docutils literal"><span class="pre">InstanceId</span></tt> , or <tt class="docutils literal"><span class="pre">MixedInstancesPolicy</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--min-size</span></tt> (integer)</p>
+<blockquote>
+<div>The minimum size of the group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-size</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum size of the group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--desired-capacity</span></tt> (integer)</p>
+<blockquote>
+<div>The number of Amazon EC2 instances that the Auto Scaling group attempts to maintain. This number must be greater than or equal to the minimum size of the group and less than or equal to the maximum size of the group. If you do not specify a desired capacity, the default is the minimum size of the group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--default-cooldown</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time, in seconds, after a scaling activity completes before another scaling activity can start. The default value is <tt class="docutils literal"><span class="pre">300</span></tt> .</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html">Scaling Cooldowns</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--availability-zones</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more Availability Zones for the group. This parameter is optional if you specify one or more subnets for <tt class="docutils literal"><span class="pre">VPCZoneIdentifier</span></tt> .</p>
+<p>Conditional: If your account supports EC2-Classic and VPC, this parameter is required to launch instances into EC2-Classic.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--load-balancer-names</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of Classic Load Balancers associated with this Auto Scaling group. For Application Load Balancers and Network Load Balancers, specify a list of target groups using the <tt class="docutils literal"><span class="pre">TargetGroupARNs</span></tt> property instead.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html">Using a Load Balancer with an Auto Scaling Group</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--target-group-arns</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Names (ARN) of the target groups to associate with the Auto Scaling group. Instances are registered as targets in a target group, and traffic is routed to the target group.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html">Using a Load Balancer with an Auto Scaling Group</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--health-check-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The service to use for the health checks. The valid values are <tt class="docutils literal"><span class="pre">EC2</span></tt> and <tt class="docutils literal"><span class="pre">ELB</span></tt> . The default value is <tt class="docutils literal"><span class="pre">EC2</span></tt> . If you configure an Auto Scaling group to use ELB health checks, it considers the instance unhealthy if it fails either the EC2 status checks or the load balancer health checks.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html">Health Checks for Auto Scaling Instances</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-grace-period</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time, in seconds, that Amazon EC2 Auto Scaling waits before checking the health status of an EC2 instance that has come into service. During this time, any health check failures for the instance are ignored. The default value is <tt class="docutils literal"><span class="pre">0</span></tt> .</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html#health-check-grace-period">Health Check Grace Period</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+<p>Conditional: This parameter is required if you are adding an <tt class="docutils literal"><span class="pre">ELB</span></tt> health check.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--placement-group</span></tt> (string)</p>
+<blockquote>
+<div>The name of the placement group into which to launch your instances, if any. A placement group is a logical grouping of instances within a single Availability Zone. You cannot specify multiple Availability Zones and a placement group. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement Groups</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc-zone-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A comma-separated list of subnet IDs for your virtual private cloud (VPC).</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">VPCZoneIdentifier</span></tt> with <tt class="docutils literal"><span class="pre">AvailabilityZones</span></tt> , the subnets that you specify for this parameter must reside in those Availability Zones.</p>
+<p>Conditional: If your account supports EC2-Classic and VPC, this parameter is required to launch instances into a VPC.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--termination-policies</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more termination policies used to select the instance to terminate. These policies are executed in the order that they are listed.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html">Controlling Which Instances Auto Scaling Terminates During Scale In</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--new-instances-protected-from-scale-in</span></tt> | <tt class="docutils literal"><span class="pre">--no-new-instances-protected-from-scale-in</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Indicates whether newly launched instances are protected from termination by Amazon EC2 Auto Scaling when scaling in.</p>
+<p>For more information about preventing instances from terminating on scale in, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection">Instance Protection</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--lifecycle-hook-specification-list</span></tt> (list)</p>
+<blockquote>
+<div>One or more lifecycle hooks.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>LifecycleHookName=string,LifecycleTransition=string,NotificationMetadata=string,HeartbeatTimeout=integer,DefaultResult=string,NotificationTargetARN=string,RoleARN=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "LifecycleHookName": "string",
+    "LifecycleTransition": "string",
+    "NotificationMetadata": "string",
+    "HeartbeatTimeout": integer,
+    "DefaultResult": "string",
+    "NotificationTargetARN": "string",
+    "RoleARN": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more tags.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html">Tagging Auto Scaling Groups and Instances</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceId=string,ResourceType=string,Key=string,Value=string,PropagateAtLaunch=boolean ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceId": "string",
+    "ResourceType": "string",
+    "Key": "string",
+    "Value": "string",
+    "PropagateAtLaunch": true|false
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--service-linked-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses to call other AWS services on your behalf. By default, Amazon EC2 Auto Scaling uses a service-linked role named AWSServiceRoleForAutoScaling, which it creates if it does not exist. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html">Service-Linked Roles</a> in the <em>Amazon EC2 Auto Scaling User Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-instance-lifetime</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The maximum amount of time, in seconds, that an instance can be in service.</p>
+<p>Valid Range: Minimum value of 604800.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create an Auto Scaling group using a launch configuration</strong></p>
+<p>This example creates an Auto Scaling group in a VPC using a launch configuration to specify the type of EC2 instance that Amazon EC2 Auto Scaling creates:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-configuration-name my-launch-config --min-size 1 --max-size 3 --vpc-zone-identifier "subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782"</pre>
+</div>
+<p>This example creates an Auto Scaling group and configures it to use an Elastic Load Balancing load balancer:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-configuration-name my-launch-config --load-balancer-names my-load-balancer --health-check-type ELB --health-check-grace-period 120 --min-size 1 --max-size 3 --vpc-zone-identifier "subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782"</pre>
+</div>
+<p>This example specifies a desired capacity as well as a minimum and maximum capacity. It also launches instances into a placement group and sets the termination policy to terminate the oldest instances first:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-configuration-name my-launch-config --min-size 1 --max-size 3 --desired-capacity 1 --placement-group my-placement-group --termination-policies "OldestInstance" --availability-zones us-west-2c</pre>
+</div>
+<p><strong>To create an Auto Scaling group using an EC2 instance</strong></p>
+<p>This example creates an Auto Scaling group from the specified EC2 instance and assigns a tag to instances in the group:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --instance-id i-22c99e2a --min-size 1 --max-size 3 --vpc-zone-identifier "subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782" --tags "ResourceId=my-asg,ResourceType=auto-scaling-group,Key=Role,Value=WebServer,PropagateAtLaunch=true"</pre>
+</div>
+<p><strong>To create an Auto Scaling group using a launch template</strong></p>
+<p>This example creates an Auto Scaling group in a VPC using a launch template to specify the type of EC2 instance that Amazon EC2 Auto Scaling creates:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-template "LaunchTemplateName=my-template-for-auto-scaling,Version=1" --min-size 1 --max-size 3 --vpc-zone-identifier "subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782"</pre>
+</div>
+<p>This example uses the default version of the specified launch template. It specifies Availability Zones and subnets and enables the instance protection setting:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg --launch-template LaunchTemplateId=lt-0a4872e2c396d941c --min-size 1 --max-size 3 --desired-capacity 2 --availability-zones us-west-2a us-west-2b us-west-2c --vpc-zone-identifier "subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782" --new-instances-protected-from-scale-in</pre>
+</div>
+<p>This example creates an Auto Scaling group that launches a single instance using a launch template to optionally specify the ID of an existing network interface (ENI ID) to use. It specifies an Availability Zone that matches the specified network interface:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --auto-scaling-group-name my-asg-single-instance --launch-template "LaunchTemplateName=my-single-instance-asg-template,Version=2" --min-size 1 --max-size 1 --availability-zones us-west-2a</pre>
+</div>
+<p>This example creates an Auto Scaling group with a lifecycle hook that supports a custom action at instance termination:</p>
+<div class="highlight-python">
+<pre>aws autoscaling create-auto-scaling-group --cli-input-json file://~/config.json</pre>
+</div>
+<p>Contents of config.json file:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"AutoScalingGroupName"</span><span class="p">:</span> <span class="s2">"my-asg"</span><span class="p">,</span>
+    <span class="s2">"LaunchTemplate"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"LaunchTemplateId"</span><span class="p">:</span> <span class="s2">"lt-0a4872e2c396d941c"</span>
+    <span class="p">},</span>
+    <span class="s2">"LifecycleHookSpecificationList"</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s2">"LifecycleHookName"</span><span class="p">:</span> <span class="s2">"my-hook"</span><span class="p">,</span>
+        <span class="s2">"LifecycleTransition"</span><span class="p">:</span> <span class="s2">"autoscaling:EC2_INSTANCE_TERMINATING"</span><span class="p">,</span>
+        <span class="s2">"NotificationTargetARN"</span><span class="p">:</span> <span class="s2">"arn:aws:sqs:us-west-2:123456789012:my-sqs-queue"</span><span class="p">,</span>
+        <span class="s2">"RoleARN"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:role/my-notification-role"</span><span class="p">,</span>
+        <span class="s2">"HeartbeatTimeout"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="s2">"DefaultResult"</span><span class="p">:</span> <span class="s2">"CONTINUE"</span>
+    <span class="p">}],</span>
+    <span class="s2">"MinSize"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"MaxSize"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="s2">"VPCZoneIdentifier"</span><span class="p">:</span> <span class="s2">"subnet-5ea0c127,subnet-6194ea3b,subnet-c934b782"</span><span class="p">,</span>
+    <span class="s2">"Tags"</span><span class="p">:</span> <span class="p">[{</span>
+          <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"auto-scaling-group"</span><span class="p">,</span>
+          <span class="s2">"ResourceId"</span><span class="p">:</span> <span class="s2">"my-asg"</span><span class="p">,</span>
+          <span class="s2">"PropagateAtLaunch"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+          <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"test"</span><span class="p">,</span>
+          <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"environment"</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html">Amazon EC2 Auto Scaling User Guide</a>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

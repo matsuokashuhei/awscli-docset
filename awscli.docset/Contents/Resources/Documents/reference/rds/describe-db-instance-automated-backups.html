@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-db-instance-automated-backups — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rds" href="index.html">
+    <link rel="next" title="describe-db-instances" href="describe-db-instances.html">
+    <link rel="prev" title="describe-db-engine-versions" href="describe-db-engine-versions.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-db-instance-automated-backups">
+<span id="cli-aws-rds-describe-db-instance-automated-backups"></span><h1>describe-db-instance-automated-backups<a class="headerlink" href="#describe-db-instance-automated-backups" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Displays backups for both current and deleted instances. For example, use this operation to find details about automated backups for previously deleted instances. Current instances with retention periods greater than zero (0) are returned for both the <tt class="docutils literal"><span class="pre">DescribeDBInstanceAutomatedBackups</span></tt> and <tt class="docutils literal"><span class="pre">DescribeDBInstances</span></tt> operations.</p>
+<p>All parameters are optional.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBInstanceAutomatedBackups">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-db-instance-automated-backups</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">DBInstanceAutomatedBackups</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-db-instance-automated-backups
+[--dbi-resource-id &lt;value&gt;]
+[--db-instance-identifier &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--dbi-resource-id</span></tt> (string)</p>
+<blockquote>
+<div>The resource ID of the DB instance that is the source of the automated backup. This parameter isn't case-sensitive.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--db-instance-identifier</span></tt> (string)</p>
+<blockquote>
+<div>(Optional) The user-supplied instance identifier. If this parameter is specified, it must match the identifier of an existing DB instance. It returns information from the specific DB instance' automated backup. This parameter isn't case-sensitive.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A filter that specifies which resources to return based on status.</p>
+<p>Supported filters are the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">status</span></tt><ul>
+<li>
+<tt class="docutils literal"><span class="pre">active</span></tt> - automated backups for current instances</li>
+<li>
+<tt class="docutils literal"><span class="pre">retained</span></tt> - automated backups for deleted instances</li>
+<li>
+<tt class="docutils literal"><span class="pre">creating</span></tt> - automated backups that are waiting for the first automated snapshot to be available</li>
+</ul>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">db-instance-id</span></tt> - Accepts DB instance identifiers and Amazon Resource Names (ARNs) for DB instances. The results list includes only information about the DB instance automated backupss identified by these ARNs.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dbi-resource-id</span></tt> - Accepts DB instance resource identifiers and DB Amazon Resource Names (ARNs) for DB instances. The results list includes only information about the DB instance resources identified by these ARNs.</li>
+</ul>
+<p>Returns all resources by default. The status for each resource is specified in the response.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe the automated backups for a DB instance</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-db-instance-automated-backups</span></tt> example displays details about the automated backups for the specified DB instance.</p>
+<div class="highlight-python">
+<pre>aws rds describe-db-instance-automated-backups \
+    --db-instance-identifier database-mysql</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"DBInstanceAutomatedBackups"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"DBInstanceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-east-1:123456789012:db:database-mysql"</span><span class="p">,</span>
+            <span class="s2">"DbiResourceId"</span><span class="p">:</span> <span class="s2">"db-AKIAIOSFODNN7EXAMPLE"</span><span class="p">,</span>
+            <span class="s2">"Region"</span><span class="p">:</span> <span class="s2">"us-east-1"</span><span class="p">,</span>
+            <span class="s2">"DBInstanceIdentifier"</span><span class="p">:</span> <span class="s2">"database-mysql"</span><span class="p">,</span>
+            <span class="s2">"RestoreWindow"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"EarliestTime"</span><span class="p">:</span> <span class="s2">"2019-06-13T08:39:38.359Z"</span><span class="p">,</span>
+                <span class="s2">"LatestTime"</span><span class="p">:</span> <span class="s2">"2019-06-20T23:00:00Z"</span>
+            <span class="p">},</span>
+            <span class="s2">"AllocatedStorage"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"active"</span><span class="p">,</span>
+            <span class="s2">"Port"</span><span class="p">:</span> <span class="mi">3306</span><span class="p">,</span>
+            <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-east-1b"</span><span class="p">,</span>
+            <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-6594f31c"</span><span class="p">,</span>
+            <span class="s2">"InstanceCreateTime"</span><span class="p">:</span> <span class="s2">"2019-04-30T15:45:53Z"</span><span class="p">,</span>
+            <span class="s2">"MasterUsername"</span><span class="p">:</span> <span class="s2">"admin"</span><span class="p">,</span>
+            <span class="s2">"Engine"</span><span class="p">:</span> <span class="s2">"mysql"</span><span class="p">,</span>
+            <span class="s2">"EngineVersion"</span><span class="p">:</span> <span class="s2">"5.6.40"</span><span class="p">,</span>
+            <span class="s2">"LicenseModel"</span><span class="p">:</span> <span class="s2">"general-public-license"</span><span class="p">,</span>
+            <span class="s2">"Iops"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">"OptionGroupName"</span><span class="p">:</span> <span class="s2">"default:mysql-5-6"</span><span class="p">,</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"StorageType"</span><span class="p">:</span> <span class="s2">"io1"</span><span class="p">,</span>
+            <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"arn:aws:kms:us-east-1:814387698303:key/AKIAIOSFODNN7EXAMPLE"</span><span class="p">,</span>
+            <span class="s2">"IAMDatabaseAuthenticationEnabled"</span><span class="p">:</span> <span class="n">false</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html">Working With Backups</a> in the <em>Amazon RDS User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <tt class="docutils literal"><span class="pre">MaxRecords</span></tt> .</div>
+</blockquote>
+<p>DBInstanceAutomatedBackups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">DBInstanceAutomatedBackup</span></tt> instances.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An automated backup of a DB instance. It it consists of system backups, transaction logs, and the database instance properties that existed at the time you deleted the source instance.</p>
+<p>DBInstanceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the automated backup.</div>
+</blockquote>
+<p>DbiResourceId -&gt; (string)</p>
+<blockquote>
+<div>The identifier for the source DB instance, which can't be changed and which is unique to an AWS Region.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region associated with the automated backup.</div>
+</blockquote>
+<p>DBInstanceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The customer id of the instance that is/was associated with the automated backup.</div>
+</blockquote>
+<p>RestoreWindow -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Earliest and latest time an instance can be restored to.</p>
+<p>EarliestTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The earliest time you can restore an instance to.</div>
+</blockquote>
+<p>LatestTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The latest time you can restore an instance to.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AllocatedStorage -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the allocated storage size in gibibytes (GiB).</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Provides a list of status information for an automated backup:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">active</span></tt> - automated backups for current instances</li>
+<li>
+<tt class="docutils literal"><span class="pre">retained</span></tt> - automated backups for deleted instances</li>
+<li>
+<tt class="docutils literal"><span class="pre">creating</span></tt> - automated backups that are waiting for the first automated snapshot to be available.</li>
+</ul>
+</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The port number that the automated backup used for connections.</p>
+<p>Default: Inherits from the source DB instance</p>
+<p>Valid Values: <tt class="docutils literal"><span class="pre">1150-65535</span></tt></p>
+</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone that the automated backup was created in. For information on AWS Regions and Availability Zones, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html">Regions and Availability Zones</a> .</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>Provides the VPC ID associated with the DB instance</div>
+</blockquote>
+<p>InstanceCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Provides the date and time that the DB instance was created.</div>
+</blockquote>
+<p>MasterUsername -&gt; (string)</p>
+<blockquote>
+<div>The license model of an automated backup.</div>
+</blockquote>
+<p>Engine -&gt; (string)</p>
+<blockquote>
+<div>The name of the database engine for this automated backup.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the database engine for the automated backup.</div>
+</blockquote>
+<p>LicenseModel -&gt; (string)</p>
+<blockquote>
+<div>License model information for the automated backup.</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>The IOPS (I/O operations per second) value for the automated backup.</div>
+</blockquote>
+<p>OptionGroupName -&gt; (string)</p>
+<blockquote>
+<div>The option group the automated backup is associated with. If omitted, the default option group for the engine specified is used.</div>
+</blockquote>
+<p>TdeCredentialArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN from the key store with which the automated backup is associated for TDE encryption.</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the automated backup is encrypted.</div>
+</blockquote>
+<p>StorageType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the storage type associated with the automated backup.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS KMS key ID for an automated backup. The KMS key ID is the Amazon Resource Name (ARN), KMS key identifier, or the KMS key alias for the KMS encryption key.</div>
+</blockquote>
+<p>Timezone -&gt; (string)</p>
+<blockquote>
+<div>The time zone of the automated backup. In most cases, the <tt class="docutils literal"><span class="pre">Timezone</span></tt> element is empty. <tt class="docutils literal"><span class="pre">Timezone</span></tt> content appears only for Microsoft SQL Server DB instances that were created with a time zone specified.</div>
+</blockquote>
+<p>IAMDatabaseAuthenticationEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>True if mapping of AWS Identity and Access Management (IAM) accounts to database accounts is enabled, and otherwise false.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

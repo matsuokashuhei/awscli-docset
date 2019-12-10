@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-software-update-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="greengrass" href="index.html">
+    <link rel="next" title="create-subscription-definition" href="create-subscription-definition.html">
+    <link rel="prev" title="create-resource-definition-version" href="create-resource-definition-version.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-software-update-job">
+<span id="cli-aws-greengrass-create-software-update-job"></span><h1>create-software-update-job<a class="headerlink" href="#create-software-update-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a software update for a core or group of cores (specified as an IoT thing group.) Use this to update the OTA Agent as well as the Greengrass core software. It makes use of the IoT Jobs feature which provides additional commands to manage a Greengrass core software update job.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/greengrass-2017-06-07/CreateSoftwareUpdateJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-software-update-job
+[--amzn-client-token &lt;value&gt;]
+--s3-url-signer-role &lt;value&gt;
+--software-to-update &lt;value&gt;
+[--update-agent-log-level &lt;value&gt;]
+--update-targets &lt;value&gt;
+--update-targets-architecture &lt;value&gt;
+--update-targets-operating-system &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--amzn-client-token</span></tt> (string)
+A client token used to correlate requests and responses.</p>
+<p><tt class="docutils literal"><span class="pre">--s3-url-signer-role</span></tt> (string)
+The IAM Role that Greengrass will use to create pre-signed URLs pointing towards the update artifact.</p>
+<p><tt class="docutils literal"><span class="pre">--software-to-update</span></tt> (string)
+The piece of software on the Greengrass core that will be updated.</p>
+<blockquote>
+<div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">core</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ota_agent</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--update-agent-log-level</span></tt> (string)
+The minimum level of log statements that should be logged by the OTA Agent during an update.</p>
+<blockquote>
+<div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NONE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TRACE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DEBUG</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">VERBOSE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">INFO</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">WARN</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ERROR</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">FATAL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--update-targets</span></tt> (list)
+The ARNs of the targets (IoT things or IoT thing groups) that this update will be applied to.</p>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--update-targets-architecture</span></tt> (string)
+The architecture of the cores which are the targets of an update.</p>
+<blockquote>
+<div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">armv6l</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">armv7l</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">x86_64</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">aarch64</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--update-targets-operating-system</span></tt> (string)
+The operating system of the cores which are the targets of an update.</p>
+<blockquote>
+<div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ubuntu</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">raspbian</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">amazon_linux</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">openwrt</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a software update job for a core</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-software-update-job</span></tt> example creates an over-the-air (OTA) update job to update the AWS IoT Greengrass Core software on the core whose name is <tt class="docutils literal"><span class="pre">MyFirstGroup_Core</span></tt>. This command requires an IAM role that allows access to software update packages in Amazon S3 and includes <tt class="docutils literal"><span class="pre">iot.amazonaws.com</span></tt> as a trusted entity.</p>
+<div class="highlight-python">
+<pre>aws greengrass create-software-update-job \
+    --update-targets-architecture armv7l \
+    --update-targets [\"arn:aws:iot:us-west-2:123456789012:thing/MyFirstGroup_Core\"] \
+    --update-targets-operating-system raspbian \
+    --software-to-update core \
+    --s3-url-signer-role arn:aws:iam::123456789012:role/OTA_signer_role \
+    --update-agent-log-level WARN</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"IotJobId"</span><span class="p">:</span> <span class="s2">"GreengrassUpdateJob_30b353e3-3af7-4786-be25-4c446663c09e"</span><span class="p">,</span>
+    <span class="s2">"IotJobArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iot:us-west-2:123456789012:job/GreengrassUpdateJob_30b353e3-3af7-4786-be25-4c446663c09e"</span><span class="p">,</span>
+    <span class="s2">"PlatformSoftwareVersion"</span><span class="p">:</span> <span class="s2">"1.9.3"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/greengrass/latest/developerguide/core-ota-update.html">OTA Updates of AWS IoT Greengrass Core Software</a> in the <em>AWS IoT Greengrass Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>IotJobArn -&gt; (string)</p>
+<blockquote>
+<div>The IoT Job ARN corresponding to this update.</div>
+</blockquote>
+<p>IotJobId -&gt; (string)</p>
+<blockquote>
+<div>The IoT Job Id corresponding to this update.</div>
+</blockquote>
+<p>PlatformSoftwareVersion -&gt; (string)</p>
+<blockquote>
+<div>The software version installed on the device or devices after the update.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-ota-update — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iot" href="index.html">
+    <link rel="next" title="get-percentiles" href="get-percentiles.html">
+    <link rel="prev" title="get-logging-options" href="get-logging-options.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-ota-update">
+<span id="cli-aws-iot-get-ota-update"></span><h1>get-ota-update<a class="headerlink" href="#get-ota-update" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets an OTA update.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iot-2015-05-28/GetOTAUpdate">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-ota-update
+--ota-update-id &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--ota-update-id</span></tt> (string)</p>
+<blockquote>
+<div>The OTA update ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve information about an OTA Update</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-ota-update</span></tt> example displays details about the specified OTA Update.</p>
+<div class="highlight-python">
+<pre>aws iot get-ota-update \
+    --ota-update-id ota12345</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "otaUpdateInfo": {
+        "otaUpdateId": "ota12345",
+        "otaUpdateArn": "arn:aws:iot:us-west-2:123456789012:otaupdate/itsaupdate",
+        "creationDate": 1557863215.995,
+        "lastModifiedDate": 1557863215.995,
+        "description": "A critical update needed right away.",
+        "targets": [
+           "device1",
+           "device2",
+           "device3",
+           "device4"
+        ],
+        "targetSelection": "SNAPSHOT",
+        "awsJobExecutionsRolloutConfig": {
+           "maximumPerMinute": 10
+        },
+        "otaUpdateFiles": [
+            {
+                "fileName": "firmware.bin",
+                "fileLocation": {
+                    "stream": {
+                        "streamId": "004",
+                        "fileId":123
+                    }
+                },
+                "codeSigning": {
+                    "awsSignerJobId": "48c67f3c-63bb-4f92-a98a-4ee0fbc2bef6"
+                }
+            }
+        ],
+        "roleArn": "arn:aws:iam:123456789012:role/service-role/my_ota_role"
+        "otaUpdateStatus": "CREATE_COMPLETE",
+        "awsIotJobId": "job54321",
+        "awsIotJobArn": "arn:aws:iot:us-west-2:123456789012:job/job54321",
+        "errorInfo": {
+        }
+    }
+}</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iot/latest/apireference/API_GetOTAUpdate.html">GetOTAUpdate</a> in the <em>AWS IoT API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>otaUpdateInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The OTA update info.</p>
+<p>otaUpdateId -&gt; (string)</p>
+<blockquote>
+<div>The OTA update ID.</div>
+</blockquote>
+<p>otaUpdateArn -&gt; (string)</p>
+<blockquote>
+<div>The OTA update ARN.</div>
+</blockquote>
+<p>creationDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date when the OTA update was created.</div>
+</blockquote>
+<p>lastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date when the OTA update was last updated.</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>A description of the OTA update.</div>
+</blockquote>
+<p>targets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The targets of the OTA update.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>awsJobExecutionsRolloutConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Configuration for the rollout of OTA updates.</p>
+<p>maximumPerMinute -&gt; (integer)</p>
+<blockquote>
+<div>The maximum number of OTA update job executions started per minute.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>targetSelection -&gt; (string)</p>
+<blockquote>
+<div>Specifies whether the OTA update will continue to run (CONTINUOUS), or will be complete after all those things specified as targets have completed the OTA update (SNAPSHOT). If continuous, the OTA update may also be run on a thing when a change is detected in a target. For example, an OTA update will run on a thing when the thing is added to a target group, even after the OTA update was completed by all things originally in the group.</div>
+</blockquote>
+<p>otaUpdateFiles -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of files associated with the OTA update.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a file to be associated with an OTA update.</p>
+<p>fileName -&gt; (string)</p>
+<blockquote>
+<div>The name of the file.</div>
+</blockquote>
+<p>fileVersion -&gt; (string)</p>
+<blockquote>
+<div>The file version.</div>
+</blockquote>
+<p>fileLocation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location of the updated firmware.</p>
+<p>stream -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The stream that contains the OTA update.</p>
+<p>streamId -&gt; (string)</p>
+<blockquote>
+<div>The stream ID.</div>
+</blockquote>
+<p>fileId -&gt; (integer)</p>
+<blockquote>
+<div>The ID of a file associated with a stream.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>s3Location -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location of the updated firmware in S3.</p>
+<p>bucket -&gt; (string)</p>
+<blockquote>
+<div>The S3 bucket.</div>
+</blockquote>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>The S3 key.</div>
+</blockquote>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>The S3 bucket version.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>codeSigning -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The code signing method of the file.</p>
+<p>awsSignerJobId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWSSignerJob which was created to sign the file.</div>
+</blockquote>
+<p>startSigningJobParameter -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the code-signing job.</p>
+<p>signingProfileParameter -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the code-signing profile.</p>
+<p>certificateArn -&gt; (string)</p>
+<blockquote>
+<div>Certificate ARN.</div>
+</blockquote>
+<p>platform -&gt; (string)</p>
+<blockquote>
+<div>The hardware platform of your device.</div>
+</blockquote>
+<p>certificatePathOnDevice -&gt; (string)</p>
+<blockquote>
+<div>The location of the code-signing certificate on your device.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>signingProfileName -&gt; (string)</p>
+<blockquote>
+<div>The code-signing profile name.</div>
+</blockquote>
+<p>destination -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location to write the code-signed file.</p>
+<p>s3Destination -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the location in S3 of the updated firmware.</p>
+<p>bucket -&gt; (string)</p>
+<blockquote>
+<div>The S3 bucket that contains the updated firmware.</div>
+</blockquote>
+<p>prefix -&gt; (string)</p>
+<blockquote>
+<div>The S3 prefix.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>customCodeSigning -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A custom method for code signing a file.</p>
+<p>signature -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The signature for the file.</p>
+<p>inlineDocument -&gt; (blob)</p>
+<blockquote>
+<div>A base64 encoded binary representation of the code signing signature.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>certificateChain -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The certificate chain.</p>
+<p>certificateName -&gt; (string)</p>
+<blockquote>
+<div>The name of the certificate.</div>
+</blockquote>
+<p>inlineDocument -&gt; (string)</p>
+<blockquote>
+<div>A base64 encoded binary representation of the code signing certificate chain.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>hashAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>The hash algorithm used to code sign the file.</div>
+</blockquote>
+<p>signatureAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>The signature algorithm used to code sign the file.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>attributes -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A list of name/attribute pairs.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>otaUpdateStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the OTA update.</div>
+</blockquote>
+<p>awsIotJobId -&gt; (string)</p>
+<blockquote>
+<div>The AWS IoT job ID associated with the OTA update.</div>
+</blockquote>
+<p>awsIotJobArn -&gt; (string)</p>
+<blockquote>
+<div>The AWS IoT job ARN associated with the OTA update.</div>
+</blockquote>
+<p>errorInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Error information associated with the OTA update.</p>
+<p>code -&gt; (string)</p>
+<blockquote>
+<div>The error code.</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The error message.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>additionalParameters -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A collection of name/value pairs</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-jobs — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="glacier" href="index.html">
+    <link rel="next" title="list-multipart-uploads" href="list-multipart-uploads.html">
+    <link rel="prev" title="initiate-vault-lock" href="initiate-vault-lock.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-jobs">
+<span id="cli-aws-glacier-list-jobs"></span><h1>list-jobs<a class="headerlink" href="#list-jobs" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This operation lists jobs for a vault, including jobs that are in-progress and jobs that have recently finished. The List Job operation returns a list of these jobs sorted by job initiation time.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Amazon Glacier retains recently completed jobs for a period before deleting them; however, it eventually removes completed jobs. The output of completed jobs can be retrieved. Retaining completed jobs for a period of time after they have completed enables you to get a job output in the event you miss the job completion notification or your first attempt to download it fails. For example, suppose you start an archive retrieval job to download an archive. After the job completes, you start to download the archive but encounter a network error. In this scenario, you can retry and download the archive while the job exists.</p>
+</div>
+<p>The List Jobs operation supports pagination. You should always check the response <tt class="docutils literal"><span class="pre">Marker</span></tt> field. If there are no more jobs to list, the <tt class="docutils literal"><span class="pre">Marker</span></tt> field is set to <tt class="docutils literal"><span class="pre">null</span></tt> . If there are more jobs to list, the <tt class="docutils literal"><span class="pre">Marker</span></tt> field is set to a non-null value, which you can use to continue the pagination of the list. To return a list of jobs that begins at a specific job, set the marker request parameter to the <tt class="docutils literal"><span class="pre">Marker</span></tt> value for that job that you obtained from a previous List Jobs request.</p>
+<p>You can set a maximum limit for the number of jobs returned in the response by specifying the <tt class="docutils literal"><span class="pre">limit</span></tt> parameter in the request. The default limit is 50. The number of jobs returned might be fewer than the limit, but the number of returned jobs never exceeds the limit.</p>
+<p>Additionally, you can filter the jobs list returned by specifying the optional <tt class="docutils literal"><span class="pre">statuscode</span></tt> parameter or <tt class="docutils literal"><span class="pre">completed</span></tt> parameter, or both. Using the <tt class="docutils literal"><span class="pre">statuscode</span></tt> parameter, you can specify to return only jobs that match either the <tt class="docutils literal"><span class="pre">InProgress</span></tt> , <tt class="docutils literal"><span class="pre">Succeeded</span></tt> , or <tt class="docutils literal"><span class="pre">Failed</span></tt> status. Using the <tt class="docutils literal"><span class="pre">completed</span></tt> parameter, you can specify to return only jobs that were completed (<tt class="docutils literal"><span class="pre">true</span></tt> ) or jobs that were not completed (<tt class="docutils literal"><span class="pre">false</span></tt> ).</p>
+<p>For more information about using this operation, see the documentation for the underlying REST API <a class="reference external" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html">List Jobs</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/glacier-2012-06-01/ListJobs">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-jobs</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">JobList</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-jobs
+--account-id &lt;value&gt;
+--vault-name &lt;value&gt;
+[--statuscode &lt;value&gt;]
+[--completed &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--account-id</span></tt> (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">AccountId</span></tt> value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '<tt class="docutils literal"><span class="pre">-</span></tt> ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vault-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the vault.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--statuscode</span></tt> (string)</p>
+<blockquote>
+<div>The type of job status to return. You can specify the following values: <tt class="docutils literal"><span class="pre">InProgress</span></tt> , <tt class="docutils literal"><span class="pre">Succeeded</span></tt> , or <tt class="docutils literal"><span class="pre">Failed</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--completed</span></tt> (string)</p>
+<blockquote>
+<div>The state of the jobs to return. You can specify <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command lists in-progress and recently completed jobs for a vault named <tt class="docutils literal"><span class="pre">my-vault</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws glacier list-jobs --account-id - --vault-name my-vault</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "JobList": [
+        {
+            "VaultARN": "arn:aws:glacier:us-west-2:0123456789012:vaults/my-vault",
+            "RetrievalByteRange": "0-3145727",
+            "SNSTopic": "arn:aws:sns:us-west-2:0123456789012:my-vault",
+            "Completed": false,
+            "SHA256TreeHash": "9628195fcdbcbbe76cdde932d4646fa7de5f219fb39823836d81f0cc0e18aa67",
+            "JobId": "l7IL5-EkXyEY9Ws95fClzIbk2O5uLYaFdAYOi-azsX_Z8V6NH4yERHzars8wTKYQMX6nBDI9cMNHzyZJO59-8N9aHWav",
+            "ArchiveId": "kKB7ymWJVpPSwhGP6ycSOAekp9ZYe_--zM_mw6k76ZFGEIWQX-ybtRDvc2VkPSDtfKmQrj0IRQLSGsNuDp-AJVlu2ccmDSyDUmZwKbwbpAdGATGDiB3hHO0bjbGehXTcApVud_wyDw",
+            "JobDescription": "Retrieve archive on 2015-07-17",
+            "ArchiveSizeInBytes": 3145728,
+            "Action": "ArchiveRetrieval",
+            "ArchiveSHA256TreeHash": "9628195fcdbcbbe76cdde932d4646fa7de5f219fb39823836d81f0cc0e18aa67",
+            "CreationDate": "2015-07-17T21:16:13.840Z",
+            "StatusCode": "InProgress"
+        },
+        {
+            "InventoryRetrievalParameters": {
+                "Format": "JSON"
+            },
+            "VaultARN": "arn:aws:glacier:us-west-2:0123456789012:vaults/my-vault",
+            "Completed": false,
+            "JobId": "zbxcm3Z_3z5UkoroF7SuZKrxgGoDc3RloGduS7Eg-RO47Yc6FxsdGBgf_Q2DK5Ejh18CnTS5XW4_XqlNHS61dsO4CnMW",
+            "Action": "InventoryRetrieval",
+            "CreationDate": "2015-07-17T20:23:41.616Z",
+            "StatusCode": ""InProgress""
+        }
+    ]
+}</pre>
+</div>
+<p>Amazon Glacier requires an account ID argument when performing operations, but you can use a hyphen to specify the in-use account.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobList -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of job objects. Each job object contains metadata describing the job.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the description of an Amazon S3 Glacier job.</p>
+<p>JobId -&gt; (string)</p>
+<blockquote>
+<div>An opaque string that identifies an Amazon S3 Glacier job.</div>
+</blockquote>
+<p>JobDescription -&gt; (string)</p>
+<blockquote>
+<div>The job description provided when initiating the job.</div>
+</blockquote>
+<p>Action -&gt; (string)</p>
+<blockquote>
+<div>The job type. This value is either <tt class="docutils literal"><span class="pre">ArchiveRetrieval</span></tt> , <tt class="docutils literal"><span class="pre">InventoryRetrieval</span></tt> , or <tt class="docutils literal"><span class="pre">Select</span></tt> .</div>
+</blockquote>
+<p>ArchiveId -&gt; (string)</p>
+<blockquote>
+<div>The archive ID requested for a select job or archive retrieval. Otherwise, this field is null.</div>
+</blockquote>
+<p>VaultARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the vault from which an archive retrieval was requested.</div>
+</blockquote>
+<p>CreationDate -&gt; (string)</p>
+<blockquote>
+<div>The UTC date when the job was created. This value is a string representation of ISO 8601 date format, for example <tt class="docutils literal"><span class="pre">"2012-03-20T17:03:43.221Z"</span></tt> .</div>
+</blockquote>
+<p>Completed -&gt; (boolean)</p>
+<blockquote>
+<div>The job status. When a job is completed, you get the job's output using Get Job Output (GET output).</div>
+</blockquote>
+<p>StatusCode -&gt; (string)</p>
+<blockquote>
+<div>The status code can be <tt class="docutils literal"><span class="pre">InProgress</span></tt> , <tt class="docutils literal"><span class="pre">Succeeded</span></tt> , or <tt class="docutils literal"><span class="pre">Failed</span></tt> , and indicates the status of the job.</div>
+</blockquote>
+<p>StatusMessage -&gt; (string)</p>
+<blockquote>
+<div>A friendly message that describes the job status.</div>
+</blockquote>
+<p>ArchiveSizeInBytes -&gt; (long)</p>
+<blockquote>
+<div>For an archive retrieval job, this value is the size in bytes of the archive being requested for download. For an inventory retrieval or select job, this value is null.</div>
+</blockquote>
+<p>InventorySizeInBytes -&gt; (long)</p>
+<blockquote>
+<div>For an inventory retrieval job, this value is the size in bytes of the inventory requested for download. For an archive retrieval or select job, this value is null.</div>
+</blockquote>
+<p>SNSTopic -&gt; (string)</p>
+<blockquote>
+<div>An Amazon SNS topic that receives notification.</div>
+</blockquote>
+<p>CompletionDate -&gt; (string)</p>
+<blockquote>
+<div>The UTC time that the job request completed. While the job is in progress, the value is null.</div>
+</blockquote>
+<p>SHA256TreeHash -&gt; (string)</p>
+<blockquote>
+<div>
+<p>For an archive retrieval job, this value is the checksum of the archive. Otherwise, this value is null.</p>
+<p>The SHA256 tree hash value for the requested range of an archive. If the <strong>InitiateJob</strong> request for an archive specified a tree-hash aligned range, then this field returns a value.</p>
+<p>If the whole archive is retrieved, this value is the same as the ArchiveSHA256TreeHash value.</p>
+<p>This field is null for the following:</p>
+<ul class="simple">
+<li>Archive retrieval jobs that specify a range that is not tree-hash aligned</li>
+<li>Archival jobs that specify a range that is equal to the whole archive, when the job status is <tt class="docutils literal"><span class="pre">InProgress</span></tt>
+</li>
+<li>Inventory jobs</li>
+<li>Select jobs</li>
+</ul>
+</div>
+</blockquote>
+<p>ArchiveSHA256TreeHash -&gt; (string)</p>
+<blockquote>
+<div>The SHA256 tree hash of the entire archive for an archive retrieval. For inventory retrieval or select jobs, this field is null.</div>
+</blockquote>
+<p>RetrievalByteRange -&gt; (string)</p>
+<blockquote>
+<div>The retrieved byte range for archive retrieval jobs in the form <em>StartByteValue</em> -<em>EndByteValue</em> . If no range was specified in the archive retrieval, then the whole archive is retrieved. In this case, <em>StartByteValue</em> equals 0 and <em>EndByteValue</em> equals the size of the archive minus 1. For inventory retrieval or select jobs, this field is null.</div>
+</blockquote>
+<p>Tier -&gt; (string)</p>
+<blockquote>
+<div>The tier to use for a select or an archive retrieval. Valid values are <tt class="docutils literal"><span class="pre">Expedited</span></tt> , <tt class="docutils literal"><span class="pre">Standard</span></tt> , or <tt class="docutils literal"><span class="pre">Bulk</span></tt> . <tt class="docutils literal"><span class="pre">Standard</span></tt> is the default.</div>
+</blockquote>
+<p>InventoryRetrievalParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Parameters used for range inventory retrieval.</p>
+<p>Format -&gt; (string)</p>
+<blockquote>
+<div>The output format for the vault inventory list, which is set by the <strong>InitiateJob</strong> request when initiating a job to retrieve a vault inventory. Valid values are <tt class="docutils literal"><span class="pre">CSV</span></tt> and <tt class="docutils literal"><span class="pre">JSON</span></tt> .</div>
+</blockquote>
+<p>StartDate -&gt; (string)</p>
+<blockquote>
+<div>The start of the date range in Universal Coordinated Time (UTC) for vault inventory retrieval that includes archives created on or after this date. This value should be a string in the ISO 8601 date format, for example <tt class="docutils literal"><span class="pre">2013-03-20T17:03:43Z</span></tt> .</div>
+</blockquote>
+<p>EndDate -&gt; (string)</p>
+<blockquote>
+<div>The end of the date range in UTC for vault inventory retrieval that includes archives created before this date. This value should be a string in the ISO 8601 date format, for example <tt class="docutils literal"><span class="pre">2013-03-20T17:03:43Z</span></tt> .</div>
+</blockquote>
+<p>Limit -&gt; (string)</p>
+<blockquote>
+<div>The maximum number of inventory items returned per vault inventory retrieval request. This limit is set when initiating the job with the a <strong>InitiateJob</strong> request.</div>
+</blockquote>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>An opaque string that represents where to continue pagination of the vault inventory retrieval results. You use the marker in a new <strong>InitiateJob</strong> request to obtain additional inventory items. If there are no more inventory items, this value is <tt class="docutils literal"><span class="pre">null</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering">Range Inventory Retrieval</a> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>JobOutputPath -&gt; (string)</p>
+<blockquote>
+<div>Contains the job output location.</div>
+</blockquote>
+<p>SelectParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains the parameters used for a select.</p>
+<p>InputSerialization -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the serialization format of the object.</p>
+<p>csv -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the serialization of a CSV-encoded object.</p>
+<p>FileHeaderInfo -&gt; (string)</p>
+<blockquote>
+<div>Describes the first line of input. Valid values are <tt class="docutils literal"><span class="pre">None</span></tt> , <tt class="docutils literal"><span class="pre">Ignore</span></tt> , and <tt class="docutils literal"><span class="pre">Use</span></tt> .</div>
+</blockquote>
+<p>Comments -&gt; (string)</p>
+<blockquote>
+<div>A single character used to indicate that a row should be ignored when the character is present at the start of that row.</div>
+</blockquote>
+<p>QuoteEscapeCharacter -&gt; (string)</p>
+<blockquote>
+<div>A single character used for escaping the quotation-mark character inside an already escaped value.</div>
+</blockquote>
+<p>RecordDelimiter -&gt; (string)</p>
+<blockquote>
+<div>A value used to separate individual records from each other.</div>
+</blockquote>
+<p>FieldDelimiter -&gt; (string)</p>
+<blockquote>
+<div>A value used to separate individual fields from each other within a record.</div>
+</blockquote>
+<p>QuoteCharacter -&gt; (string)</p>
+<blockquote>
+<div>A value used as an escape character where the field delimiter is part of the value.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ExpressionType -&gt; (string)</p>
+<blockquote>
+<div>The type of the provided expression, for example <tt class="docutils literal"><span class="pre">SQL</span></tt> .</div>
+</blockquote>
+<p>Expression -&gt; (string)</p>
+<blockquote>
+<div>The expression that is used to select the object.</div>
+</blockquote>
+<p>OutputSerialization -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes how the results of the select job are serialized.</p>
+<p>csv -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the serialization of CSV-encoded query results.</p>
+<p>QuoteFields -&gt; (string)</p>
+<blockquote>
+<div>A value that indicates whether all output fields should be contained within quotation marks.</div>
+</blockquote>
+<p>QuoteEscapeCharacter -&gt; (string)</p>
+<blockquote>
+<div>A single character used for escaping the quotation-mark character inside an already escaped value.</div>
+</blockquote>
+<p>RecordDelimiter -&gt; (string)</p>
+<blockquote>
+<div>A value used to separate individual records from each other.</div>
+</blockquote>
+<p>FieldDelimiter -&gt; (string)</p>
+<blockquote>
+<div>A value used to separate individual fields from each other within a record.</div>
+</blockquote>
+<p>QuoteCharacter -&gt; (string)</p>
+<blockquote>
+<div>A value used as an escape character where the field delimiter is part of the value.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OutputLocation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains the location where the data from the select job is stored.</p>
+<p>S3 -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes an S3 location that will receive the results of the job request.</p>
+<p>BucketName -&gt; (string)</p>
+<blockquote>
+<div>The name of the Amazon S3 bucket where the job results are stored.</div>
+</blockquote>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>The prefix that is prepended to the results for this request.</div>
+</blockquote>
+<p>Encryption -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains information about the encryption used to store the job results in Amazon S3.</p>
+<p>EncryptionType -&gt; (string)</p>
+<blockquote>
+<div>The server-side encryption algorithm used when storing job results in Amazon S3, for example <tt class="docutils literal"><span class="pre">AES256</span></tt> or <tt class="docutils literal"><span class="pre">aws:kms</span></tt> .</div>
+</blockquote>
+<p>KMSKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS fail if not made by using Secure Sockets Layer (SSL) or Signature Version 4.</div>
+</blockquote>
+<p>KMSContext -&gt; (string)</p>
+<blockquote>
+<div>Optional. If the encryption type is <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , you can use this value to specify the encryption context for the job results.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CannedACL -&gt; (string)</p>
+<blockquote>
+<div>The canned access control list (ACL) to apply to the job results.</div>
+</blockquote>
+<p>AccessControlList -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of grants that control access to the staged results.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains information about a grant.</p>
+<p>Grantee -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The grantee.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of grantee</div>
+</blockquote>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>Screen name of the grantee.</div>
+</blockquote>
+<p>URI -&gt; (string)</p>
+<blockquote>
+<div>URI of the grantee group.</div>
+</blockquote>
+<p>ID -&gt; (string)</p>
+<blockquote>
+<div>The canonical user ID of the grantee.</div>
+</blockquote>
+<p>EmailAddress -&gt; (string)</p>
+<blockquote>
+<div>Email address of the grantee.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Permission -&gt; (string)</p>
+<blockquote>
+<div>Specifies the permission given to the grantee.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tagging -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The tag-set that is applied to the job results.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>UserMetadata -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A map of metadata to store with the job results in Amazon S3.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>StorageClass -&gt; (string)</p>
+<blockquote>
+<div>The storage class used to store the job results.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>An opaque string used for pagination that specifies the job at which the listing of jobs should begin. You get the <tt class="docutils literal"><span class="pre">marker</span></tt> value from a previous List Jobs response. You only need to include the marker if you are continuing the pagination of the results started in a previous List Jobs request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

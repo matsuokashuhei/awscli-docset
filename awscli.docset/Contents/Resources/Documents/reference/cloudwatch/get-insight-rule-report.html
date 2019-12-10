@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-insight-rule-report — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudwatch" href="index.html">
+    <link rel="next" title="get-metric-data" href="get-metric-data.html">
+    <link rel="prev" title="get-dashboard" href="get-dashboard.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-insight-rule-report">
+<span id="cli-aws-cloudwatch-get-insight-rule-report"></span><h1>get-insight-rule-report<a class="headerlink" href="#get-insight-rule-report" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This operation returns the time series data collected by a Contributor Insights rule. The data includes the identity and number of contributors to the log group.</p>
+<p>You can also optionally return one or more statistics about each data point in the time series. These statistics can include the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">UniqueContributors</span></tt> -- the number of unique contributors for each data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MaxContributorValue</span></tt> -- the value of the top contributor for each data point. The identity of the contributor may change for each data point in the graph. If this rule aggregates by COUNT, the top contributor for each data point is the contributor with the most occurrences in that period. If the rule aggregates by SUM, the top contributor is the contributor with the highest sum in the log field specified by the rule's <tt class="docutils literal"><span class="pre">Value</span></tt> , during that period.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SampleCount</span></tt> -- the number of data points matched by the rule.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Sum</span></tt> -- the sum of the values from all contributors during the time period represented by that data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Minimum</span></tt> -- the minimum value from a single observation during the time period represented by that data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Maximum</span></tt> -- the maximum value from a single observation during the time period represented by that data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Average</span></tt> -- the average value from all contributors during the time period represented by that data point.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/monitoring-2010-08-01/GetInsightRuleReport">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-insight-rule-report
+--rule-name &lt;value&gt;
+--start-time &lt;value&gt;
+--end-time &lt;value&gt;
+--period &lt;value&gt;
+[--max-contributor-count &lt;value&gt;]
+[--metrics &lt;value&gt;]
+[--order-by &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--rule-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the rule that you want to see data from.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The start time of the data to use in the report. When used in a raw HTTP Query API, it is formatted as <tt class="docutils literal"><span class="pre">yyyy-MM-dd'T'HH:mm:ss</span></tt> . For example, <tt class="docutils literal"><span class="pre">2019-07-01T23:59:59</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The end time of the data to use in the report. When used in a raw HTTP Query API, it is formatted as <tt class="docutils literal"><span class="pre">yyyy-MM-dd'T'HH:mm:ss</span></tt> . For example, <tt class="docutils literal"><span class="pre">2019-07-01T23:59:59</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--period</span></tt> (integer)</p>
+<blockquote>
+<div>The period, in seconds, to use for the statistics in the <tt class="docutils literal"><span class="pre">InsightRuleMetricDatapoint</span></tt> results.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-contributor-count</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of contributors to include in the report. The range is 1 to 100. If you omit this, the default of 10 is used.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--metrics</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Specifies which metrics to use for aggregation of contributor values for the report. You can specify one or more of the following metrics:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">UniqueContributors</span></tt> -- the number of unique contributors for each data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MaxContributorValue</span></tt> -- the value of the top contributor for each data point. The identity of the contributor may change for each data point in the graph. If this rule aggregates by COUNT, the top contributor for each data point is the contributor with the most occurrences in that period. If the rule aggregates by SUM, the top contributor is the contributor with the highest sum in the log field specified by the rule's <tt class="docutils literal"><span class="pre">Value</span></tt> , during that period.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SampleCount</span></tt> -- the number of data points matched by the rule.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Sum</span></tt> -- the sum of the values from all contributors during the time period represented by that data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Minimum</span></tt> -- the minimum value from a single observation during the time period represented by that data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Maximum</span></tt> -- the maximum value from a single observation during the time period represented by that data point.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Average</span></tt> -- the average value from all contributors during the time period represented by that data point.</li>
+</ul>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--order-by</span></tt> (string)</p>
+<blockquote>
+<div>Determines what statistic to use to rank the contributors. Valid values are SUM and MAXIMUM.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>KeyLabels -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of the strings used as the keys for this rule. The keys are the dimensions used to classify contributors. If the rule contains more than one key, then each unique combination of values for the keys is counted as a unique contributor.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>AggregationStatistic -&gt; (string)</p>
+<blockquote>
+<div>Specifies whether this rule aggregates contributor data by COUNT or SUM.</div>
+</blockquote>
+<p>AggregateValue -&gt; (double)</p>
+<blockquote>
+<div>The sum of the values from all individual contributors that match the rule.</div>
+</blockquote>
+<p>ApproximateUniqueCount -&gt; (long)</p>
+<blockquote>
+<div>An approximate count of the unique contributors found by this rule in this time period.</div>
+</blockquote>
+<p>Contributors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of the unique contributors found by this rule in this time period. If the rule contains multiple keys, each combination of values for the keys counts as a unique contributor.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>One of the unique contributors found by a Contributor Insights rule. If the rule contains multiple keys, then a unique contributor is a unique combination of values from all the keys in the rule.</p>
+<p>If the rule contains a single key, then each unique contributor is each unique value for this key.</p>
+<p>For more information, see  GetInsightRuleReport .</p>
+<p>Keys -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One of the log entry field keywords that is used to define contributors for this rule.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ApproximateAggregateValue -&gt; (double)</p>
+<blockquote>
+<div>An approximation of the aggregate value that comes from this contributor.</div>
+</blockquote>
+<p>Datapoints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of the data points where this contributor is present. Only the data points when this contributor appeared are included in the array.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>One data point related to one contributor.</p>
+<p>For more information, see  GetInsightRuleReport and  InsightRuleContributor .</p>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp of the data point.</div>
+</blockquote>
+<p>ApproximateValue -&gt; (double)</p>
+<blockquote>
+<div>The approximate value that this contributor added during this timestamp.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MetricDatapoints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A time series of metric data points that matches the time period in the rule request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>One data point from the metric time series returned in a Contributor Insights rule report.</p>
+<p>For more information, see  GetInsightRuleReport .</p>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp of the data point.</div>
+</blockquote>
+<p>UniqueContributors -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The number of unique contributors who published data during this timestamp.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+<p>MaxContributorValue -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The maximum value provided by one contributor during this timestamp. Each timestamp is evaluated separately, so the identity of the max contributor could be different for each timestamp.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+<p>SampleCount -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The number of occurrences that matched the rule during this data point.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+<p>Average -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The average value from all contributors during the time period represented by that data point.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+<p>Sum -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The sum of the values from all contributors during the time period represented by that data point.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+<p>Minimum -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The minimum value from a single contributor during the time period represented by that data point.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+<p>Maximum -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The maximum value from a single occurence from a single contributor during the time period represented by that data point.</p>
+<p>This statistic is returned only if you included it in the <tt class="docutils literal"><span class="pre">Metrics</span></tt> array in your request.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

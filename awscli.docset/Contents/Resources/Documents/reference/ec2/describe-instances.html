@@ -1,0 +1,1297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-instances — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-internet-gateways" href="describe-internet-gateways.html">
+    <link rel="prev" title="describe-instance-types" href="describe-instance-types.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-instances">
+<span id="cli-aws-ec2-describe-instances"></span><h1>describe-instances<a class="headerlink" href="#describe-instances" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the specified instances or all of AWS account's instances.</p>
+<p>If you specify one or more instance IDs, Amazon EC2 returns information for those instances. If you do not specify instance IDs, Amazon EC2 returns information for all relevant instances. If you specify an instance ID that is not valid, an error is returned. If you specify an instance that you do not own, it is not included in the returned results.</p>
+<p>Recently terminated instances might appear in the returned results. This interval is usually less than one hour.</p>
+<p>If you describe instances in the rare case where an Availability Zone is experiencing a service disruption and you specify instance IDs that are in the affected zone, or do not specify any instance IDs at all, the call fails. If you describe instances and specify only instance IDs that are in an unaffected zone, the call works normally.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstances">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-instances</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Reservations</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-instances
+[--filters &lt;value&gt;]
+[--instance-ids &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">affinity</span></tt> - The affinity setting for an instance running on a Dedicated Host (<tt class="docutils literal"><span class="pre">default</span></tt> | <tt class="docutils literal"><span class="pre">host</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">architecture</span></tt> - The instance architecture (<tt class="docutils literal"><span class="pre">i386</span></tt> | <tt class="docutils literal"><span class="pre">x86_64</span></tt> | <tt class="docutils literal"><span class="pre">arm64</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">availability-zone</span></tt> - The Availability Zone of the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.attach-time</span></tt> - The attach time for an EBS volume mapped to the instance, for example, <tt class="docutils literal"><span class="pre">2010-09-15T17:15:20.000Z</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.delete-on-termination</span></tt> - A Boolean that indicates whether the EBS volume is deleted on instance termination.</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.device-name</span></tt> - The device name specified in the block device mapping (for example, <tt class="docutils literal"><span class="pre">/dev/sdh</span></tt> or <tt class="docutils literal"><span class="pre">xvdh</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.status</span></tt> - The status for the EBS volume (<tt class="docutils literal"><span class="pre">attaching</span></tt> | <tt class="docutils literal"><span class="pre">attached</span></tt> | <tt class="docutils literal"><span class="pre">detaching</span></tt> | <tt class="docutils literal"><span class="pre">detached</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.volume-id</span></tt> - The volume ID of the EBS volume.</li>
+<li>
+<tt class="docutils literal"><span class="pre">client-token</span></tt> - The idempotency token you provided when you launched the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dns-name</span></tt> - The public DNS name of the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">group-id</span></tt> - The ID of the security group for the instance. EC2-Classic only.</li>
+<li>
+<tt class="docutils literal"><span class="pre">group-name</span></tt> - The name of the security group for the instance. EC2-Classic only.</li>
+<li>
+<tt class="docutils literal"><span class="pre">hibernation-options.configured</span></tt> - A Boolean that indicates whether the instance is enabled for hibernation. A value of <tt class="docutils literal"><span class="pre">true</span></tt> means that the instance is enabled for hibernation.</li>
+<li>
+<tt class="docutils literal"><span class="pre">host-id</span></tt> - The ID of the Dedicated Host on which the instance is running, if applicable.</li>
+<li>
+<tt class="docutils literal"><span class="pre">hypervisor</span></tt> - The hypervisor type of the instance (<tt class="docutils literal"><span class="pre">ovm</span></tt> | <tt class="docutils literal"><span class="pre">xen</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">iam-instance-profile.arn</span></tt> - The instance profile associated with the instance. Specified as an ARN. <tt class="docutils literal"><span class="pre">image-id</span></tt> - The ID of the image used to launch the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance-id</span></tt> - The ID of the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance-lifecycle</span></tt> - Indicates whether this is a Spot Instance or a Scheduled Instance (<tt class="docutils literal"><span class="pre">spot</span></tt> | <tt class="docutils literal"><span class="pre">scheduled</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance-state-code</span></tt> - The state of the instance, as a 16-bit unsigned integer. The high byte is used for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance-state-name</span></tt> - The state of the instance (<tt class="docutils literal"><span class="pre">pending</span></tt> | <tt class="docutils literal"><span class="pre">running</span></tt> | <tt class="docutils literal"><span class="pre">shutting-down</span></tt> | <tt class="docutils literal"><span class="pre">terminated</span></tt> | <tt class="docutils literal"><span class="pre">stopping</span></tt> | <tt class="docutils literal"><span class="pre">stopped</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance-type</span></tt> - The type of instance (for example, <tt class="docutils literal"><span class="pre">t2.micro</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance.group-id</span></tt> - The ID of the security group for the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance.group-name</span></tt> - The name of the security group for the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ip-address</span></tt> - The public IPv4 address of the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">kernel-id</span></tt> - The kernel ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">key-name</span></tt> - The name of the key pair used when the instance was launched.</li>
+<li>
+<tt class="docutils literal"><span class="pre">launch-index</span></tt> - When launching multiple instances, this is the index for the instance in the launch group (for example, 0, 1, 2, and so on).</li>
+<li>
+<tt class="docutils literal"><span class="pre">launch-time</span></tt> - The time when the instance was launched.</li>
+<li>
+<tt class="docutils literal"><span class="pre">metadata-options.http-tokens</span></tt> - The metadata request authorization state (<tt class="docutils literal"><span class="pre">optional</span></tt> | <tt class="docutils literal"><span class="pre">required</span></tt> )</li>
+<li>
+<tt class="docutils literal"><span class="pre">metadata-options.http-put-response-hop-limit</span></tt> - The http metadata request put response hop limit (integer, possible values <tt class="docutils literal"><span class="pre">1</span></tt> to <tt class="docutils literal"><span class="pre">64</span></tt> )</li>
+<li>
+<tt class="docutils literal"><span class="pre">metadata-options.http-endpoint</span></tt> - Enable or disable metadata access on http endpoint (<tt class="docutils literal"><span class="pre">enabled</span></tt> | <tt class="docutils literal"><span class="pre">disabled</span></tt> )</li>
+<li>
+<tt class="docutils literal"><span class="pre">monitoring-state</span></tt> - Indicates whether detailed monitoring is enabled (<tt class="docutils literal"><span class="pre">disabled</span></tt> | <tt class="docutils literal"><span class="pre">enabled</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.addresses.private-ip-address</span></tt> - The private IPv4 address associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.addresses.primary</span></tt> - Specifies whether the IPv4 address of the network interface is the primary private IPv4 address.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.addresses.association.public-ip</span></tt> - The ID of the association of an Elastic IP address (IPv4) with a network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.addresses.association.ip-owner-id</span></tt> - The owner ID of the private IPv4 address associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.association.public-ip</span></tt> - The address of the Elastic IP address (IPv4) bound to the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.association.ip-owner-id</span></tt> - The owner of the Elastic IP address (IPv4) associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.association.allocation-id</span></tt> - The allocation ID returned when you allocated the Elastic IP address (IPv4) for your network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.association.association-id</span></tt> - The association ID returned when the network interface was associated with an IPv4 address.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.attachment-id</span></tt> - The ID of the interface attachment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.instance-id</span></tt> - The ID of the instance to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.instance-owner-id</span></tt> - The owner ID of the instance to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.device-index</span></tt> - The device index to which the network interface is attached.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.status</span></tt> - The status of the attachment (<tt class="docutils literal"><span class="pre">attaching</span></tt> | <tt class="docutils literal"><span class="pre">attached</span></tt> | <tt class="docutils literal"><span class="pre">detaching</span></tt> | <tt class="docutils literal"><span class="pre">detached</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.attach-time</span></tt> - The time that the network interface was attached to an instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.attachment.delete-on-termination</span></tt> - Specifies whether the attachment is deleted when an instance is terminated.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.availability-zone</span></tt> - The Availability Zone for the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.description</span></tt> - The description of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.group-id</span></tt> - The ID of a security group associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.group-name</span></tt> - The name of a security group associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.ipv6-addresses.ipv6-address</span></tt> - The IPv6 address associated with the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.mac-address</span></tt> - The MAC address of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.network-interface-id</span></tt> - The ID of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.owner-id</span></tt> - The ID of the owner of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.private-dns-name</span></tt> - The private DNS name of the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.requester-id</span></tt> - The requester ID for the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.requester-managed</span></tt> - Indicates whether the network interface is being managed by AWS.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.status</span></tt> - The status of the network interface (<tt class="docutils literal"><span class="pre">available</span></tt> ) | <tt class="docutils literal"><span class="pre">in-use</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.source-dest-check</span></tt> - Whether the network interface performs source/destination checking. A value of <tt class="docutils literal"><span class="pre">true</span></tt> means that checking is enabled, and <tt class="docutils literal"><span class="pre">false</span></tt> means that checking is disabled. The value must be <tt class="docutils literal"><span class="pre">false</span></tt> for the network interface to perform network address translation (NAT) in your VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.subnet-id</span></tt> - The ID of the subnet for the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">network-interface.vpc-id</span></tt> - The ID of the VPC for the network interface.</li>
+<li>
+<tt class="docutils literal"><span class="pre">owner-id</span></tt> - The AWS account ID of the instance owner.</li>
+<li>
+<tt class="docutils literal"><span class="pre">placement-group-name</span></tt> - The name of the placement group for the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">placement-partition-number</span></tt> - The partition in which the instance is located.</li>
+<li>
+<tt class="docutils literal"><span class="pre">platform</span></tt> - The platform. To list only Windows instances, use <tt class="docutils literal"><span class="pre">windows</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">private-dns-name</span></tt> - The private IPv4 DNS name of the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">private-ip-address</span></tt> - The private IPv4 address of the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">product-code</span></tt> - The product code associated with the AMI used to launch the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">product-code.type</span></tt> - The type of product code (<tt class="docutils literal"><span class="pre">devpay</span></tt> | <tt class="docutils literal"><span class="pre">marketplace</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">ramdisk-id</span></tt> - The RAM disk ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">reason</span></tt> - The reason for the current state of the instance (for example, shows "User Initiated [date]" when you stop or terminate the instance). Similar to the state-reason-code filter.</li>
+<li>
+<tt class="docutils literal"><span class="pre">requester-id</span></tt> - The ID of the entity that launched the instance on your behalf (for example, AWS Management Console, Auto Scaling, and so on).</li>
+<li>
+<tt class="docutils literal"><span class="pre">reservation-id</span></tt> - The ID of the instance's reservation. A reservation ID is created any time you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be associated with more than one instance if you launch multiple instances using the same launch request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same launch request, you also get one reservation ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">root-device-name</span></tt> - The device name of the root device volume (for example, <tt class="docutils literal"><span class="pre">/dev/sda1</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">root-device-type</span></tt> - The type of the root device volume (<tt class="docutils literal"><span class="pre">ebs</span></tt> | <tt class="docutils literal"><span class="pre">instance-store</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">source-dest-check</span></tt> - Indicates whether the instance performs source/destination checking. A value of <tt class="docutils literal"><span class="pre">true</span></tt> means that checking is enabled, and <tt class="docutils literal"><span class="pre">false</span></tt> means that checking is disabled. The value must be <tt class="docutils literal"><span class="pre">false</span></tt> for the instance to perform network address translation (NAT) in your VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">spot-instance-request-id</span></tt> - The ID of the Spot Instance request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">state-reason-code</span></tt> - The reason code for the state change.</li>
+<li>
+<tt class="docutils literal"><span class="pre">state-reason-message</span></tt> - A message that describes the state change.</li>
+<li>
+<tt class="docutils literal"><span class="pre">subnet-id</span></tt> - The ID of the subnet for the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag</span></tt> :key- The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <tt class="docutils literal"><span class="pre">Owner</span></tt> and the value <tt class="docutils literal"><span class="pre">TeamA</span></tt> , specify <tt class="docutils literal"><span class="pre">tag:Owner</span></tt> for the filter name and <tt class="docutils literal"><span class="pre">TeamA</span></tt> for the filter value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag-key</span></tt> - The key of a tag assigned to the resource. Use this filter to find all resources that have a tag with a specific key, regardless of the tag value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tenancy</span></tt> - The tenancy of an instance (<tt class="docutils literal"><span class="pre">dedicated</span></tt> | <tt class="docutils literal"><span class="pre">default</span></tt> | <tt class="docutils literal"><span class="pre">host</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">virtualization-type</span></tt> - The virtualization type of the instance (<tt class="docutils literal"><span class="pre">paravirtual</span></tt> | <tt class="docutils literal"><span class="pre">hvm</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">vpc-id</span></tt> - The ID of the VPC that the instance is running in.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--instance-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The instance IDs.</p>
+<p>Default: Describes all your instances.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To describe an Amazon EC2 instance</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about the specified instance.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --instance-ids i-1234567890abcdef0</pre>
+</div>
+<p><strong>Example 2: To describe instances based on instance type</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only instances of the specified type.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --filters Name=instance-type,Values=m5.large</pre>
+</div>
+<p><strong>Example 3: To describe instances based on a tag key and value</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only those instances that have a tag with the specified key name and value.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --filters "Name=tag-key,Values=Owner"</pre>
+</div>
+<p><strong>Example 4: To filter the results based on multiple conditions</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about all instances with the specified type that are also in the specified Availability Zone.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --filters Name=instance-type,Values=t2.micro,t3.micro Name=availability-zone,Values=us-east-2c</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example uses a JSON input file to perform the same filtering as the previous example. When filters get more complicated, they can be easier to specify in a JSON file.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --filters file://filters.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">filters.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"instance-type"</span><span class="p">,</span>
+        <span class="s2">"Values"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"t2.micro"</span><span class="p">,</span> <span class="s2">"t3.micro"</span><span class="p">]</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"availability-zone"</span><span class="p">,</span>
+        <span class="s2">"Values"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"us-east-2c"</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Example 5: To restrict the results to only specified fields</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example uses the <tt class="docutils literal"><span class="pre">--query</span></tt> parameter to display only the AMI ID and tags for the specified instance.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --instance-id i-1234567890abcdef0 \
+    --query "Reservations[*].Instances[*].[ImageId,Tags[*]]"</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example uses the <tt class="docutils literal"><span class="pre">--query</span></tt> parameter to display only the instance and subnet IDs for all instances.</p>
+<p>Linux Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --query 'Reservations[*].Instances[*].{Instance:InstanceId,Subnet:SubnetId}' \
+    --output json</pre>
+</div>
+<p>Windows Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances ^
+    --query "Reservations[*].Instances[*].{Instance:InstanceId,Subnet:SubnetId}" ^
+    --output json</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"Instance"</span><span class="p">:</span> <span class="s2">"i-057750d42936e468a"</span><span class="p">,</span>
+        <span class="s2">"Subnet"</span><span class="p">:</span> <span class="s2">"subnet-069beee9b12030077"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"Instance"</span><span class="p">:</span> <span class="s2">"i-001efd250faaa6ffa"</span><span class="p">,</span>
+        <span class="s2">"Subnet"</span><span class="p">:</span> <span class="s2">"subnet-0b715c6b7db68927a"</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"Instance"</span><span class="p">:</span> <span class="s2">"i-027552a73f021f3bd"</span><span class="p">,</span>
+        <span class="s2">"Subnet"</span><span class="p">:</span> <span class="s2">"subnet-0250c25a1f4e15235"</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Example 6: To describe instances with a specific tag and filter the results to specific fields</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays the instance ID, Availability Zone, and the value of the <tt class="docutils literal"><span class="pre">Name</span></tt> tag for instances that have a tag with the name <tt class="docutils literal"><span class="pre">tag-key</span></tt>.</p>
+<p>Linux Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --filter Name=tag-key,Values=Name \
+    --query 'Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key==`Name`]|[0].Value}' \
+    --output table</pre>
+</div>
+<p>Windows Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances ^
+    --filter Name=tag-key,Values=Name ^
+    --query "Reservations[*].Instances[*].{Instance:InstanceId,AZ:Placement.AvailabilityZone,Name:Tags[?Key=='Name']|[0].Value}" ^
+    --output table</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>-------------------------------------------------------------
+|                     DescribeInstances                     |
++--------------+-----------------------+--------------------+
+|      AZ      |       Instance        |        Name        |
++--------------+-----------------------+--------------------+
+|  us-east-2b  |  i-057750d42936e468a  |  my-prod-server    |
+|  us-east-2a  |  i-001efd250faaa6ffa  |  test-server-1     |
+|  us-east-2a  |  i-027552a73f021f3bd  |  test-server-2     |
++--------------+-----------------------+--------------------+</pre>
+</div>
+<p><strong>Example 7: To view the partition number for an instance in a partition placement group</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about the specified instance. The output includes the placement information for the instance, which contains the placement group name and the partition number for the instance.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --instance-id i-0123a456700123456</pre>
+</div>
+<p>The following output is truncated to show only the relevant information:</p>
+<div class="highlight-python">
+<pre>"Placement": {
+    "AvailabilityZone": "us-east-1c",
+    "GroupName": "HDFS-Group-A",
+    "PartitionNumber": 3,
+    "Tenancy": "default"
+}</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#describe-instance-placement">Describing Instances in a Placement Group</a> in the <em>Amazon Elastic Compute Cloud Users Guide</em>.</p>
+<p><strong>Example 8: To filter instances for a specific partition placement group and partition number</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example filters the results to only those instances with the specified placement group and partition number.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances \
+    --filters "Name = placement-group-name, Values = HDFS-Group-A" "Name = placement-partition-number, Values = 7"</pre>
+</div>
+<p>The following output is truncated to show only the relevant pieces:</p>
+<div class="highlight-python">
+<pre>"Instances": [
+    {
+        "InstanceId": "i-0123a456700123456",
+        "InstanceType": "r4.large",
+        "Placement": {
+            "AvailabilityZone": "us-east-1c",
+            "GroupName": "HDFS-Group-A",
+            "PartitionNumber": 7,
+            "Tenancy": "default"
+        }
+    },
+    {
+        "InstanceId": "i-9876a543210987654",
+        "InstanceType": "r4.large",
+        "Placement": {
+            "AvailabilityZone": "us-east-1c",
+            "GroupName": "HDFS-Group-A",
+            "PartitionNumber": 7,
+            "Tenancy": "default"
+        }
+    ],</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#describe-instance-placement">Describing Instances in a Placement Group</a> in the <em>Amazon Elastic Compute Cloud Users Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Reservations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the reservations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a reservation.</p>
+<p>Groups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>[EC2-Classic only] The security groups.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a security group.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the security group.</div>
+</blockquote>
+<p>GroupId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Instances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The instances.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an instance.</p>
+<p>AmiLaunchIndex -&gt; (integer)</p>
+<blockquote>
+<div>The AMI launch index, which can be used to find this instance in the launch group.</div>
+</blockquote>
+<p>ImageId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AMI used to launch the instance.</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the instance.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>KernelId -&gt; (string)</p>
+<blockquote>
+<div>The kernel associated with this instance, if applicable.</div>
+</blockquote>
+<p>KeyName -&gt; (string)</p>
+<blockquote>
+<div>The name of the key pair, if this instance was launched with an associated key pair.</div>
+</blockquote>
+<p>LaunchTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the instance was launched.</div>
+</blockquote>
+<p>Monitoring -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The monitoring for the instance.</p>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether detailed monitoring is enabled. Otherwise, basic monitoring is enabled.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Placement -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location where the instance launched, if applicable.</p>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The Availability Zone of the instance.</p>
+<p>If not specified, an Availability Zone will be automatically chosen for you based on the load balancing criteria for the Region.</p>
+</div>
+</blockquote>
+<p>Affinity -&gt; (string)</p>
+<blockquote>
+<div>The affinity setting for the instance on the Dedicated Host. This parameter is not supported for the  ImportInstance command.</div>
+</blockquote>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the placement group the instance is in.</div>
+</blockquote>
+<p>PartitionNumber -&gt; (integer)</p>
+<blockquote>
+<div>The number of the partition the instance is in. Valid only if the placement group strategy is set to <tt class="docutils literal"><span class="pre">partition</span></tt> .</div>
+</blockquote>
+<p>HostId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Dedicated Host on which the instance resides. This parameter is not supported for the  ImportInstance command.</div>
+</blockquote>
+<p>Tenancy -&gt; (string)</p>
+<blockquote>
+<div>The tenancy of the instance (if the instance is running in a VPC). An instance with a tenancy of <tt class="docutils literal"><span class="pre">dedicated</span></tt> runs on single-tenant hardware. The <tt class="docutils literal"><span class="pre">host</span></tt> tenancy is not supported for the  ImportInstance command.</div>
+</blockquote>
+<p>SpreadDomain -&gt; (string)</p>
+<blockquote>
+<div>Reserved for future use.</div>
+</blockquote>
+<p>HostResourceGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the <strong>Tenancy</strong> parameter or set it to <tt class="docutils literal"><span class="pre">host</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Platform -&gt; (string)</p>
+<blockquote>
+<div>The value is <tt class="docutils literal"><span class="pre">Windows</span></tt> for Windows instances; otherwise blank.</div>
+</blockquote>
+<p>PrivateDnsName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>(IPv4 only) The private DNS hostname name assigned to the instance. This DNS hostname can only be used inside the Amazon EC2 network. This name is not available until the instance enters the <tt class="docutils literal"><span class="pre">running</span></tt> state.</p>
+<p>[EC2-VPC] The Amazon-provided DNS server resolves Amazon-provided private DNS hostnames if you've enabled DNS resolution and DNS hostnames in your VPC. If you are not using the Amazon-provided DNS server in your VPC, your custom domain name servers must resolve the hostname as appropriate.</p>
+</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 address assigned to the instance.</div>
+</blockquote>
+<p>ProductCodes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The product codes attached to this instance, if applicable.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a product code.</p>
+<p>ProductCodeId -&gt; (string)</p>
+<blockquote>
+<div>The product code.</div>
+</blockquote>
+<p>ProductCodeType -&gt; (string)</p>
+<blockquote>
+<div>The type of product code.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PublicDnsName -&gt; (string)</p>
+<blockquote>
+<div>(IPv4 only) The public DNS name assigned to the instance. This name is not available until the instance enters the <tt class="docutils literal"><span class="pre">running</span></tt> state. For EC2-VPC, this name is only available if you've enabled DNS hostnames for your VPC.</div>
+</blockquote>
+<p>PublicIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The public IPv4 address assigned to the instance, if applicable.</div>
+</blockquote>
+<p>RamdiskId -&gt; (string)</p>
+<blockquote>
+<div>The RAM disk associated with this instance, if applicable.</div>
+</blockquote>
+<p>State -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The current state of the instance.</p>
+<p>Code -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The state of the instance as a 16-bit unsigned integer.</p>
+<p>The high byte is all of the bits between 2^8 and (2^16)-1, which equals decimal values between 256 and 65,535. These numerical values are used for internal purposes and should be ignored.</p>
+<p>The low byte is all of the bits between 2^0 and (2^8)-1, which equals decimal values between 0 and 255.</p>
+<p>The valid values for instance-state-code will all be in the range of the low byte and they are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">0</span></tt> : <tt class="docutils literal"><span class="pre">pending</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">16</span></tt> : <tt class="docutils literal"><span class="pre">running</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">32</span></tt> : <tt class="docutils literal"><span class="pre">shutting-down</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">48</span></tt> : <tt class="docutils literal"><span class="pre">terminated</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">64</span></tt> : <tt class="docutils literal"><span class="pre">stopping</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">80</span></tt> : <tt class="docutils literal"><span class="pre">stopped</span></tt>
+</li>
+</ul>
+<p>You can ignore the high byte value by zeroing out all of the bits above 2^8 or 256 in decimal.</p>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The current state of the instance.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>StateTransitionReason -&gt; (string)</p>
+<blockquote>
+<div>The reason for the most recent state transition. This might be an empty string.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>[EC2-VPC] The ID of the subnet in which the instance is running.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>[EC2-VPC] The ID of the VPC in which the instance is running.</div>
+</blockquote>
+<p>Architecture -&gt; (string)</p>
+<blockquote>
+<div>The architecture of the image.</div>
+</blockquote>
+<p>BlockDeviceMappings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any block device mapping entries for the instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a block device mapping.</p>
+<p>DeviceName -&gt; (string)</p>
+<blockquote>
+<div>The device name (for example, <tt class="docutils literal"><span class="pre">/dev/sdh</span></tt> or <tt class="docutils literal"><span class="pre">xvdh</span></tt> ).</div>
+</blockquote>
+<p>Ebs -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Parameters used to automatically set up EBS volumes when the instance is launched.</p>
+<p>AttachTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp when the attachment initiated.</div>
+</blockquote>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the volume is deleted on instance termination.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The attachment state.</div>
+</blockquote>
+<p>VolumeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the EBS volume.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ClientToken -&gt; (string)</p>
+<blockquote>
+<div>The idempotency token you provided when you launched the instance, if applicable.</div>
+</blockquote>
+<p>EbsOptimized -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.</div>
+</blockquote>
+<p>EnaSupport -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether enhanced networking with ENA is enabled.</div>
+</blockquote>
+<p>Hypervisor -&gt; (string)</p>
+<blockquote>
+<div>The hypervisor type of the instance.</div>
+</blockquote>
+<p>IamInstanceProfile -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The IAM instance profile associated with the instance, if applicable.</p>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the instance profile.</div>
+</blockquote>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID of the instance profile.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InstanceLifecycle -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether this is a Spot Instance or a Scheduled Instance.</div>
+</blockquote>
+<p>ElasticGpuAssociations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Elastic GPU associated with the instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the association between an instance and an Elastic Graphics accelerator.</p>
+<p>ElasticGpuId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Elastic Graphics accelerator.</div>
+</blockquote>
+<p>ElasticGpuAssociationId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the association.</div>
+</blockquote>
+<p>ElasticGpuAssociationState -&gt; (string)</p>
+<blockquote>
+<div>The state of the association between the instance and the Elastic Graphics accelerator.</div>
+</blockquote>
+<p>ElasticGpuAssociationTime -&gt; (string)</p>
+<blockquote>
+<div>The time the Elastic Graphics accelerator was associated with the instance.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ElasticInferenceAcceleratorAssociations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The elastic inference accelerator associated with the instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the association between an instance and an elastic inference accelerator.</p>
+<p>ElasticInferenceAcceleratorArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the elastic inference accelerator.</div>
+</blockquote>
+<p>ElasticInferenceAcceleratorAssociationId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the association.</div>
+</blockquote>
+<p>ElasticInferenceAcceleratorAssociationState -&gt; (string)</p>
+<blockquote>
+<div>The state of the elastic inference accelerator.</div>
+</blockquote>
+<p>ElasticInferenceAcceleratorAssociationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time at which the elastic inference accelerator is associated with an instance.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NetworkInterfaces -&gt; (list)</p>
+<blockquote>
+<div>
+<p>[EC2-VPC] The network interfaces for the instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a network interface.</p>
+<p>Association -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The association information for an Elastic IPv4 associated with the network interface.</p>
+<p>IpOwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the owner of the Elastic IP address.</div>
+</blockquote>
+<p>PublicDnsName -&gt; (string)</p>
+<blockquote>
+<div>The public DNS name.</div>
+</blockquote>
+<p>PublicIp -&gt; (string)</p>
+<blockquote>
+<div>The public IP address or Elastic IP address bound to the network interface.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Attachment -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The network interface attachment.</p>
+<p>AttachTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp when the attachment initiated.</div>
+</blockquote>
+<p>AttachmentId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the network interface attachment.</div>
+</blockquote>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the network interface is deleted when the instance is terminated.</div>
+</blockquote>
+<p>DeviceIndex -&gt; (integer)</p>
+<blockquote>
+<div>The index of the device on the instance for the network interface attachment.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The attachment state.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description.</div>
+</blockquote>
+<p>Groups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more security groups.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a security group.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the security group.</div>
+</blockquote>
+<p>GroupId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Ipv6Addresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more IPv6 addresses associated with the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv6 address.</p>
+<p>Ipv6Address -&gt; (string)</p>
+<blockquote>
+<div>The IPv6 address.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MacAddress -&gt; (string)</p>
+<blockquote>
+<div>The MAC address.</div>
+</blockquote>
+<p>NetworkInterfaceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the network interface.</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS account that created the network interface.</div>
+</blockquote>
+<p>PrivateDnsName -&gt; (string)</p>
+<blockquote>
+<div>The private DNS name.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The IPv4 address of the network interface within the subnet.</div>
+</blockquote>
+<p>PrivateIpAddresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more private IPv4 addresses associated with the network interface.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a private IPv4 address.</p>
+<p>Association -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The association information for an Elastic IP address for the network interface.</p>
+<p>IpOwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the owner of the Elastic IP address.</div>
+</blockquote>
+<p>PublicDnsName -&gt; (string)</p>
+<blockquote>
+<div>The public DNS name.</div>
+</blockquote>
+<p>PublicIp -&gt; (string)</p>
+<blockquote>
+<div>The public IP address or Elastic IP address bound to the network interface.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Primary -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether this IPv4 address is the primary private IP address of the network interface.</div>
+</blockquote>
+<p>PrivateDnsName -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 DNS name.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 address of the network interface.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SourceDestCheck -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether to validate network traffic to or from this network interface.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the network interface.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC.</div>
+</blockquote>
+<p>InterfaceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Describes the type of network interface.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">interface</span></tt> | <tt class="docutils literal"><span class="pre">efa</span></tt></p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OutpostArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Outpost.</div>
+</blockquote>
+<p>RootDeviceName -&gt; (string)</p>
+<blockquote>
+<div>The device name of the root device volume (for example, <tt class="docutils literal"><span class="pre">/dev/sda1</span></tt> ).</div>
+</blockquote>
+<p>RootDeviceType -&gt; (string)</p>
+<blockquote>
+<div>The root device type used by the AMI. The AMI can use an EBS volume or an instance store volume.</div>
+</blockquote>
+<p>SecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The security groups for the instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a security group.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the security group.</div>
+</blockquote>
+<p>GroupId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the security group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SourceDestCheck -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether source/destination checking is enabled on the instance. A value of <tt class="docutils literal"><span class="pre">true</span></tt> means that checking is enabled, and <tt class="docutils literal"><span class="pre">false</span></tt> means that checking is disabled. The value must be <tt class="docutils literal"><span class="pre">false</span></tt> for the instance to perform NAT. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html">NAT Instances</a> in the <em>Amazon Virtual Private Cloud User Guide</em> .</div>
+</blockquote>
+<p>SpotInstanceRequestId -&gt; (string)</p>
+<blockquote>
+<div>If the request is a Spot Instance request, the ID of the request.</div>
+</blockquote>
+<p>SriovNetSupport -&gt; (string)</p>
+<blockquote>
+<div>Specifies whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.</div>
+</blockquote>
+<p>StateReason -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The reason for the most recent state transition.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The reason code for the state change.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The message for the state change.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Server.InsufficientInstanceCapacity</span></tt> : There was insufficient capacity available to satisfy the launch request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.InternalError</span></tt> : An internal error caused the instance to terminate during launch.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.ScheduledStop</span></tt> : The instance was stopped due to a scheduled retirement.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.SpotInstanceShutdown</span></tt> : The instance was stopped because the number of Spot requests with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the Spot price.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.SpotInstanceTermination</span></tt> : The instance was terminated because the number of Spot requests with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the Spot price.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InstanceInitiatedShutdown</span></tt> : The instance was shut down using the <tt class="docutils literal"><span class="pre">shutdown</span> <span class="pre">-h</span></tt> command from the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InstanceTerminated</span></tt> : The instance was terminated or rebooted during AMI creation.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InternalError</span></tt> : A client error caused the instance to terminate during launch.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InvalidSnapshot.NotFound</span></tt> : The specified snapshot was not found.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.UserInitiatedHibernate</span></tt> : Hibernation was initiated on the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.UserInitiatedShutdown</span></tt> : The instance was shut down using the Amazon EC2 API.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.VolumeLimitExceeded</span></tt> : The limit on the number of EBS volumes or total storage was exceeded. Decrease usage or request an increase in your account limits.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VirtualizationType -&gt; (string)</p>
+<blockquote>
+<div>The virtualization type of the instance.</div>
+</blockquote>
+<p>CpuOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The CPU options for the instance.</p>
+<p>CoreCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of CPU cores for the instance.</div>
+</blockquote>
+<p>ThreadsPerCore -&gt; (integer)</p>
+<blockquote>
+<div>The number of threads per CPU core.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CapacityReservationId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Capacity Reservation.</div>
+</blockquote>
+<p>CapacityReservationSpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the Capacity Reservation targeting option.</p>
+<p>CapacityReservationPreference -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Describes the instance's Capacity Reservation preferences. Possible preferences include:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">open</span></tt> - The instance can run in any <tt class="docutils literal"><span class="pre">open</span></tt> Capacity Reservation that has matching attributes (instance type, platform, Availability Zone).</li>
+<li>
+<tt class="docutils literal"><span class="pre">none</span></tt> - The instance avoids running in a Capacity Reservation even if one is available. The instance runs in On-Demand capacity.</li>
+</ul>
+</div>
+</blockquote>
+<p>CapacityReservationTarget -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the targeted Capacity Reservation.</p>
+<p>CapacityReservationId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Capacity Reservation.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HibernationOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether the instance is enabled for hibernation.</p>
+<p>Configured -&gt; (boolean)</p>
+<blockquote>
+<div>If this parameter is set to <tt class="docutils literal"><span class="pre">true</span></tt> , your instance is enabled for hibernation; otherwise, it is not enabled for hibernation.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Licenses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The license configurations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a license configuration.</p>
+<p>LicenseConfigurationArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the license configuration.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MetadataOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The metadata options for the instance.</p>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The state of the metadata option changes.</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">pending</span></tt> - The metadata options are being updated and the instance is not ready to process metadata traffic with the new selection.</p>
+<p><tt class="docutils literal"><span class="pre">applied</span></tt> - The metadata options have been successfully applied on the instance.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HttpTokens -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is <tt class="docutils literal"><span class="pre">optional</span></tt> .</p>
+<p>If the state is <tt class="docutils literal"><span class="pre">optional</span></tt> , you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned.</p>
+<p>If the state is <tt class="docutils literal"><span class="pre">required</span></tt> , you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credential always returns the version 2.0 credentials; the version 1.0 credentials are not available.</p>
+</div>
+</blockquote>
+<p>HttpPutResponseHopLimit -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</p>
+<p>Default: 1</p>
+<p>Possible values: Integers from 1 to 64</p>
+</div>
+</blockquote>
+<p>HttpEndpoint -&gt; (string)</p>
+<blockquote>
+<div>
+<p>This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <tt class="docutils literal"><span class="pre">enabled</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you specify a value of <tt class="docutils literal"><span class="pre">disabled</span></tt> , you will not be able to access your instance metadata.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS account that owns the reservation.</div>
+</blockquote>
+<p>RequesterId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the requester that launched the instances on your behalf (for example, AWS Management Console or Auto Scaling).</div>
+</blockquote>
+<p>ReservationId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the reservation.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token to use to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

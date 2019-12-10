@@ -1,0 +1,785 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-tasks — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecs" href="index.html">
+    <link rel="next" title="discover-poll-endpoint" href="discover-poll-endpoint.html">
+    <link rel="prev" title="describe-task-sets" href="describe-task-sets.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-tasks">
+<span id="cli-aws-ecs-describe-tasks"></span><h1>describe-tasks<a class="headerlink" href="#describe-tasks" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes a specified task or tasks.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DescribeTasks">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-tasks
+[--cluster &lt;value&gt;]
+--tasks &lt;value&gt;
+[--include &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster</span></tt> (string)</p>
+<blockquote>
+<div>The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task or tasks to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the task or tasks you are describing were launched in any cluster other than the default cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tasks</span></tt> (list)</p>
+<blockquote>
+<div>A list of up to 100 task IDs or full ARN entries.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--include</span></tt> (list)</p>
+<blockquote>
+<div>Specifies whether you want to see the resource tags for the task. If <tt class="docutils literal"><span class="pre">TAGS</span></tt> is specified, the tags are included in the response. If this field is omitted, tags are not included in the response.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  TAGS</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe a task</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-tasks</span></tt> example retrieves the details of a task. You can specify the task by using either the ID or full ARN of the task.</p>
+<div class="highlight-python">
+<pre>aws ecs describe-tasks \
+    --cluster MyCluster \
+    --tasks arn:aws:ecs:us-west-2:123456789012:task/MyCluster/1234567890123456789</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"tasks"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"taskArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:task/MyCluster/1234567890123456789"</span><span class="p">,</span>
+            <span class="s2">"clusterArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:cluster/MyCluster"</span><span class="p">,</span>
+            <span class="s2">"taskDefinitionArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:task-definition/sample-fargate:2"</span><span class="p">,</span>
+            <span class="s2">"overrides"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"containerOverrides"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"fargate-app"</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">"lastStatus"</span><span class="p">:</span> <span class="s2">"RUNNING"</span><span class="p">,</span>
+            <span class="s2">"desiredStatus"</span><span class="p">:</span> <span class="s2">"RUNNING"</span><span class="p">,</span>
+            <span class="s2">"cpu"</span><span class="p">:</span> <span class="s2">"256"</span><span class="p">,</span>
+            <span class="s2">"memory"</span><span class="p">:</span> <span class="s2">"512"</span><span class="p">,</span>
+            <span class="s2">"containers"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"containerArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:container/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"</span><span class="p">,</span>
+                    <span class="s2">"taskArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:task/MyCluster/1234567890123456789"</span><span class="p">,</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"fargate-app"</span><span class="p">,</span>
+                    <span class="s2">"lastStatus"</span><span class="p">:</span> <span class="s2">"RUNNING"</span><span class="p">,</span>
+                    <span class="s2">"networkBindings"</span><span class="p">:</span> <span class="p">[],</span>
+                    <span class="s2">"networkInterfaces"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"attachmentId"</span><span class="p">:</span> <span class="s2">"a1b2c3d4-5678-90ab-cdef-22222EXAMPLE"</span><span class="p">,</span>
+                            <span class="s2">"privateIpv4Address"</span><span class="p">:</span> <span class="s2">"10.0.0.4"</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">"healthStatus"</span><span class="p">:</span> <span class="s2">"UNKNOWN"</span><span class="p">,</span>
+                    <span class="s2">"cpu"</span><span class="p">:</span> <span class="s2">"0"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"startedBy"</span><span class="p">:</span> <span class="s2">"ecs-svc/1234567890123456789"</span><span class="p">,</span>
+            <span class="s2">"version"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="s2">"connectivity"</span><span class="p">:</span> <span class="s2">"CONNECTED"</span><span class="p">,</span>
+            <span class="s2">"connectivityAt"</span><span class="p">:</span> <span class="mf">1557134016.971</span><span class="p">,</span>
+            <span class="s2">"pullStartedAt"</span><span class="p">:</span> <span class="mf">1557134025.379</span><span class="p">,</span>
+            <span class="s2">"pullStoppedAt"</span><span class="p">:</span> <span class="mf">1557134033.379</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1557134011.644</span><span class="p">,</span>
+            <span class="s2">"startedAt"</span><span class="p">:</span> <span class="mf">1557134035.379</span><span class="p">,</span>
+            <span class="s2">"group"</span><span class="p">:</span> <span class="s2">"service:fargate-service"</span><span class="p">,</span>
+            <span class="s2">"launchType"</span><span class="p">:</span> <span class="s2">"FARGATE"</span><span class="p">,</span>
+            <span class="s2">"platformVersion"</span><span class="p">:</span> <span class="s2">"1.3.0"</span><span class="p">,</span>
+            <span class="s2">"attachments"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"a1b2c3d4-5678-90ab-cdef-33333EXAMPLE"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"ElasticNetworkInterface"</span><span class="p">,</span>
+                    <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ATTACHED"</span><span class="p">,</span>
+                    <span class="s2">"details"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"subnetId"</span><span class="p">,</span>
+                            <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"subnet-12344321"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"networkInterfaceId"</span><span class="p">,</span>
+                            <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"eni-12344321"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"macAddress"</span><span class="p">,</span>
+                            <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"0a:90:09:84:f9:14"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"privateIPv4Address"</span><span class="p">,</span>
+                            <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"10.0.0.4"</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"healthStatus"</span><span class="p">:</span> <span class="s2">"UNKNOWN"</span><span class="p">,</span>
+            <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"failures"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html">Amazon ECS Task Definitions</a> in the <em>Amazon ECS Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>tasks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of tasks.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on a task in a cluster.</p>
+<p>attachments -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Elastic Network Adapter associated with the task if the task uses the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing a container instance or task attachment.</p>
+<p>id -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the attachment.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the attachment, such as <tt class="docutils literal"><span class="pre">ElasticNetworkInterface</span></tt> .</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the attachment. Valid values are <tt class="docutils literal"><span class="pre">PRECREATED</span></tt> , <tt class="docutils literal"><span class="pre">CREATED</span></tt> , <tt class="docutils literal"><span class="pre">ATTACHING</span></tt> , <tt class="docutils literal"><span class="pre">ATTACHED</span></tt> , <tt class="docutils literal"><span class="pre">DETACHING</span></tt> , <tt class="docutils literal"><span class="pre">DETACHED</span></tt> , and <tt class="docutils literal"><span class="pre">DELETED</span></tt> .</div>
+</blockquote>
+<p>details -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Details of the attachment. For elastic network interfaces, this includes the network interface ID, the MAC address, the subnet ID, and the private IPv4 address.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>attributes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The attributes of the task</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An attribute is a name-value pair associated with an Amazon ECS object. Attributes enable you to extend the Amazon ECS data model by adding custom metadata to your resources. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes">Attributes</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and periods are allowed.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods, at signs (@), forward slashes, colons, and spaces are allowed.</div>
+</blockquote>
+<p>targetType -&gt; (string)</p>
+<blockquote>
+<div>The type of the target with which to attach the attribute. This parameter is required if you use the short form ID for a resource instead of the full ARN.</div>
+</blockquote>
+<p>targetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the target. You can specify the short form ID for a resource or the full Amazon Resource Name (ARN).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>availabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The availability zone of the task.</div>
+</blockquote>
+<p>capacityProviderName -&gt; (string)</p>
+<blockquote>
+<div>The capacity provider associated with the task.</div>
+</blockquote>
+<p>clusterArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the cluster that hosts the task.</div>
+</blockquote>
+<p>connectivity -&gt; (string)</p>
+<blockquote>
+<div>The connectivity status of a task.</div>
+</blockquote>
+<p>connectivityAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the task last went into <tt class="docutils literal"><span class="pre">CONNECTED</span></tt> status.</div>
+</blockquote>
+<p>containerInstanceArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the container instances that host the task.</div>
+</blockquote>
+<p>containers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The containers associated with the task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A Docker container that is part of a task.</p>
+<p>containerArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the container.</div>
+</blockquote>
+<p>taskArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the task.</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the container.</div>
+</blockquote>
+<p>image -&gt; (string)</p>
+<blockquote>
+<div>The image used for the container.</div>
+</blockquote>
+<p>imageDigest -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The container image manifest digest.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">imageDigest</span></tt> is only returned if the container is using an image hosted in Amazon ECR, otherwise it is omitted.</p>
+</div>
+</div>
+</blockquote>
+<p>runtimeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Docker container.</div>
+</blockquote>
+<p>lastStatus -&gt; (string)</p>
+<blockquote>
+<div>The last known status of the container.</div>
+</blockquote>
+<p>exitCode -&gt; (integer)</p>
+<blockquote>
+<div>The exit code returned from the container.</div>
+</blockquote>
+<p>reason -&gt; (string)</p>
+<blockquote>
+<div>A short (255 max characters) human-readable string to provide additional details about a running or stopped container.</div>
+</blockquote>
+<p>networkBindings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The network bindings associated with the container.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on the network bindings between a container and its host container instance. After a task reaches the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> status, manual and automatic host and container port assignments are visible in the <tt class="docutils literal"><span class="pre">networkBindings</span></tt> section of  DescribeTasks API responses.</p>
+<p>bindIP -&gt; (string)</p>
+<blockquote>
+<div>The IP address that the container is bound to on the container instance.</div>
+</blockquote>
+<p>containerPort -&gt; (integer)</p>
+<blockquote>
+<div>The port number on the container that is used with the network binding.</div>
+</blockquote>
+<p>hostPort -&gt; (integer)</p>
+<blockquote>
+<div>The port number on the host that is used with the network binding.</div>
+</blockquote>
+<p>protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol used for the network binding.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>networkInterfaces -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The network interfaces associated with the container.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing the elastic network interface for tasks that use the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode.</p>
+<p>attachmentId -&gt; (string)</p>
+<blockquote>
+<div>The attachment ID for the network interface.</div>
+</blockquote>
+<p>privateIpv4Address -&gt; (string)</p>
+<blockquote>
+<div>The private IPv4 address for the network interface.</div>
+</blockquote>
+<p>ipv6Address -&gt; (string)</p>
+<blockquote>
+<div>The private IPv6 address for the network interface.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>healthStatus -&gt; (string)</p>
+<blockquote>
+<div>The health status of the container. If health checks are not configured for this container in its task definition, then it reports the health status as <tt class="docutils literal"><span class="pre">UNKNOWN</span></tt> .</div>
+</blockquote>
+<p>cpu -&gt; (string)</p>
+<blockquote>
+<div>The number of CPU units set for the container. The value will be <tt class="docutils literal"><span class="pre">0</span></tt> if no value was specified in the container definition when the task definition was registered.</div>
+</blockquote>
+<p>memory -&gt; (string)</p>
+<blockquote>
+<div>The hard limit (in MiB) of memory set for the container.</div>
+</blockquote>
+<p>memoryReservation -&gt; (string)</p>
+<blockquote>
+<div>The soft limit (in MiB) of memory set for the container.</div>
+</blockquote>
+<p>gpuIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of each GPU assigned to the container.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>cpu -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The number of CPU units used by the task as expressed in a task definition. It can be expressed as an integer using CPU units, for example <tt class="docutils literal"><span class="pre">1024</span></tt> . It can also be expressed as a string using vCPUs, for example <tt class="docutils literal"><span class="pre">1</span> <span class="pre">vCPU</span></tt> or <tt class="docutils literal"><span class="pre">1</span> <span class="pre">vcpu</span></tt> . String values are converted to an integer indicating the CPU units when the task definition is registered.</p>
+<p>If you are using the EC2 launch type, this field is optional. Supported values are between <tt class="docutils literal"><span class="pre">128</span></tt> CPU units (<tt class="docutils literal"><span class="pre">0.125</span></tt> vCPUs) and <tt class="docutils literal"><span class="pre">10240</span></tt> CPU units (<tt class="docutils literal"><span class="pre">10</span></tt> vCPUs).</p>
+<p>If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of supported values for the <tt class="docutils literal"><span class="pre">memory</span></tt> parameter:</p>
+<ul class="simple">
+<li>256 (.25 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB)</li>
+<li>512 (.5 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB)</li>
+<li>1024 (1 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)</li>
+<li>2048 (2 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB)</li>
+<li>4096 (4 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB)</li>
+</ul>
+</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the task was created (the task entered the <tt class="docutils literal"><span class="pre">PENDING</span></tt> state).</div>
+</blockquote>
+<p>desiredStatus -&gt; (string)</p>
+<blockquote>
+<div>The desired status of the task. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html">Task Lifecycle</a> .</div>
+</blockquote>
+<p>executionStoppedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the task execution stopped.</div>
+</blockquote>
+<p>group -&gt; (string)</p>
+<blockquote>
+<div>The name of the task group associated with the task.</div>
+</blockquote>
+<p>healthStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The health status for the task, which is determined by the health of the essential containers in the task. If all essential containers in the task are reporting as <tt class="docutils literal"><span class="pre">HEALTHY</span></tt> , then the task status also reports as <tt class="docutils literal"><span class="pre">HEALTHY</span></tt> . If any essential containers in the task are reporting as <tt class="docutils literal"><span class="pre">UNHEALTHY</span></tt> or <tt class="docutils literal"><span class="pre">UNKNOWN</span></tt> , then the task status also reports as <tt class="docutils literal"><span class="pre">UNHEALTHY</span></tt> or <tt class="docutils literal"><span class="pre">UNKNOWN</span></tt> , accordingly.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon ECS container agent does not monitor or report on Docker health checks that are embedded in a container image (such as those specified in a parent image or from the image's Dockerfile) and not specified in the container definition. Health check parameters that are specified in a container definition override any Docker health checks that exist in the container image.</p>
+</div>
+</div>
+</blockquote>
+<p>inferenceAccelerators -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Elastic Inference accelerator associated with the task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on a Elastic Inference accelerator. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html">Working with Amazon Elastic Inference on Amazon ECS</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>deviceName -&gt; (string)</p>
+<blockquote>
+<div>The Elastic Inference accelerator device name. The <tt class="docutils literal"><span class="pre">deviceName</span></tt> must also be referenced in a container definition as a  ResourceRequirement .</div>
+</blockquote>
+<p>deviceType -&gt; (string)</p>
+<blockquote>
+<div>The Elastic Inference accelerator type to use.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lastStatus -&gt; (string)</p>
+<blockquote>
+<div>The last known status of the task. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html">Task Lifecycle</a> .</div>
+</blockquote>
+<p>launchType -&gt; (string)</p>
+<blockquote>
+<div>The launch type on which your task is running. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</div>
+</blockquote>
+<p>memory -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The amount of memory (in MiB) used by the task as expressed in a task definition. It can be expressed as an integer using MiB, for example <tt class="docutils literal"><span class="pre">1024</span></tt> . It can also be expressed as a string using GB, for example <tt class="docutils literal"><span class="pre">1GB</span></tt> or <tt class="docutils literal"><span class="pre">1</span> <span class="pre">GB</span></tt> . String values are converted to an integer indicating the MiB when the task definition is registered.</p>
+<p>If you are using the EC2 launch type, this field is optional.</p>
+<p>If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of supported values for the <tt class="docutils literal"><span class="pre">cpu</span></tt> parameter:</p>
+<ul class="simple">
+<li>512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 256 (.25 vCPU)</li>
+<li>1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 512 (.5 vCPU)</li>
+<li>2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 1024 (1 vCPU)</li>
+<li>Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 2048 (2 vCPU)</li>
+<li>Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 4096 (4 vCPU)</li>
+</ul>
+</div>
+</blockquote>
+<p>overrides -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>One or more container overrides.</p>
+<p>containerOverrides -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more container overrides sent to a task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The overrides that should be sent to a container. An empty container override can be passed in. An example of an empty container override would be <tt class="docutils literal"><span class="pre">{"containerOverrides":</span> <span class="pre">[</span> <span class="pre">]</span> <span class="pre">}</span></tt> . If a non-empty container override is specified, the <tt class="docutils literal"><span class="pre">name</span></tt> parameter must be included.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the container that receives the override. This parameter is required if any override is specified.</div>
+</blockquote>
+<p>command -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The command to send to the container that overrides the default command from the Docker image or the task definition. You must also specify a container name.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>environment -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The environment variables to send to the container. You can add new environment variables, which are added to the container at launch, or you can override the existing environment variables from the Docker image or the task definition. You must also specify a container name.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>cpu -&gt; (integer)</p>
+<blockquote>
+<div>The number of <tt class="docutils literal"><span class="pre">cpu</span></tt> units reserved for the container, instead of the default value from the task definition. You must also specify a container name.</div>
+</blockquote>
+<p>memory -&gt; (integer)</p>
+<blockquote>
+<div>The hard limit (in MiB) of memory to present to the container, instead of the default value from the task definition. If your container attempts to exceed the memory specified here, the container is killed. You must also specify a container name.</div>
+</blockquote>
+<p>memoryReservation -&gt; (integer)</p>
+<blockquote>
+<div>The soft limit (in MiB) of memory to reserve for the container, instead of the default value from the task definition. You must also specify a container name.</div>
+</blockquote>
+<p>resourceRequirements -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The type and amount of a resource to assign to a container, instead of the default value from the task definition. The only supported resource is a GPU.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The type and amount of a resource to assign to a container. The supported resource types are GPUs and Elastic Inference accelerators. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html">Working with GPUs on Amazon ECS</a> or <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html">Working with Amazon Elastic Inference on Amazon ECS</a> in the <em>Amazon Elastic Container Service Developer Guide</em></p>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value for the specified resource type.</p>
+<p>If the <tt class="docutils literal"><span class="pre">GPU</span></tt> type is used, the value is the number of physical <tt class="docutils literal"><span class="pre">GPUs</span></tt> the Amazon ECS container agent will reserve for the container. The number of GPUs reserved for all containers in a task should not exceed the number of available GPUs on the container instance the task is launched on.</p>
+<p>If the <tt class="docutils literal"><span class="pre">InferenceAccelerator</span></tt> type is used, the <tt class="docutils literal"><span class="pre">value</span></tt> should match the <tt class="docutils literal"><span class="pre">deviceName</span></tt> for an  InferenceAccelerator specified in a task definition.</p>
+</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of resource to assign to a container. The supported values are <tt class="docutils literal"><span class="pre">GPU</span></tt> or <tt class="docutils literal"><span class="pre">InferenceAccelerator</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>cpu -&gt; (string)</p>
+<blockquote>
+<div>The cpu override for the task.</div>
+</blockquote>
+<p>inferenceAcceleratorOverrides -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Elastic Inference accelerator override for the task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on an Elastic Inference accelerator task override. This parameter is used to override the Elastic Inference accelerator specified in the task definition. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html">Working with Amazon Elastic Inference on Amazon ECS</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>deviceName -&gt; (string)</p>
+<blockquote>
+<div>The Elastic Inference accelerator device name to override for the task. This parameter must match a <tt class="docutils literal"><span class="pre">deviceName</span></tt> specified in the task definition.</div>
+</blockquote>
+<p>deviceType -&gt; (string)</p>
+<blockquote>
+<div>The Elastic Inference accelerator type to use.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>executionRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the task execution role that the Amazon ECS container agent and the Docker daemon can assume.</div>
+</blockquote>
+<p>memory -&gt; (string)</p>
+<blockquote>
+<div>The memory override for the task.</div>
+</blockquote>
+<p>taskRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>platformVersion -&gt; (string)</p>
+<blockquote>
+<div>The platform version on which your task is running. A platform version is only specified for tasks using the Fargate launch type. If one is not specified, the <tt class="docutils literal"><span class="pre">LATEST</span></tt> platform version is used by default. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html">AWS Fargate Platform Versions</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</div>
+</blockquote>
+<p>pullStartedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the container image pull began.</div>
+</blockquote>
+<p>pullStoppedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the container image pull completed.</div>
+</blockquote>
+<p>startedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the task started (the task transitioned from the <tt class="docutils literal"><span class="pre">PENDING</span></tt> state to the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state).</div>
+</blockquote>
+<p>startedBy -&gt; (string)</p>
+<blockquote>
+<div>The tag specified when a task is started. If the task is started by an Amazon ECS service, then the <tt class="docutils literal"><span class="pre">startedBy</span></tt> parameter contains the deployment ID of the service that starts it.</div>
+</blockquote>
+<p>stopCode -&gt; (string)</p>
+<blockquote>
+<div>The stop code indicating why a task was stopped. The <tt class="docutils literal"><span class="pre">stoppedReason</span></tt> may contain additional details.</div>
+</blockquote>
+<p>stoppedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the task was stopped (the task transitioned from the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state to the <tt class="docutils literal"><span class="pre">STOPPED</span></tt> state).</div>
+</blockquote>
+<p>stoppedReason -&gt; (string)</p>
+<blockquote>
+<div>The reason that the task was stopped.</div>
+</blockquote>
+<p>stoppingAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the task stops (transitions from the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state to <tt class="docutils literal"><span class="pre">STOPPED</span></tt> ).</div>
+</blockquote>
+<p>tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.</p>
+<p>The following basic restrictions apply to tags:</p>
+<ul class="simple">
+<li>Maximum number of tags per resource - 50</li>
+<li>For each resource, each tag key must be unique, and each tag key can have only one value.</li>
+<li>Maximum key length - 128 Unicode characters in UTF-8</li>
+<li>Maximum value length - 256 Unicode characters in UTF-8</li>
+<li>If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</li>
+<li>Tag keys and values are case-sensitive.</li>
+<li>Do not use <tt class="docutils literal"><span class="pre">aws:</span></tt> , <tt class="docutils literal"><span class="pre">AWS:</span></tt> , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to a resource to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.</p>
+<p>The following basic restrictions apply to tags:</p>
+<ul class="simple">
+<li>Maximum number of tags per resource - 50</li>
+<li>For each resource, each tag key must be unique, and each tag key can have only one value.</li>
+<li>Maximum key length - 128 Unicode characters in UTF-8</li>
+<li>Maximum value length - 256 Unicode characters in UTF-8</li>
+<li>If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</li>
+<li>Tag keys and values are case-sensitive.</li>
+<li>Do not use <tt class="docutils literal"><span class="pre">aws:</span></tt> , <tt class="docutils literal"><span class="pre">AWS:</span></tt> , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.</li>
+</ul>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>One part of a key-value pair that make up a tag. A <tt class="docutils literal"><span class="pre">key</span></tt> is a general label that acts like a category for more specific tag values.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The optional part of a key-value pair that make up a tag. A <tt class="docutils literal"><span class="pre">value</span></tt> acts as a descriptor within a tag category (key).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>taskArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the task.</div>
+</blockquote>
+<p>taskDefinitionArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the task definition that creates the task.</div>
+</blockquote>
+<p>version -&gt; (long)</p>
+<blockquote>
+<div>The version counter for the task. Every time a task experiences a change that triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS task state with CloudWatch Events, you can compare the version of a task reported by the Amazon ECS API actions with the version reported in CloudWatch Events for the task (inside the <tt class="docutils literal"><span class="pre">detail</span></tt> object) to verify that the version in your event stream is current.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>failures -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any failures associated with the call.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A failed resource.</p>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the failed resource.</div>
+</blockquote>
+<p>reason -&gt; (string)</p>
+<blockquote>
+<div>The reason for the failure.</div>
+</blockquote>
+<p>detail -&gt; (string)</p>
+<blockquote>
+<div>The details of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-parameters-by-path — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="get-patch-baseline" href="get-patch-baseline.html">
+    <link rel="prev" title="get-parameters" href="get-parameters.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-parameters-by-path">
+<span id="cli-aws-ssm-get-parameters-by-path"></span><h1>get-parameters-by-path<a class="headerlink" href="#get-parameters-by-path" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieve information about one or more parameters in a specific hierarchy.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Request results are returned on a best-effort basis. If you specify <tt class="docutils literal"><span class="pre">MaxResults</span></tt> in the request, the response includes information up to the limit specified. The number of items returned, however, can be between zero and the value of <tt class="docutils literal"><span class="pre">MaxResults</span></tt> . If the service reaches an internal limit while processing the results, it stops the operation and returns the matching values up to that point and a <tt class="docutils literal"><span class="pre">NextToken</span></tt> . You can specify the <tt class="docutils literal"><span class="pre">NextToken</span></tt> in a subsequent call to get the next set of results.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetParametersByPath">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">get-parameters-by-path</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Parameters</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-parameters-by-path
+--path &lt;value&gt;
+[--recursive | --no-recursive]
+[--parameter-filters &lt;value&gt;]
+[--with-decryption | --no-with-decryption]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--path</span></tt> (string)</p>
+<blockquote>
+<div>The hierarchy for the parameter. Hierarchies start with a forward slash (/) and end with the parameter name. A parameter name hierarchy can have a maximum of 15 levels. Here is an example of a hierarchy: <tt class="docutils literal"><span class="pre">/Finance/Prod/IAD/WinServ2016/license33</span></tt>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--recursive</span></tt> | <tt class="docutils literal"><span class="pre">--no-recursive</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Retrieve all parameters within a hierarchy.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If a user has access to a path, then the user can access all levels of that path. For example, if a user has permission to access path <tt class="docutils literal"><span class="pre">/a</span></tt> , then the user can also access <tt class="docutils literal"><span class="pre">/a/b</span></tt> . Even if a user has explicitly been denied access in IAM for parameter <tt class="docutils literal"><span class="pre">/a/b</span></tt> , they can still call the GetParametersByPath API action recursively for <tt class="docutils literal"><span class="pre">/a</span></tt> and view <tt class="docutils literal"><span class="pre">/a/b</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameter-filters</span></tt> (list)</p>
+<blockquote>
+<div>Filters to limit the request results.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Option=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Option": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--with-decryption</span></tt> | <tt class="docutils literal"><span class="pre">--no-with-decryption</span></tt> (boolean)</p>
+<blockquote>
+<div>Retrieve all parameters in a hierarchy with their value decrypted.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To list parameters in a specific path</strong></p>
+<p>This example lists parameters within a specific hierarchy.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm get-parameters-by-path --path "/site/newyork/department/"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Parameters"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"/site/newyork/department/marketing"</span><span class="p">,</span>
+          <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+          <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Floor 2"</span><span class="p">,</span>
+          <span class="s2">"Version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="s2">"LastModifiedDate"</span><span class="p">:</span> <span class="mf">1530018761.888</span><span class="p">,</span>
+          <span class="s2">"ARN"</span><span class="p">:</span> <span class="s2">"arn:aws:ssm:us-east-1:123456789012:parameter/site/newyork/department/marketing"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+          <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"/site/newyork/department/infotech"</span><span class="p">,</span>
+          <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"String"</span><span class="p">,</span>
+          <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Floor 3"</span><span class="p">,</span>
+          <span class="s2">"Version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="s2">"LastModifiedDate"</span><span class="p">:</span> <span class="mf">1530018823.429</span><span class="p">,</span>
+          <span class="s2">"ARN"</span><span class="p">:</span> <span class="s2">"arn:aws:ssm:us-east-1:123456789012:parameter//site/newyork/department/infotech"</span>
+      <span class="p">},</span>
+      <span class="o">...</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Parameters -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of parameters found in the specified hierarchy.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An Amazon EC2 Systems Manager parameter in Parameter Store.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the parameter.</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of parameter. Valid values include the following: String, String list, Secure string.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The parameter value.</div>
+</blockquote>
+<p>Version -&gt; (long)</p>
+<blockquote>
+<div>The parameter version.</div>
+</blockquote>
+<p>Selector -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Either the version number or the label used to retrieve the parameter value. Specify selectors by using one of the following formats:</p>
+<p>parameter_name:version</p>
+<p>parameter_name:label</p>
+</div>
+</blockquote>
+<p>SourceResult -&gt; (string)</p>
+<blockquote>
+<div>Applies to parameters that reference information in other AWS services. SourceResult is the raw result or response from the source.</div>
+</blockquote>
+<p>LastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>Date the parameter was last changed or updated and the parameter version was created.</div>
+</blockquote>
+<p>ARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the parameter.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token for the next set of items to return. Use this token to get the next set of results.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

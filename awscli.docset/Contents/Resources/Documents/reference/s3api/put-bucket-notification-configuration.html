@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-bucket-notification-configuration — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="put-bucket-policy" href="put-bucket-policy.html">
+    <link rel="prev" title="put-bucket-metrics-configuration" href="put-bucket-metrics-configuration.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-bucket-notification-configuration">
+<span id="cli-aws-s3api-put-bucket-notification-configuration"></span><h1>put-bucket-notification-configuration<a class="headerlink" href="#put-bucket-notification-configuration" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Enables notifications of specified events for a bucket. For more information about event notifications, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Configuring Event Notifications</a> .</p>
+<p>Using this API, you can replace an existing notification configuration. The configuration is an XML file that defines the event types that you want Amazon S3 to publish and the destination where you want Amazon S3 to publish an event notification when it detects an event of the specified type.</p>
+<p>By default, your bucket has no event notifications configured. That is, the notification configuration will be an empty <tt class="docutils literal"><span class="pre">NotificationConfiguration</span></tt> .</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">NotificationConfiguration</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">/NotificationConfiguration</span></tt></p>
+</div>
+</blockquote>
+<p>This operation replaces the existing notification configuration with the configuration you include in the request body.</p>
+<p>After Amazon S3 receives this request, it first verifies that any Amazon Simple Notification Service (Amazon SNS) or Amazon Simple Queue Service (Amazon SQS) destination exists, and that the bucket owner has permission to publish to it by sending a test notification. In the case of AWS Lambda destinations, Amazon S3 verifies that the Lambda function permissions grant Amazon S3 permission to invoke the function from the Amazon S3 bucket. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html">Configuring Notifications for Amazon S3 Events</a> .</p>
+<p>You can disable notifications by adding the empty NotificationConfiguration element.</p>
+<p>By default, only the bucket owner can configure notifications on a bucket. However, bucket owners can use a bucket policy to grant permission to other users to set this configuration with <tt class="docutils literal"><span class="pre">s3:PutBucketNotification</span></tt> permission.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>The PUT notification is an atomic operation. For example, suppose your notification configuration includes SNS topic, SQS queue, and Lambda function configurations. When you send a PUT request with this configuration, Amazon S3 sends test messages to your SNS topic. If the message fails, the entire PUT operation will fail, and Amazon S3 will not add the configuration to your bucket.</div>
+</blockquote>
+<p class="last"><strong>Responses</strong></p>
+</div>
+<p>If the configuration in the request body includes only one <tt class="docutils literal"><span class="pre">TopicConfiguration</span></tt> specifying only the <tt class="docutils literal"><span class="pre">s3:ReducedRedundancyLostObject</span></tt> event type, the response will also include the <tt class="docutils literal"><span class="pre">x-amz-sns-test-message-id</span></tt> header containing the message ID of the test notification sent to the topic.</p>
+<p>The following operation is related to <tt class="docutils literal"><span class="pre">PutBucketNotificationConfiguration</span></tt> :</p>
+<ul class="simple">
+<li>GetBucketNotificationConfiguration</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketNotificationConfiguration">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-bucket-notification-configuration
+--bucket &lt;value&gt;
+--notification-configuration &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bucket.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>A container for specifying the notification configuration of the bucket. If this element is empty, notifications are turned off for the bucket.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "TopicConfigurations": [
+    {
+      "Id": "string",
+      "TopicArn": "string",
+      "Events": ["s3:ReducedRedundancyLostObject"|"s3:ObjectCreated:*"|"s3:ObjectCreated:Put"|"s3:ObjectCreated:Post"|"s3:ObjectCreated:Copy"|"s3:ObjectCreated:CompleteMultipartUpload"|"s3:ObjectRemoved:*"|"s3:ObjectRemoved:Delete"|"s3:ObjectRemoved:DeleteMarkerCreated"|"s3:ObjectRestore:*"|"s3:ObjectRestore:Post"|"s3:ObjectRestore:Completed"|"s3:Replication:*"|"s3:Replication:OperationFailedReplication"|"s3:Replication:OperationNotTracked"|"s3:Replication:OperationMissedThreshold"|"s3:Replication:OperationReplicatedAfterThreshold", ...],
+      "Filter": {
+        "Key": {
+          "FilterRules": [
+            {
+              "Name": "prefix"|"suffix",
+              "Value": "string"
+            }
+            ...
+          ]
+        }
+      }
+    }
+    ...
+  ],
+  "QueueConfigurations": [
+    {
+      "Id": "string",
+      "QueueArn": "string",
+      "Events": ["s3:ReducedRedundancyLostObject"|"s3:ObjectCreated:*"|"s3:ObjectCreated:Put"|"s3:ObjectCreated:Post"|"s3:ObjectCreated:Copy"|"s3:ObjectCreated:CompleteMultipartUpload"|"s3:ObjectRemoved:*"|"s3:ObjectRemoved:Delete"|"s3:ObjectRemoved:DeleteMarkerCreated"|"s3:ObjectRestore:*"|"s3:ObjectRestore:Post"|"s3:ObjectRestore:Completed"|"s3:Replication:*"|"s3:Replication:OperationFailedReplication"|"s3:Replication:OperationNotTracked"|"s3:Replication:OperationMissedThreshold"|"s3:Replication:OperationReplicatedAfterThreshold", ...],
+      "Filter": {
+        "Key": {
+          "FilterRules": [
+            {
+              "Name": "prefix"|"suffix",
+              "Value": "string"
+            }
+            ...
+          ]
+        }
+      }
+    }
+    ...
+  ],
+  "LambdaFunctionConfigurations": [
+    {
+      "Id": "string",
+      "LambdaFunctionArn": "string",
+      "Events": ["s3:ReducedRedundancyLostObject"|"s3:ObjectCreated:*"|"s3:ObjectCreated:Put"|"s3:ObjectCreated:Post"|"s3:ObjectCreated:Copy"|"s3:ObjectCreated:CompleteMultipartUpload"|"s3:ObjectRemoved:*"|"s3:ObjectRemoved:Delete"|"s3:ObjectRemoved:DeleteMarkerCreated"|"s3:ObjectRestore:*"|"s3:ObjectRestore:Post"|"s3:ObjectRestore:Completed"|"s3:Replication:*"|"s3:Replication:OperationFailedReplication"|"s3:Replication:OperationNotTracked"|"s3:Replication:OperationMissedThreshold"|"s3:Replication:OperationReplicatedAfterThreshold", ...],
+      "Filter": {
+        "Key": {
+          "FilterRules": [
+            {
+              "Name": "prefix"|"suffix",
+              "Value": "string"
+            }
+            ...
+          ]
+        }
+      }
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The applies a notification configuration to a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api put-bucket-notification-configuration --bucket my-bucket --notification-configuration file://notification.json</pre>
+</div>
+<p>The file <tt class="docutils literal"><span class="pre">notification.json</span></tt> is a JSON document in the current folder that specifies an SNS topic and an event type to monitor:</p>
+<div class="highlight-python">
+<pre> {
+    "TopicConfigurations": [
+        {
+            "TopicArn": "arn:aws:sns:us-west-2:123456789012:s3-notification-topic",
+            "Events": [
+                "s3:ObjectCreated:*"
+            ]
+        }
+    ]
+}</pre>
+</div>
+<p>The SNS topic must have an IAM policy attached to it that allows Amazon S3 to publish to it:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"2008-10-17"</span><span class="p">,</span>
+ <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"example-ID"</span><span class="p">,</span>
+ <span class="s2">"Statement"</span><span class="p">:</span> <span class="p">[</span>
+  <span class="p">{</span>
+   <span class="s2">"Sid"</span><span class="p">:</span> <span class="s2">"example-statement-ID"</span><span class="p">,</span>
+   <span class="s2">"Effect"</span><span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+   <span class="s2">"Principal"</span><span class="p">:</span> <span class="p">{</span>
+     <span class="s2">"Service"</span><span class="p">:</span> <span class="s2">"s3.amazonaws.com"</span>
+   <span class="p">},</span>
+   <span class="s2">"Action"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"SNS:Publish"</span>
+   <span class="p">],</span>
+   <span class="s2">"Resource"</span><span class="p">:</span> <span class="s2">"arn:aws:sns:us-west-2:123456789012:my-bucket"</span><span class="p">,</span>
+   <span class="s2">"Condition"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"ArnLike"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"aws:SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:s3:*:*:my-bucket"</span>
+    <span class="p">}</span>
+   <span class="p">}</span>
+  <span class="p">}</span>
+ <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-game-session — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="gamelift" href="index.html">
+    <link rel="next" title="create-game-session-queue" href="create-game-session-queue.html">
+    <link rel="prev" title="create-fleet" href="create-fleet.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-game-session">
+<span id="cli-aws-gamelift-create-game-session"></span><h1>create-game-session<a class="headerlink" href="#create-game-session" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a multiplayer game session for players. This action creates a game session record and assigns an available server process in the specified fleet to host the game session. A fleet must have an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status before a game session can be created in it.</p>
+<p>To create a game session, specify either fleet ID or alias ID and indicate a maximum number of players to allow in the game session. You can also provide a name and game-specific properties for this game session. If successful, a  GameSession object is returned containing the game session properties and other settings you specified.</p>
+<blockquote>
+<div>
+<p><strong>Idempotency tokens.</strong> You can add a token that uniquely identifies game session requests. This is useful for ensuring that game session requests are idempotent. Multiple requests with the same idempotency token are processed only once; subsequent requests return the original result. All response values are the same with the exception of game session status, which may change.</p>
+<p><strong>Resource creation limits.</strong> If you are creating a game session on a fleet with a resource creation limit policy in force, then you must specify a creator ID. Without this ID, Amazon GameLift has no way to evaluate the policy for this new game session request.</p>
+<p><strong>Player acceptance policy.</strong> By default, newly created game sessions are open to new players. You can restrict new player access by using  UpdateGameSession to change the game session's player session creation policy.</p>
+<p><strong>Game session logs.</strong> Logs are retained for all active game sessions for 14 days. To access the logs, call  GetGameSessionLogUrl to download the log files.</p>
+<p><em>Available in Amazon GameLift Local.</em></p>
+</div>
+</blockquote>
+<ul class="simple">
+<li>CreateGameSession</li>
+<li>DescribeGameSessions</li>
+<li>DescribeGameSessionDetails</li>
+<li>SearchGameSessions</li>
+<li>UpdateGameSession</li>
+<li>GetGameSessionLogUrl</li>
+<li>Game session placements<ul>
+<li>StartGameSessionPlacement</li>
+<li>DescribeGameSessionPlacement</li>
+<li>StopGameSessionPlacement</li>
+</ul>
+</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/gamelift-2015-10-01/CreateGameSession">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-game-session
+[--fleet-id &lt;value&gt;]
+[--alias-id &lt;value&gt;]
+--maximum-player-session-count &lt;value&gt;
+[--name &lt;value&gt;]
+[--game-properties &lt;value&gt;]
+[--creator-id &lt;value&gt;]
+[--game-session-id &lt;value&gt;]
+[--idempotency-token &lt;value&gt;]
+[--game-session-data &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--fleet-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for a fleet to create a game session in. Each request must reference either a fleet ID or alias ID, but not both.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--alias-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for an alias associated with the fleet to create a game session in. Each request must reference either a fleet ID or alias ID, but not both.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--maximum-player-session-count</span></tt> (integer)</p>
+<blockquote>
+<div>Maximum number of players that can be connected simultaneously to the game session.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>Descriptive label that is associated with a game session. Session names do not need to be unique.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--game-properties</span></tt> (list)</p>
+<blockquote>
+<div>Set of custom properties for a game session, formatted as key:value pairs. These properties are passed to a game server process in the  GameSession object with a request to start a new game session (see <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-startsession">Start a Game Session</a> ).</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--creator-id</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier for a player or entity creating the game session. This ID is used to enforce a resource protection policy (if one exists) that limits the number of concurrent active game sessions one player can have.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--game-session-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<em>This parameter is no longer preferred. Please use ``IdempotencyToken`` instead.</em> Custom string that uniquely identifies a request for a new game session. Maximum token length is 48 characters. If provided, this string is included in the new game session's ID. (A game session ARN has the following format: <tt class="docutils literal"><span class="pre">arn:aws:gamelift:region::gamesession/fleet</span> <span class="pre">ID/custom</span> <span class="pre">ID</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">idempotency</span> <span class="pre">token</span></tt> .)</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--idempotency-token</span></tt> (string)</p>
+<blockquote>
+<div>Custom string that uniquely identifies a request for a new game session. Maximum token length is 48 characters. If provided, this string is included in the new game session's ID. (A game session ARN has the following format: <tt class="docutils literal"><span class="pre">arn:aws:gamelift:region::gamesession/fleet</span> <span class="pre">ID/custom</span> <span class="pre">ID</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">idempotency</span> <span class="pre">token</span></tt> .) Idempotency tokens remain in use for 30 days after a game session has ended; game session objects are retained for this time period and then deleted.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--game-session-data</span></tt> (string)</p>
+<blockquote>
+<div>Set of custom game session properties, formatted as a single string value. This data is passed to a game server process in the  GameSession object with a request to start a new game session (see <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-startsession">Start a Game Session</a> ).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>GameSession -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Object that describes the newly created game session record.</p>
+<p>GameSessionId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for the game session. A game session ARN has the following format: <tt class="docutils literal"><span class="pre">arn:aws:gamelift:region::gamesession/fleet</span> <span class="pre">ID/custom</span> <span class="pre">ID</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">idempotency</span> <span class="pre">token</span></tt> .</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>Descriptive label that is associated with a game session. Session names do not need to be unique.</div>
+</blockquote>
+<p>FleetId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for a fleet that the game session is running on.</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
+</blockquote>
+<p>TerminationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time stamp indicating when this data object was terminated. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
+</blockquote>
+<p>CurrentPlayerSessionCount -&gt; (integer)</p>
+<blockquote>
+<div>Number of players currently in the game session.</div>
+</blockquote>
+<p>MaximumPlayerSessionCount -&gt; (integer)</p>
+<blockquote>
+<div>Maximum number of players that can be connected simultaneously to the game session.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>Current status of the game session. A game session must have an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status to have player sessions.</div>
+</blockquote>
+<p>StatusReason -&gt; (string)</p>
+<blockquote>
+<div>Provides additional information about game session status. <tt class="docutils literal"><span class="pre">INTERRUPTED</span></tt> indicates that the game session was hosted on a spot instance that was reclaimed, causing the active game session to be terminated.</div>
+</blockquote>
+<p>GameProperties -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Set of custom properties for a game session, formatted as key:value pairs. These properties are passed to a game server process in the  GameSession object with a request to start a new game session (see <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-startsession">Start a Game Session</a> ). You can search for active game sessions based on this custom data with  SearchGameSessions .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Set of key-value pairs that contain information about a game session. When included in a game session request, these properties communicate details to be used when setting up the new game session, such as to specify a game mode, level, or map. Game properties are passed to the game server process when initiating a new game session; the server process uses the properties as appropriate. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create">Amazon GameLift Developer Guide</a> .</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>Game property identifier.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>Game property value.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IpAddress -&gt; (string)</p>
+<blockquote>
+<div>IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and port number.</div>
+</blockquote>
+<p>DnsName -&gt; (string)</p>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and port number.</div>
+</blockquote>
+<p>PlayerSessionCreationPolicy -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether or not the game session is accepting new players.</div>
+</blockquote>
+<p>CreatorId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for a player. This ID is used to enforce a resource protection policy (if one exists), that limits the number of game sessions a player can create.</div>
+</blockquote>
+<p>GameSessionData -&gt; (string)</p>
+<blockquote>
+<div>Set of custom game session properties, formatted as a single string value. This data is passed to a game server process in the  GameSession object with a request to start a new game session (see <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-server-api.html#gamelift-sdk-server-startsession">Start a Game Session</a> ).</div>
+</blockquote>
+<p>MatchmakerData -&gt; (string)</p>
+<blockquote>
+<div>Information about the matchmaking process that was used to create the game session. It is in JSON syntax, formatted as a string. In addition the matchmaking configuration used, it contains data on all players assigned to the match, including player attributes and team assignments. For more details on matchmaker data, see <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/match-server.html#match-server-data">Match Data</a> . Matchmaker data is useful when requesting match backfills, and is updated whenever new players are added during a successful backfill (see  StartMatchBackfill ).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

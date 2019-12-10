@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-nodegroup-version — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="eks" href="index.html">
+    <link rel="next" title="wait" href="wait/index.html">
+    <link rel="prev" title="update-nodegroup-config" href="update-nodegroup-config.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-nodegroup-version">
+<span id="cli-aws-eks-update-nodegroup-version"></span><h1>update-nodegroup-version<a class="headerlink" href="#update-nodegroup-version" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates the Kubernetes version or AMI version of an Amazon EKS managed node group.</p>
+<p>You can update to the latest available AMI version of a node group's current Kubernetes version by not specifying a Kubernetes version in the request. You can update to the latest AMI version of your cluster's current Kubernetes version by specifying your cluster's Kubernetes version in the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html">Amazon EKS-Optimized Linux AMI Versions</a> in the <em>Amazon EKS User Guide</em> .</p>
+<p>You cannot roll back a node group to an earlier Kubernetes version or AMI version.</p>
+<p>When a node in a managed node group is terminated due to a scaling action or update, the pods in that node are drained first. Amazon EKS attempts to drain the nodes gracefully and will fail if it is unable to do so. You can <tt class="docutils literal"><span class="pre">force</span></tt> the update if Amazon EKS is unable to drain the nodes as a result of a pod disruption budget issue.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/UpdateNodegroupVersion">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-nodegroup-version
+--cluster-name &lt;value&gt;
+--nodegroup-name &lt;value&gt;
+[--release-version &lt;value&gt;]
+[--force | --no-force]
+[--client-request-token &lt;value&gt;]
+[--kubernetes-version &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the Amazon EKS cluster that is associated with the managed node group to update.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--nodegroup-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the managed node group to update.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--release-version</span></tt> (string)</p>
+<blockquote>
+<div>The AMI version of the Amazon EKS-optimized AMI to use for the update. By default, the latest available AMI version for the node group's Kubernetes version is used. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html">Amazon EKS-Optimized Linux AMI Versions</a> in the <em>Amazon EKS User Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--force</span></tt> | <tt class="docutils literal"><span class="pre">--no-force</span></tt> (boolean)</p>
+<blockquote>
+<div>Force the update if the existing node group's pods are unable to be drained due to a pod disruption budget issue. If an update fails because pods could not be drained, you can force the update after it fails to terminate the old node whether or not any pods are running on the node.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-request-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kubernetes-version</span></tt> (string)</p>
+<blockquote>
+<div>The Kubernetes version to update to. If no version is specified, then the Kubernetes version of the node group does not change. You can specify the Kubernetes version of the cluster to update the node group to the latest AMI version of the cluster's Kubernetes version.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>update -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object representing an asynchronous update.</p>
+<p>id -&gt; (string)</p>
+<blockquote>
+<div>A UUID that is used to track the update.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the update.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the update.</div>
+</blockquote>
+<p>params -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A key-value map that contains the parameters associated with the update.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing the details of an update request.</p>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The keys associated with an update request.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the keys submitted as part of an update request.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix epoch timestamp in seconds for when the update was created.</div>
+</blockquote>
+<p>errors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any errors associated with a <tt class="docutils literal"><span class="pre">Failed</span></tt> update.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing an error when an asynchronous operation fails.</p>
+<p>errorCode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A brief description of the error.</p>
+<ul class="simple">
+<li>
+<strong>SubnetNotFound</strong> : We couldn't find one of the subnets associated with the cluster.</li>
+<li>
+<strong>SecurityGroupNotFound</strong> : We couldn't find one of the security groups associated with the cluster.</li>
+<li>
+<strong>EniLimitReached</strong> : You have reached the elastic network interface limit for your account.</li>
+<li>
+<strong>IpNotAvailable</strong> : A subnet associated with the cluster doesn't have any free IP addresses.</li>
+<li>
+<strong>AccessDenied</strong> : You don't have permissions to perform the specified operation.</li>
+<li>
+<strong>OperationNotPermitted</strong> : The service role associated with the cluster doesn't have the required access permissions for Amazon EKS.</li>
+<li>
+<strong>VpcIdNotFound</strong> : We couldn't find the VPC associated with the cluster.</li>
+</ul>
+</div>
+</blockquote>
+<p>errorMessage -&gt; (string)</p>
+<blockquote>
+<div>A more complete description of the error.</div>
+</blockquote>
+<p>resourceIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An optional field that contains the resource IDs associated with the error.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

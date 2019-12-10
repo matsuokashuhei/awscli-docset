@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-compliance-by-resource — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="configservice" href="index.html">
+    <link rel="next" title="describe-config-rule-evaluation-status" href="describe-config-rule-evaluation-status.html">
+    <link rel="prev" title="describe-compliance-by-config-rule" href="describe-compliance-by-config-rule.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-compliance-by-resource">
+<span id="cli-aws-configservice-describe-compliance-by-resource"></span><h1>describe-compliance-by-resource<a class="headerlink" href="#describe-compliance-by-resource" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Indicates whether the specified AWS resources are compliant. If a resource is noncompliant, this action returns the number of AWS Config rules that the resource does not comply with.</p>
+<p>A resource is compliant if it complies with all the AWS Config rules that evaluate it. It is noncompliant if it does not comply with one or more of these rules.</p>
+<p>If AWS Config has no current evaluation results for the resource, it returns <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> . This result might indicate one of the following conditions about the rules that evaluate the resource:</p>
+<ul class="simple">
+<li>AWS Config has never invoked an evaluation for the rule. To check whether it has, use the <tt class="docutils literal"><span class="pre">DescribeConfigRuleEvaluationStatus</span></tt> action to get the <tt class="docutils literal"><span class="pre">LastSuccessfulInvocationTime</span></tt> and <tt class="docutils literal"><span class="pre">LastFailedInvocationTime</span></tt> .</li>
+<li>The rule's AWS Lambda function is failing to send evaluation results to AWS Config. Verify that the role that you assigned to your configuration recorder includes the <tt class="docutils literal"><span class="pre">config:PutEvaluations</span></tt> permission. If the rule is a custom rule, verify that the AWS Lambda execution role includes the <tt class="docutils literal"><span class="pre">config:PutEvaluations</span></tt> permission.</li>
+<li>The rule's AWS Lambda function has returned <tt class="docutils literal"><span class="pre">NOT_APPLICABLE</span></tt> for all evaluation results. This can occur if the resources were deleted or removed from the rule's scope.</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/DescribeComplianceByResource">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-compliance-by-resource</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">ComplianceByResources</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-compliance-by-resource
+[--resource-type &lt;value&gt;]
+[--resource-id &lt;value&gt;]
+[--compliance-types &lt;value&gt;]
+[--limit &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--resource-type</span></tt> (string)</p>
+<blockquote>
+<div>The types of AWS resources for which you want compliance information (for example, <tt class="docutils literal"><span class="pre">AWS::EC2::Instance</span></tt> ). For this action, you can specify that the resource type is an AWS account by specifying <tt class="docutils literal"><span class="pre">AWS::::Account</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the AWS resource for which you want compliance information. You can specify only one resource ID. If you specify a resource ID, you must also specify a type for <tt class="docutils literal"><span class="pre">ResourceType</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--compliance-types</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Filters the results by compliance.</p>
+<p>The allowed values are <tt class="docutils literal"><span class="pre">COMPLIANT</span></tt> , <tt class="docutils literal"><span class="pre">NON_COMPLIANT</span></tt> , and <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  COMPLIANT
+  NON_COMPLIANT
+  NOT_APPLICABLE
+  INSUFFICIENT_DATA</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--limit</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of evaluation results returned on each page. The default is 10. You cannot specify a number greater than 100. If you specify 0, AWS Config uses the default.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get compliance information for your AWS resources</strong></p>
+<p>The following command returns compliance information for each EC2 instance that is recorded by AWS Config and that violates one or more rules:</p>
+<div class="highlight-python">
+<pre>aws configservice describe-compliance-by-resource --resource-type AWS::EC2::Instance --compliance-types NON_COMPLIANT</pre>
+</div>
+<p>In the output, the value for each <tt class="docutils literal"><span class="pre">CappedCount</span></tt> attribute indicates how many rules the resource violates. For example, the following output indicates that instance <tt class="docutils literal"><span class="pre">i-1a2b3c4d</span></tt> violates 2 rules.</p>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ComplianceByResources"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"AWS::EC2::Instance"</span><span class="p">,</span>
+            <span class="s2">"ResourceId"</span><span class="p">:</span> <span class="s2">"i-1a2b3c4d"</span><span class="p">,</span>
+            <span class="s2">"Compliance"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"ComplianceContributorCount"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"CappedCount"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">"CapExceeded"</span><span class="p">:</span> <span class="n">false</span>
+                <span class="p">},</span>
+                <span class="s2">"ComplianceType"</span><span class="p">:</span> <span class="s2">"NON_COMPLIANT"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"AWS::EC2::Instance"</span><span class="p">,</span>
+            <span class="s2">"ResourceId"</span><span class="p">:</span> <span class="s2">"i-2a2b3c4d "</span><span class="p">,</span>
+            <span class="s2">"Compliance"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"ComplianceContributorCount"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"CappedCount"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">"CapExceeded"</span><span class="p">:</span> <span class="n">false</span>
+                <span class="p">},</span>
+                <span class="s2">"ComplianceType"</span><span class="p">:</span> <span class="s2">"NON_COMPLIANT"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ComplianceByResources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Indicates whether the specified AWS resource complies with all of the AWS Config rules that evaluate it.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether an AWS resource that is evaluated according to one or more AWS Config rules is compliant. A resource is compliant if it complies with all of the rules that evaluate it. A resource is noncompliant if it does not comply with one or more of these rules.</p>
+<p>ResourceType -&gt; (string)</p>
+<blockquote>
+<div>The type of the AWS resource that was evaluated.</div>
+</blockquote>
+<p>ResourceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS resource that was evaluated.</div>
+</blockquote>
+<p>Compliance -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether the AWS resource complies with all of the AWS Config rules that evaluated it.</p>
+<p>ComplianceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates whether an AWS resource or AWS Config rule is compliant.</p>
+<p>A resource is compliant if it complies with all of the AWS Config rules that evaluate it. A resource is noncompliant if it does not comply with one or more of these rules.</p>
+<p>A rule is compliant if all of the resources that the rule evaluates comply with it. A rule is noncompliant if any of these resources do not comply.</p>
+<p>AWS Config returns the <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> value when no evaluation results are available for the AWS resource or AWS Config rule.</p>
+<p>For the <tt class="docutils literal"><span class="pre">Compliance</span></tt> data type, AWS Config supports only <tt class="docutils literal"><span class="pre">COMPLIANT</span></tt> , <tt class="docutils literal"><span class="pre">NON_COMPLIANT</span></tt> , and <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> values. AWS Config does not support the <tt class="docutils literal"><span class="pre">NOT_APPLICABLE</span></tt> value for the <tt class="docutils literal"><span class="pre">Compliance</span></tt> data type.</p>
+</div>
+</blockquote>
+<p>ComplianceContributorCount -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The number of AWS resources or AWS Config rules that cause a result of <tt class="docutils literal"><span class="pre">NON_COMPLIANT</span></tt> , up to a maximum number.</p>
+<p>CappedCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of AWS resources or AWS Config rules responsible for the current compliance of the item.</div>
+</blockquote>
+<p>CapExceeded -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the maximum count is reached.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The string that you use in a subsequent request to get the next page of results in a paginated response.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

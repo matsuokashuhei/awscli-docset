@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>copy-object — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="create-bucket" href="create-bucket.html">
+    <link rel="prev" title="complete-multipart-upload" href="complete-multipart-upload.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="copy-object">
+<span id="cli-aws-s3api-copy-object"></span><h1>copy-object<a class="headerlink" href="#copy-object" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a copy of an object that is already stored in Amazon S3.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can store individual objects of up to 5 TB in Amazon S3. You create a copy of your object up to 5 GB in size in a single atomic operation using this API. However, for copying an object greater than 5 GB, you must use the multipart upload Upload Part - Copy API. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjctsUsingRESTMPUapi.html">Copy Object Using the REST Multipart Upload API</a> .</p>
+</div>
+<p>When copying an object, you can preserve all metadata (default) or specify new metadata. However, the ACL is not preserved and is set to private for the user making the request. To override the default ACL setting, specify a new ACL when generating a copy request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html">Using ACLs</a> .</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Amazon S3 transfer acceleration does not support cross-region copies. If you request a cross-region copy using a transfer acceleration endpoint, you get a 400 <tt class="docutils literal"><span class="pre">Bad</span> <span class="pre">Request</span></tt> error. For more information about transfer acceleration, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html">Transfer Acceleration</a> .</p>
+</div>
+<p>All copy requests must be authenticated. Additionally, you must have <em>read</em> access to the source object and <em>write</em> access to the destination bucket. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html">REST Authentication</a> . Both the Region that you want to copy the object from and the Region that you want to copy the object to must be enabled for your account.</p>
+<p>To only copy an object under certain conditions, such as whether the <tt class="docutils literal"><span class="pre">Etag</span></tt> matches or whether the object was modified before or after a specified date, use the request parameters <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-match</span></tt> , <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-none-match</span></tt> , <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-unmodified-since</span></tt> , or <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-modified-since</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All headers with the <tt class="docutils literal"><span class="pre">x-amz-</span></tt> prefix, including <tt class="docutils literal"><span class="pre">x-amz-copy-source</span></tt> , must be signed.</p>
+</div>
+<p>You can use this operation to change the storage class of an object that is already stored in Amazon S3 using the <tt class="docutils literal"><span class="pre">StorageClass</span></tt> parameter. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">Storage Classes</a> .</p>
+<p>The source object that you are copying can be encrypted or unencrypted. If the source object is encrypted, it can be encrypted by server-side encryption using AWS managed encryption keys or by using a customer-provided encryption key. When copying an object, you can request that Amazon S3 encrypt the target object by using either the AWS managed encryption keys or by using your own encryption key. You can do this regardless of the form of server-side encryption that was used to encrypt the source, or even if the source object was not encrypted. For more information about server-side encryption, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html">Using Server-Side Encryption</a> .</p>
+<p>A copy request might return an error when Amazon S3 receives the copy request or while Amazon S3 is copying the files. If the error occurs before the copy operation starts, you receive a standard Amazon S3 error. If the error occurs during the copy operation, the error response is embedded in the <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt> response. This means that a <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt> response can contain either a success or an error. Design your application to parse the contents of the response and handle it appropriately.</p>
+<p>If the copy is successful, you receive a response with information about the copied object.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the request is an HTTP 1.1 request, the response is chunk encoded. If it were not, it would not contain the content-length, and you would need to read the entire body.</p>
+</div>
+<p>Consider the following when using request headers:</p>
+<ul class="simple">
+<li>Consideration 1 – If both the <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-match</span></tt> and <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-unmodified-since</span></tt> headers are present in the request and evaluate as follows, Amazon S3 returns 200 OK and copies the data:<ul>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-copy-source-if-match</span></tt> condition evaluates to true</li>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-copy-source-if-unmodified-since</span></tt> condition evaluates to false</li>
+</ul>
+</li>
+<li>Consideration 2 – If both of the <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-none-match</span></tt> and <tt class="docutils literal"><span class="pre">x-amz-copy-source-if-modified-since</span></tt> headers are present in the request and evaluate as follows, Amazon S3 returns the <tt class="docutils literal"><span class="pre">412</span> <span class="pre">Precondition</span> <span class="pre">Failed</span></tt> response code:<ul>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-copy-source-if-none-match</span></tt> condition evaluates to false</li>
+<li>
+<tt class="docutils literal"><span class="pre">x-amz-copy-source-if-modified-since</span></tt> condition evaluates to true</li>
+</ul>
+</li>
+</ul>
+<p>The copy request charge is based on the storage class and Region you specify for the destination object. For pricing information, see <a class="reference external" href="https://aws.amazon.com/s3/pricing/">Amazon S3 Pricing</a> .</p>
+<p>Following are other considerations when using <tt class="docutils literal"><span class="pre">CopyObject</span></tt> :</p>
+<blockquote>
+<div>Versioning</div>
+</blockquote>
+<p>By default, <tt class="docutils literal"><span class="pre">x-amz-copy-source</span></tt> identifies the current version of an object to copy. (If the current version is a delete marker, Amazon S3 behaves as if the object was deleted.) To copy a different version, use the <tt class="docutils literal"><span class="pre">versionId</span></tt> subresource.</p>
+<p>If you enable versioning on the target bucket, Amazon S3 generates a unique version ID for the object being copied. This version ID is different from the version ID of the source object. Amazon S3 returns the version ID of the copied object in the <tt class="docutils literal"><span class="pre">x-amz-version-id</span></tt> response header in the response.</p>
+<p>If you do not enable versioning or suspend it on the target bucket, the version ID that Amazon S3 generates is always null.</p>
+<p>If the source object's storage class is GLACIER, you must restore a copy of this object before you can use it as a source object for the copy operation. For more information, see .</p>
+<blockquote>
+<div>Access Permissions</div>
+</blockquote>
+<p>When copying an object, you can optionally specify the accounts or groups that should be granted specific permissions on the new object. There are two ways to grant the permissions using the request headers:</p>
+<ul class="simple">
+<li>Specify a canned ACL with the <tt class="docutils literal"><span class="pre">x-amz-acl</span></tt> request header. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL">Canned ACL</a> .</li>
+<li>Specify access permissions explicitly with the <tt class="docutils literal"><span class="pre">x-amz-grant-read</span></tt> , <tt class="docutils literal"><span class="pre">x-amz-grant-read-acp</span></tt> , <tt class="docutils literal"><span class="pre">x-amz-grant-write-acp</span></tt> , and <tt class="docutils literal"><span class="pre">x-amz-grant-full-control</span></tt> headers. These parameters map to the set of permissions that Amazon S3 supports in an ACL. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Access Control List (ACL) Overview</a> .</li>
+</ul>
+<p>You can use either a canned ACL or specify access permissions explicitly. You cannot do both.</p>
+<blockquote>
+<div>Server-Side- Encryption-Specific Request Headers</div>
+</blockquote>
+<p>To encrypt the target object, you must provide the appropriate encryption-related request headers. The one you use depends on whether you want to use AWS managed encryption keys or provide your own encryption key.</p>
+<ul class="simple">
+<li>To encrypt the target object using server-side encryption with an AWS managed encryption key, provide the following request headers, as appropriate.<ul>
+<li><tt class="docutils literal"><span class="pre">x-amz-server-side​-encryption</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-context</span></tt></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-</span> <span class="pre">encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the AWS managed customer master key (CMK) in AWS KMS to protect the data.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">All GET and PUT requests for an object protected by AWS KMS fail if you don't make them with SSL or by using SigV4.</p>
+</div>
+<p>For more information about server-side encryption with CMKs stored in AWS KMS (SSE-KMS), see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html">Protecting Data Using Server-Side Encryption with CMKs stored in KMS</a> .</p>
+<ul class="simple">
+<li>To encrypt the target object using server-side encryption with an encryption key that you provide, use the following headers.<ul>
+<li>x-amz-server-side​-encryption​-customer-algorithm</li>
+<li>x-amz-server-side​-encryption​-customer-key</li>
+<li>x-amz-server-side​-encryption​-customer-key-MD5</li>
+</ul>
+</li>
+<li>If the source object is encrypted using server-side encryption with customer-provided encryption keys, you must use the following headers.<ul>
+<li>x-amz-copy-source​-server-side​-encryption​-customer-algorithm</li>
+<li>x-amz-copy-source​-server-side​-encryption​-customer-key</li>
+<li>x-amz-copy-source-​server-side​-encryption​-customer-key-MD5</li>
+</ul>
+</li>
+</ul>
+<p>For more information about server-side encryption with CMKs stored in AWS KMS (SSE-KMS), see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html">Protecting Data Using Server-Side Encryption with CMKs stored in Amazon KMS</a> .</p>
+<blockquote>
+<div>Access-Control-List (ACL)-Specific Request Headers</div>
+</blockquote>
+<p>You also can use the following access control–related headers with this operation. By default, all objects are private. Only the owner has full access control. When adding a new object, you can grant permissions to individual AWS accounts or to predefined groups defined by Amazon S3. These permissions are then added to the access control list (ACL) on the object. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/S3_ACLs_UsingACLs.html">Using ACLs</a> . With this operation, you can grant access permissions using one of the following two methods:</p>
+<ul class="simple">
+<li>Specify a canned ACL (<tt class="docutils literal"><span class="pre">x-amz-acl</span></tt> ) — Amazon S3 supports a set of predefined ACLs, known as <em>canned ACLs</em> . Each canned ACL has a predefined set of grantees and permissions. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#CannedACL">Canned ACL</a> .</li>
+<li>Specify access permissions explicitly — To explicitly grant access permissions to specific AWS accounts or groups, use the following headers. Each header maps to specific permissions that Amazon S3 supports in an ACL. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">Access Control List (ACL) Overview</a> . In the header, you specify a list of grantees who get the specific permission. To grant permissions explicitly, use:<ul>
+<li>x-amz-grant-read</li>
+<li>x-amz-grant-write</li>
+<li>x-amz-grant-read-acp</li>
+<li>x-amz-grant-write-acp</li>
+<li>x-amz-grant-full-control</li>
+</ul>
+</li>
+</ul>
+<p>You specify each grantee as a type=value pair, where the type is one of the following:</p>
+<blockquote>
+<div>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">emailAddress</span></tt> – if the value specified is the email address of an AWS account</li>
+<li>
+<tt class="docutils literal"><span class="pre">id</span></tt> – if the value specified is the canonical user ID of an AWS account</li>
+<li>
+<tt class="docutils literal"><span class="pre">uri</span></tt> – if you are granting permissions to a predefined group</li>
+</ul>
+</div>
+</blockquote>
+<p>For example, the following <tt class="docutils literal"><span class="pre">x-amz-grant-read</span></tt> header grants the AWS accounts identified by email addresses permissions to read object data and its metadata:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">x-amz-grant-read:</span> <span class="pre">emailAddress="xyz@amazon.com",</span> <span class="pre">emailAddress="abc@amazon.com"</span></tt></div>
+</blockquote>
+<p>The following operations are related to <tt class="docutils literal"><span class="pre">CopyObject</span></tt> :</p>
+<ul class="simple">
+<li>PutObject</li>
+<li>GetObject</li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/CopyingObjectsExamples.html">Copying Objects</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CopyObject">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  copy-object
+[--acl &lt;value&gt;]
+--bucket &lt;value&gt;
+[--cache-control &lt;value&gt;]
+[--content-disposition &lt;value&gt;]
+[--content-encoding &lt;value&gt;]
+[--content-language &lt;value&gt;]
+[--content-type &lt;value&gt;]
+--copy-source &lt;value&gt;
+[--copy-source-if-match &lt;value&gt;]
+[--copy-source-if-modified-since &lt;value&gt;]
+[--copy-source-if-none-match &lt;value&gt;]
+[--copy-source-if-unmodified-since &lt;value&gt;]
+[--expires &lt;value&gt;]
+[--grant-full-control &lt;value&gt;]
+[--grant-read &lt;value&gt;]
+[--grant-read-acp &lt;value&gt;]
+[--grant-write-acp &lt;value&gt;]
+--key &lt;value&gt;
+[--metadata &lt;value&gt;]
+[--metadata-directive &lt;value&gt;]
+[--tagging-directive &lt;value&gt;]
+[--server-side-encryption &lt;value&gt;]
+[--storage-class &lt;value&gt;]
+[--website-redirect-location &lt;value&gt;]
+[--sse-customer-algorithm &lt;value&gt;]
+[--sse-customer-key &lt;value&gt;]
+[--sse-customer-key-md5 &lt;value&gt;]
+[--ssekms-key-id &lt;value&gt;]
+[--ssekms-encryption-context &lt;value&gt;]
+[--copy-source-sse-customer-algorithm &lt;value&gt;]
+[--copy-source-sse-customer-key &lt;value&gt;]
+[--copy-source-sse-customer-key-md5 &lt;value&gt;]
+[--request-payer &lt;value&gt;]
+[--tagging &lt;value&gt;]
+[--object-lock-mode &lt;value&gt;]
+[--object-lock-retain-until-date &lt;value&gt;]
+[--object-lock-legal-hold-status &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--acl</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The canned ACL to apply to the object.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">private</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">public-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">public-read-write</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">authenticated-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">aws-exec-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">bucket-owner-read</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">bucket-owner-full-control</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The name of the destination bucket.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cache-control</span></tt> (string)</p>
+<blockquote>
+<div>Specifies caching behavior along the request/reply chain.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-disposition</span></tt> (string)</p>
+<blockquote>
+<div>Specifies presentational information for the object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-encoding</span></tt> (string)</p>
+<blockquote>
+<div>Specifies what content encodings have been applied to the object and thus what decoding mechanisms must be applied to obtain the media-type referenced by the Content-Type header field.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-language</span></tt> (string)</p>
+<blockquote>
+<div>The language the content is in.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-type</span></tt> (string)</p>
+<blockquote>
+<div>A standard MIME type describing the format of the object data.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source</span></tt> (string)</p>
+<blockquote>
+<div>The name of the source bucket and key name of the source object, separated by a slash (/). Must be URL-encoded.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-if-match</span></tt> (string)</p>
+<blockquote>
+<div>Copies the object if its entity tag (ETag) matches the specified tag.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-if-modified-since</span></tt> (timestamp)</p>
+<blockquote>
+<div>Copies the object if it has been modified since the specified time.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-if-none-match</span></tt> (string)</p>
+<blockquote>
+<div>Copies the object if its entity tag (ETag) is different than the specified ETag.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-if-unmodified-since</span></tt> (timestamp)</p>
+<blockquote>
+<div>Copies the object if it hasn't been modified since the specified time.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--expires</span></tt> (timestamp)</p>
+<blockquote>
+<div>The date and time at which the object is no longer cacheable.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-full-control</span></tt> (string)</p>
+<blockquote>
+<div>Gives the grantee READ, READ_ACP, and WRITE_ACP permissions on the object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-read</span></tt> (string)</p>
+<blockquote>
+<div>Allows grantee to read the object data and its metadata.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-read-acp</span></tt> (string)</p>
+<blockquote>
+<div>Allows grantee to read the object ACL.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-write-acp</span></tt> (string)</p>
+<blockquote>
+<div>Allows grantee to write the ACL for the applicable object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key</span></tt> (string)</p>
+<blockquote>
+<div>The key of the destination object.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--metadata</span></tt> (map)</p>
+<blockquote>
+<div>A map of metadata to store with the object in S3.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--metadata-directive</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies whether the metadata is copied from the source object or replaced with metadata provided in the request.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">COPY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REPLACE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tagging-directive</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies whether the object tag-set are copied from the source object or replaced with tag-set provided in the request.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">COPY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REPLACE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-side-encryption</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AES256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">aws:kms</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--storage-class</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of storage to use for the object. Defaults to 'STANDARD'.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">STANDARD</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REDUCED_REDUNDANCY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">STANDARD_IA</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ONEZONE_IA</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">INTELLIGENT_TIERING</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">GLACIER</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DEEP_ARCHIVE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--website-redirect-location</span></tt> (string)</p>
+<blockquote>
+<div>If the bucket is configured as a website, redirects requests for this object to another object in the same bucket or to an external URL. Amazon S3 stores the value of this header in the object metadata.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the algorithm to use to when encrypting the object (for example, AES256).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use with the algorithm specified in the <tt class="docutils literal"><span class="pre">x-amz-server-side​-encryption​-customer-algorithm</span></tt> header.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key-md5</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ssekms-key-id</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4. For information about configuring using any of the officially supported AWS SDKs and AWS CLI, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version">Specifying the Signature Version in Request Authentication</a> in the <em>Amazon S3 Developer Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ssekms-encryption-context</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-sse-customer-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the algorithm to use when decrypting the source object (for example, AES256).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-sse-customer-key</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the customer-provided encryption key for Amazon S3 to use to decrypt the source object. The encryption key provided in this header must be one that was used when the source object was created.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-source-sse-customer-key-md5</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tagging</span></tt> (string)</p>
+<blockquote>
+<div>The tag-set for the object destination object this value must be used in conjunction with the <tt class="docutils literal"><span class="pre">TaggingDirective</span></tt> . The tag-set must be encoded as URL Query parameters.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--object-lock-mode</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Object Lock mode that you want to apply to the copied object.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">GOVERNANCE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">COMPLIANCE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--object-lock-retain-until-date</span></tt> (timestamp)</p>
+<blockquote>
+<div>The date and time when you want the copied object's Object Lock to expire.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--object-lock-legal-hold-status</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies whether you want to apply a Legal Hold to the copied object.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ON</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">OFF</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command copies an object from <tt class="docutils literal"><span class="pre">bucket-1</span></tt> to <tt class="docutils literal"><span class="pre">bucket-2</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api copy-object --copy-source bucket-1/test.txt --key test.txt --bucket bucket-2</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"CopyObjectResult"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"2015-11-10T01:07:25.000Z"</span><span class="p">,</span>
+        <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">589c8b79c230a6ecd5a7e1d040a9a030</span><span class="se">\"</span><span class="s2">"</span>
+    <span class="p">},</span>
+    <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">"YdnYvTCVDqRRFA.NFJjy36p0hxifMlkA"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CopyObjectResult -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Container for all response elements.</p>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>Returns the ETag of the new object. The ETag reflects only changes to the contents of an object, not its metadata. The source and destination ETag is identical for a successfully copied object.</div>
+</blockquote>
+<p>LastModified -&gt; (timestamp)</p>
+<blockquote>
+<div>Returns the date that the object was last modified.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Expiration -&gt; (string)</p>
+<blockquote>
+<div>If the object expiration is configured, the response includes this header.</div>
+</blockquote>
+<p>CopySourceVersionId -&gt; (string)</p>
+<blockquote>
+<div>Version of the copied object in the destination bucket.</div>
+</blockquote>
+<p>VersionId -&gt; (string)</p>
+<blockquote>
+<div>Version ID of the newly created copy.</div>
+</blockquote>
+<p>ServerSideEncryption -&gt; (string)</p>
+<blockquote>
+<div>The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).</div>
+</blockquote>
+<p>SSECustomerAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.</div>
+</blockquote>
+<p>SSECustomerKeyMD5 -&gt; (string)</p>
+<blockquote>
+<div>If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.</div>
+</blockquote>
+<p>SSEKMSKeyId -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the ID of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used for the object.</div>
+</blockquote>
+<p>SSEKMSEncryptionContext -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the AWS KMS Encryption Context to use for object encryption. The value of this header is a base64-encoded UTF-8 string holding JSON with the encryption context key-value pairs.</div>
+</blockquote>
+<p>RequestCharged -&gt; (string)</p>
+<blockquote>
+<div>If present, indicates that the requester was successfully charged for the request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

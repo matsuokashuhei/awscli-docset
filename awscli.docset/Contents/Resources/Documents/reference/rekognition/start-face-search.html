@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>start-face-search — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="start-label-detection" href="start-label-detection.html">
+    <link rel="prev" title="start-face-detection" href="start-face-detection.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="start-face-search">
+<span id="cli-aws-rekognition-start-face-search"></span><h1>start-face-search<a class="headerlink" href="#start-face-search" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Starts the asynchronous search for faces in a collection that match the faces of persons detected in a stored video.</p>
+<p>The video must be stored in an Amazon S3 bucket. Use  Video to specify the bucket name and the filename of the video. <tt class="docutils literal"><span class="pre">StartFaceSearch</span></tt> returns a job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ) which you use to get the search results once the search has completed. When searching is finished, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic that you specify in <tt class="docutils literal"><span class="pre">NotificationChannel</span></tt> . To get the search results, first check that the status value published to the Amazon SNS topic is <tt class="docutils literal"><span class="pre">SUCCEEDED</span></tt> . If so, call  GetFaceSearch and pass the job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ) from the initial call to <tt class="docutils literal"><span class="pre">StartFaceSearch</span></tt> . For more information, see  procedure-person-search-videos .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/StartFaceSearch">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  start-face-search
+--video &lt;value&gt;
+[--client-request-token &lt;value&gt;]
+[--face-match-threshold &lt;value&gt;]
+--collection-id &lt;value&gt;
+[--notification-channel &lt;value&gt;]
+[--job-tag &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--video</span></tt> (structure)</p>
+<blockquote>
+<div>The video you want to search. The video must be stored in an Amazon S3 bucket.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>S3Object={Bucket=string,Name=string,Version=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3Object"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--client-request-token</span></tt> (string)</p>
+<blockquote>
+<div>Idempotent token used to identify the start request. If you use the same token with multiple <tt class="docutils literal"><span class="pre">StartFaceSearch</span></tt> requests, the same <tt class="docutils literal"><span class="pre">JobId</span></tt> is returned. Use <tt class="docutils literal"><span class="pre">ClientRequestToken</span></tt> to prevent the same job from being accidently started more than once.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--face-match-threshold</span></tt> (float)</p>
+<blockquote>
+<div>The minimum confidence in the person match to return. For example, don't return any matches where confidence in matches is less than 70%. The default value is 80%.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--collection-id</span></tt> (string)</p>
+<blockquote>
+<div>ID of the collection that contains the faces you want to search for.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-channel</span></tt> (structure)</p>
+<blockquote>
+<div>The ARN of the Amazon SNS topic to which you want Amazon Rekognition Video to publish the completion status of the search.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">SNSTopicArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">RoleArn</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"SNSTopicArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"RoleArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--job-tag</span></tt> (string)</p>
+<blockquote>
+<div>An identifier you specify that's returned in the completion notification that's published to your Amazon Simple Notification Service topic. For example, you can use <tt class="docutils literal"><span class="pre">JobTag</span></tt> to group related jobs and identify them in the completion notification.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To search for faces in a collection that match faces detected in a video</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">start-face-search</span></tt> command starts a job to search for faces in a collection that match faces detected in the specified video file in an Amazon S3 bucket.</p>
+<div class="highlight-python">
+<pre>aws rekognition start-face-search \
+    --video "S3Object={Bucket=MyVideoS3Bucket,Name=MyVideoFile.mpg}" \
+    --collection-id collection</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"JobId"</span><span class="p">:</span> <span class="s2">"1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/procedure-person-search-videos.html">Searching Stored Videos for Faces</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobId -&gt; (string)</p>
+<blockquote>
+<div>The identifier for the search job. Use <tt class="docutils literal"><span class="pre">JobId</span></tt> to identify the job in a subsequent call to <tt class="docutils literal"><span class="pre">GetFaceSearch</span></tt> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

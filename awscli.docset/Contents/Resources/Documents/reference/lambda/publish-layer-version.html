@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>publish-layer-version — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lambda" href="index.html">
+    <link rel="next" title="publish-version" href="publish-version.html">
+    <link rel="prev" title="list-versions-by-function" href="list-versions-by-function.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="publish-layer-version">
+<span id="cli-aws-lambda-publish-layer-version"></span><h1>publish-layer-version<a class="headerlink" href="#publish-layer-version" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">AWS Lambda layer</a> from a ZIP archive. Each time you call <tt class="docutils literal"><span class="pre">PublishLayerVersion</span></tt> with the same layer name, a new version is created.</p>
+<p>Add layers to your function with  CreateFunction or  UpdateFunctionConfiguration .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishLayerVersion">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  publish-layer-version
+--layer-name &lt;value&gt;
+[--description &lt;value&gt;]
+[--content &lt;value&gt;]
+[--compatible-runtimes &lt;value&gt;]
+[--license-info &lt;value&gt;]
+[--zip-file &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--layer-name</span></tt> (string)</p>
+<blockquote>
+<div>The name or Amazon Resource Name (ARN) of the layer.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>The description of the version.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content</span></tt> (structure)</p>
+<blockquote>
+<div>The function layer archive.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3Bucket</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3Key</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3ObjectVersion</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3Key"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3ObjectVersion"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--compatible-runtimes</span></tt> (list)</p>
+<blockquote>
+<div>A list of compatible <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html">function runtimes</a> . Used for filtering with  ListLayers and  ListLayerVersions .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  nodejs
+  nodejs4.3
+  nodejs6.10
+  nodejs8.10
+  nodejs10.x
+  nodejs12.x
+  java8
+  java11
+  python2.7
+  python3.6
+  python3.7
+  python3.8
+  dotnetcore1.0
+  dotnetcore2.0
+  dotnetcore2.1
+  nodejs4.3-edge
+  go1.x
+  ruby2.5
+  provided</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--license-info</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The layer's software license. It can be any of the following:</p>
+<ul class="simple">
+<li>An <a class="reference external" href="https://spdx.org/licenses/">SPDX license identifier</a> . For example, <tt class="docutils literal"><span class="pre">MIT</span></tt> .</li>
+<li>The URL of a license hosted on the internet. For example, <tt class="docutils literal"><span class="pre">https://opensource.org/licenses/MIT</span></tt> .</li>
+<li>The full text of the license.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--zip-file</span></tt> (blob)</p>
+<blockquote>
+<div>The path to the zip file of the content you are uploading. Example: fileb://content.zip</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a Lambda layer version</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">publish-layer-version</span></tt> example creates a new Python library layer version. The command retrieves the layer content a file named <tt class="docutils literal"><span class="pre">layer.zip</span></tt> in the specified S3 bucket.</p>
+<div class="highlight-python">
+<pre>aws lambda publish-layer-version \
+    --layer-name my-layer \
+    --description "My Python layer" \
+    --license-info "MIT" \
+    --content S3Bucket=lambda-layers-us-west-2-123456789012,S3Key=layer.zip \
+    --compatible-runtimes python3.6 python3.7</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Content"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Location"</span><span class="p">:</span> <span class="s2">"https://awslambda-us-west-2-layers.s3.us-west-2.amazonaws.com/snapshots/123456789012/my-layer-4aaa2fbb-ff77-4b0a-ad92-5b78a716a96a?versionId=27iWyA73cCAYqyH..."</span><span class="p">,</span>
+        <span class="s2">"CodeSha256"</span><span class="p">:</span> <span class="s2">"tv9jJO+rPbXUUXuRKi7CwHzKtLDkDRJLB3cC3Z/ouXo="</span><span class="p">,</span>
+        <span class="s2">"CodeSize"</span><span class="p">:</span> <span class="mi">169</span>
+    <span class="p">},</span>
+    <span class="s2">"LayerArn"</span><span class="p">:</span> <span class="s2">"arn:aws:lambda:us-west-2:123456789012:layer:my-layer"</span><span class="p">,</span>
+    <span class="s2">"LayerVersionArn"</span><span class="p">:</span> <span class="s2">"arn:aws:lambda:us-west-2:123456789012:layer:my-layer:1"</span><span class="p">,</span>
+    <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"My Python layer"</span><span class="p">,</span>
+    <span class="s2">"CreatedDate"</span><span class="p">:</span> <span class="s2">"2018-11-14T23:03:52.894+0000"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">"LicenseInfo"</span><span class="p">:</span> <span class="s2">"MIT"</span><span class="p">,</span>
+    <span class="s2">"CompatibleRuntimes"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"python3.6"</span><span class="p">,</span>
+        <span class="s2">"python3.7"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html">AWS Lambda Layers</a> in the <em>AWS Lambda Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Content -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about the layer version.</p>
+<p>Location -&gt; (string)</p>
+<blockquote>
+<div>A link to the layer archive in Amazon S3 that is valid for 10 minutes.</div>
+</blockquote>
+<p>CodeSha256 -&gt; (string)</p>
+<blockquote>
+<div>The SHA-256 hash of the layer archive.</div>
+</blockquote>
+<p>CodeSize -&gt; (long)</p>
+<blockquote>
+<div>The size of the layer archive in bytes.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LayerArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the layer.</div>
+</blockquote>
+<p>LayerVersionArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the layer version.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the version.</div>
+</blockquote>
+<p>CreatedDate -&gt; (string)</p>
+<blockquote>
+<div>The date that the layer version was created, in <a class="reference external" href="https://www.w3.org/TR/NOTE-datetime">ISO-8601 format</a> (YYYY-MM-DDThh:mm:ss.sTZD).</div>
+</blockquote>
+<p>Version -&gt; (long)</p>
+<blockquote>
+<div>The version number.</div>
+</blockquote>
+<p>CompatibleRuntimes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The layer's compatible runtimes.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>LicenseInfo -&gt; (string)</p>
+<blockquote>
+<div>The layer's software license.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

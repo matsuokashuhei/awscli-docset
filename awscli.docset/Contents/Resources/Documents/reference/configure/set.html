@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>set — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="configure" href="index.html">
+    <link rel="next" title="connect" href="../connect/index.html">
+    <link rel="prev" title="list" href="list.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="set">
+<span id="cli-aws-configure-set"></span><h1>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Set a configuration value from the config file.</p>
+<p>The <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">set</span></tt> command can be used to set a single configuration
+value in the AWS config file.  The <tt class="docutils literal"><span class="pre">set</span></tt> command supports both the
+<em>qualified</em> and <em>unqualified</em> config values documented in the <tt class="docutils literal"><span class="pre">get</span></tt> command
+(see <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">configure</span> <span class="pre">get</span> <span class="pre">help</span></tt> for more information).</p>
+<p>To set a single value, provide the configuration name followed by the
+configuration value.</p>
+<p>If the config file does not exist, one will automatically be created.  If the
+configuration value already exists in the config file, it will updated with the
+new configuration value.</p>
+<p>Setting a value for the <tt class="docutils literal"><span class="pre">aws_access_key_id</span></tt>, <tt class="docutils literal"><span class="pre">aws_secret_access_key</span></tt>, or
+the <tt class="docutils literal"><span class="pre">aws_session_token</span></tt> will result in the value being writen to the
+shared credentials file (<tt class="docutils literal"><span class="pre">~/.aws/credentials</span></tt>).  All other values will
+be written to the config file (default location is <tt class="docutils literal"><span class="pre">~/.aws/config</span></tt>).</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>aws configure set varname value [--profile profile-name]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">varname</span></tt> (string)
+The name of the config value to set.</p>
+<p><tt class="docutils literal"><span class="pre">value</span></tt> (string)
+The value to set.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>Given an empty config file, the following commands:</p>
+<div class="highlight-python">
+<pre>$ aws configure set aws_access_key_id default_access_key
+$ aws configure set aws_secret_access_key default_secret_key
+$ aws configure set default.region us-west-2
+$ aws configure set default.ca_bundle /path/to/ca-bundle.pem
+$ aws configure set region us-west-1 --profile testing
+$ aws configure set profile.testing2.region eu-west-1
+$ aws configure set preview.cloudsearch true</pre>
+</div>
+<p>will produce the following config file:</p>
+<div class="highlight-python">
+<pre>[default]
+region = us-west-2
+ca_bundle = /path/to/ca-bundle.pem
+
+[profile testing]
+region = us-west-1
+
+[profile testing2]
+region = eu-west-1
+
+[preview]
+cloudsearch = true</pre>
+</div>
+<p>and the following <tt class="docutils literal"><span class="pre">~/.aws/credentials</span></tt> file:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="n">default</span><span class="p">]</span>
+<span class="n">aws_access_key_id</span> <span class="o">=</span> <span class="n">default_access_key</span>
+<span class="n">aws_secret_access_key</span> <span class="o">=</span> <span class="n">default_secret_key</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

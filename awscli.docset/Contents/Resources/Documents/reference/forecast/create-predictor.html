@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-predictor — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="forecast" href="index.html">
+    <link rel="next" title="delete-dataset" href="delete-dataset.html">
+    <link rel="prev" title="create-forecast-export-job" href="create-forecast-export-job.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-predictor">
+<span id="cli-aws-forecast-create-predictor"></span><h1>create-predictor<a class="headerlink" href="#create-predictor" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an Amazon Forecast predictor.</p>
+<p>In the request, you provide a dataset group and either specify an algorithm or let Amazon Forecast choose the algorithm for you using AutoML. If you specify an algorithm, you also can override algorithm-specific hyperparameters.</p>
+<p>Amazon Forecast uses the chosen algorithm to train a model using the latest version of the datasets in the specified dataset group. The result is called a predictor. You then generate a forecast using the  CreateForecast operation.</p>
+<p>After training a model, the <tt class="docutils literal"><span class="pre">CreatePredictor</span></tt> operation also evaluates it. To see the evaluation metrics, use the  GetAccuracyMetrics operation. Always review the evaluation metrics before deciding to use the predictor to generate a forecast.</p>
+<p>Optionally, you can specify a featurization configuration to fill and aggregate the data fields in the <tt class="docutils literal"><span class="pre">TARGET_TIME_SERIES</span></tt> dataset to improve model training. For more information, see  FeaturizationConfig .</p>
+<p>For RELATED_TIME_SERIES datasets, <tt class="docutils literal"><span class="pre">CreatePredictor</span></tt> verifies that the <tt class="docutils literal"><span class="pre">DataFrequency</span></tt> specified when the dataset was created matches the <tt class="docutils literal"><span class="pre">ForecastFrequency</span></tt> . TARGET_TIME_SERIES datasets don't have this restriction. Amazon Forecast also verifies the delimiter and timestamp format. For more information, see  howitworks-datasets-groups .</p>
+<blockquote>
+<div><strong>AutoML</strong></div>
+</blockquote>
+<p>If you want Amazon Forecast to evaluate each algorithm and choose the one that minimizes the <tt class="docutils literal"><span class="pre">objective</span> <span class="pre">function</span></tt> , set <tt class="docutils literal"><span class="pre">PerformAutoML</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> . The <tt class="docutils literal"><span class="pre">objective</span> <span class="pre">function</span></tt> is defined as the mean of the weighted p10, p50, and p90 quantile losses. For more information, see  EvaluationResult .</p>
+<p>When AutoML is enabled, the following properties are disallowed:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AlgorithmArn</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HPOConfig</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">PerformHPO</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TrainingParameters</span></tt></li>
+</ul>
+<p>To get a list of all of your predictors, use the  ListPredictors operation.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before you can use the predictor to create a forecast, the <tt class="docutils literal"><span class="pre">Status</span></tt> of the predictor must be <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> , signifying that training has completed. To get the status, use the  DescribePredictor operation.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/forecast-2018-06-26/CreatePredictor">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-predictor
+--predictor-name &lt;value&gt;
+[--algorithm-arn &lt;value&gt;]
+--forecast-horizon &lt;value&gt;
+[--perform-auto-ml | --no-perform-auto-ml]
+[--perform-hpo | --no-perform-hpo]
+[--training-parameters &lt;value&gt;]
+[--evaluation-parameters &lt;value&gt;]
+[--hpo-config &lt;value&gt;]
+--input-data-config &lt;value&gt;
+--featurization-config &lt;value&gt;
+[--encryption-config &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--predictor-name</span></tt> (string)</p>
+<blockquote>
+<div>A name for the predictor.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--algorithm-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the algorithm to use for model training. Required if <tt class="docutils literal"><span class="pre">PerformAutoML</span></tt> is not set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<blockquote>
+<div><strong>Supported algorithms:</strong></div>
+</blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">arn:aws:forecast:::algorithm/ARIMA</span></tt></li>
+<li>
+<tt class="docutils literal"><span class="pre">arn:aws:forecast:::algorithm/Deep_AR_Plus</span></tt>   Supports hyperparameter optimization (HPO)</li>
+<li><tt class="docutils literal"><span class="pre">arn:aws:forecast:::algorithm/ETS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">arn:aws:forecast:::algorithm/NPTS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">arn:aws:forecast:::algorithm/Prophet</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--forecast-horizon</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>Specifies the number of time-steps that the model is trained to predict. The forecast horizon is also called the prediction length.</p>
+<p>For example, if you configure a dataset for daily data collection (using the <tt class="docutils literal"><span class="pre">DataFrequency</span></tt> parameter of the  CreateDataset operation) and set the forecast horizon to 10, the model returns predictions for 10 days.</p>
+<p>The maximum forecast horizon is the lesser of 500 time-steps or 1/3 of the TARGET_TIME_SERIES dataset length.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--perform-auto-ml</span></tt> | <tt class="docutils literal"><span class="pre">--no-perform-auto-ml</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Whether to perform AutoML. When Amazon Forecast performs AutoML, it evaluates the algorithms it provides and chooses the best algorithm and configuration for your training dataset.</p>
+<p>The default value is <tt class="docutils literal"><span class="pre">false</span></tt> . In this case, you are required to specify an algorithm.</p>
+<p>Set <tt class="docutils literal"><span class="pre">PerformAutoML</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> to have Amazon Forecast perform AutoML. This is a good option if you aren't sure which algorithm is suitable for your training data. In this case, <tt class="docutils literal"><span class="pre">PerformHPO</span></tt> must be false.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--perform-hpo</span></tt> | <tt class="docutils literal"><span class="pre">--no-perform-hpo</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Whether to perform hyperparameter optimization (HPO). HPO finds optimal hyperparameter values for your training data. The process of performing HPO is known as running a hyperparameter tuning job.</p>
+<p>The default value is <tt class="docutils literal"><span class="pre">false</span></tt> . In this case, Amazon Forecast uses default hyperparameter values from the chosen algorithm.</p>
+<p>To override the default values, set <tt class="docutils literal"><span class="pre">PerformHPO</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> and, optionally, supply the  HyperParameterTuningJobConfig object. The tuning job specifies a metric to optimize, which hyperparameters participate in tuning, and the valid range for each tunable hyperparameter. In this case, you are required to specify an algorithm and <tt class="docutils literal"><span class="pre">PerformAutoML</span></tt> must be false.</p>
+<p>The following algorithm supports HPO:</p>
+<ul class="simple">
+<li>DeepAR+</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--training-parameters</span></tt> (map)</p>
+<blockquote>
+<div>The hyperparameters to override for model training. The hyperparameters that you can override are listed in the individual algorithms. For the list of supported algorithms, see  aws-forecast-choosing-recipes .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--evaluation-parameters</span></tt> (structure)</p>
+<blockquote>
+<div>Used to override the default evaluation parameters of the specified algorithm. Amazon Forecast evaluates a predictor by splitting a dataset into training data and testing data. The evaluation parameters define how to perform the split and the number of iterations.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">NumberOfBacktestWindows</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">BackTestWindowOffset</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"NumberOfBacktestWindows"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"BackTestWindowOffset"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--hpo-config</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Provides hyperparameter override values for the algorithm. If you don't provide this parameter, Amazon Forecast uses default values. The individual algorithms specify which hyperparameters support hyperparameter optimization (HPO). For more information, see  aws-forecast-choosing-recipes .</p>
+<p>If you included the <tt class="docutils literal"><span class="pre">HPOConfig</span></tt> object, you must set <tt class="docutils literal"><span class="pre">PerformHPO</span></tt> to true.</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "ParameterRanges": {
+    "CategoricalParameterRanges": [
+      {
+        "Name": "string",
+        "Values": ["string", ...]
+      }
+      ...
+    ],
+    "ContinuousParameterRanges": [
+      {
+        "Name": "string",
+        "MaxValue": double,
+        "MinValue": double,
+        "ScalingType": "Auto"|"Linear"|"Logarithmic"|"ReverseLogarithmic"
+      }
+      ...
+    ],
+    "IntegerParameterRanges": [
+      {
+        "Name": "string",
+        "MaxValue": integer,
+        "MinValue": integer,
+        "ScalingType": "Auto"|"Linear"|"Logarithmic"|"ReverseLogarithmic"
+      }
+      ...
+    ]
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--input-data-config</span></tt> (structure)</p>
+<blockquote>
+<div>Describes the dataset group that contains the data to use to train the predictor.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>DatasetGroupArn=string,SupplementaryFeatures=[{Name=string,Value=string},{Name=string,Value=string}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "DatasetGroupArn": "string",
+  "SupplementaryFeatures": [
+    {
+      "Name": "string",
+      "Value": "string"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--featurization-config</span></tt> (structure)</p>
+<blockquote>
+<div>The featurization configuration.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "ForecastFrequency": "string",
+  "ForecastDimensions": ["string", ...],
+  "Featurizations": [
+    {
+      "AttributeName": "string",
+      "FeaturizationPipeline": [
+        {
+          "FeaturizationMethodName": "filling",
+          "FeaturizationMethodParameters": {"string": "string"
+            ...}
+        }
+        ...
+      ]
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--encryption-config</span></tt> (structure)</p>
+<blockquote>
+<div>An AWS Key Management Service (KMS) key and the AWS Identity and Access Management (IAM) role that Amazon Forecast can assume to access the key.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">RoleArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KMSKeyArn</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"RoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"KMSKeyArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>PredictorArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the predictor.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

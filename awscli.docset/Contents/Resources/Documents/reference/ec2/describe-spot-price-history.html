@@ -1,0 +1,586 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-spot-price-history — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-stale-security-groups" href="describe-stale-security-groups.html">
+    <link rel="prev" title="describe-spot-instance-requests" href="describe-spot-instance-requests.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-spot-price-history">
+<span id="cli-aws-ec2-describe-spot-price-history"></span><h1>describe-spot-price-history<a class="headerlink" href="#describe-spot-price-history" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the Spot price history. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances-history.html">Spot Instance Pricing History</a> in the <em>Amazon EC2 User Guide for Linux Instances</em> .</p>
+<p>When you specify a start and end time, this operation returns the prices of the instance types within the time range that you specified and the time when the price changed. The price is valid within the time period that you specified; the response merely indicates the last time that the price changed.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeSpotPriceHistory">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-spot-price-history</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">SpotPriceHistory</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-spot-price-history
+[--filters &lt;value&gt;]
+[--availability-zone &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--end-time &lt;value&gt;]
+[--instance-types &lt;value&gt;]
+[--product-descriptions &lt;value&gt;]
+[--start-time &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">availability-zone</span></tt> - The Availability Zone for which prices should be returned.</li>
+<li>
+<tt class="docutils literal"><span class="pre">instance-type</span></tt> - The type of instance (for example, <tt class="docutils literal"><span class="pre">m3.medium</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">product-description</span></tt> - The product description for the Spot price (<tt class="docutils literal"><span class="pre">Linux/UNIX</span></tt> | <tt class="docutils literal"><span class="pre">SUSE</span> <span class="pre">Linux</span></tt> | <tt class="docutils literal"><span class="pre">Windows</span></tt> | <tt class="docutils literal"><span class="pre">Linux/UNIX</span> <span class="pre">(Amazon</span> <span class="pre">VPC)</span></tt> | <tt class="docutils literal"><span class="pre">SUSE</span> <span class="pre">Linux</span> <span class="pre">(Amazon</span> <span class="pre">VPC)</span></tt> | <tt class="docutils literal"><span class="pre">Windows</span> <span class="pre">(Amazon</span> <span class="pre">VPC)</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">spot-price</span></tt> - The Spot price. The value must match exactly (or use wildcards; greater than or less than comparison is not supported).</li>
+<li>
+<tt class="docutils literal"><span class="pre">timestamp</span></tt> - The time stamp of the Spot price history, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z). You can use wildcards (* and ?). Greater than or less than comparison is not supported.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--availability-zone</span></tt> (string)</p>
+<blockquote>
+<div>Filters the results by the specified Availability Zone.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The date and time, up to the current date, from which to stop retrieving the price history data, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-types</span></tt> (list)</p>
+<blockquote>
+<div>Filters the results by the specified instance types.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  t1.micro
+  t2.nano
+  t2.micro
+  t2.small
+  t2.medium
+  t2.large
+  t2.xlarge
+  t2.2xlarge
+  t3.nano
+  t3.micro
+  t3.small
+  t3.medium
+  t3.large
+  t3.xlarge
+  t3.2xlarge
+  t3a.nano
+  t3a.micro
+  t3a.small
+  t3a.medium
+  t3a.large
+  t3a.xlarge
+  t3a.2xlarge
+  m1.small
+  m1.medium
+  m1.large
+  m1.xlarge
+  m3.medium
+  m3.large
+  m3.xlarge
+  m3.2xlarge
+  m4.large
+  m4.xlarge
+  m4.2xlarge
+  m4.4xlarge
+  m4.10xlarge
+  m4.16xlarge
+  m2.xlarge
+  m2.2xlarge
+  m2.4xlarge
+  cr1.8xlarge
+  r3.large
+  r3.xlarge
+  r3.2xlarge
+  r3.4xlarge
+  r3.8xlarge
+  r4.large
+  r4.xlarge
+  r4.2xlarge
+  r4.4xlarge
+  r4.8xlarge
+  r4.16xlarge
+  r5.large
+  r5.xlarge
+  r5.2xlarge
+  r5.4xlarge
+  r5.8xlarge
+  r5.12xlarge
+  r5.16xlarge
+  r5.24xlarge
+  r5.metal
+  r5a.large
+  r5a.xlarge
+  r5a.2xlarge
+  r5a.4xlarge
+  r5a.8xlarge
+  r5a.12xlarge
+  r5a.16xlarge
+  r5a.24xlarge
+  r5d.large
+  r5d.xlarge
+  r5d.2xlarge
+  r5d.4xlarge
+  r5d.8xlarge
+  r5d.12xlarge
+  r5d.16xlarge
+  r5d.24xlarge
+  r5d.metal
+  r5ad.large
+  r5ad.xlarge
+  r5ad.2xlarge
+  r5ad.4xlarge
+  r5ad.8xlarge
+  r5ad.12xlarge
+  r5ad.16xlarge
+  r5ad.24xlarge
+  x1.16xlarge
+  x1.32xlarge
+  x1e.xlarge
+  x1e.2xlarge
+  x1e.4xlarge
+  x1e.8xlarge
+  x1e.16xlarge
+  x1e.32xlarge
+  i2.xlarge
+  i2.2xlarge
+  i2.4xlarge
+  i2.8xlarge
+  i3.large
+  i3.xlarge
+  i3.2xlarge
+  i3.4xlarge
+  i3.8xlarge
+  i3.16xlarge
+  i3.metal
+  i3en.large
+  i3en.xlarge
+  i3en.2xlarge
+  i3en.3xlarge
+  i3en.6xlarge
+  i3en.12xlarge
+  i3en.24xlarge
+  i3en.metal
+  hi1.4xlarge
+  hs1.8xlarge
+  c1.medium
+  c1.xlarge
+  c3.large
+  c3.xlarge
+  c3.2xlarge
+  c3.4xlarge
+  c3.8xlarge
+  c4.large
+  c4.xlarge
+  c4.2xlarge
+  c4.4xlarge
+  c4.8xlarge
+  c5.large
+  c5.xlarge
+  c5.2xlarge
+  c5.4xlarge
+  c5.9xlarge
+  c5.12xlarge
+  c5.18xlarge
+  c5.24xlarge
+  c5.metal
+  c5d.large
+  c5d.xlarge
+  c5d.2xlarge
+  c5d.4xlarge
+  c5d.9xlarge
+  c5d.12xlarge
+  c5d.18xlarge
+  c5d.24xlarge
+  c5d.metal
+  c5n.large
+  c5n.xlarge
+  c5n.2xlarge
+  c5n.4xlarge
+  c5n.9xlarge
+  c5n.18xlarge
+  cc1.4xlarge
+  cc2.8xlarge
+  g2.2xlarge
+  g2.8xlarge
+  g3.4xlarge
+  g3.8xlarge
+  g3.16xlarge
+  g3s.xlarge
+  g4dn.xlarge
+  g4dn.2xlarge
+  g4dn.4xlarge
+  g4dn.8xlarge
+  g4dn.12xlarge
+  g4dn.16xlarge
+  cg1.4xlarge
+  p2.xlarge
+  p2.8xlarge
+  p2.16xlarge
+  p3.2xlarge
+  p3.8xlarge
+  p3.16xlarge
+  p3dn.24xlarge
+  d2.xlarge
+  d2.2xlarge
+  d2.4xlarge
+  d2.8xlarge
+  f1.2xlarge
+  f1.4xlarge
+  f1.16xlarge
+  m5.large
+  m5.xlarge
+  m5.2xlarge
+  m5.4xlarge
+  m5.8xlarge
+  m5.12xlarge
+  m5.16xlarge
+  m5.24xlarge
+  m5.metal
+  m5a.large
+  m5a.xlarge
+  m5a.2xlarge
+  m5a.4xlarge
+  m5a.8xlarge
+  m5a.12xlarge
+  m5a.16xlarge
+  m5a.24xlarge
+  m5d.large
+  m5d.xlarge
+  m5d.2xlarge
+  m5d.4xlarge
+  m5d.8xlarge
+  m5d.12xlarge
+  m5d.16xlarge
+  m5d.24xlarge
+  m5d.metal
+  m5ad.large
+  m5ad.xlarge
+  m5ad.2xlarge
+  m5ad.4xlarge
+  m5ad.8xlarge
+  m5ad.12xlarge
+  m5ad.16xlarge
+  m5ad.24xlarge
+  h1.2xlarge
+  h1.4xlarge
+  h1.8xlarge
+  h1.16xlarge
+  z1d.large
+  z1d.xlarge
+  z1d.2xlarge
+  z1d.3xlarge
+  z1d.6xlarge
+  z1d.12xlarge
+  z1d.metal
+  u-6tb1.metal
+  u-9tb1.metal
+  u-12tb1.metal
+  u-18tb1.metal
+  u-24tb1.metal
+  a1.medium
+  a1.large
+  a1.xlarge
+  a1.2xlarge
+  a1.4xlarge
+  a1.metal
+  m5dn.large
+  m5dn.xlarge
+  m5dn.2xlarge
+  m5dn.4xlarge
+  m5dn.8xlarge
+  m5dn.12xlarge
+  m5dn.16xlarge
+  m5dn.24xlarge
+  m5n.large
+  m5n.xlarge
+  m5n.2xlarge
+  m5n.4xlarge
+  m5n.8xlarge
+  m5n.12xlarge
+  m5n.16xlarge
+  m5n.24xlarge
+  r5dn.large
+  r5dn.xlarge
+  r5dn.2xlarge
+  r5dn.4xlarge
+  r5dn.8xlarge
+  r5dn.12xlarge
+  r5dn.16xlarge
+  r5dn.24xlarge
+  r5n.large
+  r5n.xlarge
+  r5n.2xlarge
+  r5n.4xlarge
+  r5n.8xlarge
+  r5n.12xlarge
+  r5n.16xlarge
+  r5n.24xlarge
+  inf1.xlarge
+  inf1.2xlarge
+  inf1.6xlarge
+  inf1.24xlarge</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--product-descriptions</span></tt> (list)</p>
+<blockquote>
+<div>Filters the results by the specified basic product descriptions.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The date and time, up to the past 90 days, from which to start retrieving the price history data, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe Spot price history</strong></p>
+<p>This example command returns the Spot Price history for m1.xlarge instances for a particular day in January.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-spot-price-history --instance-types m1.xlarge --start-time 2014-01-06T07:08:09 --end-time 2014-01-06T08:09:10</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+  "SpotPriceHistory": [
+          {
+              "Timestamp": "2014-01-06T07:10:55.000Z",
+              "ProductDescription": "SUSE Linux",
+              "InstanceType": "m1.xlarge",
+              "SpotPrice": "0.087000",
+              "AvailabilityZone": "us-west-1b"
+          },
+          {
+              "Timestamp": "2014-01-06T07:10:55.000Z",
+              "ProductDescription": "SUSE Linux",
+              "InstanceType": "m1.xlarge",
+              "SpotPrice": "0.087000",
+              "AvailabilityZone": "us-west-1c"
+          },
+          {
+              "Timestamp": "2014-01-06T05:42:36.000Z",
+              "ProductDescription": "SUSE Linux (Amazon VPC)",
+              "InstanceType": "m1.xlarge",
+              "SpotPrice": "0.087000",
+              "AvailabilityZone": "us-west-1a"
+      },
+      ...
+}</pre>
+</div>
+<p><strong>To describe Spot price history for Linux/UNIX Amazon VPC</strong></p>
+<p>This example command returns the Spot Price history for m1.xlarge, Linux/UNIX Amazon VPC instances for a particular day in January.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-spot-price-history --instance-types m1.xlarge --product-description "Linux/UNIX (Amazon VPC)" --start-time 2014-01-06T07:08:09 --end-time 2014-01-06T08:09:10</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"SpotPriceHistory"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="s2">"2014-01-06T04:32:53.000Z"</span><span class="p">,</span>
+          <span class="s2">"ProductDescription"</span><span class="p">:</span> <span class="s2">"Linux/UNIX (Amazon VPC)"</span><span class="p">,</span>
+          <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m1.xlarge"</span><span class="p">,</span>
+          <span class="s2">"SpotPrice"</span><span class="p">:</span> <span class="s2">"0.080000"</span><span class="p">,</span>
+          <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-west-1a"</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+          <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="s2">"2014-01-05T11:28:26.000Z"</span><span class="p">,</span>
+          <span class="s2">"ProductDescription"</span><span class="p">:</span> <span class="s2">"Linux/UNIX (Amazon VPC)"</span><span class="p">,</span>
+          <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"m1.xlarge"</span><span class="p">,</span>
+          <span class="s2">"SpotPrice"</span><span class="p">:</span> <span class="s2">"0.080000"</span><span class="p">,</span>
+          <span class="s2">"AvailabilityZone"</span><span class="p">:</span> <span class="s2">"us-west-1c"</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token required to retrieve the next set of results. This value is null or an empty string when there are no more results to return.</div>
+</blockquote>
+<p>SpotPriceHistory -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The historical Spot prices.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the maximum price per hour that you are willing to pay for a Spot Instance.</p>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>ProductDescription -&gt; (string)</p>
+<blockquote>
+<div>A general description of the AMI.</div>
+</blockquote>
+<p>SpotPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum price per hour that you are willing to pay for a Spot Instance.</div>
+</blockquote>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time the request was created, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

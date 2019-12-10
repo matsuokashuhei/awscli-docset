@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-broker — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="mq" href="index.html">
+    <link rel="next" title="create-configuration" href="create-configuration.html">
+    <link rel="prev" title="mq" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-broker">
+<span id="cli-aws-mq-create-broker"></span><h1>create-broker<a class="headerlink" href="#create-broker" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a broker. Note: This API is asynchronous.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/mq-2017-11-27/CreateBroker">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-broker
+[--auto-minor-version-upgrade | --no-auto-minor-version-upgrade]
+[--broker-name &lt;value&gt;]
+[--configuration &lt;value&gt;]
+[--creator-request-id &lt;value&gt;]
+[--deployment-mode &lt;value&gt;]
+[--encryption-options &lt;value&gt;]
+[--engine-type &lt;value&gt;]
+[--engine-version &lt;value&gt;]
+[--host-instance-type &lt;value&gt;]
+[--logs &lt;value&gt;]
+[--maintenance-window-start-time &lt;value&gt;]
+[--publicly-accessible | --no-publicly-accessible]
+[--security-groups &lt;value&gt;]
+[--subnet-ids &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--users &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--auto-minor-version-upgrade</span></tt> | <tt class="docutils literal"><span class="pre">--no-auto-minor-version-upgrade</span></tt> (boolean)
+Required. Enables automatic upgrades to new minor versions for brokers, as Apache releases the versions. The automatic upgrades occur during the maintenance window of the broker or after a manual broker reboot.</p>
+<p><tt class="docutils literal"><span class="pre">--broker-name</span></tt> (string)
+Required. The name of the broker. This value must be unique in your AWS account, 1-50 characters long, must contain only letters, numbers, dashes, and underscores, and must not contain whitespaces, brackets, wildcard characters, or special characters.</p>
+<p><tt class="docutils literal"><span class="pre">--configuration</span></tt> (structure)
+A list of information about the configuration.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Id</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Revision</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Revision"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--creator-request-id</span></tt> (string)
+The unique ID that the requester receives for the created broker. Amazon MQ passes your ID with the API action. Note: We recommend using a Universally Unique Identifier (UUID) for the creatorRequestId. You may omit the creatorRequestId if your application doesn't require idempotency.</p>
+<p><tt class="docutils literal"><span class="pre">--deployment-mode</span></tt> (string)
+Required. The deployment mode of the broker.</p>
+<blockquote>
+<div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SINGLE_INSTANCE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ACTIVE_STANDBY_MULTI_AZ</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--encryption-options</span></tt> (structure)
+Encryption options for the broker.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KmsKeyId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">UseAwsOwnedKey</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"UseAwsOwnedKey"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--engine-type</span></tt> (string)
+Required. The type of broker engine. Note: Currently, Amazon MQ supports only ACTIVEMQ.</p>
+<blockquote>
+<div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ACTIVEMQ</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine-version</span></tt> (string)
+Required. The version of the broker engine. For a list of supported engine versions, see <a class="reference external" href="https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html">https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker-engine.html</a></p>
+<p><tt class="docutils literal"><span class="pre">--host-instance-type</span></tt> (string)
+Required. The broker's instance type.</p>
+<p><tt class="docutils literal"><span class="pre">--logs</span></tt> (structure)
+Enables Amazon CloudWatch logging for brokers.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Audit</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">General</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Audit"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"General"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--maintenance-window-start-time</span></tt> (structure)
+The parameters that determine the WeeklyStartTime.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">DayOfWeek</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TimeOfDay</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TimeZone</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DayOfWeek"</span><span class="p">:</span> <span class="s2">"MONDAY"</span><span class="o">|</span><span class="s2">"TUESDAY"</span><span class="o">|</span><span class="s2">"WEDNESDAY"</span><span class="o">|</span><span class="s2">"THURSDAY"</span><span class="o">|</span><span class="s2">"FRIDAY"</span><span class="o">|</span><span class="s2">"SATURDAY"</span><span class="o">|</span><span class="s2">"SUNDAY"</span><span class="p">,</span>
+  <span class="s2">"TimeOfDay"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TimeZone"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--publicly-accessible</span></tt> | <tt class="docutils literal"><span class="pre">--no-publicly-accessible</span></tt> (boolean)
+Required. Enables connections from applications outside of the VPC that hosts the broker's subnets.</p>
+<p><tt class="docutils literal"><span class="pre">--security-groups</span></tt> (list)
+The list of security groups (1 minimum, 5 maximum) that authorize connections to brokers.</p>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--subnet-ids</span></tt> (list)
+The list of groups (2 maximum) that define which subnets and IP ranges the broker can use from different Availability Zones. A SINGLE_INSTANCE deployment requires one subnet (for example, the default subnet). An ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.</p>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (map)
+Create tags when creating the broker.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--users</span></tt> (list)
+Required. The list of ActiveMQ users (persons or applications) who can access queues and topics. This value can contain only alphanumeric characters, dashes, periods, underscores, and tildes (- . _ ~). This value must be 2-100 characters long.</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ConsoleAccess=boolean,Groups=string,string,Password=string,Username=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ConsoleAccess": true|false,
+    "Groups": ["string", ...],
+    "Password": "string",
+    "Username": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>BrokerArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the broker.</div>
+</blockquote>
+<p>BrokerId -&gt; (string)</p>
+<blockquote>
+<div>The unique ID that Amazon MQ generates for the broker.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

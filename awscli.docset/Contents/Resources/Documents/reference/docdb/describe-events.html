@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-events — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="docdb" href="index.html">
+    <link rel="next" title="describe-orderable-db-instance-options" href="describe-orderable-db-instance-options.html">
+    <link rel="prev" title="describe-event-categories" href="describe-event-categories.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-events">
+<span id="cli-aws-docdb-describe-events"></span><h1>describe-events<a class="headerlink" href="#describe-events" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns events related to DB instances, DB security groups, DB snapshots, and DB parameter groups for the past 14 days. You can obtain events specific to a particular DB instance, DB security group, DB snapshot, or DB parameter group by providing the name as a parameter. By default, the events of the past hour are returned.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeEvents">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-events</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Events</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-events
+[--source-identifier &lt;value&gt;]
+[--source-type &lt;value&gt;]
+[--start-time &lt;value&gt;]
+[--end-time &lt;value&gt;]
+[--duration &lt;value&gt;]
+[--event-categories &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--source-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The identifier of the event source for which events are returned. If not specified, then all sources are included in the response.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>If <tt class="docutils literal"><span class="pre">SourceIdentifier</span></tt> is provided, <tt class="docutils literal"><span class="pre">SourceType</span></tt> must also be provided.</li>
+<li>If the source type is <tt class="docutils literal"><span class="pre">DBInstance</span></tt> , a <tt class="docutils literal"><span class="pre">DBInstanceIdentifier</span></tt> must be provided.</li>
+<li>If the source type is <tt class="docutils literal"><span class="pre">DBSecurityGroup</span></tt> , a <tt class="docutils literal"><span class="pre">DBSecurityGroupName</span></tt> must be provided.</li>
+<li>If the source type is <tt class="docutils literal"><span class="pre">DBParameterGroup</span></tt> , a <tt class="docutils literal"><span class="pre">DBParameterGroupName</span></tt> must be provided.</li>
+<li>If the source type is <tt class="docutils literal"><span class="pre">DBSnapshot</span></tt> , a <tt class="docutils literal"><span class="pre">DBSnapshotIdentifier</span></tt> must be provided.</li>
+<li>Cannot end with a hyphen or contain two consecutive hyphens.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The event source to retrieve events for. If no value is specified, all events are returned.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">db-instance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">db-parameter-group</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">db-security-group</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">db-snapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">db-cluster</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">db-cluster-snapshot</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The beginning of the time interval to retrieve events for, specified in ISO 8601 format.</p>
+<p>Example: 2009-07-08T18:00Z</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The end of the time interval for which to retrieve events, specified in ISO 8601 format.</p>
+<p>Example: 2009-07-08T18:00Z</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--duration</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of minutes to retrieve events for.</p>
+<p>Default: 60</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--event-categories</span></tt> (list)</p>
+<blockquote>
+<div>A list of event categories that trigger notifications for an event notification subscription.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>This parameter is not currently supported.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To list Amazon DocumentDB events</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-events</span></tt> example list all the Amazon DocumentDB events for the last 24 hours (1440 minutes).</p>
+<div class="highlight-python">
+<pre>aws docdb describe-events \
+    --duration 1440</pre>
+</div>
+<p>This command produces no output.
+Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Events"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"failover"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Started cross AZ failover to DB instance: sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-18T21:36:29.807Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:cluster:sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-cluster"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"availability"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"DB instance restarted"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-18T21:36:40.793Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"A new writer was promoted. Restarting database as a reader."</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-18T21:36:43.873Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"availability"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"DB instance restarted"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-18T21:36:51.257Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"failover"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Completed failover to DB instance: sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-18T21:36:53.462Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:cluster:sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-cluster"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T16:51:48.847Z"</span><span class="p">,</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"configuration change"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Updated parameter audit_logs to enabled with apply method pending-reboot"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"custom3-6-param-grp"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-parameter-group"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"configuration change"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Applying modification to database instance class"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T17:55:20.095Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"availability"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"DB instance shutdown"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T17:56:31.127Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"configuration change"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Finished applying modification to DB instance class"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T18:00:45.822Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"availability"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"DB instance restarted"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T18:00:53.397Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"availability"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"DB instance shutdown"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T18:23:36.045Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"availability"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"DB instance restarted"</span><span class="p">,</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T18:23:46.209Z"</span><span class="p">,</span>
+            <span class="s2">"SourceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:rds:us-west-2:123456789012:db:sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"sample-cluster2"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-instance"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T18:39:05.822Z"</span><span class="p">,</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"configuration change"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Updated parameter ttl_monitor to enabled with apply method immediate"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"custom3-6-param-grp"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-parameter-group"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Date"</span><span class="p">:</span> <span class="s2">"2019-03-19T18:39:48.067Z"</span><span class="p">,</span>
+            <span class="s2">"EventCategories"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"configuration change"</span>
+            <span class="p">],</span>
+            <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Updated parameter audit_logs to disabled with apply method immediate"</span><span class="p">,</span>
+            <span class="s2">"SourceIdentifier"</span><span class="p">:</span> <span class="s2">"custom3-6-param-grp"</span><span class="p">,</span>
+            <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"db-parameter-group"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/documentdb/latest/developerguide/managing-events.html#viewing-events">Viewing Amazon DocumentDB Events</a> in the <em>Amazon DocumentDB Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>An optional pagination token provided by a previous request. If this parameter is specified, the response includes only records beyond the marker, up to the value specified by <tt class="docutils literal"><span class="pre">MaxRecords</span></tt> .</div>
+</blockquote>
+<p>Events -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Detailed information about one or more events.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Detailed information about an event.</p>
+<p>SourceIdentifier -&gt; (string)</p>
+<blockquote>
+<div>Provides the identifier for the source of the event.</div>
+</blockquote>
+<p>SourceType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the source type for this event.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>Provides the text of this event.</div>
+</blockquote>
+<p>EventCategories -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specifies the category for the event.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Date -&gt; (timestamp)</p>
+<blockquote>
+<div>Specifies the date and time of the event.</div>
+</blockquote>
+<p>SourceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the event.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

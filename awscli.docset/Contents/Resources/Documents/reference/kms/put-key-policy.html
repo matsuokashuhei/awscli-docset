@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-key-policy — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="re-encrypt" href="re-encrypt.html">
+    <link rel="prev" title="list-retirable-grants" href="list-retirable-grants.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-key-policy">
+<span id="cli-aws-kms-put-key-policy"></span><h1>put-key-policy<a class="headerlink" href="#put-key-policy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Attaches a key policy to the specified customer master key (CMK). You cannot perform this operation on a CMK in a different AWS account.</p>
+<p>For more information about key policies, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">Key Policies</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/PutKeyPolicy">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-key-policy
+--key-id &lt;value&gt;
+--policy-name &lt;value&gt;
+--policy &lt;value&gt;
+[--bypass-policy-lockout-safety-check | --no-bypass-policy-lockout-safety-check]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A unique identifier for the customer master key (CMK).</p>
+<p>Specify the key ID or the Amazon Resource Name (ARN) of the CMK.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--policy-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the key policy. The only valid value is <tt class="docutils literal"><span class="pre">default</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--policy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The key policy to attach to the CMK.</p>
+<p>The key policy must meet the following criteria:</p>
+<ul class="simple">
+<li>If you don't set <tt class="docutils literal"><span class="pre">BypassPolicyLockoutSafetyCheck</span></tt> to true, the key policy must allow the principal that is making the <tt class="docutils literal"><span class="pre">PutKeyPolicy</span></tt> request to make a subsequent <tt class="docutils literal"><span class="pre">PutKeyPolicy</span></tt> request on the CMK. This reduces the risk that the CMK becomes unmanageable. For more information, refer to the scenario in the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam">Default Key Policy</a> section of the <em>AWS Key Management Service Developer Guide</em> .</li>
+<li>Each statement in the key policy must contain one or more principals. The principals in the key policy must exist and be visible to AWS KMS. When you create a new AWS principal (for example, an IAM user or role), you might need to enforce a delay before including the new principal in a key policy because the new principal might not be immediately visible to AWS KMS. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_eventual-consistency">Changes that I make are not always immediately visible</a> in the <em>AWS Identity and Access Management User Guide</em> .</li>
+</ul>
+<p>The key policy size limit is 32 kilobytes (32768 bytes).</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bypass-policy-lockout-safety-check</span></tt> | <tt class="docutils literal"><span class="pre">--no-bypass-policy-lockout-safety-check</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A flag to indicate whether to bypass the key policy lockout safety check.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Setting this value to true increases the risk that the CMK becomes unmanageable. Do not set this value to true indiscriminately.</p>
+<p class="last">For more information, refer to the scenario in the <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html#key-policy-default-allow-root-enable-iam">Default Key Policy</a> section in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+<p>Use this parameter only when you intend to prevent the principal that is making the request from making a subsequent <tt class="docutils literal"><span class="pre">PutKeyPolicy</span></tt> request on the CMK.</p>
+<p>The default value is false.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To change the key policy for a customer master key (CMK)</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-key-policy</span></tt> example changes the key policy for a customer managed CMK.</p>
+<p>To begin, create a key policy and save it in a local JSON file. In this example, the file is <tt class="docutils literal"><span class="pre">key_policy.json</span></tt>. You can also specify the key policy as a string value of the <tt class="docutils literal"><span class="pre">policy</span></tt> parameter.</p>
+<p>The first statement in this key policy gives the AWS account permission to use IAM policies to control access to the CMK. The second statement gives the <tt class="docutils literal"><span class="pre">test-user</span></tt> user permission to run the <tt class="docutils literal"><span class="pre">describe-key</span></tt> and <tt class="docutils literal"><span class="pre">list-keys</span></tt> commands on the CMK.</p>
+<p>Contents of <tt class="docutils literal"><span class="pre">key_policy.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Version"</span> <span class="p">:</span> <span class="s2">"2012-10-17"</span><span class="p">,</span>
+    <span class="s2">"Id"</span> <span class="p">:</span> <span class="s2">"key-default-1"</span><span class="p">,</span>
+    <span class="s2">"Statement"</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Sid"</span> <span class="p">:</span> <span class="s2">"Enable IAM User Permissions"</span><span class="p">,</span>
+            <span class="s2">"Effect"</span> <span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+            <span class="s2">"Principal"</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"AWS"</span> <span class="p">:</span> <span class="s2">"arn:aws:iam::111122223333:root"</span>
+            <span class="p">},</span>
+            <span class="s2">"Action"</span> <span class="p">:</span> <span class="s2">"kms:"</span><span class="p">,</span>
+            <span class="s2">"Resource"</span> <span class="p">:</span> <span class="s2">"*"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Sid"</span> <span class="p">:</span> <span class="s2">"Allow Use of Key"</span><span class="p">,</span>
+            <span class="s2">"Effect"</span> <span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+            <span class="s2">"Principal"</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"AWS"</span> <span class="p">:</span> <span class="s2">"arn:aws:iam::111122223333:user/test-user"</span>
+            <span class="p">},</span>
+            <span class="s2">"Action"</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"kms:DescribeKey"</span><span class="p">,</span>
+                <span class="s2">"kms:ListKeys"</span>
+            <span class="p">],</span>
+            <span class="s2">"Resource"</span> <span class="p">:</span> <span class="s2">"*"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To identify the CMK, this example uses the key ID, but you can also usa key ARN. To specify the key policy, the command uses the <tt class="docutils literal"><span class="pre">policy</span></tt> parameter. To indicate that the policy is in a file, it uses the required <tt class="docutils literal"><span class="pre">file://</span></tt> prefix. This prefix is required to identify files on all supported operating systems. Finally, the command uses the <tt class="docutils literal"><span class="pre">policy-name</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">default</span></tt>. This parameter is required, even though <tt class="docutils literal"><span class="pre">default</span></tt> is the only valid value.</p>
+<div class="highlight-python">
+<pre>aws kms put-key-policy \
+    --policy-name default \
+    --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+    --policy file://key_policy.json</pre>
+</div>
+<p>This command does not produce any output. To verify that the command was effective, use the <tt class="docutils literal"><span class="pre">get-key-policy</span></tt> command. The following example command gets the key policy for the same CMK. The <tt class="docutils literal"><span class="pre">output</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">text</span></tt> returns a text format that is easy to read.</p>
+<div class="highlight-python">
+<pre>aws kms get-key-policy \
+    --policy-name default \
+    --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+    --output text</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Version"</span> <span class="p">:</span> <span class="s2">"2012-10-17"</span><span class="p">,</span>
+    <span class="s2">"Id"</span> <span class="p">:</span> <span class="s2">"key-default-1"</span><span class="p">,</span>
+    <span class="s2">"Statement"</span> <span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Sid"</span> <span class="p">:</span> <span class="s2">"Enable IAM User Permissions"</span><span class="p">,</span>
+            <span class="s2">"Effect"</span> <span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+            <span class="s2">"Principal"</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"AWS"</span> <span class="p">:</span> <span class="s2">"arn:aws:iam::111122223333:root"</span>
+            <span class="p">},</span>
+            <span class="s2">"Action"</span> <span class="p">:</span> <span class="s2">"kms:"</span><span class="p">,</span>
+            <span class="s2">"Resource"</span> <span class="p">:</span> <span class="s2">"*"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+            <span class="s2">"Sid"</span> <span class="p">:</span> <span class="s2">"Allow Use of Key"</span><span class="p">,</span>
+            <span class="s2">"Effect"</span> <span class="p">:</span> <span class="s2">"Allow"</span><span class="p">,</span>
+            <span class="s2">"Principal"</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"AWS"</span> <span class="p">:</span> <span class="s2">"arn:aws:iam::111122223333:user/test-user"</span>
+            <span class="p">},</span>
+            <span class="s2">"Action"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"kms:Describe"</span><span class="p">,</span> <span class="s2">"kms:List"</span> <span class="p">],</span>
+            <span class="s2">"Resource"</span> <span class="p">:</span> <span class="s2">"*"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policy-modifying.html">Changing a Key Policy</a> in the <em>AWS Key Management Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

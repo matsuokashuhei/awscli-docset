@@ -1,0 +1,1300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-findings — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="securityhub" href="index.html">
+    <link rel="next" title="get-insight-results" href="get-insight-results.html">
+    <link rel="prev" title="get-enabled-standards" href="get-enabled-standards.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-findings">
+<span id="cli-aws-securityhub-get-findings"></span><h1>get-findings<a class="headerlink" href="#get-findings" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns a list of findings that match the specified criteria.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/securityhub-2018-10-26/GetFindings">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">get-findings</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Findings</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-findings
+[--filters &lt;value&gt;]
+[--sort-criteria &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (structure)</p>
+<blockquote>
+<div>The findings attributes used to define a condition to filter the findings returned.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "ProductArn": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "AwsAccountId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "Id": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "GeneratorId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "Type": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "FirstObservedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "LastObservedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "CreatedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "UpdatedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "SeverityProduct": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "SeverityNormalized": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "SeverityLabel": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "Confidence": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "Criticality": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "Title": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "Description": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "RecommendationText": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "SourceUrl": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ProductFields": [
+    {
+      "Key": "string",
+      "Value": "string",
+      "Comparison": "EQUALS"
+    }
+    ...
+  ],
+  "ProductName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "CompanyName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "UserDefinedFields": [
+    {
+      "Key": "string",
+      "Value": "string",
+      "Comparison": "EQUALS"
+    }
+    ...
+  ],
+  "MalwareName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "MalwareType": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "MalwarePath": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "MalwareState": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NetworkDirection": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NetworkProtocol": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NetworkSourceIpV4": [
+    {
+      "Cidr": "string"
+    }
+    ...
+  ],
+  "NetworkSourceIpV6": [
+    {
+      "Cidr": "string"
+    }
+    ...
+  ],
+  "NetworkSourcePort": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "NetworkSourceDomain": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NetworkSourceMac": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NetworkDestinationIpV4": [
+    {
+      "Cidr": "string"
+    }
+    ...
+  ],
+  "NetworkDestinationIpV6": [
+    {
+      "Cidr": "string"
+    }
+    ...
+  ],
+  "NetworkDestinationPort": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "NetworkDestinationDomain": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ProcessName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ProcessPath": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ProcessPid": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "ProcessParentPid": [
+    {
+      "Gte": double,
+      "Lte": double,
+      "Eq": double
+    }
+    ...
+  ],
+  "ProcessLaunchedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "ProcessTerminatedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "ThreatIntelIndicatorType": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ThreatIntelIndicatorValue": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ThreatIntelIndicatorCategory": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ThreatIntelIndicatorLastObservedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "ThreatIntelIndicatorSource": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ThreatIntelIndicatorSourceUrl": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceType": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourcePartition": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceRegion": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceTags": [
+    {
+      "Key": "string",
+      "Value": "string",
+      "Comparison": "EQUALS"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceType": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceImageId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceIpV4Addresses": [
+    {
+      "Cidr": "string"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceIpV6Addresses": [
+    {
+      "Cidr": "string"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceKeyName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceIamInstanceProfileArn": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceVpcId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceSubnetId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsEc2InstanceLaunchedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "ResourceAwsS3BucketOwnerId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsS3BucketOwnerName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsIamAccessKeyUserName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsIamAccessKeyStatus": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceAwsIamAccessKeyCreatedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "ResourceContainerName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceContainerImageId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceContainerImageName": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "ResourceContainerLaunchedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "ResourceDetailsOther": [
+    {
+      "Key": "string",
+      "Value": "string",
+      "Comparison": "EQUALS"
+    }
+    ...
+  ],
+  "ComplianceStatus": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "VerificationState": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "WorkflowState": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "RecordState": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "RelatedFindingsProductArn": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "RelatedFindingsId": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NoteText": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "NoteUpdatedAt": [
+    {
+      "Start": "string",
+      "End": "string",
+      "DateRange": {
+        "Value": integer,
+        "Unit": "DAYS"
+      }
+    }
+    ...
+  ],
+  "NoteUpdatedBy": [
+    {
+      "Value": "string",
+      "Comparison": "EQUALS"|"PREFIX"
+    }
+    ...
+  ],
+  "Keyword": [
+    {
+      "Value": "string"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--sort-criteria</span></tt> (list)</p>
+<blockquote>
+<div>Findings attributes used to sort the list of findings returned.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Field=string,SortOrder=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Field": "string",
+    "SortOrder": "asc"|"desc"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Findings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The findings that matched the filters specified in the request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides consistent format for the contents of the Security Hub-aggregated findings. <tt class="docutils literal"><span class="pre">AwsSecurityFinding</span></tt> format enables you to share findings between AWS security services and third-party solutions, and compliance checks.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A finding is a potential security issue generated either by AWS services (Amazon GuardDuty, Amazon Inspector, and Amazon Macie) or by the integrated third-party solutions and compliance checks.</p>
+</div>
+<p>SchemaVersion -&gt; (string)</p>
+<blockquote>
+<div>The schema version that a finding is formatted for.</div>
+</blockquote>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The security findings provider-specific identifier for a finding.</div>
+</blockquote>
+<p>ProductArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN generated by Security Hub that uniquely identifies a third-party company (security-findings provider) after this provider's product (solution that generates findings) is registered with Security Hub.</div>
+</blockquote>
+<p>GeneratorId -&gt; (string)</p>
+<blockquote>
+<div>The identifier for the solution-specific component (a discrete unit of logic) that generated a finding. In various security-findings providers' solutions, this generator can be called a rule, a check, a detector, a plug-in, etc.</div>
+</blockquote>
+<p>AwsAccountId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID that a finding is generated in.</div>
+</blockquote>
+<p>Types -&gt; (list)</p>
+<blockquote>
+<div>
+<p>One or more finding types in the format of <tt class="docutils literal"><span class="pre">namespace/category/classifier</span></tt> that classify a finding.</p>
+<p>Valid namespace values are: Software and Configuration Checks | TTPs | Effects | Unusual Behaviors | Sensitive Data Identifications</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>FirstObservedAt -&gt; (string)</p>
+<blockquote>
+<div>An ISO8601-formatted timestamp that indicates when the security-findings provider first observed the potential security issue that a finding captured.</div>
+</blockquote>
+<p>LastObservedAt -&gt; (string)</p>
+<blockquote>
+<div>An ISO8601-formatted timestamp that indicates when the security-findings provider most recently observed the potential security issue that a finding captured.</div>
+</blockquote>
+<p>CreatedAt -&gt; (string)</p>
+<blockquote>
+<div>An ISO8601-formatted timestamp that indicates when the security-findings provider created the potential security issue that a finding captured.</div>
+</blockquote>
+<p>UpdatedAt -&gt; (string)</p>
+<blockquote>
+<div>An ISO8601-formatted timestamp that indicates when the security-findings provider last updated the finding record.</div>
+</blockquote>
+<p>Severity -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A finding's severity.</p>
+<p>Product -&gt; (double)</p>
+<blockquote>
+<div>The native severity as defined by the AWS service or integrated partner product that generated the finding.</div>
+</blockquote>
+<p>Normalized -&gt; (integer)</p>
+<blockquote>
+<div>The normalized severity of a finding.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (integer)</p>
+<blockquote>
+<div>A finding's confidence. Confidence is defined as the likelihood that a finding accurately identifies the behavior or issue that it was intended to identify. Confidence is scored on a 0-100 basis using a ratio scale, where 0 means zero percent confidence and 100 means 100 percent confidence.</div>
+</blockquote>
+<p>Criticality -&gt; (integer)</p>
+<blockquote>
+<div>The level of importance assigned to the resources associated with the finding. A score of 0 means that the underlying resources have no criticality, and a score of 100 is reserved for the most critical resources.</div>
+</blockquote>
+<p>Title -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A finding's title.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this release, <tt class="docutils literal"><span class="pre">Title</span></tt> is a required property.</p>
+</div>
+</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A finding's description.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this release, <tt class="docutils literal"><span class="pre">Description</span></tt> is a required property.</p>
+</div>
+</div>
+</blockquote>
+<p>Remediation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A data type that describes the remediation options for a finding.</p>
+<p>Recommendation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A recommendation on the steps to take to remediate the issue identified by a finding.</p>
+<p>Text -&gt; (string)</p>
+<blockquote>
+<div>Describes the recommended steps to take to remediate an issue identified in a finding.</div>
+</blockquote>
+<p>Url -&gt; (string)</p>
+<blockquote>
+<div>A URL to a page or site that contains information about how to remediate a finding.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SourceUrl -&gt; (string)</p>
+<blockquote>
+<div>A URL that links to a page about the current finding in the security-findings provider's solution.</div>
+</blockquote>
+<p>ProductFields -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A data type where security-findings providers can include additional solution-specific details that aren't part of the defined <tt class="docutils literal"><span class="pre">AwsSecurityFinding</span></tt> format.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>UserDefinedFields -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A list of name/value string pairs associated with the finding. These are custom, user-defined fields added to a finding.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>Malware -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of malware related to a finding.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A list of malware related to a finding.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the malware that was observed.</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of the malware that was observed.</div>
+</blockquote>
+<p>Path -&gt; (string)</p>
+<blockquote>
+<div>The file system path of the malware that was observed.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The state of the malware that was observed.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Network -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The details of network-related information about a finding.</p>
+<p>Direction -&gt; (string)</p>
+<blockquote>
+<div>The direction of network traffic associated with a finding.</div>
+</blockquote>
+<p>Protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol of network-related information about a finding.</div>
+</blockquote>
+<p>SourceIpV4 -&gt; (string)</p>
+<blockquote>
+<div>The source IPv4 address of network-related information about a finding.</div>
+</blockquote>
+<p>SourceIpV6 -&gt; (string)</p>
+<blockquote>
+<div>The source IPv6 address of network-related information about a finding.</div>
+</blockquote>
+<p>SourcePort -&gt; (integer)</p>
+<blockquote>
+<div>The source port of network-related information about a finding.</div>
+</blockquote>
+<p>SourceDomain -&gt; (string)</p>
+<blockquote>
+<div>The source domain of network-related information about a finding.</div>
+</blockquote>
+<p>SourceMac -&gt; (string)</p>
+<blockquote>
+<div>The source media access control (MAC) address of network-related information about a finding.</div>
+</blockquote>
+<p>DestinationIpV4 -&gt; (string)</p>
+<blockquote>
+<div>The destination IPv4 address of network-related information about a finding.</div>
+</blockquote>
+<p>DestinationIpV6 -&gt; (string)</p>
+<blockquote>
+<div>The destination IPv6 address of network-related information about a finding.</div>
+</blockquote>
+<p>DestinationPort -&gt; (integer)</p>
+<blockquote>
+<div>The destination port of network-related information about a finding.</div>
+</blockquote>
+<p>DestinationDomain -&gt; (string)</p>
+<blockquote>
+<div>The destination domain of network-related information about a finding.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Process -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The details of process-related information about a finding.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the process.</div>
+</blockquote>
+<p>Path -&gt; (string)</p>
+<blockquote>
+<div>The path to the process executable.</div>
+</blockquote>
+<p>Pid -&gt; (integer)</p>
+<blockquote>
+<div>The process ID.</div>
+</blockquote>
+<p>ParentPid -&gt; (integer)</p>
+<blockquote>
+<div>The parent process ID.</div>
+</blockquote>
+<p>LaunchedAt -&gt; (string)</p>
+<blockquote>
+<div>The date/time that the process was launched.</div>
+</blockquote>
+<p>TerminatedAt -&gt; (string)</p>
+<blockquote>
+<div>The date and time when the process was terminated.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ThreatIntelIndicators -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Threat intel details related to a finding.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details about the threat intel related to a finding.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of a threat intel indicator.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value of a threat intel indicator.</div>
+</blockquote>
+<p>Category -&gt; (string)</p>
+<blockquote>
+<div>The category of a threat intel indicator.</div>
+</blockquote>
+<p>LastObservedAt -&gt; (string)</p>
+<blockquote>
+<div>The date and time when the most recent instance of a threat intel indicator was observed.</div>
+</blockquote>
+<p>Source -&gt; (string)</p>
+<blockquote>
+<div>The source of the threat intel indicator.</div>
+</blockquote>
+<p>SourceUrl -&gt; (string)</p>
+<blockquote>
+<div>The URL to the page or site where you can get more information about the threat intel indicator.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Resources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A set of resource data types that describe the resources that the finding refers to.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A resource related to a finding.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of the resource that details are provided for.</div>
+</blockquote>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The canonical identifier for the given resource type.</div>
+</blockquote>
+<p>Partition -&gt; (string)</p>
+<blockquote>
+<div>The canonical AWS partition name that the Region is assigned to.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The canonical AWS external Region name where this resource is located.</div>
+</blockquote>
+<p>Tags -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A list of AWS tags associated with a resource at the time the finding was processed.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>Details -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Additional details about the resource related to a finding.</p>
+<p>AwsEc2Instance -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about an Amazon EC2 instance related to a finding.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The instance type of the instance.</div>
+</blockquote>
+<p>ImageId -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Machine Image (AMI) ID of the instance.</div>
+</blockquote>
+<p>IpV4Addresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IPv4 addresses associated with the instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>IpV6Addresses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IPv6 addresses associated with the instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>KeyName -&gt; (string)</p>
+<blockquote>
+<div>The key name associated with the instance.</div>
+</blockquote>
+<p>IamInstanceProfileArn -&gt; (string)</p>
+<blockquote>
+<div>The IAM profile ARN of the instance.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the VPC that the instance was launched in.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the subnet that the instance was launched in.</div>
+</blockquote>
+<p>LaunchedAt -&gt; (string)</p>
+<blockquote>
+<div>The date/time the instance was launched.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AwsS3Bucket -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about an Amazon S3 Bucket related to a finding.</p>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The canonical user ID of the owner of the S3 bucket.</div>
+</blockquote>
+<p>OwnerName -&gt; (string)</p>
+<blockquote>
+<div>The display name of the owner of the S3 bucket.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AwsIamAccessKey -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about an IAM access key related to a finding.</p>
+<p>UserName -&gt; (string)</p>
+<blockquote>
+<div>The user associated with the IAM access key related to a finding.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the IAM access key related to a finding.</div>
+</blockquote>
+<p>CreatedAt -&gt; (string)</p>
+<blockquote>
+<div>The creation date/time of the IAM access key related to a finding.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Container -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about a container resource related to a finding.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the container related to a finding.</div>
+</blockquote>
+<p>ImageId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the image related to a finding.</div>
+</blockquote>
+<p>ImageName -&gt; (string)</p>
+<blockquote>
+<div>The name of the image related to a finding.</div>
+</blockquote>
+<p>LaunchedAt -&gt; (string)</p>
+<blockquote>
+<div>The date and time when the container started.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Other -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Details about a resource that doesn't have a specific type defined.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Compliance -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>This data type is exclusive to findings that are generated as the result of a check run against a specific rule in a supported standard (for example, CIS AWS Foundations). Contains compliance-related finding details.</p>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The result of a compliance check.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VerificationState -&gt; (string)</p>
+<blockquote>
+<div>Indicates the veracity of a finding.</div>
+</blockquote>
+<p>WorkflowState -&gt; (string)</p>
+<blockquote>
+<div>The workflow state of a finding.</div>
+</blockquote>
+<p>RecordState -&gt; (string)</p>
+<blockquote>
+<div>The record state of a finding.</div>
+</blockquote>
+<p>RelatedFindings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of related findings.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details about a related finding.</p>
+<p>ProductArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the product that generated a related finding.</div>
+</blockquote>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The product-generated identifier for a related finding.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Note -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A user-defined note added to a finding.</p>
+<p>Text -&gt; (string)</p>
+<blockquote>
+<div>The text of a note.</div>
+</blockquote>
+<p>UpdatedBy -&gt; (string)</p>
+<blockquote>
+<div>The principal that created a note.</div>
+</blockquote>
+<p>UpdatedAt -&gt; (string)</p>
+<blockquote>
+<div>The timestamp of when the note was updated.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token that is required for pagination.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

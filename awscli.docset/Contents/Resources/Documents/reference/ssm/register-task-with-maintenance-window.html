@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>register-task-with-maintenance-window — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="remove-tags-from-resource" href="remove-tags-from-resource.html">
+    <link rel="prev" title="register-target-with-maintenance-window" href="register-target-with-maintenance-window.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="register-task-with-maintenance-window">
+<span id="cli-aws-ssm-register-task-with-maintenance-window"></span><h1>register-task-with-maintenance-window<a class="headerlink" href="#register-task-with-maintenance-window" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds a new task to a maintenance window.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/RegisterTaskWithMaintenanceWindow">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  register-task-with-maintenance-window
+--window-id &lt;value&gt;
+--targets &lt;value&gt;
+--task-arn &lt;value&gt;
+[--service-role-arn &lt;value&gt;]
+--task-type &lt;value&gt;
+[--task-parameters &lt;value&gt;]
+[--task-invocation-parameters &lt;value&gt;]
+[--priority &lt;value&gt;]
+--max-concurrency &lt;value&gt;
+--max-errors &lt;value&gt;
+[--logging-info &lt;value&gt;]
+[--name &lt;value&gt;]
+[--description &lt;value&gt;]
+[--client-token &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--window-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the maintenance window the task should be added to.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--targets</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The targets (either instances or maintenance window targets).</p>
+<p>Specify instances using the following format:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">Key=InstanceIds,Values=instance-id-1,instance-id-2</span></tt></div>
+</blockquote>
+<p>Specify maintenance window targets using the following format:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">Key=WindowTargetIds;,Values=window-target-id-1,window-target-id-2</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the task to run.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM service role for Systems Manager to assume when running a maintenance window task. If you do not specify a service role ARN, Systems Manager uses your account's service-linked role. If no service-linked role for Systems Manager exists in your account, it is created when you run <tt class="docutils literal"><span class="pre">RegisterTaskWithMaintenanceWindow</span></tt> .</p>
+<p>For more information, see the following topics in the in the <em>AWS Systems Manager User Guide</em> :</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html#slr-permissions">Service-Linked Role Permissions for Systems Manager</a></li>
+<li><a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-permissions.html#maintenance-window-tasks-service-role">Should I Use a Service-Linked Role or a Custom Service Role to Run Maintenance Window Tasks?</a></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--task-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of task being registered.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">RUN_COMMAND</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AUTOMATION</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">STEP_FUNCTIONS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LAMBDA</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--task-parameters</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>The parameters that should be passed to the task when it is run.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">TaskParameters</span></tt> has been deprecated. To specify parameters to pass to a task when it runs, instead use the <tt class="docutils literal"><span class="pre">Parameters</span></tt> option in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">Values</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">Values</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": {
+      "Values": ["string", ...]
+    }
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-invocation-parameters</span></tt> (structure)</p>
+<blockquote>
+<div>The parameters that the task should use during execution. Populate only the fields that match the task type. All other fields should be empty.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "RunCommand": {
+    "Comment": "string",
+    "DocumentHash": "string",
+    "DocumentHashType": "Sha256"|"Sha1",
+    "NotificationConfig": {
+      "NotificationArn": "string",
+      "NotificationEvents": ["All"|"InProgress"|"Success"|"TimedOut"|"Cancelled"|"Failed", ...],
+      "NotificationType": "Command"|"Invocation"
+    },
+    "OutputS3BucketName": "string",
+    "OutputS3KeyPrefix": "string",
+    "Parameters": {"string": ["string", ...]
+      ...},
+    "ServiceRoleArn": "string",
+    "TimeoutSeconds": integer
+  },
+  "Automation": {
+    "DocumentVersion": "string",
+    "Parameters": {"string": ["string", ...]
+      ...}
+  },
+  "StepFunctions": {
+    "Input": "string",
+    "Name": "string"
+  },
+  "Lambda": {
+    "ClientContext": "string",
+    "Qualifier": "string",
+    "Payload": blob
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--priority</span></tt> (integer)</p>
+<blockquote>
+<div>The priority of the task in the maintenance window, the lower the number the higher the priority. Tasks in a maintenance window are scheduled in priority order with tasks that have the same priority scheduled in parallel.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-concurrency</span></tt> (string)</p>
+<blockquote>
+<div>The maximum number of targets this task can be run for in parallel.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-errors</span></tt> (string)</p>
+<blockquote>
+<div>The maximum number of errors allowed before this task stops being scheduled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--logging-info</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>A structure containing information about an Amazon S3 bucket to write instance-level logs to.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">LoggingInfo</span></tt> has been deprecated. To specify an S3 bucket to contain logs, instead use the <tt class="docutils literal"><span class="pre">OutputS3BucketName</span></tt> and <tt class="docutils literal"><span class="pre">OutputS3KeyPrefix</span></tt> options in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3BucketName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3KeyPrefix</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3Region</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3BucketName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3KeyPrefix"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3Region"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>An optional name for the task.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>An optional description for the task.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>User-provided idempotency token.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To register an Automation task with a Maintenance Window</strong></p>
+<p>This example registers an Automation task with a Maintenance Window that is targeted at an instance.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm register-task-with-maintenance-window --window-id "mw-082dcd7649dee04e4" --targets Key=InstanceIds,Values=i-12345201220f8cd0d --task-arn AWS-RestartEC2Instance --service-role-arn arn:aws:iam::111222333444:role/SSM --task-type AUTOMATION --task-invocation-parameters "{\"Automation\":{\"DocumentVersion\":\"\$LATEST\",\"Parameters\":{\"InstanceId\":[\"{{TARGET_ID}}\"]}}}" --priority 0 --max-concurrency 1 --max-errors 1 --name "AutomationExample" --description "Restarting EC2 Instance for maintenance"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">"WindowTaskId"</span><span class="p">:</span><span class="s2">"11144444-5555-6666-7777-88888888"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To register a Lambda task with a Maintenance Window</strong></p>
+<p>This example registers a Lambda task with a Maintenance Window that is targeted at an instance.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm register-task-with-maintenance-window --window-id "mw-082dcd7649dee04e4" --targets Key=InstanceIds,Values=i-12344d305eea74171 --task-arn arn:aws:lambda:us-east-1:111222333444:function:SSMTestLAMBDA --service-role-arn arn:aws:iam::111222333444:role/SSM --task-type LAMBDA --task-invocation-parameters '{"Lambda":{"Payload":"{\"targetId\":\"{{TARGET_ID}}\",\"targetType\":\"{{TARGET_TYPE}}\"}","Qualifier":"$LATEST"}}' --priority 0 --max-concurrency 10 --max-errors 5 --name "Lambda_Example" --description "My Lambda Example"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">"WindowTaskId"</span><span class="p">:</span><span class="s2">"22244444-5555-6666-7777-88888888"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To register a Run Command task with a Maintenance Window</strong></p>
+<p>This example registers a Run Command task with a Maintenance Window that is targeted at an instance.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm register-task-with-maintenance-window --window-id "mw-082dcd7649dee04e4" --targets "Key=InstanceIds,Values=i-12344d305eea74171" --service-role-arn "arn:aws:iam::111222333444:role/SSM" --task-type "RUN_COMMAND" --name "SSMInstallPowerShellModule" --task-arn "AWS-InstallPowerShellModule" --task-invocation-parameters "{\"RunCommand\":{\"Comment\":\"\",\"OutputS3BucketName\":\"runcommandlogs\",\"Parameters\":{\"commands\":[\"Get-Module -ListAvailable\"],\"executionTimeout\":[\"3600\"],\"source\":[\"https:\/\/gallery.technet.microsoft.com\/EZOut-33ae0fb7\/file\/110351\/1\/EZOut.zip\"],\"workingDirectory\":[\"\\\\\"]},\"TimeoutSeconds\":600}}" --max-concurrency 1 --max-errors 1 --priority 10</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">"WindowTaskId"</span><span class="p">:</span><span class="s2">"33344444-5555-6666-7777-88888888"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To register a Step Functions task with a Maintenance Window</strong></p>
+<p>This example registers a Step Functions task with a Maintenance Window that is targeted at an instance.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm register-task-with-maintenance-window --window-id "mw-1234d787d641f11f3" --targets Key=WindowTargetIds,Values=12347414-69c3-49f8-95b8-ed2dcf045faa --task-arn arn:aws:states:us-east-1:111222333444:stateMachine:SSMTestStateMachine --service-role-arn arn:aws:iam::111222333444:role/MaintenanceWindows --task-type STEP_FUNCTIONS --task-invocation-parameters '{"StepFunctions":{"Input":"{\"instanceId\":\"{{TARGET_ID}}\"}"}}' --priority 0 --max-concurrency 10 --max-errors 5 --name "Step_Functions_Example" --description "My Step Functions Example"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">"WindowTaskId"</span><span class="p">:</span><span class="s2">"44444444-5555-6666-7777-88888888"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To register a task using a Maintenance Windows target ID</strong></p>
+<p>This example registers a task using a Maintenance Window target ID. The Maintenance Window target ID was in the output of the <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">ssm</span> <span class="pre">register-target-with-maintenance-window</span></tt> command, otherwise you can retrieve it from the output of the <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">ssm</span> <span class="pre">describe-maintenance-window-targets</span></tt> command.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm register-task-with-maintenance-window --targets "Key=WindowTargetIds,Values=350d44e6-28cc-44e2-951f-4b2c985838f6" --task-arn "AWS-RunShellScript" --service-role-arn "arn:aws:iam::812345678901:role/MaintenanceWindowsRole" --window-id "mw-ab12cd34ef56gh78" --task-type "RUN_COMMAND" --task-parameters  "{\"commands\":{\"Values\":[\"df\"]}}" --max-concurrency 1 --max-errors 1 --priority 10</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>WindowTaskId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the task in the maintenance window.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

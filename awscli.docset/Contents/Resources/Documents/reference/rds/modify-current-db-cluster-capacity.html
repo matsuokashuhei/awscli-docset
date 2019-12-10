@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>modify-current-db-cluster-capacity — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rds" href="index.html">
+    <link rel="next" title="modify-db-cluster" href="modify-db-cluster.html">
+    <link rel="prev" title="list-tags-for-resource" href="list-tags-for-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="modify-current-db-cluster-capacity">
+<span id="cli-aws-rds-modify-current-db-cluster-capacity"></span><h1>modify-current-db-cluster-capacity<a class="headerlink" href="#modify-current-db-cluster-capacity" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Set the capacity of an Aurora Serverless DB cluster to a specific value.</p>
+<p>Aurora Serverless scales seamlessly based on the workload on the DB cluster. In some cases, the capacity might not scale fast enough to meet a sudden change in workload, such as a large number of new transactions. Call <tt class="docutils literal"><span class="pre">ModifyCurrentDBClusterCapacity</span></tt> to set the capacity explicitly.</p>
+<p>After this call sets the DB cluster capacity, Aurora Serverless can automatically scale the DB cluster based on the cooldown period for scaling up and the cooldown period for scaling down.</p>
+<p>For more information about Aurora Serverless, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html">Using Amazon Aurora Serverless</a> in the <em>Amazon Aurora User Guide</em> .</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you call <tt class="docutils literal"><span class="pre">ModifyCurrentDBClusterCapacity</span></tt> with the default <tt class="docutils literal"><span class="pre">TimeoutAction</span></tt> , connections that prevent Aurora Serverless from finding a scaling point might be dropped. For more information about scaling points, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling">Autoscaling for Aurora Serverless</a> in the <em>Amazon Aurora User Guide</em> .</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This action only applies to Aurora DB clusters.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyCurrentDBClusterCapacity">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  modify-current-db-cluster-capacity
+--db-cluster-identifier &lt;value&gt;
+[--capacity &lt;value&gt;]
+[--seconds-before-timeout &lt;value&gt;]
+[--timeout-action &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--db-cluster-identifier</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The DB cluster identifier for the cluster being modified. This parameter isn't case-sensitive.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>Must match the identifier of an existing DB cluster.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--capacity</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The DB cluster capacity.</p>
+<p>When you change the capacity of a paused Aurora Serverless DB cluster, it automatically resumes.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>For Aurora MySQL, valid capacity values are <tt class="docutils literal"><span class="pre">1</span></tt> , <tt class="docutils literal"><span class="pre">2</span></tt> , <tt class="docutils literal"><span class="pre">4</span></tt> , <tt class="docutils literal"><span class="pre">8</span></tt> , <tt class="docutils literal"><span class="pre">16</span></tt> , <tt class="docutils literal"><span class="pre">32</span></tt> , <tt class="docutils literal"><span class="pre">64</span></tt> , <tt class="docutils literal"><span class="pre">128</span></tt> , and <tt class="docutils literal"><span class="pre">256</span></tt> .</li>
+<li>For Aurora PostgreSQL, valid capacity values are <tt class="docutils literal"><span class="pre">2</span></tt> , <tt class="docutils literal"><span class="pre">4</span></tt> , <tt class="docutils literal"><span class="pre">8</span></tt> , <tt class="docutils literal"><span class="pre">16</span></tt> , <tt class="docutils literal"><span class="pre">32</span></tt> , <tt class="docutils literal"><span class="pre">64</span></tt> , <tt class="docutils literal"><span class="pre">192</span></tt> , and <tt class="docutils literal"><span class="pre">384</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--seconds-before-timeout</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The amount of time, in seconds, that Aurora Serverless tries to find a scaling point to perform seamless scaling before enforcing the timeout action. The default is 300.</p>
+<ul class="simple">
+<li>Value must be from 10 through 600.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--timeout-action</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The action to take when the timeout is reached, either <tt class="docutils literal"><span class="pre">ForceApplyCapacityChange</span></tt> or <tt class="docutils literal"><span class="pre">RollbackCapacityChange</span></tt> .</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">ForceApplyCapacityChange</span></tt> , the default, sets the capacity to the specified value as soon as possible.</p>
+<p><tt class="docutils literal"><span class="pre">RollbackCapacityChange</span></tt> ignores the capacity change if a scaling point isn't found in the timeout period.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DBClusterIdentifier -&gt; (string)</p>
+<blockquote>
+<div>A user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster.</div>
+</blockquote>
+<p>PendingCapacity -&gt; (integer)</p>
+<blockquote>
+<div>A value that specifies the capacity that the DB cluster scales to next.</div>
+</blockquote>
+<p>CurrentCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The current capacity of the DB cluster.</div>
+</blockquote>
+<p>SecondsBeforeTimeout -&gt; (integer)</p>
+<blockquote>
+<div>The number of seconds before a call to <tt class="docutils literal"><span class="pre">ModifyCurrentDBClusterCapacity</span></tt> times out.</div>
+</blockquote>
+<p>TimeoutAction -&gt; (string)</p>
+<blockquote>
+<div>The timeout action of a call to <tt class="docutils literal"><span class="pre">ModifyCurrentDBClusterCapacity</span></tt> , either <tt class="docutils literal"><span class="pre">ForceApplyCapacityChange</span></tt> or <tt class="docutils literal"><span class="pre">RollbackCapacityChange</span></tt> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-cost-forecast — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ce" href="index.html">
+    <link rel="next" title="get-dimension-values" href="get-dimension-values.html">
+    <link rel="prev" title="get-cost-and-usage-with-resources" href="get-cost-and-usage-with-resources.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-cost-forecast">
+<span id="cli-aws-ce-get-cost-forecast"></span><h1>get-cost-forecast<a class="headerlink" href="#get-cost-forecast" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves a forecast for how much Amazon Web Services predicts that you will spend over the forecast time period that you select, based on your past costs.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetCostForecast">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-cost-forecast
+--time-period &lt;value&gt;
+--metric &lt;value&gt;
+--granularity &lt;value&gt;
+[--filter &lt;value&gt;]
+[--prediction-interval-level &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--time-period</span></tt> (structure)</p>
+<blockquote>
+<div>The period of time that you want the forecast to cover.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Start</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">End</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Start"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"End"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--metric</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Which metric Cost Explorer uses to create your forecast. For more information about blended and unblended rates, see <a class="reference external" href="https://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/">Why does the "blended" annotation appear on some line items in my bill?</a> .</p>
+<p>Valid values for a <tt class="docutils literal"><span class="pre">GetCostForecast</span></tt> call are the following:</p>
+<ul class="simple">
+<li>AMORTIZED_COST</li>
+<li>BLENDED_COST</li>
+<li>NET_AMORTIZED_COST</li>
+<li>NET_UNBLENDED_COST</li>
+<li>UNBLENDED_COST</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">BLENDED_COST</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UNBLENDED_COST</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AMORTIZED_COST</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">NET_UNBLENDED_COST</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">NET_AMORTIZED_COST</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">USAGE_QUANTITY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">NORMALIZED_USAGE_AMOUNT</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--granularity</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>How granular you want the forecast to be. You can get 3 months of <tt class="docutils literal"><span class="pre">DAILY</span></tt> forecasts or 12 months of <tt class="docutils literal"><span class="pre">MONTHLY</span></tt> forecasts.</p>
+<p>The <tt class="docutils literal"><span class="pre">GetCostForecast</span></tt> operation supports only <tt class="docutils literal"><span class="pre">DAILY</span></tt> and <tt class="docutils literal"><span class="pre">MONTHLY</span></tt> granularities.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">DAILY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">MONTHLY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HOURLY</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>The filters that you want to use to filter your forecast. Cost Explorer API supports all of the Cost Explorer filters.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "Or": [
+    {
+      "Or": [
+        { ... recursive ... }
+        ...
+      ],
+      "And": [
+        { ... recursive ... }
+        ...
+      ],
+      "Not": { ... recursive ... },
+      "Dimensions": {
+        "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+        "Values": ["string", ...]
+      },
+      "Tags": {
+        "Key": "string",
+        "Values": ["string", ...]
+      },
+      "CostCategories": {
+        "Key": "string",
+        "Values": ["string", ...]
+      }
+    }
+    ...
+  ],
+  "And": [
+    {
+      "Or": [
+        { ... recursive ... }
+        ...
+      ],
+      "And": [
+        { ... recursive ... }
+        ...
+      ],
+      "Not": { ... recursive ... },
+      "Dimensions": {
+        "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+        "Values": ["string", ...]
+      },
+      "Tags": {
+        "Key": "string",
+        "Values": ["string", ...]
+      },
+      "CostCategories": {
+        "Key": "string",
+        "Values": ["string", ...]
+      }
+    }
+    ...
+  ],
+  "Not": {
+    "Or": [
+      { ... recursive ... }
+      ...
+    ],
+    "And": [
+      { ... recursive ... }
+      ...
+    ],
+    "Not": { ... recursive ... },
+    "Dimensions": {
+      "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+      "Values": ["string", ...]
+    },
+    "Tags": {
+      "Key": "string",
+      "Values": ["string", ...]
+    },
+    "CostCategories": {
+      "Key": "string",
+      "Values": ["string", ...]
+    }
+  },
+  "Dimensions": {
+    "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+    "Values": ["string", ...]
+  },
+  "Tags": {
+    "Key": "string",
+    "Values": ["string", ...]
+  },
+  "CostCategories": {
+    "Key": "string",
+    "Values": ["string", ...]
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--prediction-interval-level</span></tt> (integer)</p>
+<blockquote>
+<div>Cost Explorer always returns the mean forecast as a single point. You can request a prediction interval around the mean by specifying a confidence level. The higher the confidence level, the more confident Cost Explorer is about the actual value falling in the prediction interval. Higher confidence levels result in wider prediction intervals.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Total -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>How much you are forecasted to spend over the forecast period, in <tt class="docutils literal"><span class="pre">USD</span></tt> .</p>
+<p>Amount -&gt; (string)</p>
+<blockquote>
+<div>The actual number that represents the metric.</div>
+</blockquote>
+<p>Unit -&gt; (string)</p>
+<blockquote>
+<div>The unit that the metric is given in.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ForecastResultsByTime -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The forecasts for your query, in order. For <tt class="docutils literal"><span class="pre">DAILY</span></tt> forecasts, this is a list of days. For <tt class="docutils literal"><span class="pre">MONTHLY</span></tt> forecasts, this is a list of months.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The forecast created for your query.</p>
+<p>TimePeriod -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The period of time that the forecast covers.</p>
+<p>Start -&gt; (string)</p>
+<blockquote>
+<div>The beginning of the time period that you want the usage and costs for. The start date is inclusive. For example, if <tt class="docutils literal"><span class="pre">start</span></tt> is <tt class="docutils literal"><span class="pre">2017-01-01</span></tt> , AWS retrieves cost and usage data starting at <tt class="docutils literal"><span class="pre">2017-01-01</span></tt> up to the end date.</div>
+</blockquote>
+<p>End -&gt; (string)</p>
+<blockquote>
+<div>The end of the time period that you want the usage and costs for. The end date is exclusive. For example, if <tt class="docutils literal"><span class="pre">end</span></tt> is <tt class="docutils literal"><span class="pre">2017-05-01</span></tt> , AWS retrieves cost and usage data from the start date up to, but not including, <tt class="docutils literal"><span class="pre">2017-05-01</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MeanValue -&gt; (string)</p>
+<blockquote>
+<div>The mean value of the forecast.</div>
+</blockquote>
+<p>PredictionIntervalLowerBound -&gt; (string)</p>
+<blockquote>
+<div>The lower limit for the prediction interval.</div>
+</blockquote>
+<p>PredictionIntervalUpperBound -&gt; (string)</p>
+<blockquote>
+<div>The upper limit for the prediction interval.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

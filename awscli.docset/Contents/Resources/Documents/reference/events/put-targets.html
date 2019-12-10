@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-targets — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="events" href="index.html">
+    <link rel="next" title="remove-permission" href="remove-permission.html">
+    <link rel="prev" title="put-rule" href="put-rule.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-targets">
+<span id="cli-aws-events-put-targets"></span><h1>put-targets<a class="headerlink" href="#put-targets" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds the specified targets to the specified rule, or updates the targets if they're already associated with the rule.</p>
+<p>Targets are the resources that are invoked when a rule is triggered.</p>
+<p>You can configure the following as targets in EventBridge:</p>
+<ul class="simple">
+<li>EC2 instances</li>
+<li>SSM Run Command</li>
+<li>SSM Automation</li>
+<li>AWS Lambda functions</li>
+<li>Data streams in Amazon Kinesis Data Streams</li>
+<li>Data delivery streams in Amazon Kinesis Data Firehose</li>
+<li>Amazon ECS tasks</li>
+<li>AWS Step Functions state machines</li>
+<li>AWS Batch jobs</li>
+<li>AWS CodeBuild projects</li>
+<li>Pipelines in AWS CodePipeline</li>
+<li>Amazon Inspector assessment templates</li>
+<li>Amazon SNS topics</li>
+<li>Amazon SQS queues, including FIFO queues</li>
+<li>The default event bus of another AWS account</li>
+</ul>
+<p>Creating rules with built-in targets is supported only on the AWS Management Console. The built-in targets are <tt class="docutils literal"><span class="pre">EC2</span> <span class="pre">CreateSnapshot</span> <span class="pre">API</span> <span class="pre">call</span></tt> , <tt class="docutils literal"><span class="pre">EC2</span> <span class="pre">RebootInstances</span> <span class="pre">API</span> <span class="pre">call</span></tt> , <tt class="docutils literal"><span class="pre">EC2</span> <span class="pre">StopInstances</span> <span class="pre">API</span> <span class="pre">call</span></tt> , and <tt class="docutils literal"><span class="pre">EC2</span> <span class="pre">TerminateInstances</span> <span class="pre">API</span> <span class="pre">call</span></tt> .</p>
+<p>For some target types, <tt class="docutils literal"><span class="pre">PutTargets</span></tt> provides target-specific parameters. If the target is a Kinesis data stream, you can optionally specify which shard the event goes to by using the <tt class="docutils literal"><span class="pre">KinesisParameters</span></tt> argument. To invoke a command on multiple EC2 instances with one rule, you can use the <tt class="docutils literal"><span class="pre">RunCommandParameters</span></tt> field.</p>
+<p>To be able to make API calls against the resources that you own, Amazon EventBridge needs the appropriate permissions. For AWS Lambda and Amazon SNS resources, EventBridge relies on resource-based policies. For EC2 instances, Kinesis data streams, and AWS Step Functions state machines, EventBridge relies on IAM roles that you specify in the <tt class="docutils literal"><span class="pre">RoleARN</span></tt> argument in <tt class="docutils literal"><span class="pre">PutTargets</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html">Authentication and Access Control</a> in the <em>Amazon EventBridge User Guide</em> .</p>
+<p>If another AWS account is in the same Region and has granted you permission (using <tt class="docutils literal"><span class="pre">PutPermission</span></tt> ), you can send events to that account. Set that account's event bus as a target of the rules in your account. To send the matched events to the other account, specify that account's event bus as the <tt class="docutils literal"><span class="pre">Arn</span></tt> value when you run <tt class="docutils literal"><span class="pre">PutTargets</span></tt> . If your account sends events to another account, your account is charged for each sent event. Each event sent to another account is charged as a custom event. The account receiving the event isn't charged. For more information, see <a class="reference external" href="https://aws.amazon.com/eventbridge/pricing/">Amazon EventBridge Pricing</a> .</p>
+<p>If you're setting an event bus in another account as the target and that account granted permission to your account through an organization instead of directly by the account ID, you must specify a <tt class="docutils literal"><span class="pre">RoleArn</span></tt> with proper permissions in the <tt class="docutils literal"><span class="pre">Target</span></tt> structure. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html">Sending and Receiving Events Between AWS Accounts</a> in the <em>Amazon EventBridge User Guide</em> .</p>
+<p>For more information about enabling cross-account events, see  PutPermission .</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">Input</span></tt> , <tt class="docutils literal"><span class="pre">InputPath</span></tt> , and <tt class="docutils literal"><span class="pre">InputTransformer</span></tt> are mutually exclusive and optional parameters of a target. When a rule is triggered due to a matched event:</div>
+</blockquote>
+<ul class="simple">
+<li>If none of the following arguments are specified for a target, the entire event is passed to the target in JSON format (unless the target is Amazon EC2 Run Command or Amazon ECS task, in which case nothing from the event is passed to the target).</li>
+<li>If <tt class="docutils literal"><span class="pre">Input</span></tt> is specified in the form of valid JSON, then the matched event is overridden with this constant.</li>
+<li>If <tt class="docutils literal"><span class="pre">InputPath</span></tt> is specified in the form of JSONPath (for example, <tt class="docutils literal"><span class="pre">$.detail</span></tt> ), only the part of the event specified in the path is passed to the target (for example, only the detail part of the event is passed).</li>
+<li>If <tt class="docutils literal"><span class="pre">InputTransformer</span></tt> is specified, one or more specified JSONPaths are extracted from the event and used as values in a template that you specify as the input to the target.</li>
+</ul>
+<p>When you specify <tt class="docutils literal"><span class="pre">InputPath</span></tt> or <tt class="docutils literal"><span class="pre">InputTransformer</span></tt> , you must use JSON dot notation, not bracket notation.</p>
+<p>When you add targets to a rule and the associated rule triggers soon after, new or updated targets might not be immediately invoked. Allow a short period of time for changes to take effect.</p>
+<p>This action can partially fail if too many requests are made at the same time. If that happens, <tt class="docutils literal"><span class="pre">FailedEntryCount</span></tt> is nonzero in the response, and each entry in <tt class="docutils literal"><span class="pre">FailedEntries</span></tt> provides the ID of the failed target and the error code.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/eventbridge-2015-10-07/PutTargets">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-targets
+--rule &lt;value&gt;
+[--event-bus-name &lt;value&gt;]
+--targets &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--rule</span></tt> (string)</p>
+<blockquote>
+<div>The name of the rule.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--event-bus-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the event bus associated with the rule. If you omit this, the default event bus is used.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--targets</span></tt> (list)</p>
+<blockquote>
+<div>The targets to update or add to the rule.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Id": "string",
+    "Arn": "string",
+    "RoleArn": "string",
+    "Input": "string",
+    "InputPath": "string",
+    "InputTransformer": {
+      "InputPathsMap": {"string": "string"
+        ...},
+      "InputTemplate": "string"
+    },
+    "KinesisParameters": {
+      "PartitionKeyPath": "string"
+    },
+    "RunCommandParameters": {
+      "RunCommandTargets": [
+        {
+          "Key": "string",
+          "Values": ["string", ...]
+        }
+        ...
+      ]
+    },
+    "EcsParameters": {
+      "TaskDefinitionArn": "string",
+      "TaskCount": integer,
+      "LaunchType": "EC2"|"FARGATE",
+      "NetworkConfiguration": {
+        "awsvpcConfiguration": {
+          "Subnets": ["string", ...],
+          "SecurityGroups": ["string", ...],
+          "AssignPublicIp": "ENABLED"|"DISABLED"
+        }
+      },
+      "PlatformVersion": "string",
+      "Group": "string"
+    },
+    "BatchParameters": {
+      "JobDefinition": "string",
+      "JobName": "string",
+      "ArrayProperties": {
+        "Size": integer
+      },
+      "RetryStrategy": {
+        "Attempts": integer
+      }
+    },
+    "SqsParameters": {
+      "MessageGroupId": "string"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To add targets for CloudWatch Events rules</strong></p>
+<p>This example adds a Lambda function as the target of a rule:</p>
+<div class="highlight-python">
+<pre>aws events put-targets --rule DailyLambdaFunction --targets "Id"="1","Arn"="arn:aws:lambda:us-east-1:123456789012:function:MyFunctionName"</pre>
+</div>
+<p>This example sets an Amazon Kinesis stream as the target, so that events caught by this rule are relayed to the stream:</p>
+<div class="highlight-python">
+<pre>aws events put-targets --rule EC2InstanceStateChanges --targets "Id"="1","Arn"="arn:aws:kinesis:us-east-1:123456789012:stream/MyStream","RoleArn"="arn:aws:iam::123456789012:role/MyRoleForThisRule"</pre>
+</div>
+<p>This example sets two Amazon Kinesis streams as targets for one rule:</p>
+<div class="highlight-python">
+<pre>aws events put-targets --rule DailyLambdaFunction --targets "Id"="Target1","Arn"="arn:aws:kinesis:us-east-1:379642911888:stream/MyStream1","RoleArn"="arn:aws:iam::379642911888:role/ MyRoleToAccessLambda"  "Id"="Target2"," Arn"="arn:aws:kinesis:us-east-1:379642911888:stream/MyStream2","RoleArn"="arn:aws:iam::379642911888:role/MyRoleToAccessLambda"</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FailedEntryCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of failed entries.</div>
+</blockquote>
+<p>FailedEntries -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The failed target entries.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a target that failed to be added to a rule.</p>
+<p>TargetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the target.</div>
+</blockquote>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The error code that indicates why the target addition failed. If the value is <tt class="docutils literal"><span class="pre">ConcurrentModificationException</span></tt> , too many requests were made at the same time.</div>
+</blockquote>
+<p>ErrorMessage -&gt; (string)</p>
+<blockquote>
+<div>The error message that explains why the target addition failed.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

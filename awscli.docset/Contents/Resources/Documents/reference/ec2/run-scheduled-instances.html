@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>run-scheduled-instances — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="search-local-gateway-routes" href="search-local-gateway-routes.html">
+    <link rel="prev" title="run-instances" href="run-instances.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="run-scheduled-instances">
+<span id="cli-aws-ec2-run-scheduled-instances"></span><h1>run-scheduled-instances<a class="headerlink" href="#run-scheduled-instances" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Launches the specified Scheduled Instances.</p>
+<p>Before you can launch a Scheduled Instance, you must purchase it and obtain an identifier using  PurchaseScheduledInstances .</p>
+<p>You must launch a Scheduled Instance during its scheduled time period. You can't stop or reboot a Scheduled Instance, but you can terminate it as needed. If you terminate a Scheduled Instance before the current scheduled time period ends, you can launch it again after a few minutes. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-scheduled-instances.html">Scheduled Instances</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/RunScheduledInstances">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  run-scheduled-instances
+[--client-token &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--instance-count &lt;value&gt;]
+--launch-specification &lt;value&gt;
+--scheduled-instance-id &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that ensures the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-count</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of instances.</p>
+<p>Default: 1</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--launch-specification</span></tt> (structure)</p>
+<blockquote>
+<div>The launch specification. You must match the instance type, Availability Zone, network, and platform of the schedule that you purchased.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "BlockDeviceMappings": [
+    {
+      "DeviceName": "string",
+      "Ebs": {
+        "DeleteOnTermination": true|false,
+        "Encrypted": true|false,
+        "Iops": integer,
+        "SnapshotId": "string",
+        "VolumeSize": integer,
+        "VolumeType": "string"
+      },
+      "NoDevice": "string",
+      "VirtualName": "string"
+    }
+    ...
+  ],
+  "EbsOptimized": true|false,
+  "IamInstanceProfile": {
+    "Arn": "string",
+    "Name": "string"
+  },
+  "ImageId": "string",
+  "InstanceType": "string",
+  "KernelId": "string",
+  "KeyName": "string",
+  "Monitoring": {
+    "Enabled": true|false
+  },
+  "NetworkInterfaces": [
+    {
+      "AssociatePublicIpAddress": true|false,
+      "DeleteOnTermination": true|false,
+      "Description": "string",
+      "DeviceIndex": integer,
+      "Groups": ["string", ...],
+      "Ipv6AddressCount": integer,
+      "Ipv6Addresses": [
+        {
+          "Ipv6Address": "string"
+        }
+        ...
+      ],
+      "NetworkInterfaceId": "string",
+      "PrivateIpAddress": "string",
+      "PrivateIpAddressConfigs": [
+        {
+          "Primary": true|false,
+          "PrivateIpAddress": "string"
+        }
+        ...
+      ],
+      "SecondaryPrivateIpAddressCount": integer,
+      "SubnetId": "string"
+    }
+    ...
+  ],
+  "Placement": {
+    "AvailabilityZone": "string",
+    "GroupName": "string"
+  },
+  "RamdiskId": "string",
+  "SecurityGroupIds": ["string", ...],
+  "SubnetId": "string",
+  "UserData": "string"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--scheduled-instance-id</span></tt> (string)</p>
+<blockquote>
+<div>The Scheduled Instance ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To launch a Scheduled Instance</strong></p>
+<p>This example launches the specified Scheduled Instance in a VPC.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 run-scheduled-instances --scheduled-instance-id sci-1234-1234-1234-1234-123456789012 --instance-count 1 --launch-specification file://launch-specification.json</pre>
+</div>
+<p>Launch-specification.json:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-12345678"</span><span class="p">,</span>
+  <span class="s2">"KeyName"</span><span class="p">:</span> <span class="s2">"my-key-pair"</span><span class="p">,</span>
+  <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"c4.large"</span><span class="p">,</span>
+  <span class="s2">"NetworkInterfaces"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"DeviceIndex"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"SubnetId"</span><span class="p">:</span> <span class="s2">"subnet-12345678"</span><span class="p">,</span>
+        <span class="s2">"AssociatePublicIpAddress"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"Groups"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"sg-12345678"</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"IamInstanceProfile"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"my-iam-role"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InstanceIdSet"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">"i-1234567890abcdef0"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This example launches the specified Scheduled Instance in EC2-Classic.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 run-scheduled-instances --scheduled-instance-id sci-1234-1234-1234-1234-123456789012 --instance-count 1 --launch-specification file://launch-specification.json</pre>
+</div>
+<p>Launch-specification.json:</p>
+<div class="highlight-python">
+<pre>{
+  "ImageId": "ami-12345678",
+  "KeyName": "my-key-pair",
+  "SecurityGroupIds": ["sg-12345678"],
+  "InstanceType": "c4.large",
+  "Placement": {
+    "AvailabilityZone": "us-west-2b"
+  }
+  "IamInstanceProfile": {
+      "Name": "my-iam-role"
+  }
+}</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InstanceIdSet"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">"i-1234567890abcdef0"</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>InstanceIdSet -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of the newly launched instances.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

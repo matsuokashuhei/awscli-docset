@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>start-workflow-execution — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="swf" href="index.html">
+    <link rel="next" title="tag-resource" href="tag-resource.html">
+    <link rel="prev" title="signal-workflow-execution" href="signal-workflow-execution.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="start-workflow-execution">
+<span id="cli-aws-swf-start-workflow-execution"></span><h1>start-workflow-execution<a class="headerlink" href="#start-workflow-execution" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Starts an execution of the workflow type in the specified domain using the provided <tt class="docutils literal"><span class="pre">workflowId</span></tt> and input data.</p>
+<p>This action returns the newly started workflow execution.</p>
+<blockquote>
+<div><strong>Access Control</strong></div>
+</blockquote>
+<p>You can use IAM policies to control this action's access to Amazon SWF resources as follows:</p>
+<ul class="simple">
+<li>Use a <tt class="docutils literal"><span class="pre">Resource</span></tt> element with the domain name to limit the action to only specified domains.</li>
+<li>Use an <tt class="docutils literal"><span class="pre">Action</span></tt> element to allow or deny permission to call this action.</li>
+<li>Constrain the following parameters by using a <tt class="docutils literal"><span class="pre">Condition</span></tt> element with the appropriate keys.<ul>
+<li>
+<tt class="docutils literal"><span class="pre">tagList.member.0</span></tt> : The key is <tt class="docutils literal"><span class="pre">swf:tagList.member.0</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">tagList.member.1</span></tt> : The key is <tt class="docutils literal"><span class="pre">swf:tagList.member.1</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">tagList.member.2</span></tt> : The key is <tt class="docutils literal"><span class="pre">swf:tagList.member.2</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">tagList.member.3</span></tt> : The key is <tt class="docutils literal"><span class="pre">swf:tagList.member.3</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">tagList.member.4</span></tt> : The key is <tt class="docutils literal"><span class="pre">swf:tagList.member.4</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">taskList</span></tt> : String constraint. The key is <tt class="docutils literal"><span class="pre">swf:taskList.name</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">workflowType.name</span></tt> : String constraint. The key is <tt class="docutils literal"><span class="pre">swf:workflowType.name</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">workflowType.version</span></tt> : String constraint. The key is <tt class="docutils literal"><span class="pre">swf:workflowType.version</span></tt> .</li>
+</ul>
+</li>
+</ul>
+<p>If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's <tt class="docutils literal"><span class="pre">cause</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">OPERATION_NOT_PERMITTED</span></tt> . For details and example IAM policies, see <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to Amazon SWF Workflows</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/StartWorkflowExecution">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  start-workflow-execution
+--domain &lt;value&gt;
+--workflow-id &lt;value&gt;
+--workflow-type &lt;value&gt;
+[--task-list &lt;value&gt;]
+[--task-priority &lt;value&gt;]
+[--input &lt;value&gt;]
+[--execution-start-to-close-timeout &lt;value&gt;]
+[--tag-list &lt;value&gt;]
+[--task-start-to-close-timeout &lt;value&gt;]
+[--child-policy &lt;value&gt;]
+[--lambda-role &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--domain</span></tt> (string)</p>
+<blockquote>
+<div>The name of the domain in which the workflow execution is created.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--workflow-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The user defined identifier associated with the workflow execution. You can use this to associate a custom identifier with the workflow execution. You may specify the same identifier if a workflow execution is logically a <em>restart</em> of a previous execution. You cannot have two open workflow executions with the same <tt class="docutils literal"><span class="pre">workflowId</span></tt> at the same time within the same domain.</p>
+<p>The specified string must not start or end with whitespace. It must not contain a <tt class="docutils literal"><span class="pre">:</span></tt> (colon), <tt class="docutils literal"><span class="pre">/</span></tt> (slash), <tt class="docutils literal"><span class="pre">|</span></tt> (vertical bar), or any control characters (<tt class="docutils literal"><span class="pre">\u0000-\u001f</span></tt> | <tt class="docutils literal"><span class="pre">\u007f-\u009f</span></tt> ). Also, it must not <em>be</em> the literal string <tt class="docutils literal"><span class="pre">arn</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--workflow-type</span></tt> (structure)</p>
+<blockquote>
+<div>The type of the workflow to start.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">version</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-list</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The task list to use for the decision tasks generated for this workflow execution. This overrides the <tt class="docutils literal"><span class="pre">defaultTaskList</span></tt> specified when registering the workflow type.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A task list for this workflow execution must be specified either as a default for the workflow type or through this parameter. If neither this parameter is set nor a default task list was specified at registration time then a fault is returned.</p>
+</div>
+<p>The specified string must not start or end with whitespace. It must not contain a <tt class="docutils literal"><span class="pre">:</span></tt> (colon), <tt class="docutils literal"><span class="pre">/</span></tt> (slash), <tt class="docutils literal"><span class="pre">|</span></tt> (vertical bar), or any control characters (<tt class="docutils literal"><span class="pre">\u0000-\u001f</span></tt> | <tt class="docutils literal"><span class="pre">\u007f-\u009f</span></tt> ). Also, it must not <em>be</em> the literal string <tt class="docutils literal"><span class="pre">arn</span></tt> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">name</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-priority</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The task priority to use for this workflow execution. This overrides any default priority that was assigned when the workflow type was registered. If not set, then the default task priority for the workflow type is used. Valid values are integers that range from Java's <tt class="docutils literal"><span class="pre">Integer.MIN_VALUE</span></tt> (-2147483648) to <tt class="docutils literal"><span class="pre">Integer.MAX_VALUE</span></tt> (2147483647). Higher numbers indicate higher priority.</p>
+<p>For more information about setting task priority, see <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html">Setting Task Priority</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--input</span></tt> (string)</p>
+<blockquote>
+<div>The input for the workflow execution. This is a free form string which should be meaningful to the workflow you are starting. This <tt class="docutils literal"><span class="pre">input</span></tt> is made available to the new workflow execution in the <tt class="docutils literal"><span class="pre">WorkflowExecutionStarted</span></tt> history event.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--execution-start-to-close-timeout</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The total duration for this workflow execution. This overrides the defaultExecutionStartToCloseTimeout specified when registering the workflow type.</p>
+<p>The duration is specified in seconds; an integer greater than or equal to <tt class="docutils literal"><span class="pre">0</span></tt> . Exceeding this limit causes the workflow execution to time out. Unlike some of the other timeout parameters in Amazon SWF, you cannot specify a value of "NONE" for this timeout; there is a one-year max limit on the time that a workflow execution can run.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">An execution start-to-close timeout must be specified either through this parameter or as a default when the workflow type is registered. If neither this parameter nor a default execution start-to-close timeout is specified, a fault is returned.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tag-list</span></tt> (list)</p>
+<blockquote>
+<div>The list of tags to associate with the workflow execution. You can specify a maximum of 5 tags. You can list workflow executions with a specific tag by calling  ListOpenWorkflowExecutions or  ListClosedWorkflowExecutions and specifying a  TagFilter .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-start-to-close-timeout</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the maximum duration of decision tasks for this workflow execution. This parameter overrides the <tt class="docutils literal"><span class="pre">defaultTaskStartToCloseTimout</span></tt> specified when registering the workflow type using  RegisterWorkflowType .</p>
+<p>The duration is specified in seconds, an integer greater than or equal to <tt class="docutils literal"><span class="pre">0</span></tt> . You can use <tt class="docutils literal"><span class="pre">NONE</span></tt> to specify unlimited duration.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A task start-to-close timeout for this workflow execution must be specified either as a default for the workflow type or through this parameter. If neither this parameter is set nor a default task start-to-close timeout was specified at registration time then a fault is returned.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--child-policy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>If set, specifies the policy to use for the child workflow executions of this workflow execution if it is terminated, by calling the  TerminateWorkflowExecution action explicitly or due to an expired timeout. This policy overrides the default child policy specified when registering the workflow type using  RegisterWorkflowType .</p>
+<p>The supported child policies are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">TERMINATE</span></tt> – The child executions are terminated.</li>
+<li>
+<tt class="docutils literal"><span class="pre">REQUEST_CANCEL</span></tt> – A request to cancel is attempted for each child execution by recording a <tt class="docutils literal"><span class="pre">WorkflowExecutionCancelRequested</span></tt> event in its history. It is up to the decider to take appropriate actions when it receives an execution history with this event.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ABANDON</span></tt> – No action is taken. The child executions continue to run.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A child policy for this workflow execution must be specified either as a default for the workflow type or through this parameter. If neither this parameter is set nor a default child policy was specified at registration time then a fault is returned.</p>
+</div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">TERMINATE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REQUEST_CANCEL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ABANDON</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--lambda-role</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The IAM role to attach to this workflow execution.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Executions of this workflow type need IAM roles to invoke Lambda functions. If you don't attach an IAM role, any attempt to schedule a Lambda task fails. This results in a <tt class="docutils literal"><span class="pre">ScheduleLambdaFunctionFailed</span></tt> history event. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html">https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>runId -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">runId</span></tt> of a workflow execution. This ID is generated by the service and can be used to uniquely identify the workflow execution within a domain.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

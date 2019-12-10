@@ -1,0 +1,688 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>detect-faces — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="detect-labels" href="detect-labels.html">
+    <link rel="prev" title="detect-custom-labels" href="detect-custom-labels.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="detect-faces">
+<span id="cli-aws-rekognition-detect-faces"></span><h1>detect-faces<a class="headerlink" href="#detect-faces" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Detects faces within an image that is provided as input.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">DetectFaces</span></tt> detects the 100 largest faces in the image. For each face detected, the operation returns face details. These details include a bounding box of the face, a confidence value (that the bounding box contains a face), and a fixed set of attributes such as facial landmarks (for example, coordinates of eye and mouth), presence of beard, sunglasses, and so on.</div>
+</blockquote>
+<p>The face-detection algorithm is most effective on frontal faces. For non-frontal or obscured faces, the algorithm might not detect the faces or might detect faces with lower confidence.</p>
+<p>You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If you use the to call Amazon Rekognition operations, passing image bytes is not supported. The image must be either a PNG or JPEG formatted file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is a stateless API operation. That is, the operation does not persist any data.</p>
+</div>
+<p>This operation requires permissions to perform the <tt class="docutils literal"><span class="pre">rekognition:DetectFaces</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/DetectFaces">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  detect-faces
+[--image &lt;value&gt;]
+[--attributes &lt;value&gt;]
+[--image-bytes &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--image</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.</p>
+<p>If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the <tt class="docutils literal"><span class="pre">Bytes</span></tt> field. For more information, see Images in the Amazon Rekognition developer guide.</p>
+<p>To specify a local file use <tt class="docutils literal"><span class="pre">--image-bytes</span></tt> instead.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Bytes=blob,S3Object={Bucket=string,Name=string,Version=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bytes"</span><span class="p">:</span> <span class="n">blob</span><span class="p">,</span>
+  <span class="s2">"S3Object"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--attributes</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>An array of facial attributes you want to be returned. This can be the default list of attributes or all attributes. If you don't specify a value for <tt class="docutils literal"><span class="pre">Attributes</span></tt> or if you specify <tt class="docutils literal"><span class="pre">["DEFAULT"]</span></tt> , the API returns the following subset of facial attributes: <tt class="docutils literal"><span class="pre">BoundingBox</span></tt> , <tt class="docutils literal"><span class="pre">Confidence</span></tt> , <tt class="docutils literal"><span class="pre">Pose</span></tt> , <tt class="docutils literal"><span class="pre">Quality</span></tt> , and <tt class="docutils literal"><span class="pre">Landmarks</span></tt> . If you provide <tt class="docutils literal"><span class="pre">["ALL"]</span></tt> , all facial attributes are returned, but the operation takes longer to complete.</p>
+<p>If you provide both, <tt class="docutils literal"><span class="pre">["ALL",</span> <span class="pre">"DEFAULT"]</span></tt> , the service uses a logical AND operator to determine which attributes to return (in this case, all attributes).</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  DEFAULT
+  ALL</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--image-bytes</span></tt> (blob)</p>
+<blockquote>
+<div>The content of the image to be uploaded. To specify the content of a local file use the fileb:// prefix. Example: fileb://image.png</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To detect faces in an image</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">detect-faces</span></tt> command detects faces in the specified image stored in an Amazon S3 bucket.:</p>
+<div class="highlight-python">
+<pre>aws rekognition detect-faces \
+    --image '{"S3Object":{"MyImageS3Bucket":"bucket","Name":"MyFriend.jpg"}}' \
+    --attributes "ALL"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"FaceDetails"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">100.0</span><span class="p">,</span>
+            <span class="s2">"Eyeglasses"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">98.91107940673828</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">false</span>
+            <span class="p">},</span>
+            <span class="s2">"Sunglasses"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">99.7966537475586</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">false</span>
+            <span class="p">},</span>
+            <span class="s2">"Gender"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">99.56611633300781</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Male"</span>
+            <span class="p">},</span>
+            <span class="s2">"Landmarks"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26721030473709106</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6204193830490112</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26831310987472534</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6776827573776245</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3514654338359833</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6241428852081299</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.35258132219314575</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6713621020317078</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3140771687030792</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6428444981575012</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"nose"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.24662546813488007</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6001564860343933</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeBrowLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.24326619505882263</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6303644776344299</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeBrowRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.23818562924861908</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6146903038024902</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeBrowUp"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.24373626708984375</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6640064716339111</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeBrowLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.24877218902111053</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.7025929093360901</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeBrowRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.23938551545143127</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6823262572288513</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeBrowUp"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.265746533870697</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6112898588180542</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.2676128149032593</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6317071914672852</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.262735515832901</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6201658248901367</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeUp"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.27025148272514343</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6206279993057251</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftEyeDown"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.268223375082016</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6658390760421753</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.2672517001628876</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.687832236289978</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26383838057518005</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6769183874130249</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeUp"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.27138751745224</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.676596462726593</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightEyeDown"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.32283174991607666</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6350004076957703</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"noseLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3219289481639862</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6567046642303467</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"noseRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3420318365097046</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6450609564781189</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthUp"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3664324879646301</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6455618143081665</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthDown"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26721030473709106</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6204193830490112</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"leftPupil"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26831310987472534</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6776827573776245</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"rightPupil"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26343393325805664</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.5946047306060791</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"upperJawlineLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3543180525302887</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6044883728027344</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"midJawlineLeft"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.4084877669811249</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6477024555206299</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"chinBottom"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3562754988670349</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.707981526851654</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"midJawlineRight"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.26580461859703064</span><span class="p">,</span>
+                    <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.7234612107276917</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"upperJawlineRight"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"Pose"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Yaw"</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.7351467609405518</span><span class="p">,</span>
+                <span class="s2">"Roll"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.10309021919965744</span><span class="p">,</span>
+                <span class="s2">"Pitch"</span><span class="p">:</span> <span class="mf">0.8637830018997192</span>
+            <span class="p">},</span>
+            <span class="s2">"Emotions"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">8.74203109741211</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"SURPRISED"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">2.501944065093994</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"ANGRY"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">0.7378743290901184</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"DISGUSTED"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">3.5296201705932617</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"HAPPY"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">1.7162904739379883</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"SAD"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">9.518536567687988</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"CONFUSED"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">0.45474427938461304</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"FEAR"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">72.79895782470703</span><span class="p">,</span>
+                    <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"CALM"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"AgeRange"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"High"</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+                <span class="s2">"Low"</span><span class="p">:</span> <span class="mi">32</span>
+            <span class="p">},</span>
+            <span class="s2">"EyesOpen"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">98.93987274169922</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">true</span>
+            <span class="p">},</span>
+            <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.12368916720151901</span><span class="p">,</span>
+                <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.16007372736930847</span><span class="p">,</span>
+                <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.5901257991790771</span><span class="p">,</span>
+                <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.25140416622161865</span>
+            <span class="p">},</span>
+            <span class="s2">"Smile"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">93.4493179321289</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">false</span>
+            <span class="p">},</span>
+            <span class="s2">"MouthOpen"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">90.53053283691406</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">false</span>
+            <span class="p">},</span>
+            <span class="s2">"Quality"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Sharpness"</span><span class="p">:</span> <span class="mf">95.51618957519531</span><span class="p">,</span>
+                <span class="s2">"Brightness"</span><span class="p">:</span> <span class="mf">65.29893493652344</span>
+            <span class="p">},</span>
+            <span class="s2">"Mustache"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">89.85221099853516</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">false</span>
+            <span class="p">},</span>
+            <span class="s2">"Beard"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">86.1991195678711</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="n">true</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/faces-detect-images.html">Detecting Faces in an Image</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FaceDetails -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Details of each face found in the image.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Structure containing attributes of the face that the algorithm detected.</p>
+<p>A <tt class="docutils literal"><span class="pre">FaceDetail</span></tt> object contains either the default facial attributes or all facial attributes. The default attributes are <tt class="docutils literal"><span class="pre">BoundingBox</span></tt> , <tt class="docutils literal"><span class="pre">Confidence</span></tt> , <tt class="docutils literal"><span class="pre">Landmarks</span></tt> , <tt class="docutils literal"><span class="pre">Pose</span></tt> , and <tt class="docutils literal"><span class="pre">Quality</span></tt> .</p>
+<blockquote>
+<div>GetFaceDetection is the only Amazon Rekognition Video stored video operation that can return a <tt class="docutils literal"><span class="pre">FaceDetail</span></tt> object with all attributes. To specify which attributes to return, use the <tt class="docutils literal"><span class="pre">FaceAttributes</span></tt> input parameter for  StartFaceDetection . The following Amazon Rekognition Video operations return only the default attributes. The corresponding Start operations don't have a <tt class="docutils literal"><span class="pre">FaceAttributes</span></tt> input parameter.</div>
+</blockquote>
+<ul class="simple">
+<li>GetCelebrityRecognition</li>
+<li>GetPersonTracking</li>
+<li>GetFaceSearch</li>
+</ul>
+<p>The Amazon Rekognition Image  DetectFaces and  IndexFaces operations can return all facial attributes. To specify which attributes to return, use the <tt class="docutils literal"><span class="pre">Attributes</span></tt> input parameter for <tt class="docutils literal"><span class="pre">DetectFaces</span></tt> . For <tt class="docutils literal"><span class="pre">IndexFaces</span></tt> , use the <tt class="docutils literal"><span class="pre">DetectAttributes</span></tt> input parameter.</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box of the face. Default attribute.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AgeRange -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The estimated age range, in years, for the face. Low represents the lowest estimated age and High represents the highest estimated age.</p>
+<p>Low -&gt; (integer)</p>
+<blockquote>
+<div>The lowest estimated age.</div>
+</blockquote>
+<p>High -&gt; (integer)</p>
+<blockquote>
+<div>The highest estimated age.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Smile -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is smiling, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is smiling or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Eyeglasses -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is wearing eye glasses, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is wearing eye glasses or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Sunglasses -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is wearing sunglasses, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is wearing sunglasses or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Gender -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The predicted gender of a detected face.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The predicted gender of the face.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the prediction.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Beard -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face has a beard, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face has beard or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Mustache -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face has a mustache, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face has mustache or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EyesOpen -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the eyes on the face are open, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the eyes on the face are open.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MouthOpen -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the mouth on the face is open, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the mouth on the face is open or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Emotions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of emotion detected.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Landmarks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Indicates the location of landmarks on the face. Default attribute.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Indicates the location of the landmark on the face.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of landmark.</div>
+</blockquote>
+<p>X -&gt; (float)</p>
+<blockquote>
+<div>The x-coordinate from the top left of the landmark expressed as the ratio of the width of the image. For example, if the image is 700 x 200 and the x-coordinate of the landmark is at 350 pixels, this value is 0.5.</div>
+</blockquote>
+<p>Y -&gt; (float)</p>
+<blockquote>
+<div>The y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the image is 700 x 200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Pose -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates the pose of the face as determined by its pitch, roll, and yaw. Default attribute.</p>
+<p>Roll -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the roll axis.</div>
+</blockquote>
+<p>Yaw -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the yaw axis.</div>
+</blockquote>
+<p>Pitch -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the pitch axis.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Quality -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies image brightness and sharpness. Default attribute.</p>
+<p>Brightness -&gt; (float)</p>
+<blockquote>
+<div>Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a brighter face image.</div>
+</blockquote>
+<p>Sharpness -&gt; (float)</p>
+<blockquote>
+<div>Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a sharper face image.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Confidence level that the bounding box contains a face (and not a different object such as a tree). Default attribute.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OrientationCorrection -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of <tt class="docutils literal"><span class="pre">OrientationCorrection</span></tt> is always null.</p>
+<p>If the input image is in .jpeg format, it might contain exchangeable image file format (Exif) metadata that includes the image's orientation. Amazon Rekognition uses this orientation information to perform image correction. The bounding box coordinates are translated to represent object locations after the orientation information in the Exif metadata is used to correct the image orientation. Images in .png format don't contain Exif metadata.</p>
+<p>Amazon Rekognition doesn’t perform image correction for images in .png format and .jpeg images without orientation information in the image Exif metadata. The bounding box coordinates aren't translated and represent the object locations before the image is rotated.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

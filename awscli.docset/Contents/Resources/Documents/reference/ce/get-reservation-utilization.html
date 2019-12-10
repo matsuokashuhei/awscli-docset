@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-reservation-utilization — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ce" href="index.html">
+    <link rel="next" title="get-rightsizing-recommendation" href="get-rightsizing-recommendation.html">
+    <link rel="prev" title="get-reservation-purchase-recommendation" href="get-reservation-purchase-recommendation.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-reservation-utilization">
+<span id="cli-aws-ce-get-reservation-utilization"></span><h1>get-reservation-utilization<a class="headerlink" href="#get-reservation-utilization" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves the reservation utilization for your account. Master accounts in an organization have access to member accounts. You can filter data by dimensions in a time period. You can use <tt class="docutils literal"><span class="pre">GetDimensionValues</span></tt> to determine the possible dimension values. Currently, you can group only by <tt class="docutils literal"><span class="pre">SUBSCRIPTION_ID</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ce-2017-10-25/GetReservationUtilization">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-reservation-utilization
+--time-period &lt;value&gt;
+[--group-by &lt;value&gt;]
+[--granularity &lt;value&gt;]
+[--filter &lt;value&gt;]
+[--next-page-token &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--time-period</span></tt> (structure)</p>
+<blockquote>
+<div>Sets the start and end dates for retrieving RI utilization. The start date is inclusive, but the end date is exclusive. For example, if <tt class="docutils literal"><span class="pre">start</span></tt> is <tt class="docutils literal"><span class="pre">2017-01-01</span></tt> and <tt class="docutils literal"><span class="pre">end</span></tt> is <tt class="docutils literal"><span class="pre">2017-05-01</span></tt> , then the cost and usage data is retrieved from <tt class="docutils literal"><span class="pre">2017-01-01</span></tt> up to and including <tt class="docutils literal"><span class="pre">2017-04-30</span></tt> but not including <tt class="docutils literal"><span class="pre">2017-05-01</span></tt> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Start</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">End</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Start"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"End"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--group-by</span></tt> (list)</p>
+<blockquote>
+<div>Groups only by <tt class="docutils literal"><span class="pre">SUBSCRIPTION_ID</span></tt> . Metadata is included.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Type=string,Key=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Type": "DIMENSION"|"TAG"|"COST_CATEGORY",
+    "Key": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--granularity</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>If <tt class="docutils literal"><span class="pre">GroupBy</span></tt> is set, <tt class="docutils literal"><span class="pre">Granularity</span></tt> can't be set. If <tt class="docutils literal"><span class="pre">Granularity</span></tt> isn't set, the response object doesn't include <tt class="docutils literal"><span class="pre">Granularity</span></tt> , either <tt class="docutils literal"><span class="pre">MONTHLY</span></tt> or <tt class="docutils literal"><span class="pre">DAILY</span></tt> . If both <tt class="docutils literal"><span class="pre">GroupBy</span></tt> and <tt class="docutils literal"><span class="pre">Granularity</span></tt> aren't set, <tt class="docutils literal"><span class="pre">GetReservationUtilization</span></tt> defaults to <tt class="docutils literal"><span class="pre">DAILY</span></tt> .</p>
+<p>The <tt class="docutils literal"><span class="pre">GetReservationUtilization</span></tt> operation supports only <tt class="docutils literal"><span class="pre">DAILY</span></tt> and <tt class="docutils literal"><span class="pre">MONTHLY</span></tt> granularities.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">DAILY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">MONTHLY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HOURLY</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Filters utilization data by dimensions. You can filter by the following dimensions:</p>
+<ul class="simple">
+<li>AZ</li>
+<li>CACHE_ENGINE</li>
+<li>DATABASE_ENGINE</li>
+<li>DEPLOYMENT_OPTION</li>
+<li>INSTANCE_TYPE</li>
+<li>LINKED_ACCOUNT</li>
+<li>OPERATING_SYSTEM</li>
+<li>PLATFORM</li>
+<li>REGION</li>
+<li>SERVICE</li>
+<li>SCOPE</li>
+<li>TENANCY</li>
+</ul>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetReservationUtilization</span></tt> uses the same <a class="reference external" href="http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html">Expression</a> object as the other operations, but only <tt class="docutils literal"><span class="pre">AND</span></tt> is supported among each dimension, and nesting is supported up to only one level deep. If there are multiple values for a dimension, they are OR'd together.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "Or": [
+    {
+      "Or": [
+        { ... recursive ... }
+        ...
+      ],
+      "And": [
+        { ... recursive ... }
+        ...
+      ],
+      "Not": { ... recursive ... },
+      "Dimensions": {
+        "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+        "Values": ["string", ...]
+      },
+      "Tags": {
+        "Key": "string",
+        "Values": ["string", ...]
+      },
+      "CostCategories": {
+        "Key": "string",
+        "Values": ["string", ...]
+      }
+    }
+    ...
+  ],
+  "And": [
+    {
+      "Or": [
+        { ... recursive ... }
+        ...
+      ],
+      "And": [
+        { ... recursive ... }
+        ...
+      ],
+      "Not": { ... recursive ... },
+      "Dimensions": {
+        "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+        "Values": ["string", ...]
+      },
+      "Tags": {
+        "Key": "string",
+        "Values": ["string", ...]
+      },
+      "CostCategories": {
+        "Key": "string",
+        "Values": ["string", ...]
+      }
+    }
+    ...
+  ],
+  "Not": {
+    "Or": [
+      { ... recursive ... }
+      ...
+    ],
+    "And": [
+      { ... recursive ... }
+      ...
+    ],
+    "Not": { ... recursive ... },
+    "Dimensions": {
+      "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+      "Values": ["string", ...]
+    },
+    "Tags": {
+      "Key": "string",
+      "Values": ["string", ...]
+    },
+    "CostCategories": {
+      "Key": "string",
+      "Values": ["string", ...]
+    }
+  },
+  "Dimensions": {
+    "Key": "AZ"|"INSTANCE_TYPE"|"LINKED_ACCOUNT"|"OPERATION"|"PURCHASE_TYPE"|"REGION"|"SERVICE"|"USAGE_TYPE"|"USAGE_TYPE_GROUP"|"RECORD_TYPE"|"OPERATING_SYSTEM"|"TENANCY"|"SCOPE"|"PLATFORM"|"SUBSCRIPTION_ID"|"LEGAL_ENTITY_NAME"|"DEPLOYMENT_OPTION"|"DATABASE_ENGINE"|"CACHE_ENGINE"|"INSTANCE_TYPE_FAMILY"|"BILLING_ENTITY"|"RESERVATION_ID"|"RESOURCE_ID"|"RIGHTSIZING_TYPE"|"SAVINGS_PLANS_TYPE"|"SAVINGS_PLAN_ARN"|"PAYMENT_OPTION",
+    "Values": ["string", ...]
+  },
+  "Tags": {
+    "Key": "string",
+    "Values": ["string", ...]
+  },
+  "CostCategories": {
+    "Key": "string",
+    "Values": ["string", ...]
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--next-page-token</span></tt> (string)</p>
+<blockquote>
+<div>The token to retrieve the next set of results. AWS provides the token when the response from a previous call has more results than the maximum page size.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve the reservation utilization for your account</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-reservation-utilization</span></tt> example retrieves the RI utilization for all t2.nano instance types from 2018-03-01 to 2018-08-01 for the account.</p>
+<div class="highlight-python">
+<pre>aws ce get-reservation-utilization \
+    --time-period Start=2018-03-01,End=2018-08-01 \
+    --filter file://filters.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">filters.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Dimensions"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"INSTANCE_TYPE"</span><span class="p">,</span>
+        <span class="s2">"Values"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"t2.nano"</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Total"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"TotalAmortizedFee"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"UtilizationPercentage"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"PurchasedHours"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"NetRISavings"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"TotalActualHours"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"AmortizedRecurringFee"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"UnusedHours"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"TotalPotentialRISavings"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"OnDemandCostOfRIHoursUsed"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"AmortizedUpfrontFee"</span><span class="p">:</span> <span class="s2">"0"</span>
+    <span class="p">},</span>
+    <span class="s2">"UtilizationsByTime"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>UtilizationsByTime -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The amount of time that you used your RIs.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The amount of utilization, in hours.</p>
+<p>TimePeriod -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The period of time that this utilization was used for.</p>
+<p>Start -&gt; (string)</p>
+<blockquote>
+<div>The beginning of the time period that you want the usage and costs for. The start date is inclusive. For example, if <tt class="docutils literal"><span class="pre">start</span></tt> is <tt class="docutils literal"><span class="pre">2017-01-01</span></tt> , AWS retrieves cost and usage data starting at <tt class="docutils literal"><span class="pre">2017-01-01</span></tt> up to the end date.</div>
+</blockquote>
+<p>End -&gt; (string)</p>
+<blockquote>
+<div>The end of the time period that you want the usage and costs for. The end date is exclusive. For example, if <tt class="docutils literal"><span class="pre">end</span></tt> is <tt class="docutils literal"><span class="pre">2017-05-01</span></tt> , AWS retrieves cost and usage data from the start date up to, but not including, <tt class="docutils literal"><span class="pre">2017-05-01</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Groups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The groups that this utilization result uses.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A group of reservations that share a set of attributes.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The key for a specific reservation attribute.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value of a specific reservation attribute.</div>
+</blockquote>
+<p>Attributes -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The attributes for this group of reservations.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>Utilization -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>How much you used this group of reservations.</p>
+<p>UtilizationPercentage -&gt; (string)</p>
+<blockquote>
+<div>The percentage of reservation time that you used.</div>
+</blockquote>
+<p>UtilizationPercentageInUnits -&gt; (string)</p>
+<blockquote>
+<div>The percentage of Amazon EC2 reservation time that you used, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>PurchasedHours -&gt; (string)</p>
+<blockquote>
+<div>How many reservation hours that you purchased.</div>
+</blockquote>
+<p>PurchasedUnits -&gt; (string)</p>
+<blockquote>
+<div>How many Amazon EC2 reservation hours that you purchased, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>TotalActualHours -&gt; (string)</p>
+<blockquote>
+<div>The total number of reservation hours that you used.</div>
+</blockquote>
+<p>TotalActualUnits -&gt; (string)</p>
+<blockquote>
+<div>The total number of Amazon EC2 reservation hours that you used, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>UnusedHours -&gt; (string)</p>
+<blockquote>
+<div>The number of reservation hours that you didn't use.</div>
+</blockquote>
+<p>UnusedUnits -&gt; (string)</p>
+<blockquote>
+<div>The number of Amazon EC2 reservation hours that you didn't use, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>OnDemandCostOfRIHoursUsed -&gt; (string)</p>
+<blockquote>
+<div>How much your reservation would cost if charged On-Demand rates.</div>
+</blockquote>
+<p>NetRISavings -&gt; (string)</p>
+<blockquote>
+<div>How much you saved due to purchasing and utilizing reservation. AWS calculates this by subtracting <tt class="docutils literal"><span class="pre">TotalAmortizedFee</span></tt> from <tt class="docutils literal"><span class="pre">OnDemandCostOfRIHoursUsed</span></tt> .</div>
+</blockquote>
+<p>TotalPotentialRISavings -&gt; (string)</p>
+<blockquote>
+<div>How much you could save if you use your entire reservation.</div>
+</blockquote>
+<p>AmortizedUpfrontFee -&gt; (string)</p>
+<blockquote>
+<div>The upfront cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+<p>AmortizedRecurringFee -&gt; (string)</p>
+<blockquote>
+<div>The monthly cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+<p>TotalAmortizedFee -&gt; (string)</p>
+<blockquote>
+<div>The total cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Total -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The total number of reservation hours that were used.</p>
+<p>UtilizationPercentage -&gt; (string)</p>
+<blockquote>
+<div>The percentage of reservation time that you used.</div>
+</blockquote>
+<p>UtilizationPercentageInUnits -&gt; (string)</p>
+<blockquote>
+<div>The percentage of Amazon EC2 reservation time that you used, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>PurchasedHours -&gt; (string)</p>
+<blockquote>
+<div>How many reservation hours that you purchased.</div>
+</blockquote>
+<p>PurchasedUnits -&gt; (string)</p>
+<blockquote>
+<div>How many Amazon EC2 reservation hours that you purchased, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>TotalActualHours -&gt; (string)</p>
+<blockquote>
+<div>The total number of reservation hours that you used.</div>
+</blockquote>
+<p>TotalActualUnits -&gt; (string)</p>
+<blockquote>
+<div>The total number of Amazon EC2 reservation hours that you used, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>UnusedHours -&gt; (string)</p>
+<blockquote>
+<div>The number of reservation hours that you didn't use.</div>
+</blockquote>
+<p>UnusedUnits -&gt; (string)</p>
+<blockquote>
+<div>The number of Amazon EC2 reservation hours that you didn't use, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>OnDemandCostOfRIHoursUsed -&gt; (string)</p>
+<blockquote>
+<div>How much your reservation would cost if charged On-Demand rates.</div>
+</blockquote>
+<p>NetRISavings -&gt; (string)</p>
+<blockquote>
+<div>How much you saved due to purchasing and utilizing reservation. AWS calculates this by subtracting <tt class="docutils literal"><span class="pre">TotalAmortizedFee</span></tt> from <tt class="docutils literal"><span class="pre">OnDemandCostOfRIHoursUsed</span></tt> .</div>
+</blockquote>
+<p>TotalPotentialRISavings -&gt; (string)</p>
+<blockquote>
+<div>How much you could save if you use your entire reservation.</div>
+</blockquote>
+<p>AmortizedUpfrontFee -&gt; (string)</p>
+<blockquote>
+<div>The upfront cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+<p>AmortizedRecurringFee -&gt; (string)</p>
+<blockquote>
+<div>The monthly cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+<p>TotalAmortizedFee -&gt; (string)</p>
+<blockquote>
+<div>The total cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Total -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The total amount of time that you used your RIs.</p>
+<p>UtilizationPercentage -&gt; (string)</p>
+<blockquote>
+<div>The percentage of reservation time that you used.</div>
+</blockquote>
+<p>UtilizationPercentageInUnits -&gt; (string)</p>
+<blockquote>
+<div>The percentage of Amazon EC2 reservation time that you used, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>PurchasedHours -&gt; (string)</p>
+<blockquote>
+<div>How many reservation hours that you purchased.</div>
+</blockquote>
+<p>PurchasedUnits -&gt; (string)</p>
+<blockquote>
+<div>How many Amazon EC2 reservation hours that you purchased, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>TotalActualHours -&gt; (string)</p>
+<blockquote>
+<div>The total number of reservation hours that you used.</div>
+</blockquote>
+<p>TotalActualUnits -&gt; (string)</p>
+<blockquote>
+<div>The total number of Amazon EC2 reservation hours that you used, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>UnusedHours -&gt; (string)</p>
+<blockquote>
+<div>The number of reservation hours that you didn't use.</div>
+</blockquote>
+<p>UnusedUnits -&gt; (string)</p>
+<blockquote>
+<div>The number of Amazon EC2 reservation hours that you didn't use, converted to normalized units. Normalized units are available only for Amazon EC2 usage after November 11, 2017.</div>
+</blockquote>
+<p>OnDemandCostOfRIHoursUsed -&gt; (string)</p>
+<blockquote>
+<div>How much your reservation would cost if charged On-Demand rates.</div>
+</blockquote>
+<p>NetRISavings -&gt; (string)</p>
+<blockquote>
+<div>How much you saved due to purchasing and utilizing reservation. AWS calculates this by subtracting <tt class="docutils literal"><span class="pre">TotalAmortizedFee</span></tt> from <tt class="docutils literal"><span class="pre">OnDemandCostOfRIHoursUsed</span></tt> .</div>
+</blockquote>
+<p>TotalPotentialRISavings -&gt; (string)</p>
+<blockquote>
+<div>How much you could save if you use your entire reservation.</div>
+</blockquote>
+<p>AmortizedUpfrontFee -&gt; (string)</p>
+<blockquote>
+<div>The upfront cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+<p>AmortizedRecurringFee -&gt; (string)</p>
+<blockquote>
+<div>The monthly cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+<p>TotalAmortizedFee -&gt; (string)</p>
+<blockquote>
+<div>The total cost of your reservation, amortized over the reservation period.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextPageToken -&gt; (string)</p>
+<blockquote>
+<div>The token for the next set of retrievable results. AWS provides the token when the response from a previous call has more results than the maximum page size.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

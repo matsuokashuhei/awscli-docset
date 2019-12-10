@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-replication-group — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elasticache" href="index.html">
+    <link rel="next" title="create-snapshot" href="create-snapshot.html">
+    <link rel="prev" title="create-cache-subnet-group" href="create-cache-subnet-group.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-replication-group">
+<span id="cli-aws-elasticache-create-replication-group"></span><h1>create-replication-group<a class="headerlink" href="#create-replication-group" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group.</p>
+<p>A Redis (cluster mode disabled) replication group is a collection of clusters, where one of the clusters is a read/write primary and the others are read-only replicas. Writes to the primary are asynchronously propagated to the replicas.</p>
+<p>A Redis (cluster mode enabled) replication group is a collection of 1 to 90 node groups (shards). Each node group (shard) has one read/write primary node and up to 5 read-only replica nodes. Writes to the primary are asynchronously propagated to the replicas. Redis (cluster mode enabled) replication groups partition the data across node groups (shards).</p>
+<p>When a Redis (cluster mode disabled) replication group has been successfully created, you can add one or more read replicas to it, up to a total of 5 read replicas. You cannot alter a Redis (cluster mode enabled) replication group after it has been created. However, if you need to increase or decrease the number of node groups (console: shards), you can avail yourself of ElastiCache for Redis' enhanced backup and restore. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html">Restoring From a Backup with Cluster Resizing</a> in the <em>ElastiCache User Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This operation is valid for Redis only.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/CreateReplicationGroup">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-replication-group
+--replication-group-id &lt;value&gt;
+--replication-group-description &lt;value&gt;
+[--primary-cluster-id &lt;value&gt;]
+[--automatic-failover-enabled | --no-automatic-failover-enabled]
+[--num-cache-clusters &lt;value&gt;]
+[--preferred-cache-cluster-a-zs &lt;value&gt;]
+[--num-node-groups &lt;value&gt;]
+[--replicas-per-node-group &lt;value&gt;]
+[--node-group-configuration &lt;value&gt;]
+[--cache-node-type &lt;value&gt;]
+[--engine &lt;value&gt;]
+[--engine-version &lt;value&gt;]
+[--cache-parameter-group-name &lt;value&gt;]
+[--cache-subnet-group-name &lt;value&gt;]
+[--cache-security-group-names &lt;value&gt;]
+[--security-group-ids &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--snapshot-arns &lt;value&gt;]
+[--snapshot-name &lt;value&gt;]
+[--preferred-maintenance-window &lt;value&gt;]
+[--port &lt;value&gt;]
+[--notification-topic-arn &lt;value&gt;]
+[--auto-minor-version-upgrade | --no-auto-minor-version-upgrade]
+[--snapshot-retention-limit &lt;value&gt;]
+[--snapshot-window &lt;value&gt;]
+[--auth-token &lt;value&gt;]
+[--transit-encryption-enabled | --no-transit-encryption-enabled]
+[--at-rest-encryption-enabled | --no-at-rest-encryption-enabled]
+[--kms-key-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--replication-group-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The replication group identifier. This parameter is stored as a lowercase string.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>A name must contain from 1 to 40 alphanumeric characters or hyphens.</li>
+<li>The first character must be a letter.</li>
+<li>A name cannot end with a hyphen or contain two consecutive hyphens.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--replication-group-description</span></tt> (string)</p>
+<blockquote>
+<div>A user-created description for the replication group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--primary-cluster-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The identifier of the cluster that serves as the primary for this replication group. This cluster must already exist and have a status of <tt class="docutils literal"><span class="pre">available</span></tt> .</p>
+<p>This parameter is not required if <tt class="docutils literal"><span class="pre">NumCacheClusters</span></tt> , <tt class="docutils literal"><span class="pre">NumNodeGroups</span></tt> , or <tt class="docutils literal"><span class="pre">ReplicasPerNodeGroup</span></tt> is specified.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--automatic-failover-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-automatic-failover-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Specifies whether a read-only replica is automatically promoted to read/write primary if the existing primary fails.</p>
+<p>If <tt class="docutils literal"><span class="pre">true</span></tt> , Multi-AZ is enabled for this replication group. If <tt class="docutils literal"><span class="pre">false</span></tt> , Multi-AZ is disabled for this replication group.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">AutomaticFailoverEnabled</span></tt> must be enabled for Redis (cluster mode enabled) replication groups.</div>
+</blockquote>
+<p>Default: false</p>
+<p>Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:</p>
+<ul class="simple">
+<li>Redis versions earlier than 2.8.6.</li>
+<li>Redis (cluster mode disabled): T1 node types.</li>
+<li>Redis (cluster mode enabled): T1 node types.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--num-cache-clusters</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of clusters this replication group initially has.</p>
+<p>This parameter is not used if there is more than one node group (shard). You should use <tt class="docutils literal"><span class="pre">ReplicasPerNodeGroup</span></tt> instead.</p>
+<p>If <tt class="docutils literal"><span class="pre">AutomaticFailoverEnabled</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , the value of this parameter must be at least 2. If <tt class="docutils literal"><span class="pre">AutomaticFailoverEnabled</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> you can omit this parameter (it will default to 1), or you can explicitly set it to a value between 2 and 6.</p>
+<p>The maximum permitted value for <tt class="docutils literal"><span class="pre">NumCacheClusters</span></tt> is 6 (1 primary plus 5 replicas).</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--preferred-cache-cluster-a-zs</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of EC2 Availability Zones in which the replication group's clusters are created. The order of the Availability Zones in the list is the order in which clusters are allocated. The primary cluster is created in the first AZ in the list.</p>
+<p>This parameter is not used if there is more than one node group (shard). You should use <tt class="docutils literal"><span class="pre">NodeGroupConfiguration</span></tt> instead.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you are creating your replication group in an Amazon VPC (recommended), you can only locate clusters in Availability Zones associated with the subnets in the selected subnet group.</p>
+<p class="last">The number of Availability Zones listed must equal the value of <tt class="docutils literal"><span class="pre">NumCacheClusters</span></tt> .</p>
+</div>
+<p>Default: system chosen Availability Zones.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--num-node-groups</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>An optional parameter that specifies the number of node groups (shards) for this Redis (cluster mode enabled) replication group. For Redis (cluster mode disabled) either omit this parameter or set it to 1.</p>
+<p>Default: 1</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--replicas-per-node-group</span></tt> (integer)</p>
+<blockquote>
+<div>An optional parameter that specifies the number of replica nodes in each node group (shard). Valid values are 0 to 5.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--node-group-configuration</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of node group (shard) configuration options. Each node group (shard) configuration has the following members: <tt class="docutils literal"><span class="pre">PrimaryAvailabilityZone</span></tt> , <tt class="docutils literal"><span class="pre">ReplicaAvailabilityZones</span></tt> , <tt class="docutils literal"><span class="pre">ReplicaCount</span></tt> , and <tt class="docutils literal"><span class="pre">Slots</span></tt> .</p>
+<p>If you're creating a Redis (cluster mode disabled) or a Redis (cluster mode enabled) replication group, you can use this parameter to individually configure each node group (shard), or you can omit this parameter. However, when seeding a Redis (cluster mode enabled) cluster from a S3 rdb file, you must configure each node group (shard) using this parameter because you must specify the slots for each node group.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>NodeGroupId=string,Slots=string,ReplicaCount=integer,PrimaryAvailabilityZone=string,ReplicaAvailabilityZones=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "NodeGroupId": "string",
+    "Slots": "string",
+    "ReplicaCount": integer,
+    "PrimaryAvailabilityZone": "string",
+    "ReplicaAvailabilityZones": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cache-node-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The compute and memory capacity of the nodes in the node group (shard).</p>
+<p>The following node types are supported by ElastiCache. Generally speaking, the current generation types provide more memory and computational power at lower cost when compared to their equivalent previous generation counterparts.</p>
+<ul class="simple">
+<li>General purpose:<ul>
+<li>Current generation:   <strong>M5 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m5.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.12xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.24xlarge</span></tt>    <strong>M4 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m4.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.10xlarge</span></tt>    <strong>T2 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.t2.micro</span></tt> , <tt class="docutils literal"><span class="pre">cache.t2.small</span></tt> , <tt class="docutils literal"><span class="pre">cache.t2.medium</span></tt>
+</li>
+<li>Previous generation: (not recommended)  <strong>T1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.t1.micro</span></tt>    <strong>M1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m1.small</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.medium</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.xlarge</span></tt>    <strong>M3 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m3.medium</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.2xlarge</span></tt>
+</li>
+</ul>
+</li>
+<li>Compute optimized:<ul>
+<li>Previous generation: (not recommended)  <strong>C1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.c1.xlarge</span></tt>
+</li>
+</ul>
+</li>
+<li>Memory optimized:<ul>
+<li>Current generation:   <strong>R5 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r5.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.12xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.24xlarge</span></tt>    <strong>R4 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r4.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.8xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.16xlarge</span></tt>
+</li>
+<li>Previous generation: (not recommended)  <strong>M2 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m2.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m2.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m2.4xlarge</span></tt>    <strong>R3 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r3.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.8xlarge</span></tt>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><strong>Additional node type info</strong></div>
+</blockquote>
+<ul class="simple">
+<li>All current generation instance types are created in Amazon VPC by default.</li>
+<li>Redis append-only files (AOF) are not supported for T1 or T2 instances.</li>
+<li>Redis Multi-AZ with automatic failover is not supported on T1 instances.</li>
+<li>Redis configuration variables <tt class="docutils literal"><span class="pre">appendonly</span></tt> and <tt class="docutils literal"><span class="pre">appendfsync</span></tt> are not supported on Redis version 2.8.22 and later.</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine</span></tt> (string)</p>
+<blockquote>
+<div>The name of the cache engine to be used for the clusters in this replication group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine-version</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The version number of the cache engine to be used for the clusters in this replication group. To view the supported cache engine versions, use the <tt class="docutils literal"><span class="pre">DescribeCacheEngineVersions</span></tt> operation.</p>
+<blockquote>
+<div>
+<strong>Important:</strong> You can upgrade to a newer engine version (see <a class="reference external" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement">Selecting a Cache Engine and Version</a> ) in the <em>ElastiCache User Guide</em> , but you cannot downgrade to an earlier engine version. If you want to use an earlier engine version, you must delete the existing cluster or replication group and create it anew with the earlier engine version.</div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cache-parameter-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the parameter group to associate with this replication group. If this argument is omitted, the default cache parameter group for the specified engine is used.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are restoring to an engine version that is different than the original, you must specify the default version of that version. For example, <tt class="docutils literal"><span class="pre">CacheParameterGroupName=default.redis4.0</span></tt> .</p>
+</div>
+<p>If you are running Redis version 3.2.4 or later, only one node group (shard), and want to use a default parameter group, we recommend that you specify the parameter group by name.</p>
+<ul class="simple">
+<li>To create a Redis (cluster mode disabled) replication group, use <tt class="docutils literal"><span class="pre">CacheParameterGroupName=default.redis3.2</span></tt> .</li>
+<li>To create a Redis (cluster mode enabled) replication group, use <tt class="docutils literal"><span class="pre">CacheParameterGroupName=default.redis3.2.cluster.on</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cache-subnet-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the cache subnet group to be used for the replication group.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you're going to launch your cluster in an Amazon VPC, you need to create a subnet group before you start creating a cluster. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.html">Subnets and Subnet Groups</a> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cache-security-group-names</span></tt> (list)</p>
+<blockquote>
+<div>A list of cache security group names to associate with this replication group.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more Amazon VPC security groups associated with this replication group.</p>
+<p>Use this parameter only when you are creating a replication group in an Amazon Virtual Private Cloud (Amazon VPC).</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of cost allocation tags to be added to this resource. Tags are comma-separated key,value pairs (e.g. Key=``myKey`` , Value=``myKeyValue`` . You can include multiple tags as shown following: Key=``myKey`` , Value=``myKeyValue`` Key=``mySecondKey`` , Value=``mySecondKeyValue`` .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--snapshot-arns</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of Amazon Resource Names (ARN) that uniquely identify the Redis RDB snapshot files stored in Amazon S3. The snapshot files are used to populate the new replication group. The Amazon S3 object name in the ARN cannot contain any commas. The new replication group will have the number of node groups (console: shards) specified by the parameter <em>NumNodeGroups</em> or the number of node groups configured by <em>NodeGroupConfiguration</em> regardless of the number of ARNs specified here.</p>
+<p>Example of an Amazon S3 ARN: <tt class="docutils literal"><span class="pre">arn:aws:s3:::my_bucket/snapshot1.rdb</span></tt></p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--snapshot-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of a snapshot from which to restore data into the new replication group. The snapshot status changes to <tt class="docutils literal"><span class="pre">restoring</span></tt> while the new replication group is being created.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--preferred-maintenance-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the weekly time range during which maintenance on the cluster is performed. It is specified as a range in the format ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum maintenance window is a 60 minute period. Valid values for <tt class="docutils literal"><span class="pre">ddd</span></tt> are:</p>
+<p>Specifies the weekly time range during which maintenance on the cluster is performed. It is specified as a range in the format ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum maintenance window is a 60 minute period.</p>
+<p>Valid values for <tt class="docutils literal"><span class="pre">ddd</span></tt> are:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">sun</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mon</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tue</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">wed</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">thu</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">fri</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sat</span></tt></li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">sun:23:00-mon:01:30</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (integer)</p>
+<blockquote>
+<div>The port number on which each member of the replication group accepts connections.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-topic-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) topic to which notifications are sent.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon SNS topic owner must be the same as the cluster owner.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auto-minor-version-upgrade</span></tt> | <tt class="docutils literal"><span class="pre">--no-auto-minor-version-upgrade</span></tt> (boolean)</p>
+<blockquote>
+<div>This parameter is currently disabled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--snapshot-retention-limit</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of days for which ElastiCache retains automatic snapshots before deleting them. For example, if you set <tt class="docutils literal"><span class="pre">SnapshotRetentionLimit</span></tt> to 5, a snapshot that was taken today is retained for 5 days before being deleted.</p>
+<p>Default: 0 (i.e., automatic backups are disabled for this cluster).</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--snapshot-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group (shard).</p>
+<p>Example: <tt class="docutils literal"><span class="pre">05:00-09:00</span></tt></p>
+<p>If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--auth-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<blockquote>
+<div>
+<p><strong>Reserved parameter.</strong> The password used to access a password protected server.</p>
+<p><tt class="docutils literal"><span class="pre">AuthToken</span></tt> can be specified only on replication groups where <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+</div>
+</blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For HIPAA compliance, you must specify <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> as <tt class="docutils literal"><span class="pre">true</span></tt> , an <tt class="docutils literal"><span class="pre">AuthToken</span></tt> , and a <tt class="docutils literal"><span class="pre">CacheSubnetGroup</span></tt> .</p>
+</div>
+<p>Password constraints:</p>
+<ul class="simple">
+<li>Must be only printable ASCII characters.</li>
+<li>Must be at least 16 characters and no more than 128 characters in length.</li>
+<li>The only permitted printable special characters are !, , #, $, ^, , , and -. Other printable special characters cannot be used in the AUTH token.</li>
+</ul>
+<p>For more information, see <a class="reference external" href="http://redis.io/commands/AUTH">AUTH password</a> at <a class="reference external" href="http://redis.io/commands/AUTH">http://redis.io/commands/AUTH</a>.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--transit-encryption-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-transit-encryption-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables in-transit encryption when set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You cannot modify the value of <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> after the cluster is created. To enable in-transit encryption on a cluster you must set <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> when you create a cluster.</p>
+<p>This parameter is valid only if the <tt class="docutils literal"><span class="pre">Engine</span></tt> parameter is <tt class="docutils literal"><span class="pre">redis</span></tt> , the <tt class="docutils literal"><span class="pre">EngineVersion</span></tt> parameter is <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later, and the cluster is being created in an Amazon VPC.</p>
+<p>If you enable in-transit encryption, you must also specify a value for <tt class="docutils literal"><span class="pre">CacheSubnetGroup</span></tt> .</p>
+<blockquote>
+<div>
+<strong>Required:</strong> Only available when creating a replication group in an Amazon VPC using redis version <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later.</div>
+</blockquote>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For HIPAA compliance, you must specify <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> as <tt class="docutils literal"><span class="pre">true</span></tt> , an <tt class="docutils literal"><span class="pre">AuthToken</span></tt> , and a <tt class="docutils literal"><span class="pre">CacheSubnetGroup</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--at-rest-encryption-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-at-rest-encryption-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables encryption at rest when set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You cannot modify the value of <tt class="docutils literal"><span class="pre">AtRestEncryptionEnabled</span></tt> after the replication group is created. To enable encryption at rest on a replication group you must set <tt class="docutils literal"><span class="pre">AtRestEncryptionEnabled</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> when you create the replication group.</p>
+<blockquote>
+<div>
+<strong>Required:</strong> Only available when creating a replication group in an Amazon VPC using redis version <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later.</div>
+</blockquote>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kms-key-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the KMS key used to encrypt the disk on the cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create an Amazon ElastiCache Replication Group</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-replication-group</span></tt> command launches a new Amazon ElastiCache Redis replication group:</p>
+<div class="highlight-python">
+<pre>aws elasticache create-replication-group --replication-group-id myRedis \
+--replication-group-description "desc of myRedis" \
+--automatic-failover-enabled --num-cache-clusters 3 \
+--cache-node-type cache.m3.medium \
+--engine redis --engine-version 2.8.24 \
+--cache-parameter-group-name default.redis2.8 \
+--cache-subnet-group-name default --security-group-ids sg-12345678</pre>
+</div>
+<p>In the preceding example, the replication group is created with 3 clusters(primary plus 2 replicas) and has a cache node class of cach3.m3.medium.
+With <cite>--automatic-failover-enabled</cite> option, Multi-AZ and automatic failover are enabled.</p>
+<p>This command output a JSON block that indicates that the replication group was created.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ReplicationGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains all of the attributes of a specific Redis replication group.</p>
+<p>ReplicationGroupId -&gt; (string)</p>
+<blockquote>
+<div>The identifier for the replication group.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The user supplied description of the replication group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current state of this replication group - <tt class="docutils literal"><span class="pre">creating</span></tt> , <tt class="docutils literal"><span class="pre">available</span></tt> , <tt class="docutils literal"><span class="pre">modifying</span></tt> , <tt class="docutils literal"><span class="pre">deleting</span></tt> , <tt class="docutils literal"><span class="pre">create-failed</span></tt> , <tt class="docutils literal"><span class="pre">snapshotting</span></tt> .</div>
+</blockquote>
+<p>PendingModifiedValues -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A group of settings to be applied to the replication group, either immediately or during the next maintenance window.</p>
+<p>PrimaryClusterId -&gt; (string)</p>
+<blockquote>
+<div>The primary cluster ID that is applied immediately (if <tt class="docutils literal"><span class="pre">--apply-immediately</span></tt> was specified), or during the next maintenance window.</div>
+</blockquote>
+<p>AutomaticFailoverStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
+<p>Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:</p>
+<ul class="simple">
+<li>Redis versions earlier than 2.8.6.</li>
+<li>Redis (cluster mode disabled): T1 node types.</li>
+<li>Redis (cluster mode enabled): T1 node types.</li>
+</ul>
+</div>
+</blockquote>
+<p>Resharding -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The status of an online resharding operation.</p>
+<p>SlotMigration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents the progress of an online resharding operation.</p>
+<p>ProgressPercentage -&gt; (double)</p>
+<blockquote>
+<div>The percentage of the slot migration that is complete.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AuthTokenStatus -&gt; (string)</p>
+<blockquote>
+<div>The auth token status</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MemberClusters -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The names of all the cache clusters that are part of this replication group.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NodeGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of node groups in this replication group. For Redis (cluster mode disabled) replication groups, this is a single-element list. For Redis (cluster mode enabled) replication groups, the list contains an entry for each node group (shard).</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a collection of cache nodes in a replication group. One node in the node group is the read/write primary node. All the other nodes are read-only Replica nodes.</p>
+<p>NodeGroupId -&gt; (string)</p>
+<blockquote>
+<div>The identifier for the node group (shard). A Redis (cluster mode disabled) replication group contains only 1 node group; therefore, the node group ID is 0001. A Redis (cluster mode enabled) replication group contains 1 to 90 node groups numbered 0001 to 0090. Optionally, the user can provide the id for a node group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current state of this replication group - <tt class="docutils literal"><span class="pre">creating</span></tt> , <tt class="docutils literal"><span class="pre">available</span></tt> , etc.</div>
+</blockquote>
+<p>PrimaryEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The endpoint of the primary node in this node group (shard).</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the cache node.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that the cache engine is listening on.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ReaderEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The endpoint of the replica nodes in this node group (shard).</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the cache node.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that the cache engine is listening on.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Slots -&gt; (string)</p>
+<blockquote>
+<div>The keyspace for this node group (shard).</div>
+</blockquote>
+<p>NodeGroupMembers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list containing information about individual nodes within the node group (shard).</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a single node within a node group (shard).</p>
+<p>CacheClusterId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the cluster to which the node belongs.</div>
+</blockquote>
+<p>CacheNodeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the node within its cluster. A node ID is a numeric identifier (0001, 0002, etc.).</div>
+</blockquote>
+<p>ReadEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The information required for client programs to connect to a node for read operations. The read endpoint is only applicable on Redis (cluster mode disabled) clusters.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the cache node.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that the cache engine is listening on.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>PreferredAvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The name of the Availability Zone in which the node is located.</div>
+</blockquote>
+<p>CurrentRole -&gt; (string)</p>
+<blockquote>
+<div>The role that is currently assigned to the node - <tt class="docutils literal"><span class="pre">primary</span></tt> or <tt class="docutils literal"><span class="pre">replica</span></tt> . This member is only applicable for Redis (cluster mode disabled) replication groups.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SnapshottingClusterId -&gt; (string)</p>
+<blockquote>
+<div>The cluster ID that is used as the daily snapshot source for the replication group.</div>
+</blockquote>
+<p>AutomaticFailover -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates the status of Multi-AZ with automatic failover for this Redis replication group.</p>
+<p>Amazon ElastiCache for Redis does not support Multi-AZ with automatic failover on:</p>
+<ul class="simple">
+<li>Redis versions earlier than 2.8.6.</li>
+<li>Redis (cluster mode disabled): T1 node types.</li>
+<li>Redis (cluster mode enabled): T1 node types.</li>
+</ul>
+</div>
+</blockquote>
+<p>ConfigurationEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration endpoint for this replication group. Use the configuration endpoint to connect to this replication group.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the cache node.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that the cache engine is listening on.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SnapshotRetentionLimit -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example, if you set <tt class="docutils literal"><span class="pre">SnapshotRetentionLimit</span></tt> to 5, a snapshot that was taken today is retained for 5 days before being deleted.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the value of <tt class="docutils literal"><span class="pre">SnapshotRetentionLimit</span></tt> is set to zero (0), backups are turned off.</p>
+</div>
+</div>
+</blockquote>
+<p>SnapshotWindow -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your node group (shard).</p>
+<p>Example: <tt class="docutils literal"><span class="pre">05:00-09:00</span></tt></p>
+<p>If you do not specify this parameter, ElastiCache automatically chooses an appropriate time range.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is only valid if the <tt class="docutils literal"><span class="pre">Engine</span></tt> parameter is <tt class="docutils literal"><span class="pre">redis</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p>ClusterEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag indicating whether or not this replication group is cluster enabled; i.e., whether its data can be partitioned across multiple shards (API/CLI: node groups).</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">true</span></tt> | <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>CacheNodeType -&gt; (string)</p>
+<blockquote>
+<div>The name of the compute and memory capacity node type for each node in the replication group.</div>
+</blockquote>
+<p>AuthTokenEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables using an <tt class="docutils literal"><span class="pre">AuthToken</span></tt> (password) when issuing Redis commands.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>AuthTokenLastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date the auth token was last modified</div>
+</blockquote>
+<p>TransitEncryptionEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables in-transit encryption when set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You cannot modify the value of <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> after the cluster is created. To enable in-transit encryption on a cluster you must set <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> when you create a cluster.</p>
+<blockquote>
+<div>
+<strong>Required:</strong> Only available when creating a replication group in an Amazon VPC using redis version <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later.</div>
+</blockquote>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>AtRestEncryptionEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables encryption at-rest when set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You cannot modify the value of <tt class="docutils literal"><span class="pre">AtRestEncryptionEnabled</span></tt> after the cluster is created. To enable encryption at-rest on a cluster you must set <tt class="docutils literal"><span class="pre">AtRestEncryptionEnabled</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> when you create a cluster.</p>
+<blockquote>
+<div>
+<strong>Required:</strong> Only available when creating a replication group in an Amazon VPC using redis version <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later.</div>
+</blockquote>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the KMS key used to encrypt the disk in the cluster.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

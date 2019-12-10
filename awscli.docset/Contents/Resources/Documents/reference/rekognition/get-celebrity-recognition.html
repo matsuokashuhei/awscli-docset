@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-celebrity-recognition — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="get-content-moderation" href="get-content-moderation.html">
+    <link rel="prev" title="get-celebrity-info" href="get-celebrity-info.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-celebrity-recognition">
+<span id="cli-aws-rekognition-get-celebrity-recognition"></span><h1>get-celebrity-recognition<a class="headerlink" href="#get-celebrity-recognition" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets the celebrity recognition results for a Amazon Rekognition Video analysis started by  StartCelebrityRecognition .</p>
+<p>Celebrity recognition in a video is an asynchronous operation. Analysis is started by a call to  StartCelebrityRecognition which returns a job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ). When the celebrity recognition operation finishes, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic registered in the initial call to <tt class="docutils literal"><span class="pre">StartCelebrityRecognition</span></tt> . To get the results of the celebrity recognition analysis, first check that the status value published to the Amazon SNS topic is <tt class="docutils literal"><span class="pre">SUCCEEDED</span></tt> . If so, call <tt class="docutils literal"><span class="pre">GetCelebrityDetection</span></tt> and pass the job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ) from the initial call to <tt class="docutils literal"><span class="pre">StartCelebrityDetection</span></tt> .</p>
+<p>For more information, see Working With Stored Videos in the Amazon Rekognition Developer Guide.</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetCelebrityRecognition</span></tt> returns detected celebrities and the time(s) they are detected in an array (<tt class="docutils literal"><span class="pre">Celebrities</span></tt> ) of  CelebrityRecognition objects. Each <tt class="docutils literal"><span class="pre">CelebrityRecognition</span></tt> contains information about the celebrity in a  CelebrityDetail object and the time, <tt class="docutils literal"><span class="pre">Timestamp</span></tt> , the celebrity was detected.</div>
+</blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">GetCelebrityRecognition</span></tt> only returns the default facial attributes (<tt class="docutils literal"><span class="pre">BoundingBox</span></tt> , <tt class="docutils literal"><span class="pre">Confidence</span></tt> , <tt class="docutils literal"><span class="pre">Landmarks</span></tt> , <tt class="docutils literal"><span class="pre">Pose</span></tt> , and <tt class="docutils literal"><span class="pre">Quality</span></tt> ). The other facial attributes listed in the <tt class="docutils literal"><span class="pre">Face</span></tt> object of the following response syntax are not returned. For more information, see FaceDetail in the Amazon Rekognition Developer Guide.</p>
+</div>
+<p>By default, the <tt class="docutils literal"><span class="pre">Celebrities</span></tt> array is sorted by time (milliseconds from the start of the video). You can also sort the array by celebrity by specifying the value <tt class="docutils literal"><span class="pre">ID</span></tt> in the <tt class="docutils literal"><span class="pre">SortBy</span></tt> input parameter.</p>
+<p>The <tt class="docutils literal"><span class="pre">CelebrityDetail</span></tt> object includes the celebrity identifer and additional information urls. If you don't store the additional information urls, you can get them later by calling  GetCelebrityInfo with the celebrity identifer.</p>
+<p>No information is returned for faces not recognized as celebrities.</p>
+<p>Use MaxResults parameter to limit the number of labels returned. If there are more results than specified in <tt class="docutils literal"><span class="pre">MaxResults</span></tt> , the value of <tt class="docutils literal"><span class="pre">NextToken</span></tt> in the operation response contains a pagination token for getting the next set of results. To get the next page of results, call <tt class="docutils literal"><span class="pre">GetCelebrityDetection</span></tt> and populate the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter with the token value returned from the previous call to <tt class="docutils literal"><span class="pre">GetCelebrityRecognition</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/GetCelebrityRecognition">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-celebrity-recognition
+--job-id &lt;value&gt;
+[--max-results &lt;value&gt;]
+[--next-token &lt;value&gt;]
+[--sort-by &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--job-id</span></tt> (string)</p>
+<blockquote>
+<div>Job identifier for the required celebrity recognition analysis. You can get the job identifer from a call to <tt class="docutils literal"><span class="pre">StartCelebrityRecognition</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>Maximum number of results to return per paginated call. The largest value you can specify is 1000. If you specify a value greater than 1000, a maximum of 1000 results is returned. The default value is 1000.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>If the previous response was incomplete (because there is more recognized celebrities to retrieve), Amazon Rekognition Video returns a pagination token in the response. You can use this pagination token to retrieve the next set of celebrities.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sort-by</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Sort to use for celebrities returned in <tt class="docutils literal"><span class="pre">Celebrities</span></tt> field. Specify <tt class="docutils literal"><span class="pre">ID</span></tt> to sort by the celebrity identifier, specify <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> to sort by the time the celebrity was recognized.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ID</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get the results of a celebrity recognition operation</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-celebrity-recognition</span></tt> command diplays the results of a celebrity recognition operation that you started previously by calling <tt class="docutils literal"><span class="pre">start-celebrity-recognition</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws rekognition get-celebrity-recognition  \
+    --job-id 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"NextToken"</span><span class="p">:</span> <span class="s2">"3D01ClxlCiT31VsRDkAO3IybLb/h5AtDWSGuhYi+N1FIJwwPtAkuKzDhL2rV3GcwmNt77+12"</span><span class="p">,</span>
+    <span class="s2">"Celebrities"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"Celebrity"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">96.0</span><span class="p">,</span>
+                <span class="s2">"Face"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.70333331823349</span><span class="p">,</span>
+                        <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.16750000417232513</span><span class="p">,</span>
+                        <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.19555555284023285</span><span class="p">,</span>
+                        <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.3956249952316284</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Landmarks"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.31031012535095215</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.441436767578125</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeLeft"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3081788718700409</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6437258720397949</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeRight"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.39542075991630554</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.5572493076324463</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"nose"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.4597957134246826</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.4579732120037079</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthLeft"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.45688048005104065</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6349081993103027</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthRight"</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">"Pose"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Yaw"</span><span class="p">:</span> <span class="mf">8.943398475646973</span><span class="p">,</span>
+                        <span class="s2">"Roll"</span><span class="p">:</span> <span class="o">-</span><span class="mf">2.0309247970581055</span><span class="p">,</span>
+                        <span class="s2">"Pitch"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.5674862861633301</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Quality"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Sharpness"</span><span class="p">:</span> <span class="mf">99.40211486816406</span><span class="p">,</span>
+                        <span class="s2">"Brightness"</span><span class="p">:</span> <span class="mf">89.47132110595703</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">99.99861145019531</span>
+                <span class="p">},</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"CelebrityA"</span><span class="p">,</span>
+                <span class="s2">"Urls"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"www.imdb.com/name/111111111"</span>
+                <span class="p">],</span>
+                <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"nnnnnn"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">467</span><span class="p">,</span>
+            <span class="s2">"Celebrity"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">99.0</span><span class="p">,</span>
+                <span class="s2">"Face"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.6877777576446533</span><span class="p">,</span>
+                        <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.18437500298023224</span><span class="p">,</span>
+                        <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.20555555820465088</span><span class="p">,</span>
+                        <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.3868750035762787</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Landmarks"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.31895750761032104</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.4411413371562958</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeLeft"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.3140959143638611</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6523157954216003</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"eyeRight"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.4016456604003906</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.5682755708694458</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"nose"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.46894142031669617</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.4597797095775604</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthLeft"</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"Y"</span><span class="p">:</span> <span class="mf">0.46971091628074646</span><span class="p">,</span>
+                            <span class="s2">"X"</span><span class="p">:</span> <span class="mf">0.6286435127258301</span><span class="p">,</span>
+                            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"mouthRight"</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">"Pose"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Yaw"</span><span class="p">:</span> <span class="mf">10.433465957641602</span><span class="p">,</span>
+                        <span class="s2">"Roll"</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.347442388534546</span><span class="p">,</span>
+                        <span class="s2">"Pitch"</span><span class="p">:</span> <span class="mf">1.3709543943405151</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Quality"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Sharpness"</span><span class="p">:</span> <span class="mf">99.5531005859375</span><span class="p">,</span>
+                        <span class="s2">"Brightness"</span><span class="p">:</span> <span class="mf">88.5764389038086</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">99.99148559570312</span>
+                <span class="p">},</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Jane Celebrity"</span><span class="p">,</span>
+                <span class="s2">"Urls"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"www.imdb.com/name/111111111"</span>
+                <span class="p">],</span>
+                <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"nnnnnn"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"JobStatus"</span><span class="p">:</span> <span class="s2">"SUCCEEDED"</span><span class="p">,</span>
+    <span class="s2">"VideoMetadata"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Format"</span><span class="p">:</span> <span class="s2">"QuickTime / MOV"</span><span class="p">,</span>
+        <span class="s2">"FrameRate"</span><span class="p">:</span> <span class="mf">29.978118896484375</span><span class="p">,</span>
+        <span class="s2">"Codec"</span><span class="p">:</span> <span class="s2">"h264"</span><span class="p">,</span>
+        <span class="s2">"DurationMillis"</span><span class="p">:</span> <span class="mi">4570</span><span class="p">,</span>
+        <span class="s2">"FrameHeight"</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+        <span class="s2">"FrameWidth"</span><span class="p">:</span> <span class="mi">1080</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/celebrities-video-sqs.html">Recognizing Celebrities in a Stored Video</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobStatus -&gt; (string)</p>
+<blockquote>
+<div>The current status of the celebrity recognition job.</div>
+</blockquote>
+<p>StatusMessage -&gt; (string)</p>
+<blockquote>
+<div>If the job fails, <tt class="docutils literal"><span class="pre">StatusMessage</span></tt> provides a descriptive error message.</div>
+</blockquote>
+<p>VideoMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about a video that Amazon Rekognition Video analyzed. <tt class="docutils literal"><span class="pre">Videometadata</span></tt> is returned in every page of paginated responses from a Amazon Rekognition Video operation.</p>
+<p>Codec -&gt; (string)</p>
+<blockquote>
+<div>Type of compression used in the analyzed video.</div>
+</blockquote>
+<p>DurationMillis -&gt; (long)</p>
+<blockquote>
+<div>Length of the video in milliseconds.</div>
+</blockquote>
+<p>Format -&gt; (string)</p>
+<blockquote>
+<div>Format of the analyzed video. Possible values are MP4, MOV and AVI.</div>
+</blockquote>
+<p>FrameRate -&gt; (float)</p>
+<blockquote>
+<div>Number of frames per second in the video.</div>
+</blockquote>
+<p>FrameHeight -&gt; (long)</p>
+<blockquote>
+<div>Vertical pixel dimension of the video.</div>
+</blockquote>
+<p>FrameWidth -&gt; (long)</p>
+<blockquote>
+<div>Horizontal pixel dimension of the video.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent request to retrieve the next set of celebrities.</div>
+</blockquote>
+<p>Celebrities -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Array of celebrities recognized in the video.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a detected celebrity and the time the celebrity was detected in a stored video. For more information, see GetCelebrityRecognition in the Amazon Rekognition Developer Guide.</p>
+<p>Timestamp -&gt; (long)</p>
+<blockquote>
+<div>The time, in milliseconds from the start of the video, that the celebrity was recognized.</div>
+</blockquote>
+<p>Celebrity -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about a recognized celebrity.</p>
+<p>Urls -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of URLs pointing to additional celebrity information.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the celebrity.</div>
+</blockquote>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the celebrity.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>The confidence, in percentage, that Amazon Rekognition has that the recognized face is the celebrity.</div>
+</blockquote>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box around the body of a celebrity.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Face -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Face details for the recognized celebrity.</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box of the face. Default attribute.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AgeRange -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The estimated age range, in years, for the face. Low represents the lowest estimated age and High represents the highest estimated age.</p>
+<p>Low -&gt; (integer)</p>
+<blockquote>
+<div>The lowest estimated age.</div>
+</blockquote>
+<p>High -&gt; (integer)</p>
+<blockquote>
+<div>The highest estimated age.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Smile -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is smiling, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is smiling or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Eyeglasses -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is wearing eye glasses, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is wearing eye glasses or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Sunglasses -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is wearing sunglasses, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is wearing sunglasses or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Gender -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The predicted gender of a detected face.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The predicted gender of the face.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the prediction.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Beard -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face has a beard, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face has beard or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Mustache -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face has a mustache, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face has mustache or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EyesOpen -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the eyes on the face are open, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the eyes on the face are open.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MouthOpen -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the mouth on the face is open, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the mouth on the face is open or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Emotions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of emotion detected.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Landmarks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Indicates the location of landmarks on the face. Default attribute.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Indicates the location of the landmark on the face.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of landmark.</div>
+</blockquote>
+<p>X -&gt; (float)</p>
+<blockquote>
+<div>The x-coordinate from the top left of the landmark expressed as the ratio of the width of the image. For example, if the image is 700 x 200 and the x-coordinate of the landmark is at 350 pixels, this value is 0.5.</div>
+</blockquote>
+<p>Y -&gt; (float)</p>
+<blockquote>
+<div>The y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the image is 700 x 200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Pose -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates the pose of the face as determined by its pitch, roll, and yaw. Default attribute.</p>
+<p>Roll -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the roll axis.</div>
+</blockquote>
+<p>Yaw -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the yaw axis.</div>
+</blockquote>
+<p>Pitch -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the pitch axis.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Quality -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies image brightness and sharpness. Default attribute.</p>
+<p>Brightness -&gt; (float)</p>
+<blockquote>
+<div>Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a brighter face image.</div>
+</blockquote>
+<p>Sharpness -&gt; (float)</p>
+<blockquote>
+<div>Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a sharper face image.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Confidence level that the bounding box contains a face (and not a different object such as a tree). Default attribute.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

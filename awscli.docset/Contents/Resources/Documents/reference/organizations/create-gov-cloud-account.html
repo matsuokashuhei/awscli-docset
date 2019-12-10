@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-gov-cloud-account — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="organizations" href="index.html">
+    <link rel="next" title="create-organization" href="create-organization.html">
+    <link rel="prev" title="create-account" href="create-account.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-gov-cloud-account">
+<span id="cli-aws-organizations-create-gov-cloud-account"></span><h1>create-gov-cloud-account<a class="headerlink" href="#create-gov-cloud-account" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This action is available if all of the following are true:</p>
+<ul class="simple">
+<li>You're authorized to create accounts in the AWS GovCloud (US) Region. For more information on the AWS GovCloud (US) Region, see the ` <em>AWS GovCloud User Guide</em> . &lt;<a class="reference external" href="http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html">http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html</a>&gt;`__</li>
+<li>You already have an account in the AWS GovCloud (US) Region that is associated with your master account in the commercial Region.</li>
+<li>You call this action from the master account of your organization in the commercial Region.</li>
+<li>You have the <tt class="docutils literal"><span class="pre">organizations:CreateGovCloudAccount</span></tt> permission. AWS Organizations creates the required service-linked role named <tt class="docutils literal"><span class="pre">AWSServiceRoleForOrganizations</span></tt> . For more information, see <a class="reference external" href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_integrate_services-using_slrs">AWS Organizations and Service-Linked Roles</a> in the <em>AWS Organizations User Guide.</em>
+</li>
+</ul>
+<p>AWS automatically enables AWS CloudTrail for AWS GovCloud (US) accounts, but you should also do the following:</p>
+<ul class="simple">
+<li>Verify that AWS CloudTrail is enabled to store logs.</li>
+<li>Create an S3 bucket for AWS CloudTrail log storage. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/verifying-cloudtrail.html">Verifying AWS CloudTrail Is Enabled</a> in the <em>AWS GovCloud User Guide</em> .</li>
+</ul>
+<p>You call this action from the master account of your organization in the commercial Region to create a standalone AWS account in the AWS GovCloud (US) Region. After the account is created, the master account of an organization in the AWS GovCloud (US) Region can invite it to that organization. For more information on inviting standalone accounts in the AWS GovCloud (US) to join an organization, see <a class="reference external" href="http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-organizations.html">AWS Organizations</a> in the <em>AWS GovCloud User Guide.</em></p>
+<p>Calling <tt class="docutils literal"><span class="pre">CreateGovCloudAccount</span></tt> is an asynchronous request that AWS performs in the background. Because <tt class="docutils literal"><span class="pre">CreateGovCloudAccount</span></tt> operates asynchronously, it can return a successful completion message even though account initialization might still be in progress. You might need to wait a few minutes before you can successfully access the account. To check the status of the request, do one of the following:</p>
+<ul class="simple">
+<li>Use the <tt class="docutils literal"><span class="pre">OperationId</span></tt> response element from this operation to provide as a parameter to the  DescribeCreateAccountStatus operation.</li>
+<li>Check the AWS CloudTrail log for the <tt class="docutils literal"><span class="pre">CreateAccountResult</span></tt> event. For information on using AWS CloudTrail with Organizations, see <a class="reference external" href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html">Monitoring the Activity in Your Organization</a> in the <em>AWS Organizations User Guide.</em>
+</li>
+</ul>
+<p>When you call the <tt class="docutils literal"><span class="pre">CreateGovCloudAccount</span></tt> action, you create two accounts: a standalone account in the AWS GovCloud (US) Region and an associated account in the commercial Region for billing and support purposes. The account in the commercial Region is automatically a member of the organization whose credentials made the request. Both accounts are associated with the same email address.</p>
+<p>A role is created in the new account in the commercial Region that allows the master account in the organization in the commercial Region to assume it. An AWS GovCloud (US) account is then created and associated with the commercial account that you just created. A role is created in the new AWS GovCloud (US) account. This role can be assumed by the AWS GovCloud (US) account that is associated with the master account of the commercial organization. For more information and to view a diagram that explains how account access works, see <a class="reference external" href="http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-organizations.html">AWS Organizations</a> in the <em>AWS GovCloud User Guide.</em></p>
+<p>For more information about creating accounts, see <a class="reference external" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html">Creating an AWS Account in Your Organization</a> in the <em>AWS Organizations User Guide.</em></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>You can create an account in an organization using the AWS Organizations console, API, or CLI commands. When you do, the information required for the account to operate as a standalone account, such as a payment method, is <em>not</em> automatically collected. If you must remove an account from your organization later, you can do so only after you provide the missing information. Follow the steps at <a class="reference external" href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info">To leave an organization as a member account</a> in the <em>AWS Organizations User Guide.</em>
+</li>
+<li>If you get an exception that indicates that you exceeded your account limits for the organization, contact <a class="reference external" href="https://console.aws.amazon.com/support/home#/">AWS Support</a> .</li>
+<li>If you get an exception that indicates that the operation failed because your organization is still initializing, wait one hour and then try again. If the error persists, contact <a class="reference external" href="https://console.aws.amazon.com/support/home#/">AWS Support</a> .</li>
+<li>Using <tt class="docutils literal"><span class="pre">CreateGovCloudAccount</span></tt> to create multiple temporary accounts isn't recommended. You can only close an account from the AWS Billing and Cost Management console, and you must be signed in as the root user. For information on the requirements and process for closing an account, see <a class="reference external" href="http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_close.html">Closing an AWS Account</a> in the <em>AWS Organizations User Guide</em> .</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When you create a member account with this operation, you can choose whether to create the account with the <strong>IAM User and Role Access to Billing Information</strong> switch enabled. If you enable it, IAM users and roles that have appropriate permissions can view billing information for the account. If you disable it, only the account root user can access billing information. For information about how to disable this switch for an account, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html">Granting Access to Your Billing Information and Tools</a> .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/CreateGovCloudAccount">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-gov-cloud-account
+--email &lt;value&gt;
+--account-name &lt;value&gt;
+[--role-name &lt;value&gt;]
+[--iam-user-access-to-billing &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--email</span></tt> (string)</p>
+<blockquote>
+<div>The email address of the owner to assign to the new member account in the commercial Region. This email address must not already be associated with another AWS account. You must use a valid email address to complete account creation. You can't access the root user of the account or remove an account that was created with an invalid email address. Like all request parameters for <tt class="docutils literal"><span class="pre">CreateGovCloudAccount</span></tt> , the request for the email address for the AWS GovCloud (US) account originates from the commercial Region. It does not come from the AWS GovCloud (US) Region.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--account-name</span></tt> (string)</p>
+<blockquote>
+<div>The friendly name of the member account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>(Optional)</p>
+<p>The name of an IAM role that AWS Organizations automatically preconfigures in the new member accounts in both the AWS GovCloud (US) Region and in the commercial Region. This role trusts the master account, allowing users in the master account to assume the role, as permitted by the master account administrator. The role has administrator permissions in the new member account.</p>
+<p>If you don't specify this parameter, the role name defaults to <tt class="docutils literal"><span class="pre">OrganizationAccountAccessRole</span></tt> .</p>
+<p>For more information about how to use this role to access the member account, see <a class="reference external" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role">Accessing and Administering the Member Accounts in Your Organization</a> in the <em>AWS Organizations User Guide</em> . See also steps 2 and 3 in <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html">Tutorial: Delegate Access Across AWS Accounts Using IAM Roles</a> in the <em>IAM User Guide.</em></p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> that is used to validate this parameter. The pattern can include uppercase letters, lowercase letters, digits with no spaces, and any of the following characters: =,.@-</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--iam-user-access-to-billing</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>If set to <tt class="docutils literal"><span class="pre">ALLOW</span></tt> , the new linked account in the commercial Region enables IAM users to access account billing information <em>if</em> they have the required permissions. If set to <tt class="docutils literal"><span class="pre">DENY</span></tt> , only the root user of the new account can access account billing information. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate">Activating Access to the Billing and Cost Management Console</a> in the <em>AWS Billing and Cost Management User Guide.</em></p>
+<p>If you don't specify this parameter, the value defaults to <tt class="docutils literal"><span class="pre">ALLOW</span></tt> , and IAM users and roles with the required permissions can access billing information for the new account.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ALLOW</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DENY</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CreateAccountStatus -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains the status about a  CreateAccount or  CreateGovCloudAccount request to create an AWS account or an AWS GovCloud (US) account in an organization.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier (ID) that references this request. You get this value from the response of the initial  CreateAccount request to create the account.</p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> for a create account request ID string requires "car-" followed by from 8 to 32 lower-case letters or digits.</p>
+</div>
+</blockquote>
+<p>AccountName -&gt; (string)</p>
+<blockquote>
+<div>The account name given to the account when it was created.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The status of the request.</div>
+</blockquote>
+<p>RequestedTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the request was made for the account creation.</div>
+</blockquote>
+<p>CompletedTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the account was created and the request completed.</div>
+</blockquote>
+<p>AccountId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If the account was created successfully, the unique identifier (ID) of the new account.</p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> for an account ID string requires exactly 12 digits.</p>
+</div>
+</blockquote>
+<p>GovCloudAccountId -&gt; (string)</p>
+<blockquote>
+<div>If the account was created successfully, the unique identifier (ID) of the new account in the AWS GovCloud (US) Region.</div>
+</blockquote>
+<p>FailureReason -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If the request failed, a description of the reason for the failure.</p>
+<ul class="simple">
+<li>ACCOUNT_LIMIT_EXCEEDED: The account could not be created because you have reached the limit on the number of accounts in your organization.</li>
+<li>EMAIL_ALREADY_EXISTS: The account could not be created because another AWS account with that email address already exists.</li>
+<li>GOVCLOUD_ACCOUNT_ALREADY_EXISTS: The account in the AWS GovCloud (US) Region could not be created because this Region already includes an account with that email address.</li>
+<li>INVALID_ADDRESS: The account could not be created because the address you provided is not valid.</li>
+<li>INVALID_EMAIL: The account could not be created because the email address you provided is not valid.</li>
+<li>INTERNAL_FAILURE: The account could not be created because of an internal failure. Try again later. If the problem persists, contact AWS Support.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

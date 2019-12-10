@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>activate-gateway — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="storagegateway" href="index.html">
+    <link rel="next" title="add-cache" href="add-cache.html">
+    <link rel="prev" title="storagegateway" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="activate-gateway">
+<span id="cli-aws-storagegateway-activate-gateway"></span><h1>activate-gateway<a class="headerlink" href="#activate-gateway" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Activates the gateway you previously deployed on your host. In the activation process, you specify information such as the AWS Region that you want to use for storing snapshots or tapes, the time zone for scheduled snapshots the gateway snapshot schedule window, an activation key, and a name for your gateway. The activation process also associates your gateway with your account; for more information, see  UpdateGatewayInformation .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You must turn on the gateway VM before you can activate your gateway.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/storagegateway-2013-06-30/ActivateGateway">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  activate-gateway
+--activation-key &lt;value&gt;
+--gateway-name &lt;value&gt;
+--gateway-timezone &lt;value&gt;
+--gateway-region &lt;value&gt;
+[--gateway-type &lt;value&gt;]
+[--tape-drive-type &lt;value&gt;]
+[--medium-changer-type &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--activation-key</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Your gateway activation key. You can obtain the activation key by sending an HTTP GET request with redirects enabled to the gateway IP address (port 80). The redirect URL returned in the response provides you the activation key for your gateway in the query string parameter <tt class="docutils literal"><span class="pre">activationKey</span></tt> . It may also include other activation-related parameters, however, these are merely defaults -- the arguments you pass to the <tt class="docutils literal"><span class="pre">ActivateGateway</span></tt> API call determine the actual configuration of your gateway.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html">https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html</a> in the Storage Gateway User Guide.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--gateway-name</span></tt> (string)</p>
+<blockquote>
+<div>The name you configured for your gateway.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--gateway-timezone</span></tt> (string)</p>
+<blockquote>
+<div>A value that indicates the time zone you want to set for the gateway. The time zone is of the format "GMT-hr:mm" or "GMT+hr:mm". For example, GMT-4:00 indicates the time is 4 hours behind GMT. GMT+2:00 indicates the time is 2 hours ahead of GMT. The time zone is used, for example, for scheduling snapshots and your gateway's maintenance schedule.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--gateway-region</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A value that indicates the AWS Region where you want to store your data. The gateway AWS Region specified must be the same AWS Region as the AWS Region in your <tt class="docutils literal"><span class="pre">Host</span></tt> header in the request. For more information about available AWS Regions and endpoints for AWS Storage Gateway, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">Regions and Endpoints</a> in the <em>Amazon Web Services Glossary</em> .</p>
+<p>Valid Values: See <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region">AWS Storage Gateway Regions and Endpoints</a> in the AWS General Reference.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--gateway-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A value that defines the type of gateway to activate. The type specified is critical to all later functions of the gateway and cannot be changed after activation. The default value is <tt class="docutils literal"><span class="pre">CACHED</span></tt> .</p>
+<p>Valid Values: "STORED", "CACHED", "VTL", "FILE_S3"</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tape-drive-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The value that indicates the type of tape drive to use for tape gateway. This field is optional.</p>
+<p>Valid Values: "IBM-ULT3580-TD5"</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--medium-changer-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The value that indicates the type of medium changer to use for tape gateway. This field is optional.</p>
+<p>Valid Values: "STK-L700", "AWS-Gateway-VTL"</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of up to 50 tags that you can assign to the gateway. Each tag is a key-value pair.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Valid characters for key and value are letters, spaces, and numbers that can be represented in UTF-8 format, and the following special characters: + - = . _ : / @. The maximum length of a tag's key is 128 characters, and the maximum length for a tag's value is 256 characters.</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>GatewayARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the gateway. Use the  ListGateways operation to return a list of gateways for your account and AWS Region.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

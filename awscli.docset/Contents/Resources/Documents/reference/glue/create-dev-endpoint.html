@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-dev-endpoint — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="glue" href="index.html">
+    <link rel="next" title="create-job" href="create-job.html">
+    <link rel="prev" title="create-database" href="create-database.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-dev-endpoint">
+<span id="cli-aws-glue-create-dev-endpoint"></span><h1>create-dev-endpoint<a class="headerlink" href="#create-dev-endpoint" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new development endpoint.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDevEndpoint">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-dev-endpoint
+--endpoint-name &lt;value&gt;
+--role-arn &lt;value&gt;
+[--security-group-ids &lt;value&gt;]
+[--subnet-id &lt;value&gt;]
+[--public-key &lt;value&gt;]
+[--public-keys &lt;value&gt;]
+[--number-of-nodes &lt;value&gt;]
+[--worker-type &lt;value&gt;]
+[--glue-version &lt;value&gt;]
+[--number-of-workers &lt;value&gt;]
+[--extra-python-libs-s3-path &lt;value&gt;]
+[--extra-jars-s3-path &lt;value&gt;]
+[--security-configuration &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--arguments &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--endpoint-name</span></tt> (string)</p>
+<blockquote>
+<div>The name to be assigned to the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The IAM role for the <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>Security group IDs for the security groups to be used by the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--subnet-id</span></tt> (string)</p>
+<blockquote>
+<div>The subnet ID for the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> to use.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--public-key</span></tt> (string)</p>
+<blockquote>
+<div>The public key to be used by this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> for authentication. This attribute is provided for backward compatibility because the recommended attribute to use is public keys.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--public-keys</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of public keys to be used by the development endpoints for authentication. The use of this attribute is preferred over a single public key because the public keys allow you to have a different private key per client.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you previously created an endpoint with a public key, you must remove that key to be able to set a list of public keys. Call the <tt class="docutils literal"><span class="pre">UpdateDevEndpoint</span></tt> API with the public key content in the <tt class="docutils literal"><span class="pre">deletePublicKeys</span></tt> attribute, and the list of new keys in the <tt class="docutils literal"><span class="pre">addPublicKeys</span></tt> attribute.</p>
+</div>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--number-of-nodes</span></tt> (integer)</p>
+<blockquote>
+<div>The number of AWS Glue Data Processing Units (DPUs) to allocate to this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--worker-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of predefined worker that is allocated to the development endpoint. Accepts a value of Standard, G.1X, or G.2X.</p>
+<ul class="simple">
+<li>For the <tt class="docutils literal"><span class="pre">Standard</span></tt> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.</li>
+<li>For the <tt class="docutils literal"><span class="pre">G.1X</span></tt> worker type, each worker maps to 1 DPU (4 vCPU, 16 GB of memory, 64 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.</li>
+<li>For the <tt class="docutils literal"><span class="pre">G.2X</span></tt> worker type, each worker maps to 2 DPU (8 vCPU, 32 GB of memory, 128 GB disk), and provides 1 executor per worker. We recommend this worker type for memory-intensive jobs.</li>
+</ul>
+<p>Known issue: when a development endpoint is created with the <tt class="docutils literal"><span class="pre">G.2X</span></tt>  <tt class="docutils literal"><span class="pre">WorkerType</span></tt> configuration, the Spark drivers for the development endpoint will run on 4 vCPU, 16 GB of memory, and a 64 GB disk.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Standard</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">G.1X</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">G.2X</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--glue-version</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version indicates the version supported for running your ETL scripts on development endpoints.</p>
+<p>For more information about the available AWS Glue versions and corresponding Spark and Python versions, see <a class="reference external" href="https://docs.aws.amazon.com/glue/latest/dg/add-job.html">Glue version</a> in the developer guide.</p>
+<p>Development endpoints that are created without specifying a Glue version default to Glue 0.9.</p>
+<p>You can specify a version of Python support for development endpoints by using the <tt class="docutils literal"><span class="pre">Arguments</span></tt> parameter in the <tt class="docutils literal"><span class="pre">CreateDevEndpoint</span></tt> or <tt class="docutils literal"><span class="pre">UpdateDevEndpoint</span></tt> APIs. If no arguments are provided, the version defaults to Python 2.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--number-of-workers</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The number of workers of a defined <tt class="docutils literal"><span class="pre">workerType</span></tt> that are allocated to the development endpoint.</p>
+<p>The maximum number of workers you can define are 299 for <tt class="docutils literal"><span class="pre">G.1X</span></tt> , and 149 for <tt class="docutils literal"><span class="pre">G.2X</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--extra-python-libs-s3-path</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The paths to one or more Python libraries in an Amazon S3 bucket that should be loaded in your <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> . Multiple values must be complete paths separated by a comma.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can only use pure Python libraries with a <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> . Libraries that rely on C extensions, such as the <a class="reference external" href="http://pandas.pydata.org/">pandas</a> Python data analysis library, are not yet supported.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--extra-jars-s3-path</span></tt> (string)</p>
+<blockquote>
+<div>The path to one or more Java <tt class="docutils literal"><span class="pre">.jar</span></tt> files in an S3 bucket that should be loaded in your <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--security-configuration</span></tt> (string)</p>
+<blockquote>
+<div>The name of the <tt class="docutils literal"><span class="pre">SecurityConfiguration</span></tt> structure to be used with this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (map)</p>
+<blockquote>
+<div>The tags to use with this DevEndpoint. You may use tags to limit access to the DevEndpoint. For more information about tags in AWS Glue, see <a class="reference external" href="https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html">AWS Tags in AWS Glue</a> in the developer guide.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--arguments</span></tt> (map)</p>
+<blockquote>
+<div>A map of arguments used to configure the <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>EndpointName -&gt; (string)</p>
+<blockquote>
+<div>The name assigned to the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>SecurityGroupIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The security groups assigned to the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The subnet ID assigned to the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>RoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the role assigned to the new <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>YarnEndpointAddress -&gt; (string)</p>
+<blockquote>
+<div>The address of the YARN endpoint used by this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>ZeppelinRemoteSparkInterpreterPort -&gt; (integer)</p>
+<blockquote>
+<div>The Apache Zeppelin port for the remote Apache Spark interpreter.</div>
+</blockquote>
+<p>NumberOfNodes -&gt; (integer)</p>
+<blockquote>
+<div>The number of AWS Glue Data Processing Units (DPUs) allocated to this DevEndpoint.</div>
+</blockquote>
+<p>WorkerType -&gt; (string)</p>
+<blockquote>
+<div>The type of predefined worker that is allocated to the development endpoint. May be a value of Standard, G.1X, or G.2X.</div>
+</blockquote>
+<p>GlueVersion -&gt; (string)</p>
+<blockquote>
+<div>Glue version determines the versions of Apache Spark and Python that AWS Glue supports. The Python version indicates the version supported for running your ETL scripts on development endpoints.</div>
+</blockquote>
+<p>NumberOfWorkers -&gt; (integer)</p>
+<blockquote>
+<div>The number of workers of a defined <tt class="docutils literal"><span class="pre">workerType</span></tt> that are allocated to the development endpoint.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The AWS Availability Zone where this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> is located.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the virtual private cloud (VPC) used by this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>ExtraPythonLibsS3Path -&gt; (string)</p>
+<blockquote>
+<div>The paths to one or more Python libraries in an S3 bucket that will be loaded in your <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>ExtraJarsS3Path -&gt; (string)</p>
+<blockquote>
+<div>Path to one or more Java <tt class="docutils literal"><span class="pre">.jar</span></tt> files in an S3 bucket that will be loaded in your <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>FailureReason -&gt; (string)</p>
+<blockquote>
+<div>The reason for a current failure in this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>SecurityConfiguration -&gt; (string)</p>
+<blockquote>
+<div>The name of the <tt class="docutils literal"><span class="pre">SecurityConfiguration</span></tt> structure being used with this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</div>
+</blockquote>
+<p>CreatedTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The point in time at which this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> was created.</div>
+</blockquote>
+<p>Arguments -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The map of arguments used to configure this <tt class="docutils literal"><span class="pre">DevEndpoint</span></tt> .</p>
+<p>Valid arguments are:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">"--enable-glue-datacatalog":</span> <span class="pre">""</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">"GLUE_PYTHON_VERSION":</span> <span class="pre">"3"</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">"GLUE_PYTHON_VERSION":</span> <span class="pre">"2"</span></tt></li>
+</ul>
+<p>You can specify a version of Python support for development endpoints by using the <tt class="docutils literal"><span class="pre">Arguments</span></tt> parameter in the <tt class="docutils literal"><span class="pre">CreateDevEndpoint</span></tt> or <tt class="docutils literal"><span class="pre">UpdateDevEndpoint</span></tt> APIs. If no arguments are provided, the version defaults to Python 2.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

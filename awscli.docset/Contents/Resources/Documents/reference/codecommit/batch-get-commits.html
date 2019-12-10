@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>batch-get-commits — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="codecommit" href="index.html">
+    <link rel="next" title="batch-get-repositories" href="batch-get-repositories.html">
+    <link rel="prev" title="batch-disassociate-approval-rule-template-from-repositories" href="batch-disassociate-approval-rule-template-from-repositories.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="batch-get-commits">
+<span id="cli-aws-codecommit-batch-get-commits"></span><h1>batch-get-commits<a class="headerlink" href="#batch-get-commits" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns information about the contents of one or more commits in a repository.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/BatchGetCommits">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  batch-get-commits
+--commit-ids &lt;value&gt;
+--repository-name &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--commit-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The full commit IDs of the commits to get information about.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You must supply the full SHA IDs of each commit. You cannot use shortened SHA IDs.</p>
+</div>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--repository-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the repository that contains the commits.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To view information about multiple commits</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">batch-get-commits</span></tt> example displays details about the specified commits.</p>
+<div class="highlight-python">
+<pre>aws codecommit batch-get-commits  \
+    --repository-name MyDemoRepo  \
+    --commit-ids 317f8570EXAMPLE 4c925148EXAMPLE</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "commits": [
+      {
+        "additionalData": "",
+        "committer": {
+            "date": "1508280564 -0800",
+            "name": "Mary Major",
+            "email": "mary_major@example.com"
+        },
+        "author": {
+            "date": "1508280564 -0800",
+            "name": "Mary Major",
+            "email": "mary_major@example.com"
+        },
+        "commitId": "317f8570EXAMPLE",
+        "treeId": "1f330709EXAMPLE",
+        "parents": [
+            "6e147360EXAMPLE"
+        ],
+        "message": "Change variable name and add new response element"
+    },
+    {
+        "additionalData": "",
+        "committer": {
+            "date": "1508280542 -0800",
+            "name": "Li Juan",
+            "email": "li_juan@example.com"
+        },
+        "author": {
+            "date": "1508280542 -0800",
+            "name": "Li Juan",
+            "email": "li_juan@example.com"
+        },
+        "commitId": "4c925148EXAMPLE",
+        "treeId": "1f330709EXAMPLE",
+        "parents": [
+            "317f8570EXAMPLE"
+        ],
+        "message": "Added new class"
+    }
+}</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-view-commit-details.html#how-to-view-commit-details-cli-batch-get-commits">View Commit Details</a> in the <em>AWS CodeCommit User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>commits -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of commit data type objects, each of which contains information about a specified commit.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Returns information about a specific commit.</p>
+<p>commitId -&gt; (string)</p>
+<blockquote>
+<div>The full SHA ID of the specified commit.</div>
+</blockquote>
+<p>treeId -&gt; (string)</p>
+<blockquote>
+<div>Tree information for the specified commit.</div>
+</blockquote>
+<p>parents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of parent commits for the specified commit. Each parent commit ID is the full commit ID.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The commit message associated with the specified commit.</div>
+</blockquote>
+<p>author -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the author of the specified commit. Information includes the date in timestamp format with GMT offset, the name of the author, and the email address for the author, as configured in Git.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the user who made the specified commit.</div>
+</blockquote>
+<p>email -&gt; (string)</p>
+<blockquote>
+<div>The email address associated with the user who made the commit, if any.</div>
+</blockquote>
+<p>date -&gt; (string)</p>
+<blockquote>
+<div>The date when the specified commit was commited, in timestamp format with GMT offset.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>committer -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the person who committed the specified commit, also known as the committer. Information includes the date in timestamp format with GMT offset, the name of the committer, and the email address for the committer, as configured in Git.</p>
+<p>For more information about the difference between an author and a committer in Git, see <a class="reference external" href="http://git-scm.com/book/ch2-3.html">Viewing the Commit History</a> in Pro Git by Scott Chacon and Ben Straub.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the user who made the specified commit.</div>
+</blockquote>
+<p>email -&gt; (string)</p>
+<blockquote>
+<div>The email address associated with the user who made the commit, if any.</div>
+</blockquote>
+<p>date -&gt; (string)</p>
+<blockquote>
+<div>The date when the specified commit was commited, in timestamp format with GMT offset.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>additionalData -&gt; (string)</p>
+<blockquote>
+<div>Any other data associated with the specified commit.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>errors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Returns any commit IDs for which information could not be found. For example, if one of the commit IDs was a shortened SHA ID or that commit was not found in the specified repository, the ID returns an error object with more information.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Returns information about errors in a BatchGetCommits operation.</p>
+<p>commitId -&gt; (string)</p>
+<blockquote>
+<div>A commit ID that either could not be found or was not in a valid format.</div>
+</blockquote>
+<p>errorCode -&gt; (string)</p>
+<blockquote>
+<div>An error code that specifies whether the commit ID was not valid or not found.</div>
+</blockquote>
+<p>errorMessage -&gt; (string)</p>
+<blockquote>
+<div>An error message that provides detail about why the commit ID either was not found or was not valid.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

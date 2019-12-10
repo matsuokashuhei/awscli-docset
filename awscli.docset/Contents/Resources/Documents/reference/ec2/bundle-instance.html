@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>bundle-instance — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="cancel-bundle-task" href="cancel-bundle-task.html">
+    <link rel="prev" title="authorize-security-group-ingress" href="authorize-security-group-ingress.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="bundle-instance">
+<span id="cli-aws-ec2-bundle-instance"></span><h1>bundle-instance<a class="headerlink" href="#bundle-instance" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Bundles an Amazon instance store-backed Windows instance.</p>
+<p>During bundling, only the root device volume (C:) is bundled. Data on other instance store volumes is not preserved.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This action is not applicable for Linux/Unix instances or Windows instances that are backed by Amazon EBS.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/BundleInstance">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  bundle-instance
+--instance-id &lt;value&gt;
+[--storage &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--bucket &lt;value&gt;]
+[--prefix &lt;value&gt;]
+[--owner-akid &lt;value&gt;]
+[--owner-sak &lt;value&gt;]
+[--policy &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--instance-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ID of the instance to bundle.</p>
+<p>Type: String</p>
+<p>Default: None</p>
+<p>Required: Yes</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--storage</span></tt> (structure)</p>
+<blockquote>
+<div>The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>S3={AWSAccessKeyId=string,Bucket=string,Prefix=string,UploadPolicy=blob,UploadPolicySignature=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"AWSAccessKeyId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"UploadPolicy"</span><span class="p">:</span> <span class="n">blob</span><span class="p">,</span>
+    <span class="s2">"UploadPolicySignature"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)
+The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.</p>
+<p><tt class="docutils literal"><span class="pre">--prefix</span></tt> (string)
+The prefix for the image component names being stored in Amazon S3.</p>
+<p><tt class="docutils literal"><span class="pre">--owner-akid</span></tt> (string)
+The access key ID of the owner of the Amazon S3 bucket.</p>
+<p><tt class="docutils literal"><span class="pre">--owner-sak</span></tt> (string)
+The AWS secret access key for the owner of the Amazon S3 bucket specified in the --bucket parameter. This parameter is required so that a signature can be computed for the policy.</p>
+<p><tt class="docutils literal"><span class="pre">--policy</span></tt> (string)
+An Amazon S3 upload policy that gives Amazon EC2 permission to upload items into Amazon S3 on the user's behalf. If you provide this parameter, you must also provide your secret access key, so we can create a policy signature for you (the secret access key is not passed to Amazon EC2). If you do not provide this parameter, we generate an upload policy for you automatically. For more information about upload policies see the sections about policy construction and signatures in the <a class="reference external" href="http://docs.aws.amazon.com/AmazonS3/latest/dev/HTTPPOSTForms.html">Amazon Simple Storage Service Developer Guide</a> .</p>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To bundle an instance</strong></p>
+<p>This example bundles instance <tt class="docutils literal"><span class="pre">i-1234567890abcdef0</span></tt> to a bucket called <tt class="docutils literal"><span class="pre">bundletasks</span></tt>. Before you specify values for your access key IDs, review and follow the guidance in <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html">Best Practices for Managing AWS Access Keys</a>.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 bundle-instance --instance-id i-1234567890abcdef0 --bucket bundletasks --prefix winami --owner-akid AK12AJEXAMPLE --owner-sak example123example</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"BundleTask"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"UpdateTime"</span><span class="p">:</span> <span class="s2">"2015-09-15T13:30:35.000Z"</span><span class="p">,</span>
+    <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-1234567890abcdef0"</span><span class="p">,</span>
+    <span class="s2">"Storage"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"S3"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"winami"</span><span class="p">,</span>
+        <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"bundletasks"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+    <span class="s2">"StartTime"</span><span class="p">:</span> <span class="s2">"2015-09-15T13:30:35.000Z"</span><span class="p">,</span>
+    <span class="s2">"BundleId"</span><span class="p">:</span> <span class="s2">"bun-294e041f"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>BundleTask -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the bundle task.</p>
+<p>BundleId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the bundle task.</div>
+</blockquote>
+<p>BundleTaskError -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>If the task fails, a description of the error.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The error code.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The error message.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the instance associated with this bundle task.</div>
+</blockquote>
+<p>Progress -&gt; (string)</p>
+<blockquote>
+<div>The level of task completion, as a percent (for example, 20%).</div>
+</blockquote>
+<p>StartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time this task started.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The state of the task.</div>
+</blockquote>
+<p>Storage -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon S3 storage locations.</p>
+<p>S3 -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An Amazon S3 storage location.</p>
+<p>AWSAccessKeyId -&gt; (string)</p>
+<blockquote>
+<div>The access key ID of the owner of the bucket. Before you specify a value for your access key ID, review and follow the guidance in <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html">Best Practices for Managing AWS Access Keys</a> .</div>
+</blockquote>
+<p>Bucket -&gt; (string)</p>
+<blockquote>
+<div>The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.</div>
+</blockquote>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>The beginning of the file name of the AMI.</div>
+</blockquote>
+<p>UploadPolicy -&gt; (blob)</p>
+<blockquote>
+<div>An Amazon S3 upload policy that gives Amazon EC2 permission to upload items into Amazon S3 on your behalf.</div>
+</blockquote>
+<p>UploadPolicySignature -&gt; (string)</p>
+<blockquote>
+<div>The signature of the JSON document.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>UpdateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time of the most recent update for the task.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

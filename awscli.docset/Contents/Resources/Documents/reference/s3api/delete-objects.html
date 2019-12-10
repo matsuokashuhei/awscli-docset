@@ -1,0 +1,1333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>delete-objects — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="delete-public-access-block" href="delete-public-access-block.html">
+    <link rel="prev" title="delete-object-tagging" href="delete-object-tagging.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="delete-objects">
+<span id="cli-aws-s3api-delete-objects"></span><h1>delete-objects<a class="headerlink" href="#delete-objects" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This operation enables you to delete multiple objects from a bucket using a single HTTP request. If you know the object keys that you want to delete, then this operation provides a suitable alternative to sending individual delete requests, reducing per-request overhead.</p>
+<p>The request contains a list of up to 1000 keys that you want to delete. In the XML, you provide the object key names, and optionally, version IDs if you want to delete a specific version of the object from a versioning-enabled bucket. For each key, Amazon S3 performs a delete operation and returns the result of that delete, success, or failure, in the response. Note that if the object specified in the request is not found, Amazon S3 returns the result as deleted.</p>
+<p>The operation supports two modes for the response: verbose and quiet. By default, the operation uses verbose mode in which the response includes the result of deletion of each key in your request. In quiet mode the response includes only keys where the delete operation encountered an error. For a successful deletion, the operation does not return any information about the delete in the response body.</p>
+<p>When performing this operation on an MFA Delete enabled bucket, that attempts to delete any versioned objects, you must include an MFA token. If you do not provide one, the entire request will fail, even if there are non-versioned objects you are trying to delete. If you provide an invalid token, whether there are versioned keys in the request or not, the entire Multi-Object Delete request will fail. For information about MFA Delete, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html#MultiFactorAuthenticationDelete">MFA Delete</a> .</p>
+<p>Finally, the Content-MD5 header is required for all Multi-Object Delete requests. Amazon S3 uses the header value to ensure that your request body has not been altered in transit.</p>
+<p>The following operations are related to <tt class="docutils literal"><span class="pre">DeleteObjects</span></tt> :</p>
+<ul class="simple">
+<li>CreateMultipartUpload</li>
+<li>UploadPart</li>
+<li>CompleteMultipartUpload</li>
+<li>ListParts</li>
+<li>AbortMultipartUpload</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/DeleteObjects">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  delete-objects
+--bucket &lt;value&gt;
+--delete &lt;value&gt;
+[--mfa &lt;value&gt;]
+[--request-payer &lt;value&gt;]
+[--bypass-governance-retention | --no-bypass-governance-retention]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The bucket name containing the objects to delete.</p>
+<p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <em>AccessPointName</em> -<em>AccountId</em> .s3-accesspoint.*Region* .amazonaws.com. When using this operation using an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delete</span></tt> (structure)</p>
+<blockquote>
+<div>Container for the request.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Objects=[{Key=string,VersionId=string},{Key=string,VersionId=string}],Quiet=boolean</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "Objects": [
+    {
+      "Key": "string",
+      "VersionId": "string"
+    }
+    ...
+  ],
+  "Quiet": true|false
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--mfa</span></tt> (string)</p>
+<blockquote>
+<div>The concatenation of the authentication device's serial number, a space, and the value that is displayed on your authentication device. Required to permanently delete a versioned object if versioning is configured with MFA delete enabled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bypass-governance-retention</span></tt> | <tt class="docutils literal"><span class="pre">--no-bypass-governance-retention</span></tt> (boolean)</p>
+<blockquote>
+<div>Specifies whether you want to delete this object even if it has a Governance-type Object Lock in place. You must have sufficient permissions to perform this operation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command deletes an object from a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api delete-objects --bucket my-bucket --delete file://delete.json</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">delete.json</span></tt> is a JSON document in the current directory that specifies the object to delete:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Objects"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"test1.txt"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"Quiet"</span><span class="p">:</span> <span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Deleted"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"DeleteMarkerVersionId"</span><span class="p">:</span> <span class="s2">"mYAT5Mc6F7aeUL8SS7FAAqUPO1koHwzU"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"test1.txt"</span><span class="p">,</span>
+            <span class="s2">"DeleteMarker"</span><span class="p">:</span> <span class="n">true</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Deleted -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Container element for a successful delete. It identifies the object that was successfully deleted.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about the deleted object.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The name of the deleted object.</div>
+</blockquote>
+<p>VersionId -&gt; (string)</p>
+<blockquote>
+<div>The version ID of the deleted object.</div>
+</blockquote>
+<p>DeleteMarker -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the versioned object that was permanently deleted was (true) or was not (false) a delete marker. In a simple DELETE, this header indicates whether (true) or not (false) a delete marker was created.</div>
+</blockquote>
+<p>DeleteMarkerVersionId -&gt; (string)</p>
+<blockquote>
+<div>The version ID of the delete marker created as a result of the DELETE operation. If you delete a specific object version, the value returned by this header is the version ID of the object version deleted.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RequestCharged -&gt; (string)</p>
+<blockquote>
+<div>If present, indicates that the requester was successfully charged for the request.</div>
+</blockquote>
+<p>Errors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Container for a failed delete operation that describes the object that Amazon S3 attempted to delete and the error it encountered.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Container for all error elements.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The error key.</div>
+</blockquote>
+<p>VersionId -&gt; (string)</p>
+<blockquote>
+<div>The version ID of the error.</div>
+</blockquote>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The error code is a string that uniquely identifies an error condition. It is meant to be read and understood by programs that detect and handle errors by type.</p>
+<blockquote>
+<div><strong>Amazon S3 error codes</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> AccessDenied</li>
+<li>
+<em>Description:</em> Access Denied</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> AccountProblem</li>
+<li>
+<em>Description:</em> There is a problem with your AWS account that prevents the operation from completing successfully. Contact AWS Support for further assistance.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> AllAccessDisabled</li>
+<li>
+<em>Description:</em> All access to this Amazon S3 resource has been disabled. Contact AWS Support for further assistance.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> AmbiguousGrantByEmailAddress</li>
+<li>
+<em>Description:</em> The email address you provided is associated with more than one account.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> AuthorizationHeaderMalformed</li>
+<li>
+<em>Description:</em> The authorization header you provided is invalid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>HTTP Status Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> BadDigest</li>
+<li>
+<em>Description:</em> The Content-MD5 you specified did not match what we received.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> BucketAlreadyExists</li>
+<li>
+<em>Description:</em> The requested bucket name is not available. The bucket namespace is shared by all users of the system. Please select a different name and try again.</li>
+<li>
+<em>HTTP Status Code:</em> 409 Conflict</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> BucketAlreadyOwnedByYou</li>
+<li>
+<em>Description:</em> The bucket you tried to create already exists, and you own it. Amazon S3 returns this error in all AWS Regions except in the North Virginia Region. For legacy compatibility, if you re-create an existing bucket that you already own in the North Virginia Region, Amazon S3 returns 200 OK and resets the bucket access control lists (ACLs).</li>
+<li>
+<em>Code:</em> 409 Conflict (in all Regions except the North Virginia Region)</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> BucketNotEmpty</li>
+<li>
+<em>Description:</em> The bucket you tried to delete is not empty.</li>
+<li>
+<em>HTTP Status Code:</em> 409 Conflict</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> CredentialsNotSupported</li>
+<li>
+<em>Description:</em> This request does not support credentials.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> CrossLocationLoggingProhibited</li>
+<li>
+<em>Description:</em> Cross-location logging not allowed. Buckets in one geographic location cannot log information to a bucket in another location.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> EntityTooSmall</li>
+<li>
+<em>Description:</em> Your proposed upload is smaller than the minimum allowed object size.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> EntityTooLarge</li>
+<li>
+<em>Description:</em> Your proposed upload exceeds the maximum allowed object size.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> ExpiredToken</li>
+<li>
+<em>Description:</em> The provided token has expired.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> IllegalVersioningConfigurationException</li>
+<li>
+<em>Description:</em> Indicates that the versioning configuration specified in the request is invalid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> IncompleteBody</li>
+<li>
+<em>Description:</em> You did not provide the number of bytes specified by the Content-Length HTTP header</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> IncorrectNumberOfFilesInPostRequest</li>
+<li>
+<em>Description:</em> POST requires exactly one file upload per request.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InlineDataTooLarge</li>
+<li>
+<em>Description:</em> Inline data exceeds the maximum allowed size.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InternalError</li>
+<li>
+<em>Description:</em> We encountered an internal error. Please try again.</li>
+<li>
+<em>HTTP Status Code:</em> 500 Internal Server Error</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Server</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidAccessKeyId</li>
+<li>
+<em>Description:</em> The AWS access key ID you provided does not exist in our records.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidAddressingHeader</li>
+<li>
+<em>Description:</em> You must specify the Anonymous role.</li>
+<li>
+<em>HTTP Status Code:</em> N/A</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidArgument</li>
+<li>
+<em>Description:</em> Invalid Argument</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidBucketName</li>
+<li>
+<em>Description:</em> The specified bucket is not valid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidBucketState</li>
+<li>
+<em>Description:</em> The request is not valid with the current state of the bucket.</li>
+<li>
+<em>HTTP Status Code:</em> 409 Conflict</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidDigest</li>
+<li>
+<em>Description:</em> The Content-MD5 you specified is not valid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidEncryptionAlgorithmError</li>
+<li>
+<em>Description:</em> The encryption request you specified is not valid. The valid value is AES256.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidLocationConstraint</li>
+<li>
+<em>Description:</em> The specified location constraint is not valid. For more information about Regions, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html#access-bucket-intro">How to Select a Region for Your Buckets</a> .</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidObjectState</li>
+<li>
+<em>Description:</em> The operation is not valid for the current state of the object.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidPart</li>
+<li>
+<em>Description:</em> One or more of the specified parts could not be found. The part might not have been uploaded, or the specified entity tag might not have matched the part's entity tag.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidPartOrder</li>
+<li>
+<em>Description:</em> The list of parts was not in ascending order. Parts list must be specified in order by part number.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidPayer</li>
+<li>
+<em>Description:</em> All access to this object has been disabled. Please contact AWS Support for further assistance.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidPolicyDocument</li>
+<li>
+<em>Description:</em> The content of the form does not meet the conditions specified in the policy document.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRange</li>
+<li>
+<em>Description:</em> The requested range cannot be satisfied.</li>
+<li>
+<em>HTTP Status Code:</em> 416 Requested Range Not Satisfiable</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Please use AWS4-HMAC-SHA256.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> SOAP requests must be made over an HTTPS connection.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Acceleration is not supported for buckets with non-DNS compliant names.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Acceleration is not supported for buckets with periods (.) in their names.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Accelerate endpoint only supports virtual style requests.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Accelerate is not configured on this bucket.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Accelerate is disabled on this bucket.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Acceleration is not supported on this bucket. Contact AWS Support for more information.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidRequest</li>
+<li>
+<em>Description:</em> Amazon S3 Transfer Acceleration cannot be enabled on this bucket. Contact AWS Support for more information.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>Code:</em> N/A</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidSecurity</li>
+<li>
+<em>Description:</em> The provided security credentials are not valid.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidSOAPRequest</li>
+<li>
+<em>Description:</em> The SOAP request body is invalid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidStorageClass</li>
+<li>
+<em>Description:</em> The storage class you specified is not valid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidTargetBucketForLogging</li>
+<li>
+<em>Description:</em> The target bucket for logging does not exist, is not owned by you, or does not have the appropriate grants for the log-delivery group.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidToken</li>
+<li>
+<em>Description:</em> The provided token is malformed or otherwise invalid.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> InvalidURI</li>
+<li>
+<em>Description:</em> Couldn't parse the specified URI.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> KeyTooLongError</li>
+<li>
+<em>Description:</em> Your key is too long.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MalformedACLError</li>
+<li>
+<em>Description:</em> The XML you provided was not well-formed or did not validate against our published schema.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MalformedPOSTRequest</li>
+<li>
+<em>Description:</em> The body of your POST request is not well-formed multipart/form-data.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MalformedXML</li>
+<li>
+<em>Description:</em> This happens when the user sends malformed XML (XML that doesn't conform to the published XSD) for the configuration. The error message is, "The XML you provided was not well-formed or did not validate against our published schema."</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MaxMessageLengthExceeded</li>
+<li>
+<em>Description:</em> Your request was too big.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MaxPostPreDataLengthExceededError</li>
+<li>
+<em>Description:</em> Your POST request fields preceding the upload file were too large.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MetadataTooLarge</li>
+<li>
+<em>Description:</em> Your metadata headers exceed the maximum allowed metadata size.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MethodNotAllowed</li>
+<li>
+<em>Description:</em> The specified method is not allowed against this resource.</li>
+<li>
+<em>HTTP Status Code:</em> 405 Method Not Allowed</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MissingAttachment</li>
+<li>
+<em>Description:</em> A SOAP attachment was expected, but none were found.</li>
+<li>
+<em>HTTP Status Code:</em> N/A</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MissingContentLength</li>
+<li>
+<em>Description:</em> You must provide the Content-Length HTTP header.</li>
+<li>
+<em>HTTP Status Code:</em> 411 Length Required</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MissingRequestBodyError</li>
+<li>
+<em>Description:</em> This happens when the user sends an empty XML document as a request. The error message is, "Request body is empty."</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MissingSecurityElement</li>
+<li>
+<em>Description:</em> The SOAP 1.1 request is missing a security element.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> MissingSecurityHeader</li>
+<li>
+<em>Description:</em> Your request is missing a required header.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoLoggingStatusForKey</li>
+<li>
+<em>Description:</em> There is no such thing as a logging status subresource for a key.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoSuchBucket</li>
+<li>
+<em>Description:</em> The specified bucket does not exist.</li>
+<li>
+<em>HTTP Status Code:</em> 404 Not Found</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoSuchBucketPolicy</li>
+<li>
+<em>Description:</em> The specified bucket does not have a bucket policy.</li>
+<li>
+<em>HTTP Status Code:</em> 404 Not Found</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoSuchKey</li>
+<li>
+<em>Description:</em> The specified key does not exist.</li>
+<li>
+<em>HTTP Status Code:</em> 404 Not Found</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoSuchLifecycleConfiguration</li>
+<li>
+<em>Description:</em> The lifecycle configuration does not exist.</li>
+<li>
+<em>HTTP Status Code:</em> 404 Not Found</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoSuchUpload</li>
+<li>
+<em>Description:</em> The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.</li>
+<li>
+<em>HTTP Status Code:</em> 404 Not Found</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NoSuchVersion</li>
+<li>
+<em>Description:</em> Indicates that the version ID specified in the request does not match an existing version.</li>
+<li>
+<em>HTTP Status Code:</em> 404 Not Found</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NotImplemented</li>
+<li>
+<em>Description:</em> A header you provided implies functionality that is not implemented.</li>
+<li>
+<em>HTTP Status Code:</em> 501 Not Implemented</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Server</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> NotSignedUp</li>
+<li>
+<em>Description:</em> Your account is not signed up for the Amazon S3 service. You must sign up before you can use Amazon S3. You can sign up at the following URL: <a class="reference external" href="https://aws.amazon.com/s3">https://aws.amazon.com/s3</a>
+</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> OperationAborted</li>
+<li>
+<em>Description:</em> A conflicting conditional operation is currently in progress against this resource. Try again.</li>
+<li>
+<em>HTTP Status Code:</em> 409 Conflict</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> PermanentRedirect</li>
+<li>
+<em>Description:</em> The bucket you are attempting to access must be addressed using the specified endpoint. Send all future requests to this endpoint.</li>
+<li>
+<em>HTTP Status Code:</em> 301 Moved Permanently</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> PreconditionFailed</li>
+<li>
+<em>Description:</em> At least one of the preconditions you specified did not hold.</li>
+<li>
+<em>HTTP Status Code:</em> 412 Precondition Failed</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> Redirect</li>
+<li>
+<em>Description:</em> Temporary redirect.</li>
+<li>
+<em>HTTP Status Code:</em> 307 Moved Temporarily</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> RestoreAlreadyInProgress</li>
+<li>
+<em>Description:</em> Object restore is already in progress.</li>
+<li>
+<em>HTTP Status Code:</em> 409 Conflict</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> RequestIsNotMultiPartContent</li>
+<li>
+<em>Description:</em> Bucket POST must be of the enclosure-type multipart/form-data.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> RequestTimeout</li>
+<li>
+<em>Description:</em> Your socket connection to the server was not read from or written to within the timeout period.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> RequestTimeTooSkewed</li>
+<li>
+<em>Description:</em> The difference between the request time and the server's time is too large.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> RequestTorrentOfBucketError</li>
+<li>
+<em>Description:</em> Requesting the torrent file of a bucket is not permitted.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> SignatureDoesNotMatch</li>
+<li>
+<em>Description:</em> The request signature we calculated does not match the signature you provided. Check your AWS secret access key and signing method. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html">REST Authentication</a> and <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/SOAPAuthentication.html">SOAP Authentication</a> for details.</li>
+<li>
+<em>HTTP Status Code:</em> 403 Forbidden</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> ServiceUnavailable</li>
+<li>
+<em>Description:</em> Reduce your request rate.</li>
+<li>
+<em>HTTP Status Code:</em> 503 Service Unavailable</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Server</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> SlowDown</li>
+<li>
+<em>Description:</em> Reduce your request rate.</li>
+<li>
+<em>HTTP Status Code:</em> 503 Slow Down</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Server</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> TemporaryRedirect</li>
+<li>
+<em>Description:</em> You are being redirected to the bucket while DNS updates.</li>
+<li>
+<em>HTTP Status Code:</em> 307 Moved Temporarily</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> TokenRefreshRequired</li>
+<li>
+<em>Description:</em> The provided token must be refreshed.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> TooManyBuckets</li>
+<li>
+<em>Description:</em> You have attempted to create more buckets than allowed.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> UnexpectedContent</li>
+<li>
+<em>Description:</em> This request does not support content.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> UnresolvableGrantByEmailAddress</li>
+<li>
+<em>Description:</em> The email address you provided does not match any account on record.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+<li>
+<ul class="first">
+<li>
+<em>Code:</em> UserKeyMustBeSpecified</li>
+<li>
+<em>Description:</em> The bucket POST must contain the specified field name. If it is specified, check the order of the fields.</li>
+<li>
+<em>HTTP Status Code:</em> 400 Bad Request</li>
+<li>
+<em>SOAP Fault Code Prefix:</em> Client</li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The error message contains a generic description of the error condition in English. It is intended for a human audience. Simple programs display the message directly to the end user if they encounter an error condition they don't know how or don't care to handle. Sophisticated programs with more exhaustive error handling and proper internationalization are more likely to ignore the error message.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

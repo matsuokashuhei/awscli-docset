@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-object-versions — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="list-objects" href="list-objects.html">
+    <link rel="prev" title="list-multipart-uploads" href="list-multipart-uploads.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-object-versions">
+<span id="cli-aws-s3api-list-object-versions"></span><h1>list-object-versions<a class="headerlink" href="#list-object-versions" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns metadata about all of the versions of objects in a bucket. You can also use request parameters as selection criteria to return metadata about a subset of all the object versions.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A 200 OK response can contain valid or invalid XML. Make sure to design your application to parse the contents of the response and handle it appropriately.</p>
+</div>
+<p>To use this operation, you must have READ access to the bucket.</p>
+<p>The following operations are related to <tt class="docutils literal"><span class="pre">ListObjectVersions</span></tt> :</p>
+<ul class="simple">
+<li>ListObjectsV2</li>
+<li>GetObject</li>
+<li>PutObject</li>
+<li>DeleteObject</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListObjectVersions">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-object-versions</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Versions</span></tt>, <tt class="docutils literal"><span class="pre">DeleteMarkers</span></tt>, <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-object-versions
+--bucket &lt;value&gt;
+[--delimiter &lt;value&gt;]
+[--encoding-type &lt;value&gt;]
+[--prefix &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The bucket name that contains the objects.</p>
+<p>When using this API with an access point, you must direct requests to the access point hostname. The access point hostname takes the form <em>AccessPointName</em> -<em>AccountId</em> .s3-accesspoint.*Region* .amazonaws.com. When using this operation using an access point through the AWS SDKs, you provide the access point ARN in place of the bucket name. For more information about access point ARNs, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-access-points.html">Using Access Points</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delimiter</span></tt> (string)</p>
+<blockquote>
+<div>A delimiter is a character that you specify to group keys. All keys that contain the same string between the <tt class="docutils literal"><span class="pre">prefix</span></tt> and the first occurrence of the delimiter are grouped under a single result element in CommonPrefixes. These groups are counted as one result against the max-keys limitation. These keys are not returned elsewhere in the response.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--encoding-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Requests Amazon S3 to encode the object keys in the response and specifies the encoding method to use. An object key may contain any Unicode character; however, XML 1.0 parser cannot parse some characters, such as characters with an ASCII value from 0 to 10. For characters that are not supported in XML 1.0, you can add this parameter to request that Amazon S3 encode the keys in the response.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">url</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--prefix</span></tt> (string)</p>
+<blockquote>
+<div>Use this parameter to select only those keys that begin with the specified prefix. You can use prefixes to separate a bucket into different groupings of keys. (You can think of using prefix to make groups in the same way you'd use a folder in a file system.) You can use prefix with delimiter to roll up numerous objects into a single result under CommonPrefixes.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command retrieves version information for an object in a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api list-object-versions --bucket my-bucket --prefix index.html</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"DeleteMarkers"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Owner"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"my-username"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"7009a8971cd660687538875e7c86c5b672fe116bd438f46db45460ddcd036c32"</span>
+            <span class="p">},</span>
+            <span class="s2">"IsLatest"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">"B2VsEK5saUNNHKcOAJj7hIE86RozToyq"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+            <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"2015-11-10T00:57:03.000Z"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Owner"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"my-username"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"7009a8971cd660687538875e7c86c5b672fe116bd438f46db45460ddcd036c32"</span>
+            <span class="p">},</span>
+            <span class="s2">"IsLatest"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">".FLQEZscLIcfxSq.jsFJ.szUkmng2Yw6"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+            <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"2015-11-09T23:32:20.000Z"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"Versions"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"2015-11-10T00:20:11.000Z"</span><span class="p">,</span>
+            <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">"Rb_l2T8UHDkFEwCgJjhlgPOZC0qJ.vpD"</span><span class="p">,</span>
+            <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">0622528de826c0df5db1258a23b80be5</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"StorageClass"</span><span class="p">:</span> <span class="s2">"STANDARD"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+            <span class="s2">"Owner"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"my-username"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"7009a8971cd660687538875e7c86c5b672fe116bd438f46db45460ddcd036c32"</span>
+            <span class="p">},</span>
+            <span class="s2">"IsLatest"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">38</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"2015-11-09T23:26:41.000Z"</span><span class="p">,</span>
+            <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">"rasWWGpgk9E4s0LyTJgusGeRQKLVIAFf"</span><span class="p">,</span>
+            <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">06225825b8028de826c0df5db1a23be5</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"StorageClass"</span><span class="p">:</span> <span class="s2">"STANDARD"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+            <span class="s2">"Owner"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"my-username"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"7009a8971cd660687538875e7c86c5b672fe116bd438f46db45460ddcd036c32"</span>
+            <span class="p">},</span>
+            <span class="s2">"IsLatest"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">38</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"2015-11-09T22:50:50.000Z"</span><span class="p">,</span>
+            <span class="s2">"VersionId"</span><span class="p">:</span> <span class="s2">"null"</span><span class="p">,</span>
+            <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">d1f45267a863c8392e07d24dd592f1b9</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span>
+            <span class="s2">"StorageClass"</span><span class="p">:</span> <span class="s2">"STANDARD"</span><span class="p">,</span>
+            <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+            <span class="s2">"Owner"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DisplayName"</span><span class="p">:</span> <span class="s2">"my-username"</span><span class="p">,</span>
+                <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"7009a8971cd660687538875e7c86c5b672fe116bd438f46db45460ddcd036c32"</span>
+            <span class="p">},</span>
+            <span class="s2">"IsLatest"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"Size"</span><span class="p">:</span> <span class="mi">533823</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>IsTruncated -&gt; (boolean)</p>
+<blockquote>
+<div>A flag that indicates whether Amazon S3 returned all of the results that satisfied the search criteria. If your results were truncated, you can make a follow-up paginated request using the NextKeyMarker and NextVersionIdMarker response parameters as a starting place in another request to return the rest of the results.</div>
+</blockquote>
+<p>KeyMarker -&gt; (string)</p>
+<blockquote>
+<div>Marks the last key returned in a truncated response.</div>
+</blockquote>
+<p>VersionIdMarker -&gt; (string)</p>
+<blockquote>
+<div>Marks the last version of the key returned in a truncated response.</div>
+</blockquote>
+<p>NextKeyMarker -&gt; (string)</p>
+<blockquote>
+<div>When the number of responses exceeds the value of <tt class="docutils literal"><span class="pre">MaxKeys</span></tt> , <tt class="docutils literal"><span class="pre">NextKeyMarker</span></tt> specifies the first key not returned that satisfies the search criteria. Use this value for the key-marker request parameter in a subsequent request.</div>
+</blockquote>
+<p>NextVersionIdMarker -&gt; (string)</p>
+<blockquote>
+<div>When the number of responses exceeds the value of <tt class="docutils literal"><span class="pre">MaxKeys</span></tt> , <tt class="docutils literal"><span class="pre">NextVersionIdMarker</span></tt> specifies the first object version not returned that satisfies the search criteria. Use this value for the version-id-marker request parameter in a subsequent request.</div>
+</blockquote>
+<p>Versions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Container for version information.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The version of an object.</p>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>The entity tag is an MD5 hash of that version of the object.</div>
+</blockquote>
+<p>Size -&gt; (integer)</p>
+<blockquote>
+<div>Size in bytes of the object.</div>
+</blockquote>
+<p>StorageClass -&gt; (string)</p>
+<blockquote>
+<div>The class of storage used to store the object.</div>
+</blockquote>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The object key.</div>
+</blockquote>
+<p>VersionId -&gt; (string)</p>
+<blockquote>
+<div>Version ID of an object.</div>
+</blockquote>
+<p>IsLatest -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the object is (true) or is not (false) the latest version of an object.</div>
+</blockquote>
+<p>LastModified -&gt; (timestamp)</p>
+<blockquote>
+<div>Date and time the object was last modified.</div>
+</blockquote>
+<p>Owner -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies the owner of the object.</p>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>Container for the display name of the owner.</div>
+</blockquote>
+<p>ID -&gt; (string)</p>
+<blockquote>
+<div>Container for the ID of the owner.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DeleteMarkers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Container for an object that is a delete marker.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about the delete marker.</p>
+<p>Owner -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The account that created the delete marker.</p>
+<p>DisplayName -&gt; (string)</p>
+<blockquote>
+<div>Container for the display name of the owner.</div>
+</blockquote>
+<p>ID -&gt; (string)</p>
+<blockquote>
+<div>Container for the ID of the owner.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The object key.</div>
+</blockquote>
+<p>VersionId -&gt; (string)</p>
+<blockquote>
+<div>Version ID of an object.</div>
+</blockquote>
+<p>IsLatest -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the object is (true) or is not (false) the latest version of an object.</div>
+</blockquote>
+<p>LastModified -&gt; (timestamp)</p>
+<blockquote>
+<div>Date and time the object was last modified.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>Bucket name.</div>
+</blockquote>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>Selects objects that start with the value supplied by this parameter.</div>
+</blockquote>
+<p>Delimiter -&gt; (string)</p>
+<blockquote>
+<div>The delimiter grouping the included keys. A delimiter is a character that you specify to group keys. All keys that contain the same string between the prefix and the first occurrence of the delimiter are grouped under a single result element in <tt class="docutils literal"><span class="pre">CommonPrefixes</span></tt> . These groups are counted as one result against the max-keys limitation. These keys are not returned elsewhere in the response.</div>
+</blockquote>
+<p>MaxKeys -&gt; (integer)</p>
+<blockquote>
+<div>Specifies the maximum number of objects to return.</div>
+</blockquote>
+<p>CommonPrefixes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>All of the keys rolled up into a common prefix count as a single return when calculating the number of returns.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Container for all (if there are any) keys between Prefix and the next occurrence of the string specified by a delimiter. CommonPrefixes lists keys that act like subdirectories in the directory specified by Prefix. For example, if the prefix is notes/ and the delimiter is a slash (/) as in notes/summer/july, the common prefix is notes/summer/.</p>
+<p>Prefix -&gt; (string)</p>
+<blockquote>
+<div>Container for the specified common prefix.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EncodingType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Encoding type used by Amazon S3 to encode object key names in the XML response.</p>
+<p>If you specify encoding-type request parameter, Amazon S3 includes this element in the response, and returns encoded key name values in the following response elements:</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">KeyMarker,</span> <span class="pre">NextKeyMarker,</span> <span class="pre">Prefix,</span> <span class="pre">Key</span></tt> , and <tt class="docutils literal"><span class="pre">Delimiter</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

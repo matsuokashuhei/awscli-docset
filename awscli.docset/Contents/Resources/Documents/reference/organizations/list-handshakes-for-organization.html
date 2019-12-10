@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-handshakes-for-organization — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="organizations" href="index.html">
+    <link rel="next" title="list-organizational-units-for-parent" href="list-organizational-units-for-parent.html">
+    <link rel="prev" title="list-handshakes-for-account" href="list-handshakes-for-account.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-handshakes-for-organization">
+<span id="cli-aws-organizations-list-handshakes-for-organization"></span><h1>list-handshakes-for-organization<a class="headerlink" href="#list-handshakes-for-organization" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Lists the handshakes that are associated with the organization that the requesting user is part of. The <tt class="docutils literal"><span class="pre">ListHandshakesForOrganization</span></tt> operation returns a list of handshake structures. Each structure contains details and status about a handshake.</p>
+<p>Handshakes that are <tt class="docutils literal"><span class="pre">ACCEPTED</span></tt> , <tt class="docutils literal"><span class="pre">DECLINED</span></tt> , or <tt class="docutils literal"><span class="pre">CANCELED</span></tt> appear in the results of this API for only 30 days after changing to that state. After that, they're deleted and no longer accessible.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Always check the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response parameter for a <tt class="docutils literal"><span class="pre">null</span></tt> value when calling a <tt class="docutils literal"><span class="pre">List*</span></tt> operation. These operations can occasionally return an empty set of results even when there are more results available. The <tt class="docutils literal"><span class="pre">NextToken</span></tt> response parameter value is <tt class="docutils literal"><span class="pre">null</span></tt>  <em>only</em> when there are no more results to display.</p>
+</div>
+<p>This operation can be called only from the organization's master account.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/ListHandshakesForOrganization">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-handshakes-for-organization</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Handshakes</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-handshakes-for-organization
+[--filter &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>A filter of the handshakes that you want included in the response. The default is all types. Use the <tt class="docutils literal"><span class="pre">ActionType</span></tt> element to limit the output to only a specified type, such as <tt class="docutils literal"><span class="pre">INVITE</span></tt> , <tt class="docutils literal"><span class="pre">ENABLE-ALL-FEATURES</span></tt> , or <tt class="docutils literal"><span class="pre">APPROVE-ALL-FEATURES</span></tt> . Alternatively, you can specify the <tt class="docutils literal"><span class="pre">ENABLE-ALL-FEATURES</span></tt> handshake, which generates a separate child handshake for each member account. When you do, specify the <tt class="docutils literal"><span class="pre">ParentHandshakeId</span></tt> to see only the handshakes that were generated by that parent request.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ActionType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ParentHandshakeId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ActionType"</span><span class="p">:</span> <span class="s2">"INVITE"</span><span class="o">|</span><span class="s2">"ENABLE_ALL_FEATURES"</span><span class="o">|</span><span class="s2">"APPROVE_ALL_FEATURES"</span><span class="o">|</span><span class="s2">"ADD_ORGANIZATIONS_SERVICE_LINKED_ROLE"</span><span class="p">,</span>
+  <span class="s2">"ParentHandshakeId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve a list of the handshakes associated with an organization</strong></p>
+<p>The following example shows how to get a list of handshakes that are associated with the current organization:</p>
+<div class="highlight-python">
+<pre>aws organizations list-handshakes-for-organization</pre>
+</div>
+<p>The output shows two handshakes. The first one is an invitation to Juan's account and shows a state of OPEN. The second is an invitation to Anika's account and shows a state of ACCEPTED:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+        <span class="s2">"Handshakes"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                        <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"INVITE"</span><span class="p">,</span>
+                        <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:organizations::111111111111:handshake/o-exampleorgid/invite/h-examplehandshakeid111"</span><span class="p">,</span>
+                        <span class="s2">"ExpirationTimestamp"</span><span class="p">:</span> <span class="mf">1482952459.257</span><span class="p">,</span>
+                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"h-examplehandshakeid111"</span><span class="p">,</span>
+                        <span class="s2">"Parties"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"o-exampleorgid"</span><span class="p">,</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"ORGANIZATION"</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"juan@example.com"</span><span class="p">,</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"EMAIL"</span>
+                                <span class="p">}</span>
+                        <span class="p">],</span>
+                        <span class="s2">"RequestedTimestamp"</span><span class="p">:</span> <span class="mf">1481656459.257</span><span class="p">,</span>
+                        <span class="s2">"Resources"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Resources"</span><span class="p">:</span> <span class="p">[</span>
+                                                <span class="p">{</span>
+                                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"MASTER_EMAIL"</span><span class="p">,</span>
+                                                        <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"bill@amazon.com"</span>
+                                                <span class="p">},</span>
+                                                <span class="p">{</span>
+                                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"MASTER_NAME"</span><span class="p">,</span>
+                                                        <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Org Master Account"</span>
+                                                <span class="p">},</span>
+                                                <span class="p">{</span>
+                                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"ORGANIZATION_FEATURE_SET"</span><span class="p">,</span>
+                                                        <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"FULL"</span>
+                                                <span class="p">}</span>
+                                        <span class="p">],</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"ORGANIZATION"</span><span class="p">,</span>
+                                        <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"o-exampleorgid"</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"EMAIL"</span><span class="p">,</span>
+                                        <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"juan@example.com"</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span><span class="s2">"NOTES"</span><span class="p">,</span>
+                                        <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"This is an invitation to Juan's account to join Bill's organization."</span>
+                                <span class="p">}</span>
+                        <span class="p">],</span>
+                        <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"OPEN"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                        <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"INVITE"</span><span class="p">,</span>
+                        <span class="s2">"State"</span><span class="p">:</span><span class="s2">"ACCEPTED"</span><span class="p">,</span>
+                        <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:organizations::111111111111:handshake/o-exampleorgid/invite/h-examplehandshakeid111"</span><span class="p">,</span>
+                        <span class="s2">"ExpirationTimestamp"</span><span class="p">:</span> <span class="mf">1.471797437427E9</span><span class="p">,</span>
+                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"h-examplehandshakeid222"</span><span class="p">,</span>
+                        <span class="s2">"Parties"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"o-exampleorgid"</span><span class="p">,</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"ORGANIZATION"</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"anika@example.com"</span><span class="p">,</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"EMAIL"</span>
+                                <span class="p">}</span>
+                        <span class="p">],</span>
+                        <span class="s2">"RequestedTimestamp"</span><span class="p">:</span> <span class="mf">1.469205437427E9</span><span class="p">,</span>
+                        <span class="s2">"Resources"</span><span class="p">:</span> <span class="p">[</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Resources"</span><span class="p">:</span> <span class="p">[</span>
+                                                <span class="p">{</span>
+                                                        <span class="s2">"Type"</span><span class="p">:</span><span class="s2">"MASTER_EMAIL"</span><span class="p">,</span>
+                                                        <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"bill@example.com"</span>
+                                                <span class="p">},</span>
+                                                <span class="p">{</span>
+                                                        <span class="s2">"Type"</span><span class="p">:</span><span class="s2">"MASTER_NAME"</span><span class="p">,</span>
+                                                        <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"Master Account"</span>
+                                                <span class="p">}</span>
+                                        <span class="p">],</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span><span class="s2">"ORGANIZATION"</span><span class="p">,</span>
+                                        <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"o-exampleorgid"</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span><span class="s2">"EMAIL"</span><span class="p">,</span>
+                                        <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"anika@example.com"</span>
+                                <span class="p">},</span>
+                                <span class="p">{</span>
+                                        <span class="s2">"Type"</span><span class="p">:</span><span class="s2">"NOTES"</span><span class="p">,</span>
+                                        <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"This is an invitation to Anika's account to join Bill's organization."</span>
+                                <span class="p">}</span>
+                        <span class="p">]</span>
+                <span class="p">}</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Handshakes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of  Handshake objects with details about each of the handshakes that are associated with an organization.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains information that must be exchanged to securely establish a relationship between two accounts (an <em>originator</em> and a <em>recipient</em> ). For example, assume that a master account (the originator) invites another account (the recipient) to join its organization. In that case, the two accounts exchange information as a series of handshake requests and responses.</p>
+<blockquote>
+<div>
+<strong>Note:</strong> Handshakes that are CANCELED, ACCEPTED, or DECLINED show up in lists for only 30 days after entering that state. After that, they are deleted.</div>
+</blockquote>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier (ID) of a handshake. The originating account creates the ID when it initiates the handshake.</p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+</div>
+</blockquote>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of a handshake.</p>
+<p>For more information about ARNs in Organizations, see <a class="reference external" href="https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns">ARN Formats Supported by Organizations</a> in the <em>AWS Organizations User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Parties -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the two accounts that are participating in the handshake.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Identifies a participant in a handshake.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier (ID) for the party.</p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> for handshake ID string requires "h-" followed by from 8 to 32 lower-case letters or digits.</p>
+</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of party.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The current state of the handshake. Use the state to trace the flow of the handshake through the process from its creation to its acceptance. The meaning of each of the valid values is as follows:</p>
+<ul class="simple">
+<li>
+<strong>REQUESTED</strong> : This handshake was sent to multiple recipients (applicable to only some handshake types) and not all recipients have responded yet. The request stays in this state until all recipients respond.</li>
+<li>
+<strong>OPEN</strong> : This handshake was sent to multiple recipients (applicable to only some policy types) and all recipients have responded, allowing the originator to complete the handshake action.</li>
+<li>
+<strong>CANCELED</strong> : This handshake is no longer active because it was canceled by the originating account.</li>
+<li>
+<strong>ACCEPTED</strong> : This handshake is complete because it has been accepted by the recipient.</li>
+<li>
+<strong>DECLINED</strong> : This handshake is no longer active because it was declined by the recipient account.</li>
+<li>
+<strong>EXPIRED</strong> : This handshake is no longer active because the originator did not receive a response of any kind from the recipient before the expiration time (15 days).</li>
+</ul>
+</div>
+</blockquote>
+<p>RequestedTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the handshake request was made.</div>
+</blockquote>
+<p>ExpirationTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the handshake expires. If the recipient of the handshake request fails to respond before the specified date and time, the handshake becomes inactive and is no longer valid.</div>
+</blockquote>
+<p>Action -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of handshake, indicating what action occurs when the recipient accepts the handshake. The following handshake types are supported:</p>
+<ul class="simple">
+<li>
+<strong>INVITE</strong> : This type of handshake represents a request to join an organization. It is always sent from the master account to only non-member accounts.</li>
+<li>
+<strong>ENABLE_ALL_FEATURES</strong> : This type of handshake represents a request to enable all features in an organization. It is always sent from the master account to only <em>invited</em> member accounts. Created accounts do not receive this because those accounts were created by the organization's master account and approval is inferred.</li>
+<li>
+<strong>APPROVE_ALL_FEATURES</strong> : This type of handshake is sent from the Organizations service when all member accounts have approved the <tt class="docutils literal"><span class="pre">ENABLE_ALL_FEATURES</span></tt> invitation. It is sent only to the master account and signals the master that it can finalize the process to enable all features.</li>
+</ul>
+</div>
+</blockquote>
+<p>Resources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Additional information that is needed to process the handshake.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains additional data that is needed to process a handshake.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The information that is passed to the other party in the handshake. The format of the value string must match the requirements of the specified type.</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of information being passed, specifying how the value is to be interpreted by the other party:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ACCOUNT</span></tt> - Specifies an AWS account ID number.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ORGANIZATION</span></tt> - Specifies an organization ID number.</li>
+<li>
+<tt class="docutils literal"><span class="pre">EMAIL</span></tt> - Specifies the email address that is associated with the account that receives the handshake.</li>
+<li>
+<tt class="docutils literal"><span class="pre">OWNER_EMAIL</span></tt> - Specifies the email address associated with the master account. Included as information about an organization.</li>
+<li>
+<tt class="docutils literal"><span class="pre">OWNER_NAME</span></tt> - Specifies the name associated with the master account. Included as information about an organization.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NOTES</span></tt> - Additional text provided by the handshake initiator and intended for the recipient to read.</li>
+</ul>
+</div>
+</blockquote>
+<p>Resources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>When needed, contains an additional array of <tt class="docutils literal"><span class="pre">HandshakeResource</span></tt> objects.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains additional data that is needed to process a handshake.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The information that is passed to the other party in the handshake. The format of the value string must match the requirements of the specified type.</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of information being passed, specifying how the value is to be interpreted by the other party:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ACCOUNT</span></tt> - Specifies an AWS account ID number.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ORGANIZATION</span></tt> - Specifies an organization ID number.</li>
+<li>
+<tt class="docutils literal"><span class="pre">EMAIL</span></tt> - Specifies the email address that is associated with the account that receives the handshake.</li>
+<li>
+<tt class="docutils literal"><span class="pre">OWNER_EMAIL</span></tt> - Specifies the email address associated with the master account. Included as information about an organization.</li>
+<li>
+<tt class="docutils literal"><span class="pre">OWNER_NAME</span></tt> - Specifies the name associated with the master account. Included as information about an organization.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NOTES</span></tt> - Additional text provided by the handshake initiator and intended for the recipient to read.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If present, this value indicates that there is more output available than is included in the current response. Use this value in the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter in a subsequent call to the operation to get the next part of the output. You should repeat this until the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element comes back as <tt class="docutils literal"><span class="pre">null</span></tt> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

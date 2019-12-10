@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>continue-update-rollback — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudformation" href="index.html">
+    <link rel="next" title="create-change-set" href="create-change-set.html">
+    <link rel="prev" title="cancel-update-stack" href="cancel-update-stack.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="continue-update-rollback">
+<span id="cli-aws-cloudformation-continue-update-rollback"></span><h1>continue-update-rollback<a class="headerlink" href="#continue-update-rollback" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>For a specified stack that is in the <tt class="docutils literal"><span class="pre">UPDATE_ROLLBACK_FAILED</span></tt> state, continues rolling it back to the <tt class="docutils literal"><span class="pre">UPDATE_ROLLBACK_COMPLETE</span></tt> state. Depending on the cause of the failure, you can manually <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed">fix the error</a> and continue the rollback. By continuing the rollback, you can return your stack to a working state (the <tt class="docutils literal"><span class="pre">UPDATE_ROLLBACK_COMPLETE</span></tt> state), and then try to update the stack again.</p>
+<p>A stack goes into the <tt class="docutils literal"><span class="pre">UPDATE_ROLLBACK_FAILED</span></tt> state when AWS CloudFormation cannot roll back all changes after a failed stack update. For example, you might have a stack that is rolling back to an old database instance that was deleted outside of AWS CloudFormation. Because AWS CloudFormation doesn't know the database was deleted, it assumes that the database instance still exists and attempts to roll back to it, causing the update rollback to fail.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/ContinueUpdateRollback">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  continue-update-rollback
+--stack-name &lt;value&gt;
+[--role-arn &lt;value&gt;]
+[--resources-to-skip &lt;value&gt;]
+[--client-request-token &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stack-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name or the unique ID of the stack that you want to continue rolling back.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don't specify the name of a nested stack (a stack that was created by using the <tt class="docutils literal"><span class="pre">AWS::CloudFormation::Stack</span></tt> resource). Instead, use this operation on the parent stack (the stack that contains the <tt class="docutils literal"><span class="pre">AWS::CloudFormation::Stack</span></tt> resource).</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes to roll back the stack. AWS CloudFormation uses the role's credentials to make calls on your behalf. AWS CloudFormation always uses this role for all future operations on the stack. As long as users have permission to operate on the stack, AWS CloudFormation uses this role even if the users don't have permission to pass it. Ensure that the role grants least privilege.</p>
+<p>If you don't specify a value, AWS CloudFormation uses the role that was previously associated with the stack. If no role is available, AWS CloudFormation uses a temporary session that is generated from your user credentials.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resources-to-skip</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of the logical IDs of the resources that AWS CloudFormation skips during the continue update rollback operation. You can specify only resources that are in the <tt class="docutils literal"><span class="pre">UPDATE_FAILED</span></tt> state because a rollback failed. You can't specify resources that are in the <tt class="docutils literal"><span class="pre">UPDATE_FAILED</span></tt> state for other reasons, for example, because an update was cancelled. To check why a resource update failed, use the  DescribeStackResources action, and view the resource status reason.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Specify this property to skip rolling back resources that AWS CloudFormation can't successfully roll back. We recommend that you <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed">troubleshoot</a> resources before skipping them. AWS CloudFormation sets the status of the specified resources to <tt class="docutils literal"><span class="pre">UPDATE_COMPLETE</span></tt> and continues to roll back the stack. After the rollback is complete, the state of the skipped resources will be inconsistent with the state of the resources in the stack template. Before performing another stack update, you must update the stack or resources to be consistent with each other. If you don't, subsequent stack updates might fail, and the stack will become unrecoverable.</p>
+</div>
+<p>Specify the minimum number of resources required to successfully roll back your stack. For example, a failed resource update might cause dependent resources to fail. In this case, it might not be necessary to skip the dependent resources.</p>
+<p>To skip resources that are part of nested stacks, use the following format: <tt class="docutils literal"><span class="pre">NestedStackName.ResourceLogicalID</span></tt> . If you want to specify the logical ID of a stack resource (<tt class="docutils literal"><span class="pre">Type:</span> <span class="pre">AWS::CloudFormation::Stack</span></tt> ) in the <tt class="docutils literal"><span class="pre">ResourcesToSkip</span></tt> list, then its corresponding embedded stack must be in one of the following states: <tt class="docutils literal"><span class="pre">DELETE_IN_PROGRESS</span></tt> , <tt class="docutils literal"><span class="pre">DELETE_COMPLETE</span></tt> , or <tt class="docutils literal"><span class="pre">DELETE_FAILED</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Don't confuse a child stack's name with its corresponding logical ID defined in the parent stack. For an example of a continue update rollback operation with nested stacks, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html#nested-stacks">Using ResourcesToSkip to recover a nested stacks hierarchy</a> .</p>
+</div>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--client-request-token</span></tt> (string)</p>
+<blockquote>
+<div>A unique identifier for this <tt class="docutils literal"><span class="pre">ContinueUpdateRollback</span></tt> request. Specify this token if you plan to retry requests so that AWS CloudFormation knows that you're not attempting to continue the rollback to a stack with the same name. You might retry <tt class="docutils literal"><span class="pre">ContinueUpdateRollback</span></tt> requests to ensure that AWS CloudFormation successfully received them.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retry an update rollback</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">continue-update-rollback</span></tt> example resumes a rollback operation from a previously failed stack update.</p>
+<div class="highlight-python">
+<pre>aws cloudformation continue-update-rollback \
+    --stack-name my-stack</pre>
+</div>
+<p>This command produces no output.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

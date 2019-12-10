@@ -1,0 +1,471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-command-invocations — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="list-commands" href="list-commands.html">
+    <link rel="prev" title="list-associations" href="list-associations.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-command-invocations">
+<span id="cli-aws-ssm-list-command-invocations"></span><h1>list-command-invocations<a class="headerlink" href="#list-command-invocations" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A command invocation applies to one instance. For example, if a user runs SendCommand against three instances, then a command invocation is created for each requested instance ID. ListCommandInvocations provide status about command execution.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/ListCommandInvocations">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-command-invocations</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">CommandInvocations</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-command-invocations
+[--command-id &lt;value&gt;]
+[--instance-id &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--details | --no-details]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--command-id</span></tt> (string)</p>
+<blockquote>
+<div>(Optional) The invocations for a specific command ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-id</span></tt> (string)</p>
+<blockquote>
+<div>(Optional) The command execution details for a specific instance ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>(Optional) One or more filters. Use a filter to return a more specific list of results. Note that the <tt class="docutils literal"><span class="pre">DocumentName</span></tt> filter is not supported for ListCommandInvocations.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>key=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "key": "InvokedAfter"|"InvokedBefore"|"Status"|"ExecutionStage"|"DocumentName",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--details</span></tt> | <tt class="docutils literal"><span class="pre">--no-details</span></tt> (boolean)</p>
+<blockquote>
+<div>(Optional) If set this returns the response of the command executions and any command output. By default this is set to False.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To list the invocations of a specific command</strong></p>
+<p>This example lists all the invocations of a command.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm list-command-invocations --command-id "ef7fdfd8-9b57-4151-a15c-db9a12345678" --details</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+      <span class="s2">"CommandInvocations"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"CommandId"</span><span class="p">:</span> <span class="s2">"ef7fdfd8-9b57-4151-a15c-db9a12345678"</span><span class="p">,</span>
+          <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-1234567890abcdef0"</span><span class="p">,</span>
+          <span class="s2">"InstanceName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"DocumentName"</span><span class="p">:</span> <span class="s2">"AWS-RunPowerShellScript"</span><span class="p">,</span>
+          <span class="s2">"DocumentVersion"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+          <span class="s2">"RequestedDateTime"</span><span class="p">:</span> <span class="mf">1550172741.988</span><span class="p">,</span>
+          <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+          <span class="s2">"StatusDetails"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+          <span class="s2">"StandardOutputUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"StandardErrorUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"CommandPlugins"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"aws:runPowerShellScript"</span><span class="p">,</span>
+                  <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                  <span class="s2">"StatusDetails"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                  <span class="s2">"ResponseCode"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">"ResponseStartDateTime"</span><span class="p">:</span> <span class="mf">1550172742.696</span><span class="p">,</span>
+                  <span class="s2">"ResponseFinishDateTime"</span><span class="p">:</span> <span class="mf">1550172743.245</span><span class="p">,</span>
+                  <span class="s2">"Output"</span><span class="p">:</span> <span class="s2">"HelloWorld</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">,</span>
+                  <span class="s2">"StandardOutputUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                  <span class="s2">"StandardErrorUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                  <span class="s2">"OutputS3Region"</span><span class="p">:</span> <span class="s2">"us-east-1"</span><span class="p">,</span>
+                  <span class="s2">"OutputS3BucketName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                  <span class="s2">"OutputS3KeyPrefix"</span><span class="p">:</span> <span class="s2">""</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"ServiceRole"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"NotificationConfig"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"NotificationArn"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+              <span class="s2">"NotificationEvents"</span><span class="p">:</span> <span class="p">[],</span>
+              <span class="s2">"NotificationType"</span><span class="p">:</span> <span class="s2">""</span>
+          <span class="p">},</span>
+          <span class="s2">"CloudWatchOutputConfig"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"CloudWatchLogGroupName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+              <span class="s2">"CloudWatchOutputEnabled"</span><span class="p">:</span> <span class="n">false</span>
+          <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+          <span class="s2">"CommandId"</span><span class="p">:</span> <span class="s2">"ef7fdfd8-9b57-4151-a15c-db9a12345678"</span><span class="p">,</span>
+          <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-12345abcdef678901"</span><span class="p">,</span>
+          <span class="s2">"InstanceName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"DocumentName"</span><span class="p">:</span> <span class="s2">"AWS-RunPowerShellScript"</span><span class="p">,</span>
+          <span class="s2">"DocumentVersion"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+          <span class="s2">"RequestedDateTime"</span><span class="p">:</span> <span class="mf">1550172741.906</span><span class="p">,</span>
+          <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+          <span class="s2">"StatusDetails"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+          <span class="s2">"StandardOutputUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"StandardErrorUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"CommandPlugins"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="p">{</span>
+                  <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"aws:runPowerShellScript"</span><span class="p">,</span>
+                  <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                  <span class="s2">"StatusDetails"</span><span class="p">:</span> <span class="s2">"Success"</span><span class="p">,</span>
+                  <span class="s2">"ResponseCode"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">"ResponseStartDateTime"</span><span class="p">:</span> <span class="mf">1550172742.291</span><span class="p">,</span>
+                  <span class="s2">"ResponseFinishDateTime"</span><span class="p">:</span> <span class="mf">1550172742.694</span><span class="p">,</span>
+                  <span class="s2">"Output"</span><span class="p">:</span> <span class="s2">"HelloWorld</span><span class="se">\r\n</span><span class="s2">"</span><span class="p">,</span>
+                  <span class="s2">"StandardOutputUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                  <span class="s2">"StandardErrorUrl"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                  <span class="s2">"OutputS3Region"</span><span class="p">:</span> <span class="s2">"us-east-1"</span><span class="p">,</span>
+                  <span class="s2">"OutputS3BucketName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                  <span class="s2">"OutputS3KeyPrefix"</span><span class="p">:</span> <span class="s2">""</span>
+              <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">"ServiceRole"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+          <span class="s2">"NotificationConfig"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"NotificationArn"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+              <span class="s2">"NotificationEvents"</span><span class="p">:</span> <span class="p">[],</span>
+              <span class="s2">"NotificationType"</span><span class="p">:</span> <span class="s2">""</span>
+          <span class="p">},</span>
+          <span class="s2">"CloudWatchOutputConfig"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"CloudWatchLogGroupName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+              <span class="s2">"CloudWatchOutputEnabled"</span><span class="p">:</span> <span class="n">false</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CommandInvocations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>(Optional) A list of all invocations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An invocation is copy of a command sent to a specific instance. A command can apply to one or more instances. A command invocation applies to one instance. For example, if a user runs SendCommand against three instances, then a command invocation is created for each requested instance ID. A command invocation returns status and detail information about a command you ran.</p>
+<p>CommandId -&gt; (string)</p>
+<blockquote>
+<div>The command against which this invocation was requested.</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The instance ID in which this invocation was requested.</div>
+</blockquote>
+<p>InstanceName -&gt; (string)</p>
+<blockquote>
+<div>The name of the invocation target. For Amazon EC2 instances this is the value for the aws:Name tag. For on-premises instances, this is the name of the instance.</div>
+</blockquote>
+<p>Comment -&gt; (string)</p>
+<blockquote>
+<div>User-specified information about the command, such as a brief description of what the command should do.</div>
+</blockquote>
+<p>DocumentName -&gt; (string)</p>
+<blockquote>
+<div>The document name that was requested for execution.</div>
+</blockquote>
+<p>DocumentVersion -&gt; (string)</p>
+<blockquote>
+<div>The SSM document version.</div>
+</blockquote>
+<p>RequestedDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time and date the request was sent to this instance.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>Whether or not the invocation succeeded, failed, or is pending.</div>
+</blockquote>
+<p>StatusDetails -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A detailed status of the command execution for each invocation (each instance targeted by the command). StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command Statuses</a> in the <em>AWS Systems Manager User Guide</em> . StatusDetails can be one of the following values:</p>
+<ul class="simple">
+<li>Pending: The command has not been sent to the instance.</li>
+<li>In Progress: The command has been sent to the instance but has not reached a terminal state.</li>
+<li>Success: The execution of the command or plugin was successfully completed. This is a terminal state.</li>
+<li>Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent command status is Success or Incomplete. This is a terminal state.</li>
+<li>Execution Timed Out: Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a terminal state.</li>
+<li>Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.</li>
+<li>Canceled: The command was terminated before it was completed. This is a terminal state.</li>
+<li>Undeliverable: The command can't be delivered to the instance. The instance might not exist or might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit and don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.</li>
+<li>Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by the system. This is a terminal state.</li>
+</ul>
+</div>
+</blockquote>
+<p>TraceOutput -&gt; (string)</p>
+<blockquote>
+<div>Gets the trace output sent by the agent.</div>
+</blockquote>
+<p>StandardOutputUrl -&gt; (string)</p>
+<blockquote>
+<div>The URL to the plugin's StdOut file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For an invocation, StandardOutputUrl is populated if there is just one plugin defined for the command, and the Amazon S3 bucket was defined for the command.</div>
+</blockquote>
+<p>StandardErrorUrl -&gt; (string)</p>
+<blockquote>
+<div>The URL to the plugin's StdErr file in Amazon S3, if the Amazon S3 bucket was defined for the parent command. For an invocation, StandardErrorUrl is populated if there is just one plugin defined for the command, and the Amazon S3 bucket was defined for the command.</div>
+</blockquote>
+<p>CommandPlugins -&gt; (list)</p>
+<blockquote>
+<div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes plugin details.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the plugin. Must be one of the following: aws:updateAgent, aws:domainjoin, aws:applications, aws:runPowerShellScript, aws:psmodule, aws:cloudWatch, aws:runShellScript, or aws:updateSSMAgent.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of this plugin. You can run a document with multiple plugins.</div>
+</blockquote>
+<p>StatusDetails -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A detailed status of the plugin execution. StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command Statuses</a> in the <em>AWS Systems Manager User Guide</em> . StatusDetails can be one of the following values:</p>
+<ul class="simple">
+<li>Pending: The command has not been sent to the instance.</li>
+<li>In Progress: The command has been sent to the instance but has not reached a terminal state.</li>
+<li>Success: The execution of the command or plugin was successfully completed. This is a terminal state.</li>
+<li>Delivery Timed Out: The command was not delivered to the instance before the delivery timeout expired. Delivery timeouts do not count against the parent command's MaxErrors limit, but they do contribute to whether the parent command status is Success or Incomplete. This is a terminal state.</li>
+<li>Execution Timed Out: Command execution started on the instance, but the execution was not complete before the execution timeout expired. Execution timeouts count against the MaxErrors limit of the parent command. This is a terminal state.</li>
+<li>Failed: The command was not successful on the instance. For a plugin, this indicates that the result code was not zero. For a command invocation, this indicates that the result code for one or more plugins was not zero. Invocation failures count against the MaxErrors limit of the parent command. This is a terminal state.</li>
+<li>Canceled: The command was terminated before it was completed. This is a terminal state.</li>
+<li>Undeliverable: The command can't be delivered to the instance. The instance might not exist, or it might not be responding. Undeliverable invocations don't count against the parent command's MaxErrors limit, and they don't contribute to whether the parent command status is Success or Incomplete. This is a terminal state.</li>
+<li>Terminated: The parent command exceeded its MaxErrors limit and subsequent command invocations were canceled by the system. This is a terminal state.</li>
+</ul>
+</div>
+</blockquote>
+<p>ResponseCode -&gt; (integer)</p>
+<blockquote>
+<div>A numeric response code generated after running the plugin.</div>
+</blockquote>
+<p>ResponseStartDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the plugin started running.</div>
+</blockquote>
+<p>ResponseFinishDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the plugin stopped running. Could stop prematurely if, for example, a cancel command was sent.</div>
+</blockquote>
+<p>Output -&gt; (string)</p>
+<blockquote>
+<div>Output of the plugin execution.</div>
+</blockquote>
+<p>StandardOutputUrl -&gt; (string)</p>
+<blockquote>
+<div>The URL for the complete text written by the plugin to stdout in Amazon S3. If the Amazon S3 bucket for the command was not specified, then this string is empty.</div>
+</blockquote>
+<p>StandardErrorUrl -&gt; (string)</p>
+<blockquote>
+<div>The URL for the complete text written by the plugin to stderr. If execution is not yet complete, then this string is empty.</div>
+</blockquote>
+<p>OutputS3Region -&gt; (string)</p>
+<blockquote>
+<div>(Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager automatically determines the Amazon S3 bucket region.</div>
+</blockquote>
+<p>OutputS3BucketName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The S3 bucket where the responses to the command executions should be stored. This was requested when issuing the command. For example, in the following response:</p>
+<p>test_folder/ab19cb99-a030-46dd-9dfc-8eSAMPLEPre-Fix/i-1234567876543/awsrunShellScript</p>
+<p>test_folder is the name of the Amazon S3 bucket;</p>
+<p>ab19cb99-a030-46dd-9dfc-8eSAMPLEPre-Fix is the name of the S3 prefix;</p>
+<p>i-1234567876543 is the instance ID;</p>
+<p>awsrunShellScript is the name of the plugin.</p>
+</div>
+</blockquote>
+<p>OutputS3KeyPrefix -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command. For example, in the following response:</p>
+<p>test_folder/ab19cb99-a030-46dd-9dfc-8eSAMPLEPre-Fix/i-1234567876543/awsrunShellScript</p>
+<p>test_folder is the name of the Amazon S3 bucket;</p>
+<p>ab19cb99-a030-46dd-9dfc-8eSAMPLEPre-Fix is the name of the S3 prefix;</p>
+<p>i-1234567876543 is the instance ID;</p>
+<p>awsrunShellScript is the name of the plugin.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ServiceRole -&gt; (string)</p>
+<blockquote>
+<div>The IAM service role that Run Command uses to act on your behalf when sending notifications about command status changes on a per instance basis.</div>
+</blockquote>
+<p>NotificationConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Configurations for sending notifications about command status changes on a per instance basis.</p>
+<p>NotificationArn -&gt; (string)</p>
+<blockquote>
+<div>An Amazon Resource Name (ARN) for an Amazon Simple Notification Service (Amazon SNS) topic. Run Command pushes notifications about command status changes to this topic.</div>
+</blockquote>
+<p>NotificationEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html">Configuring Amazon SNS Notifications for AWS Systems Manager</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NotificationType -&gt; (string)</p>
+<blockquote>
+<div>Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CloudWatchOutputConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>CloudWatch Logs information where you want Systems Manager to send the command output.</p>
+<p>CloudWatchLogGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the CloudWatch log group where you want to send command output. If you don't specify a group name, Systems Manager automatically creates a log group for you. The log group uses the following naming format: aws/ssm/<em>SystemsManagerDocumentName</em> .</div>
+</blockquote>
+<p>CloudWatchOutputEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>Enables Systems Manager to send command output to CloudWatch Logs.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>(Optional) The token for the next set of items to return. (You received this token from a previous call.)</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

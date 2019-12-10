@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>initiate-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="glacier" href="index.html">
+    <link rel="next" title="initiate-multipart-upload" href="initiate-multipart-upload.html">
+    <link rel="prev" title="get-vault-notifications" href="get-vault-notifications.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="initiate-job">
+<span id="cli-aws-glacier-initiate-job"></span><h1>initiate-job<a class="headerlink" href="#initiate-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This operation initiates a job of the specified type, which can be a select, an archival retrieval, or a vault retrieval. For more information about using this operation, see the documentation for the underlying REST API <a class="reference external" href="https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">Initiate a Job</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/glacier-2012-06-01/InitiateJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  initiate-job
+--account-id &lt;value&gt;
+--vault-name &lt;value&gt;
+[--job-parameters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--account-id</span></tt> (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">AccountId</span></tt> value is the AWS account ID of the account that owns the vault. You can either specify an AWS account ID or optionally a single '<tt class="docutils literal"><span class="pre">-</span></tt> ' (hyphen), in which case Amazon S3 Glacier uses the AWS account ID associated with the credentials used to sign the request. If you use an account ID, do not include any hyphens ('-') in the ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vault-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the vault.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--job-parameters</span></tt> (structure)</p>
+<blockquote>
+<div>Provides options for specifying job information.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "Format": "string",
+  "Type": "string",
+  "ArchiveId": "string",
+  "Description": "string",
+  "SNSTopic": "string",
+  "RetrievalByteRange": "string",
+  "Tier": "string",
+  "InventoryRetrievalParameters": {
+    "StartDate": "string",
+    "EndDate": "string",
+    "Limit": "string",
+    "Marker": "string"
+  },
+  "SelectParameters": {
+    "InputSerialization": {
+      "csv": {
+        "FileHeaderInfo": "USE"|"IGNORE"|"NONE",
+        "Comments": "string",
+        "QuoteEscapeCharacter": "string",
+        "RecordDelimiter": "string",
+        "FieldDelimiter": "string",
+        "QuoteCharacter": "string"
+      }
+    },
+    "ExpressionType": "SQL",
+    "Expression": "string",
+    "OutputSerialization": {
+      "csv": {
+        "QuoteFields": "ALWAYS"|"ASNEEDED",
+        "QuoteEscapeCharacter": "string",
+        "RecordDelimiter": "string",
+        "FieldDelimiter": "string",
+        "QuoteCharacter": "string"
+      }
+    }
+  },
+  "OutputLocation": {
+    "S3": {
+      "BucketName": "string",
+      "Prefix": "string",
+      "Encryption": {
+        "EncryptionType": "aws:kms"|"AES256",
+        "KMSKeyId": "string",
+        "KMSContext": "string"
+      },
+      "CannedACL": "private"|"public-read"|"public-read-write"|"aws-exec-read"|"authenticated-read"|"bucket-owner-read"|"bucket-owner-full-control",
+      "AccessControlList": [
+        {
+          "Grantee": {
+            "Type": "AmazonCustomerByEmail"|"CanonicalUser"|"Group",
+            "DisplayName": "string",
+            "URI": "string",
+            "ID": "string",
+            "EmailAddress": "string"
+          },
+          "Permission": "FULL_CONTROL"|"WRITE"|"WRITE_ACP"|"READ"|"READ_ACP"
+        }
+        ...
+      ],
+      "Tagging": {"string": "string"
+        ...},
+      "UserMetadata": {"string": "string"
+        ...},
+      "StorageClass": "STANDARD"|"REDUCED_REDUNDANCY"|"STANDARD_IA"
+    }
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command initiates a job to get an inventory of the vault <tt class="docutils literal"><span class="pre">my-vault</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws glacier initiate-job --account-id - --vault-name my-vault --job-parameters '{"Type": "inventory-retrieval"}'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"location"</span><span class="p">:</span> <span class="s2">"/0123456789012/vaults/my-vault/jobs/zbxcm3Z_3z5UkoroF7SuZKrxgGoDc3RloGduS7Eg-RO47Yc6FxsdGBgf_Q2DK5Ejh18CnTS5XW4_XqlNHS61dsO4CnMW"</span><span class="p">,</span>
+    <span class="s2">"jobId"</span><span class="p">:</span> <span class="s2">"zbxcm3Z_3z5UkoroF7SuZKrxgGoDc3RloGduS7Eg-RO47Yc6FxsdGBgf_Q2DK5Ejh18CnTS5XW4_XqlNHS61dsO4CnMW"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Amazon Glacier requires an account ID argument when performing operations, but you can use a hyphen to specify the in-use account.</p>
+<p>The following command initiates a job to retrieve an archive from the vault <tt class="docutils literal"><span class="pre">my-vault</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws glacier initiate-job --account-id - --vault-name my-vault --job-parameters file://job-archive-retrieval.json</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">job-archive-retrieval.json</span></tt> is a JSON file in the local folder that specifies the type of job, archive ID, and some optional parameters:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"archive-retrieval"</span><span class="p">,</span>
+  <span class="s2">"ArchiveId"</span><span class="p">:</span> <span class="s2">"kKB7ymWJVpPSwhGP6ycSOAekp9ZYe_--zM_mw6k76ZFGEIWQX-ybtRDvc2VkPSDtfKmQrj0IRQLSGsNuDp-AJVlu2ccmDSyDUmZwKbwbpAdGATGDiB3hHO0bjbGehXTcApVud_wyDw"</span><span class="p">,</span>
+  <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Retrieve archive on 2015-07-17"</span><span class="p">,</span>
+  <span class="s2">"SNSTopic"</span><span class="p">:</span> <span class="s2">"arn:aws:sns:us-west-2:0123456789012:my-topic"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Archive IDs are available in the output of <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">glacier</span> <span class="pre">upload-archive</span></tt> and <tt class="docutils literal"><span class="pre">aws</span> <span class="pre">glacier</span> <span class="pre">get-job-output</span></tt>.</p>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"location"</span><span class="p">:</span> <span class="s2">"/011685312445/vaults/mwunderl/jobs/l7IL5-EkXyEY9Ws95fClzIbk2O5uLYaFdAYOi-azsX_Z8V6NH4yERHzars8wTKYQMX6nBDI9cMNHzyZJO59-8N9aHWav"</span><span class="p">,</span>
+    <span class="s2">"jobId"</span><span class="p">:</span> <span class="s2">"l7IL5-EkXy2O5uLYaFdAYOiEY9Ws95fClzIbk-azsX_Z8V6NH4yERHzars8wTKYQMX6nBDI9cMNHzyZJO59-8N9aHWav"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html">Initiate Job</a> in the <em>Amazon Glacier API Reference</em> for details on the job parameters format.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>location -&gt; (string)</p>
+<blockquote>
+<div>The relative URI path of the job.</div>
+</blockquote>
+<p>jobId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the job.</div>
+</blockquote>
+<p>jobOutputPath -&gt; (string)</p>
+<blockquote>
+<div>The path to the location of where the select results are stored.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

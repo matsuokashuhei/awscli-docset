@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-alias — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lambda" href="index.html">
+    <link rel="next" title="create-event-source-mapping" href="create-event-source-mapping.html">
+    <link rel="prev" title="add-permission" href="add-permission.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-alias">
+<span id="cli-aws-lambda-create-alias"></span><h1>create-alias<a class="headerlink" href="#create-alias" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html">alias</a> for a Lambda function version. Use aliases to provide clients with a function identifier that you can update to invoke a different version.</p>
+<p>You can also map an alias to split invocation requests between two versions. Use the <tt class="docutils literal"><span class="pre">RoutingConfig</span></tt> parameter to specify a second version and the percentage of invocation requests that it receives.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateAlias">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-alias
+--function-name &lt;value&gt;
+--name &lt;value&gt;
+--function-version &lt;value&gt;
+[--description &lt;value&gt;]
+[--routing-config &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--function-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the Lambda function.</p>
+<blockquote>
+<div><strong>Name formats</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<strong>Function name</strong> - <tt class="docutils literal"><span class="pre">MyFunction</span></tt> .</li>
+<li>
+<strong>Function ARN</strong> - <tt class="docutils literal"><span class="pre">arn:aws:lambda:us-west-2:123456789012:function:MyFunction</span></tt> .</li>
+<li>
+<strong>Partial ARN</strong> - <tt class="docutils literal"><span class="pre">123456789012:function:MyFunction</span></tt> .</li>
+</ul>
+<p>The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the alias.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--function-version</span></tt> (string)</p>
+<blockquote>
+<div>The function version that the alias invokes.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description of the alias.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--routing-config</span></tt> (structure)</p>
+<blockquote>
+<div>The <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing configuration</a> of the alias.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>AdditionalVersionWeights={KeyName1=double,KeyName2=double}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "AdditionalVersionWeights": {"string": double
+    ...}
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create an alias for a Lambda function</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-alias</span></tt> example creates an alias named <tt class="docutils literal"><span class="pre">LIVE</span></tt> that points to version 1 of the <tt class="docutils literal"><span class="pre">my-function</span></tt> Lambda function.</p>
+<div class="highlight-python">
+<pre>aws lambda create-alias \
+    --function-name my-function \
+    --description "alias for live version of function" \
+    --function-version 1 \
+    --name LIVE</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"FunctionVersion"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"LIVE"</span><span class="p">,</span>
+    <span class="s2">"AliasArn"</span><span class="p">:</span> <span class="s2">"arn:aws:lambda:us-west-2:123456789012:function:my-function:LIVE"</span><span class="p">,</span>
+    <span class="s2">"RevisionId"</span><span class="p">:</span> <span class="s2">"873282ed-4cd3-4dc8-a069-d0c647e470c6"</span><span class="p">,</span>
+    <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"alias for live version of function"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html">Configuring AWS Lambda Function Aliases</a> in the <em>AWS Lambda Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>AliasArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the alias.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the alias.</div>
+</blockquote>
+<p>FunctionVersion -&gt; (string)</p>
+<blockquote>
+<div>The function version that the alias invokes.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>A description of the alias.</div>
+</blockquote>
+<p>RoutingConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The <a class="reference external" href="https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html">routing configuration</a> of the alias.</p>
+<p>AdditionalVersionWeights -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The name of the second alias, and the percentage of traffic that's routed to it.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (double)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RevisionId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier that changes when you update the alias.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

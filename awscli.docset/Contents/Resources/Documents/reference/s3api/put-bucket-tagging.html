@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-bucket-tagging — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="put-bucket-versioning" href="put-bucket-versioning.html">
+    <link rel="prev" title="put-bucket-request-payment" href="put-bucket-request-payment.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-bucket-tagging">
+<span id="cli-aws-s3api-put-bucket-tagging"></span><h1>put-bucket-tagging<a class="headerlink" href="#put-bucket-tagging" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Sets the tags for a bucket.</p>
+<p>Use tags to organize your AWS bill to reflect your own cost structure. To do this, sign up to get your AWS account bill with tag key values included. Then, to see the cost of combined resources, organize your billing information according to resources with the same tag key values. For example, you can tag several resources with a specific application name, and then organize your billing information to see the total cost of that application across several services. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Cost Allocation and Tagging</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Within a bucket, if you add a tag that has the same key as an existing tag, the new value overwrites the old value. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/CostAllocTagging.html">Using Cost Allocation in Amazon S3 Bucket Tags</a> .</p>
+</div>
+<p>To use this operation, you must have permissions to perform the <tt class="docutils literal"><span class="pre">s3:PutBucketTagging</span></tt> action. The bucket owner has this permission by default and can grant this permission to others. For more information about permissions, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html">Managing Access Permissions to Your Amazon S3 Resources</a> .</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">PutBucketTagging</span></tt> has the following special errors:</div>
+</blockquote>
+<ul class="simple">
+<li>Error code: <tt class="docutils literal"><span class="pre">InvalidTagError</span></tt><ul>
+<li>Description: The tag provided was not a valid tag. This error can occur if the tag did not pass input validation. For information about tag restrictions, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2//allocation-tag-restrictions.html">User-Defined Tag Restrictions</a> and <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2//aws-tag-restrictions.html">AWS-Generated Cost Allocation Tag Restrictions</a> .</li>
+</ul>
+</li>
+<li>Error code: <tt class="docutils literal"><span class="pre">MalformedXMLError</span></tt><ul>
+<li>Description: The XML provided does not match the schema.</li>
+</ul>
+</li>
+<li>Error code: <tt class="docutils literal"><span class="pre">OperationAbortedError</span></tt><ul>
+<li>Description: A conflicting conditional operation is currently in progress against this resource. Please try again.</li>
+</ul>
+</li>
+<li>Error code: <tt class="docutils literal"><span class="pre">InternalError</span></tt><ul>
+<li>Description: The service was unable to apply the provided tag to the bucket.</li>
+</ul>
+</li>
+</ul>
+<p>The following operations are related to <tt class="docutils literal"><span class="pre">PutBucketTagging</span></tt> :</p>
+<ul class="simple">
+<li>GetBucketTagging</li>
+<li>DeleteBucketTagging</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketTagging">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-bucket-tagging
+--bucket &lt;value&gt;
+[--content-md5 &lt;value&gt;]
+--tagging &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The bucket name.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-md5</span></tt> (string)</p>
+<blockquote>
+<div>The base64-encoded 128-bit MD5 digest of the data. You must use this header as a message integrity check to verify that the request body was not corrupted in transit. For more information, see <a class="reference external" href="http://www.ietf.org/rfc/rfc1864.txt">RFC 1864</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tagging</span></tt> (structure)</p>
+<blockquote>
+<div>Container for the <tt class="docutils literal"><span class="pre">TagSet</span></tt> and <tt class="docutils literal"><span class="pre">Tag</span></tt> elements.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>TagSet=[{Key=string,Value=string},{Key=string,Value=string}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "TagSet": [
+    {
+      "Key": "string",
+      "Value": "string"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command applies a tagging configuration to a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws s3api put-bucket-tagging --bucket my-bucket --tagging file://tagging.json</pre>
+</div>
+<p>The file <tt class="docutils literal"><span class="pre">tagging.json</span></tt> is a JSON document in the current folder that specifies tags:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">"TagSet"</span><span class="p">:</span> <span class="p">[</span>
+     <span class="p">{</span>
+       <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"organization"</span><span class="p">,</span>
+       <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"marketing"</span>
+     <span class="p">}</span>
+   <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Or apply a tagging configuration to <tt class="docutils literal"><span class="pre">my-bucket</span></tt> directly from the command line:</p>
+<div class="highlight-python">
+<pre>aws s3api put-bucket-tagging --bucket my-bucket --tagging 'TagSet=[{Key=organization,Value=marketing}]'</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

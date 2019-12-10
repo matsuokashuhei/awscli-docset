@@ -1,0 +1,953 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-endpoint — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="dms" href="index.html">
+    <link rel="next" title="create-event-subscription" href="create-event-subscription.html">
+    <link rel="prev" title="apply-pending-maintenance-action" href="apply-pending-maintenance-action.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-endpoint">
+<span id="cli-aws-dms-create-endpoint"></span><h1>create-endpoint<a class="headerlink" href="#create-endpoint" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an endpoint using the provided settings.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CreateEndpoint">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-endpoint
+--endpoint-identifier &lt;value&gt;
+--endpoint-type &lt;value&gt;
+--engine-name &lt;value&gt;
+[--username &lt;value&gt;]
+[--password &lt;value&gt;]
+[--server-name &lt;value&gt;]
+[--port &lt;value&gt;]
+[--database-name &lt;value&gt;]
+[--extra-connection-attributes &lt;value&gt;]
+[--kms-key-id &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--certificate-arn &lt;value&gt;]
+[--ssl-mode &lt;value&gt;]
+[--service-access-role-arn &lt;value&gt;]
+[--external-table-definition &lt;value&gt;]
+[--dynamo-db-settings &lt;value&gt;]
+[--s3-settings &lt;value&gt;]
+[--dms-transfer-settings &lt;value&gt;]
+[--mongo-db-settings &lt;value&gt;]
+[--kinesis-settings &lt;value&gt;]
+[--elasticsearch-settings &lt;value&gt;]
+[--redshift-settings &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--endpoint-identifier</span></tt> (string)</p>
+<blockquote>
+<div>The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--endpoint-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of endpoint. Valid values are <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">source</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">target</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine-name</span></tt> (string)</p>
+<blockquote>
+<div>The type of engine for the endpoint. Valid values, depending on the <tt class="docutils literal"><span class="pre">EndpointType</span></tt> value, include <tt class="docutils literal"><span class="pre">mysql</span></tt> , <tt class="docutils literal"><span class="pre">oracle</span></tt> , <tt class="docutils literal"><span class="pre">postgres</span></tt> , <tt class="docutils literal"><span class="pre">mariadb</span></tt> , <tt class="docutils literal"><span class="pre">aurora</span></tt> , <tt class="docutils literal"><span class="pre">aurora-postgresql</span></tt> , <tt class="docutils literal"><span class="pre">redshift</span></tt> , <tt class="docutils literal"><span class="pre">s3</span></tt> , <tt class="docutils literal"><span class="pre">db2</span></tt> , <tt class="docutils literal"><span class="pre">azuredb</span></tt> , <tt class="docutils literal"><span class="pre">sybase</span></tt> , <tt class="docutils literal"><span class="pre">dynamodb</span></tt> , <tt class="docutils literal"><span class="pre">mongodb</span></tt> , and <tt class="docutils literal"><span class="pre">sqlserver</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--username</span></tt> (string)</p>
+<blockquote>
+<div>The user name to be used to log in to the endpoint database.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--password</span></tt> (string)</p>
+<blockquote>
+<div>The password to be used to log in to the endpoint database.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the server where the endpoint database resides.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (integer)</p>
+<blockquote>
+<div>The port used by the endpoint database.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--database-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the endpoint database.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--extra-connection-attributes</span></tt> (string)</p>
+<blockquote>
+<div>Additional attributes associated with the connection. Each attribute is specified as a name-value pair associated by an equal sign (=). Multiple attributes are separated by a semicolon (;) with no additional white space. For information on the attributes available for connecting your source or target endpoint, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Endpoints.html">Working with AWS DMS Endpoints</a> in the <em>AWS Database Migration Service User Guide.</em>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kms-key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>An AWS KMS key identifier that is used to encrypt the connection parameters for the endpoint.</p>
+<p>If you don't specify a value for the <tt class="docutils literal"><span class="pre">KmsKeyId</span></tt> parameter, then AWS DMS uses your default encryption key.</p>
+<p>AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS Region.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>One or more tags to be assigned to the endpoint.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--certificate-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the certificate.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ssl-mode</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Secure Sockets Layer (SSL) mode to use for the SSL connection. The default is <tt class="docutils literal"><span class="pre">none</span></tt></p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">none</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">require</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">verify-ca</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">verify-full</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-access-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the service access role that you want to use to create the endpoint.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--external-table-definition</span></tt> (string)</p>
+<blockquote>
+<div>The external table definition.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dynamo-db-settings</span></tt> (structure)</p>
+<blockquote>
+<div>Settings in JSON format for the target Amazon DynamoDB endpoint. For more information about the available settings, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html">Using Object Mapping to Migrate Data to DynamoDB</a> in the <em>AWS Database Migration Service User Guide.</em>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ServiceAccessRoleArn</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ServiceAccessRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--s3-settings</span></tt> (structure)</p>
+<blockquote>
+<div>Settings in JSON format for the target Amazon S3 endpoint. For more information about the available settings, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring">Extra Connection Attributes When Using Amazon S3 as a Target for AWS DMS</a> in the <em>AWS Database Migration Service User Guide.</em>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ServiceAccessRoleArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ExternalTableDefinition</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">CsvRowDelimiter</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">CsvDelimiter</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BucketFolder</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BucketName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">CompressionType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">EncryptionMode</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ServerSideEncryptionKmsKeyId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">DataFormat</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">EncodingType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">DictPageSizeLimit</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">RowGroupLength</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">DataPageSize</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">ParquetVersion</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">EnableStatistics</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">IncludeOpForFullLoad</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">CdcInsertsOnly</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">TimestampColumnName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ParquetTimestampInMillisecond</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ServiceAccessRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ExternalTableDefinition"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CsvRowDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CsvDelimiter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"BucketFolder"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"BucketName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CompressionType"</span><span class="p">:</span> <span class="s2">"none"</span><span class="o">|</span><span class="s2">"gzip"</span><span class="p">,</span>
+  <span class="s2">"EncryptionMode"</span><span class="p">:</span> <span class="s2">"sse-s3"</span><span class="o">|</span><span class="s2">"sse-kms"</span><span class="p">,</span>
+  <span class="s2">"ServerSideEncryptionKmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DataFormat"</span><span class="p">:</span> <span class="s2">"csv"</span><span class="o">|</span><span class="s2">"parquet"</span><span class="p">,</span>
+  <span class="s2">"EncodingType"</span><span class="p">:</span> <span class="s2">"plain"</span><span class="o">|</span><span class="s2">"plain-dictionary"</span><span class="o">|</span><span class="s2">"rle-dictionary"</span><span class="p">,</span>
+  <span class="s2">"DictPageSizeLimit"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"RowGroupLength"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"DataPageSize"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"ParquetVersion"</span><span class="p">:</span> <span class="s2">"parquet-1-0"</span><span class="o">|</span><span class="s2">"parquet-2-0"</span><span class="p">,</span>
+  <span class="s2">"EnableStatistics"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"IncludeOpForFullLoad"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"CdcInsertsOnly"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"TimestampColumnName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ParquetTimestampInMillisecond"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dms-transfer-settings</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The settings in JSON format for the DMS transfer type of source endpoint.</p>
+<p>Possible settings include the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ServiceAccessRoleArn</span></tt> - The IAM role that has permission to access the Amazon S3 bucket.</li>
+<li>
+<tt class="docutils literal"><span class="pre">BucketName</span></tt> - The name of the S3 bucket to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CompressionType</span></tt> - An optional parameter to use GZIP to compress the target files. To use GZIP, set this value to <tt class="docutils literal"><span class="pre">NONE</span></tt> (the default). To keep the files uncompressed, don't use this value.</li>
+</ul>
+<p>Shorthand syntax for these settings is as follows: <tt class="docutils literal"><span class="pre">ServiceAccessRoleArn=string,BucketName=string,CompressionType=string</span></tt></p>
+<p>JSON syntax for these settings is as follows: <tt class="docutils literal"><span class="pre">{</span> <span class="pre">"ServiceAccessRoleArn":</span> <span class="pre">"string",</span> <span class="pre">"BucketName":</span> <span class="pre">"string",</span> <span class="pre">"CompressionType":</span> <span class="pre">"none"|"gzip"</span> <span class="pre">}</span></tt></p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ServiceAccessRoleArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BucketName</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ServiceAccessRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"BucketName"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--mongo-db-settings</span></tt> (structure)</p>
+<blockquote>
+<div>Settings in JSON format for the source MongoDB endpoint. For more information about the available settings, see the configuration properties section in <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html">Using MongoDB as a Target for AWS Database Migration Service</a> in the <em>AWS Database Migration Service User Guide.</em>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Username</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Password</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ServerName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Port</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">DatabaseName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">AuthType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">AuthMechanism</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">NestingLevel</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ExtractDocId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">DocsToInvestigate</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">AuthSource</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KmsKeyId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Username"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Password"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ServerName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Port"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"DatabaseName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"AuthType"</span><span class="p">:</span> <span class="s2">"no"</span><span class="o">|</span><span class="s2">"password"</span><span class="p">,</span>
+  <span class="s2">"AuthMechanism"</span><span class="p">:</span> <span class="s2">"default"</span><span class="o">|</span><span class="s2">"mongodb_cr"</span><span class="o">|</span><span class="s2">"scram_sha_1"</span><span class="p">,</span>
+  <span class="s2">"NestingLevel"</span><span class="p">:</span> <span class="s2">"none"</span><span class="o">|</span><span class="s2">"one"</span><span class="p">,</span>
+  <span class="s2">"ExtractDocId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DocsToInvestigate"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"AuthSource"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--kinesis-settings</span></tt> (structure)</p>
+<blockquote>
+<div>Settings in JSON format for the target Amazon Kinesis Data Streams endpoint. For more information about the available settings, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping">Using Object Mapping to Migrate Data to a Kinesis Data Stream</a> in the <em>AWS Database Migration User Guide.</em>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">StreamArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">MessageFormat</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ServiceAccessRoleArn</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"StreamArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"MessageFormat"</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span>
+  <span class="s2">"ServiceAccessRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--elasticsearch-settings</span></tt> (structure)</p>
+<blockquote>
+<div>Settings in JSON format for the target Elasticsearch endpoint. For more information about the available settings, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration">Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS</a> in the <em>AWS Database Migration User Guide.</em>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ServiceAccessRoleArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">EndpointUri</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">FullLoadErrorPercentage</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">ErrorRetryDuration</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ServiceAccessRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"EndpointUri"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"FullLoadErrorPercentage"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"ErrorRetryDuration"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--redshift-settings</span></tt> (structure)</p>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">AcceptAnyDate</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">AfterConnectScript</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BucketFolder</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BucketName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ConnectionTimeout</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">DatabaseName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">DateFormat</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">EmptyAsNull</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">EncryptionMode</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">FileTransferUploadStreams</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">LoadTimeout</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxFileSize</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">Password</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Port</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">RemoveQuotes</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">ReplaceInvalidChars</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ReplaceChars</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ServerName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ServiceAccessRoleArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ServerSideEncryptionKmsKeyId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TimeFormat</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TrimBlanks</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">TruncateColumns</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">Username</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">WriteBufferSize</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"AcceptAnyDate"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"AfterConnectScript"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"BucketFolder"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"BucketName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ConnectionTimeout"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"DatabaseName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DateFormat"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"EmptyAsNull"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"EncryptionMode"</span><span class="p">:</span> <span class="s2">"sse-s3"</span><span class="o">|</span><span class="s2">"sse-kms"</span><span class="p">,</span>
+  <span class="s2">"FileTransferUploadStreams"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"LoadTimeout"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"MaxFileSize"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"Password"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Port"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"RemoveQuotes"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"ReplaceInvalidChars"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ReplaceChars"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ServerName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ServiceAccessRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ServerSideEncryptionKmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TimeFormat"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TrimBlanks"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"TruncateColumns"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"Username"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"WriteBufferSize"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command creates a source endpoint for a MySQL RDS DB instance named <tt class="docutils literal"><span class="pre">mydb.cx1llnox7iyx.uswest-2.rds.amazonaws.com</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws dms create-endpoint --endpoint-identifier test-endpoint-1 --endpoint-type source --engine-name mysql --username username --password password --server-name mydb.cx1llnox7iyx.uswest-2.rds.amazonaws.com --port 3306</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Endpoint"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Username"</span><span class="p">:</span> <span class="s2">"username"</span><span class="p">,</span>
+    <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"active"</span><span class="p">,</span>
+    <span class="s2">"EndpointArn"</span><span class="p">:</span> <span class="s2">"arn:aws:dms:us-east-1:123456789012:endpoint:RAAR3R22XSH46S3PWLC3NJAWKM"</span><span class="p">,</span>
+    <span class="s2">"ServerName"</span><span class="p">:</span> <span class="s2">"mydb.cx1llnox7iyx.us-west-2.rds.amazonaws.com"</span><span class="p">,</span>
+    <span class="s2">"EndpointType"</span><span class="p">:</span> <span class="s2">"SOURCE"</span><span class="p">,</span>
+    <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"arn:aws:kms:us-east-1:123456789012:key/4c1731d6-5435-ed4d-be13-d53411a7cfbd"</span><span class="p">,</span>
+    <span class="s2">"EngineName"</span><span class="p">:</span> <span class="s2">"mysql"</span><span class="p">,</span>
+    <span class="s2">"EndpointIdentifier"</span><span class="p">:</span> <span class="s2">"test-endpoint-1"</span><span class="p">,</span>
+    <span class="s2">"Port"</span><span class="p">:</span> <span class="mi">3306</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Endpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The endpoint that was created.</p>
+<p>EndpointIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The database endpoint identifier. Identifiers must begin with a letter; must contain only ASCII letters, digits, and hyphens; and must not end with a hyphen or contain two consecutive hyphens.</div>
+</blockquote>
+<p>EndpointType -&gt; (string)</p>
+<blockquote>
+<div>The type of endpoint. Valid values are <tt class="docutils literal"><span class="pre">source</span></tt> and <tt class="docutils literal"><span class="pre">target</span></tt> .</div>
+</blockquote>
+<p>EngineName -&gt; (string)</p>
+<blockquote>
+<div>The database engine name. Valid values, depending on the EndpointType, include mysql, oracle, postgres, mariadb, aurora, aurora-postgresql, redshift, s3, db2, azuredb, sybase, dynamodb, mongodb, and sqlserver.</div>
+</blockquote>
+<p>EngineDisplayName -&gt; (string)</p>
+<blockquote>
+<div>The expanded name for the engine name. For example, if the <tt class="docutils literal"><span class="pre">EngineName</span></tt> parameter is "aurora," this value would be "Amazon Aurora MySQL."</div>
+</blockquote>
+<p>Username -&gt; (string)</p>
+<blockquote>
+<div>The user name used to connect to the endpoint.</div>
+</blockquote>
+<p>ServerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the server at the endpoint.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port value used to access the endpoint.</div>
+</blockquote>
+<p>DatabaseName -&gt; (string)</p>
+<blockquote>
+<div>The name of the database at the endpoint.</div>
+</blockquote>
+<p>ExtraConnectionAttributes -&gt; (string)</p>
+<blockquote>
+<div>Additional connection attributes used to connect to the endpoint.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the endpoint.</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>An AWS KMS key identifier that is used to encrypt the connection parameters for the endpoint.</p>
+<p>If you don't specify a value for the <tt class="docutils literal"><span class="pre">KmsKeyId</span></tt> parameter, then AWS DMS uses your default encryption key.</p>
+<p>AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS Region.</p>
+</div>
+</blockquote>
+<p>EndpointArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) string that uniquely identifies the endpoint.</div>
+</blockquote>
+<p>CertificateArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) used for SSL connection to the endpoint.</div>
+</blockquote>
+<p>SslMode -&gt; (string)</p>
+<blockquote>
+<div>The SSL mode used to connect to the endpoint. The default value is <tt class="docutils literal"><span class="pre">none</span></tt> .</div>
+</blockquote>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) used by the service access IAM role.</div>
+</blockquote>
+<p>ExternalTableDefinition -&gt; (string)</p>
+<blockquote>
+<div>The external table definition.</div>
+</blockquote>
+<p>ExternalId -&gt; (string)</p>
+<blockquote>
+<div>Value returned by a call to CreateEndpoint that can be used for cross-account validation. Use it on a subsequent call to CreateEndpoint to create the endpoint with a cross-account.</div>
+</blockquote>
+<p>DynamoDbSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings for the target DynamoDB database. For more information, see the <tt class="docutils literal"><span class="pre">DynamoDBSettings</span></tt> structure.</p>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) used by the service access IAM role.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>S3Settings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings for the S3 target endpoint. For more information, see the <tt class="docutils literal"><span class="pre">S3Settings</span></tt> structure.</p>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) used by the service access IAM role.</div>
+</blockquote>
+<p>ExternalTableDefinition -&gt; (string)</p>
+<blockquote>
+<div>The external table definition.</div>
+</blockquote>
+<p>CsvRowDelimiter -&gt; (string)</p>
+<blockquote>
+<div>The delimiter used to separate rows in the source files. The default is a carriage return (<tt class="docutils literal"><span class="pre">\n</span></tt> ).</div>
+</blockquote>
+<p>CsvDelimiter -&gt; (string)</p>
+<blockquote>
+<div>The delimiter used to separate columns in the source files. The default is a comma.</div>
+</blockquote>
+<p>BucketFolder -&gt; (string)</p>
+<blockquote>
+<div>An optional parameter to set a folder name in the S3 bucket. If provided, tables are created in the path `` <em>bucketFolder</em> /<em>schema_name</em> /<em>table_name</em> /`` . If this parameter is not specified, then the path used is `` <em>schema_name</em> /<em>table_name</em> /`` .</div>
+</blockquote>
+<p>BucketName -&gt; (string)</p>
+<blockquote>
+<div>The name of the S3 bucket.</div>
+</blockquote>
+<p>CompressionType -&gt; (string)</p>
+<blockquote>
+<div>An optional parameter to use GZIP to compress the target files. Set to GZIP to compress the target files. Set to NONE (the default) or do not use to leave the files uncompressed. Applies to both .csv and .parquet file formats.</div>
+</blockquote>
+<p>EncryptionMode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of server-side encryption that you want to use for your data. This encryption type is part of the endpoint settings or the extra connections attributes for Amazon S3. You can choose either <tt class="docutils literal"><span class="pre">SSE_S3</span></tt> (the default) or <tt class="docutils literal"><span class="pre">SSE_KMS</span></tt> . To use <tt class="docutils literal"><span class="pre">SSE_S3</span></tt> , you need an AWS Identity and Access Management (IAM) role with permission to allow <tt class="docutils literal"><span class="pre">"arn:aws:s3:::dms-*"</span></tt> to use the following actions:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">s3:CreateBucket</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:ListBucket</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:DeleteBucket</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:GetBucketLocation</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:GetObject</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:PutObject</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:DeleteObject</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:GetObjectVersion</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:GetBucketPolicy</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:PutBucketPolicy</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3:DeleteBucketPolicy</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p>ServerSideEncryptionKmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>If you are using <tt class="docutils literal"><span class="pre">SSE_KMS</span></tt> for the <tt class="docutils literal"><span class="pre">EncryptionMode</span></tt> , provide the AWS KMS key ID. The key that you use needs an attached policy that enables AWS Identity and Access Management (IAM) user permissions and allows use of the key.</p>
+<p>Here is a CLI example: <a href="#id1"><span class="problematic" id="id2">``</span></a>aws dms create-endpoint --endpoint-identifier <em>value</em> --endpoint-type target --engine-name s3 --s3-settings ServiceAccessRoleArn=*value* ,BucketFolder=*value* ,BucketName=*value* ,EncryptionMode=SSE_KMS,ServerSideEncryptionKmsKeyId=*value* ``</p>
+</div>
+</blockquote>
+<p>DataFormat -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The format of the data that you want to use for output. You can choose one of the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">csv</span></tt> : This is a row-based file format with comma-separated values (.csv).</li>
+<li>
+<tt class="docutils literal"><span class="pre">parquet</span></tt> : Apache Parquet (.parquet) is a columnar storage file format that features efficient compression and provides faster query response.</li>
+</ul>
+</div>
+</blockquote>
+<p>EncodingType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of encoding you are using:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">RLE_DICTIONARY</span></tt> uses a combination of bit-packing and run-length encoding to store repeated values more efficiently. This is the default.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PLAIN</span></tt> doesn't use encoding at all. Values are stored as they are.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PLAIN_DICTIONARY</span></tt> builds a dictionary of the values encountered in a given column. The dictionary is stored in a dictionary page for each column chunk.</li>
+</ul>
+</div>
+</blockquote>
+<p>DictPageSizeLimit -&gt; (integer)</p>
+<blockquote>
+<div>The maximum size of an encoded dictionary page of a column. If the dictionary page exceeds this, this column is stored using an encoding type of <tt class="docutils literal"><span class="pre">PLAIN</span></tt> . This parameter defaults to 1024 * 1024 bytes (1 MiB), the maximum size of a dictionary page before it reverts to <tt class="docutils literal"><span class="pre">PLAIN</span></tt> encoding. This size is used for .parquet file format only.</div>
+</blockquote>
+<p>RowGroupLength -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of rows in a row group. A smaller row group size provides faster reads. But as the number of row groups grows, the slower writes become. This parameter defaults to 10,000 rows. This number is used for .parquet file format only.</p>
+<p>If you choose a value larger than the maximum, <tt class="docutils literal"><span class="pre">RowGroupLength</span></tt> is set to the max row group length in bytes (64 * 1024 * 1024).</p>
+</div>
+</blockquote>
+<p>DataPageSize -&gt; (integer)</p>
+<blockquote>
+<div>The size of one data page in bytes. This parameter defaults to 1024 * 1024 bytes (1 MiB). This number is used for .parquet file format only.</div>
+</blockquote>
+<p>ParquetVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the Apache Parquet format that you want to use: <tt class="docutils literal"><span class="pre">parquet_1_0</span></tt> (the default) or <tt class="docutils literal"><span class="pre">parquet_2_0</span></tt> .</div>
+</blockquote>
+<p>EnableStatistics -&gt; (boolean)</p>
+<blockquote>
+<div>A value that enables statistics for Parquet pages and row groups. Choose <tt class="docutils literal"><span class="pre">true</span></tt> to enable statistics, <tt class="docutils literal"><span class="pre">false</span></tt> to disable. Statistics include <tt class="docutils literal"><span class="pre">NULL</span></tt> , <tt class="docutils literal"><span class="pre">DISTINCT</span></tt> , <tt class="docutils literal"><span class="pre">MAX</span></tt> , and <tt class="docutils literal"><span class="pre">MIN</span></tt> values. This parameter defaults to <tt class="docutils literal"><span class="pre">true</span></tt> . This value is used for .parquet file format only.</div>
+</blockquote>
+<p>IncludeOpForFullLoad -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A value that enables a full load to write INSERT operations to the comma-separated value (.csv) output files only to indicate how the rows were added to the source database.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AWS DMS supports the <tt class="docutils literal"><span class="pre">IncludeOpForFullLoad</span></tt> parameter in versions 3.1.4 and later.</p>
+</div>
+<p>For full load, records can only be inserted. By default (the <tt class="docutils literal"><span class="pre">false</span></tt> setting), no information is recorded in these output files for a full load to indicate that the rows were inserted at the source database. If <tt class="docutils literal"><span class="pre">IncludeOpForFullLoad</span></tt> is set to <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">y</span></tt> , the INSERT is recorded as an I annotation in the first field of the .csv file. This allows the format of your target records from a full load to be consistent with the target records from a CDC load.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This setting works together with the <tt class="docutils literal"><span class="pre">CdcInsertsOnly</span></tt> parameter for output to .csv files only. For more information about how these settings work together, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring.InsertOps">Indicating Source DB Operations in Migrated S3 Data</a> in the <em>AWS Database Migration Service User Guide.</em> .</p>
+</div>
+</div>
+</blockquote>
+<p>CdcInsertsOnly -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A value that enables a change data capture (CDC) load to write only INSERT operations to .csv or columnar storage (.parquet) output files. By default (the <tt class="docutils literal"><span class="pre">false</span></tt> setting), the first field in a .csv or .parquet record contains the letter I (INSERT), U (UPDATE), or D (DELETE). These values indicate whether the row was inserted, updated, or deleted at the source database for a CDC load to the target.</p>
+<p>If <tt class="docutils literal"><span class="pre">CdcInsertsOnly</span></tt> is set to <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">y</span></tt> , only INSERTs from the source database are migrated to the .csv or .parquet file. For .csv format only, how these INSERTs are recorded depends on the value of <tt class="docutils literal"><span class="pre">IncludeOpForFullLoad</span></tt> . If <tt class="docutils literal"><span class="pre">IncludeOpForFullLoad</span></tt> is set to <tt class="docutils literal"><span class="pre">true</span></tt> , the first field of every CDC record is set to I to indicate the INSERT operation at the source. If <tt class="docutils literal"><span class="pre">IncludeOpForFullLoad</span></tt> is set to <tt class="docutils literal"><span class="pre">false</span></tt> , every CDC record is written without a first field to indicate the INSERT operation at the source. For more information about how these settings work together, see <a class="reference external" href="https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring.InsertOps">Indicating Source DB Operations in Migrated S3 Data</a> in the <em>AWS Database Migration Service User Guide.</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AWS DMS supports this interaction between the <tt class="docutils literal"><span class="pre">CdcInsertsOnly</span></tt> and <tt class="docutils literal"><span class="pre">IncludeOpForFullLoad</span></tt> parameters in versions 3.1.4 and later.</p>
+</div>
+</div>
+</blockquote>
+<p>TimestampColumnName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A value that when nonblank causes AWS DMS to add a column with timestamp information to the endpoint data for an Amazon S3 target.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AWS DMS supports the <tt class="docutils literal"><span class="pre">TimestampColumnName</span></tt> parameter in versions 3.1.4 and later.</p>
+</div>
+<p>DMS includes an additional <tt class="docutils literal"><span class="pre">STRING</span></tt> column in the .csv or .parquet object files of your migrated data when you set <tt class="docutils literal"><span class="pre">TimestampColumnName</span></tt> to a nonblank value.</p>
+<p>For a full load, each row of this timestamp column contains a timestamp for when the data was transferred from the source to the target by DMS.</p>
+<p>For a change data capture (CDC) load, each row of the timestamp column contains the timestamp for the commit of that row in the source database.</p>
+<p>The string format for this timestamp column value is <tt class="docutils literal"><span class="pre">yyyy-MM-dd</span> <span class="pre">HH:mm:ss.SSSSSS</span></tt> . By default, the precision of this value is in microseconds. For a CDC load, the rounding of the precision depends on the commit timestamp supported by DMS for the source database.</p>
+<p>When the <tt class="docutils literal"><span class="pre">AddColumnName</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">true</span></tt> , DMS also includes a name for the timestamp column that you set with <tt class="docutils literal"><span class="pre">TimestampColumnName</span></tt> .</p>
+</div>
+</blockquote>
+<p>ParquetTimestampInMillisecond -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A value that specifies the precision of any <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> column values that are written to an Amazon S3 object file in .parquet format.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">AWS DMS supports the <tt class="docutils literal"><span class="pre">ParquetTimestampInMillisecond</span></tt> parameter in versions 3.1.4 and later.</p>
+</div>
+<p>When <tt class="docutils literal"><span class="pre">ParquetTimestampInMillisecond</span></tt> is set to <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">y</span></tt> , AWS DMS writes all <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> columns in a .parquet formatted file with millisecond precision. Otherwise, DMS writes them with microsecond precision.</p>
+<p>Currently, Amazon Athena and AWS Glue can handle only millisecond precision for <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> values. Set this parameter to <tt class="docutils literal"><span class="pre">true</span></tt> for S3 endpoint object files that are .parquet formatted only if you plan to query or process the data with Athena or AWS Glue.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>AWS DMS writes any <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> column values written to an S3 file in .csv format with microsecond precision.</p>
+<p class="last">Setting <tt class="docutils literal"><span class="pre">ParquetTimestampInMillisecond</span></tt> has no effect on the string format of the timestamp column value that is inserted by setting the <tt class="docutils literal"><span class="pre">TimestampColumnName</span></tt> parameter.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DmsTransferSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings in JSON format for the DMS transfer type of source endpoint.</p>
+<p>Possible settings include the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ServiceAccessRoleArn</span></tt> - The IAM role that has permission to access the Amazon S3 bucket.</li>
+<li>
+<tt class="docutils literal"><span class="pre">BucketName</span></tt> - The name of the S3 bucket to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CompressionType</span></tt> - An optional parameter to use GZIP to compress the target files. To use GZIP, set this value to <tt class="docutils literal"><span class="pre">NONE</span></tt> (the default). To keep the files uncompressed, don't use this value.</li>
+</ul>
+<p>Shorthand syntax for these settings is as follows: <tt class="docutils literal"><span class="pre">ServiceAccessRoleArn=string,BucketName=string,CompressionType=string</span></tt></p>
+<p>JSON syntax for these settings is as follows: <tt class="docutils literal"><span class="pre">{</span> <span class="pre">"ServiceAccessRoleArn":</span> <span class="pre">"string",</span> <span class="pre">"BucketName":</span> <span class="pre">"string",</span> <span class="pre">"CompressionType":</span> <span class="pre">"none"|"gzip"</span> <span class="pre">}</span></tt></p>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The IAM role that has permission to access the Amazon S3 bucket.</div>
+</blockquote>
+<p>BucketName -&gt; (string)</p>
+<blockquote>
+<div>The name of the S3 bucket to use.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MongoDbSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings for the MongoDB source endpoint. For more information, see the <tt class="docutils literal"><span class="pre">MongoDbSettings</span></tt> structure.</p>
+<p>Username -&gt; (string)</p>
+<blockquote>
+<div>The user name you use to access the MongoDB source endpoint.</div>
+</blockquote>
+<p>Password -&gt; (string)</p>
+<blockquote>
+<div>The password for the user account you use to access the MongoDB source endpoint.</div>
+</blockquote>
+<p>ServerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the server on the MongoDB source endpoint.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port value for the MongoDB source endpoint.</div>
+</blockquote>
+<p>DatabaseName -&gt; (string)</p>
+<blockquote>
+<div>The database name on the MongoDB source endpoint.</div>
+</blockquote>
+<p>AuthType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The authentication type you use to access the MongoDB source endpoint.</p>
+<p>Valid values: NO, PASSWORD</p>
+<p>When NO is selected, user name and password parameters are not used and can be empty.</p>
+</div>
+</blockquote>
+<p>AuthMechanism -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The authentication mechanism you use to access the MongoDB source endpoint.</p>
+<p>Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1</p>
+<p>DEFAULT – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version 3.x, use SCRAM_SHA_1. This setting is not used when authType=No.</p>
+</div>
+</blockquote>
+<p>NestingLevel -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Specifies either document or table mode.</p>
+<p>Valid values: NONE, ONE</p>
+<p>Default value is NONE. Specify NONE to use document mode. Specify ONE to use table mode.</p>
+</div>
+</blockquote>
+<p>ExtractDocId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Specifies the document ID. Use this setting when <tt class="docutils literal"><span class="pre">NestingLevel</span></tt> is set to NONE.</p>
+<p>Default value is false.</p>
+</div>
+</blockquote>
+<p>DocsToInvestigate -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates the number of documents to preview to determine the document organization. Use this setting when <tt class="docutils literal"><span class="pre">NestingLevel</span></tt> is set to ONE.</p>
+<p>Must be a positive value greater than 0. Default value is 1000.</p>
+</div>
+</blockquote>
+<p>AuthSource -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The MongoDB database name. This setting is not used when <tt class="docutils literal"><span class="pre">authType=NO</span></tt> .</p>
+<p>The default is admin.</p>
+</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS KMS key identifier that is used to encrypt the content on the replication instance. If you don't specify a value for the <tt class="docutils literal"><span class="pre">KmsKeyId</span></tt> parameter, then AWS DMS uses your default encryption key. AWS KMS creates the default encryption key for your AWS account. Your AWS account has a different default encryption key for each AWS Region.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>KinesisSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings for the Amazon Kinesis source endpoint. For more information, see the <tt class="docutils literal"><span class="pre">KinesisSettings</span></tt> structure.</p>
+<p>StreamArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the Amazon Kinesis Data Streams endpoint.</div>
+</blockquote>
+<p>MessageFormat -&gt; (string)</p>
+<blockquote>
+<div>The output format for the records created on the endpoint. The message format is <tt class="docutils literal"><span class="pre">JSON</span></tt> .</div>
+</blockquote>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) for the IAM role that DMS uses to write to the Amazon Kinesis data stream.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ElasticsearchSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings for the Elasticsearch source endpoint. For more information, see the <tt class="docutils literal"><span class="pre">ElasticsearchSettings</span></tt> structure.</p>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) used by service to access the IAM role.</div>
+</blockquote>
+<p>EndpointUri -&gt; (string)</p>
+<blockquote>
+<div>The endpoint for the Elasticsearch cluster.</div>
+</blockquote>
+<p>FullLoadErrorPercentage -&gt; (integer)</p>
+<blockquote>
+<div>The maximum percentage of records that can fail to be written before a full load operation stops.</div>
+</blockquote>
+<p>ErrorRetryDuration -&gt; (integer)</p>
+<blockquote>
+<div>The maximum number of seconds that DMS retries failed API requests to the Elasticsearch cluster.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RedshiftSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Settings for the Amazon Redshift endpoint.</p>
+<p>AcceptAnyDate -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A value that indicates to allow any date format, including invalid formats such as 00/00/00 00:00:00, to be loaded without generating an error. You can choose <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> (the default).</p>
+<p>This parameter applies only to TIMESTAMP and DATE columns. Always use ACCEPTANYDATE with the DATEFORMAT parameter. If the date format for the data doesn't match the DATEFORMAT specification, Amazon Redshift inserts a NULL value into that field.</p>
+</div>
+</blockquote>
+<p>AfterConnectScript -&gt; (string)</p>
+<blockquote>
+<div>Code to run after connecting. This parameter should contain the code itself, not the name of a file containing the code.</div>
+</blockquote>
+<p>BucketFolder -&gt; (string)</p>
+<blockquote>
+<div>The location where the comma-separated value (.csv) files are stored before being uploaded to the S3 bucket.</div>
+</blockquote>
+<p>BucketName -&gt; (string)</p>
+<blockquote>
+<div>The name of the S3 bucket you want to use</div>
+</blockquote>
+<p>ConnectionTimeout -&gt; (integer)</p>
+<blockquote>
+<div>A value that sets the amount of time to wait (in milliseconds) before timing out, beginning from when you initially establish a connection.</div>
+</blockquote>
+<p>DatabaseName -&gt; (string)</p>
+<blockquote>
+<div>The name of the Amazon Redshift data warehouse (service) that you are working with.</div>
+</blockquote>
+<p>DateFormat -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The date format that you are using. Valid values are <tt class="docutils literal"><span class="pre">auto</span></tt> (case-sensitive), your date format string enclosed in quotes, or NULL. If this parameter is left unset (NULL), it defaults to a format of 'YYYY-MM-DD'. Using <tt class="docutils literal"><span class="pre">auto</span></tt> recognizes most strings, even some that aren't supported when you use a date format string.</p>
+<p>If your date and time values use formats different from each other, set this to <tt class="docutils literal"><span class="pre">auto</span></tt> .</p>
+</div>
+</blockquote>
+<p>EmptyAsNull -&gt; (boolean)</p>
+<blockquote>
+<div>A value that specifies whether AWS DMS should migrate empty CHAR and VARCHAR fields as NULL. A value of <tt class="docutils literal"><span class="pre">true</span></tt> sets empty CHAR and VARCHAR fields to null. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p>EncryptionMode -&gt; (string)</p>
+<blockquote>
+<div>The type of server-side encryption that you want to use for your data. This encryption type is part of the endpoint settings or the extra connections attributes for Amazon S3. You can choose either <tt class="docutils literal"><span class="pre">SSE_S3</span></tt> (the default) or <tt class="docutils literal"><span class="pre">SSE_KMS</span></tt> . To use <tt class="docutils literal"><span class="pre">SSE_S3</span></tt> , create an AWS Identity and Access Management (IAM) role with a policy that allows <tt class="docutils literal"><span class="pre">"arn:aws:s3:::*"</span></tt> to use the following actions: <tt class="docutils literal"><span class="pre">"s3:PutObject",</span> <span class="pre">"s3:ListBucket"</span></tt>
+</div>
+</blockquote>
+<p>FileTransferUploadStreams -&gt; (integer)</p>
+<blockquote>
+<div>The number of threads used to upload a single file. This parameter accepts a value from 1 through 64. It defaults to 10.</div>
+</blockquote>
+<p>LoadTimeout -&gt; (integer)</p>
+<blockquote>
+<div>The amount of time to wait (in milliseconds) before timing out, beginning from when you begin loading.</div>
+</blockquote>
+<p>MaxFileSize -&gt; (integer)</p>
+<blockquote>
+<div>The maximum size (in KB) of any .csv file used to transfer data to Amazon Redshift. This accepts a value from 1 through 1,048,576. It defaults to 32,768 KB (32 MB).</div>
+</blockquote>
+<p>Password -&gt; (string)</p>
+<blockquote>
+<div>The password for the user named in the <tt class="docutils literal"><span class="pre">username</span></tt> property.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number for Amazon Redshift. The default value is 5439.</div>
+</blockquote>
+<p>RemoveQuotes -&gt; (boolean)</p>
+<blockquote>
+<div>A value that specifies to remove surrounding quotation marks from strings in the incoming data. All characters within the quotation marks, including delimiters, are retained. Choose <tt class="docutils literal"><span class="pre">true</span></tt> to remove quotation marks. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p>ReplaceInvalidChars -&gt; (string)</p>
+<blockquote>
+<div>A list of characters that you want to replace. Use with <tt class="docutils literal"><span class="pre">ReplaceChars</span></tt> .</div>
+</blockquote>
+<p>ReplaceChars -&gt; (string)</p>
+<blockquote>
+<div>A value that specifies to replaces the invalid characters specified in <tt class="docutils literal"><span class="pre">ReplaceInvalidChars</span></tt> , substituting the specified characters instead. The default is <tt class="docutils literal"><span class="pre">"?"</span></tt> .</div>
+</blockquote>
+<p>ServerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the Amazon Redshift cluster you are using.</div>
+</blockquote>
+<p>ServiceAccessRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role that has access to the Amazon Redshift service.</div>
+</blockquote>
+<p>ServerSideEncryptionKmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>The AWS KMS key ID. If you are using <tt class="docutils literal"><span class="pre">SSE_KMS</span></tt> for the <tt class="docutils literal"><span class="pre">EncryptionMode</span></tt> , provide this key ID. The key that you use needs an attached policy that enables IAM user permissions and allows use of the key.</div>
+</blockquote>
+<p>TimeFormat -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The time format that you want to use. Valid values are <tt class="docutils literal"><span class="pre">auto</span></tt> (case-sensitive), <tt class="docutils literal"><span class="pre">'timeformat_string'</span></tt> , <tt class="docutils literal"><span class="pre">'epochsecs'</span></tt> , or <tt class="docutils literal"><span class="pre">'epochmillisecs'</span></tt> . It defaults to 10. Using <tt class="docutils literal"><span class="pre">auto</span></tt> recognizes most strings, even some that aren't supported when you use a time format string.</p>
+<p>If your date and time values use formats different from each other, set this parameter to <tt class="docutils literal"><span class="pre">auto</span></tt> .</p>
+</div>
+</blockquote>
+<p>TrimBlanks -&gt; (boolean)</p>
+<blockquote>
+<div>A value that specifies to remove the trailing white space characters from a VARCHAR string. This parameter applies only to columns with a VARCHAR data type. Choose <tt class="docutils literal"><span class="pre">true</span></tt> to remove unneeded white space. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p>TruncateColumns -&gt; (boolean)</p>
+<blockquote>
+<div>A value that specifies to truncate data in columns to the appropriate number of characters, so that the data fits in the column. This parameter applies only to columns with a VARCHAR or CHAR data type, and rows with a size of 4 MB or less. Choose <tt class="docutils literal"><span class="pre">true</span></tt> to truncate data. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p>Username -&gt; (string)</p>
+<blockquote>
+<div>An Amazon Redshift user name for a registered user.</div>
+</blockquote>
+<p>WriteBufferSize -&gt; (integer)</p>
+<blockquote>
+<div>The size of the write buffer to use in rows. Valid values range from 1 through 2,048. The default is 1,024. Use this setting to tune performance.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

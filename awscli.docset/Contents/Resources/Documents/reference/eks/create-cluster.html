@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-cluster — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="eks" href="index.html">
+    <link rel="next" title="create-fargate-profile" href="create-fargate-profile.html">
+    <link rel="prev" title="eks" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-cluster">
+<span id="cli-aws-eks-create-cluster"></span><h1>create-cluster<a class="headerlink" href="#create-cluster" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an Amazon EKS control plane.</p>
+<p>The Amazon EKS control plane consists of control plane instances that run the Kubernetes software, such as <tt class="docutils literal"><span class="pre">etcd</span></tt> and the API server. The control plane runs in an account managed by AWS, and the Kubernetes API is exposed via the Amazon EKS API server endpoint. Each Amazon EKS cluster control plane is single-tenant and unique and runs on its own set of Amazon EC2 instances.</p>
+<p>The cluster control plane is provisioned across multiple Availability Zones and fronted by an Elastic Load Balancing Network Load Balancer. Amazon EKS also provisions elastic network interfaces in your VPC subnets to provide connectivity from the control plane instances to the worker nodes (for example, to support <tt class="docutils literal"><span class="pre">kubectl</span> <span class="pre">exec</span></tt> , <tt class="docutils literal"><span class="pre">logs</span></tt> , and <tt class="docutils literal"><span class="pre">proxy</span></tt> data flows).</p>
+<p>Amazon EKS worker nodes run in your AWS account and connect to your cluster's control plane via the Kubernetes API server endpoint and a certificate file that is created for your cluster.</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">endpointPublicAccess</span></tt> and <tt class="docutils literal"><span class="pre">endpointPrivateAccess</span></tt> parameters to enable or disable public and private access to your cluster's Kubernetes API server endpoint. By default, public access is enabled, and private access is disabled. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS Cluster Endpoint Access Control</a> in the * <em>Amazon EKS User Guide</em> * .</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">logging</span></tt> parameter to enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane Logs</a> in the * <em>Amazon EKS User Guide</em> * .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see <a class="reference external" href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a> .</p>
+</div>
+<p>Cluster creation typically takes between 10 and 15 minutes. After you create an Amazon EKS cluster, you must configure your Kubernetes tooling to communicate with the API server and launch worker nodes into your cluster. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/managing-auth.html">Managing Cluster Authentication</a> and <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html">Launching Amazon EKS Worker Nodes</a> in the <em>Amazon EKS User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/CreateCluster">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-cluster
+--name &lt;value&gt;
+--role-arn &lt;value&gt;
+--resources-vpc-config &lt;value&gt;
+[--logging &lt;value&gt;]
+[--client-request-token &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--kubernetes-version &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The unique name to give to your cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role that provides permissions for Amazon EKS to make calls to other AWS API operations on your behalf. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html">Amazon EKS Service IAM Role</a> in the * <em>Amazon EKS User Guide</em> * .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resources-vpc-config</span></tt> (structure)</p>
+<blockquote>
+<div>The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group Considerations</a> in the <em>Amazon EKS User Guide</em> . You must specify at least two subnets. You can specify up to five security groups, but we recommend that you use a dedicated security group for your cluster control plane.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">subnetIds</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">securityGroupIds</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">endpointPublicAccess</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">endpointPrivateAccess</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"subnetIds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"securityGroupIds"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"endpointPublicAccess"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"endpointPrivateAccess"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--logging</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs. By default, cluster control plane logs aren't exported to CloudWatch Logs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html">Amazon EKS Cluster Control Plane Logs</a> in the * <em>Amazon EKS User Guide</em> * .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see <a class="reference external" href="http://aws.amazon.com/cloudwatch/pricing/">Amazon CloudWatch Pricing</a> .</p>
+</div>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "clusterLogging": [
+    {
+      "types": ["api"|"audit"|"authenticator"|"controllerManager"|"scheduler", ...],
+      "enabled": true|false
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--client-request-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (map)</p>
+<blockquote>
+<div>The metadata to apply to the cluster to assist with categorization and organization. Each tag consists of a key and an optional value, both of which you define.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--kubernetes-version</span></tt> (string)</p>
+<blockquote>
+<div>The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available in Amazon EKS is used.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a new cluster</strong></p>
+<p>This example command creates a cluster named <tt class="docutils literal"><span class="pre">prod</span></tt> in your default region.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws eks create-cluster --name prod \
+--role-arn arn:aws:iam::012345678910:role/eks-service-role-AWSServiceRoleForAmazonEKS-J7ONKE3BQ4PI \
+--resources-vpc-config subnetIds=subnet-6782e71e,subnet-e7e761ac,securityGroupIds=sg-6979fe18</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"cluster"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+        <span class="s2">"arn"</span><span class="p">:</span> <span class="s2">"arn:aws:eks:us-west-2:012345678910:cluster/prod"</span><span class="p">,</span>
+        <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1527808069.147</span><span class="p">,</span>
+        <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.10"</span><span class="p">,</span>
+        <span class="s2">"roleArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::012345678910:role/eks-service-role-AWSServiceRoleForAmazonEKS-J7ONKE3BQ4PI"</span><span class="p">,</span>
+        <span class="s2">"resourcesVpcConfig"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"subnetIds"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"subnet-6782e71e"</span><span class="p">,</span>
+                <span class="s2">"subnet-e7e761ac"</span>
+            <span class="p">],</span>
+            <span class="s2">"securityGroupIds"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"sg-6979fe18"</span>
+            <span class="p">],</span>
+            <span class="s2">"vpcId"</span><span class="p">:</span> <span class="s2">"vpc-950809ec"</span>
+        <span class="p">},</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"CREATING"</span><span class="p">,</span>
+        <span class="s2">"certificateAuthority"</span><span class="p">:</span> <span class="p">{}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To create a new cluster with private endpoint access and logging enabled</strong></p>
+<p>This example command creates a cluster named <tt class="docutils literal"><span class="pre">example</span></tt> in your default region with public endpoint access disabled, private endpoint access enabled, and all logging types enabled.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws eks create-cluster --name example --kubernetes-version 1.12 \
+--role-arn arn:aws:iam::012345678910:role/example-cluster-ServiceRole-1XWBQWYSFRE2Q \
+--resources-vpc-config subnetIds=subnet-0a188dccd2f9a632f,subnet-09290d93da4278664,subnet-0f21dd86e0e91134a,subnet-0173dead68481a583,subnet-051f70a57ed6fcab6,subnet-01322339c5c7de9b4,securityGroupIds=sg-0c5b580845a031c10,endpointPublicAccess=false,endpointPrivateAccess=true \
+--logging '{"clusterLogging":[{"types":["api","audit","authenticator","controllerManager","scheduler"],"enabled":true}]}'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"cluster"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"example"</span><span class="p">,</span>
+        <span class="s2">"arn"</span><span class="p">:</span> <span class="s2">"arn:aws:eks:us-west-2:012345678910:cluster/example"</span><span class="p">,</span>
+        <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1565804921.901</span><span class="p">,</span>
+        <span class="s2">"version"</span><span class="p">:</span> <span class="s2">"1.12"</span><span class="p">,</span>
+        <span class="s2">"roleArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::012345678910:role/example-cluster-ServiceRole-1XWBQWYSFRE2Q"</span><span class="p">,</span>
+        <span class="s2">"resourcesVpcConfig"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"subnetIds"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"subnet-0a188dccd2f9a632f"</span><span class="p">,</span>
+                <span class="s2">"subnet-09290d93da4278664"</span><span class="p">,</span>
+                <span class="s2">"subnet-0f21dd86e0e91134a"</span><span class="p">,</span>
+                <span class="s2">"subnet-0173dead68481a583"</span><span class="p">,</span>
+                <span class="s2">"subnet-051f70a57ed6fcab6"</span><span class="p">,</span>
+                <span class="s2">"subnet-01322339c5c7de9b4"</span>
+            <span class="p">],</span>
+            <span class="s2">"securityGroupIds"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"sg-0c5b580845a031c10"</span>
+            <span class="p">],</span>
+            <span class="s2">"vpcId"</span><span class="p">:</span> <span class="s2">"vpc-0f622c01f68d4afec"</span><span class="p">,</span>
+            <span class="s2">"endpointPublicAccess"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"endpointPrivateAccess"</span><span class="p">:</span> <span class="n">true</span>
+        <span class="p">},</span>
+        <span class="s2">"logging"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"clusterLogging"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"types"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"api"</span><span class="p">,</span>
+                        <span class="s2">"audit"</span><span class="p">,</span>
+                        <span class="s2">"authenticator"</span><span class="p">,</span>
+                        <span class="s2">"controllerManager"</span><span class="p">,</span>
+                        <span class="s2">"scheduler"</span>
+                    <span class="p">],</span>
+                    <span class="s2">"enabled"</span><span class="p">:</span> <span class="n">true</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"CREATING"</span><span class="p">,</span>
+        <span class="s2">"certificateAuthority"</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s2">"platformVersion"</span><span class="p">:</span> <span class="s2">"eks.3"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>cluster -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The full description of your new cluster.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the cluster.</div>
+</blockquote>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the cluster.</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix epoch timestamp in seconds for when the cluster was created.</div>
+</blockquote>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>The Kubernetes server version for the cluster.</div>
+</blockquote>
+<p>endpoint -&gt; (string)</p>
+<blockquote>
+<div>The endpoint for your Kubernetes API server.</div>
+</blockquote>
+<p>roleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf.</div>
+</blockquote>
+<p>resourcesVpcConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The VPC configuration used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html">Cluster VPC Considerations</a> and <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html">Cluster Security Group Considerations</a> in the <em>Amazon EKS User Guide</em> .</p>
+<p>subnetIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The subnets associated with your cluster.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>securityGroupIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The security groups associated with the cross-account elastic network interfaces that are used to allow communication between your worker nodes and the Kubernetes control plane.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>clusterSecurityGroupId -&gt; (string)</p>
+<blockquote>
+<div>The cluster security group that was created by Amazon EKS for the cluster. Managed node groups use this security group for control-plane-to-data-plane communication.</div>
+</blockquote>
+<p>vpcId -&gt; (string)</p>
+<blockquote>
+<div>The VPC associated with your cluster.</div>
+</blockquote>
+<p>endpointPublicAccess -&gt; (boolean)</p>
+<blockquote>
+<div>This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate from within the cluster VPC.</div>
+</blockquote>
+<p>endpointPrivateAccess -&gt; (boolean)</p>
+<blockquote>
+<div>This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the private VPC endpoint instead of traversing the internet.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>logging -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The logging configuration for your cluster.</p>
+<p>clusterLogging -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The cluster control plane logging configuration for your cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing the enabled or disabled Kubernetes control plane logs for your cluster.</p>
+<p>types -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The available cluster control plane log types.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>enabled -&gt; (boolean)</p>
+<blockquote>
+<div>If a log type is enabled, that log type exports its control plane logs to CloudWatch Logs. If a log type isn't enabled, that log type doesn't export its control plane logs. Each individual log type can be enabled or disabled independently.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>identity -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The identity provider information for the cluster.</p>
+<p>oidc -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The <a class="reference external" href="https://openid.net/connect/">OpenID Connect</a> identity provider information for the cluster.</p>
+<p>issuer -&gt; (string)</p>
+<blockquote>
+<div>The issuer URL for the OpenID Connect identity provider.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the cluster.</div>
+</blockquote>
+<p>certificateAuthority -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The <tt class="docutils literal"><span class="pre">certificate-authority-data</span></tt> for your cluster.</p>
+<p>data -&gt; (string)</p>
+<blockquote>
+<div>The Base64-encoded certificate data required to communicate with your cluster. Add this to the <tt class="docutils literal"><span class="pre">certificate-authority-data</span></tt> section of the <tt class="docutils literal"><span class="pre">kubeconfig</span></tt> file for your cluster.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>clientRequestToken -&gt; (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</div>
+</blockquote>
+<p>platformVersion -&gt; (string)</p>
+<blockquote>
+<div>The platform version of your Amazon EKS cluster. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html">Platform Versions</a> in the * <em>Amazon EKS User Guide</em> * .</div>
+</blockquote>
+<p>tags -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to the cluster to assist with categorization and organization. Each tag consists of a key and an optional value, both of which you define. Cluster tags do not propagate to any other resources associated with the cluster.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

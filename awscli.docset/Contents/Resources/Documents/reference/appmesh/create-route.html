@@ -1,0 +1,1171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-route — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="appmesh" href="index.html">
+    <link rel="next" title="create-virtual-node" href="create-virtual-node.html">
+    <link rel="prev" title="create-mesh" href="create-mesh.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-route">
+<span id="cli-aws-appmesh-create-route"></span><h1>create-route<a class="headerlink" href="#create-route" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a route that is associated with a virtual router.</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">prefix</span></tt> parameter in your route specification for path-based routing of requests. For example, if your virtual service name is <tt class="docutils literal"><span class="pre">my-service.local</span></tt> and you want the route to match requests to <tt class="docutils literal"><span class="pre">my-service.local/metrics</span></tt> , your prefix should be <tt class="docutils literal"><span class="pre">/metrics</span></tt> .</p>
+<p>If your route matches a request, you can distribute traffic to one or more target virtual nodes with relative weighting.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/appmesh-2019-01-25/CreateRoute">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-route
+[--client-token &lt;value&gt;]
+--mesh-name &lt;value&gt;
+--route-name &lt;value&gt;
+--spec &lt;value&gt;
+[--tags &lt;value&gt;]
+--virtual-router-name &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. Up to 36 letters, numbers, hyphens, and underscores are allowed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--mesh-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the service mesh to create the route in.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--route-name</span></tt> (string)</p>
+<blockquote>
+<div>The name to use for the route.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--spec</span></tt> (structure)</p>
+<blockquote>
+<div>The route specification to apply.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "grpcRoute": {
+    "action": {
+      "weightedTargets": [
+        {
+          "virtualNode": "string",
+          "weight": integer
+        }
+        ...
+      ]
+    },
+    "match": {
+      "metadata": [
+        {
+          "invert": true|false,
+          "match": {
+            "exact": "string",
+            "prefix": "string",
+            "range": {
+              "end": long,
+              "start": long
+            },
+            "regex": "string",
+            "suffix": "string"
+          },
+          "name": "string"
+        }
+        ...
+      ],
+      "methodName": "string",
+      "serviceName": "string"
+    },
+    "retryPolicy": {
+      "grpcRetryEvents": ["cancelled"|"deadline-exceeded"|"internal"|"resource-exhausted"|"unavailable", ...],
+      "httpRetryEvents": ["string", ...],
+      "maxRetries": long,
+      "perRetryTimeout": {
+        "unit": "ms"|"s",
+        "value": long
+      },
+      "tcpRetryEvents": ["connection-error", ...]
+    }
+  },
+  "http2Route": {
+    "action": {
+      "weightedTargets": [
+        {
+          "virtualNode": "string",
+          "weight": integer
+        }
+        ...
+      ]
+    },
+    "match": {
+      "headers": [
+        {
+          "invert": true|false,
+          "match": {
+            "exact": "string",
+            "prefix": "string",
+            "range": {
+              "end": long,
+              "start": long
+            },
+            "regex": "string",
+            "suffix": "string"
+          },
+          "name": "string"
+        }
+        ...
+      ],
+      "method": "CONNECT"|"DELETE"|"GET"|"HEAD"|"OPTIONS"|"PATCH"|"POST"|"PUT"|"TRACE",
+      "prefix": "string",
+      "scheme": "http"|"https"
+    },
+    "retryPolicy": {
+      "httpRetryEvents": ["string", ...],
+      "maxRetries": long,
+      "perRetryTimeout": {
+        "unit": "ms"|"s",
+        "value": long
+      },
+      "tcpRetryEvents": ["connection-error", ...]
+    }
+  },
+  "httpRoute": {
+    "action": {
+      "weightedTargets": [
+        {
+          "virtualNode": "string",
+          "weight": integer
+        }
+        ...
+      ]
+    },
+    "match": {
+      "headers": [
+        {
+          "invert": true|false,
+          "match": {
+            "exact": "string",
+            "prefix": "string",
+            "range": {
+              "end": long,
+              "start": long
+            },
+            "regex": "string",
+            "suffix": "string"
+          },
+          "name": "string"
+        }
+        ...
+      ],
+      "method": "CONNECT"|"DELETE"|"GET"|"HEAD"|"OPTIONS"|"PATCH"|"POST"|"PUT"|"TRACE",
+      "prefix": "string",
+      "scheme": "http"|"https"
+    },
+    "retryPolicy": {
+      "httpRetryEvents": ["string", ...],
+      "maxRetries": long,
+      "perRetryTimeout": {
+        "unit": "ms"|"s",
+        "value": long
+      },
+      "tcpRetryEvents": ["connection-error", ...]
+    }
+  },
+  "priority": integer,
+  "tcpRoute": {
+    "action": {
+      "weightedTargets": [
+        {
+          "virtualNode": "string",
+          "weight": integer
+        }
+        ...
+      ]
+    }
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>Optional metadata that you can apply to the route to assist with categorization and organization. Each tag consists of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>key=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "key": "string",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--virtual-router-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the virtual router in which to create the route.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a new gRPC route</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-route</span></tt> example uses a JSON input file to create a gRPC route. GRPC traffic that has metadata that starts with 123 is routed to a virtual node named serviceBgrpc. If there are specific gRPC, HTTP, or TCP failures when attempting to communicate with the target of the route, the route is retried three times. There is a 15 second delay between each retry attempt.</p>
+<div class="highlight-python">
+<pre>aws appmesh create-route \
+    --cli-input-json file://create-route-grpc.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">create-route-grpc.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"meshName"</span> <span class="p">:</span> <span class="s2">"apps"</span><span class="p">,</span>
+    <span class="s2">"routeName"</span> <span class="p">:</span> <span class="s2">"grpcRoute"</span><span class="p">,</span>
+    <span class="s2">"spec"</span> <span class="p">:</span> <span class="p">{</span>
+       <span class="s2">"grpcRoute"</span> <span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"action"</span> <span class="p">:</span> <span class="p">{</span>
+             <span class="s2">"weightedTargets"</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                   <span class="s2">"virtualNode"</span> <span class="p">:</span> <span class="s2">"serviceBgrpc"</span><span class="p">,</span>
+                   <span class="s2">"weight"</span> <span class="p">:</span> <span class="mi">100</span>
+                <span class="p">}</span>
+             <span class="p">]</span>
+          <span class="p">},</span>
+          <span class="s2">"match"</span> <span class="p">:</span> <span class="p">{</span>
+             <span class="s2">"metadata"</span> <span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                   <span class="s2">"invert"</span> <span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                   <span class="s2">"match"</span> <span class="p">:</span> <span class="p">{</span>
+                      <span class="s2">"prefix"</span> <span class="p">:</span> <span class="s2">"123"</span>
+                   <span class="p">},</span>
+                   <span class="s2">"name"</span> <span class="p">:</span> <span class="s2">"myMetadata"</span>
+                <span class="p">}</span>
+             <span class="p">],</span>
+             <span class="s2">"methodName"</span> <span class="p">:</span> <span class="s2">"GetColor"</span><span class="p">,</span>
+             <span class="s2">"serviceName"</span> <span class="p">:</span> <span class="s2">"com.amazonaws.services.ColorService"</span>
+          <span class="p">},</span>
+          <span class="s2">"retryPolicy"</span> <span class="p">:</span> <span class="p">{</span>
+             <span class="s2">"grpcRetryEvents"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"deadline-exceeded"</span> <span class="p">],</span>
+             <span class="s2">"httpRetryEvents"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"server-error"</span><span class="p">,</span> <span class="s2">"gateway-error"</span> <span class="p">],</span>
+             <span class="s2">"maxRetries"</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+             <span class="s2">"perRetryTimeout"</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"unit"</span> <span class="p">:</span> <span class="s2">"s"</span><span class="p">,</span>
+                <span class="s2">"value"</span> <span class="p">:</span> <span class="mi">15</span>
+             <span class="p">},</span>
+             <span class="s2">"tcpRetryEvents"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"connection-error"</span> <span class="p">]</span>
+          <span class="p">}</span>
+       <span class="p">},</span>
+       <span class="s2">"priority"</span> <span class="p">:</span> <span class="mi">100</span>
+    <span class="p">},</span>
+    <span class="s2">"virtualRouterName"</span> <span class="p">:</span> <span class="s2">"serviceBgrpc"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"route"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"meshName"</span><span class="p">:</span> <span class="s2">"apps"</span><span class="p">,</span>
+        <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"arn"</span><span class="p">:</span> <span class="s2">"arn:aws:appmesh:us-west-2:123456789012:mesh/apps/virtualRouter/serviceBgrpc/route/grpcRoute"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1572010806.008</span><span class="p">,</span>
+            <span class="s2">"lastUpdatedAt"</span><span class="p">:</span> <span class="mf">1572010806.008</span><span class="p">,</span>
+            <span class="s2">"uid"</span><span class="p">:</span> <span class="s2">"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"</span><span class="p">,</span>
+            <span class="s2">"version"</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="s2">"routeName"</span><span class="p">:</span> <span class="s2">"grpcRoute"</span><span class="p">,</span>
+        <span class="s2">"spec"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"grpcRoute"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"weightedTargets"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBgrpc"</span><span class="p">,</span>
+                            <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">100</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"match"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"invert"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                            <span class="s2">"match"</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">"prefix"</span><span class="p">:</span> <span class="s2">"123"</span>
+                            <span class="p">},</span>
+                            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"mymetadata"</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">"methodName"</span><span class="p">:</span> <span class="s2">"GetColor"</span><span class="p">,</span>
+                    <span class="s2">"serviceName"</span><span class="p">:</span> <span class="s2">"com.amazonaws.services.ColorService"</span>
+                <span class="p">},</span>
+                <span class="s2">"retryPolicy"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"grpcRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"deadline-exceeded"</span>
+                    <span class="p">],</span>
+                    <span class="s2">"httpRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"server-error"</span><span class="p">,</span>
+                        <span class="s2">"gateway-error"</span>
+                    <span class="p">],</span>
+                    <span class="s2">"maxRetries"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">"perRetryTimeout"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"unit"</span><span class="p">:</span> <span class="s2">"s"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="mi">15</span>
+                    <span class="p">},</span>
+                    <span class="s2">"tcpRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"connection-error"</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">100</span>
+        <span class="p">},</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ACTIVE"</span>
+        <span class="p">},</span>
+        <span class="s2">"virtualRouterName"</span><span class="p">:</span> <span class="s2">"serviceBgrpc"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To create a new HTTP or HTTP/2 route</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-route</span></tt> example uses a JSON input file to create an HTTP/2 route. To create an HTTP route, replace http2Route with httpRoute under spec. All HTTP/2 traffic addressed to any URL prefix that has a header value that starts with 123 is routed to a virtual node named serviceBhttp2. If there are specific HTTP or TCP failures when attempting to communicate with the target of the route, the route is retried three times. There is a 15 second delay between each retry attempt.</p>
+<div class="highlight-python">
+<pre>aws appmesh create-route \
+    --cli-input-json file://create-route-http2.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">create-route-http2.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"meshName"</span><span class="p">:</span> <span class="s2">"apps"</span><span class="p">,</span>
+    <span class="s2">"routeName"</span><span class="p">:</span> <span class="s2">"http2Route"</span><span class="p">,</span>
+    <span class="s2">"spec"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"http2Route"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"weightedTargets"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBhttp2"</span><span class="p">,</span>
+                        <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">100</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">"match"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"headers"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"invert"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                        <span class="s2">"match"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"prefix"</span><span class="p">:</span> <span class="s2">"123"</span>
+                        <span class="p">},</span>
+                        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"clientRequestId"</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+                <span class="s2">"prefix"</span><span class="p">:</span> <span class="s2">"/"</span><span class="p">,</span>
+                <span class="s2">"scheme"</span><span class="p">:</span> <span class="s2">"http"</span>
+            <span class="p">},</span>
+            <span class="s2">"retryPolicy"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"httpRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"server-error"</span><span class="p">,</span>
+                    <span class="s2">"gateway-error"</span>
+                <span class="p">],</span>
+                <span class="s2">"maxRetries"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="s2">"perRetryTimeout"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"unit"</span><span class="p">:</span> <span class="s2">"s"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="mi">15</span>
+                <span class="p">},</span>
+                <span class="s2">"tcpRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"connection-error"</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">200</span>
+    <span class="p">},</span>
+    <span class="s2">"virtualRouterName"</span><span class="p">:</span> <span class="s2">"serviceBhttp2"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"route"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"meshName"</span><span class="p">:</span> <span class="s2">"apps"</span><span class="p">,</span>
+        <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"arn"</span><span class="p">:</span> <span class="s2">"arn:aws:appmesh:us-west-2:123456789012:mesh/apps/virtualRouter/serviceBhttp2/route/http2Route"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1572011008.352</span><span class="p">,</span>
+            <span class="s2">"lastUpdatedAt"</span><span class="p">:</span> <span class="mf">1572011008.352</span><span class="p">,</span>
+            <span class="s2">"uid"</span><span class="p">:</span> <span class="s2">"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"</span><span class="p">,</span>
+            <span class="s2">"version"</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="s2">"routeName"</span><span class="p">:</span> <span class="s2">"http2Route"</span><span class="p">,</span>
+        <span class="s2">"spec"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"http2Route"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"weightedTargets"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBhttp2"</span><span class="p">,</span>
+                            <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">100</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="s2">"match"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"headers"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"invert"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                            <span class="s2">"match"</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s2">"prefix"</span><span class="p">:</span> <span class="s2">"123"</span>
+                            <span class="p">},</span>
+                            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"clientRequestId"</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+                    <span class="s2">"method"</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+                    <span class="s2">"prefix"</span><span class="p">:</span> <span class="s2">"/"</span><span class="p">,</span>
+                    <span class="s2">"scheme"</span><span class="p">:</span> <span class="s2">"http"</span>
+                <span class="p">},</span>
+                <span class="s2">"retryPolicy"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"httpRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"server-error"</span><span class="p">,</span>
+                        <span class="s2">"gateway-error"</span>
+                    <span class="p">],</span>
+                    <span class="s2">"maxRetries"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                    <span class="s2">"perRetryTimeout"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"unit"</span><span class="p">:</span> <span class="s2">"s"</span><span class="p">,</span>
+                        <span class="s2">"value"</span><span class="p">:</span> <span class="mi">15</span>
+                    <span class="p">},</span>
+                    <span class="s2">"tcpRetryEvents"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"connection-error"</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">200</span>
+        <span class="p">},</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ACTIVE"</span>
+        <span class="p">},</span>
+        <span class="s2">"virtualRouterName"</span><span class="p">:</span> <span class="s2">"serviceBhttp2"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To create a new TCP route</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-route</span></tt> example uses a JSON input file to create a TCP route. 75 percent of traffic is routed to a virtual node named serviceBtcp, and 25 percent of traffic is routed to a virtual node named serviceBv2tcp. Specifying different weightings for different targets is an effective way to do a deployment of a new version of an application. You can adjust the weights so that eventually, 100 percent of all traffic is routed to a target that has the new version of an application.</p>
+<div class="highlight-python">
+<pre>aws appmesh create-route \
+    --cli-input-json file://create-route-tcp.json</pre>
+</div>
+<p>Contents of create-route-tcp.json:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"meshName"</span><span class="p">:</span> <span class="s2">"apps"</span><span class="p">,</span>
+    <span class="s2">"routeName"</span><span class="p">:</span> <span class="s2">"tcpRoute"</span><span class="p">,</span>
+    <span class="s2">"spec"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="s2">"tcpRoute"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"weightedTargets"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBtcp"</span><span class="p">,</span>
+                        <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">75</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBv2tcp"</span><span class="p">,</span>
+                        <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">25</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">"virtualRouterName"</span><span class="p">:</span> <span class="s2">"serviceBtcp"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"route"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"meshName"</span><span class="p">:</span> <span class="s2">"apps"</span><span class="p">,</span>
+        <span class="s2">"metadata"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"arn"</span><span class="p">:</span> <span class="s2">"arn:aws:appmesh:us-west-2:123456789012:mesh/apps/virtualRouter/serviceBtcp/route/tcpRoute"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1572011436.26</span><span class="p">,</span>
+            <span class="s2">"lastUpdatedAt"</span><span class="p">:</span> <span class="mf">1572011436.26</span><span class="p">,</span>
+            <span class="s2">"uid"</span><span class="p">:</span> <span class="s2">"a1b2c3d4-5678-90ab-cdef-11111EXAMPLE"</span><span class="p">,</span>
+            <span class="s2">"version"</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+        <span class="s2">"routeName"</span><span class="p">:</span> <span class="s2">"tcpRoute"</span><span class="p">,</span>
+        <span class="s2">"spec"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"priority"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+            <span class="s2">"tcpRoute"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"action"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"weightedTargets"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                            <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBtcp"</span><span class="p">,</span>
+                            <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">75</span>
+                        <span class="p">},</span>
+                        <span class="p">{</span>
+                            <span class="s2">"virtualNode"</span><span class="p">:</span> <span class="s2">"serviceBv2tcp"</span><span class="p">,</span>
+                            <span class="s2">"weight"</span><span class="p">:</span> <span class="mi">25</span>
+                        <span class="p">}</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ACTIVE"</span>
+        <span class="p">},</span>
+        <span class="s2">"virtualRouterName"</span><span class="p">:</span> <span class="s2">"serviceBtcp"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/app-mesh/latest/userguide/routes.html">Routes</a> in the <em>AWS App Mesh User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>route -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The full description of your mesh following the create call.</p>
+<p>meshName -&gt; (string)</p>
+<blockquote>
+<div>The name of the service mesh that the route resides in.</div>
+</blockquote>
+<p>metadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The associated metadata for the route.</p>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The full Amazon Resource Name (ARN) for the resource.</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix epoch timestamp in seconds for when the resource was created.</div>
+</blockquote>
+<p>lastUpdatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix epoch timestamp in seconds for when the resource was last updated.</div>
+</blockquote>
+<p>uid -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the resource.</div>
+</blockquote>
+<p>version -&gt; (long)</p>
+<blockquote>
+<div>The version of the resource. Resources are created at version 1, and this version is incremented each time that they're updated.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>routeName -&gt; (string)</p>
+<blockquote>
+<div>The name of the route.</div>
+</blockquote>
+<p>spec -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The specifications of the route.</p>
+<p>grpcRoute -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the specification of a GRPC route.</p>
+<p>action -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the action to take if a match is determined.</p>
+<p>weightedTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the targets that traffic is routed to when a request matches the route.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a target and its relative weight. Traffic is distributed across targets according to their relative weight. For example, a weighted target with a relative weight of 50 receives five times as much traffic as one with a relative weight of 10. The total weight for all targets combined must be less than or equal to 100.</p>
+<p>virtualNode -&gt; (string)</p>
+<blockquote>
+<div>The virtual node to associate with the weighted target.</div>
+</blockquote>
+<p>weight -&gt; (integer)</p>
+<blockquote>
+<div>The relative weight of the weighted target.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>match -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the criteria for determining a request match.</p>
+<p>metadata -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the data to match from the request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the match metadata for the route.</p>
+<p>invert -&gt; (boolean)</p>
+<blockquote>
+<div>Specify <tt class="docutils literal"><span class="pre">True</span></tt> to match anything except the match criteria. The default value is <tt class="docutils literal"><span class="pre">False</span></tt> .</div>
+</blockquote>
+<p>match -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the data to match from the request.</p>
+<p>exact -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must match the specified value exactly.</div>
+</blockquote>
+<p>prefix -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must begin with the specified characters.</div>
+</blockquote>
+<p>range -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the range of values to match on.</p>
+<p>end -&gt; (long)</p>
+<blockquote>
+<div>The end of the range.</div>
+</blockquote>
+<p>start -&gt; (long)</p>
+<blockquote>
+<div>The start of the range.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>regex -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must include the specified characters.</div>
+</blockquote>
+<p>suffix -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must end with the specified characters.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the route.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>methodName -&gt; (string)</p>
+<blockquote>
+<div>The method name to match from the request. If you specify a name, you must also specify a <tt class="docutils literal"><span class="pre">serviceName</span></tt> .</div>
+</blockquote>
+<p>serviceName -&gt; (string)</p>
+<blockquote>
+<div>The fully qualified domain name for the service to match from the request.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>retryPolicy -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a retry policy.</p>
+<p>grpcRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify at least one of the valid values.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>httpRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify at least one of the following values.</p>
+<ul class="simple">
+<li>
+<strong>server-error</strong> – HTTP status codes 500, 501, 502, 503, 504, 505, 506, 507, 508, 510, and 511</li>
+<li>
+<strong>gateway-error</strong> – HTTP status codes 502, 503, and 504</li>
+<li>
+<strong>client-error</strong> – HTTP status code 409</li>
+<li>
+<strong>stream-error</strong> – Retry on refused stream</li>
+</ul>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>maxRetries -&gt; (long)</p>
+<blockquote>
+<div>The maximum number of retry attempts.</div>
+</blockquote>
+<p>perRetryTimeout -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a duration of time.</p>
+<p>unit -&gt; (string)</p>
+<blockquote>
+<div>A unit of time.</div>
+</blockquote>
+<p>value -&gt; (long)</p>
+<blockquote>
+<div>A number of time units.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>tcpRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify a valid value.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>http2Route -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the specification of an HTTP2 route.</p>
+<p>action -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the action to take if a match is determined.</p>
+<p>weightedTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the targets that traffic is routed to when a request matches the route.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a target and its relative weight. Traffic is distributed across targets according to their relative weight. For example, a weighted target with a relative weight of 50 receives five times as much traffic as one with a relative weight of 10. The total weight for all targets combined must be less than or equal to 100.</p>
+<p>virtualNode -&gt; (string)</p>
+<blockquote>
+<div>The virtual node to associate with the weighted target.</div>
+</blockquote>
+<p>weight -&gt; (integer)</p>
+<blockquote>
+<div>The relative weight of the weighted target.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>match -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the criteria for determining a request match.</p>
+<p>headers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the client request headers to match on.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the HTTP header in the request.</p>
+<p>invert -&gt; (boolean)</p>
+<blockquote>
+<div>Specify <tt class="docutils literal"><span class="pre">True</span></tt> to match anything except the match criteria. The default value is <tt class="docutils literal"><span class="pre">False</span></tt> .</div>
+</blockquote>
+<p>match -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The <tt class="docutils literal"><span class="pre">HeaderMatchMethod</span></tt> object.</p>
+<p>exact -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must match the specified value exactly.</div>
+</blockquote>
+<p>prefix -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must begin with the specified characters.</div>
+</blockquote>
+<p>range -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the range of values to match on.</p>
+<p>end -&gt; (long)</p>
+<blockquote>
+<div>The end of the range.</div>
+</blockquote>
+<p>start -&gt; (long)</p>
+<blockquote>
+<div>The start of the range.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>regex -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must include the specified characters.</div>
+</blockquote>
+<p>suffix -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must end with the specified characters.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>A name for the HTTP header in the client request that will be matched on.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>method -&gt; (string)</p>
+<blockquote>
+<div>The client request method to match on. Specify only one.</div>
+</blockquote>
+<p>prefix -&gt; (string)</p>
+<blockquote>
+<div>Specifies the path to match requests with. This parameter must always start with <tt class="docutils literal"><span class="pre">/</span></tt> , which by itself matches all requests to the virtual service name. You can also match for path-based routing of requests. For example, if your virtual service name is <tt class="docutils literal"><span class="pre">my-service.local</span></tt> and you want the route to match requests to <tt class="docutils literal"><span class="pre">my-service.local/metrics</span></tt> , your prefix should be <tt class="docutils literal"><span class="pre">/metrics</span></tt> .</div>
+</blockquote>
+<p>scheme -&gt; (string)</p>
+<blockquote>
+<div>The client request scheme to match on. Specify only one.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>retryPolicy -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a retry policy.</p>
+<p>httpRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify at least one of the following values.</p>
+<ul class="simple">
+<li>
+<strong>server-error</strong> – HTTP status codes 500, 501, 502, 503, 504, 505, 506, 507, 508, 510, and 511</li>
+<li>
+<strong>gateway-error</strong> – HTTP status codes 502, 503, and 504</li>
+<li>
+<strong>client-error</strong> – HTTP status code 409</li>
+<li>
+<strong>stream-error</strong> – Retry on refused stream</li>
+</ul>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>maxRetries -&gt; (long)</p>
+<blockquote>
+<div>The maximum number of retry attempts.</div>
+</blockquote>
+<p>perRetryTimeout -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a duration of time.</p>
+<p>unit -&gt; (string)</p>
+<blockquote>
+<div>A unit of time.</div>
+</blockquote>
+<p>value -&gt; (long)</p>
+<blockquote>
+<div>A number of time units.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>tcpRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify a valid value.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>httpRoute -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the specification of an HTTP route.</p>
+<p>action -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the action to take if a match is determined.</p>
+<p>weightedTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the targets that traffic is routed to when a request matches the route.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a target and its relative weight. Traffic is distributed across targets according to their relative weight. For example, a weighted target with a relative weight of 50 receives five times as much traffic as one with a relative weight of 10. The total weight for all targets combined must be less than or equal to 100.</p>
+<p>virtualNode -&gt; (string)</p>
+<blockquote>
+<div>The virtual node to associate with the weighted target.</div>
+</blockquote>
+<p>weight -&gt; (integer)</p>
+<blockquote>
+<div>The relative weight of the weighted target.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>match -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the criteria for determining a request match.</p>
+<p>headers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the client request headers to match on.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the HTTP header in the request.</p>
+<p>invert -&gt; (boolean)</p>
+<blockquote>
+<div>Specify <tt class="docutils literal"><span class="pre">True</span></tt> to match anything except the match criteria. The default value is <tt class="docutils literal"><span class="pre">False</span></tt> .</div>
+</blockquote>
+<p>match -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The <tt class="docutils literal"><span class="pre">HeaderMatchMethod</span></tt> object.</p>
+<p>exact -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must match the specified value exactly.</div>
+</blockquote>
+<p>prefix -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must begin with the specified characters.</div>
+</blockquote>
+<p>range -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the range of values to match on.</p>
+<p>end -&gt; (long)</p>
+<blockquote>
+<div>The end of the range.</div>
+</blockquote>
+<p>start -&gt; (long)</p>
+<blockquote>
+<div>The start of the range.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>regex -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must include the specified characters.</div>
+</blockquote>
+<p>suffix -&gt; (string)</p>
+<blockquote>
+<div>The value sent by the client must end with the specified characters.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>A name for the HTTP header in the client request that will be matched on.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>method -&gt; (string)</p>
+<blockquote>
+<div>The client request method to match on. Specify only one.</div>
+</blockquote>
+<p>prefix -&gt; (string)</p>
+<blockquote>
+<div>Specifies the path to match requests with. This parameter must always start with <tt class="docutils literal"><span class="pre">/</span></tt> , which by itself matches all requests to the virtual service name. You can also match for path-based routing of requests. For example, if your virtual service name is <tt class="docutils literal"><span class="pre">my-service.local</span></tt> and you want the route to match requests to <tt class="docutils literal"><span class="pre">my-service.local/metrics</span></tt> , your prefix should be <tt class="docutils literal"><span class="pre">/metrics</span></tt> .</div>
+</blockquote>
+<p>scheme -&gt; (string)</p>
+<blockquote>
+<div>The client request scheme to match on. Specify only one.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>retryPolicy -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a retry policy.</p>
+<p>httpRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify at least one of the following values.</p>
+<ul class="simple">
+<li>
+<strong>server-error</strong> – HTTP status codes 500, 501, 502, 503, 504, 505, 506, 507, 508, 510, and 511</li>
+<li>
+<strong>gateway-error</strong> – HTTP status codes 502, 503, and 504</li>
+<li>
+<strong>client-error</strong> – HTTP status code 409</li>
+<li>
+<strong>stream-error</strong> – Retry on refused stream</li>
+</ul>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>maxRetries -&gt; (long)</p>
+<blockquote>
+<div>The maximum number of retry attempts.</div>
+</blockquote>
+<p>perRetryTimeout -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a duration of time.</p>
+<p>unit -&gt; (string)</p>
+<blockquote>
+<div>A unit of time.</div>
+</blockquote>
+<p>value -&gt; (long)</p>
+<blockquote>
+<div>A number of time units.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>tcpRetryEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specify a valid value.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>priority -&gt; (integer)</p>
+<blockquote>
+<div>The priority for the route. Routes are matched based on the specified value, where 0 is the highest priority.</div>
+</blockquote>
+<p>tcpRoute -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object that represents the specification of a TCP route.</p>
+<p>action -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The action to take if a match is determined.</p>
+<p>weightedTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object that represents the targets that traffic is routed to when a request matches the route.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object that represents a target and its relative weight. Traffic is distributed across targets according to their relative weight. For example, a weighted target with a relative weight of 50 receives five times as much traffic as one with a relative weight of 10. The total weight for all targets combined must be less than or equal to 100.</p>
+<p>virtualNode -&gt; (string)</p>
+<blockquote>
+<div>The virtual node to associate with the weighted target.</div>
+</blockquote>
+<p>weight -&gt; (integer)</p>
+<blockquote>
+<div>The relative weight of the weighted target.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>status -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The status of the route.</p>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The current status for the route.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>virtualRouterName -&gt; (string)</p>
+<blockquote>
+<div>The virtual router that the route is associated with.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

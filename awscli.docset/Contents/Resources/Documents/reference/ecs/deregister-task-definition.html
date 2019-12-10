@@ -1,0 +1,1293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>deregister-task-definition — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecs" href="index.html">
+    <link rel="next" title="describe-capacity-providers" href="describe-capacity-providers.html">
+    <link rel="prev" title="deregister-container-instance" href="deregister-container-instance.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="deregister-task-definition">
+<span id="cli-aws-ecs-deregister-task-definition"></span><h1>deregister-task-definition<a class="headerlink" href="#deregister-task-definition" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Deregisters the specified task definition by family and revision. Upon deregistration, the task definition is marked as <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> . Existing tasks and services that reference an <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definition continue to run without disruption. Existing services that reference an <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definition can still scale up or down by modifying the service's desired count.</p>
+<p>You cannot use an <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definition to run new tasks or create new services, and you cannot update an existing service to reference an <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definition. However, there may be up to a 10-minute window following deregistration where these restrictions have not yet taken effect.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">At this time, <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definitions remain discoverable in your account indefinitely. However, this behavior is subject to change in the future, so you should not rely on <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> task definitions persisting beyond the lifecycle of any associated tasks and services.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeregisterTaskDefinition">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  deregister-task-definition
+--task-definition &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--task-definition</span></tt> (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">family</span></tt> and <tt class="docutils literal"><span class="pre">revision</span></tt> (<tt class="docutils literal"><span class="pre">family:revision</span></tt> ) or full Amazon Resource Name (ARN) of the task definition to deregister. You must specify a <tt class="docutils literal"><span class="pre">revision</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To deregister a task definition</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">deregister-task-definition</span></tt> example deregisters the first revision of the <tt class="docutils literal"><span class="pre">curler</span></tt> task definition in your default region.</p>
+<div class="highlight-python">
+<pre>aws ecs deregister-task-definition --task-definition curler:1</pre>
+</div>
+<p>Note that in the resulting output, the task definition status shows <tt class="docutils literal"><span class="pre">INACTIVE</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"taskDefinition"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"INACTIVE"</span><span class="p">,</span>
+        <span class="s2">"family"</span><span class="p">:</span> <span class="s2">"curler"</span><span class="p">,</span>
+        <span class="s2">"volumes"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"taskDefinitionArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:task-definition/curler:1"</span><span class="p">,</span>
+        <span class="s2">"containerDefinitions"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"curler"</span><span class="p">,</span>
+                <span class="s2">"mountPoints"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"image"</span><span class="p">:</span> <span class="s2">"curl:latest"</span><span class="p">,</span>
+                <span class="s2">"cpu"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                <span class="s2">"portMappings"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"entryPoint"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"memory"</span><span class="p">:</span> <span class="mi">256</span><span class="p">,</span>
+                <span class="s2">"command"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"curl -v http://example.com/"</span>
+                <span class="p">],</span>
+                <span class="s2">"essential"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="s2">"volumesFrom"</span><span class="p">:</span> <span class="p">[]</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"revision"</span><span class="p">:</span> <span class="mi">1</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html">Amazon ECS Task Definitions</a> in the <em>Amazon ECS Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>taskDefinition -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The full description of the deregistered task.</p>
+<p>taskDefinitionArn -&gt; (string)</p>
+<blockquote>
+<div>The full Amazon Resource Name (ARN) of the task definition.</div>
+</blockquote>
+<p>containerDefinitions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of container definitions in JSON format that describe the different containers that make up your task. For more information about container definition parameters and defaults, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html">Amazon ECS Task Definitions</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Container definitions are used in task definitions to describe the different containers that are launched as part of a task.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of a container. If you are linking multiple containers together in a task definition, the <tt class="docutils literal"><span class="pre">name</span></tt> of one container can be entered in the <tt class="docutils literal"><span class="pre">links</span></tt> of another container to connect the containers. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. This parameter maps to <tt class="docutils literal"><span class="pre">name</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--name</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</div>
+</blockquote>
+<p>image -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The image used to start a container. This string is passed directly to the Docker daemon. Images in the Docker Hub registry are available by default. Other repositories are specified with either `` <em>repository-url</em> /<em>image</em> :<em>tag</em> `` or `` <em>repository-url</em> /<em>image</em> @*digest* `` . Up to 255 letters (uppercase and lowercase), numbers, hyphens, underscores, colons, periods, forward slashes, and number signs are allowed. This parameter maps to <tt class="docutils literal"><span class="pre">Image</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">IMAGE</span></tt> parameter of <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<ul class="simple">
+<li>When a new task starts, the Amazon ECS container agent pulls the latest version of the specified image and tag for the container to use. However, subsequent updates to a repository image are not propagated to already running tasks.</li>
+<li>Images in Amazon ECR repositories can be specified by either using the full <tt class="docutils literal"><span class="pre">registry/repository:tag</span></tt> or <tt class="docutils literal"><span class="pre">registry/repository@digest</span></tt> . For example, <tt class="docutils literal"><span class="pre">012345678910.dkr.ecr.region-name.amazonaws.com/repository-name:latest</span></tt> or <tt class="docutils literal"><span class="pre">012345678910.dkr.ecr.region-name.amazonaws.com/repository-name@sha256:94afd1f2e64d908bc90dbca0035a5b567EXAMPLE</span></tt> .</li>
+<li>Images in official repositories on Docker Hub use a single name (for example, <tt class="docutils literal"><span class="pre">ubuntu</span></tt> or <tt class="docutils literal"><span class="pre">mongo</span></tt> ).</li>
+<li>Images in other repositories on Docker Hub are qualified with an organization name (for example, <tt class="docutils literal"><span class="pre">amazon/amazon-ecs-agent</span></tt> ).</li>
+<li>Images in other online repositories are qualified further by a domain name (for example, <tt class="docutils literal"><span class="pre">quay.io/assemblyline/ubuntu</span></tt> ).</li>
+</ul>
+</div>
+</blockquote>
+<p>repositoryCredentials -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The private repository authentication credentials to use.</p>
+<p>credentialsParameter -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Name (ARN) of the secret containing the private repository credentials.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When you are using the Amazon ECS API, AWS CLI, or AWS SDK, if the secret exists in the same Region as the task that you are launching then you can use either the full ARN or the name of the secret. When you are using the AWS Management Console, you must specify the full ARN of the secret.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>cpu -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of <tt class="docutils literal"><span class="pre">cpu</span></tt> units reserved for the container. This parameter maps to <tt class="docutils literal"><span class="pre">CpuShares</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--cpu-shares</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>This field is optional for tasks using the Fargate launch type, and the only requirement is that the total amount of CPU reserved for all containers within a task be lower than the task-level <tt class="docutils literal"><span class="pre">cpu</span></tt> value.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can determine the number of CPU units that are available per EC2 instance type by multiplying the vCPUs listed for that instance type on the <a class="reference external" href="http://aws.amazon.com/ec2/instance-types/">Amazon EC2 Instances</a> detail page by 1,024.</p>
+</div>
+<p>For example, if you run a single-container task on a single-core instance type with 512 CPU units specified for that container, and that is the only task running on the container instance, that container could use the full 1,024 CPU unit share at any given time. However, if you launched another copy of the same task on that container instance, each task would be guaranteed a minimum of 512 CPU units when needed, and each container could float to higher CPU usage if the other container was not using it, but if both tasks were 100% active all of the time, they would be limited to 512 CPU units.</p>
+<p>Linux containers share unallocated CPU units with other containers on the container instance with the same ratio as their allocated amount. For example, if you run a single-container task on a single-core instance type with 512 CPU units specified for that container, and that is the only task running on the container instance, that container could use the full 1,024 CPU unit share at any given time. However, if you launched another copy of the same task on that container instance, each task would be guaranteed a minimum of 512 CPU units when needed, and each container could float to higher CPU usage if the other container was not using it, but if both tasks were 100% active all of the time, they would be limited to 512 CPU units.</p>
+<p>On Linux container instances, the Docker daemon on the container instance uses the CPU value to calculate the relative CPU share ratios for running containers. For more information, see <a class="reference external" href="https://docs.docker.com/engine/reference/run/#cpu-share-constraint">CPU share constraint</a> in the Docker documentation. The minimum valid CPU share value that the Linux kernel allows is 2. However, the CPU parameter is not required, and you can use CPU values below 2 in your container definitions. For CPU values below 2 (including null), the behavior varies based on your Amazon ECS container agent version:</p>
+<ul class="simple">
+<li>
+<strong>Agent versions less than or equal to 1.1.0:</strong> Null and zero CPU values are passed to Docker as 0, which Docker then converts to 1,024 CPU shares. CPU values of 1 are passed to Docker as 1, which the Linux kernel converts to two CPU shares.</li>
+<li>
+<strong>Agent versions greater than or equal to 1.2.0:</strong> Null, zero, and CPU values of 1 are passed to Docker as 2.</li>
+</ul>
+<p>On Windows container instances, the CPU limit is enforced as an absolute limit, or a quota. Windows containers only have access to the specified amount of CPU that is described in the task definition.</p>
+</div>
+</blockquote>
+<p>memory -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The amount (in MiB) of memory to present to the container. If your container attempts to exceed the memory specified here, the container is killed. The total amount of memory reserved for all containers within a task must be lower than the task <tt class="docutils literal"><span class="pre">memory</span></tt> value, if one is specified. This parameter maps to <tt class="docutils literal"><span class="pre">Memory</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--memory</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>If using the Fargate launch type, this parameter is optional.</p>
+<p>If using the EC2 launch type, you must specify either a task-level memory value or a container-level memory value. If you specify both a container-level <tt class="docutils literal"><span class="pre">memory</span></tt> and <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> value, <tt class="docutils literal"><span class="pre">memory</span></tt> must be greater than <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> . If you specify <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> , then that value is subtracted from the available memory resources for the container instance on which the container is placed. Otherwise, the value of <tt class="docutils literal"><span class="pre">memory</span></tt> is used.</p>
+<p>The Docker daemon reserves a minimum of 4 MiB of memory for a container, so you should not specify fewer than 4 MiB of memory for your containers.</p>
+</div>
+</blockquote>
+<p>memoryReservation -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The soft limit (in MiB) of memory to reserve for the container. When system memory is under heavy contention, Docker attempts to keep the container memory to this soft limit. However, your container can consume more memory when it needs to, up to either the hard limit specified with the <tt class="docutils literal"><span class="pre">memory</span></tt> parameter (if applicable), or all of the available memory on the container instance, whichever comes first. This parameter maps to <tt class="docutils literal"><span class="pre">MemoryReservation</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--memory-reservation</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>If a task-level memory value is not specified, you must specify a non-zero integer for one or both of <tt class="docutils literal"><span class="pre">memory</span></tt> or <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> in a container definition. If you specify both, <tt class="docutils literal"><span class="pre">memory</span></tt> must be greater than <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> . If you specify <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> , then that value is subtracted from the available memory resources for the container instance on which the container is placed. Otherwise, the value of <tt class="docutils literal"><span class="pre">memory</span></tt> is used.</p>
+<p>For example, if your container normally uses 128 MiB of memory, but occasionally bursts to 256 MiB of memory for short periods of time, you can set a <tt class="docutils literal"><span class="pre">memoryReservation</span></tt> of 128 MiB, and a <tt class="docutils literal"><span class="pre">memory</span></tt> hard limit of 300 MiB. This configuration would allow the container to only reserve 128 MiB of memory from the remaining resources on the container instance, but also allow the container to consume more memory resources when needed.</p>
+<p>The Docker daemon reserves a minimum of 4 MiB of memory for a container, so you should not specify fewer than 4 MiB of memory for your containers.</p>
+</div>
+</blockquote>
+<p>links -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The <tt class="docutils literal"><span class="pre">links</span></tt> parameter allows containers to communicate with each other without the need for port mappings. This parameter is only supported if the network mode of a task definition is <tt class="docutils literal"><span class="pre">bridge</span></tt> . The <tt class="docutils literal"><span class="pre">name:internalName</span></tt> construct is analogous to <tt class="docutils literal"><span class="pre">name:alias</span></tt> in Docker links. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. For more information about linking Docker containers, go to <a class="reference external" href="https://docs.docker.com/network/links/">Legacy container links</a> in the Docker documentation. This parameter maps to <tt class="docutils literal"><span class="pre">Links</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--link</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Containers that are collocated on a single container instance may be able to communicate with each other without requiring links or host port mappings. Network isolation is achieved on the container instance using security groups and VPC settings.</p>
+</div>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>portMappings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of port mappings for the container. Port mappings allow containers to access ports on the host container instance to send or receive traffic.</p>
+<p>For task definitions that use the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode, you should only specify the <tt class="docutils literal"><span class="pre">containerPort</span></tt> . The <tt class="docutils literal"><span class="pre">hostPort</span></tt> can be left blank or it must be the same value as the <tt class="docutils literal"><span class="pre">containerPort</span></tt> .</p>
+<p>Port mappings on Windows use the <tt class="docutils literal"><span class="pre">NetNAT</span></tt> gateway address rather than <tt class="docutils literal"><span class="pre">localhost</span></tt> . There is no loopback for port mappings on Windows, so you cannot access a container's mapped port from the host itself.</p>
+<p>This parameter maps to <tt class="docutils literal"><span class="pre">PortBindings</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--publish</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . If the network mode of a task definition is set to <tt class="docutils literal"><span class="pre">none</span></tt> , then you can't specify port mappings. If the network mode of a task definition is set to <tt class="docutils literal"><span class="pre">host</span></tt> , then host ports must either be undefined or they must match the container port in the port mapping.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After a task reaches the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> status, manual and automatic host and container port assignments are visible in the <strong>Network Bindings</strong> section of a container description for a selected task in the Amazon ECS console. The assignments are also visible in the <tt class="docutils literal"><span class="pre">networkBindings</span></tt> section  DescribeTasks responses.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Port mappings allow containers to access ports on the host container instance to send or receive traffic. Port mappings are specified as part of the container definition.</p>
+<p>If you are using containers in a task with the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> or <tt class="docutils literal"><span class="pre">host</span></tt> network mode, exposed ports should be specified using <tt class="docutils literal"><span class="pre">containerPort</span></tt> . The <tt class="docutils literal"><span class="pre">hostPort</span></tt> can be left blank or it must be the same value as the <tt class="docutils literal"><span class="pre">containerPort</span></tt> .</p>
+<p>After a task reaches the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> status, manual and automatic host and container port assignments are visible in the <tt class="docutils literal"><span class="pre">networkBindings</span></tt> section of  DescribeTasks API responses.</p>
+<p>containerPort -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The port number on the container that is bound to the user-specified or automatically assigned host port.</p>
+<p>If you are using containers in a task with the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> or <tt class="docutils literal"><span class="pre">host</span></tt> network mode, exposed ports should be specified using <tt class="docutils literal"><span class="pre">containerPort</span></tt> .</p>
+<p>If you are using containers in a task with the <tt class="docutils literal"><span class="pre">bridge</span></tt> network mode and you specify a container port and not a host port, your container automatically receives a host port in the ephemeral port range. For more information, see <tt class="docutils literal"><span class="pre">hostPort</span></tt> . Port mappings that are automatically assigned in this way do not count toward the 100 reserved ports limit of a container instance.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You cannot expose the same container port for multiple protocols. An error will be returned if this is attempted.</p>
+</div>
+</div>
+</blockquote>
+<p>hostPort -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The port number on the container instance to reserve for your container.</p>
+<p>If you are using containers in a task with the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> or <tt class="docutils literal"><span class="pre">host</span></tt> network mode, the <tt class="docutils literal"><span class="pre">hostPort</span></tt> can either be left blank or set to the same value as the <tt class="docutils literal"><span class="pre">containerPort</span></tt> .</p>
+<p>If you are using containers in a task with the <tt class="docutils literal"><span class="pre">bridge</span></tt> network mode, you can specify a non-reserved host port for your container port mapping, or you can omit the <tt class="docutils literal"><span class="pre">hostPort</span></tt> (or set it to <tt class="docutils literal"><span class="pre">0</span></tt> ) while specifying a <tt class="docutils literal"><span class="pre">containerPort</span></tt> and your container automatically receives a port in the ephemeral port range for your container instance operating system and Docker version.</p>
+<p>The default ephemeral port range for Docker version 1.6.0 and later is listed on the instance under <tt class="docutils literal"><span class="pre">/proc/sys/net/ipv4/ip_local_port_range</span></tt> . If this kernel parameter is unavailable, the default ephemeral port range from 49153 through 65535 is used. Do not attempt to specify a host port in the ephemeral port range as these are reserved for automatic assignment. In general, ports below 32768 are outside of the ephemeral port range.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The default ephemeral port range from 49153 through 65535 is always used for Docker versions before 1.6.0.</p>
+</div>
+<p>The default reserved ports are 22 for SSH, the Docker ports 2375 and 2376, and the Amazon ECS container agent ports 51678-51680. Any host port that was previously specified in a running task is also reserved while the task is running (after a task stops, the host port is released). The current reserved ports are displayed in the <tt class="docutils literal"><span class="pre">remainingResources</span></tt> of  DescribeContainerInstances output. A container instance can have up to 100 reserved ports at a time, including the default reserved ports. Automatically assigned ports don't count toward the 100 reserved ports limit.</p>
+</div>
+</blockquote>
+<p>protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol used for the port mapping. Valid values are <tt class="docutils literal"><span class="pre">tcp</span></tt> and <tt class="docutils literal"><span class="pre">udp</span></tt> . The default is <tt class="docutils literal"><span class="pre">tcp</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>essential -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>If the <tt class="docutils literal"><span class="pre">essential</span></tt> parameter of a container is marked as <tt class="docutils literal"><span class="pre">true</span></tt> , and that container fails or stops for any reason, all other containers that are part of the task are stopped. If the <tt class="docutils literal"><span class="pre">essential</span></tt> parameter of a container is marked as <tt class="docutils literal"><span class="pre">false</span></tt> , then its failure does not affect the rest of the containers in a task. If this parameter is omitted, a container is assumed to be essential.</p>
+<p>All tasks must have at least one essential container. If you have an application that is composed of multiple containers, you should group containers that are used for a common purpose into components, and separate the different components into multiple task definitions. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html">Application Architecture</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>entryPoint -&gt; (list)</p>
+<blockquote>
+<div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Early versions of the Amazon ECS container agent do not properly handle <tt class="docutils literal"><span class="pre">entryPoint</span></tt> parameters. If you have problems using <tt class="docutils literal"><span class="pre">entryPoint</span></tt> , update your container agent or enter your commands and arguments as <tt class="docutils literal"><span class="pre">command</span></tt> array items instead.</p>
+</div>
+<p>The entry point that is passed to the container. This parameter maps to <tt class="docutils literal"><span class="pre">Entrypoint</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--entrypoint</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . For more information, see <a class="reference external" href="https://docs.docker.com/engine/reference/builder/#entrypoint">https://docs.docker.com/engine/reference/builder/#entrypoint</a> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>command -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The command that is passed to the container. This parameter maps to <tt class="docutils literal"><span class="pre">Cmd</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">COMMAND</span></tt> parameter to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . For more information, see <a class="reference external" href="https://docs.docker.com/engine/reference/builder/#cmd">https://docs.docker.com/engine/reference/builder/#cmd</a> . If there are multiple arguments, each argument should be a separated string in the array.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>environment -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The environment variables to pass to a container. This parameter maps to <tt class="docutils literal"><span class="pre">Env</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--env</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">We do not recommend using plaintext environment variables for sensitive information, such as credential data.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>mountPoints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The mount points for data volumes in your container.</p>
+<p>This parameter maps to <tt class="docutils literal"><span class="pre">Volumes</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--volume</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>Windows containers can mount whole directories on the same drive as <tt class="docutils literal"><span class="pre">$env:ProgramData</span></tt> . Windows containers cannot mount directories on a different drive, and mount point cannot be across drives.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on a volume mount point that is used in a container definition.</p>
+<p>sourceVolume -&gt; (string)</p>
+<blockquote>
+<div>The name of the volume to mount. Must be a volume name referenced in the <tt class="docutils literal"><span class="pre">name</span></tt> parameter of task definition <tt class="docutils literal"><span class="pre">volume</span></tt> .</div>
+</blockquote>
+<p>containerPath -&gt; (string)</p>
+<blockquote>
+<div>The path on the container to mount the host volume at.</div>
+</blockquote>
+<p>readOnly -&gt; (boolean)</p>
+<blockquote>
+<div>If this value is <tt class="docutils literal"><span class="pre">true</span></tt> , the container has read-only access to the volume. If this value is <tt class="docutils literal"><span class="pre">false</span></tt> , then the container can write to the volume. The default value is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>volumesFrom -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Data volumes to mount from another container. This parameter maps to <tt class="docutils literal"><span class="pre">VolumesFrom</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--volumes-from</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on a data volume from another container in the same task definition.</p>
+<p>sourceContainer -&gt; (string)</p>
+<blockquote>
+<div>The name of another container within the same task definition from which to mount volumes.</div>
+</blockquote>
+<p>readOnly -&gt; (boolean)</p>
+<blockquote>
+<div>If this value is <tt class="docutils literal"><span class="pre">true</span></tt> , the container has read-only access to the volume. If this value is <tt class="docutils literal"><span class="pre">false</span></tt> , then the container can write to the volume. The default value is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>linuxParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Linux-specific modifications that are applied to the container, such as Linux kernel capabilities. For more information see  KernelCapabilities .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+<p>capabilities -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The Linux capabilities for the container that are added to or dropped from the default configuration provided by Docker.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, <tt class="docutils literal"><span class="pre">capabilities</span></tt> is supported but the <tt class="docutils literal"><span class="pre">add</span></tt> parameter is not supported.</p>
+</div>
+<p>add -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Linux capabilities for the container that have been added to the default configuration provided by Docker. This parameter maps to <tt class="docutils literal"><span class="pre">CapAdd</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--cap-add</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, the <tt class="docutils literal"><span class="pre">add</span></tt> parameter is not supported.</p>
+</div>
+<p>Valid values: <tt class="docutils literal"><span class="pre">"ALL"</span> <span class="pre">|</span> <span class="pre">"AUDIT_CONTROL"</span> <span class="pre">|</span> <span class="pre">"AUDIT_WRITE"</span> <span class="pre">|</span> <span class="pre">"BLOCK_SUSPEND"</span> <span class="pre">|</span> <span class="pre">"CHOWN"</span> <span class="pre">|</span> <span class="pre">"DAC_OVERRIDE"</span> <span class="pre">|</span> <span class="pre">"DAC_READ_SEARCH"</span> <span class="pre">|</span> <span class="pre">"FOWNER"</span> <span class="pre">|</span> <span class="pre">"FSETID"</span> <span class="pre">|</span> <span class="pre">"IPC_LOCK"</span> <span class="pre">|</span> <span class="pre">"IPC_OWNER"</span> <span class="pre">|</span> <span class="pre">"KILL"</span> <span class="pre">|</span> <span class="pre">"LEASE"</span> <span class="pre">|</span> <span class="pre">"LINUX_IMMUTABLE"</span> <span class="pre">|</span> <span class="pre">"MAC_ADMIN"</span> <span class="pre">|</span> <span class="pre">"MAC_OVERRIDE"</span> <span class="pre">|</span> <span class="pre">"MKNOD"</span> <span class="pre">|</span> <span class="pre">"NET_ADMIN"</span> <span class="pre">|</span> <span class="pre">"NET_BIND_SERVICE"</span> <span class="pre">|</span> <span class="pre">"NET_BROADCAST"</span> <span class="pre">|</span> <span class="pre">"NET_RAW"</span> <span class="pre">|</span> <span class="pre">"SETFCAP"</span> <span class="pre">|</span> <span class="pre">"SETGID"</span> <span class="pre">|</span> <span class="pre">"SETPCAP"</span> <span class="pre">|</span> <span class="pre">"SETUID"</span> <span class="pre">|</span> <span class="pre">"SYS_ADMIN"</span> <span class="pre">|</span> <span class="pre">"SYS_BOOT"</span> <span class="pre">|</span> <span class="pre">"SYS_CHROOT"</span> <span class="pre">|</span> <span class="pre">"SYS_MODULE"</span> <span class="pre">|</span> <span class="pre">"SYS_NICE"</span> <span class="pre">|</span> <span class="pre">"SYS_PACCT"</span> <span class="pre">|</span> <span class="pre">"SYS_PTRACE"</span> <span class="pre">|</span> <span class="pre">"SYS_RAWIO"</span> <span class="pre">|</span> <span class="pre">"SYS_RESOURCE"</span> <span class="pre">|</span> <span class="pre">"SYS_TIME"</span> <span class="pre">|</span> <span class="pre">"SYS_TTY_CONFIG"</span> <span class="pre">|</span> <span class="pre">"SYSLOG"</span> <span class="pre">|</span> <span class="pre">"WAKE_ALARM"</span></tt></p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>drop -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Linux capabilities for the container that have been removed from the default configuration provided by Docker. This parameter maps to <tt class="docutils literal"><span class="pre">CapDrop</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--cap-drop</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">"ALL"</span> <span class="pre">|</span> <span class="pre">"AUDIT_CONTROL"</span> <span class="pre">|</span> <span class="pre">"AUDIT_WRITE"</span> <span class="pre">|</span> <span class="pre">"BLOCK_SUSPEND"</span> <span class="pre">|</span> <span class="pre">"CHOWN"</span> <span class="pre">|</span> <span class="pre">"DAC_OVERRIDE"</span> <span class="pre">|</span> <span class="pre">"DAC_READ_SEARCH"</span> <span class="pre">|</span> <span class="pre">"FOWNER"</span> <span class="pre">|</span> <span class="pre">"FSETID"</span> <span class="pre">|</span> <span class="pre">"IPC_LOCK"</span> <span class="pre">|</span> <span class="pre">"IPC_OWNER"</span> <span class="pre">|</span> <span class="pre">"KILL"</span> <span class="pre">|</span> <span class="pre">"LEASE"</span> <span class="pre">|</span> <span class="pre">"LINUX_IMMUTABLE"</span> <span class="pre">|</span> <span class="pre">"MAC_ADMIN"</span> <span class="pre">|</span> <span class="pre">"MAC_OVERRIDE"</span> <span class="pre">|</span> <span class="pre">"MKNOD"</span> <span class="pre">|</span> <span class="pre">"NET_ADMIN"</span> <span class="pre">|</span> <span class="pre">"NET_BIND_SERVICE"</span> <span class="pre">|</span> <span class="pre">"NET_BROADCAST"</span> <span class="pre">|</span> <span class="pre">"NET_RAW"</span> <span class="pre">|</span> <span class="pre">"SETFCAP"</span> <span class="pre">|</span> <span class="pre">"SETGID"</span> <span class="pre">|</span> <span class="pre">"SETPCAP"</span> <span class="pre">|</span> <span class="pre">"SETUID"</span> <span class="pre">|</span> <span class="pre">"SYS_ADMIN"</span> <span class="pre">|</span> <span class="pre">"SYS_BOOT"</span> <span class="pre">|</span> <span class="pre">"SYS_CHROOT"</span> <span class="pre">|</span> <span class="pre">"SYS_MODULE"</span> <span class="pre">|</span> <span class="pre">"SYS_NICE"</span> <span class="pre">|</span> <span class="pre">"SYS_PACCT"</span> <span class="pre">|</span> <span class="pre">"SYS_PTRACE"</span> <span class="pre">|</span> <span class="pre">"SYS_RAWIO"</span> <span class="pre">|</span> <span class="pre">"SYS_RESOURCE"</span> <span class="pre">|</span> <span class="pre">"SYS_TIME"</span> <span class="pre">|</span> <span class="pre">"SYS_TTY_CONFIG"</span> <span class="pre">|</span> <span class="pre">"SYSLOG"</span> <span class="pre">|</span> <span class="pre">"WAKE_ALARM"</span></tt></p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>devices -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any host devices to expose to the container. This parameter maps to <tt class="docutils literal"><span class="pre">Devices</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--device</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, the <tt class="docutils literal"><span class="pre">devices</span></tt> parameter is not supported.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing a container instance host device.</p>
+<p>hostPath -&gt; (string)</p>
+<blockquote>
+<div>The path for the device on the host container instance.</div>
+</blockquote>
+<p>containerPath -&gt; (string)</p>
+<blockquote>
+<div>The path inside the container at which to expose the host device.</div>
+</blockquote>
+<p>permissions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The explicit permissions to provide to the container for the device. By default, the container has permissions for <tt class="docutils literal"><span class="pre">read</span></tt> , <tt class="docutils literal"><span class="pre">write</span></tt> , and <tt class="docutils literal"><span class="pre">mknod</span></tt> for the device.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>initProcessEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>Run an <tt class="docutils literal"><span class="pre">init</span></tt> process inside the container that forwards signals and reaps processes. This parameter maps to the <tt class="docutils literal"><span class="pre">--init</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . This parameter requires version 1.25 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt>
+</div>
+</blockquote>
+<p>sharedMemorySize -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The value for the size (in MiB) of the <tt class="docutils literal"><span class="pre">/dev/shm</span></tt> volume. This parameter maps to the <tt class="docutils literal"><span class="pre">--shm-size</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, the <tt class="docutils literal"><span class="pre">sharedMemorySize</span></tt> parameter is not supported.</p>
+</div>
+</div>
+</blockquote>
+<p>tmpfs -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The container path, mount options, and size (in MiB) of the tmpfs mount. This parameter maps to the <tt class="docutils literal"><span class="pre">--tmpfs</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, the <tt class="docutils literal"><span class="pre">tmpfs</span></tt> parameter is not supported.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The container path, mount options, and size of the tmpfs mount.</p>
+<p>containerPath -&gt; (string)</p>
+<blockquote>
+<div>The absolute file path where the tmpfs volume is to be mounted.</div>
+</blockquote>
+<p>size -&gt; (integer)</p>
+<blockquote>
+<div>The size (in MiB) of the tmpfs volume.</div>
+</blockquote>
+<p>mountOptions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of tmpfs volume mount options.</p>
+<p>Valid values: <tt class="docutils literal"><span class="pre">"defaults"</span> <span class="pre">|</span> <span class="pre">"ro"</span> <span class="pre">|</span> <span class="pre">"rw"</span> <span class="pre">|</span> <span class="pre">"suid"</span> <span class="pre">|</span> <span class="pre">"nosuid"</span> <span class="pre">|</span> <span class="pre">"dev"</span> <span class="pre">|</span> <span class="pre">"nodev"</span> <span class="pre">|</span> <span class="pre">"exec"</span> <span class="pre">|</span> <span class="pre">"noexec"</span> <span class="pre">|</span> <span class="pre">"sync"</span> <span class="pre">|</span> <span class="pre">"async"</span> <span class="pre">|</span> <span class="pre">"dirsync"</span> <span class="pre">|</span> <span class="pre">"remount"</span> <span class="pre">|</span> <span class="pre">"mand"</span> <span class="pre">|</span> <span class="pre">"nomand"</span> <span class="pre">|</span> <span class="pre">"atime"</span> <span class="pre">|</span> <span class="pre">"noatime"</span> <span class="pre">|</span> <span class="pre">"diratime"</span> <span class="pre">|</span> <span class="pre">"nodiratime"</span> <span class="pre">|</span> <span class="pre">"bind"</span> <span class="pre">|</span> <span class="pre">"rbind"</span> <span class="pre">|</span> <span class="pre">"unbindable"</span> <span class="pre">|</span> <span class="pre">"runbindable"</span> <span class="pre">|</span> <span class="pre">"private"</span> <span class="pre">|</span> <span class="pre">"rprivate"</span> <span class="pre">|</span> <span class="pre">"shared"</span> <span class="pre">|</span> <span class="pre">"rshared"</span> <span class="pre">|</span> <span class="pre">"slave"</span> <span class="pre">|</span> <span class="pre">"rslave"</span> <span class="pre">|</span> <span class="pre">"relatime"</span> <span class="pre">|</span> <span class="pre">"norelatime"</span> <span class="pre">|</span> <span class="pre">"strictatime"</span> <span class="pre">|</span> <span class="pre">"nostrictatime"</span> <span class="pre">|</span> <span class="pre">"mode"</span> <span class="pre">|</span> <span class="pre">"uid"</span> <span class="pre">|</span> <span class="pre">"gid"</span> <span class="pre">|</span> <span class="pre">"nr_inodes"</span> <span class="pre">|</span> <span class="pre">"nr_blocks"</span> <span class="pre">|</span> <span class="pre">"mpol"</span></tt></p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>maxSwap -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The total amount of swap memory (in MiB) a container can use. This parameter will be translated to the <tt class="docutils literal"><span class="pre">--memory-swap</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> where the value would be the sum of the container memory plus the <tt class="docutils literal"><span class="pre">maxSwap</span></tt> value.</p>
+<p>If a <tt class="docutils literal"><span class="pre">maxSwap</span></tt> value of <tt class="docutils literal"><span class="pre">0</span></tt> is specified, the container will not use swap. Accepted values are <tt class="docutils literal"><span class="pre">0</span></tt> or any positive integer. If the <tt class="docutils literal"><span class="pre">maxSwap</span></tt> parameter is omitted, the container will use the swap configuration for the container instance it is running on. A <tt class="docutils literal"><span class="pre">maxSwap</span></tt> value must be set for the <tt class="docutils literal"><span class="pre">swappiness</span></tt> parameter to be used.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, the <tt class="docutils literal"><span class="pre">maxSwap</span></tt> parameter is not supported.</p>
+</div>
+</div>
+</blockquote>
+<p>swappiness -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>This allows you to tune a container's memory swappiness behavior. A <tt class="docutils literal"><span class="pre">swappiness</span></tt> value of <tt class="docutils literal"><span class="pre">0</span></tt> will cause swapping to not happen unless absolutely necessary. A <tt class="docutils literal"><span class="pre">swappiness</span></tt> value of <tt class="docutils literal"><span class="pre">100</span></tt> will cause pages to be swapped very aggressively. Accepted values are whole numbers between <tt class="docutils literal"><span class="pre">0</span></tt> and <tt class="docutils literal"><span class="pre">100</span></tt> . If the <tt class="docutils literal"><span class="pre">swappiness</span></tt> parameter is not specified, a default value of <tt class="docutils literal"><span class="pre">60</span></tt> is used. If a value is not specified for <tt class="docutils literal"><span class="pre">maxSwap</span></tt> then this parameter is ignored. This parameter maps to the <tt class="docutils literal"><span class="pre">--memory-swappiness</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, the <tt class="docutils literal"><span class="pre">swappiness</span></tt> parameter is not supported.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>secrets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The secrets to pass to the container. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">Specifying Sensitive Data</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing the secret to expose to your container. Secrets can be exposed to a container in the following ways:</p>
+<ul class="simple">
+<li>To inject sensitive data into your containers as environment variables, use the <tt class="docutils literal"><span class="pre">secrets</span></tt> container definition parameter.</li>
+<li>To reference sensitive information in the log configuration of a container, use the <tt class="docutils literal"><span class="pre">secretOptions</span></tt> container definition parameter.</li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">Specifying Sensitive Data</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the secret.</div>
+</blockquote>
+<p>valueFrom -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets Manager secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are launching, then you can use either the full ARN or name of the parameter. If the parameter exists in a different Region, then the full ARN must be specified.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>dependsOn -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed.</p>
+<p>For tasks using the EC2 launch type, the container instances require at least version 1.26.0 of the container agent to enable container dependencies. However, we recommend using the latest container agent version. For information about checking your agent version and updating to the latest version, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html">Updating the Amazon ECS Container Agent</a> in the <em>Amazon Elastic Container Service Developer Guide</em> . If you are using an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1 of the <tt class="docutils literal"><span class="pre">ecs-init</span></tt> package. If your container instances are launched from version <tt class="docutils literal"><span class="pre">20190301</span></tt> or later, then they contain the required versions of the container agent and <tt class="docutils literal"><span class="pre">ecs-init</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html">Amazon ECS-optimized Linux AMI</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>For tasks using the Fargate launch type, the task or service requires platform version <tt class="docutils literal"><span class="pre">1.3.0</span></tt> or later.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The dependencies defined for container startup and shutdown. A container can contain multiple dependencies. When a dependency is defined for container startup, for container shutdown it is reversed.</p>
+<p>Your Amazon ECS container instances require at least version 1.26.0 of the container agent to enable container dependencies. However, we recommend using the latest container agent version. For information about checking your agent version and updating to the latest version, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html">Updating the Amazon ECS Container Agent</a> in the <em>Amazon Elastic Container Service Developer Guide</em> . If you are using an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1 of the <tt class="docutils literal"><span class="pre">ecs-init</span></tt> package. If your container instances are launched from version <tt class="docutils literal"><span class="pre">20190301</span></tt> or later, then they contain the required versions of the container agent and <tt class="docutils literal"><span class="pre">ecs-init</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html">Amazon ECS-optimized Linux AMI</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using tasks that use the Fargate launch type, container dependency parameters are not supported.</p>
+</div>
+<p>containerName -&gt; (string)</p>
+<blockquote>
+<div>The name of a container.</div>
+</blockquote>
+<p>condition -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The dependency condition of the container. The following are the available conditions and their behavior:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">START</span></tt> - This condition emulates the behavior of links and volumes today. It validates that a dependent container is started before permitting other containers to start.</li>
+<li>
+<tt class="docutils literal"><span class="pre">COMPLETE</span></tt> - This condition validates that a dependent container runs to completion (exits) before permitting other containers to start. This can be useful for nonessential containers that run a script and then exit.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SUCCESS</span></tt> - This condition is the same as <tt class="docutils literal"><span class="pre">COMPLETE</span></tt> , but it also requires that the container exits with a <tt class="docutils literal"><span class="pre">zero</span></tt> status.</li>
+<li>
+<tt class="docutils literal"><span class="pre">HEALTHY</span></tt> - This condition validates that the dependent container passes its Docker health check before permitting other containers to start. This requires that the dependent container has health checks configured. This condition is confirmed only at task startup.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>startTimeout -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>Time duration (in seconds) to wait before giving up on resolving dependencies for a container. For example, you specify two containers in a task definition with containerA having a dependency on containerB reaching a <tt class="docutils literal"><span class="pre">COMPLETE</span></tt> , <tt class="docutils literal"><span class="pre">SUCCESS</span></tt> , or <tt class="docutils literal"><span class="pre">HEALTHY</span></tt> status. If a <tt class="docutils literal"><span class="pre">startTimeout</span></tt> value is specified for containerB and it does not reach the desired status within that time then containerA will give up and not start. This results in the task transitioning to a <tt class="docutils literal"><span class="pre">STOPPED</span></tt> state.</p>
+<p>For tasks using the EC2 launch type, the container instances require at least version 1.26.0 of the container agent to enable a container start timeout value. However, we recommend using the latest container agent version. For information about checking your agent version and updating to the latest version, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html">Updating the Amazon ECS Container Agent</a> in the <em>Amazon Elastic Container Service Developer Guide</em> . If you are using an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1 of the <tt class="docutils literal"><span class="pre">ecs-init</span></tt> package. If your container instances are launched from version <tt class="docutils literal"><span class="pre">20190301</span></tt> or later, then they contain the required versions of the container agent and <tt class="docutils literal"><span class="pre">ecs-init</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html">Amazon ECS-optimized Linux AMI</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>For tasks using the Fargate launch type, the task or service requires platform version <tt class="docutils literal"><span class="pre">1.3.0</span></tt> or later.</p>
+</div>
+</blockquote>
+<p>stopTimeout -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>Time duration (in seconds) to wait before the container is forcefully killed if it doesn't exit normally on its own.</p>
+<p>For tasks using the Fargate launch type, the max <tt class="docutils literal"><span class="pre">stopTimeout</span></tt> value is 2 minutes and the task or service requires platform version <tt class="docutils literal"><span class="pre">1.3.0</span></tt> or later.</p>
+<p>For tasks using the EC2 launch type, the stop timeout value for the container takes precedence over the <tt class="docutils literal"><span class="pre">ECS_CONTAINER_STOP_TIMEOUT</span></tt> container agent configuration parameter, if used. Container instances require at least version 1.26.0 of the container agent to enable a container stop timeout value. However, we recommend using the latest container agent version. For information about checking your agent version and updating to the latest version, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html">Updating the Amazon ECS Container Agent</a> in the <em>Amazon Elastic Container Service Developer Guide</em> . If you are using an Amazon ECS-optimized Linux AMI, your instance needs at least version 1.26.0-1 of the <tt class="docutils literal"><span class="pre">ecs-init</span></tt> package. If your container instances are launched from version <tt class="docutils literal"><span class="pre">20190301</span></tt> or later, then they contain the required versions of the container agent and <tt class="docutils literal"><span class="pre">ecs-init</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html">Amazon ECS-optimized Linux AMI</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>hostname -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The hostname to use for your container. This parameter maps to <tt class="docutils literal"><span class="pre">Hostname</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--hostname</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">hostname</span></tt> parameter is not supported if you are using the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode.</p>
+</div>
+</div>
+</blockquote>
+<p>user -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The user name to use inside the container. This parameter maps to <tt class="docutils literal"><span class="pre">User</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--user</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>You can use the following formats. If specifying a UID or GID, you must specify it as a positive integer.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">user</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">user:group</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">uid</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">uid:gid</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">user:gid</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">uid:group</span></tt></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+</div>
+</blockquote>
+<p>workingDirectory -&gt; (string)</p>
+<blockquote>
+<div>The working directory in which to run commands inside the container. This parameter maps to <tt class="docutils literal"><span class="pre">WorkingDir</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--workdir</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</div>
+</blockquote>
+<p>disableNetworking -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>When this parameter is true, networking is disabled within the container. This parameter maps to <tt class="docutils literal"><span class="pre">NetworkDisabled</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+</div>
+</blockquote>
+<p>privileged -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>When this parameter is true, the container is given elevated privileges on the host container instance (similar to the <tt class="docutils literal"><span class="pre">root</span></tt> user). This parameter maps to <tt class="docutils literal"><span class="pre">Privileged</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--privileged</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers or tasks using the Fargate launch type.</p>
+</div>
+</div>
+</blockquote>
+<p>readonlyRootFilesystem -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>When this parameter is true, the container is given read-only access to its root file system. This parameter maps to <tt class="docutils literal"><span class="pre">ReadonlyRootfs</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--read-only</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+</div>
+</blockquote>
+<p>dnsServers -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of DNS servers that are presented to the container. This parameter maps to <tt class="docutils literal"><span class="pre">Dns</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--dns</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>dnsSearchDomains -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of DNS search domains that are presented to the container. This parameter maps to <tt class="docutils literal"><span class="pre">DnsSearch</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--dns-search</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>extraHosts -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of hostnames and IP address mappings to append to the <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> file on the container. This parameter maps to <tt class="docutils literal"><span class="pre">ExtraHosts</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--add-host</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers or tasks that use the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Hostnames and IP address entries that are added to the <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> file of a container via the <tt class="docutils literal"><span class="pre">extraHosts</span></tt> parameter of its  ContainerDefinition .</p>
+<p>hostname -&gt; (string)</p>
+<blockquote>
+<div>The hostname to use in the <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> entry.</div>
+</blockquote>
+<p>ipAddress -&gt; (string)</p>
+<blockquote>
+<div>The IP address to use in the <tt class="docutils literal"><span class="pre">/etc/hosts</span></tt> entry.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>dockerSecurityOptions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of strings to provide custom labels for SELinux and AppArmor multi-level security systems. This field is not valid for containers in tasks using the Fargate launch type.</p>
+<p>This parameter maps to <tt class="docutils literal"><span class="pre">SecurityOpt</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--security-opt</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon ECS container agent running on a container instance must register with the <tt class="docutils literal"><span class="pre">ECS_SELINUX_CAPABLE=true</span></tt> or <tt class="docutils literal"><span class="pre">ECS_APPARMOR_CAPABLE=true</span></tt> environment variables before containers placed on that instance can use these security options. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS Container Agent Configuration</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>interactive -&gt; (boolean)</p>
+<blockquote>
+<div>When this parameter is <tt class="docutils literal"><span class="pre">true</span></tt> , this allows you to deploy containerized applications that require <tt class="docutils literal"><span class="pre">stdin</span></tt> or a <tt class="docutils literal"><span class="pre">tty</span></tt> to be allocated. This parameter maps to <tt class="docutils literal"><span class="pre">OpenStdin</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--interactive</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</div>
+</blockquote>
+<p>pseudoTerminal -&gt; (boolean)</p>
+<blockquote>
+<div>When this parameter is <tt class="docutils literal"><span class="pre">true</span></tt> , a TTY is allocated. This parameter maps to <tt class="docutils literal"><span class="pre">Tty</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--tty</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</div>
+</blockquote>
+<p>dockerLabels -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A key/value map of labels to add to the container. This parameter maps to <tt class="docutils literal"><span class="pre">Labels</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--label</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt></p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>ulimits -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">ulimits</span></tt> to set in the container. This parameter maps to <tt class="docutils literal"><span class="pre">Ulimits</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--ulimit</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . Valid naming values are displayed in the  Ulimit data type. This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The <tt class="docutils literal"><span class="pre">ulimit</span></tt> settings to pass to the container.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">type</span></tt> of the <tt class="docutils literal"><span class="pre">ulimit</span></tt> .</div>
+</blockquote>
+<p>softLimit -&gt; (integer)</p>
+<blockquote>
+<div>The soft limit for the ulimit type.</div>
+</blockquote>
+<p>hardLimit -&gt; (integer)</p>
+<blockquote>
+<div>The hard limit for the ulimit type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>logConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The log configuration specification for the container.</p>
+<p>This parameter maps to <tt class="docutils literal"><span class="pre">LogConfig</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--log-driver</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> . By default, containers use the same logging driver that the Docker daemon uses. However the container may use a different logging driver than the Docker daemon by specifying a log driver with this parameter in the container definition. To use a different logging driver for a container, the log system must be configured properly on the container instance (or on a different log server for remote logging options). For more information on the options for different supported log drivers, see <a class="reference external" href="https://docs.docker.com/engine/admin/logging/overview/">Configure logging drivers</a> in the Docker documentation.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Amazon ECS currently supports a subset of the logging drivers available to the Docker daemon (shown in the  LogConfiguration data type). Additional log drivers may be available in future releases of the Amazon ECS container agent.</p>
+</div>
+<p>This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon ECS container agent running on a container instance must register the logging drivers available on that instance with the <tt class="docutils literal"><span class="pre">ECS_AVAILABLE_LOGGING_DRIVERS</span></tt> environment variable before containers placed on that instance can use these log configuration options. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS Container Agent Configuration</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+</div>
+<p>logDriver -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The log driver to use for the container. The valid values listed for this parameter are log drivers that the Amazon ECS container agent can communicate with by default.</p>
+<p>For tasks using the Fargate launch type, the supported log drivers are <tt class="docutils literal"><span class="pre">awslogs</span></tt> and <tt class="docutils literal"><span class="pre">splunk</span></tt> .</p>
+<p>For tasks using the EC2 launch type, the supported log drivers are <tt class="docutils literal"><span class="pre">awslogs</span></tt> , <tt class="docutils literal"><span class="pre">fluentd</span></tt> , <tt class="docutils literal"><span class="pre">gelf</span></tt> , <tt class="docutils literal"><span class="pre">json-file</span></tt> , <tt class="docutils literal"><span class="pre">journald</span></tt> , <tt class="docutils literal"><span class="pre">logentries</span></tt> , <tt class="docutils literal"><span class="pre">syslog</span></tt> , and <tt class="docutils literal"><span class="pre">splunk</span></tt> .</p>
+<p>For more information about using the <tt class="docutils literal"><span class="pre">awslogs</span></tt> log driver, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html">Using the awslogs Log Driver</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you have a custom driver that is not listed above that you would like to work with the Amazon ECS container agent, you can fork the Amazon ECS container agent project that is <a class="reference external" href="https://github.com/aws/amazon-ecs-agent">available on GitHub</a> and customize it to work with that driver. We encourage you to submit pull requests for changes that you would like to have included. However, Amazon Web Services does not currently support running modified copies of this software.</p>
+</div>
+<p>This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt></p>
+</div>
+</blockquote>
+<p>options -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The configuration options to send to the log driver. This parameter requires version 1.19 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt></p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>secretOptions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The secrets to pass to the log configuration. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">Specifying Sensitive Data</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing the secret to expose to your container. Secrets can be exposed to a container in the following ways:</p>
+<ul class="simple">
+<li>To inject sensitive data into your containers as environment variables, use the <tt class="docutils literal"><span class="pre">secrets</span></tt> container definition parameter.</li>
+<li>To reference sensitive information in the log configuration of a container, use the <tt class="docutils literal"><span class="pre">secretOptions</span></tt> container definition parameter.</li>
+</ul>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html">Specifying Sensitive Data</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the secret.</div>
+</blockquote>
+<p>valueFrom -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The secret to expose to the container. The supported values are either the full ARN of the AWS Secrets Manager secret or the full ARN of the parameter in the AWS Systems Manager Parameter Store.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the AWS Systems Manager Parameter Store parameter exists in the same Region as the task you are launching, then you can use either the full ARN or name of the parameter. If the parameter exists in a different Region, then the full ARN must be specified.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>healthCheck -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The health check command and associated configuration parameters for the container. This parameter maps to <tt class="docutils literal"><span class="pre">HealthCheck</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">HEALTHCHECK</span></tt> parameter of <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>command -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A string array representing the command that the container runs to determine if it is healthy. The string array must start with <tt class="docutils literal"><span class="pre">CMD</span></tt> to execute the command arguments directly, or <tt class="docutils literal"><span class="pre">CMD-SHELL</span></tt> to run the command with the container's default shell. For example:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">[</span> <span class="pre">"CMD-SHELL",</span> <span class="pre">"curl</span> <span class="pre">-f</span> <span class="pre">http://localhost/</span> <span class="pre">||</span> <span class="pre">exit</span> <span class="pre">1"</span> <span class="pre">]</span></tt></div>
+</blockquote>
+<p>An exit code of 0 indicates success, and non-zero exit code indicates failure. For more information, see <tt class="docutils literal"><span class="pre">HealthCheck</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>interval -&gt; (integer)</p>
+<blockquote>
+<div>The time period in seconds between each health check execution. You may specify between 5 and 300 seconds. The default value is 30 seconds.</div>
+</blockquote>
+<p>timeout -&gt; (integer)</p>
+<blockquote>
+<div>The time period in seconds to wait for a health check to succeed before it is considered a failure. You may specify between 2 and 60 seconds. The default value is 5.</div>
+</blockquote>
+<p>retries -&gt; (integer)</p>
+<blockquote>
+<div>The number of times to retry a failed health check before the container is considered unhealthy. You may specify between 1 and 10 retries. The default value is 3.</div>
+</blockquote>
+<p>startPeriod -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The optional grace period within which to provide containers time to bootstrap before failed health checks count towards the maximum number of retries. You may specify between 0 and 300 seconds. The <tt class="docutils literal"><span class="pre">startPeriod</span></tt> is disabled by default.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a health check succeeds within the <tt class="docutils literal"><span class="pre">startPeriod</span></tt> , then the container is considered healthy and any subsequent failures count toward the maximum number of retries.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>systemControls -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of namespaced kernel parameters to set in the container. This parameter maps to <tt class="docutils literal"><span class="pre">Sysctls</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--sysctl</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is not recommended that you specify network-related <tt class="docutils literal"><span class="pre">systemControls</span></tt> parameters for multiple containers in a single task that also uses either the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> or <tt class="docutils literal"><span class="pre">host</span></tt> network modes. For tasks that use the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode, the container that is started last determines which <tt class="docutils literal"><span class="pre">systemControls</span></tt> parameters take effect. For tasks that use the <tt class="docutils literal"><span class="pre">host</span></tt> network mode, it changes the container instance's namespaced kernel parameters as well as the containers.</p>
+</div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A list of namespaced kernel parameters to set in the container. This parameter maps to <tt class="docutils literal"><span class="pre">Sysctls</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--sysctl</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
+<p>It is not recommended that you specify network-related <tt class="docutils literal"><span class="pre">systemControls</span></tt> parameters for multiple containers in a single task that also uses either the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> or <tt class="docutils literal"><span class="pre">host</span></tt> network mode for the following reasons:</p>
+<ul class="simple">
+<li>For tasks that use the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode, if you set <tt class="docutils literal"><span class="pre">systemControls</span></tt> for any container, it applies to all containers in the task. If you set different <tt class="docutils literal"><span class="pre">systemControls</span></tt> for multiple containers in a single task, the container that is started last determines which <tt class="docutils literal"><span class="pre">systemControls</span></tt> take effect.</li>
+<li>For tasks that use the <tt class="docutils literal"><span class="pre">host</span></tt> network mode, the <tt class="docutils literal"><span class="pre">systemControls</span></tt> parameter applies to the container instance's kernel parameter as well as that of all containers of any tasks running on that container instance.</li>
+</ul>
+<p>namespace -&gt; (string)</p>
+<blockquote>
+<div>The namespaced kernel parameter for which to set a <tt class="docutils literal"><span class="pre">value</span></tt> .</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value for the namespaced kernel parameter specified in <tt class="docutils literal"><span class="pre">namespace</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>resourceRequirements -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The type and amount of a resource to assign to a container. The only supported resource is a GPU.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The type and amount of a resource to assign to a container. The supported resource types are GPUs and Elastic Inference accelerators. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html">Working with GPUs on Amazon ECS</a> or <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html">Working with Amazon Elastic Inference on Amazon ECS</a> in the <em>Amazon Elastic Container Service Developer Guide</em></p>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value for the specified resource type.</p>
+<p>If the <tt class="docutils literal"><span class="pre">GPU</span></tt> type is used, the value is the number of physical <tt class="docutils literal"><span class="pre">GPUs</span></tt> the Amazon ECS container agent will reserve for the container. The number of GPUs reserved for all containers in a task should not exceed the number of available GPUs on the container instance the task is launched on.</p>
+<p>If the <tt class="docutils literal"><span class="pre">InferenceAccelerator</span></tt> type is used, the <tt class="docutils literal"><span class="pre">value</span></tt> should match the <tt class="docutils literal"><span class="pre">deviceName</span></tt> for an  InferenceAccelerator specified in a task definition.</p>
+</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of resource to assign to a container. The supported values are <tt class="docutils literal"><span class="pre">GPU</span></tt> or <tt class="docutils literal"><span class="pre">InferenceAccelerator</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>firelensConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The FireLens configuration for the container. This is used to specify and configure a log router for container logs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html">Custom Log Routing</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The log router to use. The valid values are <tt class="docutils literal"><span class="pre">fluentd</span></tt> or <tt class="docutils literal"><span class="pre">fluentbit</span></tt> .</div>
+</blockquote>
+<p>options -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The options to use when configuring the log router. This field is optional and can be used to specify a custom configuration file or to add additional metadata, such as the task, task definition, cluster, and container instance details to the log event. If specified, the syntax to use is <tt class="docutils literal"><span class="pre">"options":{"enable-ecs-log-metadata":"true|false","config-file-type:"s3|file","config-file-value":"arn:aws:s3:::mybucket/fluent.conf|filepath"}</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html#firelens-taskdef">Creating a Task Definition that Uses a FireLens Configuration</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>family -&gt; (string)</p>
+<blockquote>
+<div>The name of a family that this task definition is registered to. A family groups multiple versions of a task definition. Amazon ECS gives the first task definition that you registered to a family a revision number of 1. Amazon ECS gives sequential revision numbers to each task definition that you add.</div>
+</blockquote>
+<p>taskRoleArn -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The short name or full Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that grants containers in the task permission to call AWS APIs on your behalf. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_IAM_role.html">Amazon ECS Task Role</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>IAM roles for tasks on Windows require that the <tt class="docutils literal"><span class="pre">-EnableTaskIAMRole</span></tt> option is set when you launch the Amazon ECS-optimized Windows AMI. Your containers must also run some configuration code in order to take advantage of the feature. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/windows_task_IAM_roles.html">Windows IAM Roles for Tasks</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>executionRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the task execution role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role.</div>
+</blockquote>
+<p>networkMode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The Docker networking mode to use for the containers in the task. The valid values are <tt class="docutils literal"><span class="pre">none</span></tt> , <tt class="docutils literal"><span class="pre">bridge</span></tt> , <tt class="docutils literal"><span class="pre">awsvpc</span></tt> , and <tt class="docutils literal"><span class="pre">host</span></tt> . The default Docker network mode is <tt class="docutils literal"><span class="pre">bridge</span></tt> . If you are using the Fargate launch type, the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode is required. If you are using the EC2 launch type, any network mode can be used. If the network mode is set to <tt class="docutils literal"><span class="pre">none</span></tt> , you cannot specify port mappings in your container definitions, and the tasks containers do not have external connectivity. The <tt class="docutils literal"><span class="pre">host</span></tt> and <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network modes offer the highest networking performance for containers because they use the EC2 network stack instead of the virtualized network stack provided by the <tt class="docutils literal"><span class="pre">bridge</span></tt> mode.</p>
+<p>With the <tt class="docutils literal"><span class="pre">host</span></tt> and <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network modes, exposed container ports are mapped directly to the corresponding host port (for the <tt class="docutils literal"><span class="pre">host</span></tt> network mode) or the attached elastic network interface port (for the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode), so you cannot take advantage of dynamic host port mappings.</p>
+<p>If the network mode is <tt class="docutils literal"><span class="pre">awsvpc</span></tt> , the task is allocated an elastic network interface, and you must specify a  NetworkConfiguration value when you create a service or run a task with the task definition. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html">Task Networking</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Currently, only Amazon ECS-optimized AMIs, other Amazon Linux variants with the <tt class="docutils literal"><span class="pre">ecs-init</span></tt> package, or AWS Fargate infrastructure support the <tt class="docutils literal"><span class="pre">awsvpc</span></tt> network mode.</p>
+</div>
+<p>If the network mode is <tt class="docutils literal"><span class="pre">host</span></tt> , you cannot run multiple instantiations of the same task on a single container instance when port mappings are used.</p>
+<p>Docker for Windows uses different network modes than Docker for Linux. When you register a task definition with Windows containers, you must not specify a network mode. If you use the console to register a task definition with Windows containers, you must choose the <tt class="docutils literal"><span class="pre">default</span></tt> network mode object.</p>
+<p>For more information, see <a class="reference external" href="https://docs.docker.com/engine/reference/run/#network-settings">Network settings</a> in the <em>Docker run reference</em> .</p>
+</div>
+</blockquote>
+<p>revision -&gt; (integer)</p>
+<blockquote>
+<div>The revision of the task in a particular family. The revision is a version number of a task definition in a family. When you register a task definition for the first time, the revision is <tt class="docutils literal"><span class="pre">1</span></tt> . Each time that you register a new revision of a task definition in the same family, the revision value always increases by one, even if you have deregistered previous revisions in this family.</div>
+</blockquote>
+<p>volumes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of volume definitions for the task.</p>
+<p>If your tasks are using the Fargate launch type, the <tt class="docutils literal"><span class="pre">host</span></tt> and <tt class="docutils literal"><span class="pre">sourcePath</span></tt> parameters are not supported.</p>
+<p>For more information about volume definition parameters and defaults, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html">Amazon ECS Task Definitions</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A data volume used in a task definition. For tasks that use a Docker volume, specify a <tt class="docutils literal"><span class="pre">DockerVolumeConfiguration</span></tt> . For tasks that use a bind mount host volume, specify a <tt class="docutils literal"><span class="pre">host</span></tt> and optional <tt class="docutils literal"><span class="pre">sourcePath</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html">Using Data Volumes in Tasks</a> .</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the volume. Up to 255 letters (uppercase and lowercase), numbers, and hyphens are allowed. This name is referenced in the <tt class="docutils literal"><span class="pre">sourceVolume</span></tt> parameter of container definition <tt class="docutils literal"><span class="pre">mountPoints</span></tt> .</div>
+</blockquote>
+<p>host -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>This parameter is specified when you are using bind mount host volumes. Bind mount host volumes are supported when you are using either the EC2 or Fargate launch types. The contents of the <tt class="docutils literal"><span class="pre">host</span></tt> parameter determine whether your bind mount host volume persists on the host container instance and where it is stored. If the <tt class="docutils literal"><span class="pre">host</span></tt> parameter is empty, then the Docker daemon assigns a host path for your data volume. However, the data is not guaranteed to persist after the containers associated with it stop running.</p>
+<p>Windows containers can mount whole directories on the same drive as <tt class="docutils literal"><span class="pre">$env:ProgramData</span></tt> . Windows containers cannot mount directories on a different drive, and mount point cannot be across drives. For example, you can mount <tt class="docutils literal"><span class="pre">C:\my\path:C:\my\path</span></tt> and <tt class="docutils literal"><span class="pre">D:\:D:\</span></tt> , but not <tt class="docutils literal"><span class="pre">D:\my\path:C:\my\path</span></tt> or <tt class="docutils literal"><span class="pre">D:\:C:\my\path</span></tt> .</p>
+<p>sourcePath -&gt; (string)</p>
+<blockquote>
+<div>
+<p>When the <tt class="docutils literal"><span class="pre">host</span></tt> parameter is used, specify a <tt class="docutils literal"><span class="pre">sourcePath</span></tt> to declare the path on the host container instance that is presented to the container. If this parameter is empty, then the Docker daemon has assigned a host path for you. If the <tt class="docutils literal"><span class="pre">host</span></tt> parameter contains a <tt class="docutils literal"><span class="pre">sourcePath</span></tt> file location, then the data volume persists at the specified location on the host container instance until you delete it manually. If the <tt class="docutils literal"><span class="pre">sourcePath</span></tt> value does not exist on the host container instance, the Docker daemon creates it. If the location does exist, the contents of the source path folder are exported.</p>
+<p>If you are using the Fargate launch type, the <tt class="docutils literal"><span class="pre">sourcePath</span></tt> parameter is not supported.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>dockerVolumeConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>This parameter is specified when you are using Docker volumes. Docker volumes are only supported when you are using the EC2 launch type. Windows containers only support the use of the <tt class="docutils literal"><span class="pre">local</span></tt> driver. To use bind mounts, specify a <tt class="docutils literal"><span class="pre">host</span></tt> instead.</p>
+<p>scope -&gt; (string)</p>
+<blockquote>
+<div>The scope for the Docker volume that determines its lifecycle. Docker volumes that are scoped to a <tt class="docutils literal"><span class="pre">task</span></tt> are automatically provisioned when the task starts and destroyed when the task stops. Docker volumes that are scoped as <tt class="docutils literal"><span class="pre">shared</span></tt> persist after the task stops.</div>
+</blockquote>
+<p>autoprovision -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>If this value is <tt class="docutils literal"><span class="pre">true</span></tt> , the Docker volume is created if it does not already exist.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This field is only used if the <tt class="docutils literal"><span class="pre">scope</span></tt> is <tt class="docutils literal"><span class="pre">shared</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p>driver -&gt; (string)</p>
+<blockquote>
+<div>The Docker volume driver to use. The driver value must match the driver name provided by Docker because it is used for task placement. If the driver was installed using the Docker plugin CLI, use <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">plugin</span> <span class="pre">ls</span></tt> to retrieve the driver name from your container instance. If the driver was installed using another method, use Docker plugin discovery to retrieve the driver name. For more information, see <a class="reference external" href="https://docs.docker.com/engine/extend/plugin_api/#plugin-discovery">Docker plugin discovery</a> . This parameter maps to <tt class="docutils literal"><span class="pre">Driver</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate">Create a volume</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">xxdriver</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/volume_create/">docker volume create</a> .</div>
+</blockquote>
+<p>driverOpts -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A map of Docker driver-specific options passed through. This parameter maps to <tt class="docutils literal"><span class="pre">DriverOpts</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate">Create a volume</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">xxopt</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/volume_create/">docker volume create</a> .</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>labels -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Custom metadata to add to your Docker volume. This parameter maps to <tt class="docutils literal"><span class="pre">Labels</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate">Create a volume</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">xxlabel</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/volume_create/">docker volume create</a> .</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the task definition.</div>
+</blockquote>
+<p>requiresAttributes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The container instance attributes required by your task. This field is not valid if you are using the Fargate launch type for your task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An attribute is a name-value pair associated with an Amazon ECS object. Attributes enable you to extend the Amazon ECS data model by adding custom metadata to your resources. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes">Attributes</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and periods are allowed.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods, at signs (@), forward slashes, colons, and spaces are allowed.</div>
+</blockquote>
+<p>targetType -&gt; (string)</p>
+<blockquote>
+<div>The type of the target with which to attach the attribute. This parameter is required if you use the short form ID for a resource instead of the full ARN.</div>
+</blockquote>
+<p>targetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the target. You can specify the short form ID for a resource or the full Amazon Resource Name (ARN).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>placementConstraints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of placement constraint objects to use for tasks. This field is not valid if you are using the Fargate launch type for your task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing a constraint on task placement in the task definition. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html">Task Placement Constraints</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using the Fargate launch type, task placement constraints are not supported.</p>
+</div>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of constraint. The <tt class="docutils literal"><span class="pre">MemberOf</span></tt> constraint restricts selection to be from a group of valid candidates.</div>
+</blockquote>
+<p>expression -&gt; (string)</p>
+<blockquote>
+<div>A cluster query language expression to apply to the constraint. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html">Cluster Query Language</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>compatibilities -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The launch type to use with your task. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html">Amazon ECS Launch Types</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>requiresCompatibilities -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The launch type the task requires. If no value is specified, it will default to <tt class="docutils literal"><span class="pre">EC2</span></tt> . Valid values include <tt class="docutils literal"><span class="pre">EC2</span></tt> and <tt class="docutils literal"><span class="pre">FARGATE</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>cpu -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The number of <tt class="docutils literal"><span class="pre">cpu</span></tt> units used by the task. If you are using the EC2 launch type, this field is optional and any value can be used. If you are using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of valid values for the <tt class="docutils literal"><span class="pre">memory</span></tt> parameter:</p>
+<ul class="simple">
+<li>256 (.25 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: 512 (0.5 GB), 1024 (1 GB), 2048 (2 GB)</li>
+<li>512 (.5 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: 1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB)</li>
+<li>1024 (1 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: 2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)</li>
+<li>2048 (2 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB)</li>
+<li>4096 (4 vCPU) - Available <tt class="docutils literal"><span class="pre">memory</span></tt> values: Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB)</li>
+</ul>
+</div>
+</blockquote>
+<p>memory -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The amount (in MiB) of memory used by the task.</p>
+<p>If using the EC2 launch type, this field is optional and any value can be used. If a task-level memory value is specified then the container-level memory value is optional.</p>
+<p>If using the Fargate launch type, this field is required and you must use one of the following values, which determines your range of valid values for the <tt class="docutils literal"><span class="pre">cpu</span></tt> parameter:</p>
+<ul class="simple">
+<li>512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 256 (.25 vCPU)</li>
+<li>1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 512 (.5 vCPU)</li>
+<li>2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 1024 (1 vCPU)</li>
+<li>Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 2048 (2 vCPU)</li>
+<li>Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available <tt class="docutils literal"><span class="pre">cpu</span></tt> values: 4096 (4 vCPU)</li>
+</ul>
+</div>
+</blockquote>
+<p>inferenceAccelerators -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Elastic Inference accelerator associated with the task.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details on a Elastic Inference accelerator. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html">Working with Amazon Elastic Inference on Amazon ECS</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>deviceName -&gt; (string)</p>
+<blockquote>
+<div>The Elastic Inference accelerator device name. The <tt class="docutils literal"><span class="pre">deviceName</span></tt> must also be referenced in a container definition as a  ResourceRequirement .</div>
+</blockquote>
+<p>deviceType -&gt; (string)</p>
+<blockquote>
+<div>The Elastic Inference accelerator type to use.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>pidMode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The process namespace to use for the containers in the task. The valid values are <tt class="docutils literal"><span class="pre">host</span></tt> or <tt class="docutils literal"><span class="pre">task</span></tt> . If <tt class="docutils literal"><span class="pre">host</span></tt> is specified, then all containers within the tasks that specified the <tt class="docutils literal"><span class="pre">host</span></tt> PID mode on the same container instance share the same process namespace with the host Amazon EC2 instance. If <tt class="docutils literal"><span class="pre">task</span></tt> is specified, all containers within the specified task share the same process namespace. If no value is specified, the default is a private namespace. For more information, see <a class="reference external" href="https://docs.docker.com/engine/reference/run/#pid-settings---pid">PID settings</a> in the <em>Docker run reference</em> .</p>
+<p>If the <tt class="docutils literal"><span class="pre">host</span></tt> PID mode is used, be aware that there is a heightened risk of undesired process namespace expose. For more information, see <a class="reference external" href="https://docs.docker.com/engine/security/security/">Docker security</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers or tasks using the Fargate launch type.</p>
+</div>
+</div>
+</blockquote>
+<p>ipcMode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The IPC resource namespace to use for the containers in the task. The valid values are <tt class="docutils literal"><span class="pre">host</span></tt> , <tt class="docutils literal"><span class="pre">task</span></tt> , or <tt class="docutils literal"><span class="pre">none</span></tt> . If <tt class="docutils literal"><span class="pre">host</span></tt> is specified, then all containers within the tasks that specified the <tt class="docutils literal"><span class="pre">host</span></tt> IPC mode on the same container instance share the same IPC resources with the host Amazon EC2 instance. If <tt class="docutils literal"><span class="pre">task</span></tt> is specified, all containers within the specified task share the same IPC resources. If <tt class="docutils literal"><span class="pre">none</span></tt> is specified, then IPC resources within the containers of a task are private and not shared with other containers in a task or on the container instance. If no value is specified, then the IPC resource namespace sharing depends on the Docker daemon setting on the container instance. For more information, see <a class="reference external" href="https://docs.docker.com/engine/reference/run/#ipc-settings---ipc">IPC settings</a> in the <em>Docker run reference</em> .</p>
+<p>If the <tt class="docutils literal"><span class="pre">host</span></tt> IPC mode is used, be aware that there is a heightened risk of undesired IPC namespace expose. For more information, see <a class="reference external" href="https://docs.docker.com/engine/security/security/">Docker security</a> .</p>
+<p>If you are setting namespaced kernel parameters using <tt class="docutils literal"><span class="pre">systemControls</span></tt> for the containers in the task, the following will apply to your IPC resource namespace. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html">System Controls</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<ul class="simple">
+<li>For tasks that use the <tt class="docutils literal"><span class="pre">host</span></tt> IPC mode, IPC namespace related <tt class="docutils literal"><span class="pre">systemControls</span></tt> are not supported.</li>
+<li>For tasks that use the <tt class="docutils literal"><span class="pre">task</span></tt> IPC mode, IPC namespace related <tt class="docutils literal"><span class="pre">systemControls</span></tt> will apply to all containers within a task.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter is not supported for Windows containers or tasks using the Fargate launch type.</p>
+</div>
+</div>
+</blockquote>
+<p>proxyConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration details for the App Mesh proxy.</p>
+<p>Your Amazon ECS container instances require at least version 1.26.0 of the container agent and at least version 1.26.0-1 of the <tt class="docutils literal"><span class="pre">ecs-init</span></tt> package to enable a proxy configuration. If your container instances are launched from the Amazon ECS-optimized AMI version <tt class="docutils literal"><span class="pre">20190301</span></tt> or later, then they contain the required versions of the container agent and <tt class="docutils literal"><span class="pre">ecs-init</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html">Amazon ECS-optimized Linux AMI</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The proxy type. The only supported value is <tt class="docutils literal"><span class="pre">APPMESH</span></tt> .</div>
+</blockquote>
+<p>containerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the container that will serve as the App Mesh proxy.</div>
+</blockquote>
+<p>properties -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The set of network configuration parameters to provide the Container Network Interface (CNI) plugin, specified as key-value pairs.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">IgnoredUID</span></tt> - (Required) The user ID (UID) of the proxy container as defined by the <tt class="docutils literal"><span class="pre">user</span></tt> parameter in a container definition. This is used to ensure the proxy ignores its own traffic. If <tt class="docutils literal"><span class="pre">IgnoredGID</span></tt> is specified, this field can be empty.</li>
+<li>
+<tt class="docutils literal"><span class="pre">IgnoredGID</span></tt> - (Required) The group ID (GID) of the proxy container as defined by the <tt class="docutils literal"><span class="pre">user</span></tt> parameter in a container definition. This is used to ensure the proxy ignores its own traffic. If <tt class="docutils literal"><span class="pre">IgnoredUID</span></tt> is specified, this field can be empty.</li>
+<li>
+<tt class="docutils literal"><span class="pre">AppPorts</span></tt> - (Required) The list of ports that the application uses. Network traffic to these ports is forwarded to the <tt class="docutils literal"><span class="pre">ProxyIngressPort</span></tt> and <tt class="docutils literal"><span class="pre">ProxyEgressPort</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">ProxyIngressPort</span></tt> - (Required) Specifies the port that incoming traffic to the <tt class="docutils literal"><span class="pre">AppPorts</span></tt> is directed to.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ProxyEgressPort</span></tt> - (Required) Specifies the port that outgoing traffic from the <tt class="docutils literal"><span class="pre">AppPorts</span></tt> is directed to.</li>
+<li>
+<tt class="docutils literal"><span class="pre">EgressIgnoredPorts</span></tt> - (Required) The egress traffic going to the specified ports is ignored and not redirected to the <tt class="docutils literal"><span class="pre">ProxyEgressPort</span></tt> . It can be an empty list.</li>
+<li>
+<tt class="docutils literal"><span class="pre">EgressIgnoredIPs</span></tt> - (Required) The egress traffic going to the specified IP addresses is ignored and not redirected to the <tt class="docutils literal"><span class="pre">ProxyEgressPort</span></tt> . It can be an empty list.</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

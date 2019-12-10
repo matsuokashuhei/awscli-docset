@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-clusters — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudhsmv2" href="index.html">
+    <link rel="next" title="initialize-cluster" href="initialize-cluster.html">
+    <link rel="prev" title="describe-backups" href="describe-backups.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-clusters">
+<span id="cli-aws-cloudhsmv2-describe-clusters"></span><h1>describe-clusters<a class="headerlink" href="#describe-clusters" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets information about AWS CloudHSM clusters.</p>
+<p>This is a paginated operation, which means that each response might contain only a subset of all the clusters. When the response contains only a subset of clusters, it includes a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value. Use this value in a subsequent <tt class="docutils literal"><span class="pre">DescribeClusters</span></tt> request to get more clusters. When you receive a response with no <tt class="docutils literal"><span class="pre">NextToken</span></tt> (or an empty or null value), that means there are no more clusters to get.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudhsmv2-2017-04-28/DescribeClusters">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-clusters</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Clusters</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-clusters
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>One or more filters to limit the items returned in the response.</p>
+<p>Use the <tt class="docutils literal"><span class="pre">clusterIds</span></tt> filter to return only the specified clusters. Specify clusters by their cluster identifier (ID).</p>
+<p>Use the <tt class="docutils literal"><span class="pre">vpcIds</span></tt> filter to return only the clusters in the specified virtual private clouds (VPCs). Specify VPCs by their VPC identifier (ID).</p>
+<p>Use the <tt class="docutils literal"><span class="pre">states</span></tt> filter to return only clusters that match the specified state.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": ["string", ...]
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Clusters -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of clusters.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains information about an AWS CloudHSM cluster.</p>
+<p>BackupPolicy -&gt; (string)</p>
+<blockquote>
+<div>The cluster's backup policy.</div>
+</blockquote>
+<p>ClusterId -&gt; (string)</p>
+<blockquote>
+<div>The cluster's identifier (ID).</div>
+</blockquote>
+<p>CreateTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the cluster was created.</div>
+</blockquote>
+<p>Hsms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Contains information about the HSMs in the cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains information about a hardware security module (HSM) in an AWS CloudHSM cluster.</p>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone that contains the HSM.</div>
+</blockquote>
+<p>ClusterId -&gt; (string)</p>
+<blockquote>
+<div>The identifier (ID) of the cluster that contains the HSM.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The subnet that contains the HSM's elastic network interface (ENI).</div>
+</blockquote>
+<p>EniId -&gt; (string)</p>
+<blockquote>
+<div>The identifier (ID) of the HSM's elastic network interface (ENI).</div>
+</blockquote>
+<p>EniIp -&gt; (string)</p>
+<blockquote>
+<div>The IP address of the HSM's elastic network interface (ENI).</div>
+</blockquote>
+<p>HsmId -&gt; (string)</p>
+<blockquote>
+<div>The HSM's identifier (ID).</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The HSM's state.</div>
+</blockquote>
+<p>StateMessage -&gt; (string)</p>
+<blockquote>
+<div>A description of the HSM's state.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HsmType -&gt; (string)</p>
+<blockquote>
+<div>The type of HSM that the cluster contains.</div>
+</blockquote>
+<p>PreCoPassword -&gt; (string)</p>
+<blockquote>
+<div>The default password for the cluster's Pre-Crypto Officer (PRECO) user.</div>
+</blockquote>
+<p>SecurityGroup -&gt; (string)</p>
+<blockquote>
+<div>The identifier (ID) of the cluster's security group.</div>
+</blockquote>
+<p>SourceBackupId -&gt; (string)</p>
+<blockquote>
+<div>The identifier (ID) of the backup used to create the cluster. This value exists only when the cluster was created from a backup.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The cluster's state.</div>
+</blockquote>
+<p>StateMessage -&gt; (string)</p>
+<blockquote>
+<div>A description of the cluster's state.</div>
+</blockquote>
+<p>SubnetMapping -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A map of the cluster's subnets and their corresponding Availability Zones.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The identifier (ID) of the virtual private cloud (VPC) that contains the cluster.</div>
+</blockquote>
+<p>Certificates -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Contains one or more certificates or a certificate signing request (CSR).</p>
+<p>ClusterCsr -&gt; (string)</p>
+<blockquote>
+<div>The cluster's certificate signing request (CSR). The CSR exists only when the cluster's state is <tt class="docutils literal"><span class="pre">UNINITIALIZED</span></tt> .</div>
+</blockquote>
+<p>HsmCertificate -&gt; (string)</p>
+<blockquote>
+<div>The HSM certificate issued (signed) by the HSM hardware.</div>
+</blockquote>
+<p>AwsHardwareCertificate -&gt; (string)</p>
+<blockquote>
+<div>The HSM hardware certificate issued (signed) by AWS CloudHSM.</div>
+</blockquote>
+<p>ManufacturerHardwareCertificate -&gt; (string)</p>
+<blockquote>
+<div>The HSM hardware certificate issued (signed) by the hardware manufacturer.</div>
+</blockquote>
+<p>ClusterCertificate -&gt; (string)</p>
+<blockquote>
+<div>The cluster certificate issued (signed) by the issuing certificate authority (CA) of the cluster's owner.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>An opaque string that indicates that the response contains only a subset of clusters. Use this value in a subsequent <tt class="docutils literal"><span class="pre">DescribeClusters</span></tt> request to get more clusters.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-patch-baseline — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="update-resource-data-sync" href="update-resource-data-sync.html">
+    <link rel="prev" title="update-ops-item" href="update-ops-item.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-patch-baseline">
+<span id="cli-aws-ssm-update-patch-baseline"></span><h1>update-patch-baseline<a class="headerlink" href="#update-patch-baseline" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies an existing patch baseline. Fields not specified in the request are left unchanged.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For information about valid key and value pairs in <tt class="docutils literal"><span class="pre">PatchFilters</span></tt> for each supported operating system type, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/APIReference/API_PatchFilter.html">PatchFilter</a> .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdatePatchBaseline">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-patch-baseline
+--baseline-id &lt;value&gt;
+[--name &lt;value&gt;]
+[--global-filters &lt;value&gt;]
+[--approval-rules &lt;value&gt;]
+[--approved-patches &lt;value&gt;]
+[--approved-patches-compliance-level &lt;value&gt;]
+[--approved-patches-enable-non-security | --no-approved-patches-enable-non-security]
+[--rejected-patches &lt;value&gt;]
+[--rejected-patches-action &lt;value&gt;]
+[--description &lt;value&gt;]
+[--sources &lt;value&gt;]
+[--replace | --no-replace]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--baseline-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the patch baseline to update.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the patch baseline.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--global-filters</span></tt> (structure)</p>
+<blockquote>
+<div>A set of global filters used to include patches in the baseline.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "PatchFilters": [
+    {
+      "Key": "PATCH_SET"|"PRODUCT"|"PRODUCT_FAMILY"|"CLASSIFICATION"|"MSRC_SEVERITY"|"PATCH_ID"|"SECTION"|"PRIORITY"|"SEVERITY",
+      "Values": ["string", ...]
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--approval-rules</span></tt> (structure)</p>
+<blockquote>
+<div>A set of rules used to include patches in the baseline.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "PatchRules": [
+    {
+      "PatchFilterGroup": {
+        "PatchFilters": [
+          {
+            "Key": "PATCH_SET"|"PRODUCT"|"PRODUCT_FAMILY"|"CLASSIFICATION"|"MSRC_SEVERITY"|"PATCH_ID"|"SECTION"|"PRIORITY"|"SEVERITY",
+            "Values": ["string", ...]
+          }
+          ...
+        ]
+      },
+      "ComplianceLevel": "CRITICAL"|"HIGH"|"MEDIUM"|"LOW"|"INFORMATIONAL"|"UNSPECIFIED",
+      "ApproveAfterDays": integer,
+      "EnableNonSecurity": true|false
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--approved-patches</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of explicitly approved patches for the baseline.</p>
+<p>For information about accepted formats for lists of approved patches and rejected patches, see <a class="reference external" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html">Package Name Formats for Approved and Rejected Patch Lists</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--approved-patches-compliance-level</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Assigns a new compliance severity level to an existing patch baseline.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CRITICAL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HIGH</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">MEDIUM</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LOW</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">INFORMATIONAL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UNSPECIFIED</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--approved-patches-enable-non-security</span></tt> | <tt class="docutils literal"><span class="pre">--no-approved-patches-enable-non-security</span></tt> (boolean)</p>
+<blockquote>
+<div>Indicates whether the list of approved patches includes non-security updates that should be applied to the instances. The default value is 'false'. Applies to Linux instances only.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--rejected-patches</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of explicitly rejected patches for the baseline.</p>
+<p>For information about accepted formats for lists of approved patches and rejected patches, see <a class="reference external" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html">Package Name Formats for Approved and Rejected Patch Lists</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--rejected-patches-action</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The action for Patch Manager to take on patches included in the RejectedPackages list.</p>
+<ul class="simple">
+<li>
+<strong>ALLOW_AS_DEPENDENCY</strong> : A package in the Rejected patches list is installed only if it is a dependency of another package. It is considered compliant with the patch baseline, and its status is reported as <em>InstalledOther</em> . This is the default action if no option is specified.</li>
+<li>
+<strong>BLOCK</strong> : Packages in the RejectedPatches list, and packages that include them as dependencies, are not installed under any circumstances. If a package was installed before it was added to the Rejected patches list, it is considered non-compliant with the patch baseline, and its status is reported as <em>InstalledRejected</em> .</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ALLOW_AS_DEPENDENCY</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">BLOCK</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description of the patch baseline.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sources</span></tt> (list)</p>
+<blockquote>
+<div>Information about the patches to use to update the instances, including target operating systems and source repositories. Applies to Linux instances only.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Products=string,string,Configuration=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Products": ["string", ...],
+    "Configuration": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--replace</span></tt> | <tt class="docutils literal"><span class="pre">--no-replace</span></tt> (boolean)</p>
+<blockquote>
+<div>If True, then all fields that are required by the CreatePatchBaseline action are also required for this API request. Optional fields that are not specified are set to null.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update a patch baseline</strong></p>
+<p>This example adds two patches as rejected and one patch as approved to a patch baseline.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm update-patch-baseline --baseline-id "pb-0123456789abcdef0" --rejected-patches "KB2032276" "MS10-048" --approved-patches "KB2124261"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"BaselineId"</span><span class="p">:</span> <span class="s2">"pb-0123456789abcdef0"</span><span class="p">,</span>
+  <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"WindowsPatching"</span><span class="p">,</span>
+  <span class="s2">"OperatingSystem"</span><span class="p">:</span> <span class="s2">"WINDOWS"</span><span class="p">,</span>
+  <span class="s2">"GlobalFilters"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"PatchFilters"</span><span class="p">:</span> <span class="p">[]</span>
+  <span class="p">},</span>
+  <span class="s2">"ApprovalRules"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"PatchRules"</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+              <span class="s2">"PatchFilterGroup"</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">"PatchFilters"</span><span class="p">:</span> <span class="p">[</span>
+                      <span class="p">{</span>
+                          <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"PRODUCT"</span><span class="p">,</span>
+                          <span class="s2">"Values"</span><span class="p">:</span> <span class="p">[</span>
+                              <span class="s2">"WindowsServer2016"</span>
+                          <span class="p">]</span>
+                      <span class="p">}</span>
+                  <span class="p">]</span>
+              <span class="p">},</span>
+              <span class="s2">"ComplianceLevel"</span><span class="p">:</span> <span class="s2">"CRITICAL"</span><span class="p">,</span>
+              <span class="s2">"ApproveAfterDays"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+              <span class="s2">"EnableNonSecurity"</span><span class="p">:</span> <span class="n">false</span>
+          <span class="p">}</span>
+      <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">"ApprovedPatches"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">"KB2124261"</span>
+  <span class="p">],</span>
+  <span class="s2">"ApprovedPatchesComplianceLevel"</span><span class="p">:</span> <span class="s2">"UNSPECIFIED"</span><span class="p">,</span>
+  <span class="s2">"ApprovedPatchesEnableNonSecurity"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+  <span class="s2">"RejectedPatches"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="s2">"KB2032276"</span><span class="p">,</span>
+      <span class="s2">"MS10-048"</span>
+  <span class="p">],</span>
+  <span class="s2">"RejectedPatchesAction"</span><span class="p">:</span> <span class="s2">"ALLOW_AS_DEPENDENCY"</span><span class="p">,</span>
+  <span class="s2">"CreatedDate"</span><span class="p">:</span> <span class="mf">1550244180.465</span><span class="p">,</span>
+  <span class="s2">"ModifiedDate"</span><span class="p">:</span> <span class="mf">1550244180.465</span><span class="p">,</span>
+  <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Patches for Windows Servers"</span><span class="p">,</span>
+  <span class="s2">"Sources"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To rename a patch baseline</strong></p>
+<p>This example renames a patch baseline.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm update-patch-baseline --baseline-id "pb-0713accee01234567" --name "Windows-Server-2012-R2-Important-and-Critical-Security-Updates"</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>BaselineId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the deleted patch baseline.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the patch baseline.</div>
+</blockquote>
+<p>OperatingSystem -&gt; (string)</p>
+<blockquote>
+<div>The operating system rule used by the updated patch baseline.</div>
+</blockquote>
+<p>GlobalFilters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A set of global filters used to exclude patches from the baseline.</p>
+<p>PatchFilters -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The set of patch filters that make up the group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Defines which patches should be included in a patch baseline.</p>
+<p>A patch filter consists of a key and a set of values. The filter key is a patch property. For example, the available filter keys for WINDOWS are PATCH_SET, PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, and MSRC_SEVERITY. The filter values define a matching criterion for the patch property indicated by the key. For example, if the filter key is PRODUCT and the filter values are ["Office 2013", "Office 2016"], then the filter accepts all patches where product name is either "Office 2013" or "Office 2016". The filter values can be exact values for the patch property given as a key, or a wildcard (*), which matches all values.</p>
+<p>You can view lists of valid values for the patch properties by running the <tt class="docutils literal"><span class="pre">DescribePatchProperties</span></tt> command. For information about which patch properties can be used with each major operating system, see  DescribePatchProperties .</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key for the filter.</p>
+<p>Run the  DescribePatchProperties command to view lists of valid keys for each operating system type.</p>
+</div>
+</blockquote>
+<p>Values -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The value for the filter key.</p>
+<p>Run the  DescribePatchProperties command to view lists of valid values for each key based on operating system type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ApprovalRules -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A set of rules used to include patches in the baseline.</p>
+<p>PatchRules -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The rules that make up the rule group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Defines an approval rule for a patch baseline.</p>
+<p>PatchFilterGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The patch filter group that defines the criteria for the rule.</p>
+<p>PatchFilters -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The set of patch filters that make up the group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Defines which patches should be included in a patch baseline.</p>
+<p>A patch filter consists of a key and a set of values. The filter key is a patch property. For example, the available filter keys for WINDOWS are PATCH_SET, PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, and MSRC_SEVERITY. The filter values define a matching criterion for the patch property indicated by the key. For example, if the filter key is PRODUCT and the filter values are ["Office 2013", "Office 2016"], then the filter accepts all patches where product name is either "Office 2013" or "Office 2016". The filter values can be exact values for the patch property given as a key, or a wildcard (*), which matches all values.</p>
+<p>You can view lists of valid values for the patch properties by running the <tt class="docutils literal"><span class="pre">DescribePatchProperties</span></tt> command. For information about which patch properties can be used with each major operating system, see  DescribePatchProperties .</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key for the filter.</p>
+<p>Run the  DescribePatchProperties command to view lists of valid keys for each operating system type.</p>
+</div>
+</blockquote>
+<p>Values -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The value for the filter key.</p>
+<p>Run the  DescribePatchProperties command to view lists of valid values for each key based on operating system type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ComplianceLevel -&gt; (string)</p>
+<blockquote>
+<div>A compliance severity level for all approved patches in a patch baseline. Valid compliance severity levels include the following: Unspecified, Critical, High, Medium, Low, and Informational.</div>
+</blockquote>
+<p>ApproveAfterDays -&gt; (integer)</p>
+<blockquote>
+<div>The number of days after the release date of each patch matched by the rule that the patch is marked as approved in the patch baseline. For example, a value of <tt class="docutils literal"><span class="pre">7</span></tt> means that patches are approved seven days after they are released.</div>
+</blockquote>
+<p>EnableNonSecurity -&gt; (boolean)</p>
+<blockquote>
+<div>For instances identified by the approval rule filters, enables a patch baseline to apply non-security updates available in the specified repository. The default value is 'false'. Applies to Linux instances only.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ApprovedPatches -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of explicitly approved patches for the baseline.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ApprovedPatchesComplianceLevel -&gt; (string)</p>
+<blockquote>
+<div>The compliance severity level assigned to the patch baseline after the update completed.</div>
+</blockquote>
+<p>ApprovedPatchesEnableNonSecurity -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the list of approved patches includes non-security updates that should be applied to the instances. The default value is 'false'. Applies to Linux instances only.</div>
+</blockquote>
+<p>RejectedPatches -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of explicitly rejected patches for the baseline.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>RejectedPatchesAction -&gt; (string)</p>
+<blockquote>
+<div>The action specified to take on patches included in the RejectedPatches list. A patch can be allowed only if it is a dependency of another package, or blocked entirely along with packages that include it as a dependency.</div>
+</blockquote>
+<p>CreatedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date when the patch baseline was created.</div>
+</blockquote>
+<p>ModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date when the patch baseline was last modified.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>A description of the Patch Baseline.</div>
+</blockquote>
+<p>Sources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the patches to use to update the instances, including target operating systems and source repositories. Applies to Linux instances only.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about the patches to use to update the instances, including target operating systems and source repository. Applies to Linux instances only.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name specified to identify the patch source.</div>
+</blockquote>
+<p>Products -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The specific operating system versions a patch repository applies to, such as "Ubuntu16.04", "AmazonLinux2016.09", "RedhatEnterpriseLinux7.2" or "Suse12.7". For lists of supported product values, see  PatchFilter .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Configuration -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the yum repo configuration. For example:</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">[main]</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">cachedir=/var/cache/yum/$basesearch$releasever</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">keepcache=0</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">debuglevel=2</span></tt></p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

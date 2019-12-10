@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-evaluations — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="configservice" href="index.html">
+    <link rel="next" title="put-organization-config-rule" href="put-organization-config-rule.html">
+    <link rel="prev" title="put-delivery-channel" href="put-delivery-channel.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-evaluations">
+<span id="cli-aws-configservice-put-evaluations"></span><h1>put-evaluations<a class="headerlink" href="#put-evaluations" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Used by an AWS Lambda function to deliver evaluation results to AWS Config. This action is required in every AWS Lambda function that is invoked by an AWS Config rule.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/PutEvaluations">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-evaluations
+[--evaluations &lt;value&gt;]
+--result-token &lt;value&gt;
+[--test-mode | --no-test-mode]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--evaluations</span></tt> (list)</p>
+<blockquote>
+<div>The assessments that the AWS Lambda function performs. Each evaluation identifies an AWS resource and indicates whether it complies with the AWS Config rule that invokes the AWS Lambda function.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ComplianceResourceType=string,ComplianceResourceId=string,ComplianceType=string,Annotation=string,OrderingTimestamp=timestamp ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ComplianceResourceType": "string",
+    "ComplianceResourceId": "string",
+    "ComplianceType": "COMPLIANT"|"NON_COMPLIANT"|"NOT_APPLICABLE"|"INSUFFICIENT_DATA",
+    "Annotation": "string",
+    "OrderingTimestamp": timestamp
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--result-token</span></tt> (string)</p>
+<blockquote>
+<div>An encrypted token that associates an evaluation with an AWS Config rule. Identifies the rule and the event that triggered the evaluation.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--test-mode</span></tt> | <tt class="docutils literal"><span class="pre">--no-test-mode</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Use this parameter to specify a test run for <tt class="docutils literal"><span class="pre">PutEvaluations</span></tt> . You can verify whether your AWS Lambda function will deliver evaluation results to AWS Config. No updates occur to your existing evaluations, and evaluation results are not sent to AWS Config.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When <tt class="docutils literal"><span class="pre">TestMode</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , <tt class="docutils literal"><span class="pre">PutEvaluations</span></tt> doesn't require a valid value for the <tt class="docutils literal"><span class="pre">ResultToken</span></tt> parameter, but the value cannot be null.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FailedEvaluations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Requests that failed because of a client or server error.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Identifies an AWS resource and indicates whether it complies with the AWS Config rule that it was evaluated against.</p>
+<p>ComplianceResourceType -&gt; (string)</p>
+<blockquote>
+<div>The type of AWS resource that was evaluated.</div>
+</blockquote>
+<p>ComplianceResourceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AWS resource that was evaluated.</div>
+</blockquote>
+<p>ComplianceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates whether the AWS resource complies with the AWS Config rule that it was evaluated against.</p>
+<p>For the <tt class="docutils literal"><span class="pre">Evaluation</span></tt> data type, AWS Config supports only the <tt class="docutils literal"><span class="pre">COMPLIANT</span></tt> , <tt class="docutils literal"><span class="pre">NON_COMPLIANT</span></tt> , and <tt class="docutils literal"><span class="pre">NOT_APPLICABLE</span></tt> values. AWS Config does not support the <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> value for this data type.</p>
+<p>Similarly, AWS Config does not accept <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> as the value for <tt class="docutils literal"><span class="pre">ComplianceType</span></tt> from a <tt class="docutils literal"><span class="pre">PutEvaluations</span></tt> request. For example, an AWS Lambda function for a custom AWS Config rule cannot pass an <tt class="docutils literal"><span class="pre">INSUFFICIENT_DATA</span></tt> value to AWS Config.</p>
+</div>
+</blockquote>
+<p>Annotation -&gt; (string)</p>
+<blockquote>
+<div>Supplementary information about how the evaluation determined the compliance.</div>
+</blockquote>
+<p>OrderingTimestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The time of the event in AWS Config that triggered the evaluation. For event-based evaluations, the time indicates when AWS Config created the configuration item that triggered the evaluation. For periodic evaluations, the time indicates when AWS Config triggered the evaluation at the frequency that you specified (for example, every 24 hours).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>validate-logs — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudtrail" href="index.html">
+    <link rel="next" title="cloudwatch" href="../cloudwatch/index.html">
+    <link rel="prev" title="update-trail" href="update-trail.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="validate-logs">
+<span id="cli-aws-cloudtrail-validate-logs"></span><h1>validate-logs<a class="headerlink" href="#validate-logs" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<blockquote>
+<div>
+<p>Validates CloudTrail logs for a given period of time.</p>
+<p>This command uses the digest files delivered to your S3 bucket to perform
+the validation.</p>
+<p>The AWS CLI allows you to detect the following types of changes:</p>
+<ul class="simple">
+<li>Modification or deletion of CloudTrail log files.</li>
+<li>Modification or deletion of CloudTrail digest files.</li>
+</ul>
+<p>To validate log files with the AWS CLI, the following preconditions must
+be met:</p>
+<ul class="simple">
+<li>You must have online connectivity to AWS.</li>
+<li>You must have read access to the S3 bucket that contains the digest and
+log files.</li>
+<li>The digest and log files must not have been moved from the original S3
+location where CloudTrail delivered them.</li>
+<li>For organization trails you must have access to describe-organization to
+validate digest files</li>
+</ul>
+<p>When you disable Log File Validation, the chain of digest files is broken
+after one hour. CloudTrail will not digest log files that were delivered
+during a period in which the Log File Validation feature was disabled.
+For example, if you enable Log File Validation on January 1, disable it
+on January 2, and re-enable it on January 10, digest files will not be
+created for the log files delivered from January 3 to January 9. The same
+applies whenever you stop CloudTrail logging or delete a trail.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Log files that have been downloaded to local disk cannot be validated
+with the AWS CLI. The CLI will download all log files each time this
+command is executed.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This command requires that the role executing the command has
+permission to call ListObjects, GetObject, and GetBucketLocation for
+each bucket referenced by the trail.</p>
+</div>
+</div>
+</blockquote>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  validate-logs
+--trail-arn &lt;value&gt;
+--start-time &lt;value&gt;
+[--end-time &lt;value&gt;]
+[--s3-bucket &lt;value&gt;]
+[--s3-prefix &lt;value&gt;]
+[--account-id &lt;value&gt;]
+[--verbose]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--trail-arn</span></tt> (string)
+Specifies the ARN of the trail to be validated</p>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (string)
+Specifies that log files delivered on or after the specified UTC timestamp value will be validated. Example: "2015-01-08T05:21:42Z".</p>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (string)
+Optionally specifies that log files delivered on or before the specified UTC timestamp value will be validated. The default value is the current time. Example: "2015-01-08T12:31:41Z".</p>
+<p><tt class="docutils literal"><span class="pre">--s3-bucket</span></tt> (string)
+Optionally specifies the S3 bucket where the digest files are stored. If a bucket name is not specified, the CLI will retrieve it by calling describe_trails</p>
+<p><tt class="docutils literal"><span class="pre">--s3-prefix</span></tt> (string)
+Optionally specifies the optional S3 prefix where the digest files are stored. If not specified, the CLI will determine the prefix automatically by calling describe_trails.</p>
+<p><tt class="docutils literal"><span class="pre">--account-id</span></tt> (string)
+Optionally specifies the account for validating logs. This parameter is needed for organization trails for validating logs for specific account inside an organization</p>
+<p><tt class="docutils literal"><span class="pre">--verbose</span></tt> (boolean)
+Display verbose log validation information</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To validate a log file</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">validate-logs</span></tt> command validates the logs for <tt class="docutils literal"><span class="pre">Trail1</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws cloudtrail validate-logs --trail-arn arn:aws:cloudtrail:us-east-1:123456789012:trail/Trail1 --start-time 20160129T19:00:00Z</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>Validating log files for trail arn:aws:cloudtrail:us-east-1:123456789012:trail/Trail1 between 2016-01-29T19:00:00Z and 2016-01-29T22:15:43Z
+Results requested for 2016-01-29T19:00:00Z to 2016-01-29T22:15:43Z
+Results found for 2016-01-29T19:24:57Z to 2016-01-29T21:24:57Z:
+3/3 digest files valid
+15/15 log files valid</pre>
+</div>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

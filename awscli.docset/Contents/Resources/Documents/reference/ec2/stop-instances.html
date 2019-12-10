@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>stop-instances — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="terminate-client-vpn-connections" href="terminate-client-vpn-connections.html">
+    <link rel="prev" title="start-instances" href="start-instances.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="stop-instances">
+<span id="cli-aws-ec2-stop-instances"></span><h1>stop-instances<a class="headerlink" href="#stop-instances" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Stops an Amazon EBS-backed instance.</p>
+<p>You can use the Stop action to hibernate an instance if the instance is <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#enabling-hibernation">enabled for hibernation</a> and it meets the <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>We don't charge usage for a stopped instance, or data transfer fees; however, your root partition Amazon EBS volume remains and continues to persist your data, and you are charged for Amazon EBS volume usage. Every time you start your Windows instance, Amazon EC2 charges you for a full instance hour. If you stop and restart your Windows instance, a new instance hour begins and Amazon EC2 charges you for another full instance hour even if you are still within the same 60-minute period when it was stopped. Every time you start your Linux instance, Amazon EC2 charges a one-minute minimum for instance usage, and thereafter charges per second for instance usage.</p>
+<p>You can't start, stop, or hibernate Spot Instances, and you can't stop or hibernate instance store-backed instances. For information about using hibernation for Spot Instances, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html#hibernate-spot-instances">Hibernating Interrupted Spot Instances</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>When you stop or hibernate an instance, we shut it down. You can restart your instance at any time. Before stopping or hibernating an instance, make sure it is in a state from which it can be restarted. Stopping an instance does not preserve data stored in RAM, but hibernating an instance does preserve data stored in RAM. If an instance cannot hibernate successfully, a normal shutdown occurs.</p>
+<p>Stopping and hibernating an instance is different to rebooting or terminating it. For example, when you stop or hibernate an instance, the root device and any other devices attached to the instance persist. When you terminate an instance, the root device and any other devices attached during the instance launch are automatically deleted. For more information about the differences between rebooting, stopping, hibernating, and terminating instances, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html">Instance Lifecycle</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>When you stop an instance, we attempt to shut it down forcibly after a short while. If your instance appears stuck in the stopping state after a period of time, there may be an issue with the underlying host computer. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html">Troubleshooting Stopping Your Instance</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/StopInstances">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  stop-instances
+--instance-ids &lt;value&gt;
+[--hibernate | --no-hibernate]
+[--dry-run | --no-dry-run]
+[--force | --no-force]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--instance-ids</span></tt> (list)</p>
+<blockquote>
+<div>The IDs of the instances.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--hibernate</span></tt> | <tt class="docutils literal"><span class="pre">--no-hibernate</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Hibernates the instance if the instance was enabled for hibernation at launch. If the instance cannot hibernate successfully, a normal shutdown occurs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--force</span></tt> | <tt class="docutils literal"><span class="pre">--no-force</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Forces the instances to stop. The instances do not have an opportunity to flush file system caches or file system metadata. If you use this option, you must perform file system check and repair procedures. This option is not recommended for Windows instances.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To stop an Amazon EC2 instance</strong></p>
+<p>This example stops the specified Amazon EBS-backed instance.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 stop-instances --instance-ids i-1234567890abcdef0</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"StoppingInstances"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"i-1234567890abcdef0"</span><span class="p">,</span>
+            <span class="s2">"CurrentState"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Code"</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"stopping"</span>
+            <span class="p">},</span>
+            <span class="s2">"PreviousState"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Code"</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"running"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html">Stop and Start Your Instance</a> in the <em>Amazon Elastic Compute Cloud User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>StoppingInstances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the stopped instances.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an instance state change.</p>
+<p>CurrentState -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The current state of the instance.</p>
+<p>Code -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The state of the instance as a 16-bit unsigned integer.</p>
+<p>The high byte is all of the bits between 2^8 and (2^16)-1, which equals decimal values between 256 and 65,535. These numerical values are used for internal purposes and should be ignored.</p>
+<p>The low byte is all of the bits between 2^0 and (2^8)-1, which equals decimal values between 0 and 255.</p>
+<p>The valid values for instance-state-code will all be in the range of the low byte and they are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">0</span></tt> : <tt class="docutils literal"><span class="pre">pending</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">16</span></tt> : <tt class="docutils literal"><span class="pre">running</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">32</span></tt> : <tt class="docutils literal"><span class="pre">shutting-down</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">48</span></tt> : <tt class="docutils literal"><span class="pre">terminated</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">64</span></tt> : <tt class="docutils literal"><span class="pre">stopping</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">80</span></tt> : <tt class="docutils literal"><span class="pre">stopped</span></tt>
+</li>
+</ul>
+<p>You can ignore the high byte value by zeroing out all of the bits above 2^8 or 256 in decimal.</p>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The current state of the instance.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the instance.</div>
+</blockquote>
+<p>PreviousState -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The previous state of the instance.</p>
+<p>Code -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The state of the instance as a 16-bit unsigned integer.</p>
+<p>The high byte is all of the bits between 2^8 and (2^16)-1, which equals decimal values between 256 and 65,535. These numerical values are used for internal purposes and should be ignored.</p>
+<p>The low byte is all of the bits between 2^0 and (2^8)-1, which equals decimal values between 0 and 255.</p>
+<p>The valid values for instance-state-code will all be in the range of the low byte and they are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">0</span></tt> : <tt class="docutils literal"><span class="pre">pending</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">16</span></tt> : <tt class="docutils literal"><span class="pre">running</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">32</span></tt> : <tt class="docutils literal"><span class="pre">shutting-down</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">48</span></tt> : <tt class="docutils literal"><span class="pre">terminated</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">64</span></tt> : <tt class="docutils literal"><span class="pre">stopping</span></tt>
+</li>
+<li>
+<tt class="docutils literal"><span class="pre">80</span></tt> : <tt class="docutils literal"><span class="pre">stopped</span></tt>
+</li>
+</ul>
+<p>You can ignore the high byte value by zeroing out all of the bits above 2^8 or 256 in decimal.</p>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The current state of the instance.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>register-domain — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="swf" href="index.html">
+    <link rel="next" title="register-workflow-type" href="register-workflow-type.html">
+    <link rel="prev" title="register-activity-type" href="register-activity-type.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="register-domain">
+<span id="cli-aws-swf-register-domain"></span><h1>register-domain<a class="headerlink" href="#register-domain" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Registers a new domain.</p>
+<blockquote>
+<div><strong>Access Control</strong></div>
+</blockquote>
+<p>You can use IAM policies to control this action's access to Amazon SWF resources as follows:</p>
+<ul class="simple">
+<li>You cannot use an IAM policy to control domain access for this action. The name of the domain being registered is available as the resource of this action.</li>
+<li>Use an <tt class="docutils literal"><span class="pre">Action</span></tt> element to allow or deny permission to call this action.</li>
+<li>You cannot use an IAM policy to constrain this action's parameters.</li>
+</ul>
+<p>If the caller doesn't have sufficient permissions to invoke the action, or the parameter values fall outside the specified constraints, the action fails. The associated event attribute's <tt class="docutils literal"><span class="pre">cause</span></tt> parameter is set to <tt class="docutils literal"><span class="pre">OPERATION_NOT_PERMITTED</span></tt> . For details and example IAM policies, see <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html">Using IAM to Manage Access to Amazon SWF Workflows</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/swf-2012-01-25/RegisterDomain">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  register-domain
+--name &lt;value&gt;
+[--description &lt;value&gt;]
+--workflow-execution-retention-period-in-days &lt;value&gt;
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Name of the domain to register. The name must be unique in the region that the domain is registered in.</p>
+<p>The specified string must not start or end with whitespace. It must not contain a <tt class="docutils literal"><span class="pre">:</span></tt> (colon), <tt class="docutils literal"><span class="pre">/</span></tt> (slash), <tt class="docutils literal"><span class="pre">|</span></tt> (vertical bar), or any control characters (<tt class="docutils literal"><span class="pre">\u0000-\u001f</span></tt> | <tt class="docutils literal"><span class="pre">\u007f-\u009f</span></tt> ). Also, it must not <em>be</em> the literal string <tt class="docutils literal"><span class="pre">arn</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A text description of the domain.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--workflow-execution-retention-period-in-days</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The duration (in days) that records and histories of workflow executions on the domain should be kept by the service. After the retention period, the workflow execution isn't available in the results of visibility calls.</p>
+<p>If you pass the value <tt class="docutils literal"><span class="pre">NONE</span></tt> or <tt class="docutils literal"><span class="pre">0</span></tt> (zero), then the workflow execution history isn't retained. As soon as the workflow execution completes, the execution record and its history are deleted.</p>
+<p>The maximum workflow execution retention period is 90 days. For more information about Amazon SWF service limits, see: <a class="reference external" href="https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html">Amazon SWF Service Limits</a> in the <em>Amazon SWF Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Tags to be added when registering a domain.</p>
+<p>Tags may only contain unicode letters, digits, whitespace, or these symbols: <tt class="docutils literal"><span class="pre">_</span> <span class="pre">.</span> <span class="pre">:</span> <span class="pre">/</span> <span class="pre">=</span> <span class="pre">+</span> <span class="pre">-</span> <span class="pre">@</span></tt> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>key=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "key": "string",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<div class="section" id="registering-a-domain">
+<h3>Registering a Domain<a class="headerlink" href="#registering-a-domain" title="Permalink to this headline">¶</a>
+</h3>
+<p>You can use the AWS CLI to register new domains. Use the <tt class="docutils literal"><span class="pre">swf</span> <span class="pre">register-domain</span></tt> command.  There are two required
+parameters, <tt class="docutils literal"><span class="pre">--name</span></tt>, which takes the domain name, and <tt class="docutils literal"><span class="pre">--workflow-execution-retention-period-in-days</span></tt>, which takes
+an integer to specify the number of days to retain workflow execution data on this domain, up to a maxium period of 90
+days (for more information, see the <cite>SWF FAQ &lt;http://aws.amazon.com/swf/faqs/#retain_limit&gt;</cite>). Workflow execution data
+will not be retained after the specified number of days have passed.</p>
+<p>Here's an example of registering a new domain:</p>
+<div class="highlight-python">
+<pre>$ aws swf register-domain --name MyNeatNewDomain --workflow-execution-retention-period-in-days 0
+""</pre>
+</div>
+<p>When you register a domain, nothing is returned (""), but you can use
+<tt class="docutils literal"><span class="pre">swf</span> <span class="pre">list-domains</span></tt> or <tt class="docutils literal"><span class="pre">swf</span> <span class="pre">describe-domain</span></tt> to see the new domain.
+For example:</p>
+<div class="highlight-python">
+<pre>$ aws swf list-domains --registration-status REGISTERED
+{
+    "domainInfos": [
+        {
+            "status": "REGISTERED",
+            "name": "DataFrobotz"
+        },
+        {
+            "status": "REGISTERED",
+            "name": "MyNeatNewDomain"
+        },
+        {
+            "status": "REGISTERED",
+            "name": "erontest"
+        }
+    ]
+}</pre>
+</div>
+<p>Using <tt class="docutils literal"><span class="pre">swf</span> <span class="pre">describe-domain</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws swf describe-domain --name MyNeatNewDomain
+{
+    "domainInfo": {
+        "status": "REGISTERED",
+        "name": "MyNeatNewDomain"
+    },
+    "configuration": {
+        "workflowExecutionRetentionPeriodInDays": "0"
+    }
+}</pre>
+</div>
+</div>
+<div class="section" id="see-also">
+<h3>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a>
+</h3>
+<ul class="simple">
+<li>
+<a class="reference external" href="http://docs.aws.amazon.com/amazonswf/latest/apireference/API_RegisterDomain.html">RegisterDomain</a>
+in the <em>Amazon Simple Workflow Service API Reference</em>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

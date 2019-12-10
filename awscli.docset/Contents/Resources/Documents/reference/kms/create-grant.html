@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-grant — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="create-key" href="create-key.html">
+    <link rel="prev" title="create-custom-key-store" href="create-custom-key-store.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-grant">
+<span id="cli-aws-kms-create-grant"></span><h1>create-grant<a class="headerlink" href="#create-grant" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds a grant to a customer master key (CMK). The grant allows the grantee principal to use the CMK when the conditions specified in the grant are met. When setting permissions, grants are an alternative to key policies.</p>
+<p>To create a grant that allows a cryptographic operation only when the request includes a particular <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">encryption context</a> , use the <tt class="docutils literal"><span class="pre">Constraints</span></tt> parameter. For details, see  GrantConstraints .</p>
+<p>You can create grants on symmetric and asymmetric CMKs. However, if the grant allows an operation that the CMK does not support, <tt class="docutils literal"><span class="pre">CreateGrant</span></tt> fails with a <tt class="docutils literal"><span class="pre">ValidationException</span></tt> .</p>
+<ul class="simple">
+<li>Grants for symmetric CMKs cannot allow operations that are not supported for symmetric CMKs, including  Sign ,  Verify , and  GetPublicKey . (There are limited exceptions to this rule for legacy operations, but you should not create a grant for an operation that AWS KMS does not support.)</li>
+<li>Grants for asymmetric CMKs cannot allow operations that are not supported for asymmetric CMKs, including operations that <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKey">generate data keys</a> or <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/APIReference/API_GenerateDataKeyPair">data key pairs</a> , or operations related to <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/rotate-keys.html">automatic key rotation</a> , <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/importing-keys.html">imported key material</a> , or CMKs in <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html">custom key stores</a> .</li>
+<li>Grants for asymmetric CMKs with a <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> of <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> cannot allow the  Sign or  Verify operations. Grants for asymmetric CMKs with a <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> of <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> cannot allow the  Encrypt or  Decrypt operations.</li>
+<li>Grants for asymmetric CMKs cannot include an encryption context grant constraint. An encryption context is not supported on asymmetric CMKs.</li>
+</ul>
+<p>For information about symmetric and asymmetric CMKs, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric CMKs</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>To perform this operation on a CMK in a different AWS account, specify the key ARN in the value of the <tt class="docutils literal"><span class="pre">KeyId</span></tt> parameter. For more information about grants, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html">Grants</a> in the * <em>AWS Key Management Service Developer Guide</em> * .</p>
+<p>The CMK that you use for this operation must be in a compatible key state. For details, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/CreateGrant">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-grant
+--key-id &lt;value&gt;
+--grantee-principal &lt;value&gt;
+[--retiring-principal &lt;value&gt;]
+--operations &lt;value&gt;
+[--constraints &lt;value&gt;]
+[--grant-tokens &lt;value&gt;]
+[--name &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier for the customer master key (CMK) that the grant applies to.</p>
+<p>Specify the key ID or the Amazon Resource Name (ARN) of the CMK. To specify a CMK in a different AWS account, you must use the key ARN.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grantee-principal</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The principal that is given permission to perform the operations that the grant permits.</p>
+<p>To specify the principal, use the <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, IAM roles, federated users, and assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and Access Management (IAM)</a> in the Example ARNs section of the <em>AWS General Reference</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--retiring-principal</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The principal that is given permission to retire the grant by using  RetireGrant operation.</p>
+<p>To specify the principal, use the <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals include AWS accounts (root), IAM users, federated users, and assumed role users. For examples of the ARN syntax to use for specifying a principal, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam">AWS Identity and Access Management (IAM)</a> in the Example ARNs section of the <em>AWS General Reference</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--operations</span></tt> (list)</p>
+<blockquote>
+<div>A list of operations that the grant permits.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  Decrypt
+  Encrypt
+  GenerateDataKey
+  GenerateDataKeyWithoutPlaintext
+  ReEncryptFrom
+  ReEncryptTo
+  Sign
+  Verify
+  GetPublicKey
+  CreateGrant
+  RetireGrant
+  DescribeKey
+  GenerateDataKeyPair
+  GenerateDataKeyPairWithoutPlaintext</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--constraints</span></tt> (structure)</p>
+<blockquote>
+<div>Allows a cryptographic operation only when the encryption context matches or includes the encryption context specified in this structure. For more information about encryption context, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a> in the * <em>AWS Key Management Service Developer Guide</em> * .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>EncryptionContextSubset={KeyName1=string,KeyName2=string},EncryptionContextEquals={KeyName1=string,KeyName2=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "EncryptionContextSubset": {"string": "string"
+    ...},
+  "EncryptionContextEquals": {"string": "string"
+    ...}
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--grant-tokens</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of grant tokens.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A friendly name for identifying the grant. Use this value to prevent the unintended creation of duplicate grants when retrying this request.</p>
+<p>When this value is absent, all <tt class="docutils literal"><span class="pre">CreateGrant</span></tt> requests result in a new grant with a unique <tt class="docutils literal"><span class="pre">GrantId</span></tt> even if all the supplied parameters are identical. This can result in unintended duplicates when you retry the <tt class="docutils literal"><span class="pre">CreateGrant</span></tt> request.</p>
+<p>When this value is present, you can retry a <tt class="docutils literal"><span class="pre">CreateGrant</span></tt> request with identical parameters; if the grant already exists, the original <tt class="docutils literal"><span class="pre">GrantId</span></tt> is returned without creating a new grant. Note that the returned grant token is unique with every <tt class="docutils literal"><span class="pre">CreateGrant</span></tt> request, even when a duplicate <tt class="docutils literal"><span class="pre">GrantId</span></tt> is returned. All grant tokens obtained in this way can be used interchangeably.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a grant</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-grant</span></tt> example creates a grant that allows the <tt class="docutils literal"><span class="pre">exampleUser</span></tt> user to use the <tt class="docutils literal"><span class="pre">decrypt</span></tt> command on the <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt> example CMK. The retiring principal is the <tt class="docutils literal"><span class="pre">adminRole</span></tt> role. The grant uses the <tt class="docutils literal"><span class="pre">EncryptionContextSubset</span></tt> grant constraint to allow this permission only when the encryption context in the <tt class="docutils literal"><span class="pre">decrypt</span></tt> request includes the "Department": "IT" key-value pair.</p>
+<div class="highlight-python">
+<pre>aws kms create-grant \
+    --key-id 1234abcd-12ab-34cd-56ef-1234567890ab \
+    --grantee-principal arn:aws:iam::123456789012:user/exampleUser \
+    --operations Decrypt \
+    --constraints EncryptionContextSubset={Department=IT} \
+    --retiring-principal arn:aws:iam::123456789012:role/adminRole</pre>
+</div>
+<p>The output of this command includes the ID of the new grant and a grant token. You can use the ID and token to identify the grant to other AWS KMS CLI commands, including <tt class="docutils literal"><span class="pre">retire-grant</span></tt> and <tt class="docutils literal"><span class="pre">revoke-grant</span></tt>.</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"GrantId"</span><span class="p">:</span> <span class="s2">"1a2b3c4d2f5e69f440bae30eaec9570bb1fb7358824f9ddfa1aa5a0dab1a59b2"</span><span class="p">,</span>
+    <span class="s2">"GrantToken"</span><span class="p">:</span> <span class="s2">"&lt;grant token here&gt;"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To view detailed information about the grant, use the <tt class="docutils literal"><span class="pre">list-grants</span></tt> command.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/grants.html">Using Grants</a> in the <em>AWS Key Management Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>GrantToken -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The grant token.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>GrantId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier for the grant.</p>
+<p>You can use the <tt class="docutils literal"><span class="pre">GrantId</span></tt> in a subsequent  RetireGrant or  RevokeGrant operation.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

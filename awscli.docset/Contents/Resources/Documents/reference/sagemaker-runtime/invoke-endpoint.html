@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>invoke-endpoint — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker-runtime" href="index.html">
+    <link rel="next" title="savingsplans" href="../savingsplans/index.html">
+    <link rel="prev" title="sagemaker-runtime" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="invoke-endpoint">
+<span id="cli-aws-sagemaker-runtime-invoke-endpoint"></span><h1>invoke-endpoint<a class="headerlink" href="#invoke-endpoint" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>After you deploy a model into production using Amazon SageMaker hosting services, your client applications use this API to get inferences from the model hosted at the specified endpoint.</p>
+<p>For an overview of Amazon SageMaker, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html">How It Works</a> .</p>
+<p>Amazon SageMaker strips all POST headers except those supported by the API. Amazon SageMaker might add additional headers. You should not rely on the behavior of headers outside those enumerated in the request syntax.</p>
+<p>Calls to <tt class="docutils literal"><span class="pre">InvokeEndpoint</span></tt> are authenticated by using AWS Signature Version 4. For information, see <a class="reference external" href="http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html">Authenticating Requests (AWS Signature Version 4)</a> in the <em>Amazon S3 API Reference</em> .</p>
+<p>A customer's model containers must respond to requests within 60 seconds. The model itself can have a maximum processing time of 60 seconds before responding to the /invocations. If your model is going to take 50-60 seconds of processing time, the SDK socket timeout should be set to be 70 seconds.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Endpoints are scoped to an individual account, and are not public. The URL does not contain the account ID, but Amazon SageMaker determines the account ID from the authentication token that is supplied by the caller.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/runtime.sagemaker-2017-05-13/InvokeEndpoint">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  invoke-endpoint
+--endpoint-name &lt;value&gt;
+--body &lt;value&gt;
+[--content-type &lt;value&gt;]
+[--accept &lt;value&gt;]
+[--custom-attributes &lt;value&gt;]
+[--target-model &lt;value&gt;]
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--endpoint-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the endpoint that you specified when you created the endpoint using the <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpoint.html">CreateEndpoint</a> API.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--body</span></tt> (blob)</p>
+<blockquote>
+<div>
+<p>Provides input data, in the format specified in the <tt class="docutils literal"><span class="pre">ContentType</span></tt> request header. Amazon SageMaker passes all of the data in the body to the model.</p>
+<p>For information about the format of the request body, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats—Inference</a> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-type</span></tt> (string)</p>
+<blockquote>
+<div>The MIME type of the input data in the request body.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--accept</span></tt> (string)</p>
+<blockquote>
+<div>The desired MIME type of the inference in the response.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--custom-attributes</span></tt> (string)</p>
+<blockquote>
+<div>Provides additional information about a request for an inference submitted to a model hosted at an Amazon SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use this value, for example, to provide an ID that you can use to track a request or to provide other metadata that a service endpoint was programmed to process. The value must consist of no more than 1024 visible US-ASCII characters as specified in <a class="reference external" href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value Components</a> of the Hypertext Transfer Protocol (HTTP/1.1). This feature is currently supported in the AWS SDKs but not in the Amazon SageMaker Python SDK.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--target-model</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the model to be requested for an inference when invoking a multi-model endpoint.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the content will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Body -&gt; (blob)</p>
+<blockquote>
+<div>
+<p>Includes the inference provided by the model.</p>
+<p>For information about the format of the response body, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html">Common Data Formats—Inference</a> .</p>
+</div>
+</blockquote>
+<p>ContentType -&gt; (string)</p>
+<blockquote>
+<div>The MIME type of the inference returned in the response body.</div>
+</blockquote>
+<p>InvokedProductionVariant -&gt; (string)</p>
+<blockquote>
+<div>Identifies the production variant that was invoked.</div>
+</blockquote>
+<p>CustomAttributes -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Provides additional information in the response about the inference returned by a model hosted at an Amazon SageMaker endpoint. The information is an opaque value that is forwarded verbatim. You could use this value, for example, to return an ID received in the <tt class="docutils literal"><span class="pre">CustomAttributes</span></tt> header of a request or other metadata that a service endpoint was programmed to produce. The value must consist of no more than 1024 visible US-ASCII characters as specified in <a class="reference external" href="https://tools.ietf.org/html/rfc7230#section-3.2.6">Section 3.3.6. Field Value Components</a> of the Hypertext Transfer Protocol (HTTP/1.1). If the customer wants the custom attribute returned, the model must set the custom attribute to be included on the way back.</p>
+<p>This feature is currently supported in the AWS SDKs but not in the Amazon SageMaker Python SDK.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

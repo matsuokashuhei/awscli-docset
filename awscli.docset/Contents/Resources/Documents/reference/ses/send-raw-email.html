@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>send-raw-email — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ses" href="index.html">
+    <link rel="next" title="send-templated-email" href="send-templated-email.html">
+    <link rel="prev" title="send-email" href="send-email.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="send-raw-email">
+<span id="cli-aws-ses-send-raw-email"></span><h1>send-raw-email<a class="headerlink" href="#send-raw-email" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Composes an email message and immediately queues it for sending.</p>
+<p>This operation is more flexible than the <tt class="docutils literal"><span class="pre">SendEmail</span></tt> API operation. When you use the <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> operation, you can specify the headers of the message as well as its content. This flexibility is useful, for example, when you want to send a multipart MIME email (such a message that contains both a text and an HTML version). You can also use this operation to send messages that include attachments.</p>
+<p>The <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> operation has the following requirements:</p>
+<ul class="simple">
+<li>You can only send email from <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html">verified email addresses or domains</a> . If you try to send email from an address that isn't verified, the operation results in an "Email address not verified" error.</li>
+<li>If your account is still in the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html">Amazon SES sandbox</a> , you can only send email to other verified addresses in your account, or to addresses that are associated with the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html">Amazon SES mailbox simulator</a> .</li>
+<li>The maximum message size, including attachments, is 10 MB.</li>
+<li>Each message has to include at least one recipient address. A recipient address includes any address on the To:, CC:, or BCC: lines.</li>
+<li>If you send a single message to more than one recipient address, and one of the recipient addresses isn't in a valid format (that is, it's not in the format <em>UserName@[SubDomain.]Domain.TopLevelDomain</em> ), Amazon SES rejects the entire message, even if the other addresses are valid.</li>
+<li>Each message can include up to 50 recipient addresses across the To:, CC:, or BCC: lines. If you need to send a single message to more than 50 recipients, you have to split the list of recipient addresses into groups of less than 50 recipients, and send separate messages to each group.</li>
+<li>Amazon SES allows you to specify 8-bit Content-Transfer-Encoding for MIME message parts. However, if Amazon SES has to modify the contents of your message (for example, if you use open and click tracking), 8-bit content isn't preserved. For this reason, we highly recommend that you encode all content that isn't 7-bit ASCII. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-raw.html#send-email-mime-encoding">MIME Encoding</a> in the <em>Amazon SES Developer Guide</em> .</li>
+</ul>
+<p>Additionally, keep the following considerations in mind when using the <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> operation:</p>
+<ul class="simple">
+<li>Although you can customize the message headers when using the <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> operation, Amazon SES will automatically apply its own <tt class="docutils literal"><span class="pre">Message-ID</span></tt> and <tt class="docutils literal"><span class="pre">Date</span></tt> headers; if you passed these headers when creating the message, they will be overwritten by the values that Amazon SES provides.</li>
+<li>If you are using sending authorization to send on behalf of another user, <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> enables you to specify the cross-account identity for the email's Source, From, and Return-Path parameters in one of two ways: you can pass optional parameters <tt class="docutils literal"><span class="pre">SourceArn</span></tt> , <tt class="docutils literal"><span class="pre">FromArn</span></tt> , and/or <tt class="docutils literal"><span class="pre">ReturnPathArn</span></tt> to the API, or you can include the following X-headers in the header of your raw email:<ul>
+<li><tt class="docutils literal"><span class="pre">X-SES-SOURCE-ARN</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">X-SES-FROM-ARN</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">X-SES-RETURN-PATH-ARN</span></tt></li>
+</ul>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don't include these X-headers in the DKIM signature. Amazon SES removes these before it sends the email.</p>
+</div>
+<p>If you only specify the <tt class="docutils literal"><span class="pre">SourceIdentityArn</span></tt> parameter, Amazon SES sets the From and Return-Path addresses to the same identity that you specified.</p>
+<p>For more information about sending authorization, see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization.html">Using Sending Authorization with Amazon SES</a> in the <em>Amazon SES Developer Guide.</em></p>
+<ul class="simple">
+<li>For every message that you send, the total number of recipients (including each recipient in the To:, CC: and BCC: fields) is counted against the maximum number of emails you can send in a 24-hour period (your <em>sending quota</em> ). For more information about sending quotas in Amazon SES, see <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/manage-sending-limits.html">Managing Your Amazon SES Sending Limits</a> in the <em>Amazon SES Developer Guide.</em>
+</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/email-2010-12-01/SendRawEmail">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  send-raw-email
+[--source &lt;value&gt;]
+[--destinations &lt;value&gt;]
+--raw-message &lt;value&gt;
+[--from-arn &lt;value&gt;]
+[--source-arn &lt;value&gt;]
+[--return-path-arn &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--configuration-set-name &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--source</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The identity's email address. If you do not provide a value for this parameter, you must specify a "From" address in the raw text of the message. (You can also specify both.)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Amazon SES does not support the SMTPUTF8 extension, as described in`RFC6531 &lt;<a class="reference external" href="https://tools.ietf.org/html/rfc6531">https://tools.ietf.org/html/rfc6531</a>&gt;`__ . For this reason, the <em>local part</em> of a source email address (the part of the email address that precedes the @ sign) may only contain <a class="reference external" href="https://en.wikipedia.org/wiki/Email_address#Local-part">7-bit ASCII characters</a> . If the <em>domain part</em> of an address (the part after the @ sign) contains non-ASCII characters, they must be encoded using Punycode, as described in <a class="reference external" href="https://tools.ietf.org/html/rfc3492.html">RFC3492</a> . The sender name (also known as the <em>friendly name</em> ) may contain non-ASCII characters. These characters must be encoded using MIME encoded-word syntax, as described in <a class="reference external" href="https://tools.ietf.org/html/rfc2047">RFC 2047</a> . MIME encoded-word syntax uses the following form: <tt class="docutils literal"><span class="pre">=?charset?encoding?encoded-text?=</span></tt> .</p>
+</div>
+<p>If you specify the <tt class="docutils literal"><span class="pre">Source</span></tt> parameter and have feedback forwarding enabled, then bounces and complaints will be sent to this email address. This takes precedence over any Return-Path header that you might include in the raw text of the message.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--destinations</span></tt> (list)</p>
+<blockquote>
+<div>A list of destinations for the message, consisting of To:, CC:, and BCC: addresses.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--raw-message</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The raw email message itself. The message has to meet the following criteria:</p>
+<ul class="simple">
+<li>The message has to contain a header and a body, separated by a blank line.</li>
+<li>All of the required header fields must be present in the message.</li>
+<li>Each part of a multipart MIME message must be formatted properly.</li>
+<li>Attachments must be of a content type that Amazon SES supports. For a list on unsupported content types, see <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/mime-types.html">Unsupported Attachment Types</a> in the <em>Amazon SES Developer Guide</em> .</li>
+<li>The entire message must be base64-encoded.</li>
+<li>If any of the MIME parts in your message contain content that is outside of the 7-bit ASCII character range, we highly recommend that you encode that content. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-raw.html">Sending Raw Email</a> in the <em>Amazon SES Developer Guide</em> .</li>
+<li>Per <a class="reference external" href="https://tools.ietf.org/html/rfc5321#section-4.5.3.1.6">RFC 5321</a> , the maximum length of each line of text, including the CRLF, must not exceed 1,000 characters.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Data</span><span class="o">=</span><span class="n">blob</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Data"</span><span class="p">:</span> <span class="n">blob</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--from-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to specify a particular "From" address in the header of the raw email.</p>
+<p>Instead of using this parameter, you can use the X-header <tt class="docutils literal"><span class="pre">X-SES-FROM-ARN</span></tt> in the raw message of the email. If you use both the <tt class="docutils literal"><span class="pre">FromArn</span></tt> parameter and the corresponding X-header, Amazon SES uses the value of the <tt class="docutils literal"><span class="pre">FromArn</span></tt> parameter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For information about when to use this parameter, see the description of <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> in this guide, or see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization-delegate-sender-tasks-email.html">Amazon SES Developer Guide</a> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to send for the email address specified in the <tt class="docutils literal"><span class="pre">Source</span></tt> parameter.</p>
+<p>For example, if the owner of <tt class="docutils literal"><span class="pre">example.com</span></tt> (which has ARN <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> ) attaches a policy to it that authorizes you to send from <tt class="docutils literal"><span class="pre">user@example.com</span></tt> , then you would specify the <tt class="docutils literal"><span class="pre">SourceArn</span></tt> to be <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> , and the <tt class="docutils literal"><span class="pre">Source</span></tt> to be <tt class="docutils literal"><span class="pre">user@example.com</span></tt> .</p>
+<p>Instead of using this parameter, you can use the X-header <tt class="docutils literal"><span class="pre">X-SES-SOURCE-ARN</span></tt> in the raw message of the email. If you use both the <tt class="docutils literal"><span class="pre">SourceArn</span></tt> parameter and the corresponding X-header, Amazon SES uses the value of the <tt class="docutils literal"><span class="pre">SourceArn</span></tt> parameter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For information about when to use this parameter, see the description of <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> in this guide, or see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization-delegate-sender-tasks-email.html">Amazon SES Developer Guide</a> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--return-path-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>This parameter is used only for sending authorization. It is the ARN of the identity that is associated with the sending authorization policy that permits you to use the email address specified in the <tt class="docutils literal"><span class="pre">ReturnPath</span></tt> parameter.</p>
+<p>For example, if the owner of <tt class="docutils literal"><span class="pre">example.com</span></tt> (which has ARN <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> ) attaches a policy to it that authorizes you to use <tt class="docutils literal"><span class="pre">feedback@example.com</span></tt> , then you would specify the <tt class="docutils literal"><span class="pre">ReturnPathArn</span></tt> to be <tt class="docutils literal"><span class="pre">arn:aws:ses:us-east-1:123456789012:identity/example.com</span></tt> , and the <tt class="docutils literal"><span class="pre">ReturnPath</span></tt> to be <tt class="docutils literal"><span class="pre">feedback@example.com</span></tt> .</p>
+<p>Instead of using this parameter, you can use the X-header <tt class="docutils literal"><span class="pre">X-SES-RETURN-PATH-ARN</span></tt> in the raw message of the email. If you use both the <tt class="docutils literal"><span class="pre">ReturnPathArn</span></tt> parameter and the corresponding X-header, Amazon SES uses the value of the <tt class="docutils literal"><span class="pre">ReturnPathArn</span></tt> parameter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For information about when to use this parameter, see the description of <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> in this guide, or see the <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/sending-authorization-delegate-sender-tasks-email.html">Amazon SES Developer Guide</a> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of tags, in the form of name/value pairs, to apply to an email that you send using <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> . Tags correspond to characteristics of the email that you define, so that you can publish email sending events.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--configuration-set-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the configuration set to use when you send an email using <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To send a raw email using Amazon SES</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">send-raw-email</span></tt> command to send an email with a TXT attachment:</p>
+<div class="highlight-python">
+<pre>aws ses send-raw-email --raw-message file://message.json</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">"MessageId"</span><span class="p">:</span> <span class="s2">"EXAMPLEf3f73d99b-c63fb06f-d263-41f8-a0fb-d0dc67d56c07-000000"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The raw message is a JSON data structure saved in a file named <tt class="docutils literal"><span class="pre">message.json</span></tt> in the current directory. It contains the following:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+   <span class="s2">"Data"</span><span class="p">:</span> <span class="s2">"From: sender@example.com</span><span class="se">\n</span><span class="s2">To: recipient@example.com</span><span class="se">\n</span><span class="s2">Subject: Test email sent using the AWS CLI (contains an attachment)</span><span class="se">\n</span><span class="s2">MIME-Version: 1.0</span><span class="se">\n</span><span class="s2">Content-type: Multipart/Mixed; boundary=</span><span class="se">\"</span><span class="s2">NextPart</span><span class="se">\"\n\n</span><span class="s2">--NextPart</span><span class="se">\n</span><span class="s2">Content-Type: text/plain</span><span class="se">\n\n</span><span class="s2">This is the message body.</span><span class="se">\n\n</span><span class="s2">--NextPart</span><span class="se">\n</span><span class="s2">Content-Type: text/plain;</span><span class="se">\n</span><span class="s2">Content-Disposition: attachment; filename=</span><span class="se">\"</span><span class="s2">attachment.txt</span><span class="se">\"\n\n</span><span class="s2">This is the text in the attachment.</span><span class="se">\n\n</span><span class="s2">--NextPart--"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, "Data" is one long string that contains the entire raw email content in MIME format, including an attachment called attachment.txt.</p>
+<p>Replace <a class="reference external" href="mailto:sender%40example.com">sender<span>@</span>example<span>.</span>com</a> and <a class="reference external" href="mailto:recipient%40example.com">recipient<span>@</span>example<span>.</span>com</a> with the addresses you want to use. Note that the sender's email address must be verified with Amazon SES. Until you are granted production access to Amazon SES, you must also verify the email address of the recipient
+unless the recipient is the Amazon SES mailbox simulator. For more information on verification, see <a class="reference external" href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-addresses-and-domains.html">Verifying Email Addresses and Domains in Amazon SES</a> in the <em>Amazon Simple Email Service Developer Guide</em>.</p>
+<p>The Message ID in the output indicates that the call to send-raw-email was successful.</p>
+<p>If you don't receive the email, check your Junk box.</p>
+<p>For more information on sending raw email, see <a class="reference external" href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-raw.html">Sending Raw Email Using the Amazon SES API</a> in the <em>Amazon Simple Email Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>MessageId -&gt; (string)</p>
+<blockquote>
+<div>The unique message identifier returned from the <tt class="docutils literal"><span class="pre">SendRawEmail</span></tt> action.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

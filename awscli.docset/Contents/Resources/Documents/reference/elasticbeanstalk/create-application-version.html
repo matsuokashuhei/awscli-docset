@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-application-version — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elasticbeanstalk" href="index.html">
+    <link rel="next" title="create-configuration-template" href="create-configuration-template.html">
+    <link rel="prev" title="create-application" href="create-application.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-application-version">
+<span id="cli-aws-elasticbeanstalk-create-application-version"></span><h1>create-application-version<a class="headerlink" href="#create-application-version" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an application version for the specified application. You can create an application version from a source bundle in Amazon S3, a commit in AWS CodeCommit, or the output of an AWS CodeBuild build as follows:</p>
+<p>Specify a commit in an AWS CodeCommit repository with <tt class="docutils literal"><span class="pre">SourceBuildInformation</span></tt> .</p>
+<p>Specify a build in an AWS CodeBuild with <tt class="docutils literal"><span class="pre">SourceBuildInformation</span></tt> and <tt class="docutils literal"><span class="pre">BuildConfiguration</span></tt> .</p>
+<p>Specify a source bundle in S3 with <tt class="docutils literal"><span class="pre">SourceBundle</span></tt></p>
+<p>Omit both <tt class="docutils literal"><span class="pre">SourceBuildInformation</span></tt> and <tt class="docutils literal"><span class="pre">SourceBundle</span></tt> to use the default sample application.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Once you create an application version with a specified Amazon S3 bucket and key location, you cannot change that Amazon S3 location. If you change the Amazon S3 location, you receive an exception when you attempt to launch an environment from the application version.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/CreateApplicationVersion">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-application-version
+--application-name &lt;value&gt;
+--version-label &lt;value&gt;
+[--description &lt;value&gt;]
+[--source-build-information &lt;value&gt;]
+[--source-bundle &lt;value&gt;]
+[--build-configuration &lt;value&gt;]
+[--auto-create-application | --no-auto-create-application]
+[--process | --no-process]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--application-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the application. If no application is found with this name, and <tt class="docutils literal"><span class="pre">AutoCreateApplication</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt> , returns an <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--version-label</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A label identifying this version.</p>
+<p>Constraint: Must be unique per application. If an application version already exists with this label for the specified application, AWS Elastic Beanstalk returns an <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>Describes this version.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-build-information</span></tt> (structure)</p>
+<blockquote>
+<div>Specify a commit in an AWS CodeCommit Git repository to use as the source code for the application version.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">SourceType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">SourceRepository</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">SourceLocation</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"SourceType"</span><span class="p">:</span> <span class="s2">"Git"</span><span class="o">|</span><span class="s2">"Zip"</span><span class="p">,</span>
+  <span class="s2">"SourceRepository"</span><span class="p">:</span> <span class="s2">"CodeCommit"</span><span class="o">|</span><span class="s2">"S3"</span><span class="p">,</span>
+  <span class="s2">"SourceLocation"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--source-bundle</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The Amazon S3 bucket and key that identify the location of the source bundle for this version.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Amazon S3 bucket must be in the same region as the environment.</p>
+</div>
+<p>Specify a source bundle in S3 or a commit in an AWS CodeCommit repository (with <tt class="docutils literal"><span class="pre">SourceBuildInformation</span></tt> ), but not both. If neither <tt class="docutils literal"><span class="pre">SourceBundle</span></tt> nor <tt class="docutils literal"><span class="pre">SourceBuildInformation</span></tt> are provided, Elastic Beanstalk uses a sample application.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3Bucket</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3Key</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3Key"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--build-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>Settings for an AWS CodeBuild build.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ArtifactName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">CodeBuildServiceRole</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ComputeType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Image</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TimeoutInMinutes</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ArtifactName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CodeBuildServiceRole"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ComputeType"</span><span class="p">:</span> <span class="s2">"BUILD_GENERAL1_SMALL"</span><span class="o">|</span><span class="s2">"BUILD_GENERAL1_MEDIUM"</span><span class="o">|</span><span class="s2">"BUILD_GENERAL1_LARGE"</span><span class="p">,</span>
+  <span class="s2">"Image"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TimeoutInMinutes"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--auto-create-application</span></tt> | <tt class="docutils literal"><span class="pre">--no-auto-create-application</span></tt> (boolean)</p>
+<blockquote>
+<div>Set to <tt class="docutils literal"><span class="pre">true</span></tt> to create an application with the specified name if it doesn't already exist.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--process</span></tt> | <tt class="docutils literal"><span class="pre">--no-process</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>Pre-processes and validates the environment manifest (<tt class="docutils literal"><span class="pre">env.yaml</span></tt> ) and configuration files (<tt class="docutils literal"><span class="pre">*.config</span></tt> files in the <tt class="docutils literal"><span class="pre">.ebextensions</span></tt> folder) in the source bundle. Validating configuration files can identify issues prior to deploying the application version to an environment.</p>
+<p>You must turn processing on for application versions that you create using AWS CodeBuild or AWS CodeCommit. For application versions built from a source bundle in Amazon S3, processing is optional.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal"><span class="pre">Process</span></tt> option validates Elastic Beanstalk configuration files. It doesn't validate your application's configuration files, like proxy server or Docker configuration.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Specifies the tags applied to the application version.</p>
+<p>Elastic Beanstalk applies these tags only to the application version. Environments that use the application version don't inherit the tags.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a new application version</strong></p>
+<p>The following command creates a new version, "v1" of an application named "MyApp":</p>
+<div class="highlight-python">
+<pre>aws elasticbeanstalk create-application-version --application-name MyApp --version-label v1 --description MyAppv1 --source-bundle S3Bucket="my-bucket",S3Key="sample.war" --auto-create-application</pre>
+</div>
+<p>The application will be created automatically if it does not already exist, due to the auto-create-application option. The source bundle is a .war file stored in an s3 bucket named "my-bucket" that contains the Apache Tomcat sample application.</p>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ApplicationVersion"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"ApplicationName"</span><span class="p">:</span> <span class="s2">"MyApp"</span><span class="p">,</span>
+      <span class="s2">"VersionLabel"</span><span class="p">:</span> <span class="s2">"v1"</span><span class="p">,</span>
+      <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"MyAppv1"</span><span class="p">,</span>
+      <span class="s2">"DateCreated"</span><span class="p">:</span> <span class="s2">"2015-02-03T23:01:25.412Z"</span><span class="p">,</span>
+      <span class="s2">"DateUpdated"</span><span class="p">:</span> <span class="s2">"2015-02-03T23:01:25.412Z"</span><span class="p">,</span>
+      <span class="s2">"SourceBundle"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"S3Bucket"</span><span class="p">:</span> <span class="s2">"my-bucket"</span><span class="p">,</span>
+          <span class="s2">"S3Key"</span><span class="p">:</span> <span class="s2">"sample.war"</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ApplicationVersion -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The  ApplicationVersionDescription of the application version.</p>
+<p>ApplicationVersionArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the application version.</div>
+</blockquote>
+<p>ApplicationName -&gt; (string)</p>
+<blockquote>
+<div>The name of the application to which the application version belongs.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the application version.</div>
+</blockquote>
+<p>VersionLabel -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for the application version.</div>
+</blockquote>
+<p>SourceBuildInformation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>If the version's source code was retrieved from AWS CodeCommit, the location of the source code for the application version.</p>
+<p>SourceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of repository.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Git</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Zip</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p>SourceRepository -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Location where the repository is stored.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CodeCommit</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">S3</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p>SourceLocation -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The location of the source code, as a formatted string, depending on the value of <tt class="docutils literal"><span class="pre">SourceRepository</span></tt></p>
+<ul class="simple">
+<li>For <tt class="docutils literal"><span class="pre">CodeCommit</span></tt> , the format is the repository name and commit ID, separated by a forward slash. For example, <tt class="docutils literal"><span class="pre">my-git-repo/265cfa0cf6af46153527f55d6503ec030551f57a</span></tt> .</li>
+<li>For <tt class="docutils literal"><span class="pre">S3</span></tt> , the format is the S3 bucket name and object key, separated by a forward slash. For example, <tt class="docutils literal"><span class="pre">my-s3-bucket/Folders/my-source-file</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>BuildArn -&gt; (string)</p>
+<blockquote>
+<div>Reference to the artifact from the AWS CodeBuild build.</div>
+</blockquote>
+<p>SourceBundle -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The storage location of the application version's source bundle in Amazon S3.</p>
+<p>S3Bucket -&gt; (string)</p>
+<blockquote>
+<div>The Amazon S3 bucket where the data is located.</div>
+</blockquote>
+<p>S3Key -&gt; (string)</p>
+<blockquote>
+<div>The Amazon S3 key where the data is located.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DateCreated -&gt; (timestamp)</p>
+<blockquote>
+<div>The creation date of the application version.</div>
+</blockquote>
+<p>DateUpdated -&gt; (timestamp)</p>
+<blockquote>
+<div>The last modified date of the application version.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The processing status of the application version. Reflects the state of the application version during its creation. Many of the values are only applicable if you specified <tt class="docutils literal"><span class="pre">True</span></tt> for the <tt class="docutils literal"><span class="pre">Process</span></tt> parameter of the <tt class="docutils literal"><span class="pre">CreateApplicationVersion</span></tt> action. The following list describes the possible values.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Unprocessed</span></tt> – Application version wasn't pre-processed or validated. Elastic Beanstalk will validate configuration files during deployment of the application version to an environment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Processing</span></tt> – Elastic Beanstalk is currently processing the application version.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Building</span></tt> – Application version is currently undergoing an AWS CodeBuild build.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Processed</span></tt> – Elastic Beanstalk was successfully pre-processed and validated.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Failed</span></tt> – Either the AWS CodeBuild build failed or configuration files didn't pass validation. This application version isn't usable.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

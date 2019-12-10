@@ -1,0 +1,722 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-container-instances-state — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecs" href="index.html">
+    <link rel="next" title="update-service" href="update-service.html">
+    <link rel="prev" title="update-container-agent" href="update-container-agent.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-container-instances-state">
+<span id="cli-aws-ecs-update-container-instances-state"></span><h1>update-container-instances-state<a class="headerlink" href="#update-container-instances-state" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies the status of an Amazon ECS container instance.</p>
+<p>Once a container instance has reached an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> state, you can change the status of a container instance to <tt class="docutils literal"><span class="pre">DRAINING</span></tt> to manually remove an instance from a cluster, for example to perform system updates, update the Docker daemon, or scale down the cluster size.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A container instance cannot be changed to <tt class="docutils literal"><span class="pre">DRAINING</span></tt> until it has reached an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status. If the instance is in any other status, an error will be received.</p>
+</div>
+<p>When you set a container instance to <tt class="docutils literal"><span class="pre">DRAINING</span></tt> , Amazon ECS prevents new tasks from being scheduled for placement on the container instance and replacement service tasks are started on other container instances in the cluster if the resources are available. Service tasks on the container instance that are in the <tt class="docutils literal"><span class="pre">PENDING</span></tt> state are stopped immediately.</p>
+<p>Service tasks on the container instance that are in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state are stopped and replaced according to the service's deployment configuration parameters, <tt class="docutils literal"><span class="pre">minimumHealthyPercent</span></tt> and <tt class="docutils literal"><span class="pre">maximumPercent</span></tt> . You can change the deployment configuration of your service using  UpdateService .</p>
+<ul class="simple">
+<li>If <tt class="docutils literal"><span class="pre">minimumHealthyPercent</span></tt> is below 100%, the scheduler can ignore <tt class="docutils literal"><span class="pre">desiredCount</span></tt> temporarily during task replacement. For example, <tt class="docutils literal"><span class="pre">desiredCount</span></tt> is four tasks, a minimum of 50% allows the scheduler to stop two existing tasks before starting two new tasks. If the minimum is 100%, the service scheduler can't remove existing tasks until the replacement tasks are considered healthy. Tasks for services that do not use a load balancer are considered healthy if they are in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state. Tasks for services that use a load balancer are considered healthy if they are in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state and the container instance they are hosted on is reported as healthy by the load balancer.</li>
+<li>The <tt class="docutils literal"><span class="pre">maximumPercent</span></tt> parameter represents an upper limit on the number of running tasks during task replacement, which enables you to define the replacement batch size. For example, if <tt class="docutils literal"><span class="pre">desiredCount</span></tt> is four tasks, a maximum of 200% starts four new tasks before stopping the four tasks to be drained, provided that the cluster resources required to do this are available. If the maximum is 100%, then replacement tasks can't start until the draining tasks have stopped.</li>
+</ul>
+<p>Any <tt class="docutils literal"><span class="pre">PENDING</span></tt> or <tt class="docutils literal"><span class="pre">RUNNING</span></tt> tasks that do not belong to a service are not affected. You must wait for them to finish or stop them manually.</p>
+<p>A container instance has completed draining when it has no more <tt class="docutils literal"><span class="pre">RUNNING</span></tt> tasks. You can verify this using  ListTasks .</p>
+<p>When a container instance has been drained, you can set a container instance to <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status and once it has reached that status the Amazon ECS scheduler can begin scheduling tasks on the instance again.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/UpdateContainerInstancesState">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-container-instances-state
+[--cluster &lt;value&gt;]
+--container-instances &lt;value&gt;
+--status &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster</span></tt> (string)</p>
+<blockquote>
+<div>The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instance to update. If you do not specify a cluster, the default cluster is assumed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--container-instances</span></tt> (list)</p>
+<blockquote>
+<div>A list of container instance IDs or full ARN entries.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--status</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The container instance state with which to update the container instance. The only valid values for this action are <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> and <tt class="docutils literal"><span class="pre">DRAINING</span></tt> . A container instance can only be updated to <tt class="docutils literal"><span class="pre">DRAINING</span></tt> status once it has reached an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> state. If a container instance is in <tt class="docutils literal"><span class="pre">REGISTERING</span></tt> , <tt class="docutils literal"><span class="pre">DEREGISTERING</span></tt> , or <tt class="docutils literal"><span class="pre">REGISTRATION_FAILED</span></tt> state you can describe the container instance but will be unable to update the container instance state.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ACTIVE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DRAINING</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REGISTERING</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">DEREGISTERING</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REGISTRATION_FAILED</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update the state of a container instance</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-container-instances-state</span></tt> updates the state of the specified container instance to <tt class="docutils literal"><span class="pre">DRAINING</span></tt> which will remove it from the cluster is it registered to.</p>
+<div class="highlight-python">
+<pre>aws ecs update-container-instances-state \
+    --container-instances 765936fadbdd46b5991a4bd70c2a43d4 \
+    --status DRAINING</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"containerInstances"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"containerInstanceArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:130757420319:container-instance/default/765936fadbdd46b5991a4bd70c2a43d4"</span><span class="p">,</span>
+            <span class="s2">"ec2InstanceId"</span><span class="p">:</span> <span class="s2">"i-013d87ffbb4d513bf"</span><span class="p">,</span>
+            <span class="s2">"version"</span><span class="p">:</span> <span class="mi">4390</span><span class="p">,</span>
+            <span class="s2">"versionInfo"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"agentVersion"</span><span class="p">:</span> <span class="s2">"1.29.0"</span><span class="p">,</span>
+                <span class="s2">"agentHash"</span><span class="p">:</span> <span class="s2">"a190a73f"</span><span class="p">,</span>
+                <span class="s2">"dockerVersion"</span><span class="p">:</span> <span class="s2">"DockerVersion:18.06.1-ce"</span>
+            <span class="p">},</span>
+            <span class="s2">"remainingResources"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"CPU"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"INTEGER"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">1536</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"MEMORY"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"INTEGER"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">2681</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"PORTS"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"STRINGSET"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"stringSetValue"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"22"</span><span class="p">,</span>
+                        <span class="s2">"2376"</span><span class="p">,</span>
+                        <span class="s2">"2375"</span><span class="p">,</span>
+                        <span class="s2">"51678"</span><span class="p">,</span>
+                        <span class="s2">"51679"</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"PORTS_UDP"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"STRINGSET"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"stringSetValue"</span><span class="p">:</span> <span class="p">[]</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"registeredResources"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"CPU"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"INTEGER"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">2048</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"MEMORY"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"INTEGER"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">3705</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"PORTS"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"STRINGSET"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"stringSetValue"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"22"</span><span class="p">,</span>
+                        <span class="s2">"2376"</span><span class="p">,</span>
+                        <span class="s2">"2375"</span><span class="p">,</span>
+                        <span class="s2">"51678"</span><span class="p">,</span>
+                        <span class="s2">"51679"</span>
+                    <span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"PORTS_UDP"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"STRINGSET"</span><span class="p">,</span>
+                    <span class="s2">"doubleValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"longValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"integerValue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"stringSetValue"</span><span class="p">:</span> <span class="p">[]</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"DRAINING"</span><span class="p">,</span>
+            <span class="s2">"agentConnected"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"runningTasksCount"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">"pendingTasksCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"attributes"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.secrets.asm.environment-variables"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.branch-cni-plugin-version"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"e0703516-"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.ami-id"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"ami-00e0090ac21971297"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.secrets.asm.bootstrap.log-driver"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.logging-driver.none"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.ecr-endpoint"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.docker-plugin.local"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.task-cpu-mem-limit"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.secrets.ssm.bootstrap.log-driver"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.30"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.31"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.32"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.availability-zone"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"us-west-2c"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.aws-appmesh"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.logging-driver.awslogs"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.24"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.task-eni-trunking"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.25"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.26"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.27"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.28"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.privileged-container"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.29"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.cpu-architecture"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"x86_64"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.ecr-auth"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.20"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.os-type"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"linux"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.21"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.22"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.task-eia"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.23"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.private-registry-authentication.secretsmanager"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.logging-driver.syslog"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.logging-driver.json-file"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.execution-role-awslogs"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.vpc-id"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"vpc-1234"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.17"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.18"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.docker-remote-api.1.19"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.task-eni"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.execution-role-ecr-pull"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.container-health-check"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.subnet-id"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"subnet-1234"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.instance-type"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"c5.large"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.task-iam-role-network-host"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.container-ordering"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.cni-plugin-version"</span><span class="p">,</span>
+                    <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"91ccefc8-2019.06.0"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.pid-ipc-namespace-sharing"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"ecs.capability.secrets.ssm.environment-variables"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"com.amazonaws.ecs.capability.task-iam-role"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"registeredAt"</span><span class="p">:</span> <span class="mf">1560788724.507</span><span class="p">,</span>
+            <span class="s2">"attachments"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"failures"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>containerInstances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of container instances.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An EC2 instance that is running the Amazon ECS agent and has been registered with a cluster.</p>
+<p>containerInstanceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the container instance. The ARN contains the <tt class="docutils literal"><span class="pre">arn:aws:ecs</span></tt> namespace, followed by the Region of the container instance, the AWS account ID of the container instance owner, the <tt class="docutils literal"><span class="pre">container-instance</span></tt> namespace, and then the container instance ID. For example, <tt class="docutils literal"><span class="pre">arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID</span></tt> .</div>
+</blockquote>
+<p>ec2InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The EC2 instance ID of the container instance.</div>
+</blockquote>
+<p>capacityProviderName -&gt; (string)</p>
+<blockquote>
+<div>The capacity provider associated with the container instance.</div>
+</blockquote>
+<p>version -&gt; (long)</p>
+<blockquote>
+<div>The version counter for the container instance. Every time a container instance experiences a change that triggers a CloudWatch event, the version counter is incremented. If you are replicating your Amazon ECS container instance state with CloudWatch Events, you can compare the version of a container instance reported by the Amazon ECS APIs with the version reported in CloudWatch Events for the container instance (inside the <tt class="docutils literal"><span class="pre">detail</span></tt> object) to verify that the version in your event stream is current.</div>
+</blockquote>
+<p>versionInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The version information for the Amazon ECS container agent and Docker daemon running on the container instance.</p>
+<p>agentVersion -&gt; (string)</p>
+<blockquote>
+<div>The version number of the Amazon ECS container agent.</div>
+</blockquote>
+<p>agentHash -&gt; (string)</p>
+<blockquote>
+<div>The Git commit hash for the Amazon ECS container agent build on the <a class="reference external" href="https://github.com/aws/amazon-ecs-agent/commits/master">amazon-ecs-agent</a> GitHub repository.</div>
+</blockquote>
+<p>dockerVersion -&gt; (string)</p>
+<blockquote>
+<div>The Docker version running on the container instance.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>remainingResources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>For CPU and memory resource types, this parameter describes the remaining CPU and memory that has not already been allocated to tasks and is therefore available for new tasks. For port resource types, this parameter describes the ports that were reserved by the Amazon ECS container agent (at instance registration time) and any task containers that have reserved port mappings on the host (with the <tt class="docutils literal"><span class="pre">host</span></tt> or <tt class="docutils literal"><span class="pre">bridge</span></tt> network mode). Any port that is not specified here is available for new tasks.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the resources available for a container instance.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the resource, such as <tt class="docutils literal"><span class="pre">CPU</span></tt> , <tt class="docutils literal"><span class="pre">MEMORY</span></tt> , <tt class="docutils literal"><span class="pre">PORTS</span></tt> , <tt class="docutils literal"><span class="pre">PORTS_UDP</span></tt> , or a user-defined resource.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the resource, such as <tt class="docutils literal"><span class="pre">INTEGER</span></tt> , <tt class="docutils literal"><span class="pre">DOUBLE</span></tt> , <tt class="docutils literal"><span class="pre">LONG</span></tt> , or <tt class="docutils literal"><span class="pre">STRINGSET</span></tt> .</div>
+</blockquote>
+<p>doubleValue -&gt; (double)</p>
+<blockquote>
+<div>When the <tt class="docutils literal"><span class="pre">doubleValue</span></tt> type is set, the value of the resource must be a double precision floating-point type.</div>
+</blockquote>
+<p>longValue -&gt; (long)</p>
+<blockquote>
+<div>When the <tt class="docutils literal"><span class="pre">longValue</span></tt> type is set, the value of the resource must be an extended precision floating-point type.</div>
+</blockquote>
+<p>integerValue -&gt; (integer)</p>
+<blockquote>
+<div>When the <tt class="docutils literal"><span class="pre">integerValue</span></tt> type is set, the value of the resource must be an integer.</div>
+</blockquote>
+<p>stringSetValue -&gt; (list)</p>
+<blockquote>
+<div>
+<p>When the <tt class="docutils literal"><span class="pre">stringSetValue</span></tt> type is set, the value of the resource must be a string type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>registeredResources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>For CPU and memory resource types, this parameter describes the amount of each resource that was available on the container instance when the container agent registered it with Amazon ECS. This value represents the total amount of CPU and memory that can be allocated on this container instance to tasks. For port resource types, this parameter describes the ports that were reserved by the Amazon ECS container agent when it registered the container instance with Amazon ECS.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the resources available for a container instance.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the resource, such as <tt class="docutils literal"><span class="pre">CPU</span></tt> , <tt class="docutils literal"><span class="pre">MEMORY</span></tt> , <tt class="docutils literal"><span class="pre">PORTS</span></tt> , <tt class="docutils literal"><span class="pre">PORTS_UDP</span></tt> , or a user-defined resource.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the resource, such as <tt class="docutils literal"><span class="pre">INTEGER</span></tt> , <tt class="docutils literal"><span class="pre">DOUBLE</span></tt> , <tt class="docutils literal"><span class="pre">LONG</span></tt> , or <tt class="docutils literal"><span class="pre">STRINGSET</span></tt> .</div>
+</blockquote>
+<p>doubleValue -&gt; (double)</p>
+<blockquote>
+<div>When the <tt class="docutils literal"><span class="pre">doubleValue</span></tt> type is set, the value of the resource must be a double precision floating-point type.</div>
+</blockquote>
+<p>longValue -&gt; (long)</p>
+<blockquote>
+<div>When the <tt class="docutils literal"><span class="pre">longValue</span></tt> type is set, the value of the resource must be an extended precision floating-point type.</div>
+</blockquote>
+<p>integerValue -&gt; (integer)</p>
+<blockquote>
+<div>When the <tt class="docutils literal"><span class="pre">integerValue</span></tt> type is set, the value of the resource must be an integer.</div>
+</blockquote>
+<p>stringSetValue -&gt; (list)</p>
+<blockquote>
+<div>
+<p>When the <tt class="docutils literal"><span class="pre">stringSetValue</span></tt> type is set, the value of the resource must be a string type.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the container instance. The valid values are <tt class="docutils literal"><span class="pre">REGISTERING</span></tt> , <tt class="docutils literal"><span class="pre">REGISTRATION_FAILED</span></tt> , <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> , <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> , <tt class="docutils literal"><span class="pre">DEREGISTERING</span></tt> , or <tt class="docutils literal"><span class="pre">DRAINING</span></tt> .</p>
+<p>If your account has opted in to the <tt class="docutils literal"><span class="pre">awsvpcTrunking</span></tt> account setting, then any newly registered container instance will transition to a <tt class="docutils literal"><span class="pre">REGISTERING</span></tt> status while the trunk elastic network interface is provisioned for the instance. If the registration fails, the instance will transition to a <tt class="docutils literal"><span class="pre">REGISTRATION_FAILED</span></tt> status. You can describe the container instance and see the reason for failure in the <tt class="docutils literal"><span class="pre">statusReason</span></tt> parameter. Once the container instance is terminated, the instance transitions to a <tt class="docutils literal"><span class="pre">DEREGISTERING</span></tt> status while the trunk elastic network interface is deprovisioned. The instance then transitions to an <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> status.</p>
+<p>The <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status indicates that the container instance can accept tasks. The <tt class="docutils literal"><span class="pre">DRAINING</span></tt> indicates that new tasks are not placed on the container instance and any service tasks running on the container instance are removed if possible. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html">Container Instance Draining</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>statusReason -&gt; (string)</p>
+<blockquote>
+<div>The reason that the container instance reached its current status.</div>
+</blockquote>
+<p>agentConnected -&gt; (boolean)</p>
+<blockquote>
+<div>This parameter returns <tt class="docutils literal"><span class="pre">true</span></tt> if the agent is connected to Amazon ECS. Registered instances with an agent that may be unhealthy or stopped return <tt class="docutils literal"><span class="pre">false</span></tt> . Only instances connected to an agent can accept placement requests.</div>
+</blockquote>
+<p>runningTasksCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of tasks on the container instance that are in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> status.</div>
+</blockquote>
+<p>pendingTasksCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of tasks on the container instance that are in the <tt class="docutils literal"><span class="pre">PENDING</span></tt> status.</div>
+</blockquote>
+<p>agentUpdateStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the most recent agent update. If an update has never been requested, this value is <tt class="docutils literal"><span class="pre">NULL</span></tt> .</div>
+</blockquote>
+<p>attributes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The attributes set for the container instance, either by the Amazon ECS container agent at instance registration or manually with the  PutAttributes operation.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An attribute is a name-value pair associated with an Amazon ECS object. Attributes enable you to extend the Amazon ECS data model by adding custom metadata to your resources. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes">Attributes</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, and periods are allowed.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the attribute. Up to 128 letters (uppercase and lowercase), numbers, hyphens, underscores, periods, at signs (@), forward slashes, colons, and spaces are allowed.</div>
+</blockquote>
+<p>targetType -&gt; (string)</p>
+<blockquote>
+<div>The type of the target with which to attach the attribute. This parameter is required if you use the short form ID for a resource instead of the full ARN.</div>
+</blockquote>
+<p>targetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the target. You can specify the short form ID for a resource or the full Amazon Resource Name (ARN).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>registeredAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the container instance was registered.</div>
+</blockquote>
+<p>attachments -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The resources attached to a container instance, such as elastic network interfaces.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing a container instance or task attachment.</p>
+<p>id -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the attachment.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the attachment, such as <tt class="docutils literal"><span class="pre">ElasticNetworkInterface</span></tt> .</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the attachment. Valid values are <tt class="docutils literal"><span class="pre">PRECREATED</span></tt> , <tt class="docutils literal"><span class="pre">CREATED</span></tt> , <tt class="docutils literal"><span class="pre">ATTACHING</span></tt> , <tt class="docutils literal"><span class="pre">ATTACHED</span></tt> , <tt class="docutils literal"><span class="pre">DETACHING</span></tt> , <tt class="docutils literal"><span class="pre">DETACHED</span></tt> , and <tt class="docutils literal"><span class="pre">DELETED</span></tt> .</div>
+</blockquote>
+<p>details -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Details of the attachment. For elastic network interfaces, this includes the network interface ID, the MAC address, the subnet ID, and the private IPv4 address.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.</p>
+<p>The following basic restrictions apply to tags:</p>
+<ul class="simple">
+<li>Maximum number of tags per resource - 50</li>
+<li>For each resource, each tag key must be unique, and each tag key can have only one value.</li>
+<li>Maximum key length - 128 Unicode characters in UTF-8</li>
+<li>Maximum value length - 256 Unicode characters in UTF-8</li>
+<li>If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</li>
+<li>Tag keys and values are case-sensitive.</li>
+<li>Do not use <tt class="docutils literal"><span class="pre">aws:</span></tt> , <tt class="docutils literal"><span class="pre">AWS:</span></tt> , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to a resource to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.</p>
+<p>The following basic restrictions apply to tags:</p>
+<ul class="simple">
+<li>Maximum number of tags per resource - 50</li>
+<li>For each resource, each tag key must be unique, and each tag key can have only one value.</li>
+<li>Maximum key length - 128 Unicode characters in UTF-8</li>
+<li>Maximum value length - 256 Unicode characters in UTF-8</li>
+<li>If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</li>
+<li>Tag keys and values are case-sensitive.</li>
+<li>Do not use <tt class="docutils literal"><span class="pre">aws:</span></tt> , <tt class="docutils literal"><span class="pre">AWS:</span></tt> , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.</li>
+</ul>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>One part of a key-value pair that make up a tag. A <tt class="docutils literal"><span class="pre">key</span></tt> is a general label that acts like a category for more specific tag values.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The optional part of a key-value pair that make up a tag. A <tt class="docutils literal"><span class="pre">value</span></tt> acts as a descriptor within a tag category (key).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>failures -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any failures associated with the call.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A failed resource.</p>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the failed resource.</div>
+</blockquote>
+<p>reason -&gt; (string)</p>
+<blockquote>
+<div>The reason for the failure.</div>
+</blockquote>
+<p>detail -&gt; (string)</p>
+<blockquote>
+<div>The details of the failure.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

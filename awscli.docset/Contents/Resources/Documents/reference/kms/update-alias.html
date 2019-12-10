@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-alias — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="update-custom-key-store" href="update-custom-key-store.html">
+    <link rel="prev" title="untag-resource" href="untag-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-alias">
+<span id="cli-aws-kms-update-alias"></span><h1>update-alias<a class="headerlink" href="#update-alias" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Associates an existing AWS KMS alias with a different customer master key (CMK). Each alias is associated with only one CMK at a time, although a CMK can have multiple aliases. The alias and the CMK must be in the same AWS account and region. You cannot perform this operation on an alias in a different AWS account.</p>
+<p>The current and new CMK must be the same type (both symmetric or both asymmetric), and they must have the same key usage (<tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> or <tt class="docutils literal"><span class="pre">SIGN_VERIFY</span></tt> ). This restriction prevents errors in code that uses aliases. If you must assign an alias to a different type of CMK, use  DeleteAlias to delete the old alias and  CreateAlias to create a new alias.</p>
+<p>You cannot use <tt class="docutils literal"><span class="pre">UpdateAlias</span></tt> to change an alias name. To change an alias name, use  DeleteAlias to delete the old alias and  CreateAlias to create a new alias.</p>
+<p>Because an alias is not a property of a CMK, you can create, update, and delete the aliases of a CMK without affecting the CMK. Also, aliases do not appear in the response from the  DescribeKey operation. To get the aliases of all CMKs in the account, use the  ListAliases operation.</p>
+<p>The CMK that you use for this operation must be in a compatible key state. For details, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/UpdateAlias">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-alias
+--alias-name &lt;value&gt;
+--target-key-id &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--alias-name</span></tt> (string)</p>
+<blockquote>
+<div>Identifies the alias that is changing its CMK. This value must begin with <tt class="docutils literal"><span class="pre">alias/</span></tt> followed by the alias name, such as <tt class="docutils literal"><span class="pre">alias/ExampleAlias</span></tt> . You cannot use UpdateAlias to change the alias name.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--target-key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Identifies the CMK to associate with the alias. When the update operation completes, the alias will point to this CMK.</p>
+<p>The CMK must be in the same AWS account and Region as the alias. Also, the new target CMK must be the same type as the current target CMK (both symmetric or both asymmetric) and they must have the same key usage.</p>
+<p>Specify the key ID or the Amazon Resource Name (ARN) of the CMK.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey .</p>
+<p>To verify that the alias is mapped to the correct CMK, use  ListAliases .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To associate an alias with a different CMK</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-alias</span></tt> example associates the alias <tt class="docutils literal"><span class="pre">alias/test-key</span></tt> with a different CMK.</p>
+<ul>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--alias-name</span></tt> parameter specifies the alias. The alias name value must begin with <tt class="docutils literal"><span class="pre">alias/</span></tt>.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--target-key-id</span></tt> parameter specifies the CMK to associate with the alias. You don't need to specify the current CMK for the alias.</p>
+<div class="highlight-python">
+<pre>aws kms update-alias \
+    --alias-name alias/test-key \
+    --target-key-id 1234abcd-12ab-34cd-56ef-1234567890ab</pre>
+</div>
+</li>
+</ul>
+<p>This command produces no output. To find the alias, use the <tt class="docutils literal"><span class="pre">list-aliases</span></tt> command.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/programming-aliases.html">Working with Aliases</a> in the <em>AWS Key Management Service Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

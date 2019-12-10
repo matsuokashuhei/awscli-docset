@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-compliance-items — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="put-inventory" href="put-inventory.html">
+    <link rel="prev" title="modify-document-permission" href="modify-document-permission.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-compliance-items">
+<span id="cli-aws-ssm-put-compliance-items"></span><h1>put-compliance-items<a class="headerlink" href="#put-compliance-items" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Registers a compliance type and other compliance details on a designated resource. This action lets you register custom compliance details with a resource. This call overwrites existing compliance information on the resource, so you must provide a full list of compliance items each time that you send the request.</p>
+<p>ComplianceType can be one of the following:</p>
+<ul class="simple">
+<li>ExecutionId: The execution ID when the patch, association, or custom compliance item was applied.</li>
+<li>ExecutionType: Specify patch, association, or Custom:<tt class="docutils literal"><span class="pre">string</span></tt> .</li>
+<li>ExecutionTime. The time the patch, association, or custom compliance item was applied to the instance.</li>
+<li>Id: The patch, association, or custom compliance ID.</li>
+<li>Title: A title.</li>
+<li>Status: The status of the compliance item. For example, <tt class="docutils literal"><span class="pre">approved</span></tt> for patches, or <tt class="docutils literal"><span class="pre">Failed</span></tt> for associations.</li>
+<li>Severity: A patch severity. For example, <tt class="docutils literal"><span class="pre">critical</span></tt> .</li>
+<li>DocumentName: A SSM document name. For example, AWS-RunPatchBaseline.</li>
+<li>DocumentVersion: An SSM document version number. For example, 4.</li>
+<li>Classification: A patch classification. For example, <tt class="docutils literal"><span class="pre">security</span> <span class="pre">updates</span></tt> .</li>
+<li>PatchBaselineId: A patch baseline ID.</li>
+<li>PatchSeverity: A patch severity. For example, <tt class="docutils literal"><span class="pre">Critical</span></tt> .</li>
+<li>PatchState: A patch state. For example, <tt class="docutils literal"><span class="pre">InstancesWithFailedPatches</span></tt> .</li>
+<li>PatchGroup: The name of a patch group.</li>
+<li>InstalledTime: The time the association, patch, or custom compliance item was applied to the resource. Specify the time by using the following format: yyyy-MM-dd'T'HH:mm:ss'Z'</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/PutComplianceItems">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-compliance-items
+--resource-id &lt;value&gt;
+--resource-type &lt;value&gt;
+--compliance-type &lt;value&gt;
+--execution-summary &lt;value&gt;
+--items &lt;value&gt;
+[--item-content-hash &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--resource-id</span></tt> (string)</p>
+<blockquote>
+<div>Specify an ID for this resource. For a managed instance, this is the instance ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-type</span></tt> (string)</p>
+<blockquote>
+<div>Specify the type of resource. <tt class="docutils literal"><span class="pre">ManagedInstance</span></tt> is currently the only supported resource type.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--compliance-type</span></tt> (string)</p>
+<blockquote>
+<div>Specify the compliance type. For example, specify Association (for a State Manager association), Patch, or Custom:<tt class="docutils literal"><span class="pre">string</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--execution-summary</span></tt> (structure)</p>
+<blockquote>
+<div>A summary of the call execution that includes an execution ID, the type of execution (for example, <tt class="docutils literal"><span class="pre">Command</span></tt> ), and the date/time of the execution using a datetime object that is saved in the following format: yyyy-MM-dd'T'HH:mm:ss'Z'.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ExecutionTime</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span><span class="n">ExecutionId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ExecutionType</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ExecutionTime"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+  <span class="s2">"ExecutionId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ExecutionType"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--items</span></tt> (list)</p>
+<blockquote>
+<div>Information about the compliance as defined by the resource type. For example, for a patch compliance type, <tt class="docutils literal"><span class="pre">Items</span></tt> includes information about the PatchSeverity, Classification, etc.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Id=string,Title=string,Severity=string,Status=string,Details={KeyName1=string,KeyName2=string} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Id": "string",
+    "Title": "string",
+    "Severity": "CRITICAL"|"HIGH"|"MEDIUM"|"LOW"|"INFORMATIONAL"|"UNSPECIFIED",
+    "Status": "COMPLIANT"|"NON_COMPLIANT",
+    "Details": {"string": "string"
+      ...}
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--item-content-hash</span></tt> (string)</p>
+<blockquote>
+<div>MD5 or SHA-256 content hash. The content hash is used to determine if existing information should be overwritten or ignored. If the content hashes match, the request to put compliance information is ignored.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To register a compliance type and compliance details to a designated instance</strong></p>
+<p>This example registers the compliance type <tt class="docutils literal"><span class="pre">Custom:AVCheck</span></tt> to the specified managed instance. There is no output if the command succeeds.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm put-compliance-items --resource-id "i-1234567890abcdef0" --resource-type "ManagedInstance" --compliance-type "Custom:AVCheck" --execution-summary "ExecutionTime=2019-02-18T16:00:00Z" --items "Id=Version2.0,Title=ScanHost,Severity=CRITICAL,Status=COMPLIANT"</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

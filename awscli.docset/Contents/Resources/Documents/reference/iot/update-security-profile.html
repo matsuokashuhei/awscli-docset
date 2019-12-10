@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-security-profile — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iot" href="index.html">
+    <link rel="next" title="update-stream" href="update-stream.html">
+    <link rel="prev" title="update-scheduled-audit" href="update-scheduled-audit.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-security-profile">
+<span id="cli-aws-iot-update-security-profile"></span><h1>update-security-profile<a class="headerlink" href="#update-security-profile" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates a Device Defender security profile.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iot-2015-05-28/UpdateSecurityProfile">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-security-profile
+--security-profile-name &lt;value&gt;
+[--security-profile-description &lt;value&gt;]
+[--behaviors &lt;value&gt;]
+[--alert-targets &lt;value&gt;]
+[--additional-metrics-to-retain &lt;value&gt;]
+[--delete-behaviors | --no-delete-behaviors]
+[--delete-alert-targets | --no-delete-alert-targets]
+[--delete-additional-metrics-to-retain | --no-delete-additional-metrics-to-retain]
+[--expected-version &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--security-profile-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the security profile you want to update.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--security-profile-description</span></tt> (string)</p>
+<blockquote>
+<div>A description of the security profile.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--behaviors</span></tt> (list)</p>
+<blockquote>
+<div>Specifies the behaviors that, when violated by a device (thing), cause an alert.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "name": "string",
+    "metric": "string",
+    "criteria": {
+      "comparisonOperator": "less-than"|"less-than-equals"|"greater-than"|"greater-than-equals"|"in-cidr-set"|"not-in-cidr-set"|"in-port-set"|"not-in-port-set",
+      "value": {
+        "count": long,
+        "cidrs": ["string", ...],
+        "ports": [integer, ...]
+      },
+      "durationSeconds": integer,
+      "consecutiveDatapointsToAlarm": integer,
+      "consecutiveDatapointsToClear": integer,
+      "statisticalThreshold": {
+        "statistic": "string"
+      }
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--alert-targets</span></tt> (map)</p>
+<blockquote>
+<div>Where the alerts are sent. (Alerts are always sent to the console.)</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>  KeyName1=alertTargetArn=string,roleArn=string,KeyName2=alertTargetArn=string,roleArn=string
+
+Where valid key names are:
+  SNS</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"SNS": {
+      "alertTargetArn": "string",
+      "roleArn": "string"
+    }
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--additional-metrics-to-retain</span></tt> (list)</p>
+<blockquote>
+<div>A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's <tt class="docutils literal"><span class="pre">behaviors</span></tt> , but it is also retained for any metric specified here.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--delete-behaviors</span></tt> | <tt class="docutils literal"><span class="pre">--no-delete-behaviors</span></tt> (boolean)</p>
+<blockquote>
+<div>If true, delete all <tt class="docutils literal"><span class="pre">behaviors</span></tt> defined for this security profile. If any <tt class="docutils literal"><span class="pre">behaviors</span></tt> are defined in the current invocation, an exception occurs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delete-alert-targets</span></tt> | <tt class="docutils literal"><span class="pre">--no-delete-alert-targets</span></tt> (boolean)</p>
+<blockquote>
+<div>If true, delete all <tt class="docutils literal"><span class="pre">alertTargets</span></tt> defined for this security profile. If any <tt class="docutils literal"><span class="pre">alertTargets</span></tt> are defined in the current invocation, an exception occurs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--delete-additional-metrics-to-retain</span></tt> | <tt class="docutils literal"><span class="pre">--no-delete-additional-metrics-to-retain</span></tt> (boolean)</p>
+<blockquote>
+<div>If true, delete all <tt class="docutils literal"><span class="pre">additionalMetricsToRetain</span></tt> defined for this security profile. If any <tt class="docutils literal"><span class="pre">additionalMetricsToRetain</span></tt> are defined in the current invocation, an exception occurs.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--expected-version</span></tt> (long)</p>
+<blockquote>
+<div>The expected version of the security profile. A new version is generated whenever the security profile is updated. If you specify a value that is different from the actual version, a <tt class="docutils literal"><span class="pre">VersionConflictException</span></tt> is thrown.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To change a security profile</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-security-profile</span></tt> example updates both the description and the behaviors for an AWS IoT Device Defender security profile.</p>
+<div class="highlight-python">
+<pre>aws iot update-security-profile \
+    --security-profile-name PossibleIssue \
+    --security-profile-description "check to see if authorization fails 12 times in 5 minutes or if cellular bandwidth exceeds 128"  \
+    --behaviors "[{\"name\":\"CellularBandwidth\",\"metric\":\"aws:message-byte-size\",\"criteria\":{\"comparisonOperator\":\"greater-than\",\"value\":{\"count\":128},\"consecutiveDatapointsToAlarm\":1,\"consecutiveDatapointsToClear\":1}},{\"name\":\"Authorization\",\"metric\":\"aws:num-authorization-failures\",\"criteria\":{\"comparisonOperator\":\"greater-than\",\"value\":{\"count\":12},\"durationSeconds\":300,\"consecutiveDatapointsToAlarm\":1,\"consecutiveDatapointsToClear\":1}}]"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"securityProfileName"</span><span class="p">:</span> <span class="s2">"PossibleIssue"</span><span class="p">,</span>
+    <span class="s2">"securityProfileArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iot:us-west-2:123456789012:securityprofile/PossibleIssue"</span><span class="p">,</span>
+    <span class="s2">"securityProfileDescription"</span><span class="p">:</span> <span class="s2">"check to see if authorization fails 12 times in 5 minutes or if cellular bandwidth exceeds 128"</span><span class="p">,</span>
+    <span class="s2">"behaviors"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"CellularBandwidth"</span><span class="p">,</span>
+            <span class="s2">"metric"</span><span class="p">:</span> <span class="s2">"aws:message-byte-size"</span><span class="p">,</span>
+            <span class="s2">"criteria"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"comparisonOperator"</span><span class="p">:</span> <span class="s2">"greater-than"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"count"</span><span class="p">:</span> <span class="mi">128</span>
+                <span class="p">},</span>
+                <span class="s2">"consecutiveDatapointsToAlarm"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"consecutiveDatapointsToClear"</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Authorization"</span><span class="p">,</span>
+            <span class="s2">"metric"</span><span class="p">:</span> <span class="s2">"aws:num-authorization-failures"</span><span class="p">,</span>
+            <span class="s2">"criteria"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"comparisonOperator"</span><span class="p">:</span> <span class="s2">"greater-than"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"count"</span><span class="p">:</span> <span class="mi">12</span>
+                <span class="p">},</span>
+                <span class="s2">"durationSeconds"</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+                <span class="s2">"consecutiveDatapointsToAlarm"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"consecutiveDatapointsToClear"</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"version"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"creationDate"</span><span class="p">:</span> <span class="mf">1560278102.528</span><span class="p">,</span>
+    <span class="s2">"lastModifiedDate"</span><span class="p">:</span> <span class="mf">1560352711.207</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iot/latest/developerguide/DetectCommands.html">Detect Commands</a> in the <em>AWS IoT Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>securityProfileName -&gt; (string)</p>
+<blockquote>
+<div>The name of the security profile that was updated.</div>
+</blockquote>
+<p>securityProfileArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the security profile that was updated.</div>
+</blockquote>
+<p>securityProfileDescription -&gt; (string)</p>
+<blockquote>
+<div>The description of the security profile.</div>
+</blockquote>
+<p>behaviors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Specifies the behaviors that, when violated by a device (thing), cause an alert.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A Device Defender security profile behavior.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name you have given to the behavior.</div>
+</blockquote>
+<p>metric -&gt; (string)</p>
+<blockquote>
+<div>What is measured by the behavior.</div>
+</blockquote>
+<p>criteria -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The criteria that determine if a device is behaving normally in regard to the <tt class="docutils literal"><span class="pre">metric</span></tt> .</p>
+<p>comparisonOperator -&gt; (string)</p>
+<blockquote>
+<div>The operator that relates the thing measured (<tt class="docutils literal"><span class="pre">metric</span></tt> ) to the criteria (containing a <tt class="docutils literal"><span class="pre">value</span></tt> or <tt class="docutils literal"><span class="pre">statisticalThreshold</span></tt> ).</div>
+</blockquote>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The value to be compared with the <tt class="docutils literal"><span class="pre">metric</span></tt> .</p>
+<p>count -&gt; (long)</p>
+<blockquote>
+<div>If the <tt class="docutils literal"><span class="pre">comparisonOperator</span></tt> calls for a numeric value, use this to specify that numeric value to be compared with the <tt class="docutils literal"><span class="pre">metric</span></tt> .</div>
+</blockquote>
+<p>cidrs -&gt; (list)</p>
+<blockquote>
+<div>
+<p>If the <tt class="docutils literal"><span class="pre">comparisonOperator</span></tt> calls for a set of CIDRs, use this to specify that set to be compared with the <tt class="docutils literal"><span class="pre">metric</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ports -&gt; (list)</p>
+<blockquote>
+<div>
+<p>If the <tt class="docutils literal"><span class="pre">comparisonOperator</span></tt> calls for a set of ports, use this to specify that set to be compared with the <tt class="docutils literal"><span class="pre">metric</span></tt> .</p>
+<p>(integer)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>durationSeconds -&gt; (integer)</p>
+<blockquote>
+<div>Use this to specify the time duration over which the behavior is evaluated, for those criteria which have a time dimension (for example, <tt class="docutils literal"><span class="pre">NUM_MESSAGES_SENT</span></tt> ). For a <tt class="docutils literal"><span class="pre">statisticalThreshhold</span></tt> metric comparison, measurements from all devices are accumulated over this time duration before being used to calculate percentiles, and later, measurements from an individual device are also accumulated over this time duration before being given a percentile rank.</div>
+</blockquote>
+<p>consecutiveDatapointsToAlarm -&gt; (integer)</p>
+<blockquote>
+<div>If a device is in violation of the behavior for the specified number of consecutive datapoints, an alarm occurs. If not specified, the default is 1.</div>
+</blockquote>
+<p>consecutiveDatapointsToClear -&gt; (integer)</p>
+<blockquote>
+<div>If an alarm has occurred and the offending device is no longer in violation of the behavior for the specified number of consecutive datapoints, the alarm is cleared. If not specified, the default is 1.</div>
+</blockquote>
+<p>statisticalThreshold -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A statistical ranking (percentile) which indicates a threshold value by which a behavior is determined to be in compliance or in violation of the behavior.</p>
+<p>statistic -&gt; (string)</p>
+<blockquote>
+<div>The percentile which resolves to a threshold value by which compliance with a behavior is determined. Metrics are collected over the specified period (<tt class="docutils literal"><span class="pre">durationSeconds</span></tt> ) from all reporting devices in your account and statistical ranks are calculated. Then, the measurements from a device are collected over the same period. If the accumulated measurements from the device fall above or below (<tt class="docutils literal"><span class="pre">comparisonOperator</span></tt> ) the value associated with the percentile specified, then the device is considered to be in compliance with the behavior, otherwise a violation occurs.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>alertTargets -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Where the alerts are sent. (Alerts are always sent to the console.)</p>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>The type of alert target: one of "SNS".</div>
+</blockquote>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A structure containing the alert target ARN and the role ARN.</p>
+<p>alertTargetArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the notification target to which alerts are sent.</div>
+</blockquote>
+<p>roleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the role that grants permission to send alerts to the notification target.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>additionalMetricsToRetain -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the security profile's <tt class="docutils literal"><span class="pre">behaviors</span></tt> , but it is also retained for any metric specified here.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>version -&gt; (long)</p>
+<blockquote>
+<div>The updated version of the security profile.</div>
+</blockquote>
+<p>creationDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the security profile was created.</div>
+</blockquote>
+<p>lastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the security profile was last modified.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

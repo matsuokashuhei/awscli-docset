@@ -1,0 +1,579 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>send-command — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="start-associations-once" href="start-associations-once.html">
+    <link rel="prev" title="send-automation-signal" href="send-automation-signal.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="send-command">
+<span id="cli-aws-ssm-send-command"></span><h1>send-command<a class="headerlink" href="#send-command" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Runs commands on one or more managed instances.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/SendCommand">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  send-command
+[--instance-ids &lt;value&gt;]
+[--targets &lt;value&gt;]
+--document-name &lt;value&gt;
+[--document-version &lt;value&gt;]
+[--document-hash &lt;value&gt;]
+[--document-hash-type &lt;value&gt;]
+[--timeout-seconds &lt;value&gt;]
+[--comment &lt;value&gt;]
+[--parameters &lt;value&gt;]
+[--output-s3-region &lt;value&gt;]
+[--output-s3-bucket-name &lt;value&gt;]
+[--output-s3-key-prefix &lt;value&gt;]
+[--max-concurrency &lt;value&gt;]
+[--max-errors &lt;value&gt;]
+[--service-role-arn &lt;value&gt;]
+[--notification-config &lt;value&gt;]
+[--cloud-watch-output-config &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--instance-ids</span></tt> (list)</p>
+<blockquote>
+<div>The instance IDs where the command should run. You can specify a maximum of 50 IDs. If you prefer not to list individual instance IDs, you can instead send commands to a fleet of instances using the Targets parameter, which accepts EC2 tags. For more information about how to use targets, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html">Sending Commands to a Fleet</a> in the <em>AWS Systems Manager User Guide</em> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--targets</span></tt> (list)</p>
+<blockquote>
+<div>(Optional) An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is required if you don't provide one or more instance IDs in the call. For more information about how to use targets, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html">Sending Commands to a Fleet</a> in the <em>AWS Systems Manager User Guide</em> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--document-name</span></tt> (string)</p>
+<blockquote>
+<div>Required. The name of the Systems Manager document to run. This can be a public document or a custom document.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--document-version</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The SSM document version to use in the request. You can specify $DEFAULT, $LATEST, or a specific version number. If you run commands by using the AWS CLI, then you must escape the first two options by using a backslash. If you specify a version number, then you don't need to use the backslash. For example:</p>
+<p class="attribution">—document-version "$DEFAULT"</p>
+</div>
+</blockquote>
+<blockquote>
+<div>
+<p>--document-version "$LATEST"</p>
+<p class="attribution">—document-version "3"</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--document-hash</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The Sha256 or Sha1 hash created by the system when the document was created.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sha1 hashes have been deprecated.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--document-hash-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Sha256 or Sha1.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sha1 hashes have been deprecated.</p>
+</div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Sha256</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Sha1</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--timeout-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>If this time is reached and the command has not already started running, it will not run.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--comment</span></tt> (string)</p>
+<blockquote>
+<div>User-specified information about the command, such as a brief description of what the command should do.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameters</span></tt> (map)</p>
+<blockquote>
+<div>The required and optional parameters specified in the document being run.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": ["string", ...]
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--output-s3-region</span></tt> (string)</p>
+<blockquote>
+<div>(Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager automatically determines the Amazon S3 bucket region.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--output-s3-bucket-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the S3 bucket where command execution responses should be stored.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--output-s3-key-prefix</span></tt> (string)</p>
+<blockquote>
+<div>The directory structure within the S3 bucket where the responses should be stored.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-concurrency</span></tt> (string)</p>
+<blockquote>
+<div>(Optional) The maximum number of instances that are allowed to run the command at the same time. You can specify a number such as 10 or a percentage such as 10%. The default value is 50. For more information about how to use MaxConcurrency, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-velocity">Using Concurrency Controls</a> in the <em>AWS Systems Manager User Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-errors</span></tt> (string)</p>
+<blockquote>
+<div>The maximum number of errors allowed without the command failing. When the command fails one more time beyond the value of MaxErrors, the systems stops sending the command to additional targets. You can specify a number like 10 or a percentage like 10%. The default value is 0. For more information about how to use MaxErrors, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-maxerrors">Using Error Controls</a> in the <em>AWS Systems Manager User Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for Run Command commands.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--notification-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configurations for sending notifications.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">NotificationArn</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">NotificationEvents</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">NotificationType</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"NotificationArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"NotificationEvents"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"All"</span><span class="o">|</span><span class="s2">"InProgress"</span><span class="o">|</span><span class="s2">"Success"</span><span class="o">|</span><span class="s2">"TimedOut"</span><span class="o">|</span><span class="s2">"Cancelled"</span><span class="o">|</span><span class="s2">"Failed"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"NotificationType"</span><span class="p">:</span> <span class="s2">"Command"</span><span class="o">|</span><span class="s2">"Invocation"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cloud-watch-output-config</span></tt> (structure)</p>
+<blockquote>
+<div>Enables Systems Manager to send Run Command output to Amazon CloudWatch Logs.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">CloudWatchLogGroupName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">CloudWatchOutputEnabled</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"CloudWatchLogGroupName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CloudWatchOutputEnabled"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To run a command on one or more remote instances</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">send-command</span></tt> example runs an <tt class="docutils literal"><span class="pre">echo</span></tt> command on a target instance.</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --document-name "AWS-RunShellScript" \
+    --parameters commands=["echo HelloWorld"] \
+    --targets "Key=instanceids,Values=i-1234567890abcdef0" \
+    --comment "echo HelloWorld"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Command"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"CommandId"</span><span class="p">:</span> <span class="s2">"92853adf-ba41-4cd6-9a88-142d119c083d"</span><span class="p">,</span>
+        <span class="s2">"DocumentName"</span><span class="p">:</span> <span class="s2">"AWS-RunShellScript"</span><span class="p">,</span>
+        <span class="s2">"DocumentVersion"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"echo HelloWorld"</span><span class="p">,</span>
+        <span class="s2">"ExpiresAfter"</span><span class="p">:</span> <span class="mf">1550181014.717</span><span class="p">,</span>
+        <span class="s2">"Parameters"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"commands"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">"echo HelloWorld"</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">"InstanceIds"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"i-0f00f008a2dcbefe2"</span>
+        <span class="p">],</span>
+        <span class="s2">"Targets"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"RequestedDateTime"</span><span class="p">:</span> <span class="mf">1550173814.717</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Pending"</span><span class="p">,</span>
+        <span class="s2">"StatusDetails"</span><span class="p">:</span> <span class="s2">"Pending"</span><span class="p">,</span>
+        <span class="s2">"OutputS3BucketName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"OutputS3KeyPrefix"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"MaxConcurrency"</span><span class="p">:</span> <span class="s2">"50"</span><span class="p">,</span>
+        <span class="s2">"MaxErrors"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="s2">"TargetCount"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"CompletedCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"ErrorCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"DeliveryTimedOutCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"ServiceRole"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"NotificationConfig"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"NotificationArn"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"NotificationEvents"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"NotificationType"</span><span class="p">:</span> <span class="s2">""</span>
+        <span class="p">},</span>
+        <span class="s2">"CloudWatchOutputConfig"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"CloudWatchLogGroupName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"CloudWatchOutputEnabled"</span><span class="p">:</span> <span class="n">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To get IP information about an instance</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">send-command</span></tt> example retrieves the IP information about an instance.</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --instance-ids "i-1234567890abcdef0" \
+    --document-name "AWS-RunShellScript" \
+    --comment "IP config" \
+    --parameters "commands=ifconfig"</pre>
+</div>
+<p><strong>Example 3: To runs a command on instances with specific tags</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">send-command</span></tt> example runs a command on instances that have the tag key "ENV" and the value "Dev".</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --targets "Key=tag:ENV,Values=Dev" \
+    --document-name "AWS-RunShellScript" \
+    --parameters "commands=ifconfig"</pre>
+</div>
+<p><strong>Example 4: To runs a command that sends SNS Notifications</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">send-command</span></tt> example runs a command that sends SNS notifications for all notification events and the Command notification type.</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --instance-ids "i-1234567890abcdef0" \
+    --document-name "AWS-RunShellScript" \
+    --comment "IP config" \
+    --parameters "commands=ifconfig" \
+    --service-role-arn "arn:aws:iam::123456789012:role/SNS_Role" \
+    --notification-config "NotificationArn=arn:aws:sns:us-east-1:123456789012:SNSTopicName,NotificationEvents=All,NotificationType=Command"</pre>
+</div>
+<p><strong>Example 5: To run a command that outputs to S3 and CloudWatch</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">send-command</span></tt> example runs a command that outputs command details to an S3 bucket and to a CloudWatch Logs Group.</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --instance-ids "i-1234567890abcdef0" \
+    --document-name "AWS-RunShellScript" \
+    --comment "IP config" \
+    --parameters "commands=ifconfig" \
+    --output-s3-bucket-name "s3-bucket-name" \
+    --output-s3-key-prefix "runcommand" \
+    --cloud-watch-output-config "CloudWatchOutputEnabled=true,CloudWatchLogGroupName=CWLGroupName"</pre>
+</div>
+<p><strong>Example 6: To run commands on multiple instances with different tags</strong></p>
+<p>The follwoing <tt class="docutils literal"><span class="pre">send-command</span></tt> example runs a command on instances with two different tag keys and values.</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --document-name "AWS-RunPowerShellScript" \
+    --parameters commands=["echo helloWorld"] \
+    --targets Key=tag:Env,Values=Dev Key=tag:Role,Values=WebServers</pre>
+</div>
+<p><strong>Example 7: To target multiple instances with the same tag key</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">send-command</span></tt> example runs a command on instances that have the same tag key but with different values.</p>
+<div class="highlight-python">
+<pre>aws ssm send-command \
+    --document-name "AWS-RunPowerShellScript" \
+    --parameters commands=["echo helloWorld"] \
+    --targets Key=tag:Env,Values=Dev,Test</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Command -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The request as it was received by Systems Manager. Also provides the command ID which can be used future references to this request.</p>
+<p>CommandId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for this command.</div>
+</blockquote>
+<p>DocumentName -&gt; (string)</p>
+<blockquote>
+<div>The name of the document requested for execution.</div>
+</blockquote>
+<p>DocumentVersion -&gt; (string)</p>
+<blockquote>
+<div>The SSM document version.</div>
+</blockquote>
+<p>Comment -&gt; (string)</p>
+<blockquote>
+<div>User-specified information about the command, such as a brief description of what the command should do.</div>
+</blockquote>
+<p>ExpiresAfter -&gt; (timestamp)</p>
+<blockquote>
+<div>If this time is reached and the command has not already started running, it will not run. Calculated based on the ExpiresAfter user input provided as part of the SendCommand API.</div>
+</blockquote>
+<p>Parameters -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The parameter values to be inserted in the document when running the command.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (list)</p>
+<blockquote>
+<div>(string)</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InstanceIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The instance IDs against which this command was requested.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Targets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of search criteria that targets instances using a Key,Value combination that you specify. Targets is required if you don't provide one or more instance IDs in the call.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An array of search criteria that targets instances using a Key,Value combination that you specify.</p>
+<p>Supported formats include the following.</p>
+<ul class="simple">
+<li>
+<a href="#id1"><span class="problematic" id="id2">``</span></a>Key=InstanceIds,Values=*instance-id-1* ,*instance-id-2* ,*instance-id-3* ``</li>
+<li>
+<a href="#id3"><span class="problematic" id="id4">``</span></a>Key=tag:<em>my-tag-key</em> ,Values=*my-tag-value-1* ,*my-tag-value-2* ``</li>
+<li>
+<a href="#id5"><span class="problematic" id="id6">``</span></a>Key=tag-key,Values=*my-tag-key-1* ,*my-tag-key-2* ``</li>
+<li>(Maintenance window targets only) <a href="#id7"><span class="problematic" id="id8">``</span></a>Key=resource-groups:Name,Values=*resource-group-name* ``</li>
+<li>(Maintenance window targets only) <a href="#id9"><span class="problematic" id="id10">``</span></a>Key=resource-groups:ResourceTypeFilters,Values=*resource-type-1* ,*resource-type-2* ``</li>
+</ul>
+<p>For example:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Key=InstanceIds,Values=i-02573cafcfEXAMPLE,i-0471e04240EXAMPLE,i-07782c72faEXAMPLE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Key=tag:CostCenter,Values=CostCenter1,CostCenter2,CostCenter3</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Key=tag-key,Values=Name,Instance-Type,CostCenter</span></tt></li>
+<li>(Maintenance window targets only) <tt class="docutils literal"><span class="pre">Key=resource-groups:Name,Values=ProductionResourceGroup</span></tt>   This example demonstrates how to target all resources in the resource group <strong>ProductionResourceGroup</strong> in your maintenance window.</li>
+<li>(Maintenance window targets only) <a href="#id11"><span class="problematic" id="id12">``</span></a>Key=resource-groups:ResourceTypeFilters,Values=*AWS::EC2::INSTANCE* ,*AWS::EC2::VPC* ``   This example demonstrates how to target only Amazon EC2 instances and VPCs in your maintenance window.</li>
+<li>(State Manager association targets only) <tt class="docutils literal"><span class="pre">Key=InstanceIds,Values=*</span></tt>   This example demonstrates how to target all managed instances in the AWS Region where the association was created.</li>
+</ul>
+<p>For information about how to send commands that target instances using <tt class="docutils literal"><span class="pre">Key,Value</span></tt> parameters, see <a class="reference external" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-targeting">Using Targets and Rate Controls to Send Commands to a Fleet</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>User-defined criteria for sending commands that target instances that meet the criteria.</div>
+</blockquote>
+<p>Values -&gt; (list)</p>
+<blockquote>
+<div>
+<p>User-defined criteria that maps to <tt class="docutils literal"><span class="pre">Key</span></tt> . For example, if you specified <tt class="docutils literal"><span class="pre">tag:ServerRole</span></tt> , you could specify <tt class="docutils literal"><span class="pre">value:WebServer</span></tt> to run a command on instances that include Amazon EC2 tags of <tt class="docutils literal"><span class="pre">ServerRole,WebServer</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RequestedDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time the command was requested.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the command.</div>
+</blockquote>
+<p>StatusDetails -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A detailed status of the command execution. StatusDetails includes more information than Status because it includes states resulting from error and concurrency control parameters. StatusDetails can show different results than Status. For more information about these statuses, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html">Understanding Command Statuses</a> in the <em>AWS Systems Manager User Guide</em> . StatusDetails can be one of the following values:</p>
+<ul class="simple">
+<li>Pending: The command has not been sent to any instances.</li>
+<li>In Progress: The command has been sent to at least one instance but has not reached a final state on all instances.</li>
+<li>Success: The command successfully ran on all invocations. This is a terminal state.</li>
+<li>Delivery Timed Out: The value of MaxErrors or more command invocations shows a status of Delivery Timed Out. This is a terminal state.</li>
+<li>Execution Timed Out: The value of MaxErrors or more command invocations shows a status of Execution Timed Out. This is a terminal state.</li>
+<li>Failed: The value of MaxErrors or more command invocations shows a status of Failed. This is a terminal state.</li>
+<li>Incomplete: The command was attempted on all instances and one or more invocations does not have a value of Success but not enough invocations failed for the status to be Failed. This is a terminal state.</li>
+<li>Canceled: The command was terminated before it was completed. This is a terminal state.</li>
+<li>Rate Exceeded: The number of instances targeted by the command exceeded the account limit for pending invocations. The system has canceled the command before running it on any instance. This is a terminal state.</li>
+</ul>
+</div>
+</blockquote>
+<p>OutputS3Region -&gt; (string)</p>
+<blockquote>
+<div>(Deprecated) You can no longer specify this parameter. The system ignores it. Instead, Systems Manager automatically determines the Amazon S3 bucket region.</div>
+</blockquote>
+<p>OutputS3BucketName -&gt; (string)</p>
+<blockquote>
+<div>The S3 bucket where the responses to the command executions should be stored. This was requested when issuing the command.</div>
+</blockquote>
+<p>OutputS3KeyPrefix -&gt; (string)</p>
+<blockquote>
+<div>The S3 directory path inside the bucket where the responses to the command executions should be stored. This was requested when issuing the command.</div>
+</blockquote>
+<p>MaxConcurrency -&gt; (string)</p>
+<blockquote>
+<div>The maximum number of instances that are allowed to run the command at the same time. You can specify a number of instances, such as 10, or a percentage of instances, such as 10%. The default value is 50. For more information about how to use MaxConcurrency, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using Systems Manager Run Command</a> in the <em>AWS Systems Manager User Guide</em> .</div>
+</blockquote>
+<p>MaxErrors -&gt; (string)</p>
+<blockquote>
+<div>The maximum number of errors allowed before the system stops sending the command to additional targets. You can specify a number of errors, such as 10, or a percentage or errors, such as 10%. The default value is 0. For more information about how to use MaxErrors, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html">Running Commands Using Systems Manager Run Command</a> in the <em>AWS Systems Manager User Guide</em> .</div>
+</blockquote>
+<p>TargetCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of targets for the command.</div>
+</blockquote>
+<p>CompletedCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of targets for which the command invocation reached a terminal state. Terminal states include the following: Success, Failed, Execution Timed Out, Delivery Timed Out, Canceled, Terminated, or Undeliverable.</div>
+</blockquote>
+<p>ErrorCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of targets for which the status is Failed or Execution Timed Out.</div>
+</blockquote>
+<p>DeliveryTimedOutCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of targets for which the status is Delivery Timed Out.</div>
+</blockquote>
+<p>ServiceRole -&gt; (string)</p>
+<blockquote>
+<div>The IAM service role that Run Command uses to act on your behalf when sending notifications about command status changes.</div>
+</blockquote>
+<p>NotificationConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Configurations for sending notifications about command status changes.</p>
+<p>NotificationArn -&gt; (string)</p>
+<blockquote>
+<div>An Amazon Resource Name (ARN) for an Amazon Simple Notification Service (Amazon SNS) topic. Run Command pushes notifications about command status changes to this topic.</div>
+</blockquote>
+<p>NotificationEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html">Configuring Amazon SNS Notifications for AWS Systems Manager</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NotificationType -&gt; (string)</p>
+<blockquote>
+<div>Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CloudWatchOutputConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>CloudWatch Logs information where you want Systems Manager to send the command output.</p>
+<p>CloudWatchLogGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the CloudWatch log group where you want to send command output. If you don't specify a group name, Systems Manager automatically creates a log group for you. The log group uses the following naming format: aws/ssm/<em>SystemsManagerDocumentName</em> .</div>
+</blockquote>
+<p>CloudWatchOutputEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>Enables Systems Manager to send command output to CloudWatch Logs.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

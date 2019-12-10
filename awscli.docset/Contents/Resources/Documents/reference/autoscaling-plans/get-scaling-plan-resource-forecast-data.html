@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-scaling-plan-resource-forecast-data — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="autoscaling-plans" href="index.html">
+    <link rel="next" title="update-scaling-plan" href="update-scaling-plan.html">
+    <link rel="prev" title="describe-scaling-plans" href="describe-scaling-plans.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-scaling-plan-resource-forecast-data">
+<span id="cli-aws-autoscaling-plans-get-scaling-plan-resource-forecast-data"></span><h1>get-scaling-plan-resource-forecast-data<a class="headerlink" href="#get-scaling-plan-resource-forecast-data" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves the forecast data for a scalable resource.</p>
+<p>Capacity forecasts are represented as predicted values, or data points, that are calculated using historical data points from a specified CloudWatch load metric. Data points are available for up to 56 days.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/autoscaling-plans-2018-01-06/GetScalingPlanResourceForecastData">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-scaling-plan-resource-forecast-data
+--scaling-plan-name &lt;value&gt;
+--scaling-plan-version &lt;value&gt;
+--service-namespace &lt;value&gt;
+--resource-id &lt;value&gt;
+--scalable-dimension &lt;value&gt;
+--forecast-data-type &lt;value&gt;
+--start-time &lt;value&gt;
+--end-time &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--scaling-plan-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the scaling plan.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--scaling-plan-version</span></tt> (long)</p>
+<blockquote>
+<div>The version number of the scaling plan.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-namespace</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The namespace of the AWS service.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">autoscaling</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ecs</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ec2</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rds</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ID of the resource. This string consists of the resource type and unique identifier.</p>
+<ul class="simple">
+<li>Auto Scaling group - The resource type is <tt class="docutils literal"><span class="pre">autoScalingGroup</span></tt> and the unique identifier is the name of the Auto Scaling group. Example: <tt class="docutils literal"><span class="pre">autoScalingGroup/my-asg</span></tt> .</li>
+<li>ECS service - The resource type is <tt class="docutils literal"><span class="pre">service</span></tt> and the unique identifier is the cluster name and service name. Example: <tt class="docutils literal"><span class="pre">service/default/sample-webapp</span></tt> .</li>
+<li>Spot Fleet request - The resource type is <tt class="docutils literal"><span class="pre">spot-fleet-request</span></tt> and the unique identifier is the Spot Fleet request ID. Example: <tt class="docutils literal"><span class="pre">spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</span></tt> .</li>
+<li>DynamoDB table - The resource type is <tt class="docutils literal"><span class="pre">table</span></tt> and the unique identifier is the resource ID. Example: <tt class="docutils literal"><span class="pre">table/my-table</span></tt> .</li>
+<li>DynamoDB global secondary index - The resource type is <tt class="docutils literal"><span class="pre">index</span></tt> and the unique identifier is the resource ID. Example: <tt class="docutils literal"><span class="pre">table/my-table/index/my-table-index</span></tt> .</li>
+<li>Aurora DB cluster - The resource type is <tt class="docutils literal"><span class="pre">cluster</span></tt> and the unique identifier is the cluster name. Example: <tt class="docutils literal"><span class="pre">cluster:my-db-cluster</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--scalable-dimension</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The scalable dimension for the resource.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">autoscaling:autoScalingGroup:DesiredCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ecs:service:DesiredCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ec2:spot-fleet-request:TargetCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rds:cluster:ReadReplicaCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:table:ReadCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:table:WriteCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:index:ReadCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:index:WriteCapacityUnits</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--forecast-data-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of forecast data to get.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">LoadForecast</span></tt> : The load metric forecast.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CapacityForecast</span></tt> : The capacity forecast.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ScheduledActionMinCapacity</span></tt> : The minimum capacity for each scheduled scaling action. This data is calculated as the larger of two values: the capacity forecast or the minimum capacity in the scaling instruction.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ScheduledActionMaxCapacity</span></tt> : The maximum capacity for each scheduled scaling action. The calculation used is determined by the predictive scaling maximum capacity behavior setting in the scaling instruction.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">CapacityForecast</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LoadForecast</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ScheduledActionMinCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ScheduledActionMaxCapacity</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The inclusive start time of the time range for the forecast data to get. The date and time can be at most 56 days before the current date and time.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>
+<p>The exclusive end time of the time range for the forecast data to get. The maximum time duration between the start and end time is seven days.</p>
+<p>Although this parameter can accept a date and time that is more than two days in the future, the availability of forecast data has limits. AWS Auto Scaling only issues forecasts for periods of two days in advance.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve load forecast data</strong></p>
+<p>This example retrieves load forecast data for a scalable resource (an Auto Scaling group) that is associated with the specified scaling plan.</p>
+<div class="highlight-python">
+<pre>aws autoscaling-plans get-scaling-plan-resource-forecast-data \
+    --scaling-plan-name my-scaling-plan \
+    --scaling-plan-version 1 \
+    --service-namespace "autoscaling" \
+    --resource-id autoScalingGroup/my-asg \
+    --scalable-dimension "autoscaling:autoScalingGroup:DesiredCapacity" \
+    --forecast-data-type "LoadForecast" \
+    --start-time "2019-08-30T00:00:00Z" \
+    --end-time "2019-09-06T00:00:00Z"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Datapoints"</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html">What Is AWS Auto Scaling</a> in the <em>AWS Auto Scaling User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Datapoints -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The data points to return.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a single value in the forecast data used for predictive scaling.</p>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp for the data point in UTC format.</div>
+</blockquote>
+<p>Value -&gt; (double)</p>
+<blockquote>
+<div>The value of the data point.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

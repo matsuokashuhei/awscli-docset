@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>batch-write — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="clouddirectory" href="index.html">
+    <link rel="next" title="create-directory" href="create-directory.html">
+    <link rel="prev" title="batch-read" href="batch-read.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="batch-write">
+<span id="cli-aws-clouddirectory-batch-write"></span><h1>batch-write<a class="headerlink" href="#batch-write" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Performs all the write operations in a batch. Either all the operations succeed or none.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/clouddirectory-2017-01-11/BatchWrite">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  batch-write
+--directory-arn &lt;value&gt;
+--operations &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--directory-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that is associated with the  Directory . For more information, see  arns .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--operations</span></tt> (list)</p>
+<blockquote>
+<div>A list of operations that are part of the batch.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "CreateObject": {
+      "SchemaFacet": [
+        {
+          "SchemaArn": "string",
+          "FacetName": "string"
+        }
+        ...
+      ],
+      "ObjectAttributeList": [
+        {
+          "Key": {
+            "SchemaArn": "string",
+            "FacetName": "string",
+            "Name": "string"
+          },
+          "Value": {
+            "StringValue": "string",
+            "BinaryValue": blob,
+            "BooleanValue": true|false,
+            "NumberValue": "string",
+            "DatetimeValue": timestamp
+          }
+        }
+        ...
+      ],
+      "ParentReference": {
+        "Selector": "string"
+      },
+      "LinkName": "string",
+      "BatchReferenceName": "string"
+    },
+    "AttachObject": {
+      "ParentReference": {
+        "Selector": "string"
+      },
+      "ChildReference": {
+        "Selector": "string"
+      },
+      "LinkName": "string"
+    },
+    "DetachObject": {
+      "ParentReference": {
+        "Selector": "string"
+      },
+      "LinkName": "string",
+      "BatchReferenceName": "string"
+    },
+    "UpdateObjectAttributes": {
+      "ObjectReference": {
+        "Selector": "string"
+      },
+      "AttributeUpdates": [
+        {
+          "ObjectAttributeKey": {
+            "SchemaArn": "string",
+            "FacetName": "string",
+            "Name": "string"
+          },
+          "ObjectAttributeAction": {
+            "ObjectAttributeActionType": "CREATE_OR_UPDATE"|"DELETE",
+            "ObjectAttributeUpdateValue": {
+              "StringValue": "string",
+              "BinaryValue": blob,
+              "BooleanValue": true|false,
+              "NumberValue": "string",
+              "DatetimeValue": timestamp
+            }
+          }
+        }
+        ...
+      ]
+    },
+    "DeleteObject": {
+      "ObjectReference": {
+        "Selector": "string"
+      }
+    },
+    "AddFacetToObject": {
+      "SchemaFacet": {
+        "SchemaArn": "string",
+        "FacetName": "string"
+      },
+      "ObjectAttributeList": [
+        {
+          "Key": {
+            "SchemaArn": "string",
+            "FacetName": "string",
+            "Name": "string"
+          },
+          "Value": {
+            "StringValue": "string",
+            "BinaryValue": blob,
+            "BooleanValue": true|false,
+            "NumberValue": "string",
+            "DatetimeValue": timestamp
+          }
+        }
+        ...
+      ],
+      "ObjectReference": {
+        "Selector": "string"
+      }
+    },
+    "RemoveFacetFromObject": {
+      "SchemaFacet": {
+        "SchemaArn": "string",
+        "FacetName": "string"
+      },
+      "ObjectReference": {
+        "Selector": "string"
+      }
+    },
+    "AttachPolicy": {
+      "PolicyReference": {
+        "Selector": "string"
+      },
+      "ObjectReference": {
+        "Selector": "string"
+      }
+    },
+    "DetachPolicy": {
+      "PolicyReference": {
+        "Selector": "string"
+      },
+      "ObjectReference": {
+        "Selector": "string"
+      }
+    },
+    "CreateIndex": {
+      "OrderedIndexedAttributeList": [
+        {
+          "SchemaArn": "string",
+          "FacetName": "string",
+          "Name": "string"
+        }
+        ...
+      ],
+      "IsUnique": true|false,
+      "ParentReference": {
+        "Selector": "string"
+      },
+      "LinkName": "string",
+      "BatchReferenceName": "string"
+    },
+    "AttachToIndex": {
+      "IndexReference": {
+        "Selector": "string"
+      },
+      "TargetReference": {
+        "Selector": "string"
+      }
+    },
+    "DetachFromIndex": {
+      "IndexReference": {
+        "Selector": "string"
+      },
+      "TargetReference": {
+        "Selector": "string"
+      }
+    },
+    "AttachTypedLink": {
+      "SourceObjectReference": {
+        "Selector": "string"
+      },
+      "TargetObjectReference": {
+        "Selector": "string"
+      },
+      "TypedLinkFacet": {
+        "SchemaArn": "string",
+        "TypedLinkName": "string"
+      },
+      "Attributes": [
+        {
+          "AttributeName": "string",
+          "Value": {
+            "StringValue": "string",
+            "BinaryValue": blob,
+            "BooleanValue": true|false,
+            "NumberValue": "string",
+            "DatetimeValue": timestamp
+          }
+        }
+        ...
+      ]
+    },
+    "DetachTypedLink": {
+      "TypedLinkSpecifier": {
+        "TypedLinkFacet": {
+          "SchemaArn": "string",
+          "TypedLinkName": "string"
+        },
+        "SourceObjectReference": {
+          "Selector": "string"
+        },
+        "TargetObjectReference": {
+          "Selector": "string"
+        },
+        "IdentityAttributeValues": [
+          {
+            "AttributeName": "string",
+            "Value": {
+              "StringValue": "string",
+              "BinaryValue": blob,
+              "BooleanValue": true|false,
+              "NumberValue": "string",
+              "DatetimeValue": timestamp
+            }
+          }
+          ...
+        ]
+      }
+    },
+    "UpdateLinkAttributes": {
+      "TypedLinkSpecifier": {
+        "TypedLinkFacet": {
+          "SchemaArn": "string",
+          "TypedLinkName": "string"
+        },
+        "SourceObjectReference": {
+          "Selector": "string"
+        },
+        "TargetObjectReference": {
+          "Selector": "string"
+        },
+        "IdentityAttributeValues": [
+          {
+            "AttributeName": "string",
+            "Value": {
+              "StringValue": "string",
+              "BinaryValue": blob,
+              "BooleanValue": true|false,
+              "NumberValue": "string",
+              "DatetimeValue": timestamp
+            }
+          }
+          ...
+        ]
+      },
+      "AttributeUpdates": [
+        {
+          "AttributeKey": {
+            "SchemaArn": "string",
+            "FacetName": "string",
+            "Name": "string"
+          },
+          "AttributeAction": {
+            "AttributeActionType": "CREATE_OR_UPDATE"|"DELETE",
+            "AttributeUpdateValue": {
+              "StringValue": "string",
+              "BinaryValue": blob,
+              "BooleanValue": true|false,
+              "NumberValue": "string",
+              "DatetimeValue": timestamp
+            }
+          }
+        }
+        ...
+      ]
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Responses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of all the responses for each batch write.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents the output of a <tt class="docutils literal"><span class="pre">BatchWrite</span></tt> response operation.</p>
+<p>CreateObject -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Creates an object in a  Directory .</p>
+<p>ObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The ID that is associated with the object.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AttachObject -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Attaches an object to a  Directory .</p>
+<p>attachedObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">ObjectIdentifier</span></tt> of the object that has been attached.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DetachObject -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Detaches an object from a  Directory .</p>
+<p>detachedObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">ObjectIdentifier</span></tt> of the detached object.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>UpdateObjectAttributes -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Updates a given object’s attributes.</p>
+<p>ObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>ID that is associated with the object.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DeleteObject -&gt; (structure)</p>
+<blockquote>
+<div>Deletes an object in a  Directory .</div>
+</blockquote>
+<p>AddFacetToObject -&gt; (structure)</p>
+<blockquote>
+<div>The result of an add facet to object batch operation.</div>
+</blockquote>
+<p>RemoveFacetFromObject -&gt; (structure)</p>
+<blockquote>
+<div>The result of a batch remove facet from object operation.</div>
+</blockquote>
+<p>AttachPolicy -&gt; (structure)</p>
+<blockquote>
+<div>Attaches a policy object to a regular object. An object can have a limited number of attached policies.</div>
+</blockquote>
+<p>DetachPolicy -&gt; (structure)</p>
+<blockquote>
+<div>Detaches a policy from a  Directory .</div>
+</blockquote>
+<p>CreateIndex -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Creates an index object. See <a class="reference external" href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm">Indexing and search</a> for more information.</p>
+<p>ObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">ObjectIdentifier</span></tt> of the index created by this operation.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AttachToIndex -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Attaches the specified object to the specified index.</p>
+<p>AttachedObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">ObjectIdentifier</span></tt> of the object that was attached to the index.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DetachFromIndex -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Detaches the specified object from the specified index.</p>
+<p>DetachedObjectIdentifier -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">ObjectIdentifier</span></tt> of the object that was detached from the index.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AttachTypedLink -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Attaches a typed link to a specified source and target object. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink">Typed Links</a> .</p>
+<p>TypedLinkSpecifier -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Returns a typed link specifier as output.</p>
+<p>TypedLinkFacet -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies the typed link facet that is associated with the typed link.</p>
+<p>SchemaArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that is associated with the schema. For more information, see  arns .</div>
+</blockquote>
+<p>TypedLinkName -&gt; (string)</p>
+<blockquote>
+<div>The unique name of the typed link facet.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>SourceObjectReference -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies the source object that the typed link will attach to.</p>
+<p>Selector -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A path selector supports easy selection of an object by the parent/child links leading to it from the directory root. Use the link names from each parent/child link to construct the path. Path selectors start with a slash (/) and link names are separated by slashes. For more information about paths, see <a class="reference external" href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access Objects</a> . You can identify an object in one of the following ways:</p>
+<ul class="simple">
+<li>
+<em>$ObjectIdentifier</em> - An object identifier is an opaque string provided by Amazon Cloud Directory. When creating objects, the system will provide you with the identifier of the created object. An object’s identifier is immutable and no two objects will ever share the same object identifier</li>
+<li>
+<em>/some/path</em> - Identifies the object based on path</li>
+<li>
+<em>#SomeBatchReference</em> - Identifies the object in a batch call</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>TargetObjectReference -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies the target object that the typed link will attach to.</p>
+<p>Selector -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A path selector supports easy selection of an object by the parent/child links leading to it from the directory root. Use the link names from each parent/child link to construct the path. Path selectors start with a slash (/) and link names are separated by slashes. For more information about paths, see <a class="reference external" href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html">Access Objects</a> . You can identify an object in one of the following ways:</p>
+<ul class="simple">
+<li>
+<em>$ObjectIdentifier</em> - An object identifier is an opaque string provided by Amazon Cloud Directory. When creating objects, the system will provide you with the identifier of the created object. An object’s identifier is immutable and no two objects will ever share the same object identifier</li>
+<li>
+<em>/some/path</em> - Identifies the object based on path</li>
+<li>
+<em>#SomeBatchReference</em> - Identifies the object in a batch call</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IdentityAttributeValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Identifies the attribute value to update.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Identifies the attribute name and value for a typed link.</p>
+<p>AttributeName -&gt; (string)</p>
+<blockquote>
+<div>The attribute name of the typed link.</div>
+</blockquote>
+<p>Value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The value for the typed link.</p>
+<p>StringValue -&gt; (string)</p>
+<blockquote>
+<div>A string data value.</div>
+</blockquote>
+<p>BinaryValue -&gt; (blob)</p>
+<blockquote>
+<div>A binary data value.</div>
+</blockquote>
+<p>BooleanValue -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean data value.</div>
+</blockquote>
+<p>NumberValue -&gt; (string)</p>
+<blockquote>
+<div>A number data value.</div>
+</blockquote>
+<p>DatetimeValue -&gt; (timestamp)</p>
+<blockquote>
+<div>A date and time value.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>DetachTypedLink -&gt; (structure)</p>
+<blockquote>
+<div>Detaches a typed link from a specified source and target object. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink">Typed Links</a> .</div>
+</blockquote>
+<p>UpdateLinkAttributes -&gt; (structure)</p>
+<blockquote>
+<div>Represents the output of a <tt class="docutils literal"><span class="pre">BatchWrite</span></tt> response operation.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

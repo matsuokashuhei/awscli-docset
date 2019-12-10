@@ -1,0 +1,494 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-vpc-peering-connections — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-vpcs" href="describe-vpcs.html">
+    <link rel="prev" title="describe-vpc-endpoints" href="describe-vpc-endpoints.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-vpc-peering-connections">
+<span id="cli-aws-ec2-describe-vpc-peering-connections"></span><h1>describe-vpc-peering-connections<a class="headerlink" href="#describe-vpc-peering-connections" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes one or more of your VPC peering connections.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpcPeeringConnections">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-vpc-peering-connections</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">VpcPeeringConnections</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-vpc-peering-connections
+[--filters &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--vpc-peering-connection-ids &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">accepter-vpc-info.cidr-block</span></tt> - The IPv4 CIDR block of the accepter VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">accepter-vpc-info.owner-id</span></tt> - The AWS account ID of the owner of the accepter VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">accepter-vpc-info.vpc-id</span></tt> - The ID of the accepter VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">expiration-time</span></tt> - The expiration date and time for the VPC peering connection.</li>
+<li>
+<tt class="docutils literal"><span class="pre">requester-vpc-info.cidr-block</span></tt> - The IPv4 CIDR block of the requester's VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">requester-vpc-info.owner-id</span></tt> - The AWS account ID of the owner of the requester VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">requester-vpc-info.vpc-id</span></tt> - The ID of the requester VPC.</li>
+<li>
+<tt class="docutils literal"><span class="pre">status-code</span></tt> - The status of the VPC peering connection (<tt class="docutils literal"><span class="pre">pending-acceptance</span></tt> | <tt class="docutils literal"><span class="pre">failed</span></tt> | <tt class="docutils literal"><span class="pre">expired</span></tt> | <tt class="docutils literal"><span class="pre">provisioning</span></tt> | <tt class="docutils literal"><span class="pre">active</span></tt> | <tt class="docutils literal"><span class="pre">deleting</span></tt> | <tt class="docutils literal"><span class="pre">deleted</span></tt> | <tt class="docutils literal"><span class="pre">rejected</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">status-message</span></tt> - A message that provides more information about the status of the VPC peering connection, if applicable.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag</span></tt> :key- The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <tt class="docutils literal"><span class="pre">Owner</span></tt> and the value <tt class="docutils literal"><span class="pre">TeamA</span></tt> , specify <tt class="docutils literal"><span class="pre">tag:Owner</span></tt> for the filter name and <tt class="docutils literal"><span class="pre">TeamA</span></tt> for the filter value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag-key</span></tt> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">vpc-peering-connection-id</span></tt> - The ID of the VPC peering connection.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--vpc-peering-connection-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more VPC peering connection IDs.</p>
+<p>Default: Describes all your VPC peering connections.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe your VPC peering connections</strong></p>
+<p>This example describes all of your VPC peering connections.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-vpc-peering-connections</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"VpcPeeringConnections"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Active"</span><span class="p">,</span>
+                <span class="s2">"Code"</span><span class="p">:</span> <span class="s2">"active"</span>
+            <span class="p">},</span>
+            <span class="s2">"Tags"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"Peering-1"</span><span class="p">,</span>
+                    <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"Name"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"AccepterVpcInfo"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"111122223333"</span><span class="p">,</span>
+                <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-1a2b3c4d"</span><span class="p">,</span>
+                <span class="s2">"CidrBlock"</span><span class="p">:</span> <span class="s2">"10.0.1.0/28"</span>
+            <span class="p">},</span>
+            <span class="s2">"VpcPeeringConnectionId"</span><span class="p">:</span> <span class="s2">"pcx-11122233"</span><span class="p">,</span>
+            <span class="s2">"RequesterVpcInfo"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"PeeringOptions"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"AllowEgressFromLocalVpcToRemoteClassicLink"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                    <span class="s2">"AllowEgressFromLocalClassicLinkToRemoteVpc"</span><span class="p">:</span> <span class="n">false</span>
+                <span class="p">},</span>
+                <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"444455556666"</span><span class="p">,</span>
+                <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-123abc45"</span><span class="p">,</span>
+                <span class="s2">"CidrBlock"</span><span class="p">:</span> <span class="s2">"192.168.0.0/16"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Message"</span><span class="p">:</span> <span class="s2">"Pending Acceptance by 444455556666"</span><span class="p">,</span>
+                <span class="s2">"Code"</span><span class="p">:</span> <span class="s2">"pending-acceptance"</span>
+            <span class="p">},</span>
+            <span class="s2">"Tags"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"RequesterVpcInfo"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"PeeringOptions"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"AllowEgressFromLocalVpcToRemoteClassicLink"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                    <span class="s2">"AllowEgressFromLocalClassicLinkToRemoteVpc"</span><span class="p">:</span> <span class="n">false</span>
+                <span class="p">},</span>
+                <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"444455556666"</span><span class="p">,</span>
+                <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-11aa22bb"</span><span class="p">,</span>
+                <span class="s2">"CidrBlock"</span><span class="p">:</span> <span class="s2">"10.0.0.0/28"</span>
+            <span class="p">},</span>
+            <span class="s2">"VpcPeeringConnectionId"</span><span class="p">:</span> <span class="s2">"pcx-abababab"</span><span class="p">,</span>
+            <span class="s2">"ExpirationTime"</span><span class="p">:</span> <span class="s2">"2014-04-03T09:12:43.000Z"</span><span class="p">,</span>
+            <span class="s2">"AccepterVpcInfo"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"444455556666"</span><span class="p">,</span>
+                <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-33cc44dd"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To describe specific VPC peering connections</strong></p>
+<p>This example describes all of your VPC peering connections that are in the pending-acceptance state.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-vpc-peering-connections --filters Name=status-code,Values=pending-acceptance</pre>
+</div>
+<p>This example describes all of your VPC peering connections that have the tag Owner=Finance.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-vpc-peering-connections --filters Name=tag:Owner,Values=Finance</pre>
+</div>
+<p>This example describes all of the VPC peering connections you requested for the specified VPC, vpc-1a2b3c4d.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-vpc-peering-connections --filters Name=requester-vpc-info.vpc-id,Values=vpc-1a2b3c4d</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>VpcPeeringConnections -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the VPC peering connections.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a VPC peering connection.</p>
+<p>AccepterVpcInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the accepter VPC. CIDR block information is only returned when describing an active VPC peering connection.</p>
+<p>CidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The IPv4 CIDR block for the VPC.</div>
+</blockquote>
+<p>Ipv6CidrBlockSet -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IPv6 CIDR block for the VPC.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv6 CIDR block.</p>
+<p>Ipv6CidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The IPv6 CIDR block.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CidrBlockSet -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the IPv4 CIDR blocks for the VPC.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv4 CIDR block.</p>
+<p>CidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The IPv4 CIDR block.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID of the VPC owner.</div>
+</blockquote>
+<p>PeeringOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the VPC peering connection options for the accepter or requester VPC.</p>
+<p>AllowDnsResolutionFromRemoteVpc -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether a local VPC can resolve public DNS hostnames to private IP addresses when queried from instances in a peer VPC.</div>
+</blockquote>
+<p>AllowEgressFromLocalClassicLinkToRemoteVpc -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether a local ClassicLink connection can communicate with the peer VPC over the VPC peering connection.</div>
+</blockquote>
+<p>AllowEgressFromLocalVpcToRemoteClassicLink -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether a local VPC can communicate with a ClassicLink connection in the peer VPC over the VPC peering connection.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The Region in which the VPC is located.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ExpirationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time that an unaccepted VPC peering connection will expire.</div>
+</blockquote>
+<p>RequesterVpcInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the requester VPC. CIDR block information is only returned when describing an active VPC peering connection.</p>
+<p>CidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The IPv4 CIDR block for the VPC.</div>
+</blockquote>
+<p>Ipv6CidrBlockSet -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IPv6 CIDR block for the VPC.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv6 CIDR block.</p>
+<p>Ipv6CidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The IPv6 CIDR block.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CidrBlockSet -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the IPv4 CIDR blocks for the VPC.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an IPv4 CIDR block.</p>
+<p>CidrBlock -&gt; (string)</p>
+<blockquote>
+<div>The IPv4 CIDR block.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID of the VPC owner.</div>
+</blockquote>
+<p>PeeringOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the VPC peering connection options for the accepter or requester VPC.</p>
+<p>AllowDnsResolutionFromRemoteVpc -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether a local VPC can resolve public DNS hostnames to private IP addresses when queried from instances in a peer VPC.</div>
+</blockquote>
+<p>AllowEgressFromLocalClassicLinkToRemoteVpc -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether a local ClassicLink connection can communicate with the peer VPC over the VPC peering connection.</div>
+</blockquote>
+<p>AllowEgressFromLocalVpcToRemoteClassicLink -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether a local VPC can communicate with a ClassicLink connection in the peer VPC over the VPC peering connection.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC.</div>
+</blockquote>
+<p>Region -&gt; (string)</p>
+<blockquote>
+<div>The Region in which the VPC is located.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Status -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The status of the VPC peering connection.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The status of the VPC peering connection.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>A message that provides more information about the status, if applicable.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the resource.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VpcPeeringConnectionId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC peering connection.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token to use to retrieve the next page of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> when there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

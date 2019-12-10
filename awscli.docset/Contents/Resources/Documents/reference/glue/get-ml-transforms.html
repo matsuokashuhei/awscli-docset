@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-ml-transforms — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="glue" href="index.html">
+    <link rel="next" title="get-partition" href="get-partition.html">
+    <link rel="prev" title="get-ml-transform" href="get-ml-transform.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-ml-transforms">
+<span id="cli-aws-glue-get-ml-transforms"></span><h1>get-ml-transforms<a class="headerlink" href="#get-ml-transforms" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets a sortable, filterable list of existing AWS Glue machine learning transforms. Machine learning transforms are a special type of transform that use machine learning to learn the details of the transformation to be performed by learning from examples provided by humans. These transformations are then saved by AWS Glue, and you can retrieve their metadata by calling <tt class="docutils literal"><span class="pre">GetMLTransforms</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTransforms">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-ml-transforms
+[--next-token &lt;value&gt;]
+[--max-results &lt;value&gt;]
+[--filter &lt;value&gt;]
+[--sort &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>A paginated token to offset the results.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of results to return.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>The filter transformation criteria.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,TransformType=string,Status=string,GlueVersion=string,CreatedBefore=timestamp,CreatedAfter=timestamp,LastModifiedBefore=timestamp,LastModifiedAfter=timestamp,Schema=[{Name=string,DataType=string},{Name=string,DataType=string}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "Name": "string",
+  "TransformType": "FIND_MATCHES",
+  "Status": "NOT_READY"|"READY"|"DELETING",
+  "GlueVersion": "string",
+  "CreatedBefore": timestamp,
+  "CreatedAfter": timestamp,
+  "LastModifiedBefore": timestamp,
+  "LastModifiedAfter": timestamp,
+  "Schema": [
+    {
+      "Name": "string",
+      "DataType": "string"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--sort</span></tt> (structure)</p>
+<blockquote>
+<div>The sorting criteria.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Column</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">SortDirection</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Column"</span><span class="p">:</span> <span class="s2">"NAME"</span><span class="o">|</span><span class="s2">"TRANSFORM_TYPE"</span><span class="o">|</span><span class="s2">"STATUS"</span><span class="o">|</span><span class="s2">"CREATED"</span><span class="o">|</span><span class="s2">"LAST_MODIFIED"</span><span class="p">,</span>
+  <span class="s2">"SortDirection"</span><span class="p">:</span> <span class="s2">"DESCENDING"</span><span class="o">|</span><span class="s2">"ASCENDING"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Transforms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of machine learning transforms.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A structure for a machine learning transform.</p>
+<p>TransformId -&gt; (string)</p>
+<blockquote>
+<div>The unique transform ID that is generated for the machine learning transform. The ID is guaranteed to be unique and does not change.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>A user-defined name for the machine learning transform. Names are not guaranteed unique and can be changed at any time.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>A user-defined, long-form description text for the machine learning transform. Descriptions are not guaranteed to be unique and can be changed at any time.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the machine learning transform.</div>
+</blockquote>
+<p>CreatedOn -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp. The time and date that this machine learning transform was created.</div>
+</blockquote>
+<p>LastModifiedOn -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp. The last point in time when this machine learning transform was modified.</div>
+</blockquote>
+<p>InputRecordTables -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of AWS Glue table definitions used by the transform.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The database and table in the AWS Glue Data Catalog that is used for input or output data.</p>
+<p>DatabaseName -&gt; (string)</p>
+<blockquote>
+<div>A database name in the AWS Glue Data Catalog.</div>
+</blockquote>
+<p>TableName -&gt; (string)</p>
+<blockquote>
+<div>A table name in the AWS Glue Data Catalog.</div>
+</blockquote>
+<p>CatalogId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for the AWS Glue Data Catalog.</div>
+</blockquote>
+<p>ConnectionName -&gt; (string)</p>
+<blockquote>
+<div>The name of the connection to the AWS Glue Data Catalog.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Parameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A <tt class="docutils literal"><span class="pre">TransformParameters</span></tt> object. You can use parameters to tune (customize) the behavior of the machine learning transform by specifying what data it learns from and your preference on various tradeoffs (such as precious vs. recall, or accuracy vs. cost).</p>
+<p>TransformType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of machine learning transform.</p>
+<p>For information about the types of machine learning transforms, see <a class="reference external" href="http://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html">Creating Machine Learning Transforms</a> .</p>
+</div>
+</blockquote>
+<p>FindMatchesParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The parameters for the find matches algorithm.</p>
+<p>PrimaryKeyColumnName -&gt; (string)</p>
+<blockquote>
+<div>The name of a column that uniquely identifies rows in the source table. Used to help identify matching records.</div>
+</blockquote>
+<p>PrecisionRecallTradeoff -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The value selected when tuning your transform for a balance between precision and recall. A value of 0.5 means no preference; a value of 1.0 means a bias purely for precision, and a value of 0.0 means a bias for recall. Because this is a tradeoff, choosing values close to 1.0 means very low recall, and choosing values close to 0.0 results in very low precision.</p>
+<p>The precision metric indicates how often your model is correct when it predicts a match.</p>
+<p>The recall metric indicates that for an actual match, how often your model predicts the match.</p>
+</div>
+</blockquote>
+<p>AccuracyCostTradeoff -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The value that is selected when tuning your transform for a balance between accuracy and cost. A value of 0.5 means that the system balances accuracy and cost concerns. A value of 1.0 means a bias purely for accuracy, which typically results in a higher cost, sometimes substantially higher. A value of 0.0 means a bias purely for cost, which results in a less accurate <tt class="docutils literal"><span class="pre">FindMatches</span></tt> transform, sometimes with unacceptable accuracy.</p>
+<p>Accuracy measures how well the transform finds true positives and true negatives. Increasing accuracy requires more machine resources and cost. But it also results in increased recall.</p>
+<p>Cost measures how many compute resources, and thus money, are consumed to run the transform.</p>
+</div>
+</blockquote>
+<p>EnforceProvidedLabels -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>The value to switch on or off to force the output to match the provided labels from users. If the value is <tt class="docutils literal"><span class="pre">True</span></tt> , the <tt class="docutils literal"><span class="pre">find</span> <span class="pre">matches</span></tt> transform forces the output to match the provided labels. The results override the normal conflation results. If the value is <tt class="docutils literal"><span class="pre">False</span></tt> , the <tt class="docutils literal"><span class="pre">find</span> <span class="pre">matches</span></tt> transform does not ensure all the labels provided are respected, and the results rely on the trained model.</p>
+<p>Note that setting this value to true may increase the conflation execution time.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EvaluationMetrics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An <tt class="docutils literal"><span class="pre">EvaluationMetrics</span></tt> object. Evaluation metrics provide an estimate of the quality of your machine learning transform.</p>
+<p>TransformType -&gt; (string)</p>
+<blockquote>
+<div>The type of machine learning transform.</div>
+</blockquote>
+<p>FindMatchesMetrics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The evaluation metrics for the find matches algorithm.</p>
+<p>AreaUnderPRCurve -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The area under the precision/recall curve (AUPRC) is a single number measuring the overall quality of the transform, that is independent of the choice made for precision vs. recall. Higher values indicate that you have a more attractive precision vs. recall tradeoff.</p>
+<p>For more information, see <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">Precision and recall</a> in Wikipedia.</p>
+</div>
+</blockquote>
+<p>Precision -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The precision metric indicates when often your transform is correct when it predicts a match. Specifically, it measures how well the transform finds true positives from the total true positives possible.</p>
+<p>For more information, see <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">Precision and recall</a> in Wikipedia.</p>
+</div>
+</blockquote>
+<p>Recall -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The recall metric indicates that for an actual match, how often your transform predicts the match. Specifically, it measures how well the transform finds true positives from the total records in the source data.</p>
+<p>For more information, see <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">Precision and recall</a> in Wikipedia.</p>
+</div>
+</blockquote>
+<p>F1 -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The maximum F1 metric indicates the transform's accuracy between 0 and 1, where 1 is the best accuracy.</p>
+<p>For more information, see <a class="reference external" href="https://en.wikipedia.org/wiki/F1_score">F1 score</a> in Wikipedia.</p>
+</div>
+</blockquote>
+<p>ConfusionMatrix -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The confusion matrix shows you what your transform is predicting accurately and what types of errors it is making.</p>
+<p>For more information, see <a class="reference external" href="https://en.wikipedia.org/wiki/Confusion_matrix">Confusion matrix</a> in Wikipedia.</p>
+<p>NumTruePositives -&gt; (long)</p>
+<blockquote>
+<div>The number of matches in the data that the transform correctly found, in the confusion matrix for your transform.</div>
+</blockquote>
+<p>NumFalsePositives -&gt; (long)</p>
+<blockquote>
+<div>The number of nonmatches in the data that the transform incorrectly classified as a match, in the confusion matrix for your transform.</div>
+</blockquote>
+<p>NumTrueNegatives -&gt; (long)</p>
+<blockquote>
+<div>The number of nonmatches in the data that the transform correctly rejected, in the confusion matrix for your transform.</div>
+</blockquote>
+<p>NumFalseNegatives -&gt; (long)</p>
+<blockquote>
+<div>The number of matches in the data that the transform didn't find, in the confusion matrix for your transform.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LabelCount -&gt; (integer)</p>
+<blockquote>
+<div>A count identifier for the labeling files generated by AWS Glue for this transform. As you create a better transform, you can iteratively download, label, and upload the labeling file.</div>
+</blockquote>
+<p>Schema -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A map of key-value pairs representing the columns and data types that this transform can run against. Has an upper bound of 100 columns.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair representing a column and data type that this transform can run against. The <tt class="docutils literal"><span class="pre">Schema</span></tt> parameter of the <tt class="docutils literal"><span class="pre">MLTransform</span></tt> may contain up to 100 of these structures.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the column.</div>
+</blockquote>
+<p>DataType -&gt; (string)</p>
+<blockquote>
+<div>The type of data in the column.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Role -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name or Amazon Resource Name (ARN) of the IAM role with the required permissions. The required permissions include both AWS Glue service role permissions to AWS Glue resources, and Amazon S3 permissions required by the transform.</p>
+<ul class="simple">
+<li>This role needs AWS Glue service role permissions to allow access to resources in AWS Glue. See <a class="reference external" href="https://docs.aws.amazon.com/glue/latest/dg/attach-policy-iam-user.html">Attach a Policy to IAM Users That Access AWS Glue</a> .</li>
+<li>This role needs permission to your Amazon Simple Storage Service (Amazon S3) sources, targets, temporary directory, scripts, and any libraries used by the task run for this transform.</li>
+</ul>
+</div>
+</blockquote>
+<p>GlueVersion -&gt; (string)</p>
+<blockquote>
+<div>This value determines which version of AWS Glue this machine learning transform is compatible with. Glue 1.0 is recommended for most customers. If the value is not set, the Glue compatibility defaults to Glue 0.9. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/glue/latest/dg/release-notes.html#release-notes-versions">AWS Glue Versions</a> in the developer guide.</div>
+</blockquote>
+<p>MaxCapacity -&gt; (double)</p>
+<blockquote>
+<div>
+<p>The number of AWS Glue data processing units (DPUs) that are allocated to task runs for this transform. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a relative measure of processing power that consists of 4 vCPUs of compute capacity and 16 GB of memory. For more information, see the <a class="reference external" href="http://aws.amazon.com/glue/pricing/">AWS Glue pricing page</a> .</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> is a mutually exclusive option with <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> and <tt class="docutils literal"><span class="pre">WorkerType</span></tt> .</div>
+</blockquote>
+<ul class="simple">
+<li>If either <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> or <tt class="docutils literal"><span class="pre">WorkerType</span></tt> is set, then <tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> cannot be set.</li>
+<li>If <tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> is set then neither <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> or <tt class="docutils literal"><span class="pre">WorkerType</span></tt> can be set.</li>
+<li>If <tt class="docutils literal"><span class="pre">WorkerType</span></tt> is set, then <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> is required (and vice versa).</li>
+<li>
+<tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> and <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> must both be at least 1.</li>
+</ul>
+<p>When the <tt class="docutils literal"><span class="pre">WorkerType</span></tt> field is set to a value other than <tt class="docutils literal"><span class="pre">Standard</span></tt> , the <tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> field is set automatically and becomes read-only.</p>
+</div>
+</blockquote>
+<p>WorkerType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of predefined worker that is allocated when a task of this transform runs. Accepts a value of Standard, G.1X, or G.2X.</p>
+<ul class="simple">
+<li>For the <tt class="docutils literal"><span class="pre">Standard</span></tt> worker type, each worker provides 4 vCPU, 16 GB of memory and a 50GB disk, and 2 executors per worker.</li>
+<li>For the <tt class="docutils literal"><span class="pre">G.1X</span></tt> worker type, each worker provides 4 vCPU, 16 GB of memory and a 64GB disk, and 1 executor per worker.</li>
+<li>For the <tt class="docutils literal"><span class="pre">G.2X</span></tt> worker type, each worker provides 8 vCPU, 32 GB of memory and a 128GB disk, and 1 executor per worker.</li>
+</ul>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> is a mutually exclusive option with <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> and <tt class="docutils literal"><span class="pre">WorkerType</span></tt> .</div>
+</blockquote>
+<ul class="simple">
+<li>If either <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> or <tt class="docutils literal"><span class="pre">WorkerType</span></tt> is set, then <tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> cannot be set.</li>
+<li>If <tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> is set then neither <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> or <tt class="docutils literal"><span class="pre">WorkerType</span></tt> can be set.</li>
+<li>If <tt class="docutils literal"><span class="pre">WorkerType</span></tt> is set, then <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> is required (and vice versa).</li>
+<li>
+<tt class="docutils literal"><span class="pre">MaxCapacity</span></tt> and <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> must both be at least 1.</li>
+</ul>
+</div>
+</blockquote>
+<p>NumberOfWorkers -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of workers of a defined <tt class="docutils literal"><span class="pre">workerType</span></tt> that are allocated when a task of the transform runs.</p>
+<p>If <tt class="docutils literal"><span class="pre">WorkerType</span></tt> is set, then <tt class="docutils literal"><span class="pre">NumberOfWorkers</span></tt> is required (and vice versa).</p>
+</div>
+</blockquote>
+<p>Timeout -&gt; (integer)</p>
+<blockquote>
+<div>The timeout in minutes of the machine learning transform.</div>
+</blockquote>
+<p>MaxRetries -&gt; (integer)</p>
+<blockquote>
+<div>The maximum number of times to retry after an <tt class="docutils literal"><span class="pre">MLTaskRun</span></tt> of the machine learning transform fails.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>A pagination token, if more results are available.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

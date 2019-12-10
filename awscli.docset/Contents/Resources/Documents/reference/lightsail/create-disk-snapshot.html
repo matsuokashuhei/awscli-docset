@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-disk-snapshot — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lightsail" href="index.html">
+    <link rel="next" title="create-domain" href="create-domain.html">
+    <link rel="prev" title="create-disk-from-snapshot" href="create-disk-from-snapshot.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-disk-snapshot">
+<span id="cli-aws-lightsail-create-disk-snapshot"></span><h1>create-disk-snapshot<a class="headerlink" href="#create-disk-snapshot" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a snapshot of a block storage disk. You can use snapshots for backups, to make copies of disks, and to save data before shutting down a Lightsail instance.</p>
+<p>You can take a snapshot of an attached disk that is in use; however, snapshots only capture data that has been written to your disk at the time the snapshot command is issued. This may exclude any data that has been cached by any applications or the operating system. If you can pause any file systems on the disk long enough to take a snapshot, your snapshot should be complete. Nevertheless, if you cannot pause all file writes to the disk, you should unmount the disk from within the Lightsail instance, issue the create disk snapshot command, and then remount the disk to ensure a consistent and complete snapshot. You may remount and use your disk while the snapshot status is pending.</p>
+<p>You can also use this operation to create a snapshot of an instance's system volume. You might want to do this, for example, to recover data from the system volume of a botched instance or to create a backup of the system volume like you would for a block storage disk. To create a snapshot of a system volume, just define the <tt class="docutils literal"><span class="pre">instance</span> <span class="pre">name</span></tt> parameter when issuing the snapshot command, and a snapshot of the defined instance's system volume will be created. After the snapshot is available, you can create a block storage disk from the snapshot and attach it to a running instance to access the data on the disk.</p>
+<p>The <tt class="docutils literal"><span class="pre">create</span> <span class="pre">disk</span> <span class="pre">snapshot</span></tt> operation supports tag-based access control via request tags. For more information, see the <a class="reference external" href="https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags">Lightsail Dev Guide</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lightsail-2016-11-28/CreateDiskSnapshot">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-disk-snapshot
+[--disk-name &lt;value&gt;]
+--disk-snapshot-name &lt;value&gt;
+[--instance-name &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--disk-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The unique name of the source disk (e.g., <tt class="docutils literal"><span class="pre">Disk-Virginia-1</span></tt> ).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter cannot be defined together with the <tt class="docutils literal"><span class="pre">instance</span> <span class="pre">name</span></tt> parameter. The <tt class="docutils literal"><span class="pre">disk</span> <span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">instance</span> <span class="pre">name</span></tt> parameters are mutually exclusive.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--disk-snapshot-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the destination disk snapshot (e.g., <tt class="docutils literal"><span class="pre">my-disk-snapshot</span></tt> ) based on the source disk.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The unique name of the source instance (e.g., <tt class="docutils literal"><span class="pre">Amazon_Linux-512MB-Virginia-1</span></tt> ). When this is defined, a snapshot of the instance's system volume is created.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This parameter cannot be defined together with the <tt class="docutils literal"><span class="pre">disk</span> <span class="pre">name</span></tt> parameter. The <tt class="docutils literal"><span class="pre">instance</span> <span class="pre">name</span></tt> and <tt class="docutils literal"><span class="pre">disk</span> <span class="pre">name</span></tt> parameters are mutually exclusive.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The tag keys and optional values to add to the resource during create.</p>
+<p>To tag a resource after it has been created, see the <tt class="docutils literal"><span class="pre">tag</span> <span class="pre">resource</span></tt> operation.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>key=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "key": "string",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create a snapshot of a disk</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-disk-snapshot</span></tt> example creates a snapshot named <tt class="docutils literal"><span class="pre">DiskSnapshot-1</span></tt> of the specified block storage disk.</p>
+<div class="highlight-python">
+<pre>aws lightsail create-disk-snapshot \
+    --disk-name Disk-1 \
+    --disk-snapshot-name DiskSnapshot-1</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"operations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"fa74c6d2-03a3-4f42-a7c7-792f124d534b"</span><span class="p">,</span>
+            <span class="s2">"resourceName"</span><span class="p">:</span> <span class="s2">"DiskSnapshot-1"</span><span class="p">,</span>
+            <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"DiskSnapshot"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1569625129.739</span><span class="p">,</span>
+            <span class="s2">"location"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"availabilityZone"</span><span class="p">:</span> <span class="s2">"all"</span><span class="p">,</span>
+                <span class="s2">"regionName"</span><span class="p">:</span> <span class="s2">"us-west-2"</span>
+            <span class="p">},</span>
+            <span class="s2">"isTerminal"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"operationDetails"</span><span class="p">:</span> <span class="s2">"Disk-1"</span><span class="p">,</span>
+            <span class="s2">"operationType"</span><span class="p">:</span> <span class="s2">"CreateDiskSnapshot"</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Started"</span><span class="p">,</span>
+            <span class="s2">"statusChangedAt"</span><span class="p">:</span> <span class="mf">1569625129.739</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"920a25df-185c-4528-87cd-7b85f5488c06"</span><span class="p">,</span>
+            <span class="s2">"resourceName"</span><span class="p">:</span> <span class="s2">"Disk-1"</span><span class="p">,</span>
+            <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"Disk"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1569625129.739</span><span class="p">,</span>
+            <span class="s2">"location"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"availabilityZone"</span><span class="p">:</span> <span class="s2">"us-west-2a"</span><span class="p">,</span>
+                <span class="s2">"regionName"</span><span class="p">:</span> <span class="s2">"us-west-2"</span>
+            <span class="p">},</span>
+            <span class="s2">"isTerminal"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"operationDetails"</span><span class="p">:</span> <span class="s2">"DiskSnapshot-1"</span><span class="p">,</span>
+            <span class="s2">"operationType"</span><span class="p">:</span> <span class="s2">"CreateDiskSnapshot"</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Started"</span><span class="p">,</span>
+            <span class="s2">"statusChangedAt"</span><span class="p">:</span> <span class="mf">1569625129.739</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To create a snapshot of an instance's system disk</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-disk-snapshot</span></tt> example creates a snapshot of the specified instance's system disk.</p>
+<div class="highlight-python">
+<pre>aws lightsail create-disk-snapshot \
+    --instance-name WordPress-1 \
+    --disk-snapshot-name SystemDiskSnapshot-1</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"operations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"f508cf1c-6597-42a6-a4c3-4aebd75af0d9"</span><span class="p">,</span>
+            <span class="s2">"resourceName"</span><span class="p">:</span> <span class="s2">"SystemDiskSnapshot-1"</span><span class="p">,</span>
+            <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"DiskSnapshot"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1569625294.685</span><span class="p">,</span>
+            <span class="s2">"location"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"availabilityZone"</span><span class="p">:</span> <span class="s2">"all"</span><span class="p">,</span>
+                <span class="s2">"regionName"</span><span class="p">:</span> <span class="s2">"us-west-2"</span>
+            <span class="p">},</span>
+            <span class="s2">"isTerminal"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"operationDetails"</span><span class="p">:</span> <span class="s2">"WordPress-1"</span><span class="p">,</span>
+            <span class="s2">"operationType"</span><span class="p">:</span> <span class="s2">"CreateDiskSnapshot"</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Started"</span><span class="p">,</span>
+            <span class="s2">"statusChangedAt"</span><span class="p">:</span> <span class="mf">1569625294.685</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"0bb9f712-da3b-4d99-b508-3bf871d989e5"</span><span class="p">,</span>
+            <span class="s2">"resourceName"</span><span class="p">:</span> <span class="s2">"WordPress-1"</span><span class="p">,</span>
+            <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"Instance"</span><span class="p">,</span>
+            <span class="s2">"createdAt"</span><span class="p">:</span> <span class="mf">1569625294.685</span><span class="p">,</span>
+            <span class="s2">"location"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"availabilityZone"</span><span class="p">:</span> <span class="s2">"us-west-2a"</span><span class="p">,</span>
+                <span class="s2">"regionName"</span><span class="p">:</span> <span class="s2">"us-west-2"</span>
+            <span class="p">},</span>
+            <span class="s2">"isTerminal"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"operationDetails"</span><span class="p">:</span> <span class="s2">"SystemDiskSnapshot-1"</span><span class="p">,</span>
+            <span class="s2">"operationType"</span><span class="p">:</span> <span class="s2">"CreateDiskSnapshot"</span><span class="p">,</span>
+            <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"Started"</span><span class="p">,</span>
+            <span class="s2">"statusChangedAt"</span><span class="p">:</span> <span class="mf">1569625294.685</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/understanding-instance-snapshots-in-amazon-lightsail">Snapshots in Amazon Lightsail</a> and <a class="reference external" href="https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-create-an-instance-root-volume-snapshot">Creating a snapshot of an instance root volume in Amazon Lightsail</a> in the <em>Lightsail Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>operations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An object describing the API operations.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the API operation.</p>
+<p>id -&gt; (string)</p>
+<blockquote>
+<div>The ID of the operation.</div>
+</blockquote>
+<p>resourceName -&gt; (string)</p>
+<blockquote>
+<div>The resource name.</div>
+</blockquote>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The resource type.</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp when the operation was initialized (e.g., <tt class="docutils literal"><span class="pre">1479816991.349</span></tt> ).</div>
+</blockquote>
+<p>location -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The AWS Region and Availability Zone.</p>
+<p>availabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone. Follows the format <tt class="docutils literal"><span class="pre">us-east-2a</span></tt> (case-sensitive).</div>
+</blockquote>
+<p>regionName -&gt; (string)</p>
+<blockquote>
+<div>The AWS Region name.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>isTerminal -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean value indicating whether the operation is terminal.</div>
+</blockquote>
+<p>operationDetails -&gt; (string)</p>
+<blockquote>
+<div>Details about the operation (e.g., <tt class="docutils literal"><span class="pre">Debian-1GB-Ohio-1</span></tt> ).</div>
+</blockquote>
+<p>operationType -&gt; (string)</p>
+<blockquote>
+<div>The type of operation.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the operation.</div>
+</blockquote>
+<p>statusChangedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp when the status was changed (e.g., <tt class="docutils literal"><span class="pre">1479816991.349</span></tt> ).</div>
+</blockquote>
+<p>errorCode -&gt; (string)</p>
+<blockquote>
+<div>The error code.</div>
+</blockquote>
+<p>errorDetails -&gt; (string)</p>
+<blockquote>
+<div>The error details.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

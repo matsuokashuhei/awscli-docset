@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-snapshots — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="create-spot-datafeed-subscription" href="create-spot-datafeed-subscription.html">
+    <link rel="prev" title="create-snapshot" href="create-snapshot.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-snapshots">
+<span id="cli-aws-ec2-create-snapshots"></span><h1>create-snapshots<a class="headerlink" href="#create-snapshots" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the parameters.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateSnapshots">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-snapshots
+[--description &lt;value&gt;]
+--instance-specification &lt;value&gt;
+[--tag-specifications &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--copy-tags-from-source &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description propagated to every snapshot specified by the instance.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-specification</span></tt> (structure)</p>
+<blockquote>
+<div>The instance to specify which volumes should be included in the snapshots.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">InstanceId</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ExcludeBootVolume</span><span class="o">=</span><span class="n">boolean</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InstanceId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"ExcludeBootVolume"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tag-specifications</span></tt> (list)</p>
+<blockquote>
+<div>Tags to apply to every snapshot specified by the instance.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceType=string,Tags=[{Key=string,Value=string},{Key=string,Value=string}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceType": "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+    "Tags": [
+      {
+        "Key": "string",
+        "Value": "string"
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--copy-tags-from-source</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Copies the tags from the specified volume to corresponding snapshot.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">volume</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create a multi-volume snapshot</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-snapshots</span></tt> example creates snapshots of all volumes attached to the specified instance.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-snapshots \
+    --instance-specification InstanceId=i-1234567890abcdef0 \
+    --description "This is snapshot of a volume from my-instance"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Snapshots"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is a snapshot of a volume from my-instance"</span><span class="p">,</span>
+            <span class="s2">"Tags"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-0a01d2d5a34697479"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+            <span class="s2">"VolumeSize"</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+            <span class="s2">"StartTime"</span><span class="p">:</span> <span class="s2">"2019-08-05T16:58:19.000Z"</span><span class="p">,</span>
+            <span class="s2">"Progress"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-07f30e3909aa0045e"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"This is a snapshot of a volume from my-instance"</span><span class="p">,</span>
+            <span class="s2">"Tags"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"Encrypted"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"VolumeId"</span><span class="p">:</span> <span class="s2">"vol-02d0d4947008cb1a2"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"pending"</span><span class="p">,</span>
+            <span class="s2">"VolumeSize"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="s2">"StartTime"</span><span class="p">:</span> <span class="s2">"2019-08-05T16:58:19.000Z"</span><span class="p">,</span>
+            <span class="s2">"Progress"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+            <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-0ec20b602264aad48"</span>
+        <span class="p">},</span>
+        <span class="o">...</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To create a multi-volume snapshot with tags from the source volume</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-snapshots</span></tt> example creates snapshots of all volumes attached to the specified instance and copies the tags from each volume to its corresponding snapshot.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-snapshots \
+    --instance-specification InstanceId=i-1234567890abcdef0 \
+    --copy-tags-from-source volume \
+    --description "This is snapshot of a volume from my-instance"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+    "Snapshots": [
+        {
+            "Description": "This is a snapshot of a volume from my-instance",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "my-volume"
+                }
+            ],
+            "Encrypted": false,
+            "VolumeId": "vol-02d0d4947008cb1a2",
+            "State": "pending",
+            "VolumeSize": 20,
+            "StartTime": "2019-08-05T16:53:04.000Z",
+            "Progress": "",
+            "OwnerId": "123456789012",
+            "SnapshotId": "snap-053bfaeb821a458dd"
+        }
+        ...
+    ]
+}</pre>
+</div>
+<p><strong>Example 3: To create a multi-volume snapshot not including the root volume</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-snapshots</span></tt> example creates a snapshot of all volumes attached to the specified instance except for the root volume.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-snapshots \
+    --instance-specification InstanceId=i-1234567890abcdef0,ExcludeBootVolume=true</pre>
+</div>
+<p><strong>Example 4: To create a multi-volume snapshot and add tags</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-snapshots</span></tt> example creates snapshots of all volumes attached to the specified instance and adds two tags to each snapshot.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-snapshots \
+    --instance-specification InstanceId=i-1234567890abcdef0
+    --tag-specifications ResourceType=snapshot,Tags=[{Key=Name,Value=backup},{Key=costcenter,Value=123}]</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Snapshots -&gt; (list)</p>
+<blockquote>
+<div>
+<p>List of snapshots.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a snapshot.</p>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>Description specified by the CreateSnapshotRequest that has been applied to all snapshots.</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Tags associated with this snapshot.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the snapshot is encrypted.</div>
+</blockquote>
+<p>VolumeId -&gt; (string)</p>
+<blockquote>
+<div>Source volume from which this snapshot was created.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>Current state of the snapshot.</div>
+</blockquote>
+<p>VolumeSize -&gt; (integer)</p>
+<blockquote>
+<div>Size of the volume from which this snapshot was created.</div>
+</blockquote>
+<p>StartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time this snapshot was started. This is the same for all snapshots initiated by the same request.</div>
+</blockquote>
+<p>Progress -&gt; (string)</p>
+<blockquote>
+<div>Progress this snapshot has made towards completing.</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>Account id used when creating this snapshot.</div>
+</blockquote>
+<p>SnapshotId -&gt; (string)</p>
+<blockquote>
+<div>Snapshot id that can be used to describe this snapshot.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

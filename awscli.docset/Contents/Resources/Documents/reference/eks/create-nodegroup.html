@@ -1,0 +1,454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-nodegroup — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="eks" href="index.html">
+    <link rel="next" title="delete-cluster" href="delete-cluster.html">
+    <link rel="prev" title="create-fargate-profile" href="create-fargate-profile.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-nodegroup">
+<span id="cli-aws-eks-create-nodegroup"></span><h1>create-nodegroup<a class="headerlink" href="#create-nodegroup" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a managed worker node group for an Amazon EKS cluster. You can only create a node group for your cluster that is equal to the current Kubernetes version for the cluster. All node groups are created with the latest AMI release version for the respective minor Kubernetes version of the cluster.</p>
+<p>An Amazon EKS managed node group is an Amazon EC2 Auto Scaling group and associated Amazon EC2 instances that are managed by AWS for an Amazon EKS cluster. Each node group uses a version of the Amazon EKS-optimized Amazon Linux 2 AMI. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html">Managed Node Groups</a> in the <em>Amazon EKS User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/CreateNodegroup">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-nodegroup
+--cluster-name &lt;value&gt;
+--nodegroup-name &lt;value&gt;
+[--scaling-config &lt;value&gt;]
+[--disk-size &lt;value&gt;]
+--subnets &lt;value&gt;
+[--instance-types &lt;value&gt;]
+[--ami-type &lt;value&gt;]
+[--remote-access &lt;value&gt;]
+--node-role &lt;value&gt;
+[--labels &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--client-request-token &lt;value&gt;]
+[--release-version &lt;value&gt;]
+[--kubernetes-version &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the cluster to create the node group in.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--nodegroup-name</span></tt> (string)</p>
+<blockquote>
+<div>The unique name to give your node group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--scaling-config</span></tt> (structure)</p>
+<blockquote>
+<div>The scaling configuration details for the Auto Scaling group that is created for your node group.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">minSize</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">maxSize</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">desiredSize</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"minSize"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"maxSize"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"desiredSize"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--disk-size</span></tt> (integer)</p>
+<blockquote>
+<div>The root device disk size (in GiB) for your node group instances. The default disk size is 20 GiB.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--subnets</span></tt> (list)</p>
+<blockquote>
+<div>The subnets to use for the Auto Scaling group that is created for your node group. These subnets must have the tag key <tt class="docutils literal"><span class="pre">kubernetes.io/cluster/CLUSTER_NAME</span></tt> with a value of <tt class="docutils literal"><span class="pre">shared</span></tt> , where <tt class="docutils literal"><span class="pre">CLUSTER_NAME</span></tt> is replaced with the name of your cluster.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--instance-types</span></tt> (list)</p>
+<blockquote>
+<div>The instance type to use for your node group. Currently, you can specify a single instance type for a node group. The default value for this parameter is <tt class="docutils literal"><span class="pre">t3.medium</span></tt> . If you choose a GPU instance type, be sure to specify the <tt class="docutils literal"><span class="pre">AL2_x86_64_GPU</span></tt> with the <tt class="docutils literal"><span class="pre">amiType</span></tt> parameter.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--ami-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The AMI type for your node group. GPU instance types should use the <tt class="docutils literal"><span class="pre">AL2_x86_64_GPU</span></tt> AMI type, which uses the Amazon EKS-optimized Linux AMI with GPU support. Non-GPU instances should use the <tt class="docutils literal"><span class="pre">AL2_x86_64</span></tt> AMI type, which uses the Amazon EKS-optimized Linux AMI.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AL2_x86_64</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AL2_x86_64_GPU</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--remote-access</span></tt> (structure)</p>
+<blockquote>
+<div>The remote access (SSH) configuration to use with your node group.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ec2SshKey</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">sourceSecurityGroups</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ec2SshKey"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"sourceSecurityGroups"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--node-role</span></tt> (string)</p>
+<blockquote>
+<div>The IAM role associated with your node group. The Amazon EKS worker node <tt class="docutils literal"><span class="pre">kubelet</span></tt> daemon makes calls to AWS APIs on your behalf. Worker nodes receive permissions for these API calls through an IAM instance profile and associated policies. Before you can launch worker nodes and register them into a cluster, you must create an IAM role for those worker nodes to use when they are launched. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/worker_node_IAM_role.html">Amazon EKS Worker Node IAM Role</a> in the * <em>Amazon EKS User Guide</em> * .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--labels</span></tt> (map)</p>
+<blockquote>
+<div>The Kubernetes labels to be applied to the nodes in the node group when they are created.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (map)</p>
+<blockquote>
+<div>The metadata to apply to the node group to assist with categorization and organization. Each tag consists of a key and an optional value, both of which you define. Node group tags do not propagate to any other resources associated with the node group, such as the Amazon EC2 instances or subnets.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--client-request-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--release-version</span></tt> (string)</p>
+<blockquote>
+<div>The AMI version of the Amazon EKS-optimized AMI to use with your node group. By default, the latest available AMI version for the node group's current Kubernetes version is used. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html">Amazon EKS-Optimized Linux AMI Versions</a> in the <em>Amazon EKS User Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kubernetes-version</span></tt> (string)</p>
+<blockquote>
+<div>The Kubernetes version to use for your managed nodes. By default, the Kubernetes version of the cluster is used, and this is the only accepted specified value.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>nodegroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The full description of your new node group.</p>
+<p>nodegroupName -&gt; (string)</p>
+<blockquote>
+<div>The name associated with an Amazon EKS managed node group.</div>
+</blockquote>
+<p>nodegroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) associated with the managed node group.</div>
+</blockquote>
+<p>clusterName -&gt; (string)</p>
+<blockquote>
+<div>The name of the cluster that the managed node group resides in.</div>
+</blockquote>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>The Kubernetes version of the managed node group.</div>
+</blockquote>
+<p>releaseVersion -&gt; (string)</p>
+<blockquote>
+<div>The AMI version of the managed node group. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html">Amazon EKS-Optimized Linux AMI Versions</a> in the <em>Amazon EKS User Guide</em> .</div>
+</blockquote>
+<p>createdAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix epoch timestamp in seconds for when the managed node group was created.</div>
+</blockquote>
+<p>modifiedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix epoch timestamp in seconds for when the managed node group was last modified.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the managed node group.</div>
+</blockquote>
+<p>scalingConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The scaling configuration details for the Auto Scaling group that is associated with your node group.</p>
+<p>minSize -&gt; (integer)</p>
+<blockquote>
+<div>The minimum number of worker nodes that the managed node group can scale in to. This number must be greater than zero.</div>
+</blockquote>
+<p>maxSize -&gt; (integer)</p>
+<blockquote>
+<div>The maximum number of worker nodes that the managed node group can scale out to. Managed node groups can support up to 100 nodes by default.</div>
+</blockquote>
+<p>desiredSize -&gt; (integer)</p>
+<blockquote>
+<div>The current number of worker nodes that the managed node group should maintain.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>instanceTypes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The instance types associated with your node group.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>subnets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The subnets allowed for the Auto Scaling group that is associated with your node group. These subnets must have the following tag: <tt class="docutils literal"><span class="pre">kubernetes.io/cluster/CLUSTER_NAME</span></tt> , where <tt class="docutils literal"><span class="pre">CLUSTER_NAME</span></tt> is replaced with the name of your cluster.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>remoteAccess -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The remote access (SSH) configuration that is associated with the node group.</p>
+<p>ec2SshKey -&gt; (string)</p>
+<blockquote>
+<div>The Amazon EC2 SSH key that provides access for SSH communication with the worker nodes in the managed node group. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">Amazon EC2 Key Pairs</a> in the <em>Amazon Elastic Compute Cloud User Guide for Linux Instances</em> .</div>
+</blockquote>
+<p>sourceSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The security groups that are allowed SSH access (port 22) to the worker nodes. If you specify an Amazon EC2 SSH key but do not specify a source security group when you create a managed node group, then port 22 on the worker nodes is opened to the internet (0.0.0.0/0). For more information, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html">Security Groups for Your VPC</a> in the <em>Amazon Virtual Private Cloud User Guide</em> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>amiType -&gt; (string)</p>
+<blockquote>
+<div>The AMI type associated with your node group. GPU instance types should use the <tt class="docutils literal"><span class="pre">AL2_x86_64_GPU</span></tt> AMI type, which uses the Amazon EKS-optimized Linux AMI with GPU support. Non-GPU instances should use the <tt class="docutils literal"><span class="pre">AL2_x86_64</span></tt> AMI type, which uses the Amazon EKS-optimized Linux AMI.</div>
+</blockquote>
+<p>nodeRole -&gt; (string)</p>
+<blockquote>
+<div>The IAM role associated with your node group. The Amazon EKS worker node <tt class="docutils literal"><span class="pre">kubelet</span></tt> daemon makes calls to AWS APIs on your behalf. Worker nodes receive permissions for these API calls through an IAM instance profile and associated policies. Before you can launch worker nodes and register them into a cluster, you must create an IAM role for those worker nodes to use when they are launched. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/worker_node_IAM_role.html">Amazon EKS Worker Node IAM Role</a> in the * <em>Amazon EKS User Guide</em> * .</div>
+</blockquote>
+<p>labels -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The Kubernetes labels applied to the nodes in the node group.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only labels that are applied with the Amazon EKS API are shown here. There may be other Kubernetes labels applied to the nodes in this group.</p>
+</div>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>resources -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The resources associated with the node group, such as Auto Scaling groups and security groups for remote access.</p>
+<p>autoScalingGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Auto Scaling groups associated with the node group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An Auto Scaling group that is associated with an Amazon EKS managed node group.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the Auto Scaling group associated with an Amazon EKS managed node group.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>remoteAccessSecurityGroup -&gt; (string)</p>
+<blockquote>
+<div>The remote access security group associated with the node group. This security group controls SSH access to the worker nodes.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>diskSize -&gt; (integer)</p>
+<blockquote>
+<div>The root device disk size (in GiB) for your node group instances. The default disk size is 20 GiB.</div>
+</blockquote>
+<p>health -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The health status of the node group. If there are issues with your node group's health, they are listed here.</p>
+<p>issues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any issues that are associated with the node group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing an issue with an Amazon EKS resource.</p>
+<p>code -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A brief description of the error.</p>
+<ul class="simple">
+<li>
+<strong>AutoScalingGroupNotFound</strong> : We couldn't find the Auto Scaling group associated with the managed node group. You may be able to recreate an Auto Scaling group with the same settings to recover.</li>
+<li>
+<strong>Ec2SecurityGroupNotFound</strong> : We couldn't find the cluster security group for the cluster. You must recreate your cluster.</li>
+<li>
+<strong>Ec2SecurityGroupDeletionFailure</strong> : We could not delete the remote access security group for your managed node group. Remove any dependencies from the security group.</li>
+<li>
+<strong>Ec2LaunchTemplateNotFound</strong> : We couldn't find the Amazon EC2 launch template for your managed node group. You may be able to recreate a launch template with the same settings to recover.</li>
+<li>
+<strong>Ec2LaunchTemplateVersionMismatch</strong> : The Amazon EC2 launch template version for your managed node group does not match the version that Amazon EKS created. You may be able to revert to the version that Amazon EKS created to recover.</li>
+<li>
+<strong>IamInstanceProfileNotFound</strong> : We couldn't find the IAM instance profile for your managed node group. You may be able to recreate an instance profile with the same settings to recover.</li>
+<li>
+<strong>IamNodeRoleNotFound</strong> : We couldn't find the IAM role for your managed node group. You may be able to recreate an IAM role with the same settings to recover.</li>
+<li>
+<strong>AsgInstanceLaunchFailures</strong> : Your Auto Scaling group is experiencing failures while attempting to launch instances.</li>
+<li>
+<strong>NodeCreationFailure</strong> : Your launched instances are unable to register with your Amazon EKS cluster. Common causes of this failure are insufficient <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/worker_node_IAM_role.html">worker node IAM role</a> permissions or lack of outbound internet access for the nodes.</li>
+<li>
+<strong>InstanceLimitExceeded</strong> : Your AWS account is unable to launch any more instances of the specified instance type. You may be able to request an Amazon EC2 instance limit increase to recover.</li>
+<li>
+<strong>InsufficientFreeAddresses</strong> : One or more of the subnets associated with your managed node group does not have enough available IP addresses for new nodes.</li>
+<li>
+<strong>AccessDenied</strong> : Amazon EKS or one or more of your managed nodes is unable to communicate with your cluster API server.</li>
+<li>
+<strong>InternalFailure</strong> : These errors are usually caused by an Amazon EKS server-side issue.</li>
+</ul>
+</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The error message associated with the issue.</div>
+</blockquote>
+<p>resourceIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The AWS resources that are afflicted by this issue.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>tags -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The metadata applied to the node group to assist with categorization and organization. Each tag consists of a key and an optional value, both of which you define. Node group tags do not propagate to any other resources associated with the node group, such as the Amazon EC2 instances or subnets.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

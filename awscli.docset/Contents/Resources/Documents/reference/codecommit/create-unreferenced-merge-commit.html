@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-unreferenced-merge-commit — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="codecommit" href="index.html">
+    <link rel="next" title="credential-helper" href="credential-helper/index.html">
+    <link rel="prev" title="create-repository" href="create-repository.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-unreferenced-merge-commit">
+<span id="cli-aws-codecommit-create-unreferenced-merge-commit"></span><h1>create-unreferenced-merge-commit<a class="headerlink" href="#create-unreferenced-merge-commit" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an unreferenced commit that represents the result of merging two branches using a specified merge strategy. This can help you determine the outcome of a potential merge. This API cannot be used with the fast-forward merge strategy because that strategy does not create a merge commit.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This unreferenced merge commit can only be accessed using the GetCommit API or through git commands such as git fetch. To retrieve this commit, you must specify its commit ID or otherwise reference it.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateUnreferencedMergeCommit">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-unreferenced-merge-commit
+--repository-name &lt;value&gt;
+--source-commit-specifier &lt;value&gt;
+--destination-commit-specifier &lt;value&gt;
+--merge-option &lt;value&gt;
+[--conflict-detail-level &lt;value&gt;]
+[--conflict-resolution-strategy &lt;value&gt;]
+[--author-name &lt;value&gt;]
+[--email &lt;value&gt;]
+[--commit-message &lt;value&gt;]
+[--keep-empty-folders | --no-keep-empty-folders]
+[--conflict-resolution &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--repository-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the repository where you want to create the unreferenced merge commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-commit-specifier</span></tt> (string)</p>
+<blockquote>
+<div>The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--destination-commit-specifier</span></tt> (string)</p>
+<blockquote>
+<div>The branch, tag, HEAD, or other fully qualified reference used to identify a commit (for example, a branch name or a full commit ID).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--merge-option</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The merge option or strategy you want to use to merge the code.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">FAST_FORWARD_MERGE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SQUASH_MERGE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">THREE_WAY_MERGE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--conflict-detail-level</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The level of conflict detail to use. If unspecified, the default FILE_LEVEL is used, which returns a not-mergeable result if the same file has differences in both branches. If LINE_LEVEL is specified, a conflict is considered not mergeable if the same file in both branches has differences on the same line.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">FILE_LEVEL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">LINE_LEVEL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--conflict-resolution-strategy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies which branch to use when resolving conflicts, or whether to attempt automatically merging two versions of a file. The default is NONE, which requires any conflicts to be resolved manually before the merge operation is successful.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NONE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ACCEPT_SOURCE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ACCEPT_DESTINATION</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AUTOMERGE</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--author-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the author who created the unreferenced commit. This information is used as both the author and committer for the commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--email</span></tt> (string)</p>
+<blockquote>
+<div>The email address for the person who created the unreferenced commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--commit-message</span></tt> (string)</p>
+<blockquote>
+<div>The commit message for the unreferenced commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--keep-empty-folders</span></tt> | <tt class="docutils literal"><span class="pre">--no-keep-empty-folders</span></tt> (boolean)</p>
+<blockquote>
+<div>If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If this is specified as true, a .gitkeep file is created for empty folders. The default is false.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--conflict-resolution</span></tt> (structure)</p>
+<blockquote>
+<div>If AUTOMERGE is the conflict resolution strategy, a list of inputs to use when resolving conflicts during a merge.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>replaceContents=[{filePath=string,replacementType=string,content=blob,fileMode=string},{filePath=string,replacementType=string,content=blob,fileMode=string}],deleteFiles=[{filePath=string},{filePath=string}],setFileModes=[{filePath=string,fileMode=string},{filePath=string,fileMode=string}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "replaceContents": [
+    {
+      "filePath": "string",
+      "replacementType": "KEEP_BASE"|"KEEP_SOURCE"|"KEEP_DESTINATION"|"USE_NEW_CONTENT",
+      "content": blob,
+      "fileMode": "EXECUTABLE"|"NORMAL"|"SYMLINK"
+    }
+    ...
+  ],
+  "deleteFiles": [
+    {
+      "filePath": "string"
+    }
+    ...
+  ],
+  "setFileModes": [
+    {
+      "filePath": "string",
+      "fileMode": "EXECUTABLE"|"NORMAL"|"SYMLINK"
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create an unreferenced commit that represents the result of merging two commit specifiers</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-unreferenced-merge-commit</span></tt> example creates a commit that represents the results of a merge between a source branch named <tt class="docutils literal"><span class="pre">bugfix-1234</span></tt> with a destination branch named <tt class="docutils literal"><span class="pre">master</span></tt> using the THREE_WAY_MERGE strategy in a repository named <tt class="docutils literal"><span class="pre">MyDemoRepo</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws codecommit create-unreferenced-merge-commit \
+    --source-commit-specifier bugfix-1234 \
+    --destination-commit-specifier master \
+    --merge-option THREE_WAY_MERGE \
+    --repository-name MyDemoRepo \
+    --name "Maria Garcia" \
+    --email "maria_garcia@example.com" \
+    --commit-message "Testing the results of this merge."</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"commitId"</span><span class="p">:</span> <span class="s2">"4f178133EXAMPLE"</span><span class="p">,</span>
+    <span class="s2">"treeId"</span><span class="p">:</span> <span class="s2">"389765daEXAMPLE"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-resolve-conflict-pull-request.html#batch-describe-merge-conflicts">Resolve Conflicts in a Pull Request</a> in the <em>AWS CodeCommit User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>commitId -&gt; (string)</p>
+<blockquote>
+<div>The full commit ID of the commit that contains your merge results.</div>
+</blockquote>
+<p>treeId -&gt; (string)</p>
+<blockquote>
+<div>The full SHA-1 pointer of the tree information for the commit that contains the merge results.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-slot-type — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="lex-models" href="index.html">
+    <link rel="next" title="start-import" href="start-import.html">
+    <link rel="prev" title="put-intent" href="put-intent.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-slot-type">
+<span id="cli-aws-lex-models-put-slot-type"></span><h1>put-slot-type<a class="headerlink" href="#put-slot-type" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a custom slot type or replaces an existing custom slot type.</p>
+<p>To create a custom slot type, specify a name for the slot type and a set of enumeration values, which are the values that a slot of this type can assume. For more information, see  how-it-works .</p>
+<p>If you specify the name of an existing slot type, the fields in the request replace the existing values in the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version of the slot type. Amazon Lex removes the fields that you don't provide in the request. If you don't specify required fields, Amazon Lex throws an exception. When you update the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version of a slot type, if a bot uses the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version of an intent that contains the slot type, the bot's <tt class="docutils literal"><span class="pre">status</span></tt> field is set to <tt class="docutils literal"><span class="pre">NOT_BUILT</span></tt> .</p>
+<p>This operation requires permissions for the <tt class="docutils literal"><span class="pre">lex:PutSlotType</span></tt> action.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/lex-models-2017-04-19/PutSlotType">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-slot-type
+--name &lt;value&gt;
+[--description &lt;value&gt;]
+[--enumeration-values &lt;value&gt;]
+[--checksum &lt;value&gt;]
+[--value-selection-strategy &lt;value&gt;]
+[--create-version | --no-create-version]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the slot type. The name is <em>not</em> case sensitive.</p>
+<p>The name can't match a built-in slot type name, or a built-in slot type name with "AMAZON." removed. For example, because there is a built-in slot type called <tt class="docutils literal"><span class="pre">AMAZON.DATE</span></tt> , you can't create a custom slot type called <tt class="docutils literal"><span class="pre">DATE</span></tt> .</p>
+<p>For a list of built-in slot types, see <a class="reference external" href="https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference">Slot Type Reference</a> in the <em>Alexa Skills Kit</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description of the slot type.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--enumeration-values</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">EnumerationValue</span></tt> objects that defines the values that the slot type can take. Each value can have a list of <tt class="docutils literal"><span class="pre">synonyms</span></tt> , which are additional values that help train the machine learning model about the values that it resolves for a slot.</p>
+<p>When Amazon Lex resolves a slot value, it generates a resolution list that contains up to five possible values for the slot. If you are using a Lambda function, this resolution list is passed to the function. If you are not using a Lambda function you can choose to return the value that the user entered or the first value in the resolution list as the slot value. The <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> field indicates the option to use.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>value=string,synonyms=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "value": "string",
+    "synonyms": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--checksum</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Identifies a specific revision of the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version.</p>
+<p>When you create a new slot type, leave the <tt class="docutils literal"><span class="pre">checksum</span></tt> field blank. If you specify a checksum you get a <tt class="docutils literal"><span class="pre">BadRequestException</span></tt> exception.</p>
+<p>When you want to update a slot type, set the <tt class="docutils literal"><span class="pre">checksum</span></tt> field to the checksum of the most recent revision of the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version. If you don't specify the <tt class="docutils literal"><span class="pre">checksum</span></tt> field, or if the checksum does not match the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version, you get a <tt class="docutils literal"><span class="pre">PreconditionFailedException</span></tt> exception.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--value-selection-strategy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Determines the slot resolution strategy that Amazon Lex uses to return slot type values. The field can be set to one of the following values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt> - Returns the value entered by the user, if the user value is similar to the slot value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">TOP_RESOLUTION</span></tt> - If there is a resolution list for the slot, return the first value in the resolution list as the slot type value. If there is no resolution list, null is returned.</li>
+</ul>
+<p>If you don't specify the <tt class="docutils literal"><span class="pre">valueSelectionStrategy</span></tt> , the default is <tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ORIGINAL_VALUE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TOP_RESOLUTION</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--create-version</span></tt> | <tt class="docutils literal"><span class="pre">--no-create-version</span></tt> (boolean)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">true</span></tt> a new numbered version of the slot type is created. This is the same as calling the <tt class="docutils literal"><span class="pre">CreateSlotTypeVersion</span></tt> operation. If you do not specify <tt class="docutils literal"><span class="pre">createVersion</span></tt> , the default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the slot type.</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>A description of the slot type.</div>
+</blockquote>
+<p>enumerationValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of <tt class="docutils literal"><span class="pre">EnumerationValue</span></tt> objects that defines the values that the slot type can take.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Each slot type can have a set of values. Each enumeration value represents a value the slot type can take.</p>
+<p>For example, a pizza ordering bot could have a slot type that specifies the type of crust that the pizza should have. The slot type could include the values</p>
+<ul class="simple">
+<li>thick</li>
+<li>thin</li>
+<li>stuffed</li>
+</ul>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the slot type.</div>
+</blockquote>
+<p>synonyms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Additional values related to the slot type value.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lastUpdatedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date that the slot type was updated. When you create a slot type, the creation date and last update date are the same.</div>
+</blockquote>
+<p>createdDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date that the slot type was created.</div>
+</blockquote>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>The version of the slot type. For a new slot type, the version is always <tt class="docutils literal"><span class="pre">$LATEST</span></tt> .</div>
+</blockquote>
+<p>checksum -&gt; (string)</p>
+<blockquote>
+<div>Checksum of the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version of the slot type.</div>
+</blockquote>
+<p>valueSelectionStrategy -&gt; (string)</p>
+<blockquote>
+<div>The slot resolution strategy that Amazon Lex uses to determine the value of the slot. For more information, see  PutSlotType .</div>
+</blockquote>
+<p>createVersion -&gt; (boolean)</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">True</span></tt> if a new version of the slot type was created. If the <tt class="docutils literal"><span class="pre">createVersion</span></tt> field was not specified in the request, the <tt class="docutils literal"><span class="pre">createVersion</span></tt> field is set to false in the response.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-maintenance-window-task — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="update-managed-instance-role" href="update-managed-instance-role.html">
+    <link rel="prev" title="update-maintenance-window-target" href="update-maintenance-window-target.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-maintenance-window-task">
+<span id="cli-aws-ssm-update-maintenance-window-task"></span><h1>update-maintenance-window-task<a class="headerlink" href="#update-maintenance-window-task" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies a task assigned to a maintenance window. You can't change the task type, but you can change the following values:</p>
+<ul class="simple">
+<li>TaskARN. For example, you can change a RUN_COMMAND task from AWS-RunPowerShellScript to AWS-RunShellScript.</li>
+<li>ServiceRoleArn</li>
+<li>TaskInvocationParameters</li>
+<li>Priority</li>
+<li>MaxConcurrency</li>
+<li>MaxErrors</li>
+</ul>
+<p>If a parameter is null, then the corresponding field is not modified. Also, if you set Replace to true, then all fields required by the  RegisterTaskWithMaintenanceWindow action are required for this request. Optional fields that aren't specified are set to null.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/UpdateMaintenanceWindowTask">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-maintenance-window-task
+--window-id &lt;value&gt;
+--window-task-id &lt;value&gt;
+[--targets &lt;value&gt;]
+[--task-arn &lt;value&gt;]
+[--service-role-arn &lt;value&gt;]
+[--task-parameters &lt;value&gt;]
+[--task-invocation-parameters &lt;value&gt;]
+[--priority &lt;value&gt;]
+[--max-concurrency &lt;value&gt;]
+[--max-errors &lt;value&gt;]
+[--logging-info &lt;value&gt;]
+[--name &lt;value&gt;]
+[--description &lt;value&gt;]
+[--replace | --no-replace]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--window-id</span></tt> (string)</p>
+<blockquote>
+<div>The maintenance window ID that contains the task to modify.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--window-task-id</span></tt> (string)</p>
+<blockquote>
+<div>The task ID to modify.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--targets</span></tt> (list)</p>
+<blockquote>
+<div>The targets (either instances or tags) to modify. Instances are specified using Key=instanceids,Values=instanceID_1,instanceID_2. Tags are specified using Key=tag_name,Values=tag_value.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-arn</span></tt> (string)</p>
+<blockquote>
+<div>The task ARN to modify.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM service role for Systems Manager to assume when running a maintenance window task. If you do not specify a service role ARN, Systems Manager uses your account's service-linked role. If no service-linked role for Systems Manager exists in your account, it is created when you run <tt class="docutils literal"><span class="pre">RegisterTaskWithMaintenanceWindow</span></tt> .</p>
+<p>For more information, see the following topics in the in the <em>AWS Systems Manager User Guide</em> :</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html#slr-permissions">Service-Linked Role Permissions for Systems Manager</a></li>
+<li><a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-permissions.html#maintenance-window-tasks-service-role">Should I Use a Service-Linked Role or a Custom Service Role to Run Maintenance Window Tasks?</a></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--task-parameters</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>The parameters to modify.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">TaskParameters</span></tt> has been deprecated. To specify parameters to pass to a task when it runs, instead use the <tt class="docutils literal"><span class="pre">Parameters</span></tt> option in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+<p>The map has the following format:</p>
+<p>Key: string, between 1 and 255 characters</p>
+<p>Value: an array of strings, each string is between 1 and 255 characters</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">Values</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">Values</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": {
+      "Values": ["string", ...]
+    }
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--task-invocation-parameters</span></tt> (structure)</p>
+<blockquote>
+<div>The parameters that the task should use during execution. Populate only the fields that match the task type. All other fields should be empty.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "RunCommand": {
+    "Comment": "string",
+    "DocumentHash": "string",
+    "DocumentHashType": "Sha256"|"Sha1",
+    "NotificationConfig": {
+      "NotificationArn": "string",
+      "NotificationEvents": ["All"|"InProgress"|"Success"|"TimedOut"|"Cancelled"|"Failed", ...],
+      "NotificationType": "Command"|"Invocation"
+    },
+    "OutputS3BucketName": "string",
+    "OutputS3KeyPrefix": "string",
+    "Parameters": {"string": ["string", ...]
+      ...},
+    "ServiceRoleArn": "string",
+    "TimeoutSeconds": integer
+  },
+  "Automation": {
+    "DocumentVersion": "string",
+    "Parameters": {"string": ["string", ...]
+      ...}
+  },
+  "StepFunctions": {
+    "Input": "string",
+    "Name": "string"
+  },
+  "Lambda": {
+    "ClientContext": "string",
+    "Qualifier": "string",
+    "Payload": blob
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--priority</span></tt> (integer)</p>
+<blockquote>
+<div>The new task priority to specify. The lower the number, the higher the priority. Tasks that have the same priority are scheduled in parallel.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-concurrency</span></tt> (string)</p>
+<blockquote>
+<div>The new <tt class="docutils literal"><span class="pre">MaxConcurrency</span></tt> value you want to specify. <tt class="docutils literal"><span class="pre">MaxConcurrency</span></tt> is the number of targets that are allowed to run this task in parallel.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-errors</span></tt> (string)</p>
+<blockquote>
+<div>The new <tt class="docutils literal"><span class="pre">MaxErrors</span></tt> value to specify. <tt class="docutils literal"><span class="pre">MaxErrors</span></tt> is the maximum number of errors that are allowed before the task stops being scheduled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--logging-info</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The new logging location in Amazon S3 to specify.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">LoggingInfo</span></tt> has been deprecated. To specify an S3 bucket to contain logs, instead use the <tt class="docutils literal"><span class="pre">OutputS3BucketName</span></tt> and <tt class="docutils literal"><span class="pre">OutputS3KeyPrefix</span></tt> options in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3BucketName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3KeyPrefix</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">S3Region</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3BucketName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3KeyPrefix"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"S3Region"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The new task name to specify.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>The new task description to specify.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--replace</span></tt> | <tt class="docutils literal"><span class="pre">--no-replace</span></tt> (boolean)</p>
+<blockquote>
+<div>If True, then all fields that are required by the RegisterTaskWithMaintenanceWndow action are also required for this API request. Optional fields that are not specified are set to null.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update a Maintenance Window task</strong></p>
+<p>This example updates the service role for a Maintenance Window task.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ssm update-maintenance-window-task --window-id "mw-0c5ed765acEXAMPLE" --window-task-id "23d3809e-9fbe-4ddf-b41a-b49d7EXAMPLE" --service-role-arn "arn:aws:iam::111222333444:role/aws-service-role/ssm.amazonaws.com/AWSServiceRoleForAmazonSSM"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ServiceRoleArn"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::111222333444:role/aws-service-role/ssm.amazonaws.com/AWSServiceRoleForAmazonSSM"</span><span class="p">,</span>
+  <span class="s2">"MaxErrors"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+  <span class="s2">"TaskArn"</span><span class="p">:</span> <span class="s2">"AWS-UpdateEC2Config"</span><span class="p">,</span>
+  <span class="s2">"MaxConcurrency"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+  <span class="s2">"WindowTaskId"</span><span class="p">:</span> <span class="s2">"23d3809e-9fbe-4ddf-b41a-b49d7EXAMPLE"</span><span class="p">,</span>
+  <span class="s2">"TaskParameters"</span><span class="p">:</span> <span class="p">{},</span>
+  <span class="s2">"Priority"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">"TaskInvocationParameters"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"RunCommand"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"TimeoutSeconds"</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+          <span class="s2">"Parameters"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"allowDowngrade"</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">"false"</span>
+              <span class="p">]</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"WindowId"</span><span class="p">:</span> <span class="s2">"mw-0c5ed765acEXAMPLE"</span><span class="p">,</span>
+  <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"UpdateEC2Config"</span><span class="p">,</span>
+  <span class="s2">"Targets"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"Values"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">"57e8344e-fe64-4023-8191-6bf05EXAMPLE"</span>
+          <span class="p">],</span>
+          <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"WindowTargetIds"</span>
+      <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"UpdateEC2Config"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>WindowId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the maintenance window that was updated.</div>
+</blockquote>
+<p>WindowTaskId -&gt; (string)</p>
+<blockquote>
+<div>The task ID of the maintenance window that was updated.</div>
+</blockquote>
+<p>Targets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The updated target values.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An array of search criteria that targets instances using a Key,Value combination that you specify.</p>
+<p>Supported formats include the following.</p>
+<ul class="simple">
+<li>
+<a href="#id1"><span class="problematic" id="id2">``</span></a>Key=InstanceIds,Values=*instance-id-1* ,*instance-id-2* ,*instance-id-3* ``</li>
+<li>
+<a href="#id3"><span class="problematic" id="id4">``</span></a>Key=tag:<em>my-tag-key</em> ,Values=*my-tag-value-1* ,*my-tag-value-2* ``</li>
+<li>
+<a href="#id5"><span class="problematic" id="id6">``</span></a>Key=tag-key,Values=*my-tag-key-1* ,*my-tag-key-2* ``</li>
+<li>(Maintenance window targets only) <a href="#id7"><span class="problematic" id="id8">``</span></a>Key=resource-groups:Name,Values=*resource-group-name* ``</li>
+<li>(Maintenance window targets only) <a href="#id9"><span class="problematic" id="id10">``</span></a>Key=resource-groups:ResourceTypeFilters,Values=*resource-type-1* ,*resource-type-2* ``</li>
+</ul>
+<p>For example:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Key=InstanceIds,Values=i-02573cafcfEXAMPLE,i-0471e04240EXAMPLE,i-07782c72faEXAMPLE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Key=tag:CostCenter,Values=CostCenter1,CostCenter2,CostCenter3</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Key=tag-key,Values=Name,Instance-Type,CostCenter</span></tt></li>
+<li>(Maintenance window targets only) <tt class="docutils literal"><span class="pre">Key=resource-groups:Name,Values=ProductionResourceGroup</span></tt>   This example demonstrates how to target all resources in the resource group <strong>ProductionResourceGroup</strong> in your maintenance window.</li>
+<li>(Maintenance window targets only) <a href="#id11"><span class="problematic" id="id12">``</span></a>Key=resource-groups:ResourceTypeFilters,Values=*AWS::EC2::INSTANCE* ,*AWS::EC2::VPC* ``   This example demonstrates how to target only Amazon EC2 instances and VPCs in your maintenance window.</li>
+<li>(State Manager association targets only) <tt class="docutils literal"><span class="pre">Key=InstanceIds,Values=*</span></tt>   This example demonstrates how to target all managed instances in the AWS Region where the association was created.</li>
+</ul>
+<p>For information about how to send commands that target instances using <tt class="docutils literal"><span class="pre">Key,Value</span></tt> parameters, see <a class="reference external" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-targeting">Using Targets and Rate Controls to Send Commands to a Fleet</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>User-defined criteria for sending commands that target instances that meet the criteria.</div>
+</blockquote>
+<p>Values -&gt; (list)</p>
+<blockquote>
+<div>
+<p>User-defined criteria that maps to <tt class="docutils literal"><span class="pre">Key</span></tt> . For example, if you specified <tt class="docutils literal"><span class="pre">tag:ServerRole</span></tt> , you could specify <tt class="docutils literal"><span class="pre">value:WebServer</span></tt> to run a command on instances that include Amazon EC2 tags of <tt class="docutils literal"><span class="pre">ServerRole,WebServer</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>TaskArn -&gt; (string)</p>
+<blockquote>
+<div>The updated task ARN value.</div>
+</blockquote>
+<p>ServiceRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.</div>
+</blockquote>
+<p>TaskParameters -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The updated parameter values.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">TaskParameters</span></tt> has been deprecated. To specify parameters to pass to a task when it runs, instead use the <tt class="docutils literal"><span class="pre">Parameters</span></tt> option in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Defines the values for a task parameter.</p>
+<p>Values -&gt; (list)</p>
+<blockquote>
+<div>
+<p>This field contains an array of 0 or more strings, each 1 to 255 characters in length.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>TaskInvocationParameters -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The updated parameter values.</p>
+<p>RunCommand -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The parameters for a RUN_COMMAND task type.</p>
+<p>Comment -&gt; (string)</p>
+<blockquote>
+<div>Information about the commands to run.</div>
+</blockquote>
+<p>DocumentHash -&gt; (string)</p>
+<blockquote>
+<div>The SHA-256 or SHA-1 hash created by the system when the document was created. SHA-1 hashes have been deprecated.</div>
+</blockquote>
+<p>DocumentHashType -&gt; (string)</p>
+<blockquote>
+<div>SHA-256 or SHA-1. SHA-1 hashes have been deprecated.</div>
+</blockquote>
+<p>NotificationConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Configurations for sending notifications about command status changes on a per-instance basis.</p>
+<p>NotificationArn -&gt; (string)</p>
+<blockquote>
+<div>An Amazon Resource Name (ARN) for an Amazon Simple Notification Service (Amazon SNS) topic. Run Command pushes notifications about command status changes to this topic.</div>
+</blockquote>
+<p>NotificationEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The different events for which you can receive notifications. These events include the following: All (events), InProgress, Success, TimedOut, Cancelled, Failed. To learn more about these events, see <a class="reference external" href="http://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html">Configuring Amazon SNS Notifications for AWS Systems Manager</a> in the <em>AWS Systems Manager User Guide</em> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>NotificationType -&gt; (string)</p>
+<blockquote>
+<div>Command: Receive notification when the status of a command changes. Invocation: For commands sent to multiple instances, receive notification on a per-instance basis when the status of a command changes.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OutputS3BucketName -&gt; (string)</p>
+<blockquote>
+<div>The name of the Amazon S3 bucket.</div>
+</blockquote>
+<p>OutputS3KeyPrefix -&gt; (string)</p>
+<blockquote>
+<div>The Amazon S3 bucket subfolder.</div>
+</blockquote>
+<p>Parameters -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The parameters for the RUN_COMMAND task execution.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (list)</p>
+<blockquote>
+<div>(string)</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ServiceRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the IAM service role to use to publish Amazon Simple Notification Service (Amazon SNS) notifications for maintenance window Run Command tasks.</div>
+</blockquote>
+<p>TimeoutSeconds -&gt; (integer)</p>
+<blockquote>
+<div>If this time is reached and the command has not already started running, it doesn't run.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Automation -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The parameters for an AUTOMATION task type.</p>
+<p>DocumentVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of an Automation document to use during task execution.</div>
+</blockquote>
+<p>Parameters -&gt; (map)</p>
+<blockquote>
+<div>
+<p>The parameters for the AUTOMATION task.</p>
+<p>For information about specifying and updating task parameters, see  RegisterTaskWithMaintenanceWindow and  UpdateMaintenanceWindowTask .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">LoggingInfo</span></tt> has been deprecated. To specify an S3 bucket to contain logs, instead use the <tt class="docutils literal"><span class="pre">OutputS3BucketName</span></tt> and <tt class="docutils literal"><span class="pre">OutputS3KeyPrefix</span></tt> options in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+<p><tt class="docutils literal"><span class="pre">TaskParameters</span></tt> has been deprecated. To specify parameters to pass to a task when it runs, instead use the <tt class="docutils literal"><span class="pre">Parameters</span></tt> option in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+</blockquote>
+<p class="last">For AUTOMATION task types, Systems Manager ignores any values specified for these parameters.</p>
+</div>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (list)</p>
+<blockquote>
+<div>(string)</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>StepFunctions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The parameters for a STEP_FUNCTIONS task type.</p>
+<p>Input -&gt; (string)</p>
+<blockquote>
+<div>The inputs for the STEP_FUNCTIONS task.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the STEP_FUNCTIONS task.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Lambda -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The parameters for a LAMBDA task type.</p>
+<p>ClientContext -&gt; (string)</p>
+<blockquote>
+<div>Pass client-specific information to the Lambda function that you are invoking. You can then process the client information in your Lambda function as you choose through the context variable.</div>
+</blockquote>
+<p>Qualifier -&gt; (string)</p>
+<blockquote>
+<div>(Optional) Specify a Lambda function version or alias name. If you specify a function version, the action uses the qualified function ARN to invoke a specific Lambda function. If you specify an alias name, the action uses the alias ARN to invoke the Lambda function version to which the alias points.</div>
+</blockquote>
+<p>Payload -&gt; (blob)</p>
+<blockquote>
+<div>JSON to provide to your Lambda function as input.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Priority -&gt; (integer)</p>
+<blockquote>
+<div>The updated priority value.</div>
+</blockquote>
+<p>MaxConcurrency -&gt; (string)</p>
+<blockquote>
+<div>The updated MaxConcurrency value.</div>
+</blockquote>
+<p>MaxErrors -&gt; (string)</p>
+<blockquote>
+<div>The updated MaxErrors value.</div>
+</blockquote>
+<p>LoggingInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The updated logging information in Amazon S3.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><tt class="docutils literal"><span class="pre">LoggingInfo</span></tt> has been deprecated. To specify an S3 bucket to contain logs, instead use the <tt class="docutils literal"><span class="pre">OutputS3BucketName</span></tt> and <tt class="docutils literal"><span class="pre">OutputS3KeyPrefix</span></tt> options in the <tt class="docutils literal"><span class="pre">TaskInvocationParameters</span></tt> structure. For information about how Systems Manager handles these options for the supported maintenance window task types, see  MaintenanceWindowTaskInvocationParameters .</p>
+</div>
+<p>S3BucketName -&gt; (string)</p>
+<blockquote>
+<div>The name of an Amazon S3 bucket where execution logs are stored .</div>
+</blockquote>
+<p>S3KeyPrefix -&gt; (string)</p>
+<blockquote>
+<div>(Optional) The Amazon S3 bucket subfolder.</div>
+</blockquote>
+<p>S3Region -&gt; (string)</p>
+<blockquote>
+<div>The region where the Amazon S3 bucket is located.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The updated task name.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The updated task description.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

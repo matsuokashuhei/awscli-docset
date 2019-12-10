@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-resource-attributes — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="mgh" href="index.html">
+    <link rel="next" title="migrationhub-config" href="../migrationhub-config/index.html">
+    <link rel="prev" title="notify-migration-task-state" href="notify-migration-task-state.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-resource-attributes">
+<span id="cli-aws-mgh-put-resource-attributes"></span><h1>put-resource-attributes<a class="headerlink" href="#put-resource-attributes" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Provides identifying details of the resource being migrated so that it can be associated in the Application Discovery Service repository. This association occurs asynchronously after <tt class="docutils literal"><span class="pre">PutResourceAttributes</span></tt> returns.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>Keep in mind that subsequent calls to PutResourceAttributes will override previously stored attributes. For example, if it is first called with a MAC address, but later, it is desired to <em>add</em> an IP address, it will then be required to call it with <em>both</em> the IP and MAC addresses to prevent overriding the MAC address.</li>
+<li>Note the instructions regarding the special use case of the ` <tt class="docutils literal"><span class="pre">ResourceAttributeList</span></tt> <a class="reference external" href="https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#migrationhub-PutResourceAttributes-request">https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#migrationhub-PutResourceAttributes-request</a>-ResourceAttributeList`__ parameter when specifying any "VM" related value.</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Because this is an asynchronous call, it will always return 200, whether an association occurs or not. To confirm if an association was found based on the provided details, call <tt class="docutils literal"><span class="pre">ListDiscoveredResources</span></tt> .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/AWSMigrationHub-2017-05-31/PutResourceAttributes">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-resource-attributes
+--progress-update-stream &lt;value&gt;
+--migration-task-name &lt;value&gt;
+--resource-attribute-list &lt;value&gt;
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--progress-update-stream</span></tt> (string)</p>
+<blockquote>
+<div>The name of the ProgressUpdateStream.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--migration-task-name</span></tt> (string)</p>
+<blockquote>
+<div>Unique identifier that references the migration task. <em>Do not store personal data in this field.</em>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-attribute-list</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Information about the resource that is being migrated. This data will be used to map the task to a resource in the Application Discovery Service repository.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Takes the object array of <tt class="docutils literal"><span class="pre">ResourceAttribute</span></tt> where the <tt class="docutils literal"><span class="pre">Type</span></tt> field is reserved for the following values: <tt class="docutils literal"><span class="pre">IPV4_ADDRESS</span> <span class="pre">|</span> <span class="pre">IPV6_ADDRESS</span> <span class="pre">|</span> <span class="pre">MAC_ADDRESS</span> <span class="pre">|</span> <span class="pre">FQDN</span> <span class="pre">|</span> <span class="pre">VM_MANAGER_ID</span> <span class="pre">|</span> <span class="pre">VM_MANAGED_OBJECT_REFERENCE</span> <span class="pre">|</span> <span class="pre">VM_NAME</span> <span class="pre">|</span> <span class="pre">VM_PATH</span> <span class="pre">|</span> <span class="pre">BIOS_ID</span> <span class="pre">|</span> <span class="pre">MOTHERBOARD_SERIAL_NUMBER</span></tt> where the identifying value can be a string up to 256 characters.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<ul class="last simple">
+<li>If any "VM" related value is set for a <tt class="docutils literal"><span class="pre">ResourceAttribute</span></tt> object, it is required that <tt class="docutils literal"><span class="pre">VM_MANAGER_ID</span></tt> , as a minimum, is always set. If <tt class="docutils literal"><span class="pre">VM_MANAGER_ID</span></tt> is not set, then all "VM" fields will be discarded and "VM" fields will not be used for matching the migration task to a server in Application Discovery Service repository. See the <a class="reference external" href="https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples">Example</a> section below for a use case of specifying "VM" related values.</li>
+<li>If a server you are trying to match has multiple IP or MAC addresses, you should provide as many as you know in separate type/value pairs passed to the <tt class="docutils literal"><span class="pre">ResourceAttributeList</span></tt> parameter to maximize the chances of matching.</li>
+</ul>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Type=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Type": "IPV4_ADDRESS"|"IPV6_ADDRESS"|"MAC_ADDRESS"|"FQDN"|"VM_MANAGER_ID"|"VM_MANAGED_OBJECT_REFERENCE"|"VM_NAME"|"VM_PATH"|"BIOS_ID"|"MOTHERBOARD_SERIAL_NUMBER",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Optional boolean flag to indicate whether any effect should take place. Used to test if the caller has permission to make the call.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

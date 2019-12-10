@@ -1,0 +1,534 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-person-tracking — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="index-faces" href="index-faces.html">
+    <link rel="prev" title="get-label-detection" href="get-label-detection.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-person-tracking">
+<span id="cli-aws-rekognition-get-person-tracking"></span><h1>get-person-tracking<a class="headerlink" href="#get-person-tracking" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets the path tracking results of a Amazon Rekognition Video analysis started by  StartPersonTracking .</p>
+<p>The person path tracking operation is started by a call to <tt class="docutils literal"><span class="pre">StartPersonTracking</span></tt> which returns a job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ). When the operation finishes, Amazon Rekognition Video publishes a completion status to the Amazon Simple Notification Service topic registered in the initial call to <tt class="docutils literal"><span class="pre">StartPersonTracking</span></tt> .</p>
+<p>To get the results of the person path tracking operation, first check that the status value published to the Amazon SNS topic is <tt class="docutils literal"><span class="pre">SUCCEEDED</span></tt> . If so, call  GetPersonTracking and pass the job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ) from the initial call to <tt class="docutils literal"><span class="pre">StartPersonTracking</span></tt> .</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetPersonTracking</span></tt> returns an array, <tt class="docutils literal"><span class="pre">Persons</span></tt> , of tracked persons and the time(s) their paths were tracked in the video.</div>
+</blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetPersonTracking</span></tt> only returns the default facial attributes (<tt class="docutils literal"><span class="pre">BoundingBox</span></tt> , <tt class="docutils literal"><span class="pre">Confidence</span></tt> , <tt class="docutils literal"><span class="pre">Landmarks</span></tt> , <tt class="docutils literal"><span class="pre">Pose</span></tt> , and <tt class="docutils literal"><span class="pre">Quality</span></tt> ). The other facial attributes listed in the <tt class="docutils literal"><span class="pre">Face</span></tt> object of the following response syntax are not returned.</div>
+</blockquote>
+<p class="last">For more information, see FaceDetail in the Amazon Rekognition Developer Guide.</p>
+</div>
+<p>By default, the array is sorted by the time(s) a person's path is tracked in the video. You can sort by tracked persons by specifying <tt class="docutils literal"><span class="pre">INDEX</span></tt> for the <tt class="docutils literal"><span class="pre">SortBy</span></tt> input parameter.</p>
+<p>Use the <tt class="docutils literal"><span class="pre">MaxResults</span></tt> parameter to limit the number of items returned. If there are more results than specified in <tt class="docutils literal"><span class="pre">MaxResults</span></tt> , the value of <tt class="docutils literal"><span class="pre">NextToken</span></tt> in the operation response contains a pagination token for getting the next set of results. To get the next page of results, call <tt class="docutils literal"><span class="pre">GetPersonTracking</span></tt> and populate the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter with the token value returned from the previous call to <tt class="docutils literal"><span class="pre">GetPersonTracking</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/GetPersonTracking">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-person-tracking
+--job-id &lt;value&gt;
+[--max-results &lt;value&gt;]
+[--next-token &lt;value&gt;]
+[--sort-by &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--job-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier for a job that tracks persons in a video. You get the <tt class="docutils literal"><span class="pre">JobId</span></tt> from a call to <tt class="docutils literal"><span class="pre">StartPersonTracking</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>Maximum number of results to return per paginated call. The largest value you can specify is 1000. If you specify a value greater than 1000, a maximum of 1000 results is returned. The default value is 1000.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>If the previous response was incomplete (because there are more persons to retrieve), Amazon Rekognition Video returns a pagination token in the response. You can use this pagination token to retrieve the next set of persons.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sort-by</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Sort to use for elements in the <tt class="docutils literal"><span class="pre">Persons</span></tt> array. Use <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> to sort array elements by the time persons are detected. Use <tt class="docutils literal"><span class="pre">INDEX</span></tt> to sort by the tracked persons. If you sort by <tt class="docutils literal"><span class="pre">INDEX</span></tt> , the array elements for each person are sorted by detection confidence. The default sort is by <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">INDEX</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get the results of a people pathing operation</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-person-tracking</span></tt> command displays the results of a people pathing operation that you started previously by calling <tt class="docutils literal"><span class="pre">start-person-tracking</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws rekognition get-person-tracking  \
+    --job-id 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Persons"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="s2">"Person"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.4151041805744171</span><span class="p">,</span>
+                    <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.07870370149612427</span><span class="p">,</span>
+                    <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                    <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.9212962985038757</span>
+                <span class="p">},</span>
+                <span class="s2">"Index"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">567</span><span class="p">,</span>
+            <span class="s2">"Person"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"BoundingBox"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Width"</span><span class="p">:</span> <span class="mf">0.4755208194255829</span><span class="p">,</span>
+                    <span class="s2">"Top"</span><span class="p">:</span> <span class="mf">0.07777778059244156</span><span class="p">,</span>
+                    <span class="s2">"Left"</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                    <span class="s2">"Height"</span><span class="p">:</span> <span class="mf">0.9194444417953491</span>
+                <span class="p">},</span>
+                <span class="s2">"Index"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"NextToken"</span><span class="p">:</span> <span class="s2">"D/vRIYNyhG79ugdta3f+8cRg9oSRo+HigGOuxRiYpTn0ExnqTi1CJektVAc4HrAXDv25eHYk"</span><span class="p">,</span>
+    <span class="s2">"JobStatus"</span><span class="p">:</span> <span class="s2">"SUCCEEDED"</span><span class="p">,</span>
+    <span class="s2">"VideoMetadata"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Format"</span><span class="p">:</span> <span class="s2">"QuickTime / MOV"</span><span class="p">,</span>
+        <span class="s2">"FrameRate"</span><span class="p">:</span> <span class="mf">29.970617294311523</span><span class="p">,</span>
+        <span class="s2">"Codec"</span><span class="p">:</span> <span class="s2">"h264"</span><span class="p">,</span>
+        <span class="s2">"DurationMillis"</span><span class="p">:</span> <span class="mi">6806</span><span class="p">,</span>
+        <span class="s2">"FrameHeight"</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+        <span class="s2">"FrameWidth"</span><span class="p">:</span> <span class="mi">1920</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/persons.html">People Pathing</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobStatus -&gt; (string)</p>
+<blockquote>
+<div>The current status of the person tracking job.</div>
+</blockquote>
+<p>StatusMessage -&gt; (string)</p>
+<blockquote>
+<div>If the job fails, <tt class="docutils literal"><span class="pre">StatusMessage</span></tt> provides a descriptive error message.</div>
+</blockquote>
+<p>VideoMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about a video that Amazon Rekognition Video analyzed. <tt class="docutils literal"><span class="pre">Videometadata</span></tt> is returned in every page of paginated responses from a Amazon Rekognition Video operation.</p>
+<p>Codec -&gt; (string)</p>
+<blockquote>
+<div>Type of compression used in the analyzed video.</div>
+</blockquote>
+<p>DurationMillis -&gt; (long)</p>
+<blockquote>
+<div>Length of the video in milliseconds.</div>
+</blockquote>
+<p>Format -&gt; (string)</p>
+<blockquote>
+<div>Format of the analyzed video. Possible values are MP4, MOV and AVI.</div>
+</blockquote>
+<p>FrameRate -&gt; (float)</p>
+<blockquote>
+<div>Number of frames per second in the video.</div>
+</blockquote>
+<p>FrameHeight -&gt; (long)</p>
+<blockquote>
+<div>Vertical pixel dimension of the video.</div>
+</blockquote>
+<p>FrameWidth -&gt; (long)</p>
+<blockquote>
+<div>Horizontal pixel dimension of the video.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent request to retrieve the next set of persons.</div>
+</blockquote>
+<p>Persons -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of the persons detected in the video and the time(s) their path was tracked throughout the video. An array element will exist for each time a person's path is tracked.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Details and path tracking information for a single time a person's path is tracked in a video. Amazon Rekognition operations that track people's paths return an array of <tt class="docutils literal"><span class="pre">PersonDetection</span></tt> objects with elements for each time a person's path is tracked in a video.</p>
+<p>For more information, see GetPersonTracking in the Amazon Rekognition Developer Guide.</p>
+<p>Timestamp -&gt; (long)</p>
+<blockquote>
+<div>The time, in milliseconds from the start of the video, that the person's path was tracked.</div>
+</blockquote>
+<p>Person -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about a person whose path was tracked in a video.</p>
+<p>Index -&gt; (long)</p>
+<blockquote>
+<div>Identifier for the person detected person within a video. Use to keep track of the person throughout the video. The identifier is not stored by Amazon Rekognition.</div>
+</blockquote>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box around the detected person.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Face -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Face details for the detected person.</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Bounding box of the face. Default attribute.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AgeRange -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The estimated age range, in years, for the face. Low represents the lowest estimated age and High represents the highest estimated age.</p>
+<p>Low -&gt; (integer)</p>
+<blockquote>
+<div>The lowest estimated age.</div>
+</blockquote>
+<p>High -&gt; (integer)</p>
+<blockquote>
+<div>The highest estimated age.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Smile -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is smiling, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is smiling or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Eyeglasses -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is wearing eye glasses, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is wearing eye glasses or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Sunglasses -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face is wearing sunglasses, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face is wearing sunglasses or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Gender -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The predicted gender of a detected face.</p>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The predicted gender of the face.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the prediction.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Beard -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face has a beard, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face has beard or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Mustache -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the face has a mustache, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the face has mustache or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EyesOpen -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the eyes on the face are open, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the eyes on the face are open.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MouthOpen -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates whether or not the mouth on the face is open, and the confidence level in the determination.</p>
+<p>Value -&gt; (boolean)</p>
+<blockquote>
+<div>Boolean value that indicates whether the mouth on the face is open or not.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Emotions -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The emotions that appear to be expressed on the face, and the confidence level in the determination. The API is only making a determination of the physical appearance of a person's face. It is not a determination of the person’s internal emotional state and should not be used in such a way. For example, a person pretending to have a sad face might not be sad emotionally.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of emotion detected.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence in the determination.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Landmarks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Indicates the location of landmarks on the face. Default attribute.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Indicates the location of the landmark on the face.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>Type of landmark.</div>
+</blockquote>
+<p>X -&gt; (float)</p>
+<blockquote>
+<div>The x-coordinate from the top left of the landmark expressed as the ratio of the width of the image. For example, if the image is 700 x 200 and the x-coordinate of the landmark is at 350 pixels, this value is 0.5.</div>
+</blockquote>
+<p>Y -&gt; (float)</p>
+<blockquote>
+<div>The y-coordinate from the top left of the landmark expressed as the ratio of the height of the image. For example, if the image is 700 x 200 and the y-coordinate of the landmark is at 100 pixels, this value is 0.5.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Pose -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Indicates the pose of the face as determined by its pitch, roll, and yaw. Default attribute.</p>
+<p>Roll -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the roll axis.</div>
+</blockquote>
+<p>Yaw -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the yaw axis.</div>
+</blockquote>
+<p>Pitch -&gt; (float)</p>
+<blockquote>
+<div>Value representing the face rotation on the pitch axis.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Quality -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Identifies image brightness and sharpness. Default attribute.</p>
+<p>Brightness -&gt; (float)</p>
+<blockquote>
+<div>Value representing brightness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a brighter face image.</div>
+</blockquote>
+<p>Sharpness -&gt; (float)</p>
+<blockquote>
+<div>Value representing sharpness of the face. The service returns a value between 0 and 100 (inclusive). A higher value indicates a sharper face image.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Confidence level that the bounding box contains a face (and not a different object such as a tree). Default attribute.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

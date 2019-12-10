@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-transform-job — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="create-trial" href="create-trial.html">
+    <link rel="prev" title="create-training-job" href="create-training-job.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-transform-job">
+<span id="cli-aws-sagemaker-create-transform-job"></span><h1>create-transform-job<a class="headerlink" href="#create-transform-job" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Starts a transform job. A transform job uses a trained model to get inferences on a dataset and saves these results to an Amazon S3 location that you specify.</p>
+<p>To perform batch transformations, you create a transform job and use the data that you have readily available.</p>
+<p>In the request body, you provide the following:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">TransformJobName</span></tt> - Identifies the transform job. The name must be unique within an AWS Region in an AWS account.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ModelName</span></tt> - Identifies the model to use. <tt class="docutils literal"><span class="pre">ModelName</span></tt> must be the name of an existing Amazon SageMaker model in the same AWS Region and AWS account. For information on creating a model, see  CreateModel .</li>
+<li>
+<tt class="docutils literal"><span class="pre">TransformInput</span></tt> - Describes the dataset to be transformed and the Amazon S3 location where it is stored.</li>
+<li>
+<tt class="docutils literal"><span class="pre">TransformOutput</span></tt> - Identifies the Amazon S3 location where you want Amazon SageMaker to save the results from the transform job.</li>
+<li>
+<tt class="docutils literal"><span class="pre">TransformResources</span></tt> - Identifies the ML compute instances for the transform job.</li>
+</ul>
+<p>For more information about how batch transformation works, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html">Batch Transform</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateTransformJob">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-transform-job
+--transform-job-name &lt;value&gt;
+--model-name &lt;value&gt;
+[--max-concurrent-transforms &lt;value&gt;]
+[--max-payload-in-mb &lt;value&gt;]
+[--batch-strategy &lt;value&gt;]
+[--environment &lt;value&gt;]
+--transform-input &lt;value&gt;
+--transform-output &lt;value&gt;
+--transform-resources &lt;value&gt;
+[--data-processing &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--experiment-config &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--transform-job-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the transform job. The name must be unique within an AWS Region in an AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--model-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the model that you want to use for the transform job. <tt class="docutils literal"><span class="pre">ModelName</span></tt> must be the name of an existing Amazon SageMaker model within an AWS Region in an AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-concurrent-transforms</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of parallel requests that can be sent to each instance in a transform job. If <tt class="docutils literal"><span class="pre">MaxConcurrentTransforms</span></tt> is set to <tt class="docutils literal"><span class="pre">0</span></tt> or left unset, Amazon SageMaker checks the optional execution-parameters to determine the settings for your chosen algorithm. If the execution-parameters endpoint is not enabled, the default value is <tt class="docutils literal"><span class="pre">1</span></tt> . For more information on execution-parameters, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests">How Containers Serve Requests</a> . For built-in algorithms, you don't need to set a value for <tt class="docutils literal"><span class="pre">MaxConcurrentTransforms</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-payload-in-mb</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The maximum allowed size of the payload, in MB. A <em>payload</em> is the data portion of a record (without metadata). The value in <tt class="docutils literal"><span class="pre">MaxPayloadInMB</span></tt> must be greater than, or equal to, the size of a single record. To estimate the size of a record in MB, divide the size of your dataset by the number of records. To ensure that the records fit within the maximum payload size, we recommend using a slightly larger value. The default value is <tt class="docutils literal"><span class="pre">6</span></tt> MB.</p>
+<p>For cases where the payload might be arbitrarily large and is transmitted using HTTP chunked encoding, set the value to <tt class="docutils literal"><span class="pre">0</span></tt> . This feature works only in supported algorithms. Currently, Amazon SageMaker built-in algorithms do not support HTTP chunked encoding.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--batch-strategy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the number of records to include in a mini-batch for an HTTP inference request. A <em>record</em>  is a single unit of input data that inference can be made on. For example, a single line in a CSV file is a record.</p>
+<p>To enable the batch strategy, you must set the <tt class="docutils literal"><span class="pre">SplitType</span></tt> property of the  DataProcessing object to <tt class="docutils literal"><span class="pre">Line</span></tt> , <tt class="docutils literal"><span class="pre">RecordIO</span></tt> , or <tt class="docutils literal"><span class="pre">TFRecord</span></tt> .</p>
+<p>To use only one record when making an HTTP invocation request to a container, set <tt class="docutils literal"><span class="pre">BatchStrategy</span></tt> to <tt class="docutils literal"><span class="pre">SingleRecord</span></tt> and <tt class="docutils literal"><span class="pre">SplitType</span></tt> to <tt class="docutils literal"><span class="pre">Line</span></tt> .</p>
+<p>To fit as many records in a mini-batch as can fit within the <tt class="docutils literal"><span class="pre">MaxPayloadInMB</span></tt> limit, set <tt class="docutils literal"><span class="pre">BatchStrategy</span></tt> to <tt class="docutils literal"><span class="pre">MultiRecord</span></tt> and <tt class="docutils literal"><span class="pre">SplitType</span></tt> to <tt class="docutils literal"><span class="pre">Line</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">MultiRecord</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SingleRecord</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--environment</span></tt> (map)</p>
+<blockquote>
+<div>The environment variables to set in the Docker container. We support up to 16 key and values entries in the map.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--transform-input</span></tt> (structure)</p>
+<blockquote>
+<div>Describes the input source and the way the transform job consumes it.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>DataSource={S3DataSource={S3DataType=string,S3Uri=string}},ContentType=string,CompressionType=string,SplitType=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DataSource"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"S3DataSource"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"S3DataType"</span><span class="p">:</span> <span class="s2">"ManifestFile"</span><span class="o">|</span><span class="s2">"S3Prefix"</span><span class="o">|</span><span class="s2">"AugmentedManifestFile"</span><span class="p">,</span>
+      <span class="s2">"S3Uri"</span><span class="p">:</span> <span class="s2">"string"</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"ContentType"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"CompressionType"</span><span class="p">:</span> <span class="s2">"None"</span><span class="o">|</span><span class="s2">"Gzip"</span><span class="p">,</span>
+  <span class="s2">"SplitType"</span><span class="p">:</span> <span class="s2">"None"</span><span class="o">|</span><span class="s2">"Line"</span><span class="o">|</span><span class="s2">"RecordIO"</span><span class="o">|</span><span class="s2">"TFRecord"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--transform-output</span></tt> (structure)</p>
+<blockquote>
+<div>Describes the results of the transform job.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">S3OutputPath</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Accept</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">AssembleWith</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KmsKeyId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"S3OutputPath"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Accept"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"AssembleWith"</span><span class="p">:</span> <span class="s2">"None"</span><span class="o">|</span><span class="s2">"Line"</span><span class="p">,</span>
+  <span class="s2">"KmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--transform-resources</span></tt> (structure)</p>
+<blockquote>
+<div>Describes the resources, including ML instance types and ML instance count, to use for the transform job.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">InstanceType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">InstanceCount</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">VolumeKmsKeyId</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InstanceType"</span><span class="p">:</span> <span class="s2">"ml.m4.xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.10xlarge"</span><span class="o">|</span><span class="s2">"ml.m4.16xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c4.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p2.xlarge"</span><span class="o">|</span><span class="s2">"ml.p2.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p2.16xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.2xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.8xlarge"</span><span class="o">|</span><span class="s2">"ml.p3.16xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.9xlarge"</span><span class="o">|</span><span class="s2">"ml.c5.18xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.large"</span><span class="o">|</span><span class="s2">"ml.m5.xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.2xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.4xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.12xlarge"</span><span class="o">|</span><span class="s2">"ml.m5.24xlarge"</span><span class="p">,</span>
+  <span class="s2">"InstanceCount"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
+  <span class="s2">"VolumeKmsKeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--data-processing</span></tt> (structure)</p>
+<blockquote>
+<div>The data structure used to specify the data to be used for inference in a batch transform job and to associate the data that is relevant to the prediction results in the output. The input filter provided allows you to exclude input data that is not needed for inference in a batch transform job. The output filter provided allows you to include input data relevant to interpreting the predictions in the output from the job. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html">Associate Prediction Results with their Corresponding Input Records</a> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">InputFilter</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">OutputFilter</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">JoinSource</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"InputFilter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"OutputFilter"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"JoinSource"</span><span class="p">:</span> <span class="s2">"Input"</span><span class="o">|</span><span class="s2">"None"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>(Optional) An array of key-value pairs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what">Using Cost Allocation Tags</a> in the <em>AWS Billing and Cost Management User Guide</em> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--experiment-config</span></tt> (structure)</p>
+<blockquote>
+<div>Configuration for the experiment.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">ExperimentName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TrialName</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">TrialComponentDisplayName</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ExperimentName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TrialName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"TrialComponentDisplayName"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>TransformJobArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the transform job.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-geo-locations — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="route53" href="index.html">
+    <link rel="next" title="list-health-checks" href="list-health-checks.html">
+    <link rel="prev" title="get-traffic-policy-instance-count" href="get-traffic-policy-instance-count.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-geo-locations">
+<span id="cli-aws-route53-list-geo-locations"></span><h1>list-geo-locations<a class="headerlink" href="#list-geo-locations" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves a list of supported geographic locations.</p>
+<p>Countries are listed first, and continents are listed last. If Amazon Route 53 supports subdivisions for a country (for example, states or provinces), the subdivisions for that country are listed in alphabetical order immediately after the corresponding country.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ListGeoLocations">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-geo-locations
+[--start-continent-code &lt;value&gt;]
+[--start-country-code &lt;value&gt;]
+[--start-subdivision-code &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--start-continent-code</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The code for the continent with which you want to start listing locations that Amazon Route 53 supports for geolocation. If Route 53 has already returned a page or more of results, if <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is true, and if <tt class="docutils literal"><span class="pre">NextContinentCode</span></tt> from the previous response has a value, enter that value in <tt class="docutils literal"><span class="pre">startcontinentcode</span></tt> to return the next page of results.</p>
+<p>Include <tt class="docutils literal"><span class="pre">startcontinentcode</span></tt> only if you want to list continents. Don't include <tt class="docutils literal"><span class="pre">startcontinentcode</span></tt> when you're listing countries or countries with their subdivisions.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-country-code</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The code for the country with which you want to start listing locations that Amazon Route 53 supports for geolocation. If Route 53 has already returned a page or more of results, if <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , and if <tt class="docutils literal"><span class="pre">NextCountryCode</span></tt> from the previous response has a value, enter that value in <tt class="docutils literal"><span class="pre">startcountrycode</span></tt> to return the next page of results.</p>
+<p>Route 53 uses the two-letter country codes that are specified in <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO standard 3166-1 alpha-2</a> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-subdivision-code</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The code for the subdivision (for example, state or province) with which you want to start listing locations that Amazon Route 53 supports for geolocation. If Route 53 has already returned a page or more of results, if <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , and if <tt class="docutils literal"><span class="pre">NextSubdivisionCode</span></tt> from the previous response has a value, enter that value in <tt class="docutils literal"><span class="pre">startsubdivisioncode</span></tt> to return the next page of results.</p>
+<p>To list subdivisions of a country, you must include both <tt class="docutils literal"><span class="pre">startcountrycode</span></tt> and <tt class="docutils literal"><span class="pre">startsubdivisioncode</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (string)</p>
+<blockquote>
+<div>(Optional) The maximum number of geolocations to be included in the response body for this request. If more than <tt class="docutils literal"><span class="pre">maxitems</span></tt> geolocations remain to be listed, then the value of the <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> element in the response is <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>GeoLocationDetailsList -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A complex type that contains one <tt class="docutils literal"><span class="pre">GeoLocationDetails</span></tt> element for each location that Amazon Route 53 supports for geolocation.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains the codes and full continent, country, and subdivision names for the specified <tt class="docutils literal"><span class="pre">geolocation</span></tt> code.</p>
+<p>ContinentCode -&gt; (string)</p>
+<blockquote>
+<div>The two-letter code for the continent.</div>
+</blockquote>
+<p>ContinentName -&gt; (string)</p>
+<blockquote>
+<div>The full name of the continent.</div>
+</blockquote>
+<p>CountryCode -&gt; (string)</p>
+<blockquote>
+<div>The two-letter code for the country.</div>
+</blockquote>
+<p>CountryName -&gt; (string)</p>
+<blockquote>
+<div>The name of the country.</div>
+</blockquote>
+<p>SubdivisionCode -&gt; (string)</p>
+<blockquote>
+<div>The code for the subdivision. Route 53 currently supports only states in the United States.</div>
+</blockquote>
+<p>SubdivisionName -&gt; (string)</p>
+<blockquote>
+<div>The full name of the subdivision. Route 53 currently supports only states in the United States.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IsTruncated -&gt; (boolean)</p>
+<blockquote>
+<div>A value that indicates whether more locations remain to be listed after the last location in this response. If so, the value of <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> . To get more values, submit another request and include the values of <tt class="docutils literal"><span class="pre">NextContinentCode</span></tt> , <tt class="docutils literal"><span class="pre">NextCountryCode</span></tt> , and <tt class="docutils literal"><span class="pre">NextSubdivisionCode</span></tt> in the <tt class="docutils literal"><span class="pre">startcontinentcode</span></tt> , <tt class="docutils literal"><span class="pre">startcountrycode</span></tt> , and <tt class="docutils literal"><span class="pre">startsubdivisioncode</span></tt> , as applicable.</div>
+</blockquote>
+<p>NextContinentCode -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , you can make a follow-up request to display more locations. Enter the value of <tt class="docutils literal"><span class="pre">NextContinentCode</span></tt> in the <tt class="docutils literal"><span class="pre">startcontinentcode</span></tt> parameter in another <tt class="docutils literal"><span class="pre">ListGeoLocations</span></tt> request.</div>
+</blockquote>
+<p>NextCountryCode -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , you can make a follow-up request to display more locations. Enter the value of <tt class="docutils literal"><span class="pre">NextCountryCode</span></tt> in the <tt class="docutils literal"><span class="pre">startcountrycode</span></tt> parameter in another <tt class="docutils literal"><span class="pre">ListGeoLocations</span></tt> request.</div>
+</blockquote>
+<p>NextSubdivisionCode -&gt; (string)</p>
+<blockquote>
+<div>If <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , you can make a follow-up request to display more locations. Enter the value of <tt class="docutils literal"><span class="pre">NextSubdivisionCode</span></tt> in the <tt class="docutils literal"><span class="pre">startsubdivisioncode</span></tt> parameter in another <tt class="docutils literal"><span class="pre">ListGeoLocations</span></tt> request.</div>
+</blockquote>
+<p>MaxItems -&gt; (string)</p>
+<blockquote>
+<div>The value that you specified for <tt class="docutils literal"><span class="pre">MaxItems</span></tt> in the request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

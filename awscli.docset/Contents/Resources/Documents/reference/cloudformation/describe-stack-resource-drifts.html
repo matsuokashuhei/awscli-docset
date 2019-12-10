@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-stack-resource-drifts — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="cloudformation" href="index.html">
+    <link rel="next" title="describe-stack-resources" href="describe-stack-resources.html">
+    <link rel="prev" title="describe-stack-resource" href="describe-stack-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-stack-resource-drifts">
+<span id="cli-aws-cloudformation-describe-stack-resource-drifts"></span><h1>describe-stack-resource-drifts<a class="headerlink" href="#describe-stack-resource-drifts" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns drift information for the resources that have been checked for drift in the specified stack. This includes actual and expected configuration values for resources where AWS CloudFormation detects configuration drift.</p>
+<p>For a given stack, there will be one <tt class="docutils literal"><span class="pre">StackResourceDrift</span></tt> for each stack resource that has been checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not currently support drift detection are not checked, and so not included. For a list of resources that support drift detection, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html">Resources that Support Drift Detection</a> .</p>
+<p>Use  DetectStackResourceDrift to detect drift on individual resources, or  DetectStackDrift to detect drift on all supported resources for a given stack.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/DescribeStackResourceDrifts">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-stack-resource-drifts
+--stack-name &lt;value&gt;
+[--stack-resource-drift-status-filters &lt;value&gt;]
+[--next-token &lt;value&gt;]
+[--max-results &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--stack-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the stack for which you want drift information.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--stack-resource-drift-status-filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The resource drift status values to use as filters for the resource drift results returned.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">DELETED</span></tt> : The resource differs from its expected template configuration in that the resource has been deleted.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MODIFIED</span></tt> : One or more resource properties differ from their expected template values.</li>
+<li>
+<tt class="docutils literal"><span class="pre">IN_SYNC</span></tt> : The resources's actual configuration matches its expected template configuration.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NOT_CHECKED</span></tt> : AWS CloudFormation does not currently return this value.</li>
+</ul>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  IN_SYNC
+  MODIFIED
+  DELETED
+  NOT_CHECKED</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>A string that identifies the next page of stack resource drift results.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of results to be returned with a single call. If the number of available results exceeds this maximum, the response includes a <tt class="docutils literal"><span class="pre">NextToken</span></tt> value that you can assign to the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter to get the next set of results.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get information about resources that drifted from the stack definition</strong></p>
+<p>The following command displays information about drifted resources for the specified stack. To initiate drift detection, use the <tt class="docutils literal"><span class="pre">detect-stack-drift</span></tt> command.:</p>
+<div class="highlight-python">
+<pre>aws cloudformation describe-stack-resource-drifts \
+    --stack-name my-stack</pre>
+</div>
+<p>The output shows an AWS Lambda function that was modified out-of-band:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"StackResourceDrifts"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"StackId"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudformation:us-west-2:123456789012:stack/my-stack/d0a825a0-e4cd-xmpl-b9fb-061c69e99204"</span><span class="p">,</span>
+            <span class="s2">"LogicalResourceId"</span><span class="p">:</span> <span class="s2">"function"</span><span class="p">,</span>
+            <span class="s2">"PhysicalResourceId"</span><span class="p">:</span> <span class="s2">"my-function-SEZV4XMPL4S5"</span><span class="p">,</span>
+            <span class="s2">"ResourceType"</span><span class="p">:</span> <span class="s2">"AWS::Lambda::Function"</span><span class="p">,</span>
+            <span class="s2">"ExpectedProperties"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">Description</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Write a file to S3.</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Environment</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">Variables</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">bucket</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">my-stack-bucket-1vc62xmplgguf</span><span class="se">\"</span><span class="s2">}},</span><span class="se">\"</span><span class="s2">Handler</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">index.handler</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">MemorySize</span><span class="se">\"</span><span class="s2">:128,</span><span class="se">\"</span><span class="s2">Role</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">arn:aws:iam::123456789012:role/my-functionRole-HIZXMPLEOM9E</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Runtime</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">nodejs10.x</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Tags</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">Key</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">lambda:createdBy</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Value</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">SAM</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">Timeout</span><span class="se">\"</span><span class="s2">:900,</span><span class="se">\"</span><span class="s2">TracingConfig</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">Mode</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Active</span><span class="se">\"</span><span class="s2">}}"</span><span class="p">,</span>
+            <span class="s2">"ActualProperties"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">Description</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Write a file to S3.</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Environment</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">Variables</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">bucket</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">my-stack-bucket-1vc62xmplgguf</span><span class="se">\"</span><span class="s2">}},</span><span class="se">\"</span><span class="s2">Handler</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">index.handler</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">MemorySize</span><span class="se">\"</span><span class="s2">:256,</span><span class="se">\"</span><span class="s2">Role</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">arn:aws:iam::123456789012:role/my-functionRole-HIZXMPLEOM9E</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Runtime</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">nodejs10.x</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Tags</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">Key</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">lambda:createdBy</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Value</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">SAM</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">Timeout</span><span class="se">\"</span><span class="s2">:22,</span><span class="se">\"</span><span class="s2">TracingConfig</span><span class="se">\"</span><span class="s2">:{</span><span class="se">\"</span><span class="s2">Mode</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Active</span><span class="se">\"</span><span class="s2">}}"</span><span class="p">,</span>
+            <span class="s2">"PropertyDifferences"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"PropertyPath"</span><span class="p">:</span> <span class="s2">"/MemorySize"</span><span class="p">,</span>
+                    <span class="s2">"ExpectedValue"</span><span class="p">:</span> <span class="s2">"128"</span><span class="p">,</span>
+                    <span class="s2">"ActualValue"</span><span class="p">:</span> <span class="s2">"256"</span><span class="p">,</span>
+                    <span class="s2">"DifferenceType"</span><span class="p">:</span> <span class="s2">"NOT_EQUAL"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"PropertyPath"</span><span class="p">:</span> <span class="s2">"/Timeout"</span><span class="p">,</span>
+                    <span class="s2">"ExpectedValue"</span><span class="p">:</span> <span class="s2">"900"</span><span class="p">,</span>
+                    <span class="s2">"ActualValue"</span><span class="p">:</span> <span class="s2">"22"</span><span class="p">,</span>
+                    <span class="s2">"DifferenceType"</span><span class="p">:</span> <span class="s2">"NOT_EQUAL"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"StackResourceDriftStatus"</span><span class="p">:</span> <span class="s2">"MODIFIED"</span><span class="p">,</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="s2">"2019-10-02T05:54:44.064Z"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>StackResourceDrifts -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Drift information for the resources that have been checked for drift in the specified stack. This includes actual and expected configuration values for resources where AWS CloudFormation detects drift.</p>
+<p>For a given stack, there will be one <tt class="docutils literal"><span class="pre">StackResourceDrift</span></tt> for each stack resource that has been checked for drift. Resources that have not yet been checked for drift are not included. Resources that do not currently support drift detection are not checked, and so not included. For a list of resources that support drift detection, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html">Resources that Support Drift Detection</a> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the drift information for a resource that has been checked for drift. This includes actual and expected property values for resources in which AWS CloudFormation has detected drift. Only resource properties explicitly defined in the stack template are checked for drift. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting Unregulated Configuration Changes to Stacks and Resources</a> .</p>
+<p>Resources that do not currently support drift detection cannot be checked. For a list of resources that support drift detection, see <a class="reference external" href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html">Resources that Support Drift Detection</a> .</p>
+<p>Use  DetectStackResourceDrift to detect drift on individual resources, or  DetectStackDrift to detect drift on all resources in a given stack that support drift detection.</p>
+<p>StackId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the stack.</div>
+</blockquote>
+<p>LogicalResourceId -&gt; (string)</p>
+<blockquote>
+<div>The logical name of the resource specified in the template.</div>
+</blockquote>
+<p>PhysicalResourceId -&gt; (string)</p>
+<blockquote>
+<div>The name or unique identifier that corresponds to a physical instance ID of a resource supported by AWS CloudFormation.</div>
+</blockquote>
+<p>PhysicalResourceIdContext -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify that resource. Each context key-value pair specifies a unique resource that contains the targeted resource.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Context information that enables AWS CloudFormation to uniquely identify a resource. AWS CloudFormation uses context key-value pairs in cases where a resource's logical and physical IDs are not enough to uniquely identify that resource. Each context key-value pair specifies a resource that contains the targeted resource.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>The resource context key.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The resource context value.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ResourceType -&gt; (string)</p>
+<blockquote>
+<div>The type of the resource.</div>
+</blockquote>
+<p>ExpectedProperties -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A JSON structure containing the expected property values of the stack resource, as defined in the stack template and any values specified as template parameters.</p>
+<p>For resources whose <tt class="docutils literal"><span class="pre">StackResourceDriftStatus</span></tt> is <tt class="docutils literal"><span class="pre">DELETED</span></tt> , this structure will not be present.</p>
+</div>
+</blockquote>
+<p>ActualProperties -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A JSON structure containing the actual property values of the stack resource.</p>
+<p>For resources whose <tt class="docutils literal"><span class="pre">StackResourceDriftStatus</span></tt> is <tt class="docutils literal"><span class="pre">DELETED</span></tt> , this structure will not be present.</p>
+</div>
+</blockquote>
+<p>PropertyDifferences -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A collection of the resource properties whose actual values differ from their expected values. These will be present only for resources whose <tt class="docutils literal"><span class="pre">StackResourceDriftStatus</span></tt> is <tt class="docutils literal"><span class="pre">MODIFIED</span></tt> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a resource property whose actual value differs from its expected value, as defined in the stack template and any values specified as template parameters. These will be present only for resources whose <tt class="docutils literal"><span class="pre">StackResourceDriftStatus</span></tt> is <tt class="docutils literal"><span class="pre">MODIFIED</span></tt> . For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html">Detecting Unregulated Configuration Changes to Stacks and Resources</a> .</p>
+<p>PropertyPath -&gt; (string)</p>
+<blockquote>
+<div>The fully-qualified path to the resource property.</div>
+</blockquote>
+<p>ExpectedValue -&gt; (string)</p>
+<blockquote>
+<div>The expected property value of the resource property, as defined in the stack template and any values specified as template parameters.</div>
+</blockquote>
+<p>ActualValue -&gt; (string)</p>
+<blockquote>
+<div>The actual property value of the resource property.</div>
+</blockquote>
+<p>DifferenceType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of property difference.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ADD</span></tt> : A value has been added to a resource property that is an array or list data type.</li>
+<li>
+<tt class="docutils literal"><span class="pre">REMOVE</span></tt> : The property has been removed from the current resource configuration.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NOT_EQUAL</span></tt> : The current property value differs from its expected value (as defined in the stack template and any values specified as template parameters).</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>StackResourceDriftStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Status of the resource's actual configuration compared to its expected configuration</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">DELETED</span></tt> : The resource differs from its expected template configuration because the resource has been deleted.</li>
+<li>
+<tt class="docutils literal"><span class="pre">MODIFIED</span></tt> : One or more resource properties differ from their expected values (as defined in the stack template and any values specified as template parameters).</li>
+<li>
+<tt class="docutils literal"><span class="pre">IN_SYNC</span></tt> : The resources's actual configuration matches its expected template configuration.</li>
+<li>
+<tt class="docutils literal"><span class="pre">NOT_CHECKED</span></tt> : AWS CloudFormation does not currently return this value.</li>
+</ul>
+</div>
+</blockquote>
+<p>Timestamp -&gt; (timestamp)</p>
+<blockquote>
+<div>Time at which AWS CloudFormation performed drift detection on the stack resource.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If the request doesn't return all of the remaining results, <tt class="docutils literal"><span class="pre">NextToken</span></tt> is set to a token. To retrieve the next set of results, call <tt class="docutils literal"><span class="pre">DescribeStackResourceDrifts</span></tt> again and assign that token to the request object's <tt class="docutils literal"><span class="pre">NextToken</span></tt> parameter. If the request returns all results, <tt class="docutils literal"><span class="pre">NextToken</span></tt> is set to <tt class="docutils literal"><span class="pre">null</span></tt> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

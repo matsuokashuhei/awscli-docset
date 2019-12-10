@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-fleets — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-flow-logs" href="describe-flow-logs.html">
+    <link rel="prev" title="describe-fleet-instances" href="describe-fleet-instances.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-fleets">
+<span id="cli-aws-ec2-describe-fleets"></span><h1>describe-fleets<a class="headerlink" href="#describe-fleets" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the specified EC2 Fleets or all your EC2 Fleets.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeFleets">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-fleets</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Fleets</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-fleets
+[--dry-run | --no-dry-run]
+[--fleet-ids &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--fleet-ids</span></tt> (list)</p>
+<blockquote>
+<div>The ID of the EC2 Fleets.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">activity-status</span></tt> - The progress of the EC2 Fleet ( <tt class="docutils literal"><span class="pre">error</span></tt> | <tt class="docutils literal"><span class="pre">pending-fulfillment</span></tt> | <tt class="docutils literal"><span class="pre">pending-termination</span></tt> | <tt class="docutils literal"><span class="pre">fulfilled</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">excess-capacity-termination-policy</span></tt> - Indicates whether to terminate running instances if the target capacity is decreased below the current EC2 Fleet size (<tt class="docutils literal"><span class="pre">true</span></tt> | <tt class="docutils literal"><span class="pre">false</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">fleet-state</span></tt> - The state of the EC2 Fleet (<tt class="docutils literal"><span class="pre">submitted</span></tt> | <tt class="docutils literal"><span class="pre">active</span></tt> | <tt class="docutils literal"><span class="pre">deleted</span></tt> | <tt class="docutils literal"><span class="pre">failed</span></tt> | <tt class="docutils literal"><span class="pre">deleted-running</span></tt> | <tt class="docutils literal"><span class="pre">deleted-terminating</span></tt> | <tt class="docutils literal"><span class="pre">modifying</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">replace-unhealthy-instances</span></tt> - Indicates whether EC2 Fleet should replace unhealthy instances (<tt class="docutils literal"><span class="pre">true</span></tt> | <tt class="docutils literal"><span class="pre">false</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">type</span></tt> - The type of request (<tt class="docutils literal"><span class="pre">instant</span></tt> | <tt class="docutils literal"><span class="pre">request</span></tt> | <tt class="docutils literal"><span class="pre">maintain</span></tt> ).</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token for the next set of results.</div>
+</blockquote>
+<p>Fleets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the EC2 Fleets.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an EC2 Fleet.</p>
+<p>ActivityStatus -&gt; (string)</p>
+<blockquote>
+<div>The progress of the EC2 Fleet. If there is an error, the status is <tt class="docutils literal"><span class="pre">error</span></tt> . After all requests are placed, the status is <tt class="docutils literal"><span class="pre">pending_fulfillment</span></tt> . If the size of the EC2 Fleet is equal to or greater than its target capacity, the status is <tt class="docutils literal"><span class="pre">fulfilled</span></tt> . If the size of the EC2 Fleet is decreased, the status is <tt class="docutils literal"><span class="pre">pending_termination</span></tt> while instances are terminating.</div>
+</blockquote>
+<p>CreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The creation date and time of the EC2 Fleet.</div>
+</blockquote>
+<p>FleetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the EC2 Fleet.</div>
+</blockquote>
+<p>FleetState -&gt; (string)</p>
+<blockquote>
+<div>The state of the EC2 Fleet.</div>
+</blockquote>
+<p>ClientToken -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a> .</p>
+<p>Constraints: Maximum 64 ASCII characters</p>
+</div>
+</blockquote>
+<p>ExcessCapacityTerminationPolicy -&gt; (string)</p>
+<blockquote>
+<div>Indicates whether running instances should be terminated if the target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.</div>
+</blockquote>
+<p>FulfilledCapacity -&gt; (double)</p>
+<blockquote>
+<div>The number of units fulfilled by this request compared to the set target capacity.</div>
+</blockquote>
+<p>FulfilledOnDemandCapacity -&gt; (double)</p>
+<blockquote>
+<div>The number of units fulfilled by this request compared to the set target On-Demand capacity.</div>
+</blockquote>
+<p>LaunchTemplateConfigs -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The launch template and overrides.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a launch template and overrides.</p>
+<p>LaunchTemplateSpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The launch template.</p>
+<p>LaunchTemplateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the launch template. You must specify either a template ID or a template name.</div>
+</blockquote>
+<p>LaunchTemplateName -&gt; (string)</p>
+<blockquote>
+<div>The name of the launch template. You must specify either a template name or a template ID.</div>
+</blockquote>
+<p>Version -&gt; (string)</p>
+<blockquote>
+<div>The version number of the launch template. You must specify a version number.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Overrides -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any parameters that you specify override the same parameters in the launch template.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes overrides for a launch template.</p>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>MaxPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum price per unit hour that you are willing to pay for a Spot Instance.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet in which to launch the instances.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone in which to launch the instances.</div>
+</blockquote>
+<p>WeightedCapacity -&gt; (double)</p>
+<blockquote>
+<div>The number of units provided by the specified instance type.</div>
+</blockquote>
+<p>Priority -&gt; (double)</p>
+<blockquote>
+<div>The priority for the launch template override. If <strong>AllocationStrategy</strong> is set to <tt class="docutils literal"><span class="pre">prioritized</span></tt> , EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at <tt class="docutils literal"><span class="pre">0</span></tt> . The lower the number, the higher the priority. If no number is set, the override has the lowest priority.</div>
+</blockquote>
+<p>Placement -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location where the instance launched, if applicable.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the placement group the instance is in.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>TargetCapacitySpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The number of units to request. You can choose to set the target capacity in terms of instances or a performance characteristic that is important to your application workload, such as vCPUs, memory, or I/O. If the request type is <tt class="docutils literal"><span class="pre">maintain</span></tt> , you can specify a target capacity of 0 and add capacity later.</p>
+<p>TotalTargetCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The number of units to request, filled using <tt class="docutils literal"><span class="pre">DefaultTargetCapacityType</span></tt> .</div>
+</blockquote>
+<p>OnDemandTargetCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The number of On-Demand units to request. If you specify a target capacity for Spot units, you cannot specify a target capacity for On-Demand units.</div>
+</blockquote>
+<p>SpotTargetCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The maximum number of Spot units to launch. If you specify a target capacity for On-Demand units, you cannot specify a target capacity for Spot units.</div>
+</blockquote>
+<p>DefaultTargetCapacityType -&gt; (string)</p>
+<blockquote>
+<div>The default <tt class="docutils literal"><span class="pre">TotalTargetCapacity</span></tt> , which is either <tt class="docutils literal"><span class="pre">Spot</span></tt> or <tt class="docutils literal"><span class="pre">On-Demand</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>TerminateInstancesWithExpiration -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether running instances should be terminated when the EC2 Fleet expires.</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>The type of request. Indicates whether the EC2 Fleet only <tt class="docutils literal"><span class="pre">requests</span></tt> the target capacity, or also attempts to <tt class="docutils literal"><span class="pre">maintain</span></tt> it. If you request a certain target capacity, EC2 Fleet only places the required requests; it does not attempt to replenish instances if capacity is diminished, and does not submit requests in alternative capacity pools if capacity is unavailable. To maintain a certain target capacity, EC2 Fleet places the required requests to meet this target capacity. It also automatically replenishes any interrupted Spot Instances. Default: <tt class="docutils literal"><span class="pre">maintain</span></tt> .</div>
+</blockquote>
+<p>ValidFrom -&gt; (timestamp)</p>
+<blockquote>
+<div>The start date and time of the request, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z). The default is to start fulfilling the request immediately.</div>
+</blockquote>
+<p>ValidUntil -&gt; (timestamp)</p>
+<blockquote>
+<div>The end date and time of the request, in UTC format (for example, <em>YYYY</em> -<em>MM</em> -<em>DD</em> T*HH* :<em>MM</em> :<em>SS</em> Z). At this point, no new instance requests are placed or able to fulfill the request. The default end date is 7 days from the current date.</div>
+</blockquote>
+<p>ReplaceUnhealthyInstances -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether EC2 Fleet should replace unhealthy instances.</div>
+</blockquote>
+<p>SpotOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration of Spot Instances in an EC2 Fleet.</p>
+<p>AllocationStrategy -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet.</p>
+<p>If the allocation strategy is <tt class="docutils literal"><span class="pre">lowest-price</span></tt> , EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy.</p>
+<p>If the allocation strategy is <tt class="docutils literal"><span class="pre">diversified</span></tt> , EC2 Fleet launches instances from all the Spot Instance pools that you specify.</p>
+<p>If the allocation strategy is <tt class="docutils literal"><span class="pre">capacity-optimized</span></tt> , EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p>
+</div>
+</blockquote>
+<p>InstanceInterruptionBehavior -&gt; (string)</p>
+<blockquote>
+<div>The behavior when a Spot Instance is interrupted. The default is <tt class="docutils literal"><span class="pre">terminate</span></tt> .</div>
+</blockquote>
+<p>InstancePoolsToUseCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of Spot pools across which to allocate your target Spot capacity. Valid only when <strong>AllocationStrategy</strong> is set to <tt class="docutils literal"><span class="pre">lowest-price</span></tt> . EC2 Fleet selects the cheapest Spot pools and evenly allocates your target Spot capacity across the number of Spot pools that you specify.</div>
+</blockquote>
+<p>SingleInstanceType -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that the fleet uses a single instance type to launch all Spot Instances in the fleet.</div>
+</blockquote>
+<p>SingleAvailabilityZone -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that the fleet launches all Spot Instances into a single Availability Zone.</div>
+</blockquote>
+<p>MinTargetCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The minimum target capacity for Spot Instances in the fleet. If the minimum target capacity is not reached, the fleet launches no instances.</div>
+</blockquote>
+<p>MaxTotalPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum amount per hour for Spot Instances that you're willing to pay.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>OnDemandOptions -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The allocation strategy of On-Demand Instances in an EC2 Fleet.</p>
+<p>AllocationStrategy -&gt; (string)</p>
+<blockquote>
+<div>The order of the launch template overrides to use in fulfilling On-Demand capacity. If you specify <tt class="docutils literal"><span class="pre">lowest-price</span></tt> , EC2 Fleet uses price to determine the order, launching the lowest price first. If you specify <tt class="docutils literal"><span class="pre">prioritized</span></tt> , EC2 Fleet uses the priority that you assigned to each launch template override, launching the highest priority first. If you do not specify a value, EC2 Fleet defaults to <tt class="docutils literal"><span class="pre">lowest-price</span></tt> .</div>
+</blockquote>
+<p>SingleInstanceType -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that the fleet uses a single instance type to launch all On-Demand Instances in the fleet.</div>
+</blockquote>
+<p>SingleAvailabilityZone -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates that the fleet launches all On-Demand Instances into a single Availability Zone.</div>
+</blockquote>
+<p>MinTargetCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The minimum target capacity for On-Demand Instances in the fleet. If the minimum target capacity is not reached, the fleet launches no instances.</div>
+</blockquote>
+<p>MaxTotalPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum amount per hour for On-Demand Instances that you're willing to pay.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The tags for an EC2 Fleet resource.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Errors -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the instances that could not be launched by the fleet. Valid only when <strong>Type</strong> is set to <tt class="docutils literal"><span class="pre">instant</span></tt> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the instances that could not be launched by the fleet.</p>
+<p>LaunchTemplateAndOverrides -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The launch templates and overrides that were used for launching the instances. Any parameters that you specify in the Overrides override the same parameters in the launch template.</p>
+<p>LaunchTemplateSpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The launch template.</p>
+<p>LaunchTemplateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the launch template. You must specify either a template ID or a template name.</div>
+</blockquote>
+<p>LaunchTemplateName -&gt; (string)</p>
+<blockquote>
+<div>The name of the launch template. You must specify either a template name or a template ID.</div>
+</blockquote>
+<p>Version -&gt; (string)</p>
+<blockquote>
+<div>The version number of the launch template. You must specify a version number.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Overrides -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Any parameters that you specify override the same parameters in the launch template.</p>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>MaxPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum price per unit hour that you are willing to pay for a Spot Instance.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet in which to launch the instances.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone in which to launch the instances.</div>
+</blockquote>
+<p>WeightedCapacity -&gt; (double)</p>
+<blockquote>
+<div>The number of units provided by the specified instance type.</div>
+</blockquote>
+<p>Priority -&gt; (double)</p>
+<blockquote>
+<div>The priority for the launch template override. If <strong>AllocationStrategy</strong> is set to <tt class="docutils literal"><span class="pre">prioritized</span></tt> , EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at <tt class="docutils literal"><span class="pre">0</span></tt> . The lower the number, the higher the priority. If no number is set, the override has the lowest priority.</div>
+</blockquote>
+<p>Placement -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location where the instance launched, if applicable.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the placement group the instance is in.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Lifecycle -&gt; (string)</p>
+<blockquote>
+<div>Indicates if the instance that could not be launched was a Spot Instance or On-Demand Instance.</div>
+</blockquote>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The error code that indicates why the instance could not be launched. For more information about error codes, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html">Error Codes</a> .</div>
+</blockquote>
+<p>ErrorMessage -&gt; (string)</p>
+<blockquote>
+<div>The error message that describes why the instance could not be launched. For more information about error messages, see ee <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html">Error Codes</a> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Instances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the instances that were launched by the fleet. Valid only when <strong>Type</strong> is set to <tt class="docutils literal"><span class="pre">instant</span></tt> .</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the instances that were launched by the fleet.</p>
+<p>LaunchTemplateAndOverrides -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The launch templates and overrides that were used for launching the instances. Any parameters that you specify in the Overrides override the same parameters in the launch template.</p>
+<p>LaunchTemplateSpecification -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The launch template.</p>
+<p>LaunchTemplateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the launch template. You must specify either a template ID or a template name.</div>
+</blockquote>
+<p>LaunchTemplateName -&gt; (string)</p>
+<blockquote>
+<div>The name of the launch template. You must specify either a template name or a template ID.</div>
+</blockquote>
+<p>Version -&gt; (string)</p>
+<blockquote>
+<div>The version number of the launch template. You must specify a version number.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Overrides -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Any parameters that you specify override the same parameters in the launch template.</p>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>MaxPrice -&gt; (string)</p>
+<blockquote>
+<div>The maximum price per unit hour that you are willing to pay for a Spot Instance.</div>
+</blockquote>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the subnet in which to launch the instances.</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone in which to launch the instances.</div>
+</blockquote>
+<p>WeightedCapacity -&gt; (double)</p>
+<blockquote>
+<div>The number of units provided by the specified instance type.</div>
+</blockquote>
+<p>Priority -&gt; (double)</p>
+<blockquote>
+<div>The priority for the launch template override. If <strong>AllocationStrategy</strong> is set to <tt class="docutils literal"><span class="pre">prioritized</span></tt> , EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at <tt class="docutils literal"><span class="pre">0</span></tt> . The lower the number, the higher the priority. If no number is set, the override has the lowest priority.</div>
+</blockquote>
+<p>Placement -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The location where the instance launched, if applicable.</p>
+<p>GroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the placement group the instance is in.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Lifecycle -&gt; (string)</p>
+<blockquote>
+<div>Indicates if the instance that was launched is a Spot Instance or On-Demand Instance.</div>
+</blockquote>
+<p>InstanceIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of the instances.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type.</div>
+</blockquote>
+<p>Platform -&gt; (string)</p>
+<blockquote>
+<div>The value is <tt class="docutils literal"><span class="pre">Windows</span></tt> for Windows instances; otherwise blank.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

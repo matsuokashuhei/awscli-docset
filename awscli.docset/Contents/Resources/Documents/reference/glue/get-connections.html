@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-connections — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="glue" href="index.html">
+    <link rel="next" title="get-crawler" href="get-crawler.html">
+    <link rel="prev" title="get-connection" href="get-connection.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-connections">
+<span id="cli-aws-glue-get-connections"></span><h1>get-connections<a class="headerlink" href="#get-connections" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves a list of connection definitions from the Data Catalog.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetConnections">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">get-connections</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">ConnectionList</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-connections
+[--catalog-id &lt;value&gt;]
+[--filter &lt;value&gt;]
+[--hide-password | --no-hide-password]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--catalog-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the Data Catalog in which the connections reside. If none is provided, the AWS account ID is used by default.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>A filter that controls which connections are returned.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">MatchCriteria</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">string</span><span class="p">,</span><span class="n">ConnectionType</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"MatchCriteria"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"string"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"ConnectionType"</span><span class="p">:</span> <span class="s2">"JDBC"</span><span class="o">|</span><span class="s2">"SFTP"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--hide-password</span></tt> | <tt class="docutils literal"><span class="pre">--no-hide-password</span></tt> (boolean)</p>
+<blockquote>
+<div>Allows you to retrieve the connection metadata without returning the password. For instance, the AWS Glue console uses this flag to retrieve the connection, and does not display the password. Set this parameter when the caller might not have permission to use the AWS KMS key to decrypt the password, but it does have permission to access the rest of the connection properties.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ConnectionList -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of requested connection definitions.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Defines a connection to a data source.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the connection definition.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the connection.</div>
+</blockquote>
+<p>ConnectionType -&gt; (string)</p>
+<blockquote>
+<div>The type of the connection. Currently, only JDBC is supported; SFTP is not supported.</div>
+</blockquote>
+<p>MatchCriteria -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of criteria that can be used in selecting this connection.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ConnectionProperties -&gt; (map)</p>
+<blockquote>
+<div>
+<p>These key-value pairs define parameters for the connection:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">HOST</span></tt> - The host URI: either the fully qualified domain name (FQDN) or the IPv4 address of the database host.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PORT</span></tt> - The port number, between 1024 and 65535, of the port on which the database host is listening for database connections.</li>
+<li>
+<tt class="docutils literal"><span class="pre">USER_NAME</span></tt> - The name under which to log in to the database. The value string for <tt class="docutils literal"><span class="pre">USER_NAME</span></tt> is "<tt class="docutils literal"><span class="pre">USERNAME</span></tt> ".</li>
+<li>
+<tt class="docutils literal"><span class="pre">PASSWORD</span></tt> - A password, if one is used, for the user name.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ENCRYPTED_PASSWORD</span></tt> - When you enable connection password protection by setting <tt class="docutils literal"><span class="pre">ConnectionPasswordEncryption</span></tt> in the Data Catalog encryption settings, this field stores the encrypted password.</li>
+<li>
+<tt class="docutils literal"><span class="pre">JDBC_DRIVER_JAR_URI</span></tt> - The Amazon Simple Storage Service (Amazon S3) path of the JAR file that contains the JDBC driver to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">JDBC_DRIVER_CLASS_NAME</span></tt> - The class name of the JDBC driver to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">JDBC_ENGINE</span></tt> - The name of the JDBC engine to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">JDBC_ENGINE_VERSION</span></tt> - The version of the JDBC engine to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CONFIG_FILES</span></tt> - (Reserved for future use.)</li>
+<li>
+<tt class="docutils literal"><span class="pre">INSTANCE_ID</span></tt> - The instance ID to use.</li>
+<li>
+<tt class="docutils literal"><span class="pre">JDBC_CONNECTION_URL</span></tt> - The URL for the JDBC connection.</li>
+<li>
+<tt class="docutils literal"><span class="pre">JDBC_ENFORCE_SSL</span></tt> - A Boolean string (true, false) specifying whether Secure Sockets Layer (SSL) with hostname matching is enforced for the JDBC connection on the client. The default is false.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CUSTOM_JDBC_CERT</span></tt> - An Amazon S3 location specifying the customer's root certificate. AWS Glue uses this root certificate to validate the customer’s certificate when connecting to the customer database. AWS Glue only handles X.509 certificates. The certificate provided must be DER-encoded and supplied in Base64 encoding PEM format.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SKIP_CUSTOM_JDBC_CERT_VALIDATION</span></tt> - By default, this is <tt class="docutils literal"><span class="pre">false</span></tt> . AWS Glue validates the Signature algorithm and Subject Public Key Algorithm for the customer certificate. The only permitted algorithms for the Signature algorithm are SHA256withRSA, SHA384withRSA or SHA512withRSA. For the Subject Public Key Algorithm, the key length must be at least 2048. You can set the value of this property to <tt class="docutils literal"><span class="pre">true</span></tt> to skip AWS Glue’s validation of the customer certificate.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CUSTOM_JDBC_CERT_STRING</span></tt> - A custom JDBC certificate string which is used for domain match or distinguished name match to prevent a man-in-the-middle attack. In Oracle database, this is used as the <tt class="docutils literal"><span class="pre">SSL_SERVER_CERT_DN</span></tt> ; in Microsoft SQL Server, this is used as the <tt class="docutils literal"><span class="pre">hostNameInCertificate</span></tt> .</li>
+</ul>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>PhysicalConnectionRequirements -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A map of physical connection requirements, such as virtual private cloud (VPC) and <tt class="docutils literal"><span class="pre">SecurityGroup</span></tt> , that are needed to make this connection successfully.</p>
+<p>SubnetId -&gt; (string)</p>
+<blockquote>
+<div>The subnet ID used by the connection.</div>
+</blockquote>
+<p>SecurityGroupIdList -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The security group ID list used by the connection.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>AvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The connection's Availability Zone. This field is redundant because the specified subnet implies the Availability Zone to be used. Currently the field must be populated, but it will be deprecated in the future.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time that this connection definition was created.</div>
+</blockquote>
+<p>LastUpdatedTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The last time that this connection definition was updated.</div>
+</blockquote>
+<p>LastUpdatedBy -&gt; (string)</p>
+<blockquote>
+<div>The user, group, or role that last updated this connection definition.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>A continuation token, if the list of connections returned does not include the last of the filtered connections.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

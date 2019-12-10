@@ -1,0 +1,531 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-cache-clusters — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elasticache" href="index.html">
+    <link rel="next" title="describe-cache-engine-versions" href="describe-cache-engine-versions.html">
+    <link rel="prev" title="delete-snapshot" href="delete-snapshot.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-cache-clusters">
+<span id="cli-aws-elasticache-describe-cache-clusters"></span><h1>describe-cache-clusters<a class="headerlink" href="#describe-cache-clusters" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns information about all provisioned clusters if no cluster identifier is specified, or about a specific cache cluster if a cluster identifier is supplied.</p>
+<p>By default, abbreviated information about the clusters is returned. You can use the optional <em>ShowCacheNodeInfo</em> flag to retrieve detailed information about the cache nodes associated with the clusters. These details include the DNS address and port for the cache node endpoint.</p>
+<p>If the cluster is in the <em>creating</em> state, only cluster-level information is displayed until all of the nodes are successfully provisioned.</p>
+<p>If the cluster is in the <em>deleting</em> state, only cluster-level information is displayed.</p>
+<p>If cache nodes are currently being added to the cluster, node endpoint information and creation time for the additional nodes are not displayed until they are completely provisioned. When the cluster state is <em>available</em> , the cluster is ready for use.</p>
+<p>If cache nodes are currently being removed from the cluster, no endpoint information for the removed nodes is displayed.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticache-2015-02-02/DescribeCacheClusters">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-cache-clusters</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">CacheClusters</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-cache-clusters
+[--cache-cluster-id &lt;value&gt;]
+[--show-cache-node-info | --no-show-cache-node-info]
+[--show-cache-clusters-not-in-replication-groups | --no-show-cache-clusters-not-in-replication-groups]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cache-cluster-id</span></tt> (string)</p>
+<blockquote>
+<div>The user-supplied cluster identifier. If this parameter is specified, only information about that specific cluster is returned. This parameter isn't case sensitive.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--show-cache-node-info</span></tt> | <tt class="docutils literal"><span class="pre">--no-show-cache-node-info</span></tt> (boolean)</p>
+<blockquote>
+<div>An optional flag that can be included in the <tt class="docutils literal"><span class="pre">DescribeCacheCluster</span></tt> request to retrieve information about the individual cache nodes.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--show-cache-clusters-not-in-replication-groups</span></tt> | <tt class="docutils literal"><span class="pre">--no-show-cache-clusters-not-in-replication-groups</span></tt> (boolean)</p>
+<blockquote>
+<div>An optional flag that can be included in the <tt class="docutils literal"><span class="pre">DescribeCacheCluster</span></tt> request to show only nodes (API/CLI: clusters) that are not members of a replication group. In practice, this mean Memcached and single node Redis clusters.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>Provides an identifier to allow retrieval of paginated results.</div>
+</blockquote>
+<p>CacheClusters -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of clusters. Each item in the list contains detailed information about one cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains all of the attributes of a specific cluster.</p>
+<p>CacheClusterId -&gt; (string)</p>
+<blockquote>
+<div>The user-supplied identifier of the cluster. This identifier is a unique key that identifies a cluster.</div>
+</blockquote>
+<p>ConfigurationEndpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Represents a Memcached cluster endpoint which, if Automatic Discovery is enabled on the cluster, can be used by an application to connect to any node in the cluster. The configuration endpoint will always have <tt class="docutils literal"><span class="pre">.cfg</span></tt> in it.</p>
+<p>Example: <tt class="docutils literal"><span class="pre">mem-3.9dvc4r.cfg.usw2.cache.amazonaws.com:11211</span></tt></p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the cache node.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that the cache engine is listening on.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ClientDownloadLandingPage -&gt; (string)</p>
+<blockquote>
+<div>The URL of the web page where you can download the latest ElastiCache client library.</div>
+</blockquote>
+<p>CacheNodeType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of the compute and memory capacity node type for the cluster.</p>
+<p>The following node types are supported by ElastiCache. Generally speaking, the current generation types provide more memory and computational power at lower cost when compared to their equivalent previous generation counterparts.</p>
+<ul class="simple">
+<li>General purpose:<ul>
+<li>Current generation:   <strong>M5 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m5.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.12xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.24xlarge</span></tt>    <strong>M4 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m4.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.10xlarge</span></tt>    <strong>T2 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.t2.micro</span></tt> , <tt class="docutils literal"><span class="pre">cache.t2.small</span></tt> , <tt class="docutils literal"><span class="pre">cache.t2.medium</span></tt>
+</li>
+<li>Previous generation: (not recommended)  <strong>T1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.t1.micro</span></tt>    <strong>M1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m1.small</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.medium</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.xlarge</span></tt>    <strong>M3 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m3.medium</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.2xlarge</span></tt>
+</li>
+</ul>
+</li>
+<li>Compute optimized:<ul>
+<li>Previous generation: (not recommended)  <strong>C1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.c1.xlarge</span></tt>
+</li>
+</ul>
+</li>
+<li>Memory optimized:<ul>
+<li>Current generation:   <strong>R5 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r5.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.12xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.24xlarge</span></tt>    <strong>R4 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r4.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.8xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.16xlarge</span></tt>
+</li>
+<li>Previous generation: (not recommended)  <strong>M2 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m2.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m2.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m2.4xlarge</span></tt>    <strong>R3 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r3.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.8xlarge</span></tt>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><strong>Additional node type info</strong></div>
+</blockquote>
+<ul class="simple">
+<li>All current generation instance types are created in Amazon VPC by default.</li>
+<li>Redis append-only files (AOF) are not supported for T1 or T2 instances.</li>
+<li>Redis Multi-AZ with automatic failover is not supported on T1 instances.</li>
+<li>Redis configuration variables <tt class="docutils literal"><span class="pre">appendonly</span></tt> and <tt class="docutils literal"><span class="pre">appendfsync</span></tt> are not supported on Redis version 2.8.22 and later.</li>
+</ul>
+</div>
+</blockquote>
+<p>Engine -&gt; (string)</p>
+<blockquote>
+<div>The name of the cache engine (<tt class="docutils literal"><span class="pre">memcached</span></tt> or <tt class="docutils literal"><span class="pre">redis</span></tt> ) to be used for this cluster.</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>The version of the cache engine that is used in this cluster.</div>
+</blockquote>
+<p>CacheClusterStatus -&gt; (string)</p>
+<blockquote>
+<div>The current state of this cluster, one of the following values: <tt class="docutils literal"><span class="pre">available</span></tt> , <tt class="docutils literal"><span class="pre">creating</span></tt> , <tt class="docutils literal"><span class="pre">deleted</span></tt> , <tt class="docutils literal"><span class="pre">deleting</span></tt> , <tt class="docutils literal"><span class="pre">incompatible-network</span></tt> , <tt class="docutils literal"><span class="pre">modifying</span></tt> , <tt class="docutils literal"><span class="pre">rebooting</span> <span class="pre">cluster</span> <span class="pre">nodes</span></tt> , <tt class="docutils literal"><span class="pre">restore-failed</span></tt> , or <tt class="docutils literal"><span class="pre">snapshotting</span></tt> .</div>
+</blockquote>
+<p>NumCacheNodes -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of cache nodes in the cluster.</p>
+<p>For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1 and 20.</p>
+</div>
+</blockquote>
+<p>PreferredAvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The name of the Availability Zone in which the cluster is located or "Multiple" if the cache nodes are located in different Availability Zones.</div>
+</blockquote>
+<p>CacheClusterCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the cluster was created.</div>
+</blockquote>
+<p>PreferredMaintenanceWindow -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Specifies the weekly time range during which maintenance on the cluster is performed. It is specified as a range in the format ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum maintenance window is a 60 minute period.</p>
+<p>Valid values for <tt class="docutils literal"><span class="pre">ddd</span></tt> are:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">sun</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mon</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">tue</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">wed</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">thu</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">fri</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sat</span></tt></li>
+</ul>
+<p>Example: <tt class="docutils literal"><span class="pre">sun:23:00-mon:01:30</span></tt></p>
+</div>
+</blockquote>
+<p>PendingModifiedValues -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A group of settings that are applied to the cluster in the future, or that are currently being applied.</p>
+<p>NumCacheNodes -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The new number of cache nodes for the cluster.</p>
+<p>For clusters running Redis, this value must be 1. For clusters running Memcached, this value must be between 1 and 20.</p>
+</div>
+</blockquote>
+<p>CacheNodeIdsToRemove -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of cache node IDs that are being removed (or will be removed) from the cluster. A node ID is a 4-digit numeric identifier (0001, 0002, etc.).</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>The new cache engine version that the cluster runs.</div>
+</blockquote>
+<p>CacheNodeType -&gt; (string)</p>
+<blockquote>
+<div>The cache node type that this cluster or replication group is scaled to.</div>
+</blockquote>
+<p>AuthTokenStatus -&gt; (string)</p>
+<blockquote>
+<div>The auth token status</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NotificationConfiguration -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes a notification topic and its status. Notification topics are used for publishing ElastiCache events to subscribers using Amazon Simple Notification Service (SNS).</p>
+<p>TopicArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that identifies the topic.</div>
+</blockquote>
+<p>TopicStatus -&gt; (string)</p>
+<blockquote>
+<div>The current state of the topic.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CacheSecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of cache security group elements, composed of name and status sub-elements.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a cluster's status within a particular cache security group.</p>
+<p>CacheSecurityGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the cache security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The membership status in the cache security group. The status changes when a cache security group is modified, or when the cache security groups assigned to a cluster are modified.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CacheParameterGroup -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Status of the cache parameter group.</p>
+<p>CacheParameterGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the cache parameter group.</div>
+</blockquote>
+<p>ParameterApplyStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of parameter updates.</div>
+</blockquote>
+<p>CacheNodeIdsToReboot -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of the cache node IDs which need to be rebooted for parameter changes to be applied. A node ID is a numeric identifier (0001, 0002, etc.).</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CacheSubnetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the cache subnet group associated with the cluster.</div>
+</blockquote>
+<p>CacheNodes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of cache nodes that are members of the cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents an individual cache node within a cluster. Each cache node runs its own instance of the cluster's protocol-compliant caching software - either Memcached or Redis.</p>
+<p>The following node types are supported by ElastiCache. Generally speaking, the current generation types provide more memory and computational power at lower cost when compared to their equivalent previous generation counterparts.</p>
+<ul class="simple">
+<li>General purpose:<ul>
+<li>Current generation:   <strong>M5 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m5.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.12xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m5.24xlarge</span></tt>    <strong>M4 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m4.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m4.10xlarge</span></tt>    <strong>T2 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.t2.micro</span></tt> , <tt class="docutils literal"><span class="pre">cache.t2.small</span></tt> , <tt class="docutils literal"><span class="pre">cache.t2.medium</span></tt>
+</li>
+<li>Previous generation: (not recommended)  <strong>T1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.t1.micro</span></tt>    <strong>M1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m1.small</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.medium</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m1.xlarge</span></tt>    <strong>M3 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m3.medium</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m3.2xlarge</span></tt>
+</li>
+</ul>
+</li>
+<li>Compute optimized:<ul>
+<li>Previous generation: (not recommended)  <strong>C1 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.c1.xlarge</span></tt>
+</li>
+</ul>
+</li>
+<li>Memory optimized:<ul>
+<li>Current generation:   <strong>R5 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r5.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.12xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r5.24xlarge</span></tt>    <strong>R4 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r4.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.8xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r4.16xlarge</span></tt>
+</li>
+<li>Previous generation: (not recommended)  <strong>M2 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.m2.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m2.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.m2.4xlarge</span></tt>    <strong>R3 node types:</strong>  <tt class="docutils literal"><span class="pre">cache.r3.large</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.2xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.4xlarge</span></tt> , <tt class="docutils literal"><span class="pre">cache.r3.8xlarge</span></tt>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><strong>Additional node type info</strong></div>
+</blockquote>
+<ul class="simple">
+<li>All current generation instance types are created in Amazon VPC by default.</li>
+<li>Redis append-only files (AOF) are not supported for T1 or T2 instances.</li>
+<li>Redis Multi-AZ with automatic failover is not supported on T1 instances.</li>
+<li>Redis configuration variables <tt class="docutils literal"><span class="pre">appendonly</span></tt> and <tt class="docutils literal"><span class="pre">appendfsync</span></tt> are not supported on Redis version 2.8.22 and later.</li>
+</ul>
+<p>CacheNodeId -&gt; (string)</p>
+<blockquote>
+<div>The cache node identifier. A node ID is a numeric identifier (0001, 0002, etc.). The combination of cluster ID and node ID uniquely identifies every cache node used in a customer's AWS account.</div>
+</blockquote>
+<p>CacheNodeStatus -&gt; (string)</p>
+<blockquote>
+<div>The current state of this cache node.</div>
+</blockquote>
+<p>CacheNodeCreateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the cache node was created.</div>
+</blockquote>
+<p>Endpoint -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The hostname for connecting to this cache node.</p>
+<p>Address -&gt; (string)</p>
+<blockquote>
+<div>The DNS hostname of the cache node.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port number that the cache engine is listening on.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ParameterGroupStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the parameter group applied to this cache node.</div>
+</blockquote>
+<p>SourceCacheNodeId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the primary node to which this read replica node is synchronized. If this field is empty, this node is not associated with a primary cluster.</div>
+</blockquote>
+<p>CustomerAvailabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone where this node was created and now resides.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>AutoMinorVersionUpgrade -&gt; (boolean)</p>
+<blockquote>
+<div>This parameter is currently disabled.</div>
+</blockquote>
+<p>SecurityGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of VPC Security Groups associated with the cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a single cache security group and its status.</p>
+<p>SecurityGroupId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the cache security group.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The status of the cache security group membership. The status changes whenever a cache security group is modified, or when the cache security groups assigned to a cluster are modified.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ReplicationGroupId -&gt; (string)</p>
+<blockquote>
+<div>The replication group to which this cluster belongs. If this field is empty, the cluster is not associated with any replication group.</div>
+</blockquote>
+<p>SnapshotRetentionLimit -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of days for which ElastiCache retains automatic cluster snapshots before deleting them. For example, if you set <tt class="docutils literal"><span class="pre">SnapshotRetentionLimit</span></tt> to 5, a snapshot that was taken today is retained for 5 days before being deleted.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If the value of SnapshotRetentionLimit is set to zero (0), backups are turned off.</p>
+</div>
+</div>
+</blockquote>
+<p>SnapshotWindow -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The daily time range (in UTC) during which ElastiCache begins taking a daily snapshot of your cluster.</p>
+<p>Example: <tt class="docutils literal"><span class="pre">05:00-09:00</span></tt></p>
+</div>
+</blockquote>
+<p>AuthTokenEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables using an <tt class="docutils literal"><span class="pre">AuthToken</span></tt> (password) when issuing Redis commands.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>AuthTokenLastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date the auth token was last modified</div>
+</blockquote>
+<p>TransitEncryptionEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables in-transit encryption when set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You cannot modify the value of <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> after the cluster is created. To enable in-transit encryption on a cluster you must set <tt class="docutils literal"><span class="pre">TransitEncryptionEnabled</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> when you create a cluster.</p>
+<blockquote>
+<div>
+<strong>Required:</strong> Only available when creating a replication group in an Amazon VPC using redis version <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later.</div>
+</blockquote>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+<p>AtRestEncryptionEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>A flag that enables encryption at-rest when set to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>You cannot modify the value of <tt class="docutils literal"><span class="pre">AtRestEncryptionEnabled</span></tt> after the cluster is created. To enable at-rest encryption on a cluster you must set <tt class="docutils literal"><span class="pre">AtRestEncryptionEnabled</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> when you create a cluster.</p>
+<blockquote>
+<div>
+<strong>Required:</strong> Only available when creating a replication group in an Amazon VPC using redis version <tt class="docutils literal"><span class="pre">3.2.6</span></tt> , <tt class="docutils literal"><span class="pre">4.x</span></tt> or later.</div>
+</blockquote>
+<p>Default: <tt class="docutils literal"><span class="pre">false</span></tt></p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

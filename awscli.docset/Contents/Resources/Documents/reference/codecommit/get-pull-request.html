@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-pull-request — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="codecommit" href="index.html">
+    <link rel="next" title="get-pull-request-approval-states" href="get-pull-request-approval-states.html">
+    <link rel="prev" title="get-merge-options" href="get-merge-options.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-pull-request">
+<span id="cli-aws-codecommit-get-pull-request"></span><h1>get-pull-request<a class="headerlink" href="#get-pull-request" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets information about a pull request in a specified repository.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/GetPullRequest">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-pull-request
+--pull-request-id &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--pull-request-id</span></tt> (string)</p>
+<blockquote>
+<div>The system-generated ID of the pull request. To get this ID, use  ListPullRequests .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To view details of a pull request</strong></p>
+<p>This example demonstrates how to view information about a pull request with the ID of '42':</p>
+<div class="highlight-python">
+<pre>aws codecommit get-pull-request --pull-request-id 42</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>{
+ "pullRequest": {
+    "authorArn": "arn:aws:iam::111111111111:user/Jane_Doe",
+    "title": "Pronunciation difficulty analyzer"
+    "pullRequestTargets": [
+       {
+          "destinationReference": "refs/heads/master",
+          "destinationCommit": "5d036259EXAMPLE",
+          "sourceReference": "refs/heads/jane-branch"
+          "sourceCommit": "317f8570EXAMPLE",
+          "repositoryName": "MyDemoRepo",
+          "mergeMetadata": {
+             "isMerged": false,
+          },
+       }
+    ],
+    "lastActivityDate": 1508442444,
+    "pullRequestId": "42",
+    "clientRequestToken": "123Example",
+    "pullRequestStatus": "OPEN",
+    "creationDate": 1508962823,
+    "description": "A code review of the new feature I just added to the service.",
+  }
+}</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>pullRequest -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the specified pull request.</p>
+<p>pullRequestId -&gt; (string)</p>
+<blockquote>
+<div>The system-generated ID of the pull request.</div>
+</blockquote>
+<p>title -&gt; (string)</p>
+<blockquote>
+<div>The user-defined title of the pull request. This title is displayed in the list of pull requests to other repository users.</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>The user-defined description of the pull request. This description can be used to clarify what should be reviewed and other details of the request.</div>
+</blockquote>
+<p>lastActivityDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The day and time of the last user or system activity on the pull request, in timestamp format.</div>
+</blockquote>
+<p>creationDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time the pull request was originally created, in timestamp format.</div>
+</blockquote>
+<p>pullRequestStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the pull request. Pull request status can only change from <tt class="docutils literal"><span class="pre">OPEN</span></tt> to <tt class="docutils literal"><span class="pre">CLOSED</span></tt> .</div>
+</blockquote>
+<p>authorArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the user who created the pull request.</div>
+</blockquote>
+<p>pullRequestTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The targets of the pull request, including the source branch and destination branch for the pull request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Returns information about a pull request target.</p>
+<p>repositoryName -&gt; (string)</p>
+<blockquote>
+<div>The name of the repository that contains the pull request source and destination branches.</div>
+</blockquote>
+<p>sourceReference -&gt; (string)</p>
+<blockquote>
+<div>The branch of the repository that contains the changes for the pull request. Also known as the source branch.</div>
+</blockquote>
+<p>destinationReference -&gt; (string)</p>
+<blockquote>
+<div>The branch of the repository where the pull request changes are merged. Also known as the destination branch.</div>
+</blockquote>
+<p>destinationCommit -&gt; (string)</p>
+<blockquote>
+<div>The full commit ID that is the tip of the destination branch. This is the commit where the pull request was or will be merged.</div>
+</blockquote>
+<p>sourceCommit -&gt; (string)</p>
+<blockquote>
+<div>The full commit ID of the tip of the source branch used to create the pull request. If the pull request branch is updated by a push while the pull request is open, the commit ID changes to reflect the new tip of the branch.</div>
+</blockquote>
+<p>mergeBase -&gt; (string)</p>
+<blockquote>
+<div>The commit ID of the most recent commit that the source branch and the destination branch have in common.</div>
+</blockquote>
+<p>mergeMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Returns metadata about the state of the merge, including whether the merge has been made.</p>
+<p>isMerged -&gt; (boolean)</p>
+<blockquote>
+<div>A Boolean value indicating whether the merge has been made.</div>
+</blockquote>
+<p>mergedBy -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the user who merged the branches.</div>
+</blockquote>
+<p>mergeCommitId -&gt; (string)</p>
+<blockquote>
+<div>The commit ID for the merge commit, if any.</div>
+</blockquote>
+<p>mergeOption -&gt; (string)</p>
+<blockquote>
+<div>The merge strategy used in the merge.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>clientRequestToken -&gt; (string)</p>
+<blockquote>
+<div>A unique, client-generated idempotency token that, when provided in a request, ensures the request cannot be repeated with a changed parameter. If a request is received with the same parameters and a token is included, the request returns information about the initial request that used that token.</div>
+</blockquote>
+<p>revisionId -&gt; (string)</p>
+<blockquote>
+<div>The system-generated revision ID for the pull request.</div>
+</blockquote>
+<p>approvalRules -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The approval rules applied to the pull request.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Returns information about an approval rule.</p>
+<p>approvalRuleId -&gt; (string)</p>
+<blockquote>
+<div>The system-generated ID of the approval rule.</div>
+</blockquote>
+<p>approvalRuleName -&gt; (string)</p>
+<blockquote>
+<div>The name of the approval rule.</div>
+</blockquote>
+<p>approvalRuleContent -&gt; (string)</p>
+<blockquote>
+<div>The content of the approval rule.</div>
+</blockquote>
+<p>ruleContentSha256 -&gt; (string)</p>
+<blockquote>
+<div>The SHA-256 hash signature for the content of the approval rule.</div>
+</blockquote>
+<p>lastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date the approval rule was most recently changed, in timestamp format.</div>
+</blockquote>
+<p>creationDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date the approval rule was created, in timestamp format.</div>
+</blockquote>
+<p>lastModifiedUser -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the user who made the most recent changes to the approval rule.</div>
+</blockquote>
+<p>originApprovalRuleTemplate -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The approval rule template used to create the rule.</p>
+<p>approvalRuleTemplateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the template that created the approval rule.</div>
+</blockquote>
+<p>approvalRuleTemplateName -&gt; (string)</p>
+<blockquote>
+<div>The name of the template that created the approval rule.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

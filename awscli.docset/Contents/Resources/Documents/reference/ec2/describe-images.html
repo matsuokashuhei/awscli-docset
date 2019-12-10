@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-images — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="describe-import-image-tasks" href="describe-import-image-tasks.html">
+    <link rel="prev" title="describe-image-attribute" href="describe-image-attribute.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-images">
+<span id="cli-aws-ec2-describe-images"></span><h1>describe-images<a class="headerlink" href="#describe-images" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Describes the specified images (AMIs, AKIs, and ARIs) available to you or all of the images available to you.</p>
+<p>The images available to you include public images, private images that you own, and private images owned by other AWS accounts for which you have explicit launch permissions.</p>
+<p>Recently deregistered images appear in the returned results for a short interval and then return empty results. After all instances that reference a deregistered AMI are terminated, specifying the ID of the image results in an error indicating that the AMI ID cannot be found.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImages">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-images
+[--executable-users &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--image-ids &lt;value&gt;]
+[--owners &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--executable-users</span></tt> (list)</p>
+<blockquote>
+<div>Scopes the images by users with explicit launch permissions. Specify an AWS account ID, <tt class="docutils literal"><span class="pre">self</span></tt> (the sender of the request), or <tt class="docutils literal"><span class="pre">all</span></tt> (public AMIs).</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The filters.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">architecture</span></tt> - The image architecture (<tt class="docutils literal"><span class="pre">i386</span></tt> | <tt class="docutils literal"><span class="pre">x86_64</span></tt> | <tt class="docutils literal"><span class="pre">arm64</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.delete-on-termination</span></tt> - A Boolean value that indicates whether the Amazon EBS volume is deleted on instance termination.</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.device-name</span></tt> - The device name specified in the block device mapping (for example, <tt class="docutils literal"><span class="pre">/dev/sdh</span></tt> or <tt class="docutils literal"><span class="pre">xvdh</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.snapshot-id</span></tt> - The ID of the snapshot used for the EBS volume.</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.volume-size</span></tt> - The volume size of the EBS volume, in GiB.</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.volume-type</span></tt> - The volume type of the EBS volume (<tt class="docutils literal"><span class="pre">gp2</span></tt> | <tt class="docutils literal"><span class="pre">io1</span></tt> | <tt class="docutils literal"><span class="pre">st1</span></tt> | <tt class="docutils literal"><span class="pre">sc1</span></tt> | <tt class="docutils literal"><span class="pre">standard</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">block-device-mapping.encrypted</span></tt> - A Boolean that indicates whether the EBS volume is encrypted.</li>
+<li>
+<tt class="docutils literal"><span class="pre">description</span></tt> - The description of the image (provided during image creation).</li>
+<li>
+<tt class="docutils literal"><span class="pre">ena-support</span></tt> - A Boolean that indicates whether enhanced networking with ENA is enabled.</li>
+<li>
+<tt class="docutils literal"><span class="pre">hypervisor</span></tt> - The hypervisor type (<tt class="docutils literal"><span class="pre">ovm</span></tt> | <tt class="docutils literal"><span class="pre">xen</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">image-id</span></tt> - The ID of the image.</li>
+<li>
+<tt class="docutils literal"><span class="pre">image-type</span></tt> - The image type (<tt class="docutils literal"><span class="pre">machine</span></tt> | <tt class="docutils literal"><span class="pre">kernel</span></tt> | <tt class="docutils literal"><span class="pre">ramdisk</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">is-public</span></tt> - A Boolean that indicates whether the image is public.</li>
+<li>
+<tt class="docutils literal"><span class="pre">kernel-id</span></tt> - The kernel ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">manifest-location</span></tt> - The location of the image manifest.</li>
+<li>
+<tt class="docutils literal"><span class="pre">name</span></tt> - The name of the AMI (provided during image creation).</li>
+<li>
+<tt class="docutils literal"><span class="pre">owner-alias</span></tt> - String value from an Amazon-maintained list (<tt class="docutils literal"><span class="pre">amazon</span></tt> | <tt class="docutils literal"><span class="pre">aws-marketplace</span></tt> | <tt class="docutils literal"><span class="pre">microsoft</span></tt> ) of snapshot owners. Not to be confused with the user-configured AWS account alias, which is set from the IAM console.</li>
+<li>
+<tt class="docutils literal"><span class="pre">owner-id</span></tt> - The AWS account ID of the image owner.</li>
+<li>
+<tt class="docutils literal"><span class="pre">platform</span></tt> - The platform. To only list Windows-based AMIs, use <tt class="docutils literal"><span class="pre">windows</span></tt> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">product-code</span></tt> - The product code.</li>
+<li>
+<tt class="docutils literal"><span class="pre">product-code.type</span></tt> - The type of the product code (<tt class="docutils literal"><span class="pre">devpay</span></tt> | <tt class="docutils literal"><span class="pre">marketplace</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">ramdisk-id</span></tt> - The RAM disk ID.</li>
+<li>
+<tt class="docutils literal"><span class="pre">root-device-name</span></tt> - The device name of the root device volume (for example, <tt class="docutils literal"><span class="pre">/dev/sda1</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">root-device-type</span></tt> - The type of the root device volume (<tt class="docutils literal"><span class="pre">ebs</span></tt> | <tt class="docutils literal"><span class="pre">instance-store</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">state</span></tt> - The state of the image (<tt class="docutils literal"><span class="pre">available</span></tt> | <tt class="docutils literal"><span class="pre">pending</span></tt> | <tt class="docutils literal"><span class="pre">failed</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">state-reason-code</span></tt> - The reason code for the state change.</li>
+<li>
+<tt class="docutils literal"><span class="pre">state-reason-message</span></tt> - The message for the state change.</li>
+<li>
+<tt class="docutils literal"><span class="pre">sriov-net-support</span></tt> - A value of <tt class="docutils literal"><span class="pre">simple</span></tt> indicates that enhanced networking with the Intel 82599 VF interface is enabled.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag</span></tt> :key- The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <tt class="docutils literal"><span class="pre">Owner</span></tt> and the value <tt class="docutils literal"><span class="pre">TeamA</span></tt> , specify <tt class="docutils literal"><span class="pre">tag:Owner</span></tt> for the filter name and <tt class="docutils literal"><span class="pre">TeamA</span></tt> for the filter value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">tag-key</span></tt> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</li>
+<li>
+<tt class="docutils literal"><span class="pre">virtualization-type</span></tt> - The virtualization type (<tt class="docutils literal"><span class="pre">paravirtual</span></tt> | <tt class="docutils literal"><span class="pre">hvm</span></tt> ).</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--image-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The image IDs.</p>
+<p>Default: Describes all images available to you.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--owners</span></tt> (list)</p>
+<blockquote>
+<div>Filters the images by the owner. Specify an AWS account ID, <tt class="docutils literal"><span class="pre">self</span></tt> (owner is the sender of the request), or an AWS owner alias (valid values are <tt class="docutils literal"><span class="pre">amazon</span></tt> | <tt class="docutils literal"><span class="pre">aws-marketplace</span></tt> | <tt class="docutils literal"><span class="pre">microsoft</span></tt> ). Omitting this option returns all images for which you have launch permissions, regardless of ownership.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe a specific AMI</strong></p>
+<p>This example describes the specified AMI.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-images --image-ids ami-5731123e</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Images"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"VirtualizationType"</span><span class="p">:</span> <span class="s2">"paravirtual"</span><span class="p">,</span>
+            <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"My server"</span><span class="p">,</span>
+            <span class="s2">"Hypervisor"</span><span class="p">:</span> <span class="s2">"xen"</span><span class="p">,</span>
+            <span class="s2">"ImageId"</span><span class="p">:</span> <span class="s2">"ami-5731123e"</span><span class="p">,</span>
+            <span class="s2">"RootDeviceType"</span><span class="p">:</span> <span class="s2">"ebs"</span><span class="p">,</span>
+            <span class="s2">"State"</span><span class="p">:</span> <span class="s2">"available"</span><span class="p">,</span>
+            <span class="s2">"BlockDeviceMappings"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"DeviceName"</span><span class="p">:</span> <span class="s2">"/dev/sda1"</span><span class="p">,</span>
+                    <span class="s2">"Ebs"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"DeleteOnTermination"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                        <span class="s2">"SnapshotId"</span><span class="p">:</span> <span class="s2">"snap-1234567890abcdef0"</span><span class="p">,</span>
+                        <span class="s2">"VolumeSize"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                        <span class="s2">"VolumeType"</span><span class="p">:</span> <span class="s2">"standard"</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"Architecture"</span><span class="p">:</span> <span class="s2">"x86_64"</span><span class="p">,</span>
+            <span class="s2">"ImageLocation"</span><span class="p">:</span> <span class="s2">"123456789012/My server"</span><span class="p">,</span>
+            <span class="s2">"KernelId"</span><span class="p">:</span> <span class="s2">"aki-88aa75e1"</span><span class="p">,</span>
+            <span class="s2">"OwnerId"</span><span class="p">:</span> <span class="s2">"123456789012"</span><span class="p">,</span>
+            <span class="s2">"RootDeviceName"</span><span class="p">:</span> <span class="s2">"/dev/sda1"</span><span class="p">,</span>
+            <span class="s2">"Public"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"ImageType"</span><span class="p">:</span> <span class="s2">"machine"</span><span class="p">,</span>
+            <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"An AMI for my server"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To describe Windows AMIs from Amazon that are backed by Amazon EBS</strong></p>
+<p>This example describes Windows AMIs provided by Amazon that are backed by Amazon EBS.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-images --owners amazon --filters "Name=platform,Values=windows" "Name=root-device-type,Values=ebs"</pre>
+</div>
+<p><strong>To describe tagged AMIs</strong></p>
+<p>This example describes all AMIs that have the tag <tt class="docutils literal"><span class="pre">Custom=Linux1</span></tt>. The output is filtered to display only the AMI IDs.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-images --filters "Name=tag:Custom,Values=Linux1" --query 'Images[*].{ID:ImageId}'</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+     <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"ami-1a2b3c4d"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+     <span class="s2">"ID"</span><span class="p">:</span> <span class="s2">"ami-ab12cd34"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Images -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the images.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes an image.</p>
+<p>Architecture -&gt; (string)</p>
+<blockquote>
+<div>The architecture of the image.</div>
+</blockquote>
+<p>CreationDate -&gt; (string)</p>
+<blockquote>
+<div>The date and time the image was created.</div>
+</blockquote>
+<p>ImageId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the AMI.</div>
+</blockquote>
+<p>ImageLocation -&gt; (string)</p>
+<blockquote>
+<div>The location of the AMI.</div>
+</blockquote>
+<p>ImageType -&gt; (string)</p>
+<blockquote>
+<div>The type of image.</div>
+</blockquote>
+<p>Public -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the image has public launch permissions. The value is <tt class="docutils literal"><span class="pre">true</span></tt> if this image has public launch permissions or <tt class="docutils literal"><span class="pre">false</span></tt> if it has only implicit and explicit launch permissions.</div>
+</blockquote>
+<p>KernelId -&gt; (string)</p>
+<blockquote>
+<div>The kernel associated with the image, if any. Only applicable for machine images.</div>
+</blockquote>
+<p>OwnerId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID of the image owner.</div>
+</blockquote>
+<p>Platform -&gt; (string)</p>
+<blockquote>
+<div>This value is set to <tt class="docutils literal"><span class="pre">windows</span></tt> for Windows AMIs; otherwise, it is blank.</div>
+</blockquote>
+<p>ProductCodes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any product codes associated with the AMI.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a product code.</p>
+<p>ProductCodeId -&gt; (string)</p>
+<blockquote>
+<div>The product code.</div>
+</blockquote>
+<p>ProductCodeType -&gt; (string)</p>
+<blockquote>
+<div>The type of product code.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>RamdiskId -&gt; (string)</p>
+<blockquote>
+<div>The RAM disk associated with the image, if any. Only applicable for machine images.</div>
+</blockquote>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The current state of the AMI. If the state is <tt class="docutils literal"><span class="pre">available</span></tt> , the image is successfully registered and can be used to launch an instance.</div>
+</blockquote>
+<p>BlockDeviceMappings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any block device mapping entries.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a block device mapping.</p>
+<p>DeviceName -&gt; (string)</p>
+<blockquote>
+<div>The device name (for example, <tt class="docutils literal"><span class="pre">/dev/sdh</span></tt> or <tt class="docutils literal"><span class="pre">xvdh</span></tt> ).</div>
+</blockquote>
+<p>VirtualName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The virtual device name (<tt class="docutils literal"><span class="pre">ephemeral</span></tt> N). Instance store volumes are numbered starting from 0. An instance type with 2 available instance store volumes can specify mappings for <tt class="docutils literal"><span class="pre">ephemeral0</span></tt> and <tt class="docutils literal"><span class="pre">ephemeral1</span></tt> . The number of available instance store volumes depends on the instance type. After you connect to the instance, you must mount the volume.</p>
+<p>NVMe instance store volumes are automatically enumerated and assigned a device name. Including them in your block device mapping has no effect.</p>
+<p>Constraints: For M3 instances, you must specify instance store volumes in the block device mapping for the instance. When you launch an M3 instance, we ignore any instance store volumes specified in the block device mapping for the AMI.</p>
+</div>
+</blockquote>
+<p>Ebs -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Parameters used to automatically set up EBS volumes when the instance is launched.</p>
+<p>DeleteOnTermination -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether the EBS volume is deleted on instance termination. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#preserving-volumes-on-termination">Preserving Amazon EBS Volumes on Instance Termination</a> in the Amazon Elastic Compute Cloud User Guide.</div>
+</blockquote>
+<p>Iops -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of I/O operations per second (IOPS) that the volume supports. For <tt class="docutils literal"><span class="pre">io1</span></tt> volumes, this represents the number of IOPS that are provisioned for the volume. For <tt class="docutils literal"><span class="pre">gp2</span></tt> volumes, this represents the baseline performance of the volume and the rate at which the volume accumulates I/O credits for bursting. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Constraints: Range is 100-16,000 IOPS for <tt class="docutils literal"><span class="pre">gp2</span></tt> volumes and 100 to 64,000IOPS for <tt class="docutils literal"><span class="pre">io1</span></tt> volumes in most Regions. Maximum <tt class="docutils literal"><span class="pre">io1</span></tt> IOPS of 64,000 is guaranteed only on <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based instances</a> . Other instance families guarantee performance up to 32,000 IOPS. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon EBS Volume Types</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>Condition: This parameter is required for requests to create <tt class="docutils literal"><span class="pre">io1</span></tt> volumes; it is not used in requests to create <tt class="docutils literal"><span class="pre">gp2</span></tt> , <tt class="docutils literal"><span class="pre">st1</span></tt> , <tt class="docutils literal"><span class="pre">sc1</span></tt> , or <tt class="docutils literal"><span class="pre">standard</span></tt> volumes.</p>
+</div>
+</blockquote>
+<p>SnapshotId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the snapshot.</div>
+</blockquote>
+<p>VolumeSize -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The size of the volume, in GiB.</p>
+<p>Default: If you're creating the volume from a snapshot and don't specify a volume size, the default is the snapshot size.</p>
+<p>Constraints: 1-16384 for General Purpose SSD (<tt class="docutils literal"><span class="pre">gp2</span></tt> ), 4-16384 for Provisioned IOPS SSD (<tt class="docutils literal"><span class="pre">io1</span></tt> ), 500-16384 for Throughput Optimized HDD (<tt class="docutils literal"><span class="pre">st1</span></tt> ), 500-16384 for Cold HDD (<tt class="docutils literal"><span class="pre">sc1</span></tt> ), and 1-1024 for Magnetic (<tt class="docutils literal"><span class="pre">standard</span></tt> ) volumes. If you specify a snapshot, the volume size must be equal to or larger than the snapshot size.</p>
+</div>
+</blockquote>
+<p>VolumeType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The volume type. If you set the type to <tt class="docutils literal"><span class="pre">io1</span></tt> , you must also specify the IOPS that the volume supports.</p>
+<p>Default: <tt class="docutils literal"><span class="pre">gp2</span></tt></p>
+</div>
+</blockquote>
+<p>Encrypted -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>Indicates whether the encryption state of an EBS volume is changed while being restored from a backing snapshot. The effect of setting the encryption state to <tt class="docutils literal"><span class="pre">true</span></tt> depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether encryption by default is enabled. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-parameters">Amazon EBS Encryption</a> in the <em>Amazon Elastic Compute Cloud User Guide</em> .</p>
+<p>In no case can you remove encryption from an encrypted volume.</p>
+<p>Encrypted volumes can only be attached to instances that support Amazon EBS encryption. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances">Supported Instance Types</a> .</p>
+</div>
+</blockquote>
+<p>KmsKeyId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Identifier (key ID, key alias, ID ARN, or alias ARN) for a customer managed CMK under which the EBS volume is encrypted.</p>
+<p>This parameter is only supported on <tt class="docutils literal"><span class="pre">BlockDeviceMapping</span></tt> objects called by <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> , <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotFleet.html">RequestSpotFleet</a> , and <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html">RequestSpotInstances</a> .</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NoDevice -&gt; (string)</p>
+<blockquote>
+<div>Suppresses the specified device included in the block device mapping of the AMI.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the AMI that was provided during image creation.</div>
+</blockquote>
+<p>EnaSupport -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether enhanced networking with ENA is enabled.</div>
+</blockquote>
+<p>Hypervisor -&gt; (string)</p>
+<blockquote>
+<div>The hypervisor type of the image.</div>
+</blockquote>
+<p>ImageOwnerAlias -&gt; (string)</p>
+<blockquote>
+<div>The AWS account alias (for example, <tt class="docutils literal"><span class="pre">amazon</span></tt> , <tt class="docutils literal"><span class="pre">self</span></tt> ) or the AWS account ID of the AMI owner.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the AMI that was provided during image creation.</div>
+</blockquote>
+<p>RootDeviceName -&gt; (string)</p>
+<blockquote>
+<div>The device name of the root device volume (for example, <tt class="docutils literal"><span class="pre">/dev/sda1</span></tt> ).</div>
+</blockquote>
+<p>RootDeviceType -&gt; (string)</p>
+<blockquote>
+<div>The type of root device used by the AMI. The AMI can use an EBS volume or an instance store volume.</div>
+</blockquote>
+<p>SriovNetSupport -&gt; (string)</p>
+<blockquote>
+<div>Specifies whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.</div>
+</blockquote>
+<p>StateReason -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The reason for the state change.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The reason code for the state change.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The message for the state change.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Server.InsufficientInstanceCapacity</span></tt> : There was insufficient capacity available to satisfy the launch request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.InternalError</span></tt> : An internal error caused the instance to terminate during launch.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.ScheduledStop</span></tt> : The instance was stopped due to a scheduled retirement.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.SpotInstanceShutdown</span></tt> : The instance was stopped because the number of Spot requests with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the Spot price.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Server.SpotInstanceTermination</span></tt> : The instance was terminated because the number of Spot requests with a maximum price equal to or higher than the Spot price exceeded available capacity or because of an increase in the Spot price.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InstanceInitiatedShutdown</span></tt> : The instance was shut down using the <tt class="docutils literal"><span class="pre">shutdown</span> <span class="pre">-h</span></tt> command from the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InstanceTerminated</span></tt> : The instance was terminated or rebooted during AMI creation.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InternalError</span></tt> : A client error caused the instance to terminate during launch.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.InvalidSnapshot.NotFound</span></tt> : The specified snapshot was not found.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.UserInitiatedHibernate</span></tt> : Hibernation was initiated on the instance.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.UserInitiatedShutdown</span></tt> : The instance was shut down using the Amazon EC2 API.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Client.VolumeLimitExceeded</span></tt> : The limit on the number of EBS volumes or total storage was exceeded. Decrease usage or request an increase in your account limits.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Any tags assigned to the image.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes a tag.</p>
+<p>Key -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The key of the tag.</p>
+<p>Constraints: Tag keys are case-sensitive and accept a maximum of 127 Unicode characters. May not begin with <tt class="docutils literal"><span class="pre">aws:</span></tt> .</p>
+</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The value of the tag.</p>
+<p>Constraints: Tag values are case-sensitive and accept a maximum of 255 Unicode characters.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>VirtualizationType -&gt; (string)</p>
+<blockquote>
+<div>The type of virtualization of the AMI.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

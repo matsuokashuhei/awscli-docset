@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-service-setting — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="ssm" href="index.html">
+    <link rel="next" title="label-parameter-version" href="label-parameter-version.html">
+    <link rel="prev" title="get-patch-baseline-for-patch-group" href="get-patch-baseline-for-patch-group.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-service-setting">
+<span id="cli-aws-ssm-get-service-setting"></span><h1>get-service-setting<a class="headerlink" href="#get-service-setting" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">ServiceSetting</span></tt> is an account-level setting for an AWS service. This setting defines how a user interacts with or uses a service or a feature of a service. For example, if an AWS service charges money to the account based on feature or service usage, then the AWS service team might create a default setting of "false". This means the user can't use this feature unless they change the setting to "true" and intentionally opt in for a paid feature.</div>
+</blockquote>
+<p>Services map a <tt class="docutils literal"><span class="pre">SettingId</span></tt> object to a setting value. AWS services teams define the default value for a <tt class="docutils literal"><span class="pre">SettingId</span></tt> . You can't create a new <tt class="docutils literal"><span class="pre">SettingId</span></tt> , but you can overwrite the default value if you have the <tt class="docutils literal"><span class="pre">ssm:UpdateServiceSetting</span></tt> permission for the setting. Use the  UpdateServiceSetting API action to change the default setting. Or use the  ResetServiceSetting to change the value back to the original value defined by the AWS service team.</p>
+<p>Query the current service setting for the account.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/GetServiceSetting">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-service-setting
+--setting-id &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--setting-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the service setting to get.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retrieve the service setting for Parameter Store throughput</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-service-setting</span></tt> This example retrieves the current service setting for Parameter Store throughput in the specified region.</p>
+<div class="highlight-python">
+<pre>aws ssm get-service-setting \
+    --setting-id arn:aws:ssm:us-east-1:123456789012:servicesetting/ssm/parameter-store/high-throughput-enabled</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ServiceSetting"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"SettingId"</span><span class="p">:</span> <span class="s2">"/ssm/parameter-store/high-throughput-enabled"</span><span class="p">,</span>
+        <span class="s2">"SettingValue"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+        <span class="s2">"LastModifiedDate"</span><span class="p">:</span> <span class="mf">1555532818.578</span><span class="p">,</span>
+        <span class="s2">"LastModifiedUser"</span><span class="p">:</span> <span class="s2">"System"</span><span class="p">,</span>
+        <span class="s2">"ARN"</span><span class="p">:</span> <span class="s2">"arn:aws:ssm:us-east-1:123456789012:servicesetting/ssm/parameter-store/high-throughput-enabled"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Default"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-throughput.html">Increasing Parameter Store Throughput</a> in the <em>AWS Systems Manager Users Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ServiceSetting -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The query result of the current service setting.</p>
+<p>SettingId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the service setting.</div>
+</blockquote>
+<p>SettingValue -&gt; (string)</p>
+<blockquote>
+<div>The value of the service setting.</div>
+</blockquote>
+<p>LastModifiedDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The last time the service setting was modified.</div>
+</blockquote>
+<p>LastModifiedUser -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the last modified user. This field is populated only if the setting value was overwritten.</div>
+</blockquote>
+<p>ARN -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the service setting.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the service setting. The value can be Default, Customized or PendingUpdate.</p>
+<ul class="simple">
+<li>Default: The current setting uses a default value provisioned by the AWS service team.</li>
+<li>Customized: The current setting use a custom value specified by the customer.</li>
+<li>PendingUpdate: The current setting uses a default or custom value, but a setting change request is pending approval.</li>
+</ul>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

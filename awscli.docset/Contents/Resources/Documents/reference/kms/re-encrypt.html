@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>re-encrypt — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kms" href="index.html">
+    <link rel="next" title="retire-grant" href="retire-grant.html">
+    <link rel="prev" title="put-key-policy" href="put-key-policy.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="re-encrypt">
+<span id="cli-aws-kms-re-encrypt"></span><h1>re-encrypt<a class="headerlink" href="#re-encrypt" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Decrypts ciphertext and then reencrypts it entirely within AWS KMS. You can use this operation to change the customer master key (CMK) under which data is encrypted, such as when you <a class="reference external" href="kms/latest/developerguide/rotate-keys.html#rotate-keys-manually">manually rotate</a> a CMK or change the CMK that protects a ciphertext. You can also use it to reencrypt ciphertext under the same CMK, such as to change the encryption context of a ciphertext.</p>
+<p>The <tt class="docutils literal"><span class="pre">ReEncrypt</span></tt> operation can decrypt ciphertext that was encrypted by using an AWS KMS CMK in an AWS KMS operation, such as  Encrypt or  GenerateDataKey . It can also decrypt ciphertext that was encrypted by using the public key of an asymmetric CMK outside of AWS KMS. However, it cannot decrypt ciphertext produced by other libraries, such as the <a class="reference external" href="https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/">AWS Encryption SDK</a> or <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html">Amazon S3 client-side encryption</a> . These libraries return a ciphertext format that is incompatible with AWS KMS.</p>
+<p>When you use the <tt class="docutils literal"><span class="pre">ReEncrypt</span></tt> operation, you need to provide information for the decrypt operation and the subsequent encrypt operation.</p>
+<ul class="simple">
+<li>If your ciphertext was encrypted under an asymmetric CMK, you must identify the <em>source CMK</em> , that is, the CMK that encrypted the ciphertext. You must also supply the encryption algorithm that was used. This information is required to decrypt the data.</li>
+<li>It is optional, but you can specify a source CMK even when the ciphertext was encrypted under a symmetric CMK. This ensures that the ciphertext is decrypted only by using a particular CMK. If the CMK that you specify cannot decrypt the ciphertext, the <tt class="docutils literal"><span class="pre">ReEncrypt</span></tt> operation fails.</li>
+<li>To reencrypt the data, you must specify the <em>destination CMK</em> , that is, the CMK that re-encrypts the data after it is decrypted. You can select a symmetric or asymmetric CMK. If the destination CMK is an asymmetric CMK, you must also provide the encryption algorithm. The algorithm that you choose must be compatible with the CMK.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When you use an asymmetric CMK to encrypt or reencrypt data, be sure to record the CMK and encryption algorithm that you choose. You will be required to provide the same CMK and encryption algorithm when you decrypt the data. If the CMK and algorithm do not match the values used to encrypt the data, the decrypt operation fails. You are not required to supply the CMK ID and encryption algorithm when you decrypt with symmetric CMKs because AWS KMS stores this information in the ciphertext blob. AWS KMS cannot store metadata in ciphertext generated with asymmetric keys. The standard format for asymmetric key ciphertext does not include configurable fields.</p>
+</div>
+<p>Unlike other AWS KMS API operations, <tt class="docutils literal"><span class="pre">ReEncrypt</span></tt> callers must have two permissions:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">kms:EncryptFrom</span></tt> permission on the source CMK</li>
+<li>
+<tt class="docutils literal"><span class="pre">kms:EncryptTo</span></tt> permission on the destination CMK</li>
+</ul>
+<p>To permit reencryption from</p>
+<p>or to a CMK, include the <tt class="docutils literal"><span class="pre">"kms:ReEncrypt*"</span></tt> permission in your <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html">key policy</a> . This permission is automatically included in the key policy when you use the console to create a CMK. But you must include it manually when you create a CMK programmatically or when you use the  PutKeyPolicy operation set a key policy.</p>
+<p>The CMK that you use for this operation must be in a compatible key state. For details, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How Key State Affects Use of a Customer Master Key</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/ReEncrypt">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  re-encrypt
+--ciphertext-blob &lt;value&gt;
+[--source-encryption-context &lt;value&gt;]
+[--source-key-id &lt;value&gt;]
+--destination-key-id &lt;value&gt;
+[--destination-encryption-context &lt;value&gt;]
+[--source-encryption-algorithm &lt;value&gt;]
+[--destination-encryption-algorithm &lt;value&gt;]
+[--grant-tokens &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--ciphertext-blob</span></tt> (blob)</p>
+<blockquote>
+<div>Ciphertext of the data to reencrypt.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-encryption-context</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>Specifies the encryption context to use to decrypt the ciphertext. Enter the same encryption context that was used to encrypt the ciphertext.</p>
+<p>An <em>encryption context</em> is a collection of non-secret key-value pairs that represents additional authenticated data. When you use an encryption context to encrypt data, you must specify the same (an exact case-sensitive match) encryption context to decrypt the data. An encryption context is optional when encrypting with a symmetric CMK, but it is highly recommended.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--source-key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A unique identifier for the CMK that is used to decrypt the ciphertext before it reencrypts it using the destination CMK.</p>
+<p>This parameter is required only when the ciphertext was encrypted under an asymmetric CMK. Otherwise, AWS KMS uses the metadata that it adds to the ciphertext blob to determine which CMK was used to encrypt the ciphertext. However, you can use this parameter to ensure that a particular CMK (of any kind) is used to decrypt the ciphertext before it is reencrypted.</p>
+<p>If you specify a <tt class="docutils literal"><span class="pre">KeyId</span></tt> value, the decrypt part of the <tt class="docutils literal"><span class="pre">ReEncrypt</span></tt> operation succeeds only if the specified CMK was used to encrypt the ciphertext.</p>
+<p>To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with <tt class="docutils literal"><span class="pre">"alias/"</span></tt> .</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Alias name: <tt class="docutils literal"><span class="pre">alias/ExampleAlias</span></tt>
+</li>
+<li>Alias ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey . To get the alias name and alias ARN, use  ListAliases .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--destination-key-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A unique identifier for the CMK that is used to reencrypt the data. Specify a symmetric or asymmetric CMK with a <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> value of <tt class="docutils literal"><span class="pre">ENCRYPT_DECRYPT</span></tt> . To find the <tt class="docutils literal"><span class="pre">KeyUsage</span></tt> value of a CMK, use the  DescribeKey operation.</p>
+<p>To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with <tt class="docutils literal"><span class="pre">"alias/"</span></tt> . To specify a CMK in a different AWS account, you must use the key ARN or alias ARN.</p>
+<p>For example:</p>
+<ul class="simple">
+<li>Key ID: <tt class="docutils literal"><span class="pre">1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Key ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</span></tt>
+</li>
+<li>Alias name: <tt class="docutils literal"><span class="pre">alias/ExampleAlias</span></tt>
+</li>
+<li>Alias ARN: <tt class="docutils literal"><span class="pre">arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</span></tt>
+</li>
+</ul>
+<p>To get the key ID and key ARN for a CMK, use  ListKeys or  DescribeKey . To get the alias name and alias ARN, use  ListAliases .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--destination-encryption-context</span></tt> (map)</p>
+<blockquote>
+<div>
+<p>Specifies that encryption context to use when the reencrypting the data.</p>
+<p>A destination encryption context is valid only when the destination CMK is a symmetric CMK. The standard ciphertext format for asymmetric CMKs does not include fields for metadata.</p>
+<p>An <em>encryption context</em> is a collection of non-secret key-value pairs that represents additional authenticated data. When you use an encryption context to encrypt data, you must specify the same (an exact case-sensitive match) encryption context to decrypt the data. An encryption context is optional when encrypting with a symmetric CMK, but it is highly recommended.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#encrypt_context">Encryption Context</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": "string"
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--source-encryption-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the encryption algorithm that AWS KMS will use to decrypt the ciphertext before it is reencrypted. The default value, <tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt> , represents the algorithm used for symmetric CMKs.</p>
+<p>Specify the same algorithm that was used to encrypt the ciphertext. If you specify a different algorithm, the decrypt attempt fails.</p>
+<p>This parameter is required only when the ciphertext was encrypted under an asymmetric CMK.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSAES_OAEP_SHA_1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSAES_OAEP_SHA_256</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--destination-encryption-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the encryption algorithm that AWS KMS will use to reecrypt the data after it has decrypted it. The default value, <tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt> , represents the encryption algorithm used for symmetric CMKs.</p>
+<p>This parameter is required only when the destination CMK is an asymmetric CMK.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">SYMMETRIC_DEFAULT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSAES_OAEP_SHA_1</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">RSAES_OAEP_SHA_256</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--grant-tokens</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of grant tokens.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant Tokens</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To re-encrypt encrypted data under a different CMK</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">re-encrypt</span></tt> example re-encrypts data that was encrypted using the <tt class="docutils literal"><span class="pre">encrypt</span></tt> operation in the AWS CLI. You can use the <tt class="docutils literal"><span class="pre">re-encrypt</span></tt> command to re-encrypt the result of any AWS KMS operation that encrypted data or data keys.</p>
+<p>This example writes the output to the command line so you can see the all of the properties in the response. However, unless you're testing or demonstrating this operation, you should base64-decode the encrypted data and save it in a file.</p>
+<p>The command in this example re-encrypts the data under a different CMK, but you can re-encrypt it under the same CMK to change characteristics of the encryption, such as the encryption context.</p>
+<p>To run this command, you must have <tt class="docutils literal"><span class="pre">kms:ReEncryptFrom</span></tt> permission on the CMK that encrypted the data and <tt class="docutils literal"><span class="pre">kms:ReEncryptTo</span></tt> permissions on the CMK that you use to re-encrypt the data.</p>
+<ul>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--ciphertext-blob</span></tt> parameter identifies the ciphertext to re-encrypt. The file <tt class="docutils literal"><span class="pre">ExampleEncryptedFile</span></tt> contains the base64-decoded output of the encrypt command.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">fileb://</span></tt> prefix of the file name tells the CLI to treat the input file as binary instead of text.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--destination-key-id</span></tt> parameter specifies the CMK under which the data is to be re-encrypted. This example uses the key ID to identify the CMK, but you can use a key ID, key ARN, alias name, or alias ARN in this command.</p>
+</li>
+<li>
+<p class="first">You do not need to specify the CMK that was used to encrypt the data. AWS KMS gets that information from metadata in the ciphertext.</p>
+<div class="highlight-python">
+<pre>aws kms re-encrypt \
+    --ciphertext-blob fileb://ExampleEncryptedFile \
+    --destination-key-id 0987dcba-09fe-87dc-65ba-ab0987654321</pre>
+</div>
+</li>
+</ul>
+<p>The output includes the following properties:</p>
+<ul>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">SourceKeyID</span></tt> is the key ID of the CMK that originally encrypted the CMK.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">KeyId</span></tt> is the ID of the CMK that re-encrypted the data.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">CiphertextBlob</span></tt>, which is the re-encrypted data in base64-encoded format.</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"CiphertextBlob"</span><span class="p">:</span> <span class="s2">"AQICAHgJtIvJqgOGUX6NLvVXnW5OOQT..."</span><span class="p">,</span>
+    <span class="s2">"SourceKeyId"</span><span class="p">:</span> <span class="s2">"arn:aws:kms:us-west-2:123456789012:key/1234abcd-12ab-34cd-56ef-1234567890ab"</span><span class="p">,</span>
+    <span class="s2">"KeyId"</span><span class="p">:</span> <span class="s2">"arn:aws:kms:us-west-2:123456789012:key/0987dcba-09fe-87dc-65ba-ab0987654321"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Example 2: To re-encrypt encrypted data under a different CMK (Linux or macOs)</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">re-encrypt</span></tt> example demonstrates the recommended way to re-encrypt data with the AWS CLI. This example re-encrypts the ciphertext that was encrypted by the encrypt command, but you can use the same procedure to re-encrypt data keys.</p>
+<p>This example is the same as the previous example except that it does not write the output to the command line. Instead, after re-encrypting the ciphertext under a different CMK, it extracts the re-encrypted ciphertext from the response, base64-decodes it, and saves the binary data in a file. You can store the file safely. Then, you can use the file in decrypt or re-encrypt commands in the AWS CLI.</p>
+<p>To run this command, you must have <tt class="docutils literal"><span class="pre">kms:ReEncryptFrom</span></tt> permission on the CMK that encrypted the data and <tt class="docutils literal"><span class="pre">kms:ReEncryptTo</span></tt> permissions on the CMK that will re-encrypt the data.
+The <tt class="docutils literal"><span class="pre">--ciphertext-blob</span></tt> parameter identifies the ciphertext to re-encrypt.</p>
+<ul>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">fileb://</span></tt> prefix tells the CLI to treat the input file as binary instead of text.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--destination-key-id</span></tt> parameter specifies the CMK under which the data is re-encrypted. This example uses the key ID to identify the CMK, but you can use a key ID, key ARN, alias name, or alias ARN in this command.</p>
+</li>
+<li>
+<p class="first">You do not need to specify the CMK that was used to encrypt the data. AWS KMS gets that information from metadata in the ciphertext.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--output</span></tt> parameter with a value of <tt class="docutils literal"><span class="pre">text</span></tt> directs the AWS CLI to return the output as text, instead of JSON.</p>
+</li>
+<li>
+<p class="first">The <tt class="docutils literal"><span class="pre">--query</span></tt> parameter extracts the value of the <tt class="docutils literal"><span class="pre">CiphertextBlob</span></tt> property from the response.</p>
+</li>
+<li>
+<p class="first">The pipe operator ( | ) sends the output of the CLI command to the <tt class="docutils literal"><span class="pre">base64</span></tt> utility, which decodes the extracted output. The <tt class="docutils literal"><span class="pre">CiphertextBlob</span></tt> that the re-encrypt operation returns is base64-encoded text. However, the <tt class="docutils literal"><span class="pre">decrypt</span></tt> and <tt class="docutils literal"><span class="pre">re-encrypt</span></tt> commands require binary data. The example decodes the base64-encoded ciphertext back to binary and then saves it in a file. You can use the file as input to the decrypt or re-encrypt commands.</p>
+<div class="highlight-python">
+<pre>aws kms re-encrypt \
+    --ciphertext-blob fileb://ExampleEncryptedFile \
+    --destination-key-id 0987dcba-09fe-87dc-65ba-ab0987654321 \
+    --output text \
+    --query CiphertextBlob | base64 --decode &gt; ExampleReEncryptedFile</pre>
+</div>
+</li>
+</ul>
+<p>This command produces no output on screen because it is redirected to a file.</p>
+<p><strong>Example 3: To re-encrypted encrypted data under a different CMK (Windows Command Prompt)</strong></p>
+<p>This example is the same as the previous example, except that it uses the <tt class="docutils literal"><span class="pre">certutil</span></tt> utility in Windows to base64-decode the ciphertext before saving it in a file.</p>
+<ul>
+<li>
+<p class="first">The first command re-encrypts the ciphertext and saves the base64-encoded ciphertext in a temporary file named <tt class="docutils literal"><span class="pre">ExampleReEncryptedFile.base64</span></tt>.</p>
+</li>
+<li>
+<p class="first">The second command uses the <tt class="docutils literal"><span class="pre">certutil</span> <span class="pre">-decode</span></tt> command to decode the base64-encoded ciphertext in the file to binary. Then, it saves the binary ciphertext in the file <tt class="docutils literal"><span class="pre">ExampleReEncryptedFile</span></tt>. This file is ready to be used in a decrypt or re-encrypt command in the AWS CLI.</p>
+<div class="highlight-python">
+<pre>aws kms re-encrypt ^
+    --ciphertext-blob fileb://ExampleEncryptedFile ^
+    --destination-key-id 0987dcba-09fe-87dc-65ba-ab0987654321 ^
+    --output text ^
+    --query CiphertextBlob  &gt; ExampleReEncryptedFile.base64
+certutil -decode ExampleReEncryptedFile.base64 ExampleReEncryptedFile</pre>
+</div>
+</li>
+</ul>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>Input Length = 18
+Output Length = 12
+CertUtil: -decode command completed successfully.</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/APIReference/API_ReEncrypt.html">ReEncrypt</a> in the <em>AWS Key Management Service API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>CiphertextBlob -&gt; (blob)</p>
+<blockquote>
+<div>The reencrypted data. When you use the HTTP API or the AWS CLI, the value is Base64-encoded. Otherwise, it is not Base64-encoded.</div>
+</blockquote>
+<p>SourceKeyId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier of the CMK used to originally encrypt the data.</div>
+</blockquote>
+<p>KeyId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier of the CMK used to reencrypt the data.</div>
+</blockquote>
+<p>SourceEncryptionAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>The encryption algorithm that was used to decrypt the ciphertext before it was reencrypted.</div>
+</blockquote>
+<p>DestinationEncryptionAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>The encryption algorithm that was used to reencrypt the data.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

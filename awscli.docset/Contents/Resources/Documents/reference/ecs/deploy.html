@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>deploy — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../../index.html">
+    <link rel="up" title="ecs" href="../index.html">
+    <link rel="next" title="deregister-container-instance" href="../deregister-container-instance.html">
+    <link rel="prev" title="delete-task-set" href="../delete-task-set.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="deploy">
+<span id="cli-aws-ecs-deploy"></span><h1>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Deploys a new task definition to the specified ECS service. Only services that use CodeDeploy for deployments are supported. This command will register a new task definition, update the CodeDeploy appspec with the new task definition revision, create a CodeDeploy deployment, and wait for the deployment to successfully complete. This command will exit with a return code of 255 if the deployment does not succeed within 30 minutes by default or up to 10 minutes more than your deployment group's configured wait time (max of 6 hours).</p>
+<p>See <a class="reference internal" href="../../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  deploy
+--service &lt;value&gt;
+--task-definition &lt;value&gt;
+--codedeploy-appspec &lt;value&gt;
+[--cluster &lt;value&gt;]
+[--codedeploy-application &lt;value&gt;]
+[--codedeploy-deployment-group &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--service</span></tt> (string)
+The short name or full Amazon Resource Name (ARN) of the service to update</p>
+<p><tt class="docutils literal"><span class="pre">--task-definition</span></tt> (string)
+The file path where your task definition file is located. The format of the file must be the same as the JSON output of:</p>
+<div class="highlight-python">
+<pre>aws ecs register-task-definition --generate-cli-skeleton</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--codedeploy-appspec</span></tt> (string)
+The file path where your AWS CodeDeploy appspec file is located. The appspec file may be in JSON or YAML format. The <tt class="docutils literal"><span class="pre">TaskDefinition</span></tt> property will be updated within the appspec with the newly registered task definition ARN, overwriting any placeholder values in the file.</p>
+<p><tt class="docutils literal"><span class="pre">--cluster</span></tt> (string)
+The short name or full Amazon Resource Name (ARN) of the cluster that your service is running within. If you do not specify a cluster, the "default" cluster is assumed.</p>
+<p><tt class="docutils literal"><span class="pre">--codedeploy-application</span></tt> (string)
+The name of the AWS CodeDeploy application to use for the deployment. The specified application must use the 'ECS' compute platform. If you do not specify an application, the application name <tt class="docutils literal"><span class="pre">AppECS-[CLUSTER_NAME]-[SERVICE_NAME]</span></tt> is assumed.</p>
+<p><tt class="docutils literal"><span class="pre">--codedeploy-deployment-group</span></tt> (string)
+The name of the AWS CodeDeploy deployment group to use for the deployment. The specified deployment group must be associated with the specified ECS service and cluster. If you do not specify a deployment group, the deployment group name <tt class="docutils literal"><span class="pre">DgpECS-[CLUSTER_NAME]-[SERVICE_NAME]</span></tt> is assumed.</p>
+<p>See <a class="reference internal" href="../../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

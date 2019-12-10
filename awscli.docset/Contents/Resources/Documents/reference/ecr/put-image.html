@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-image — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecr" href="index.html">
+    <link rel="next" title="put-image-scanning-configuration" href="put-image-scanning-configuration.html">
+    <link rel="prev" title="list-tags-for-resource" href="list-tags-for-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-image">
+<span id="cli-aws-ecr-put-image"></span><h1>put-image<a class="headerlink" href="#put-image" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates or updates the image manifest and tags associated with an image.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This operation is used by the Amazon ECR proxy, and it is not intended for general use by customers for pulling and pushing images. In most cases, you should use the <tt class="docutils literal"><span class="pre">docker</span></tt> CLI to pull, tag, and push images.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImage">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-image
+[--registry-id &lt;value&gt;]
+--repository-name &lt;value&gt;
+--image-manifest &lt;value&gt;
+[--image-tag &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--registry-id</span></tt> (string)</p>
+<blockquote>
+<div>The AWS account ID associated with the registry that contains the repository in which to put the image. If you do not specify a registry, the default registry is assumed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--repository-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the repository in which to put the image.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--image-manifest</span></tt> (string)</p>
+<blockquote>
+<div>The image manifest corresponding to the image to be uploaded.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--image-tag</span></tt> (string)</p>
+<blockquote>
+<div>The tag to associate with the image. This parameter is required for images that use the Docker Image Manifest V2 Schema 2 or OCI formats.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To retag an image with its manifest</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-image</span></tt> example creates a new tag in the <tt class="docutils literal"><span class="pre">hello-world</span></tt> repository with an existing image manifest.</p>
+<div class="highlight-python">
+<pre>aws ecr put-image \
+    --repository-name hello-world \
+    --image-tag 2019.08 \
+    --image-manifest file://hello-world.manifest.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">hello-world.manifest.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"schemaVersion"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.distribution.manifest.v2+json"</span><span class="p">,</span>
+    <span class="s2">"config"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.container.image.v1+json"</span><span class="p">,</span>
+        <span class="s2">"size"</span><span class="p">:</span> <span class="mi">5695</span><span class="p">,</span>
+        <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:cea5fe7701b7db3dd1c372f3cea6f43cdda444fcc488f530829145e426d8b980"</span>
+    <span class="p">},</span>
+    <span class="s2">"layers"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">39096921</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:d8868e50ac4c7104d2200d42f432b661b2da8c1e417ccfae217e6a1e04bb9295"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">57938</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:83251ac64627fc331584f6c498b3aba5badc01574e2c70b2499af3af16630eed"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">423</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:589bba2f1b36ae56f0152c246e2541c5aa604b058febfcf2be32e9a304fec610"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">680</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:d62ecaceda3964b735cdd2af613d6bb136a52c1da0838b2ff4b4dab4212bcb1c"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">162</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:6d93b41cfc6bf0d2522b7cf61588de4cd045065b36c52bd3aec2ba0622b2b22b"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">28268840</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:6986b4d4c07932c680b3587f2eac8b0e013568c003cc23b04044628a5c5e599f"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">35369152</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:8c5ec60f10102dc8da0649d866c7c2f706e459d0bdc25c83ad2de86f4996c276"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">155</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:cde50b1c594539c5f67cbede9aef95c9ae321ccfb857f7b251b45b84198adc85"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">28737</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:2e102807ab72a73fc9abf53e8c50e421bdc337a0a8afcb242176edeec65977e4"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">190</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:fc379bbd5ed37808772bef016553a297356c59b8f134659e6ee4ecb563c2f5a7"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"mediaType"</span><span class="p">:</span> <span class="s2">"application/vnd.docker.image.rootfs.diff.tar.gzip"</span><span class="p">,</span>
+            <span class="s2">"size"</span><span class="p">:</span> <span class="mi">28748</span><span class="p">,</span>
+            <span class="s2">"digest"</span><span class="p">:</span> <span class="s2">"sha256:021db240dfccf5a1aff19507d17c0177e5888e518acf295b52204b1825e8b7ee"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"image"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"registryId"</span><span class="p">:</span> <span class="s2">"130757420319"</span><span class="p">,</span>
+        <span class="s2">"repositoryName"</span><span class="p">:</span> <span class="s2">"hello-world"</span><span class="p">,</span>
+        <span class="s2">"imageId"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"imageDigest"</span><span class="p">:</span> <span class="s2">"sha256:8ece96b74f87652876199d83bd107d0435a196133af383ac54cb82b6cc5283ae"</span><span class="p">,</span>
+            <span class="s2">"imageTag"</span><span class="p">:</span> <span class="s2">"2019.08"</span>
+        <span class="p">},</span>
+        <span class="s2">"imageManifest"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">schemaVersion</span><span class="se">\"</span><span class="s2">: 2,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.distribution.manifest.v2+json</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">config</span><span class="se">\"</span><span class="s2">: {</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.container.image.v1+json</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 5695,</span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:cea5fe7701b7db3dd1c372f3cea6f43cdda444fcc488f530829145e426d8b980</span><span class="se">\"\n</span><span class="s2">  },</span><span class="se">\n</span><span class="s2">  </span><span class="se">\"</span><span class="s2">layers</span><span class="se">\"</span><span class="s2">: [</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 39096921,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:d8868e50ac4c7104d2200d42f432b661b2da8c1e417ccfae217e6a1e04bb9295</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 57938,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:83251ac64627fc331584f6c498b3aba5badc01574e2c70b2499af3af16630eed</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 423,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:589bba2f1b36ae56f0152c246e2541c5aa604b058febfcf2be32e9a304fec610</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 680,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:d62ecaceda3964b735cdd2af613d6bb136a52c1da0838b2ff4b4dab4212bcb1c</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 162,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:6d93b41cfc6bf0d2522b7cf61588de4cd045065b36c52bd3aec2ba0622b2b22b</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 28268840,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:6986b4d4c07932c680b3587f2eac8b0e013568c003cc23b04044628a5c5e599f</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 35369152,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:8c5ec60f10102dc8da0649d866c7c2f706e459d0bdc25c83ad2de86f4996c276</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 155,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:cde50b1c594539c5f67cbede9aef95c9ae321ccfb857f7b251b45b84198adc85</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 28737,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:2e102807ab72a73fc9abf53e8c50e421bdc337a0a8afcb242176edeec65977e4</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 190,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:fc379bbd5ed37808772bef016553a297356c59b8f134659e6ee4ecb563c2f5a7</span><span class="se">\"\n</span><span class="s2">    },</span><span class="se">\n</span><span class="s2">    {</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">mediaType</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">application/vnd.docker.image.rootfs.diff.tar.gzip</span><span class="se">\"</span><span class="s2">,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 28748,</span><span class="se">\n</span><span class="s2">      </span><span class="se">\"</span><span class="s2">digest</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">sha256:021db240dfccf5a1aff19507d17c0177e5888e518acf295b52204b1825e8b7ee</span><span class="se">\"\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">  ]</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n</span><span class="s2">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>image -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details of the image uploaded.</p>
+<p>registryId -&gt; (string)</p>
+<blockquote>
+<div>The AWS account ID associated with the registry containing the image.</div>
+</blockquote>
+<p>repositoryName -&gt; (string)</p>
+<blockquote>
+<div>The name of the repository associated with the image.</div>
+</blockquote>
+<p>imageId -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An object containing the image tag and image digest associated with an image.</p>
+<p>imageDigest -&gt; (string)</p>
+<blockquote>
+<div>The <tt class="docutils literal"><span class="pre">sha256</span></tt> digest of the image manifest.</div>
+</blockquote>
+<p>imageTag -&gt; (string)</p>
+<blockquote>
+<div>The tag used for the image.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>imageManifest -&gt; (string)</p>
+<blockquote>
+<div>The image manifest associated with the image.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

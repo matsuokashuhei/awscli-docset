@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-configuration — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="kafka" href="index.html">
+    <link rel="next" title="delete-cluster" href="delete-cluster.html">
+    <link rel="prev" title="create-cluster" href="create-cluster.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-configuration">
+<span id="cli-aws-kafka-create-configuration"></span><h1>create-configuration<a class="headerlink" href="#create-configuration" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a new MSK configuration.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/CreateConfiguration">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-configuration
+[--description &lt;value&gt;]
+--kafka-versions &lt;value&gt;
+--name &lt;value&gt;
+--server-properties &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>The description of the configuration.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kafka-versions</span></tt> (list)</p>
+<blockquote>
+<div>The versions of Apache Kafka with which you can use this MSK configuration.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the configuration.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-properties</span></tt> (blob)</p>
+<blockquote>
+<div>Contents of the server.propertiesfile. When using the API, you must ensure that the contents of the file are base64 encoded. When using the AWS Management Console, the SDK, or the AWS CLI, the contents of server.propertiescan be in plaintext.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a custom Amazon MSK configuration</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-configuration</span></tt> example creates a custom MSK configuration with the server properties that are specified in the input file.</p>
+<div class="highlight-python">
+<pre>aws kafka create-configuration \
+    --name "CustomConfiguration" \
+    --description "Topic autocreation enabled; Apache ZooKeeper timeout 2000 ms; Log rolling 604800000 ms." \
+    --kafka-versions "2.2.1" \
+    --server-properties file://configuration.txt</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">configuration.txt</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">auto</span><span class="o">.</span><span class="n">create</span><span class="o">.</span><span class="n">topics</span><span class="o">.</span><span class="n">enable</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">zookeeper</span><span class="o">.</span><span class="n">connection</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="n">log</span><span class="o">.</span><span class="n">roll</span><span class="o">.</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">604800000</span>
+</pre></div>
+</div>
+<p>This command produces no output.
+Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Arn"</span><span class="p">:</span> <span class="s2">"arn:aws:kafka:us-west-2:123456789012:configuration/CustomConfiguration/a1b2c3d4-5678-90ab-cdef-11111EXAMPLE-2"</span><span class="p">,</span>
+    <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="s2">"2019-10-09T15:26:05.548Z"</span><span class="p">,</span>
+    <span class="s2">"LatestRevision"</span><span class="p">:</span>
+        <span class="p">{</span>
+            <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="s2">"2019-10-09T15:26:05.548Z"</span><span class="p">,</span>
+            <span class="s2">"Description"</span><span class="p">:</span> <span class="s2">"Topic autocreation enabled; Apache ZooKeeper timeout 2000 ms; Log rolling 604800000 ms."</span><span class="p">,</span>
+            <span class="s2">"Revision"</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">},</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"CustomConfiguration"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/msk/latest/developerguide/msk-configuration-operations.html">Amazon MSK Configuration Operations</a> in the <em>Amazon Managed Streaming for Apache Kafka Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the configuration.</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time when the configuration was created.</div>
+</blockquote>
+<p>LatestRevision -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Latest revision of the configuration.</p>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time when the configuration revision was created.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the configuration revision.</div>
+</blockquote>
+<p>Revision -&gt; (long)</p>
+<blockquote>
+<div>The revision number.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the configuration.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

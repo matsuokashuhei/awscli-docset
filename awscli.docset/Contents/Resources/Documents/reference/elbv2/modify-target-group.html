@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>modify-target-group — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elbv2" href="index.html">
+    <link rel="next" title="modify-target-group-attributes" href="modify-target-group-attributes.html">
+    <link rel="prev" title="modify-rule" href="modify-rule.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="modify-target-group">
+<span id="cli-aws-elbv2-modify-target-group"></span><h1>modify-target-group<a class="headerlink" href="#modify-target-group" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies the health checks used when evaluating the health state of the targets in the specified target group.</p>
+<p>To monitor the health of the targets, use  DescribeTargetHealth .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroup">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  modify-target-group
+--target-group-arn &lt;value&gt;
+[--health-check-protocol &lt;value&gt;]
+[--health-check-port &lt;value&gt;]
+[--health-check-path &lt;value&gt;]
+[--health-check-enabled | --no-health-check-enabled]
+[--health-check-interval-seconds &lt;value&gt;]
+[--health-check-timeout-seconds &lt;value&gt;]
+[--healthy-threshold-count &lt;value&gt;]
+[--unhealthy-threshold-count &lt;value&gt;]
+[--matcher &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--target-group-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the target group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The protocol the load balancer uses when performing health checks on targets. The TCP protocol is supported for health checks only if the protocol of the target group is TCP, TLS, UDP, or TCP_UDP. The TLS, UDP, and TCP_UDP protocols are not supported for health checks.</p>
+<p>With Network Load Balancers, you can't modify this setting.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">HTTP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">HTTPS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TLS</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">UDP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TCP_UDP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-port</span></tt> (string)</p>
+<blockquote>
+<div>The port the load balancer uses when performing health checks on targets.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-path</span></tt> (string)</p>
+<blockquote>
+<div>[HTTP/HTTPS health checks] The ping path that is the destination for the health check request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-enabled</span></tt> | <tt class="docutils literal"><span class="pre">--no-health-check-enabled</span></tt> (boolean)</p>
+<blockquote>
+<div>Indicates whether health checks are enabled.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-interval-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The approximate amount of time, in seconds, between health checks of an individual target. For Application Load Balancers, the range is 5 to 300 seconds. For Network Load Balancers, the supported values are 10 or 30 seconds.</p>
+<p>With Network Load Balancers, you can't modify this setting.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--health-check-timeout-seconds</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>[HTTP/HTTPS health checks] The amount of time, in seconds, during which no response means a failed health check.</p>
+<p>With Network Load Balancers, you can't modify this setting.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--healthy-threshold-count</span></tt> (integer)</p>
+<blockquote>
+<div>The number of consecutive health checks successes required before considering an unhealthy target healthy.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--unhealthy-threshold-count</span></tt> (integer)</p>
+<blockquote>
+<div>The number of consecutive health check failures required before considering the target unhealthy. For Network Load Balancers, this value must be the same as the healthy threshold count.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--matcher</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>[HTTP/HTTPS health checks] The HTTP codes to use when checking for a successful response from a target.</p>
+<p>With Network Load Balancers, you can't modify this setting.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">HttpCode</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"HttpCode"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To modify the health check configuration for a target group</strong></p>
+<p>This example changes the configuration of the health checks used to evaluate the health of the targets for the specified target group.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws elbv2 modify-target-group --target-group-arn arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f --health-check-protocol HTTPS --health-check-port 443</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"TargetGroups"</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+          <span class="s2">"HealthCheckIntervalSeconds"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+          <span class="s2">"VpcId"</span><span class="p">:</span> <span class="s2">"vpc-3ac0fb5f"</span><span class="p">,</span>
+          <span class="s2">"Protocol"</span><span class="p">:</span> <span class="s2">"HTTPS"</span><span class="p">,</span>
+          <span class="s2">"HealthCheckTimeoutSeconds"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="s2">"HealthCheckProtocol"</span><span class="p">:</span> <span class="s2">"HTTPS"</span><span class="p">,</span>
+          <span class="s2">"LoadBalancerArns"</span><span class="p">:</span> <span class="p">[</span>
+              <span class="s2">"arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188"</span>
+          <span class="p">],</span>
+          <span class="s2">"UnhealthyThresholdCount"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="s2">"HealthyThresholdCount"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="s2">"TargetGroupArn"</span><span class="p">:</span> <span class="s2">"arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f"</span><span class="p">,</span>
+          <span class="s2">"Matcher"</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">"HttpCode"</span><span class="p">:</span> <span class="s2">"200"</span>
+          <span class="p">},</span>
+          <span class="s2">"HealthCheckPort"</span><span class="p">:</span> <span class="s2">"443"</span><span class="p">,</span>
+          <span class="s2">"Port"</span><span class="p">:</span> <span class="mi">443</span><span class="p">,</span>
+          <span class="s2">"TargetGroupName"</span><span class="p">:</span> <span class="s2">"my-https-targets"</span>
+      <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>TargetGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the modified target group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a target group.</p>
+<p>TargetGroupArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the target group.</div>
+</blockquote>
+<p>TargetGroupName -&gt; (string)</p>
+<blockquote>
+<div>The name of the target group.</div>
+</blockquote>
+<p>Protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol to use for routing traffic to the targets.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port on which the targets are listening. Not used if the target is a Lambda function.</div>
+</blockquote>
+<p>VpcId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the VPC for the targets.</div>
+</blockquote>
+<p>HealthCheckProtocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol to use to connect with the target.</div>
+</blockquote>
+<p>HealthCheckPort -&gt; (string)</p>
+<blockquote>
+<div>The port to use to connect with the target.</div>
+</blockquote>
+<p>HealthCheckEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether health checks are enabled.</div>
+</blockquote>
+<p>HealthCheckIntervalSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The approximate amount of time, in seconds, between health checks of an individual target.</div>
+</blockquote>
+<p>HealthCheckTimeoutSeconds -&gt; (integer)</p>
+<blockquote>
+<div>The amount of time, in seconds, during which no response means a failed health check.</div>
+</blockquote>
+<p>HealthyThresholdCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of consecutive health checks successes required before considering an unhealthy target healthy.</div>
+</blockquote>
+<p>UnhealthyThresholdCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of consecutive health check failures required before considering the target unhealthy.</div>
+</blockquote>
+<p>HealthCheckPath -&gt; (string)</p>
+<blockquote>
+<div>The destination for the health check request.</div>
+</blockquote>
+<p>Matcher -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The HTTP codes to use when checking for a successful response from a target.</p>
+<p>HttpCode -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The HTTP codes.</p>
+<p>For Application Load Balancers, you can specify values between 200 and 499, and the default value is 200. You can specify multiple values (for example, "200,202") or a range of values (for example, "200-299").</p>
+<p>For Network Load Balancers, this is 200–399.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LoadBalancerArns -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The Amazon Resource Names (ARN) of the load balancers that route traffic to this target group.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>TargetType -&gt; (string)</p>
+<blockquote>
+<div>The type of target that you must specify when registering targets with this target group. The possible values are <tt class="docutils literal"><span class="pre">instance</span></tt> (targets are specified by instance ID) or <tt class="docutils literal"><span class="pre">ip</span></tt> (targets are specified by IP address).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

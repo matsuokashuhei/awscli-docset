@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>change-resource-record-sets — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="route53" href="index.html">
+    <link rel="next" title="change-tags-for-resource" href="change-tags-for-resource.html">
+    <link rel="prev" title="associate-vpc-with-hosted-zone" href="associate-vpc-with-hosted-zone.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="change-resource-record-sets">
+<span id="cli-aws-route53-change-resource-record-sets"></span><h1>change-resource-record-sets<a class="headerlink" href="#change-resource-record-sets" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates, changes, or deletes a resource record set, which contains authoritative DNS information for a specified domain name or subdomain name. For example, you can use <tt class="docutils literal"><span class="pre">ChangeResourceRecordSets</span></tt> to create a resource record set that routes traffic for test.example.com to a web server that has an IP address of 192.0.2.44.</p>
+<blockquote>
+<div><strong>Change Batches and Transactional Changes</strong></div>
+</blockquote>
+<p>The request body must include a document with a <tt class="docutils literal"><span class="pre">ChangeResourceRecordSetsRequest</span></tt> element. The request body contains a list of change items, known as a change batch. Change batches are considered transactional changes. When using the Amazon Route 53 API to change resource record sets, Route 53 either makes all or none of the changes in a change batch request. This ensures that Route 53 never partially implements the intended changes to the resource record sets in a hosted zone.</p>
+<p>For example, a change batch request that deletes the <tt class="docutils literal"><span class="pre">CNAME</span></tt> record for www.example.com and creates an alias resource record set for www.example.com. Route 53 deletes the first resource record set and creates the second resource record set in a single operation. If either the <tt class="docutils literal"><span class="pre">DELETE</span></tt> or the <tt class="docutils literal"><span class="pre">CREATE</span></tt> action fails, then both changes (plus any other changes in the batch) fail, and the original <tt class="docutils literal"><span class="pre">CNAME</span></tt> record continues to exist.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<blockquote>
+<div>Due to the nature of transactional changes, you can't delete the same resource record set more than once in a single change batch. If you attempt to delete the same change batch more than once, Route 53 returns an <tt class="docutils literal"><span class="pre">InvalidChangeBatch</span></tt> error.</div>
+</blockquote>
+<p class="last"><strong>Traffic Flow</strong></p>
+</div>
+<p>To create resource record sets for complex routing configurations, use either the traffic flow visual editor in the Route 53 console or the API actions for traffic policies and traffic policy instances. Save the configuration as a traffic policy, then associate the traffic policy with one or more domain names (such as example.com) or subdomain names (such as www.example.com), in the same hosted zone or in multiple hosted zones. You can roll back the updates if the new configuration isn't performing as expected. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html">Using Traffic Flow to Route DNS Traffic</a> in the <em>Amazon Route 53 Developer Guide</em> .</p>
+<blockquote>
+<div><strong>Create, Delete, and Upsert</strong></div>
+</blockquote>
+<p>Use <tt class="docutils literal"><span class="pre">ChangeResourceRecordsSetsRequest</span></tt> to perform the following actions:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CREATE</span></tt> : Creates a resource record set that has the specified values.</li>
+<li>
+<tt class="docutils literal"><span class="pre">DELETE</span></tt> : Deletes an existing resource record set that has the specified values.</li>
+<li>
+<tt class="docutils literal"><span class="pre">UPSERT</span></tt> : If a resource record set does not already exist, AWS creates it. If a resource set does exist, Route 53 updates it with the values in the request.</li>
+</ul>
+<blockquote>
+<div><strong>Syntaxes for Creating, Updating, and Deleting Resource Record Sets</strong></div>
+</blockquote>
+<p>The syntax for a request depends on the type of resource record set that you want to create, delete, or update, such as weighted, alias, or failover. The XML elements in your request must appear in the order listed in the syntax.</p>
+<p>For an example for each type of resource record set, see "Examples."</p>
+<p>Don't refer to the syntax in the "Parameter Syntax" section, which includes all of the elements for every kind of resource record set that you can create, delete, or update by using <tt class="docutils literal"><span class="pre">ChangeResourceRecordSets</span></tt> .</p>
+<blockquote>
+<div><strong>Change Propagation to Route 53 DNS Servers</strong></div>
+</blockquote>
+<p>When you submit a <tt class="docutils literal"><span class="pre">ChangeResourceRecordSets</span></tt> request, Route 53 propagates your changes to all of the Route 53 authoritative DNS servers. While your changes are propagating, <tt class="docutils literal"><span class="pre">GetChange</span></tt> returns a status of <tt class="docutils literal"><span class="pre">PENDING</span></tt> . When propagation is complete, <tt class="docutils literal"><span class="pre">GetChange</span></tt> returns a status of <tt class="docutils literal"><span class="pre">INSYNC</span></tt> . Changes generally propagate to all Route 53 name servers within 60 seconds. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> .</p>
+<blockquote>
+<div><strong>Limits on ChangeResourceRecordSets Requests</strong></div>
+</blockquote>
+<p>For information about the limits on a <tt class="docutils literal"><span class="pre">ChangeResourceRecordSets</span></tt> request, see <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html">Limits</a> in the <em>Amazon Route 53 Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeResourceRecordSets">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  change-resource-record-sets
+--hosted-zone-id &lt;value&gt;
+--change-batch &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--hosted-zone-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the hosted zone that contains the resource record sets that you want to change.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--change-batch</span></tt> (structure)</p>
+<blockquote>
+<div>A complex type that contains an optional comment and the <tt class="docutils literal"><span class="pre">Changes</span></tt> element.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "Comment": "string",
+  "Changes": [
+    {
+      "Action": "CREATE"|"DELETE"|"UPSERT",
+      "ResourceRecordSet": {
+        "Name": "string",
+        "Type": "SOA"|"A"|"TXT"|"NS"|"CNAME"|"MX"|"NAPTR"|"PTR"|"SRV"|"SPF"|"AAAA"|"CAA",
+        "SetIdentifier": "string",
+        "Weight": long,
+        "Region": "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"ca-central-1"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"|"ap-northeast-3"|"eu-north-1"|"sa-east-1"|"cn-north-1"|"cn-northwest-1"|"ap-east-1"|"me-south-1"|"ap-south-1",
+        "GeoLocation": {
+          "ContinentCode": "string",
+          "CountryCode": "string",
+          "SubdivisionCode": "string"
+        },
+        "Failover": "PRIMARY"|"SECONDARY",
+        "MultiValueAnswer": true|false,
+        "TTL": long,
+        "ResourceRecords": [
+          {
+            "Value": "string"
+          }
+          ...
+        ],
+        "AliasTarget": {
+          "HostedZoneId": "string",
+          "DNSName": "string",
+          "EvaluateTargetHealth": true|false
+        },
+        "HealthCheckId": "string",
+        "TrafficPolicyInstanceId": "string"
+      }
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create, update, or delete a resource record set</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">change-resource-record-sets</span></tt> command creates a resource record set using the <tt class="docutils literal"><span class="pre">hosted-zone-id</span></tt> <tt class="docutils literal"><span class="pre">Z1R8UBAEXAMPLE</span></tt> and the JSON-formatted configuration in the file <tt class="docutils literal"><span class="pre">C:\awscli\route53\change-resource-record-sets.json</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws route53 change-resource-record-sets --hosted-zone-id Z1R8UBAEXAMPLE --change-batch file://C:\awscli\route53\change-resource-record-sets.json</pre>
+</div>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/APIReference/API_ChangeResourceRecordSets.html">POST ChangeResourceRecordSets</a> in the <em>Amazon Route 53 API Reference</em>.</p>
+<p>The configuration in the JSON file depends on the kind of resource record set you want to create:</p>
+<ul class="simple">
+<li>Basic</li>
+<li>Weighted</li>
+<li>Alias</li>
+<li>Weighted Alias</li>
+<li>Latency</li>
+<li>Latency Alias</li>
+<li>Failover</li>
+<li>Failover Alias</li>
+</ul>
+<p><strong>Basic Syntax</strong>:</p>
+<div class="highlight-python">
+<pre>{
+  "Comment": "optional comment about the changes in this change batch request",
+  "Changes": [
+    {
+      "Action": "CREATE"|"DELETE"|"UPSERT",
+      "ResourceRecordSet": {
+        "Name": "DNS domain name",
+        "Type": "SOA"|"A"|"TXT"|"NS"|"CNAME"|"MX"|"PTR"|"SRV"|"SPF"|"AAAA",
+        "TTL": time to live in seconds,
+        "ResourceRecords": [
+          {
+            "Value": "applicable value for the record type"
+          },
+          {...}
+        ]
+      }
+    },
+    {...}
+  ]
+}</pre>
+</div>
+<p><strong>Weighted Syntax</strong>:</p>
+<div class="highlight-python">
+<pre>{
+  "Comment": "optional comment about the changes in this change batch request",
+  "Changes": [
+    {
+      "Action": "CREATE"|"DELETE"|"UPSERT",
+      "ResourceRecordSet": {
+        "Name": "DNS domain name",
+        "Type": "SOA"|"A"|"TXT"|"NS"|"CNAME"|"MX"|"PTR"|"SRV"|"SPF"|"AAAA",
+        "SetIdentifier": "unique description for this resource record set",
+        "Weight": value between 0 and 255,
+        "TTL": time to live in seconds,
+        "ResourceRecords": [
+          {
+            "Value": "applicable value for the record type"
+          },
+          {...}
+        ],
+        "HealthCheckId": "optional ID of an Amazon Route 53 health check"
+      }
+    },
+    {...}
+  ]
+}</pre>
+</div>
+<p><strong>Alias Syntax</strong>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"optional comment about the changes in this change batch request"</span><span class="p">,</span>
+  <span class="s2">"Changes"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"CREATE"</span><span class="o">|</span><span class="s2">"DELETE"</span><span class="o">|</span><span class="s2">"UPSERT"</span><span class="p">,</span>
+      <span class="s2">"ResourceRecordSet"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DNS domain name"</span><span class="p">,</span>
+        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"SOA"</span><span class="o">|</span><span class="s2">"A"</span><span class="o">|</span><span class="s2">"TXT"</span><span class="o">|</span><span class="s2">"NS"</span><span class="o">|</span><span class="s2">"CNAME"</span><span class="o">|</span><span class="s2">"MX"</span><span class="o">|</span><span class="s2">"PTR"</span><span class="o">|</span><span class="s2">"SRV"</span><span class="o">|</span><span class="s2">"SPF"</span><span class="o">|</span><span class="s2">"AAAA"</span><span class="p">,</span>
+        <span class="s2">"AliasTarget"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"HostedZoneId"</span><span class="p">:</span> <span class="s2">"hosted zone ID for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or Amazon Route 53 hosted zone"</span><span class="p">,</span>
+          <span class="s2">"DNSName"</span><span class="p">:</span> <span class="s2">"DNS domain name for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or another resource record set in this hosted zone"</span><span class="p">,</span>
+          <span class="s2">"EvaluateTargetHealth"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+        <span class="p">},</span>
+        <span class="s2">"HealthCheckId"</span><span class="p">:</span> <span class="s2">"optional ID of an Amazon Route 53 health check"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Weighted Alias Syntax</strong>:</p>
+<div class="highlight-python">
+<pre>{
+  "Comment": "optional comment about the changes in this change batch request",
+  "Changes": [
+    {
+      "Action": "CREATE"|"DELETE"|"UPSERT",
+      "ResourceRecordSet": {
+        "Name": "DNS domain name",
+        "Type": "SOA"|"A"|"TXT"|"NS"|"CNAME"|"MX"|"PTR"|"SRV"|"SPF"|"AAAA",
+        "SetIdentifier": "unique description for this resource record set",
+        "Weight": value between 0 and 255,
+        "AliasTarget": {
+          "HostedZoneId": "hosted zone ID for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or Amazon Route 53 hosted zone",
+          "DNSName": "DNS domain name for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or another resource record set in this hosted zone",
+          "EvaluateTargetHealth": true|false
+        },
+        "HealthCheckId": "optional ID of an Amazon Route 53 health check"
+      }
+    },
+    {...}
+  ]
+}</pre>
+</div>
+<p><strong>Latency Syntax</strong>:</p>
+<div class="highlight-python">
+<pre>{
+  "Comment": "optional comment about the changes in this change batch request",
+  "Changes": [
+    {
+      "Action": "CREATE"|"DELETE"|"UPSERT",
+      "ResourceRecordSet": {
+        "Name": "DNS domain name",
+        "Type": "SOA"|"A"|"TXT"|"NS"|"CNAME"|"MX"|"PTR"|"SRV"|"SPF"|"AAAA",
+        "SetIdentifier": "unique description for this resource record set",
+        "Region": "Amazon EC2 region name",
+        "TTL": time to live in seconds,
+        "ResourceRecords": [
+          {
+            "Value": "applicable value for the record type"
+          },
+          {...}
+        ],
+        "HealthCheckId": "optional ID of an Amazon Route 53 health check"
+      }
+    },
+    {...}
+  ]
+}</pre>
+</div>
+<p><strong>Latency Alias Syntax</strong>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"optional comment about the changes in this change batch request"</span><span class="p">,</span>
+  <span class="s2">"Changes"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"CREATE"</span><span class="o">|</span><span class="s2">"DELETE"</span><span class="o">|</span><span class="s2">"UPSERT"</span><span class="p">,</span>
+      <span class="s2">"ResourceRecordSet"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DNS domain name"</span><span class="p">,</span>
+        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"SOA"</span><span class="o">|</span><span class="s2">"A"</span><span class="o">|</span><span class="s2">"TXT"</span><span class="o">|</span><span class="s2">"NS"</span><span class="o">|</span><span class="s2">"CNAME"</span><span class="o">|</span><span class="s2">"MX"</span><span class="o">|</span><span class="s2">"PTR"</span><span class="o">|</span><span class="s2">"SRV"</span><span class="o">|</span><span class="s2">"SPF"</span><span class="o">|</span><span class="s2">"AAAA"</span><span class="p">,</span>
+        <span class="s2">"SetIdentifier"</span><span class="p">:</span> <span class="s2">"unique description for this resource record set"</span><span class="p">,</span>
+        <span class="s2">"Region"</span><span class="p">:</span> <span class="s2">"Amazon EC2 region name"</span><span class="p">,</span>
+        <span class="s2">"AliasTarget"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"HostedZoneId"</span><span class="p">:</span> <span class="s2">"hosted zone ID for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or Amazon Route 53 hosted zone"</span><span class="p">,</span>
+          <span class="s2">"DNSName"</span><span class="p">:</span> <span class="s2">"DNS domain name for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or another resource record set in this hosted zone"</span><span class="p">,</span>
+          <span class="s2">"EvaluateTargetHealth"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+        <span class="p">},</span>
+        <span class="s2">"HealthCheckId"</span><span class="p">:</span> <span class="s2">"optional ID of an Amazon Route 53 health check"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Failover Syntax</strong>:</p>
+<div class="highlight-python">
+<pre>{
+  "Comment": "optional comment about the changes in this change batch request",
+  "Changes": [
+    {
+      "Action": "CREATE"|"DELETE"|"UPSERT",
+      "ResourceRecordSet": {
+        "Name": "DNS domain name",
+        "Type": "SOA"|"A"|"TXT"|"NS"|"CNAME"|"MX"|"PTR"|"SRV"|"SPF"|"AAAA",
+        "SetIdentifier": "unique description for this resource record set",
+        "Failover": "PRIMARY" | "SECONDARY",
+        "TTL": time to live in seconds,
+        "ResourceRecords": [
+          {
+            "Value": "applicable value for the record type"
+          },
+          {...}
+        ],
+        "HealthCheckId": "ID of an Amazon Route 53 health check"
+      }
+    },
+    {...}
+  ]
+}</pre>
+</div>
+<p><strong>Failover Alias Syntax</strong>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"optional comment about the changes in this change batch request"</span><span class="p">,</span>
+  <span class="s2">"Changes"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">"Action"</span><span class="p">:</span> <span class="s2">"CREATE"</span><span class="o">|</span><span class="s2">"DELETE"</span><span class="o">|</span><span class="s2">"UPSERT"</span><span class="p">,</span>
+      <span class="s2">"ResourceRecordSet"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"DNS domain name"</span><span class="p">,</span>
+        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"SOA"</span><span class="o">|</span><span class="s2">"A"</span><span class="o">|</span><span class="s2">"TXT"</span><span class="o">|</span><span class="s2">"NS"</span><span class="o">|</span><span class="s2">"CNAME"</span><span class="o">|</span><span class="s2">"MX"</span><span class="o">|</span><span class="s2">"PTR"</span><span class="o">|</span><span class="s2">"SRV"</span><span class="o">|</span><span class="s2">"SPF"</span><span class="o">|</span><span class="s2">"AAAA"</span><span class="p">,</span>
+        <span class="s2">"SetIdentifier"</span><span class="p">:</span> <span class="s2">"unique description for this resource record set"</span><span class="p">,</span>
+        <span class="s2">"Failover"</span><span class="p">:</span> <span class="s2">"PRIMARY"</span> <span class="o">|</span> <span class="s2">"SECONDARY"</span><span class="p">,</span>
+        <span class="s2">"AliasTarget"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"HostedZoneId"</span><span class="p">:</span> <span class="s2">"hosted zone ID for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or Amazon Route 53 hosted zone"</span><span class="p">,</span>
+          <span class="s2">"DNSName"</span><span class="p">:</span> <span class="s2">"DNS domain name for your CloudFront distribution, Amazon S3 bucket, Elastic Load Balancing load balancer, or another resource record set in this hosted zone"</span><span class="p">,</span>
+          <span class="s2">"EvaluateTargetHealth"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span>
+        <span class="p">},</span>
+        <span class="s2">"HealthCheckId"</span><span class="p">:</span> <span class="s2">"optional ID of an Amazon Route 53 health check"</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span><span class="o">...</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ChangeInfo -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about changes made to your hosted zone.</p>
+<p>This element contains an ID that you use when performing a <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get detailed information about the change.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID of the request.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current state of the request. <tt class="docutils literal"><span class="pre">PENDING</span></tt> indicates that this request has not yet been applied to all Amazon Route 53 DNS servers.</div>
+</blockquote>
+<p>SubmittedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the change request was submitted in <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601 format</a> and Coordinated Universal Time (UTC). For example, the value <tt class="docutils literal"><span class="pre">2017-03-27T17:48:16.751Z</span></tt> represents March 27, 2017 at 17:48:16.751 UTC.</div>
+</blockquote>
+<p>Comment -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A complex type that describes change information about changes made to your hosted zone.</p>
+<p>This element contains an ID that you use when performing a <a class="reference external" href="https://docs.aws.amazon.com/Route53/latest/APIReference/API_GetChange.html">GetChange</a> action to get detailed information about the change.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

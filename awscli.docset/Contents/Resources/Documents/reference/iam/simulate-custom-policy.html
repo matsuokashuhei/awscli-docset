@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>simulate-custom-policy — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iam" href="index.html">
+    <link rel="next" title="simulate-principal-policy" href="simulate-principal-policy.html">
+    <link rel="prev" title="set-security-token-service-preferences" href="set-security-token-service-preferences.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="simulate-custom-policy">
+<span id="cli-aws-iam-simulate-custom-policy"></span><h1>simulate-custom-policy<a class="headerlink" href="#simulate-custom-policy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Simulate how a set of IAM policies and optionally a resource-based policy works with a list of API operations and AWS resources to determine the policies' effective permissions. The policies are provided as strings.</p>
+<p>The simulation does not perform the API operations; it only checks the authorization to determine if the simulated policies allow or deny the operations.</p>
+<p>If you want to simulate existing policies attached to an IAM user, group, or role, use  SimulatePrincipalPolicy instead.</p>
+<p>Context keys are variables maintained by AWS and its services that provide details about the context of an API query request. You can use the <tt class="docutils literal"><span class="pre">Condition</span></tt> element of an IAM policy to evaluate context keys. To get the list of context keys that the policies require for correct simulation, use  GetContextKeysForCustomPolicy .</p>
+<p>If the output is long, you can use <tt class="docutils literal"><span class="pre">MaxItems</span></tt> and <tt class="docutils literal"><span class="pre">Marker</span></tt> parameters to paginate the results.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/SimulateCustomPolicy">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">simulate-custom-policy</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">EvaluationResults</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  simulate-custom-policy
+--policy-input-list &lt;value&gt;
+--action-names &lt;value&gt;
+[--resource-arns &lt;value&gt;]
+[--resource-policy &lt;value&gt;]
+[--resource-owner &lt;value&gt;]
+[--caller-arn &lt;value&gt;]
+[--context-entries &lt;value&gt;]
+[--resource-handling-option &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--policy-input-list</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of policy documents to include in the simulation. Each document is specified as a string containing the complete, valid JSON text of an IAM policy. Do not include any resource-based policies in this parameter. Any resource-based policy must be submitted with the <tt class="docutils literal"><span class="pre">ResourcePolicy</span></tt> parameter. The policies cannot be "scope-down" policies, such as you could include in a call to <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_GetFederationToken.html">GetFederationToken</a> or one of the <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/APIReference/API_AssumeRole.html">AssumeRole</a> API operations. In other words, do not use policies designed to restrict what a user can do while using the temporary credentials.</p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of characters consisting of the following:</p>
+<ul class="simple">
+<li>Any printable ASCII character ranging from the space character (u0020) through the end of the ASCII character range</li>
+<li>The printable characters in the Basic Latin and Latin-1 Supplement character set (through u00FF)</li>
+<li>The special characters tab (u0009), line feed (u000A), and carriage return (u000D)</li>
+</ul>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--action-names</span></tt> (list)</p>
+<blockquote>
+<div>A list of names of API operations to evaluate in the simulation. Each operation is evaluated against each resource. Each operation must include the service identifier, such as <tt class="docutils literal"><span class="pre">iam:CreateUser</span></tt> . This operation does not support using wildcards (*) in an action name.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-arns</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of ARNs of AWS resources to include in the simulation. If this parameter is not provided, then the value defaults to <tt class="docutils literal"><span class="pre">*</span></tt> (all resources). Each API in the <tt class="docutils literal"><span class="pre">ActionNames</span></tt> parameter is evaluated for each resource in this list. The simulation determines the access result (allowed or denied) of each combination and reports it in the response.</p>
+<p>The simulation does not automatically retrieve policies for the specified resources. If you want to include a resource policy in the simulation, then you must include the policy as a string in the <tt class="docutils literal"><span class="pre">ResourcePolicy</span></tt> parameter.</p>
+<p>If you include a <tt class="docutils literal"><span class="pre">ResourcePolicy</span></tt> , then it must be applicable to all of the resources included in the simulation or you receive an invalid input error.</p>
+<p>For more information about ARNs, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">Amazon Resource Names (ARNs) and AWS Service Namespaces</a> in the <em>AWS General Reference</em> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-policy</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A resource-based policy to include in the simulation provided as a string. Each resource in the simulation is treated as if it had this policy attached. You can include only one resource-based policy in a simulation.</p>
+<p>The <a class="reference external" href="http://wikipedia.org/wiki/regex">regex pattern</a> used to validate this parameter is a string of characters consisting of the following:</p>
+<ul class="simple">
+<li>Any printable ASCII character ranging from the space character (u0020) through the end of the ASCII character range</li>
+<li>The printable characters in the Basic Latin and Latin-1 Supplement character set (through u00FF)</li>
+<li>The special characters tab (u0009), line feed (u000A), and carriage return (u000D)</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-owner</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>An ARN representing the AWS account ID that specifies the owner of any simulated resource that does not identify its owner in the resource ARN. Examples of resource ARNs include an S3 bucket or object. If <tt class="docutils literal"><span class="pre">ResourceOwner</span></tt> is specified, it is also used as the account owner of any <tt class="docutils literal"><span class="pre">ResourcePolicy</span></tt> included in the simulation. If the <tt class="docutils literal"><span class="pre">ResourceOwner</span></tt> parameter is not specified, then the owner of the resources and the resource policy defaults to the account of the identity provided in <tt class="docutils literal"><span class="pre">CallerArn</span></tt> . This parameter is required only if you specify a resource-based policy and account that owns the resource is different from the account that owns the simulated calling user <tt class="docutils literal"><span class="pre">CallerArn</span></tt> .</p>
+<p>The ARN for an account uses the following syntax: <tt class="docutils literal"><span class="pre">arn:aws:iam::*AWS-account-ID*</span> <span class="pre">:root</span></tt> . For example, to represent the account with the 112233445566 ID, use the following ARN: <tt class="docutils literal"><span class="pre">arn:aws:iam::112233445566-ID:root</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--caller-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the IAM user that you want to use as the simulated caller of the API operations. <tt class="docutils literal"><span class="pre">CallerArn</span></tt> is required if you include a <tt class="docutils literal"><span class="pre">ResourcePolicy</span></tt> so that the policy's <tt class="docutils literal"><span class="pre">Principal</span></tt> element has a value to use in evaluating the policy.</p>
+<p>You can specify only the ARN of an IAM user. You cannot specify the ARN of an assumed role, federated user, or a service principal.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--context-entries</span></tt> (list)</p>
+<blockquote>
+<div>A list of context keys and corresponding values for the simulation to use. Whenever a context key is evaluated in one of the simulated IAM permissions policies, the corresponding value is supplied.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ContextKeyName=string,ContextKeyValues=string,string,ContextKeyType=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ContextKeyName": "string",
+    "ContextKeyValues": ["string", ...],
+    "ContextKeyType": "string"|"stringList"|"numeric"|"numericList"|"boolean"|"booleanList"|"ip"|"ipList"|"binary"|"binaryList"|"date"|"dateList"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-handling-option</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the type of simulation to run. Different API operations that support resource-based policies require different combinations of resources. By specifying the type of simulation to run, you enable the policy simulator to enforce the presence of the required resources to ensure reliable simulation results. If your simulation does not match one of the following scenarios, then you can omit this parameter. The following list shows each of the supported scenario values and the resources that you must define to run the simulation.</p>
+<p>Each of the EC2 scenarios requires that you specify instance, image, and security-group resources. If your scenario includes an EBS volume, then you must specify that volume as a resource. If the EC2 scenario includes VPC, then you must supply the network-interface resource. If it includes an IP subnet, then you must specify the subnet resource. For more information on the EC2 scenario options, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a> in the <em>Amazon EC2 User Guide</em> .</p>
+<ul class="simple">
+<li>
+<strong>EC2-Classic-InstanceStore</strong>   instance, image, security-group</li>
+<li>
+<strong>EC2-Classic-EBS</strong>   instance, image, security-group, volume</li>
+<li>
+<strong>EC2-VPC-InstanceStore</strong>   instance, image, security-group, network-interface</li>
+<li>
+<strong>EC2-VPC-InstanceStore-Subnet</strong>   instance, image, security-group, network-interface, subnet</li>
+<li>
+<strong>EC2-VPC-EBS</strong>   instance, image, security-group, network-interface, volume</li>
+<li>
+<strong>EC2-VPC-EBS-Subnet</strong>   instance, image, security-group, network-interface, subnet, volume</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To simulate the effects of all IAM policies associated with an IAM user or role</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">simulate-custom-policy</span></tt> shows how to provide both the policy and define variable values and simulate an API call to see if it is allowed or denied. The following example shows a policy that enables database access only after a specified date and time. The simulation succeeds because the simulated actions and the specified <tt class="docutils literal"><span class="pre">aws:CurrentTime</span></tt> variable all match the requirements of the policy.</p>
+<div class="highlight-python">
+<pre>aws iam simulate-custom-policy \
+    --policy-input-list '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"dynamodb:*","Resource":"*","Condition":{"DateGreaterThan":{"aws:CurrentTime":"2018-08-16T12:00:00Z"}}}}' \
+    --action-names dynamodb:CreateBackup \
+    --context-entries "ContextKeyName='aws:CurrentTime',ContextKeyValues='2019-04-25T11:00:00Z',ContextKeyType=date"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"EvaluationResults"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"EvalActionName"</span><span class="p">:</span> <span class="s2">"dynamodb:CreateBackup"</span><span class="p">,</span>
+            <span class="s2">"EvalResourceName"</span><span class="p">:</span> <span class="s2">"*"</span><span class="p">,</span>
+            <span class="s2">"EvalDecision"</span><span class="p">:</span> <span class="s2">"allowed"</span><span class="p">,</span>
+            <span class="s2">"MatchedStatements"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"SourcePolicyId"</span><span class="p">:</span> <span class="s2">"PolicyInputList.1"</span><span class="p">,</span>
+                    <span class="s2">"StartPosition"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Line"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">"Column"</span><span class="p">:</span> <span class="mi">38</span>
+                    <span class="p">},</span>
+                    <span class="s2">"EndPosition"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Line"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="s2">"Column"</span><span class="p">:</span> <span class="mi">167</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"MissingContextValues"</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">simulate-custom-policy</span></tt> example shows the results of simulating a command that is prohibited by the policy. In this example, the provided date is before that required by the policy's condition.</p>
+<div class="highlight-python">
+<pre>aws iam simulate-custom-policy \
+    --policy-input-list '{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":"dynamodb:*","Resource":"*","Condition":{"DateGreaterThan":{"aws:CurrentTime":"2018-08-16T12:00:00Z"}}}}' \
+    --action-names dynamodb:CreateBackup \
+    --context-entries "ContextKeyName='aws:CurrentTime',ContextKeyValues='2014-04-25T11:00:00Z',ContextKeyType=date"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"EvaluationResults"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"EvalActionName"</span><span class="p">:</span> <span class="s2">"dynamodb:CreateBackup"</span><span class="p">,</span>
+            <span class="s2">"EvalResourceName"</span><span class="p">:</span> <span class="s2">"*"</span><span class="p">,</span>
+            <span class="s2">"EvalDecision"</span><span class="p">:</span> <span class="s2">"implicitDeny"</span><span class="p">,</span>
+            <span class="s2">"MatchedStatements"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"MissingContextValues"</span><span class="p">:</span> <span class="p">[]</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_testing-policies.html">Testing IAM Policies with the IAM Policy Simulator</a> in the <em>AWS IAM User Guide</em></p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>EvaluationResults -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The results of the simulation.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the results of a simulation.</p>
+<p>This data type is used by the return parameter of ``  SimulateCustomPolicy `` and ``  SimulatePrincipalPolicy `` .</p>
+<p>EvalActionName -&gt; (string)</p>
+<blockquote>
+<div>The name of the API operation tested on the indicated resource.</div>
+</blockquote>
+<p>EvalResourceName -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the resource that the indicated API operation was tested on.</div>
+</blockquote>
+<p>EvalDecision -&gt; (string)</p>
+<blockquote>
+<div>The result of the simulation.</div>
+</blockquote>
+<p>MatchedStatements -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of the statements in the input policies that determine the result for this scenario. Remember that even if multiple statements allow the operation on the resource, if only one statement denies that operation, then the explicit deny overrides any allow. In addition, the deny statement is the only entry included in the result.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains a reference to a <tt class="docutils literal"><span class="pre">Statement</span></tt> element in a policy document that determines the result of the simulation.</p>
+<p>This data type is used by the <tt class="docutils literal"><span class="pre">MatchedStatements</span></tt> member of the ``  EvaluationResult `` type.</p>
+<p>SourcePolicyId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the policy that was provided as an input.</div>
+</blockquote>
+<p>SourcePolicyType -&gt; (string)</p>
+<blockquote>
+<div>The type of the policy.</div>
+</blockquote>
+<p>StartPosition -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The row and column of the beginning of the <tt class="docutils literal"><span class="pre">Statement</span></tt> in an IAM policy.</p>
+<p>Line -&gt; (integer)</p>
+<blockquote>
+<div>The line containing the specified position in the document.</div>
+</blockquote>
+<p>Column -&gt; (integer)</p>
+<blockquote>
+<div>The column in the line containing the specified position in the document.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EndPosition -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The row and column of the end of a <tt class="docutils literal"><span class="pre">Statement</span></tt> in an IAM policy.</p>
+<p>Line -&gt; (integer)</p>
+<blockquote>
+<div>The line containing the specified position in the document.</div>
+</blockquote>
+<p>Column -&gt; (integer)</p>
+<blockquote>
+<div>The column in the line containing the specified position in the document.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MissingContextValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of context keys that are required by the included input policies but that were not provided by one of the input parameters. This list is used when the resource in a simulation is "*", either explicitly, or when the <tt class="docutils literal"><span class="pre">ResourceArns</span></tt> parameter blank. If you include a list of resources, then any missing context values are instead included under the <tt class="docutils literal"><span class="pre">ResourceSpecificResults</span></tt> section. To discover the context keys used by a set of policies, you can call  GetContextKeysForCustomPolicy or  GetContextKeysForPrincipalPolicy .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>OrganizationsDecisionDetail -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A structure that details how Organizations and its service control policies affect the results of the simulation. Only applies if the simulated user's account is part of an organization.</p>
+<p>AllowedByOrganizations -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether the simulated operation is allowed by the Organizations service control policies that impact the simulated user's account.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EvalDecisionDetails -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Additional details about the results of the evaluation decision. When there are both IAM policies and resource policies, this parameter explains how each set of policies contributes to the final evaluation decision. When simulating cross-account access to a resource, both the resource-based policy and the caller's IAM policy must grant access. See <a class="reference external" href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html">How IAM Roles Differ from Resource-based Policies</a></p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>ResourceSpecificResults -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The individual results of the simulation of the API operation specified in EvalActionName on each resource.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the result of the simulation of a single API operation call on a single resource.</p>
+<p>This data type is used by a member of the  EvaluationResult data type.</p>
+<p>EvalResourceName -&gt; (string)</p>
+<blockquote>
+<div>The name of the simulated resource, in Amazon Resource Name (ARN) format.</div>
+</blockquote>
+<p>EvalResourceDecision -&gt; (string)</p>
+<blockquote>
+<div>The result of the simulation of the simulated API operation on the resource specified in <tt class="docutils literal"><span class="pre">EvalResourceName</span></tt> .</div>
+</blockquote>
+<p>MatchedStatements -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of the statements in the input policies that determine the result for this part of the simulation. Remember that even if multiple statements allow the operation on the resource, if <em>any</em> statement denies that operation, then the explicit deny overrides any allow. In addition, the deny statement is the only entry included in the result.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains a reference to a <tt class="docutils literal"><span class="pre">Statement</span></tt> element in a policy document that determines the result of the simulation.</p>
+<p>This data type is used by the <tt class="docutils literal"><span class="pre">MatchedStatements</span></tt> member of the ``  EvaluationResult `` type.</p>
+<p>SourcePolicyId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the policy that was provided as an input.</div>
+</blockquote>
+<p>SourcePolicyType -&gt; (string)</p>
+<blockquote>
+<div>The type of the policy.</div>
+</blockquote>
+<p>StartPosition -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The row and column of the beginning of the <tt class="docutils literal"><span class="pre">Statement</span></tt> in an IAM policy.</p>
+<p>Line -&gt; (integer)</p>
+<blockquote>
+<div>The line containing the specified position in the document.</div>
+</blockquote>
+<p>Column -&gt; (integer)</p>
+<blockquote>
+<div>The column in the line containing the specified position in the document.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EndPosition -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The row and column of the end of a <tt class="docutils literal"><span class="pre">Statement</span></tt> in an IAM policy.</p>
+<p>Line -&gt; (integer)</p>
+<blockquote>
+<div>The line containing the specified position in the document.</div>
+</blockquote>
+<p>Column -&gt; (integer)</p>
+<blockquote>
+<div>The column in the line containing the specified position in the document.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>MissingContextValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of context keys that are required by the included input policies but that were not provided by one of the input parameters. This list is used when a list of ARNs is included in the <tt class="docutils literal"><span class="pre">ResourceArns</span></tt> parameter instead of "*". If you do not specify individual resources, by setting <tt class="docutils literal"><span class="pre">ResourceArns</span></tt> to "*" or by not including the <tt class="docutils literal"><span class="pre">ResourceArns</span></tt> parameter, then any missing context values are instead included under the <tt class="docutils literal"><span class="pre">EvaluationResults</span></tt> section. To discover the context keys used by a set of policies, you can call  GetContextKeysForCustomPolicy or  GetContextKeysForPrincipalPolicy .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>EvalDecisionDetails -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Additional details about the results of the evaluation decision. When there are both IAM policies and resource policies, this parameter explains how each set of policies contributes to the final evaluation decision. When simulating cross-account access to a resource, both the resource-based policy and the caller's IAM policy must grant access.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>IsTruncated -&gt; (boolean)</p>
+<blockquote>
+<div>A flag that indicates whether there are more items to return. If your results were truncated, you can make a subsequent pagination request using the <tt class="docutils literal"><span class="pre">Marker</span></tt> request parameter to retrieve more items. Note that IAM might return fewer than the <tt class="docutils literal"><span class="pre">MaxItems</span></tt> number of results even when there are more results available. We recommend that you check <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> after every call to ensure that you receive all your results.</div>
+</blockquote>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>When <tt class="docutils literal"><span class="pre">IsTruncated</span></tt> is <tt class="docutils literal"><span class="pre">true</span></tt> , this element is present and contains the value to use for the <tt class="docutils literal"><span class="pre">Marker</span></tt> parameter in a subsequent pagination request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

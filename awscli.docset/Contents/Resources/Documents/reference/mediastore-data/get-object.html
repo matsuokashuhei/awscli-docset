@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-object — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="mediastore-data" href="index.html">
+    <link rel="next" title="list-items" href="list-items.html">
+    <link rel="prev" title="describe-object" href="describe-object.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-object">
+<span id="cli-aws-mediastore-data-get-object"></span><h1>get-object<a class="headerlink" href="#get-object" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Downloads the object at the specified path. If the object’s upload availability is set to <tt class="docutils literal"><span class="pre">streaming</span></tt> , AWS Elemental MediaStore downloads the object even if it’s still uploading the object.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/mediastore-data-2017-09-01/GetObject">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-object
+--path &lt;value&gt;
+[--range &lt;value&gt;]
+outfile &lt;value&gt;</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--path</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The path (including the file name) where the object is stored in the container. Format: folder name/folder name/file name</p>
+<p>For example, to upload the file <tt class="docutils literal"><span class="pre">mlaw.avi</span></tt> to the folder path <tt class="docutils literal"><span class="pre">premium\canada</span></tt> in the container <tt class="docutils literal"><span class="pre">movies</span></tt> , enter the path <tt class="docutils literal"><span class="pre">premium/canada/mlaw.avi</span></tt> .</p>
+<p>Do not include the container name in this path.</p>
+<p>If the path includes any folders that don't exist yet, the service creates them. For example, suppose you have an existing <tt class="docutils literal"><span class="pre">premium/usa</span></tt> subfolder. If you specify <tt class="docutils literal"><span class="pre">premium/canada</span></tt> , the service creates a <tt class="docutils literal"><span class="pre">canada</span></tt> subfolder in the <tt class="docutils literal"><span class="pre">premium</span></tt> folder. You then have two subfolders, <tt class="docutils literal"><span class="pre">usa</span></tt> and <tt class="docutils literal"><span class="pre">canada</span></tt> , in the <tt class="docutils literal"><span class="pre">premium</span></tt> folder.</p>
+<p>There is no correlation between the path to the source and the path (folders) in the container in AWS Elemental MediaStore.</p>
+<p>For more information about folders and how they exist in a container, see the <a class="reference external" href="http://docs.aws.amazon.com/mediastore/latest/ug/">AWS Elemental MediaStore User Guide</a> .</p>
+<p>The file name is the name that is assigned to the file that you upload. The file can have the same name inside and outside of AWS Elemental MediaStore, or it can have the same name. The file name can include or omit an extension.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--range</span></tt> (string)</p>
+<blockquote>
+<div>The range bytes of an object to retrieve. For more information about the <tt class="docutils literal"><span class="pre">Range</span></tt> header, see <a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.35</a> . AWS Elemental MediaStore ignores this header for partially uploaded objects that have streaming upload availability.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
+Filename where the content will be saved</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To download an entire object</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-object</span></tt> example downloads the specified object.</p>
+<div class="highlight-python">
+<pre>aws mediastore-data get-object \
+    --endpoint https://aaabbbcccdddee.data.mediastore.us-west-2.amazonaws.com \
+    --path events/baseball/setup.jpg setup.jpg</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ContentType"</span><span class="p">:</span> <span class="s2">"image/jpeg"</span><span class="p">,</span>
+    <span class="s2">"StatusCode"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"2aa333bbcc8d8d22d777e999c88d4aa9eeeeee4dd89ff7f555555555555da6d3"</span><span class="p">,</span>
+    <span class="s2">"ContentLength"</span><span class="p">:</span> <span class="s2">"3860266"</span><span class="p">,</span>
+    <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"Fri, 19 Jul 2019 21:50:31 GMT"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To download part of an object</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-object</span></tt> example downloads the specified part of an object.</p>
+<div class="highlight-python">
+<pre>aws mediastore-data get-object \
+    --endpoint https://aaabbbcccdddee.data.mediastore.us-west-2.amazonaws.com \
+    --path events/baseball/setup.jpg setup.jpg \
+    --range "bytes=0-100"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"StatusCode"</span><span class="p">:</span> <span class="mi">206</span><span class="p">,</span>
+    <span class="s2">"LastModified"</span><span class="p">:</span> <span class="s2">"Fri, 19 Jul 2019 21:50:31 GMT"</span><span class="p">,</span>
+    <span class="s2">"ContentType"</span><span class="p">:</span> <span class="s2">"image/jpeg"</span><span class="p">,</span>
+    <span class="s2">"ContentRange"</span><span class="p">:</span> <span class="s2">"bytes 0-100/3860266"</span><span class="p">,</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"2aa333bbcc8d8d22d777e999c88d4aa9eeeeee4dd89ff7f555555555555da6d3"</span><span class="p">,</span>
+    <span class="s2">"ContentLength"</span><span class="p">:</span> <span class="s2">"101"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/mediastore/latest/ug/objects-download.html">Downloading an Object</a> in the <em>AWS Elemental MediaStore User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Body -&gt; (blob)</p>
+<blockquote>
+<div>The bytes of the object.</div>
+</blockquote>
+<p>CacheControl -&gt; (string)</p>
+<blockquote>
+<div>
+<p>An optional <tt class="docutils literal"><span class="pre">CacheControl</span></tt> header that allows the caller to control the object's cache behavior. Headers can be passed in as specified in the HTTP spec at <a class="reference external" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9">https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a> .</p>
+<p>Headers with a custom user-defined value are also accepted.</p>
+</div>
+</blockquote>
+<p>ContentRange -&gt; (string)</p>
+<blockquote>
+<div>The range of bytes to retrieve.</div>
+</blockquote>
+<p>ContentLength -&gt; (long)</p>
+<blockquote>
+<div>The length of the object in bytes.</div>
+</blockquote>
+<p>ContentType -&gt; (string)</p>
+<blockquote>
+<div>The content type of the object.</div>
+</blockquote>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>The ETag that represents a unique instance of the object.</div>
+</blockquote>
+<p>LastModified -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the object was last modified.</div>
+</blockquote>
+<p>StatusCode -&gt; (integer)</p>
+<blockquote>
+<div>The HTML status code of the request. Status codes ranging from 200 to 299 indicate success. All other status codes indicate the type of error that occurred.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

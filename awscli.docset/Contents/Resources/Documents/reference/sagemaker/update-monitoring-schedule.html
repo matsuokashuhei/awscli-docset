@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-monitoring-schedule — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="update-notebook-instance" href="update-notebook-instance.html">
+    <link rel="prev" title="update-experiment" href="update-experiment.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-monitoring-schedule">
+<span id="cli-aws-sagemaker-update-monitoring-schedule"></span><h1>update-monitoring-schedule<a class="headerlink" href="#update-monitoring-schedule" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates a previously created schedule.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateMonitoringSchedule">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-monitoring-schedule
+--monitoring-schedule-name &lt;value&gt;
+--monitoring-schedule-config &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--monitoring-schedule-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the monitoring schedule. The name must be unique within an AWS Region within an AWS account.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--monitoring-schedule-config</span></tt> (structure)</p>
+<blockquote>
+<div>The configuration object that specifies the monitoring schedule and defines the monitoring job.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "ScheduleConfig": {
+    "ScheduleExpression": "string"
+  },
+  "MonitoringJobDefinition": {
+    "BaselineConfig": {
+      "ConstraintsResource": {
+        "S3Uri": "string"
+      },
+      "StatisticsResource": {
+        "S3Uri": "string"
+      }
+    },
+    "MonitoringInputs": [
+      {
+        "EndpointInput": {
+          "EndpointName": "string",
+          "LocalPath": "string",
+          "S3InputMode": "Pipe"|"File",
+          "S3DataDistributionType": "FullyReplicated"|"ShardedByS3Key"
+        }
+      }
+      ...
+    ],
+    "MonitoringOutputConfig": {
+      "MonitoringOutputs": [
+        {
+          "S3Output": {
+            "S3Uri": "string",
+            "LocalPath": "string",
+            "S3UploadMode": "Continuous"|"EndOfJob"
+          }
+        }
+        ...
+      ],
+      "KmsKeyId": "string"
+    },
+    "MonitoringResources": {
+      "ClusterConfig": {
+        "InstanceCount": integer,
+        "InstanceType": "ml.t3.medium"|"ml.t3.large"|"ml.t3.xlarge"|"ml.t3.2xlarge"|"ml.m4.xlarge"|"ml.m4.2xlarge"|"ml.m4.4xlarge"|"ml.m4.10xlarge"|"ml.m4.16xlarge"|"ml.c4.xlarge"|"ml.c4.2xlarge"|"ml.c4.4xlarge"|"ml.c4.8xlarge"|"ml.p2.xlarge"|"ml.p2.8xlarge"|"ml.p2.16xlarge"|"ml.p3.2xlarge"|"ml.p3.8xlarge"|"ml.p3.16xlarge"|"ml.c5.xlarge"|"ml.c5.2xlarge"|"ml.c5.4xlarge"|"ml.c5.9xlarge"|"ml.c5.18xlarge"|"ml.m5.large"|"ml.m5.xlarge"|"ml.m5.2xlarge"|"ml.m5.4xlarge"|"ml.m5.12xlarge"|"ml.m5.24xlarge"|"ml.r5.large"|"ml.r5.xlarge"|"ml.r5.2xlarge"|"ml.r5.4xlarge"|"ml.r5.8xlarge"|"ml.r5.12xlarge"|"ml.r5.16xlarge"|"ml.r5.24xlarge",
+        "VolumeSizeInGB": integer,
+        "VolumeKmsKeyId": "string"
+      }
+    },
+    "MonitoringAppSpecification": {
+      "ImageUri": "string",
+      "ContainerEntrypoint": ["string", ...],
+      "ContainerArguments": ["string", ...],
+      "RecordPreprocessorSourceUri": "string",
+      "PostAnalyticsProcessorSourceUri": "string"
+    },
+    "StoppingCondition": {
+      "MaxRuntimeInSeconds": integer
+    },
+    "Environment": {"string": "string"
+      ...},
+    "NetworkConfig": {
+      "EnableNetworkIsolation": true|false,
+      "VpcConfig": {
+        "SecurityGroupIds": ["string", ...],
+        "Subnets": ["string", ...]
+      }
+    },
+    "RoleArn": "string"
+  }
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>MonitoringScheduleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the monitoring schedule.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

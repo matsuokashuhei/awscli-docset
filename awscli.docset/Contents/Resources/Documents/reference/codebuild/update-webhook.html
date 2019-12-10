@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-webhook — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="codebuild" href="index.html">
+    <link rel="next" title="codecommit" href="../codecommit/index.html">
+    <link rel="prev" title="update-report-group" href="update-report-group.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-webhook">
+<span id="cli-aws-codebuild-update-webhook"></span><h1>update-webhook<a class="headerlink" href="#update-webhook" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates the webhook associated with an AWS CodeBuild build project.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you use Bitbucket for your repository, <tt class="docutils literal"><span class="pre">rotateSecret</span></tt> is ignored.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/UpdateWebhook">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-webhook
+--project-name &lt;value&gt;
+[--branch-filter &lt;value&gt;]
+[--rotate-secret | --no-rotate-secret]
+[--filter-groups &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--project-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the AWS CodeBuild project.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--branch-filter</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A regular expression used to determine which repository branches are built when a webhook is triggered. If the name of a branch matches the regular expression, then it is built. If <tt class="docutils literal"><span class="pre">branchFilter</span></tt> is empty, then all branches are built.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is recommended that you use <tt class="docutils literal"><span class="pre">filterGroups</span></tt> instead of <tt class="docutils literal"><span class="pre">branchFilter</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--rotate-secret</span></tt> | <tt class="docutils literal"><span class="pre">--no-rotate-secret</span></tt> (boolean)</p>
+<blockquote>
+<div>A boolean value that specifies whether the associated GitHub repository's secret token should be updated. If you use Bitbucket for your repository, <tt class="docutils literal"><span class="pre">rotateSecret</span></tt> is ignored.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter-groups</span></tt> (list)</p>
+<blockquote>
+<div>An array of arrays of <tt class="docutils literal"><span class="pre">WebhookFilter</span></tt> objects used to determine if a webhook event can trigger a build. A filter group must contain at least one <tt class="docutils literal"><span class="pre">EVENT</span></tt>  <tt class="docutils literal"><span class="pre">WebhookFilter</span></tt> .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>[{type=string,pattern=string,excludeMatchedPattern=boolean},{type=string,pattern=string,excludeMatchedPattern=boolean}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  [
+    {
+      "type": "EVENT"|"BASE_REF"|"HEAD_REF"|"ACTOR_ACCOUNT_ID"|"FILE_PATH",
+      "pattern": "string",
+      "excludeMatchedPattern": true|false
+    }
+    ...
+  ]
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update the webhook for an AWS CodeBuild project</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-webhook</span></tt> example updates a webhook for the specified CodeBuild project with two filter groups. The <tt class="docutils literal"><span class="pre">--rotate-secret</span></tt> parameter specifies that GitHub rotate the project's secret key every time a code change triggers a build. The first filter group specifies pull requests that are created, updated, or reopened on branches with Git reference names that match the regular expression <tt class="docutils literal"><span class="pre">^refs/heads/master$</span></tt> and head references that match <tt class="docutils literal"><span class="pre">^refs/heads/myBranch$</span></tt>.  The second filter group specifies push requests on branches with Git reference names that do not match the regular expression <tt class="docutils literal"><span class="pre">^refs/heads/myBranch$</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws codebuild update-webhook \
+    --project-name Project2 \
+    --rotate-secret \
+    --filter-groups "[[{\"type\":\"EVENT\",\"pattern\":\"PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED, PULL_REQUEST_REOPENED\"},{\"type\":\"HEAD_REF\",\"pattern\":\"^refs/heads/myBranch$\",\"excludeMatchedPattern\":true},{\"type\":\"BASE_REF\",\"pattern\":\"^refs/heads/master$\",\"excludeMatchedPattern\":true}],[{\"type\":\"EVENT\",\"pattern\":\"PUSH\"},{\"type\":\"HEAD_REF\",\"pattern\":\"^refs/heads/myBranch$\",\"excludeMatchedPattern\":true}]]"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"webhook"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"filterGroups"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"pattern"</span><span class="p">:</span> <span class="s2">"PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED, PULL_REQUEST_REOPENED"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"EVENT"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"excludeMatchedPattern"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                    <span class="s2">"pattern"</span><span class="p">:</span> <span class="s2">"refs/heads/myBranch$"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"HEAD_REF"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"excludeMatchedPattern"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                    <span class="s2">"pattern"</span><span class="p">:</span> <span class="s2">"refs/heads/master$"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"BASE_REF"</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"pattern"</span><span class="p">:</span> <span class="s2">"PUSH"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"EVENT"</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"excludeMatchedPattern"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                    <span class="s2">"pattern"</span><span class="p">:</span> <span class="s2">"refs/heads/myBranch$"</span><span class="p">,</span>
+                    <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"HEAD_REF"</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">],</span>
+        <span class="s2">"lastModifiedSecret"</span><span class="p">:</span> <span class="mf">1556312220.133</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codebuild/latest/userguide/change-project.html#change-project-cli">Change a Build Project's Settings (AWS CLI)</a> in the <em>AWS CodeBuild User Guide</em></p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>webhook -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about a repository's webhook that is associated with a project in AWS CodeBuild.</p>
+<p>url -&gt; (string)</p>
+<blockquote>
+<div>The URL to the webhook.</div>
+</blockquote>
+<p>payloadUrl -&gt; (string)</p>
+<blockquote>
+<div>The AWS CodeBuild endpoint where webhook events are sent.</div>
+</blockquote>
+<p>secret -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The secret token of the associated repository.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A Bitbucket webhook does not support <tt class="docutils literal"><span class="pre">secret</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p>branchFilter -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A regular expression used to determine which repository branches are built when a webhook is triggered. If the name of a branch matches the regular expression, then it is built. If <tt class="docutils literal"><span class="pre">branchFilter</span></tt> is empty, then all branches are built.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is recommended that you use <tt class="docutils literal"><span class="pre">filterGroups</span></tt> instead of <tt class="docutils literal"><span class="pre">branchFilter</span></tt> .</p>
+</div>
+</div>
+</blockquote>
+<p>filterGroups -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of arrays of <tt class="docutils literal"><span class="pre">WebhookFilter</span></tt> objects used to determine which webhooks are triggered. At least one <tt class="docutils literal"><span class="pre">WebhookFilter</span></tt> in the array must specify <tt class="docutils literal"><span class="pre">EVENT</span></tt> as its <tt class="docutils literal"><span class="pre">type</span></tt> .</p>
+<p>For a build to be triggered, at least one filter group in the <tt class="docutils literal"><span class="pre">filterGroups</span></tt> array must pass. For a filter group to pass, each of its filters must pass.</p>
+<p>(list)</p>
+<blockquote>
+<div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A filter used to determine which webhooks trigger a build.</p>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of webhook filter. There are five webhook filter types: <tt class="docutils literal"><span class="pre">EVENT</span></tt> , <tt class="docutils literal"><span class="pre">ACTOR_ACCOUNT_ID</span></tt> , <tt class="docutils literal"><span class="pre">HEAD_REF</span></tt> , <tt class="docutils literal"><span class="pre">BASE_REF</span></tt> , and <tt class="docutils literal"><span class="pre">FILE_PATH</span></tt> .</p>
+<blockquote>
+<div>EVENT</div>
+</blockquote>
+<p>A webhook event triggers a build when the provided <tt class="docutils literal"><span class="pre">pattern</span></tt> matches one of four event types: <tt class="docutils literal"><span class="pre">PUSH</span></tt> , <tt class="docutils literal"><span class="pre">PULL_REQUEST_CREATED</span></tt> , <tt class="docutils literal"><span class="pre">PULL_REQUEST_UPDATED</span></tt> , and <tt class="docutils literal"><span class="pre">PULL_REQUEST_REOPENED</span></tt> . The <tt class="docutils literal"><span class="pre">EVENT</span></tt> patterns are specified as a comma-separated string. For example, <tt class="docutils literal"><span class="pre">PUSH,</span> <span class="pre">PULL_REQUEST_CREATED,</span> <span class="pre">PULL_REQUEST_UPDATED</span></tt> filters all push, pull request created, and pull request updated events.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The <tt class="docutils literal"><span class="pre">PULL_REQUEST_REOPENED</span></tt> works with GitHub and GitHub Enterprise only.</p>
+<p class="last">ACTOR_ACCOUNT_ID</p>
+</div>
+<p>A webhook event triggers a build when a GitHub, GitHub Enterprise, or Bitbucket account ID matches the regular expression <tt class="docutils literal"><span class="pre">pattern</span></tt> .</p>
+<blockquote>
+<div>HEAD_REF</div>
+</blockquote>
+<p>A webhook event triggers a build when the head reference matches the regular expression <tt class="docutils literal"><span class="pre">pattern</span></tt> . For example, <tt class="docutils literal"><span class="pre">refs/heads/branch-name</span></tt> and <tt class="docutils literal"><span class="pre">refs/tags/tag-name</span></tt> .</p>
+<p>Works with GitHub and GitHub Enterprise push, GitHub and GitHub Enterprise pull request, Bitbucket push, and Bitbucket pull request events.</p>
+<blockquote>
+<div>BASE_REF</div>
+</blockquote>
+<p>A webhook event triggers a build when the base reference matches the regular expression <tt class="docutils literal"><span class="pre">pattern</span></tt> . For example, <tt class="docutils literal"><span class="pre">refs/heads/branch-name</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Works with pull request events only.</p>
+<p class="last">FILE_PATH</p>
+</div>
+<p>A webhook triggers a build when the path of a changed file matches the regular expression <tt class="docutils literal"><span class="pre">pattern</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Works with GitHub and GitHub Enterprise push events only.</p>
+</div>
+</div>
+</blockquote>
+<p>pattern -&gt; (string)</p>
+<blockquote>
+<div>
+<p>For a <tt class="docutils literal"><span class="pre">WebHookFilter</span></tt> that uses <tt class="docutils literal"><span class="pre">EVENT</span></tt> type, a comma-separated string that specifies one or more events. For example, the webhook filter <tt class="docutils literal"><span class="pre">PUSH,</span> <span class="pre">PULL_REQUEST_CREATED,</span> <span class="pre">PULL_REQUEST_UPDATED</span></tt> allows all push, pull request created, and pull request updated events to trigger a build.</p>
+<p>For a <tt class="docutils literal"><span class="pre">WebHookFilter</span></tt> that uses any of the other filter types, a regular expression pattern. For example, a <tt class="docutils literal"><span class="pre">WebHookFilter</span></tt> that uses <tt class="docutils literal"><span class="pre">HEAD_REF</span></tt> for its <tt class="docutils literal"><span class="pre">type</span></tt> and the pattern <tt class="docutils literal"><span class="pre">^refs/heads/</span></tt> triggers a build when the head reference is a branch with a reference name <tt class="docutils literal"><span class="pre">refs/heads/branch-name</span></tt> .</p>
+</div>
+</blockquote>
+<p>excludeMatchedPattern -&gt; (boolean)</p>
+<blockquote>
+<div>Used to indicate that the <tt class="docutils literal"><span class="pre">pattern</span></tt> determines which webhook events do not trigger a build. If true, then a webhook event that does not match the <tt class="docutils literal"><span class="pre">pattern</span></tt> triggers a build. If false, then a webhook event that matches the <tt class="docutils literal"><span class="pre">pattern</span></tt> triggers a build.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>lastModifiedSecret -&gt; (timestamp)</p>
+<blockquote>
+<div>A timestamp that indicates the last time a repository's secret token was modified.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

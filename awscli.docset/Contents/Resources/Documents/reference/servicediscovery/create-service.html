@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-service — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="servicediscovery" href="index.html">
+    <link rel="next" title="delete-namespace" href="delete-namespace.html">
+    <link rel="prev" title="create-public-dns-namespace" href="create-public-dns-namespace.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-service">
+<span id="cli-aws-servicediscovery-create-service"></span><h1>create-service<a class="headerlink" href="#create-service" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a service, which defines the configuration for the following entities:</p>
+<ul class="simple">
+<li>For public and private DNS namespaces, one of the following combinations of DNS records in Amazon Route 53:<ul>
+<li>A</li>
+<li>AAAA</li>
+<li>A and AAAA</li>
+<li>SRV</li>
+<li>CNAME</li>
+</ul>
+</li>
+<li>Optionally, a health check</li>
+</ul>
+<p>After you create the service, you can submit a  RegisterInstance request, and AWS Cloud Map uses the values in the configuration to create the specified entities.</p>
+<p>For the current limit on the number of instances that you can register using the same namespace and using the same service, see <a class="reference external" href="http://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html">AWS Cloud Map Limits</a> in the <em>AWS Cloud Map Developer Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/servicediscovery-2017-03-14/CreateService">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-service
+--name &lt;value&gt;
+[--namespace-id &lt;value&gt;]
+[--creator-request-id &lt;value&gt;]
+[--description &lt;value&gt;]
+[--dns-config &lt;value&gt;]
+[--health-check-config &lt;value&gt;]
+[--health-check-custom-config &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
+<blockquote>
+<div>The name that you want to assign to the service.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--namespace-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the namespace that you want to use to create the service.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--creator-request-id</span></tt> (string)</p>
+<blockquote>
+<div>A unique string that identifies the request and that allows failed <tt class="docutils literal"><span class="pre">CreateService</span></tt> requests to be retried without the risk of executing the operation twice. <tt class="docutils literal"><span class="pre">CreatorRequestId</span></tt> can be any unique string, for example, a date/time stamp.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>A description for the service.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dns-config</span></tt> (structure)</p>
+<blockquote>
+<div>A complex type that contains information about the Amazon Route 53 records that you want AWS Cloud Map to create when you register an instance.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>NamespaceId=string,RoutingPolicy=string,DnsRecords=[{Type=string,TTL=long},{Type=string,TTL=long}]</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "NamespaceId": "string",
+  "RoutingPolicy": "MULTIVALUE"|"WEIGHTED",
+  "DnsRecords": [
+    {
+      "Type": "SRV"|"A"|"AAAA"|"CNAME",
+      "TTL": long
+    }
+    ...
+  ]
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--health-check-config</span></tt> (structure)</p>
+<blockquote>
+<div>
+<blockquote>
+<div>
+<em>Public DNS namespaces only.</em> A complex type that contains settings for an optional Route 53 health check. If you specify settings for a health check, AWS Cloud Map associates the health check with all the Route 53 DNS records that you specify in <tt class="docutils literal"><span class="pre">DnsConfig</span></tt> .</div>
+</blockquote>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you specify a health check configuration, you can specify either <tt class="docutils literal"><span class="pre">HealthCheckCustomConfig</span></tt> or <tt class="docutils literal"><span class="pre">HealthCheckConfig</span></tt> but not both.</p>
+</div>
+<p>For information about the charges for health checks, see <a class="reference external" href="http://aws.amazon.com/cloud-map/pricing/">AWS Cloud Map Pricing</a> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Type</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">ResourcePath</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">FailureThreshold</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"HTTP"</span><span class="o">|</span><span class="s2">"HTTPS"</span><span class="o">|</span><span class="s2">"TCP"</span><span class="p">,</span>
+  <span class="s2">"ResourcePath"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"FailureThreshold"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--health-check-custom-config</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about an optional custom health check.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you specify a health check configuration, you can specify either <tt class="docutils literal"><span class="pre">HealthCheckCustomConfig</span></tt> or <tt class="docutils literal"><span class="pre">HealthCheckConfig</span></tt> but not both.</p>
+</div>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">FailureThreshold</span><span class="o">=</span><span class="n">integer</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"FailureThreshold"</span><span class="p">:</span> <span class="n">integer</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Service -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about the new service.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID that AWS Cloud Map assigned to the service when you created it.</div>
+</blockquote>
+<p>Arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that AWS Cloud Map assigns to the service when you create it.</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the service.</div>
+</blockquote>
+<p>NamespaceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the namespace that was used to create the service.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>The description of the service.</div>
+</blockquote>
+<p>InstanceCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of instances that are currently associated with the service. Instances that were previously associated with the service but that have been deleted are not included in the count.</div>
+</blockquote>
+<p>DnsConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about the Route 53 DNS records that you want AWS Cloud Map to create when you register an instance.</p>
+<p>NamespaceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the namespace to use for DNS configuration.</div>
+</blockquote>
+<p>RoutingPolicy -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The routing policy that you want to apply to all Route 53 DNS records that AWS Cloud Map creates when you register an instance and specify this service.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you want to use this service to register instances that create alias records, specify <tt class="docutils literal"><span class="pre">WEIGHTED</span></tt> for the routing policy.</p>
+</div>
+<p>You can specify the following values:</p>
+<blockquote>
+<div><strong>MULTIVALUE</strong></div>
+</blockquote>
+<p>If you define a health check for the service and the health check is healthy, Route 53 returns the applicable value for up to eight instances.</p>
+<p>For example, suppose the service includes configurations for one A record and a health check, and you use the service to register 10 instances. Route 53 responds to DNS queries with IP addresses for up to eight healthy instances. If fewer than eight instances are healthy, Route 53 responds to every DNS query with the IP addresses for all of the healthy instances.</p>
+<p>If you don't define a health check for the service, Route 53 assumes that all instances are healthy and returns the values for up to eight instances.</p>
+<p>For more information about the multivalue routing policy, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html#routing-policy-multivalue">Multivalue Answer Routing</a> in the <em>Route 53 Developer Guide</em> .</p>
+<blockquote>
+<div><strong>WEIGHTED</strong></div>
+</blockquote>
+<p>Route 53 returns the applicable value from one randomly selected instance from among the instances that you registered using the same service. Currently, all records have the same weight, so you can't route more or less traffic to any instances.</p>
+<p>For example, suppose the service includes configurations for one A record and a health check, and you use the service to register 10 instances. Route 53 responds to DNS queries with the IP address for one randomly selected instance from among the healthy instances. If no instances are healthy, Route 53 responds to DNS queries as if all of the instances were healthy.</p>
+<p>If you don't define a health check for the service, Route 53 assumes that all instances are healthy and returns the applicable value for one randomly selected instance.</p>
+<p>For more information about the weighted routing policy, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html#routing-policy-weighted">Weighted Routing</a> in the <em>Route 53 Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>DnsRecords -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array that contains one <tt class="docutils literal"><span class="pre">DnsRecord</span></tt> object for each Route 53 DNS record that you want AWS Cloud Map to create when you register an instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about the Route 53 DNS records that you want AWS Cloud Map to create when you register an instance.</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of the resource, which indicates the type of value that Route 53 returns in response to DNS queries.</p>
+<p>Note the following:</p>
+<ul class="simple">
+<li>
+<strong>A, AAAA, and SRV records:</strong> You can specify settings for a maximum of one A, one AAAA, and one SRV record. You can specify them in any combination.</li>
+<li>
+<strong>CNAME records:</strong> If you specify <tt class="docutils literal"><span class="pre">CNAME</span></tt> for <tt class="docutils literal"><span class="pre">Type</span></tt> , you can't define any other records. This is a limitation of DNS: you can't create a CNAME record and any other type of record that has the same name as a CNAME record.</li>
+<li>
+<strong>Alias records:</strong> If you want AWS Cloud Map to create a Route 53 alias record when you register an instance, specify <tt class="docutils literal"><span class="pre">A</span></tt> or <tt class="docutils literal"><span class="pre">AAAA</span></tt> for <tt class="docutils literal"><span class="pre">Type</span></tt> .</li>
+<li>
+<strong>All records:</strong> You specify settings other than <tt class="docutils literal"><span class="pre">TTL</span></tt> and <tt class="docutils literal"><span class="pre">Type</span></tt> when you register an instance.</li>
+</ul>
+<p>The following values are supported:</p>
+<blockquote>
+<div><strong>A</strong></div>
+</blockquote>
+<p>Route 53 returns the IP address of the resource in IPv4 format, such as 192.0.2.44.</p>
+<blockquote>
+<div><strong>AAAA</strong></div>
+</blockquote>
+<p>Route 53 returns the IP address of the resource in IPv6 format, such as 2001:0db8:85a3:0000:0000:abcd:0001:2345.</p>
+<blockquote>
+<div><strong>CNAME</strong></div>
+</blockquote>
+<p>Route 53 returns the domain name of the resource, such as www.example.com. Note the following:</p>
+<ul class="simple">
+<li>You specify the domain name that you want to route traffic to when you register an instance. For more information, see  RegisterInstanceRequest$Attributes .</li>
+<li>You must specify <tt class="docutils literal"><span class="pre">WEIGHTED</span></tt> for the value of <tt class="docutils literal"><span class="pre">RoutingPolicy</span></tt> .</li>
+<li>You can't specify both <tt class="docutils literal"><span class="pre">CNAME</span></tt> for <tt class="docutils literal"><span class="pre">Type</span></tt> and settings for <tt class="docutils literal"><span class="pre">HealthCheckConfig</span></tt> . If you do, the request will fail with an <tt class="docutils literal"><span class="pre">InvalidInput</span></tt> error.</li>
+</ul>
+<blockquote>
+<div><strong>SRV</strong></div>
+</blockquote>
+<p>Route 53 returns the value for an SRV record. The value for an SRV record uses the following values:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">priority</span> <span class="pre">weight</span> <span class="pre">port</span> <span class="pre">service-hostname</span></tt></div>
+</blockquote>
+<p>Note the following about the values:</p>
+<ul class="simple">
+<li>The values of <tt class="docutils literal"><span class="pre">priority</span></tt> and <tt class="docutils literal"><span class="pre">weight</span></tt> are both set to <tt class="docutils literal"><span class="pre">1</span></tt> and can't be changed.</li>
+<li>The value of <tt class="docutils literal"><span class="pre">port</span></tt> comes from the value that you specify for the <tt class="docutils literal"><span class="pre">AWS_INSTANCE_PORT</span></tt> attribute when you submit a  RegisterInstance request.</li>
+<li>The value of <tt class="docutils literal"><span class="pre">service-hostname</span></tt> is a concatenation of the following values:<ul>
+<li>The value that you specify for <tt class="docutils literal"><span class="pre">InstanceId</span></tt> when you register an instance.</li>
+<li>The name of the service.</li>
+<li>The name of the namespace.</li>
+</ul>
+</li>
+</ul>
+<p>For example, if the value of <tt class="docutils literal"><span class="pre">InstanceId</span></tt> is <tt class="docutils literal"><span class="pre">test</span></tt> , the name of the service is <tt class="docutils literal"><span class="pre">backend</span></tt> , and the name of the namespace is <tt class="docutils literal"><span class="pre">example.com</span></tt> , the value of <tt class="docutils literal"><span class="pre">service-hostname</span></tt> is:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">test.backend.example.com</span></tt></div>
+</blockquote>
+<p>If you specify settings for an SRV record and if you specify values for <tt class="docutils literal"><span class="pre">AWS_INSTANCE_IPV4</span></tt> , <tt class="docutils literal"><span class="pre">AWS_INSTANCE_IPV6</span></tt> , or both in the <tt class="docutils literal"><span class="pre">RegisterInstance</span></tt> request, AWS Cloud Map automatically creates <tt class="docutils literal"><span class="pre">A</span></tt> and/or <tt class="docutils literal"><span class="pre">AAAA</span></tt> records that have the same name as the value of <tt class="docutils literal"><span class="pre">service-hostname</span></tt> in the SRV record. You can ignore these records.</p>
+</div>
+</blockquote>
+<p>TTL -&gt; (long)</p>
+<blockquote>
+<div>
+<p>The amount of time, in seconds, that you want DNS resolvers to cache the settings for this record.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Alias records don't include a TTL because Route 53 uses the TTL for the AWS resource that an alias record routes traffic to. If you include the <tt class="docutils literal"><span class="pre">AWS_ALIAS_DNS_NAME</span></tt> attribute when you submit a  RegisterInstance request, the <tt class="docutils literal"><span class="pre">TTL</span></tt> value is ignored. Always specify a TTL for the service; you can use a service to register instances that create either alias or non-alias records.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HealthCheckConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<blockquote>
+<div>
+<em>Public DNS namespaces only.</em> A complex type that contains settings for an optional health check. If you specify settings for a health check, AWS Cloud Map associates the health check with the records that you specify in <tt class="docutils literal"><span class="pre">DnsConfig</span></tt> .</div>
+</blockquote>
+<p>For information about the charges for health checks, see <a class="reference external" href="http://aws.amazon.com/route53/pricing/">Amazon Route 53 Pricing</a> .</p>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of health check that you want to create, which indicates how Route 53 determines whether an endpoint is healthy.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You can't change the value of <tt class="docutils literal"><span class="pre">Type</span></tt> after you create a health check.</p>
+</div>
+<p>You can create the following types of health checks:</p>
+<ul class="simple">
+<li>
+<strong>HTTP</strong> : Route 53 tries to establish a TCP connection. If successful, Route 53 submits an HTTP request and waits for an HTTP status code of 200 or greater and less than 400.</li>
+<li>
+<strong>HTTPS</strong> : Route 53 tries to establish a TCP connection. If successful, Route 53 submits an HTTPS request and waits for an HTTP status code of 200 or greater and less than 400.</li>
+</ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you specify HTTPS for the value of <tt class="docutils literal"><span class="pre">Type</span></tt> , the endpoint must support TLS v1.0 or later.</p>
+</div>
+<ul class="simple">
+<li>
+<strong>TCP</strong> : Route 53 tries to establish a TCP connection. If you specify <tt class="docutils literal"><span class="pre">TCP</span></tt> for <tt class="docutils literal"><span class="pre">Type</span></tt> , don't specify a value for <tt class="docutils literal"><span class="pre">ResourcePath</span></tt> .</li>
+</ul>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How Route 53 Determines Whether an Endpoint Is Healthy</a> in the <em>Route 53 Developer Guide</em> .</p>
+</div>
+</blockquote>
+<p>ResourcePath -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The path that you want Route 53 to request when performing health checks. The path can be any value for which your endpoint will return an HTTP status code of 2xx or 3xx when the endpoint is healthy, such as the file <tt class="docutils literal"><span class="pre">/docs/route53-health-check.html</span></tt> . Route 53 automatically adds the DNS name for the service. If you don't specify a value for <tt class="docutils literal"><span class="pre">ResourcePath</span></tt> , the default value is <tt class="docutils literal"><span class="pre">/</span></tt> .</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">TCP</span></tt> for <tt class="docutils literal"><span class="pre">Type</span></tt> , you must <em>not</em> specify a value for <tt class="docutils literal"><span class="pre">ResourcePath</span></tt> .</p>
+</div>
+</blockquote>
+<p>FailureThreshold -&gt; (integer)</p>
+<blockquote>
+<div>The number of consecutive health checks that an endpoint must pass or fail for Route 53 to change the current status of the endpoint from unhealthy to healthy or vice versa. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html">How Route 53 Determines Whether an Endpoint Is Healthy</a> in the <em>Route 53 Developer Guide</em> .</div>
+</blockquote>
+</div>
+</blockquote>
+<p>HealthCheckCustomConfig -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A complex type that contains information about an optional custom health check.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you specify a health check configuration, you can specify either <tt class="docutils literal"><span class="pre">HealthCheckCustomConfig</span></tt> or <tt class="docutils literal"><span class="pre">HealthCheckConfig</span></tt> but not both.</p>
+</div>
+<p>FailureThreshold -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The number of 30-second intervals that you want Cloud Map to wait after receiving an <tt class="docutils literal"><span class="pre">UpdateInstanceCustomHealthStatus</span></tt> request before it changes the health status of a service instance. For example, suppose you specify a value of <tt class="docutils literal"><span class="pre">2</span></tt> for <tt class="docutils literal"><span class="pre">FailureTheshold</span></tt> , and then your application sends an <tt class="docutils literal"><span class="pre">UpdateInstanceCustomHealthStatus</span></tt> request. Cloud Map waits for approximately 60 seconds (2 x 30) before changing the status of the service instance based on that request.</p>
+<p>Sending a second or subsequent <tt class="docutils literal"><span class="pre">UpdateInstanceCustomHealthStatus</span></tt> request with the same value before <tt class="docutils literal"><span class="pre">FailureThreshold</span> <span class="pre">x</span> <span class="pre">30</span></tt> seconds has passed doesn't accelerate the change. Cloud Map still waits <tt class="docutils literal"><span class="pre">FailureThreshold</span> <span class="pre">x</span> <span class="pre">30</span></tt> seconds after the first request to make the change.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>CreateDate -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that the service was created, in Unix format and Coordinated Universal Time (UTC). The value of <tt class="docutils literal"><span class="pre">CreateDate</span></tt> is accurate to milliseconds. For example, the value <tt class="docutils literal"><span class="pre">1516925490.087</span></tt> represents Friday, January 26, 2018 12:11:30.087 AM.</div>
+</blockquote>
+<p>CreatorRequestId -&gt; (string)</p>
+<blockquote>
+<div>A unique string that identifies the request and that allows failed requests to be retried without the risk of executing the operation twice. <tt class="docutils literal"><span class="pre">CreatorRequestId</span></tt> can be any unique string, for example, a date/time stamp.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

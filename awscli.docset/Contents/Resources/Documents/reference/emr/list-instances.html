@@ -1,0 +1,401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-instances — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="emr" href="index.html">
+    <link rel="next" title="list-security-configurations" href="list-security-configurations.html">
+    <link rel="prev" title="list-instance-fleets" href="list-instance-fleets.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-instances">
+<span id="cli-aws-emr-list-instances"></span><h1>list-instances<a class="headerlink" href="#list-instances" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Provides information for all active EC2 instances and EC2 instances terminated in the last 30 days, up to a maximum of 2,000. EC2 instances in any of the following states are considered active: AWAITING_FULFILLMENT, PROVISIONING, BOOTSTRAPPING, RUNNING.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListInstances">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-instances</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">Instances</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-instances
+--cluster-id &lt;value&gt;
+[--instance-group-id &lt;value&gt;]
+[--instance-group-types &lt;value&gt;]
+[--instance-fleet-id &lt;value&gt;]
+[--instance-fleet-type &lt;value&gt;]
+[--instance-states &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the cluster for which to list the instances.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-group-id</span></tt> (string)</p>
+<blockquote>
+<div>The identifier of the instance group for which to list the instances.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-group-types</span></tt> (list)</p>
+<blockquote>
+<div>The type of instance group for which to list the instances.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  MASTER
+  CORE
+  TASK</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--instance-fleet-id</span></tt> (string)</p>
+<blockquote>
+<div>The unique identifier of the instance fleet.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-fleet-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The node type of the instance fleet. For example MASTER, CORE, or TASK.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">MASTER</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">CORE</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TASK</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-states</span></tt> (list)</p>
+<blockquote>
+<div>A list of instance states that will filter the instances returned with this request.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  AWAITING_FULFILLMENT
+  PROVISIONING
+  BOOTSTRAPPING
+  RUNNING
+  TERMINATED</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command lists all of the instances in a cluster with the cluster ID <tt class="docutils literal"><span class="pre">j-3C6XNQ39VR9WL</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws emr list-instances --cluster-id j-3C6XNQ39VR9WL</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>For a uniform instance group based cluster
+  {
+    "Instances": [
+         {
+            "Status": {
+                "Timeline": {
+                    "ReadyDateTime": 1433200400.03,
+                    "CreationDateTime": 1433199960.152
+                },
+                "State": "RUNNING",
+                "StateChangeReason": {}
+            },
+            "Ec2InstanceId": "i-f19ecfee",
+            "PublicDnsName": "ec2-52-52-41-150.us-west-2.compute.amazonaws.com",
+            "PrivateDnsName": "ip-172-21-11-216.us-west-2.compute.internal",
+            "PublicIpAddress": "52.52.41.150",
+            "Id": "ci-3NNHQUQ2TWB6Y",
+            "PrivateIpAddress": "172.21.11.216"
+        },
+        {
+            "Status": {
+                "Timeline": {
+                    "ReadyDateTime": 1433200400.031,
+                    "CreationDateTime": 1433199949.102
+                },
+                "State": "RUNNING",
+                "StateChangeReason": {}
+            },
+            "Ec2InstanceId": "i-1feee4c2",
+            "PublicDnsName": "ec2-52-63-246-32.us-west-2.compute.amazonaws.com",
+            "PrivateDnsName": "ip-172-31-24-130.us-west-2.compute.internal",
+            "PublicIpAddress": "52.63.246.32",
+            "Id": "ci-GAOCMKNKDCV7",
+            "PrivateIpAddress": "172.21.11.215"
+        },
+        {
+            "Status": {
+                "Timeline": {
+                    "ReadyDateTime": 1433200400.031,
+                    "CreationDateTime": 1433199949.102
+                },
+                "State": "RUNNING",
+                "StateChangeReason": {}
+            },
+            "Ec2InstanceId": "i-15cfeee3",
+            "PublicDnsName": "ec2-52-25-246-63.us-west-2.compute.amazonaws.com",
+            "PrivateDnsName": "ip-172-31-24-129.us-west-2.compute.internal",
+            "PublicIpAddress": "52.25.246.63",
+            "Id": "ci-2W3TDFFB47UAD",
+            "PrivateIpAddress": "172.21.11.214"
+        }
+    ]
+  }
+
+
+For a fleet based cluster:
+   {
+      "Instances": [
+          {
+              "Status": {
+                  "Timeline": {
+                      "ReadyDateTime": 1487810810.878,
+                      "CreationDateTime": 1487810588.367,
+                      "EndDateTime": 1488022990.924
+                  },
+                  "State": "TERMINATED",
+                  "StateChangeReason": {
+                      "Message": "Instance was terminated."
+                  }
+              },
+              "Ec2InstanceId": "i-xxxxx",
+              "InstanceFleetId": "if-xxxxx",
+              "EbsVolumes": [],
+              "PublicDnsName": "ec2-xx-xxx-xxx-xxx.compute-1.amazonaws.com",
+              "InstanceType": "m3.xlarge",
+              "PrivateDnsName": "ip-xx-xx-xxx-xx.ec2.internal",
+              "Market": "SPOT",
+              "PublicIpAddress": "xx.xx.xxx.xxx",
+              "Id": "ci-xxxxx",
+              "PrivateIpAddress": "10.47.191.80"
+          }
+      ]
+  }</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Instances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of instances for the cluster and given filters.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents an EC2 instance provisioned as part of cluster.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the instance in Amazon EMR.</div>
+</blockquote>
+<p>Ec2InstanceId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier of the instance in Amazon EC2.</div>
+</blockquote>
+<p>PublicDnsName -&gt; (string)</p>
+<blockquote>
+<div>The public DNS name of the instance.</div>
+</blockquote>
+<p>PublicIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The public IP address of the instance.</div>
+</blockquote>
+<p>PrivateDnsName -&gt; (string)</p>
+<blockquote>
+<div>The private DNS name of the instance.</div>
+</blockquote>
+<p>PrivateIpAddress -&gt; (string)</p>
+<blockquote>
+<div>The private IP address of the instance.</div>
+</blockquote>
+<p>Status -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The current status of the instance.</p>
+<p>State -&gt; (string)</p>
+<blockquote>
+<div>The current state of the instance.</div>
+</blockquote>
+<p>StateChangeReason -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The details of the status change reason for the instance.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The programmable code for the state change reason.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The status change reason description.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Timeline -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The timeline of the instance status over time.</p>
+<p>CreationDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The creation date and time of the instance.</div>
+</blockquote>
+<p>ReadyDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the instance was ready to perform tasks.</div>
+</blockquote>
+<p>EndDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time when the instance was terminated.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>InstanceGroupId -&gt; (string)</p>
+<blockquote>
+<div>The identifier of the instance group to which this instance belongs.</div>
+</blockquote>
+<p>InstanceFleetId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier of the instance fleet to which an EC2 instance belongs.</div>
+</blockquote>
+<p>Market -&gt; (string)</p>
+<blockquote>
+<div>The instance purchasing option. Valid values are <tt class="docutils literal"><span class="pre">ON_DEMAND</span></tt> or <tt class="docutils literal"><span class="pre">SPOT</span></tt> .</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The EC2 instance type, for example <tt class="docutils literal"><span class="pre">m3.xlarge</span></tt> .</div>
+</blockquote>
+<p>EbsVolumes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of EBS volumes that are attached to this instance.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>EBS block device that's attached to an EC2 instance.</p>
+<p>Device -&gt; (string)</p>
+<blockquote>
+<div>The device name that is exposed to the instance, such as /dev/sdh.</div>
+</blockquote>
+<p>VolumeId -&gt; (string)</p>
+<blockquote>
+<div>The volume identifier of the EBS volume.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Marker -&gt; (string)</p>
+<blockquote>
+<div>The pagination token that indicates the next set of results to retrieve.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

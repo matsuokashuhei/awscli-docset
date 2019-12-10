@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>detect-moderation-labels — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="detect-text" href="detect-text.html">
+    <link rel="prev" title="detect-labels" href="detect-labels.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="detect-moderation-labels">
+<span id="cli-aws-rekognition-detect-moderation-labels"></span><h1>detect-moderation-labels<a class="headerlink" href="#detect-moderation-labels" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Detects unsafe content in a specified JPEG or PNG format image. Use <tt class="docutils literal"><span class="pre">DetectModerationLabels</span></tt> to moderate images depending on your requirements. For example, you might want to filter images that contain nudity, but not images containing suggestive content.</p>
+<p>To filter images, use the labels returned by <tt class="docutils literal"><span class="pre">DetectModerationLabels</span></tt> to determine which types of content are appropriate.</p>
+<p>For information about moderation labels, see Detecting Unsafe Content in the Amazon Rekognition Developer Guide.</p>
+<p>You pass the input image either as base64-encoded image bytes or as a reference to an image in an Amazon S3 bucket. If you use the AWS CLI to call Amazon Rekognition operations, passing image bytes is not supported. The image must be either a PNG or JPEG formatted file.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/DetectModerationLabels">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  detect-moderation-labels
+[--image &lt;value&gt;]
+[--min-confidence &lt;value&gt;]
+[--human-loop-config &lt;value&gt;]
+[--image-bytes &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--image</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The input image as base64-encoded bytes or an S3 object. If you use the AWS CLI to call Amazon Rekognition operations, passing base64-encoded image bytes is not supported.</p>
+<p>If you are using an AWS SDK to call Amazon Rekognition, you might not need to base64-encode image bytes passed using the <tt class="docutils literal"><span class="pre">Bytes</span></tt> field. For more information, see Images in the Amazon Rekognition developer guide.</p>
+<p>To specify a local file use <tt class="docutils literal"><span class="pre">--image-bytes</span></tt> instead.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Bytes=blob,S3Object={Bucket=string,Name=string,Version=string}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Bytes"</span><span class="p">:</span> <span class="n">blob</span><span class="p">,</span>
+  <span class="s2">"S3Object"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--min-confidence</span></tt> (float)</p>
+<blockquote>
+<div>
+<p>Specifies the minimum confidence level for the labels to return. Amazon Rekognition doesn't return any labels with a confidence level lower than this specified value.</p>
+<p>If you don't specify <tt class="docutils literal"><span class="pre">MinConfidence</span></tt> , the operation returns labels with confidence values greater than or equal to 50 percent.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--human-loop-config</span></tt> (structure)</p>
+<blockquote>
+<div>Sets up the configuration for human evaluation, including the FlowDefinition the image will be sent to.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>HumanLoopName=string,FlowDefinitionArn=string,DataAttributes={ContentClassifiers=[string,string]}</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"HumanLoopName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"FlowDefinitionArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DataAttributes"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"ContentClassifiers"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"FreeOfPersonallyIdentifiableInformation"</span><span class="o">|</span><span class="s2">"FreeOfAdultContent"</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--image-bytes</span></tt> (blob)</p>
+<blockquote>
+<div>The content of the image to be uploaded. To specify the content of a local file use the fileb:// prefix. Example: fileb://image.png</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To detect unsafe content in an image</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">detect-moderation-labels</span></tt> command detects unsafe content in the specified image stored in an Amazon S3 bucket.</p>
+<div class="highlight-python">
+<pre>aws rekognition detect-moderation-labels \
+    --image "S3Object={Bucket=MyImageS3Bucket,Name=gun.jpg}"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ModerationModelVersion"</span><span class="p">:</span> <span class="s2">"3.0"</span><span class="p">,</span>
+    <span class="s2">"ModerationLabels"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">97.29618072509766</span><span class="p">,</span>
+            <span class="s2">"ParentName"</span><span class="p">:</span> <span class="s2">"Violence"</span><span class="p">,</span>
+            <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Weapon Violence"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">97.29618072509766</span><span class="p">,</span>
+            <span class="s2">"ParentName"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Violence"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/procedure-moderate-images.html">Detecting Unsafe Images</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ModerationLabels -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Array of detected Moderation labels and the time, in milliseconds from the start of the video, they were detected.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Provides information about a single type of unsafe content found in an image or video. Each type of moderated content has a label within a hierarchical taxonomy. For more information, see Detecting Unsafe Content in the Amazon Rekognition Developer Guide.</p>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>
+<p>Specifies the confidence that Amazon Rekognition has that the label has been correctly identified.</p>
+<p>If you don't specify the <tt class="docutils literal"><span class="pre">MinConfidence</span></tt> parameter in the call to <tt class="docutils literal"><span class="pre">DetectModerationLabels</span></tt> , the operation returns labels with a confidence value greater than or equal to 50 percent.</p>
+</div>
+</blockquote>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The label name for the type of unsafe content detected in the image.</div>
+</blockquote>
+<p>ParentName -&gt; (string)</p>
+<blockquote>
+<div>The name for the parent label. Labels at the top level of the hierarchy have the parent label <tt class="docutils literal"><span class="pre">""</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ModerationModelVersion -&gt; (string)</p>
+<blockquote>
+<div>Version number of the moderation detection model that was used to detect unsafe content.</div>
+</blockquote>
+<p>HumanLoopActivationOutput -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Shows the results of the human in the loop evaluation.</p>
+<p>HumanLoopArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the HumanLoop created.</div>
+</blockquote>
+<p>HumanLoopActivationReasons -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Shows if and why human review was needed.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>HumanLoopActivationConditionsEvaluationResults -&gt; (string)</p>
+<blockquote>
+<div>Shows the result of condition evaluations, including those conditions which activated a human review.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

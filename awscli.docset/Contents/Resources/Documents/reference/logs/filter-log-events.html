@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>filter-log-events — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="logs" href="index.html">
+    <link rel="next" title="get-log-events" href="get-log-events.html">
+    <link rel="prev" title="disassociate-kms-key" href="disassociate-kms-key.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="filter-log-events">
+<span id="cli-aws-logs-filter-log-events"></span><h1>filter-log-events<a class="headerlink" href="#filter-log-events" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Lists log events from the specified log group. You can list all the log events or filter the results using a filter pattern, a time range, and the name of the log stream.</p>
+<p>By default, this operation returns as many log events as can fit in 1 MB (up to 10,000 log events), or all the events found within the time range that you specify. If the results include a token, then there are more log events available, and you can get additional results by specifying the token in a subsequent call.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/logs-2014-03-28/FilterLogEvents">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">filter-log-events</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">events</span></tt>, <tt class="docutils literal"><span class="pre">searchedLogStreams</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  filter-log-events
+--log-group-name &lt;value&gt;
+[--log-stream-names &lt;value&gt;]
+[--log-stream-name-prefix &lt;value&gt;]
+[--start-time &lt;value&gt;]
+[--end-time &lt;value&gt;]
+[--filter-pattern &lt;value&gt;]
+[--interleaved | --no-interleaved]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--log-group-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the log group to search.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-stream-names</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Filters the results to only logs from the log streams in this list.</p>
+<p>If you specify a value for both <tt class="docutils literal"><span class="pre">logStreamNamePrefix</span></tt> and <tt class="docutils literal"><span class="pre">logStreamNames</span></tt> , the action returns an <tt class="docutils literal"><span class="pre">InvalidParameterException</span></tt> error.</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--log-stream-name-prefix</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Filters the results to include only events from log streams that have names starting with this prefix.</p>
+<p>If you specify a value for both <tt class="docutils literal"><span class="pre">logStreamNamePrefix</span></tt> and <tt class="docutils literal"><span class="pre">logStreamNames</span></tt> , but the value for <tt class="docutils literal"><span class="pre">logStreamNamePrefix</span></tt> does not match any log stream names specified in <tt class="docutils literal"><span class="pre">logStreamNames</span></tt> , the action returns an <tt class="docutils literal"><span class="pre">InvalidParameterException</span></tt> error.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (long)</p>
+<blockquote>
+<div>The start of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp before this time are not returned.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (long)</p>
+<blockquote>
+<div>The end of the time range, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC. Events with a timestamp later than this time are not returned.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter-pattern</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The filter pattern to use. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html">Filter and Pattern Syntax</a> .</p>
+<p>If not provided, all the events are matched.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--interleaved</span></tt> | <tt class="docutils literal"><span class="pre">--no-interleaved</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>If the value is true, the operation makes a best effort to provide responses that contain events from multiple log streams within the log group, interleaved in a single response. If the value is false, all the matched log events in the first log stream are searched first, then those in the next log stream, and so on. The default is false.</p>
+<blockquote>
+<div>
+<strong>IMPORTANT:</strong> Starting on June 17, 2019, this parameter will be ignored and the value will be assumed to be true. The response from this operation will always interleave events from multiple log streams within a log group.</div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>events -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The matched events.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a matched event.</p>
+<p>logStreamName -&gt; (string)</p>
+<blockquote>
+<div>The name of the log stream to which this event belongs.</div>
+</blockquote>
+<p>timestamp -&gt; (long)</p>
+<blockquote>
+<div>The time the event occurred, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.</div>
+</blockquote>
+<p>message -&gt; (string)</p>
+<blockquote>
+<div>The data contained in the log event.</div>
+</blockquote>
+<p>ingestionTime -&gt; (long)</p>
+<blockquote>
+<div>The time the event was ingested, expressed as the number of milliseconds after Jan 1, 1970 00:00:00 UTC.</div>
+</blockquote>
+<p>eventId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the event.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>searchedLogStreams -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Indicates which log streams have been searched and whether each has been searched completely.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents the search status of a log stream.</p>
+<p>logStreamName -&gt; (string)</p>
+<blockquote>
+<div>The name of the log stream.</div>
+</blockquote>
+<p>searchedCompletely -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether all the events in this log stream were searched.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>The token to use when requesting the next set of items. The token expires after 24 hours.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

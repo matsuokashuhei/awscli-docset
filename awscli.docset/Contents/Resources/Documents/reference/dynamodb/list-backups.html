@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-backups — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="dynamodb" href="index.html">
+    <link rel="next" title="list-contributor-insights" href="list-contributor-insights.html">
+    <link rel="prev" title="get-item" href="get-item.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-backups">
+<span id="cli-aws-dynamodb-list-backups"></span><h1>list-backups<a class="headerlink" href="#list-backups" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>List backups associated with an AWS account. To list backups for a given table, specify <tt class="docutils literal"><span class="pre">TableName</span></tt> . <tt class="docutils literal"><span class="pre">ListBackups</span></tt> returns a paginated list of results with at most 1 MB worth of items in a page. You can also specify a limit for the maximum number of entries to be returned in a page.</p>
+<p>In the request, start time is inclusive, but end time is exclusive. Note that these limits are for the time at which the original backup was requested.</p>
+<p>You can call <tt class="docutils literal"><span class="pre">ListBackups</span></tt> a maximum of five times per second.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/dynamodb-2012-08-10/ListBackups">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-backups</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">BackupSummaries</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-backups
+[--table-name &lt;value&gt;]
+[--time-range-lower-bound &lt;value&gt;]
+[--time-range-upper-bound &lt;value&gt;]
+[--backup-type &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--table-name</span></tt> (string)</p>
+<blockquote>
+<div>The backups from the table specified by <tt class="docutils literal"><span class="pre">TableName</span></tt> are listed.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--time-range-lower-bound</span></tt> (timestamp)</p>
+<blockquote>
+<div>Only backups created after this time are listed. <tt class="docutils literal"><span class="pre">TimeRangeLowerBound</span></tt> is inclusive.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--time-range-upper-bound</span></tt> (timestamp)</p>
+<blockquote>
+<div>Only backups created before this time are listed. <tt class="docutils literal"><span class="pre">TimeRangeUpperBound</span></tt> is exclusive.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--backup-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The backups from the table specified by <tt class="docutils literal"><span class="pre">BackupType</span></tt> are listed.</p>
+<p>Where <tt class="docutils literal"><span class="pre">BackupType</span></tt> can be:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">USER</span></tt> - On-demand backup created by you.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SYSTEM</span></tt> - On-demand backup automatically created by DynamoDB.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ALL</span></tt> - All types of on-demand backups (USER and SYSTEM).</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">USER</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">SYSTEM</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS_BACKUP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ALL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>BackupSummaries -&gt; (list)</p>
+<blockquote>
+<div>
+<p>List of <tt class="docutils literal"><span class="pre">BackupSummary</span></tt> objects.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains details for the backup.</p>
+<p>TableName -&gt; (string)</p>
+<blockquote>
+<div>Name of the table.</div>
+</blockquote>
+<p>TableId -&gt; (string)</p>
+<blockquote>
+<div>Unique identifier for the table.</div>
+</blockquote>
+<p>TableArn -&gt; (string)</p>
+<blockquote>
+<div>ARN associated with the table.</div>
+</blockquote>
+<p>BackupArn -&gt; (string)</p>
+<blockquote>
+<div>ARN associated with the backup.</div>
+</blockquote>
+<p>BackupName -&gt; (string)</p>
+<blockquote>
+<div>Name of the specified backup.</div>
+</blockquote>
+<p>BackupCreationDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time at which the backup was created.</div>
+</blockquote>
+<p>BackupExpiryDateTime -&gt; (timestamp)</p>
+<blockquote>
+<div>Time at which the automatic on-demand backup created by DynamoDB will expire. This <tt class="docutils literal"><span class="pre">SYSTEM</span></tt> on-demand backup expires automatically 35 days after its creation.</div>
+</blockquote>
+<p>BackupStatus -&gt; (string)</p>
+<blockquote>
+<div>Backup can be in one of the following states: CREATING, ACTIVE, DELETED.</div>
+</blockquote>
+<p>BackupType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>BackupType:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">USER</span></tt> - You create and manage these using the on-demand backup feature.</li>
+<li>
+<tt class="docutils literal"><span class="pre">SYSTEM</span></tt> - If you delete a table with point-in-time recovery enabled, a <tt class="docutils literal"><span class="pre">SYSTEM</span></tt> backup is automatically created and is retained for 35 days (at no additional cost). System backups allow you to restore the deleted table to the state it was in just before the point of deletion.</li>
+<li>
+<tt class="docutils literal"><span class="pre">AWS_BACKUP</span></tt> - On-demand backup created by you from AWS Backup service.</li>
+</ul>
+</div>
+</blockquote>
+<p>BackupSizeBytes -&gt; (long)</p>
+<blockquote>
+<div>Size of the backup in bytes.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LastEvaluatedBackupArn -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The ARN of the backup last evaluated when the current page of results was returned, inclusive of the current page of results. This value may be specified as the <tt class="docutils literal"><span class="pre">ExclusiveStartBackupArn</span></tt> of a new <tt class="docutils literal"><span class="pre">ListBackups</span></tt> operation in order to fetch the next page of results.</p>
+<p>If <tt class="docutils literal"><span class="pre">LastEvaluatedBackupArn</span></tt> is empty, then the last page of results has been processed and there are no more results to be retrieved.</p>
+<p>If <tt class="docutils literal"><span class="pre">LastEvaluatedBackupArn</span></tt> is not empty, this may or may not indicate that there is more data to be returned. All results are guaranteed to have been returned if and only if no value for <tt class="docutils literal"><span class="pre">LastEvaluatedBackupArn</span></tt> is returned.</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

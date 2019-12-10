@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-bucket-inventory-configuration — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="put-bucket-lifecycle-configuration" href="put-bucket-lifecycle-configuration.html">
+    <link rel="prev" title="put-bucket-encryption" href="put-bucket-encryption.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-bucket-inventory-configuration">
+<span id="cli-aws-s3api-put-bucket-inventory-configuration"></span><h1>put-bucket-inventory-configuration<a class="headerlink" href="#put-bucket-inventory-configuration" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>This implementation of the <tt class="docutils literal"><span class="pre">PUT</span></tt> operation adds an inventory configuration (identified by the inventory ID) to the bucket. You can have up to 1,000 inventory configurations per bucket.</p>
+<p>Amazon S3 inventory generates inventories of the objects in the bucket on a daily or weekly basis, and the results are published to a flat file. The bucket that is inventoried is called the <em>source</em> bucket, and the bucket where the inventory flat file is stored is called the <em>destination</em> bucket. The <em>destination</em> bucket must be in the same AWS Region as the <em>source</em> bucket.</p>
+<p>When you configure an inventory for a <em>source</em> bucket, you specify the <em>destination</em> bucket where you want the inventory to be stored, and whether to generate the inventory daily or weekly. You can also configure what object metadata to include and whether to inventory all object versions or only current versions. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev//storage-inventory.html">Amazon S3 Inventory</a> in the Amazon Simple Storage Service Developer Guide.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You must create a bucket policy on the <em>destination</em> bucket to grant permissions to Amazon S3 to write objects to the bucket in the defined location. For an example policy, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html#example-bucket-policies-use-case-9">Granting Permissions for Amazon S3 Inventory and Storage Class Analysis.</a></p>
+</div>
+<p>To use this operation, you must have permissions to perform the <tt class="docutils literal"><span class="pre">s3:PutInventoryConfiguration</span></tt> action. The bucket owner has this permission by default and can grant this permission to others. For more information about permissions, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev//using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources">Permissions Related to Bucket Subresource Operations</a> and <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev//s3-access-control.html">Managing Access Permissions to Your Amazon S3 Resources</a> in the Amazon Simple Storage Service Developer Guide.</p>
+<blockquote>
+<div><strong>Special Errors</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<strong>HTTP 400 Bad Request Error</strong><ul>
+<li>
+<em>Code:</em> InvalidArgument</li>
+<li>
+<em>Cause:</em> Invalid Argument</li>
+</ul>
+</li>
+<li>
+<strong>HTTP 400 Bad Request Error</strong><ul>
+<li>
+<em>Code:</em> TooManyConfigurations</li>
+<li>
+<em>Cause:</em> You are attempting to create a new configuration but have already reached the 1,000-configuration limit.</li>
+</ul>
+</li>
+<li>
+<strong>HTTP 403 Forbidden Error</strong><ul>
+<li>
+<em>Code:</em> AccessDenied</li>
+<li>
+<em>Cause:</em> You are not the owner of the specified bucket, or you do not have the <tt class="docutils literal"><span class="pre">s3:PutInventoryConfiguration</span></tt> bucket permission to set the configuration on the bucket</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<div><strong>Related Resources</strong></div>
+</blockquote>
+<ul class="simple">
+<li>GetBucketInventoryConfiguration</li>
+<li>DeleteBucketInventoryConfiguration</li>
+<li>ListBucketInventoryConfigurations</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketInventoryConfiguration">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-bucket-inventory-configuration
+--bucket &lt;value&gt;
+--id &lt;value&gt;
+--inventory-configuration &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>The name of the bucket where the inventory configuration will be stored.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--id</span></tt> (string)</p>
+<blockquote>
+<div>The ID used to identify the inventory configuration.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--inventory-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>Specifies the inventory configuration.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Destination"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"S3BucketDestination"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"AccountId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"Format"</span><span class="p">:</span> <span class="s2">"CSV"</span><span class="o">|</span><span class="s2">"ORC"</span><span class="o">|</span><span class="s2">"Parquet"</span><span class="p">,</span>
+      <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+      <span class="s2">"Encryption"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"SSES3"</span><span class="p">:</span> <span class="p">{</span>
+
+        <span class="p">},</span>
+        <span class="s2">"SSEKMS"</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">"KeyId"</span><span class="p">:</span> <span class="s2">"string"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="s2">"IsEnabled"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
+  <span class="s2">"Filter"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"IncludedObjectVersions"</span><span class="p">:</span> <span class="s2">"All"</span><span class="o">|</span><span class="s2">"Current"</span><span class="p">,</span>
+  <span class="s2">"OptionalFields"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"Size"</span><span class="o">|</span><span class="s2">"LastModifiedDate"</span><span class="o">|</span><span class="s2">"StorageClass"</span><span class="o">|</span><span class="s2">"ETag"</span><span class="o">|</span><span class="s2">"IsMultipartUploaded"</span><span class="o">|</span><span class="s2">"ReplicationStatus"</span><span class="o">|</span><span class="s2">"EncryptionStatus"</span><span class="o">|</span><span class="s2">"ObjectLockRetainUntilDate"</span><span class="o">|</span><span class="s2">"ObjectLockMode"</span><span class="o">|</span><span class="s2">"ObjectLockLegalHoldStatus"</span><span class="o">|</span><span class="s2">"IntelligentTieringAccessTier"</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+  <span class="s2">"Schedule"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Frequency"</span><span class="p">:</span> <span class="s2">"Daily"</span><span class="o">|</span><span class="s2">"Weekly"</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

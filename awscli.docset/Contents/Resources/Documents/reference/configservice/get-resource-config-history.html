@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-resource-config-history — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="configservice" href="index.html">
+    <link rel="next" title="get-status" href="get-status.html">
+    <link rel="prev" title="get-organization-conformance-pack-detailed-status" href="get-organization-conformance-pack-detailed-status.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-resource-config-history">
+<span id="cli-aws-configservice-get-resource-config-history"></span><h1>get-resource-config-history<a class="headerlink" href="#get-resource-config-history" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Returns a list of configuration items for the specified resource. The list contains details about each state of the resource during the specified time interval. If you specified a retention period to retain your <tt class="docutils literal"><span class="pre">ConfigurationItems</span></tt> between a minimum of 30 days and a maximum of 7 years (2557 days), AWS Config returns the <tt class="docutils literal"><span class="pre">ConfigurationItems</span></tt> for the specified retention period.</p>
+<p>The response is paginated. By default, AWS Config returns a limit of 10 configuration items per page. You can customize this number with the <tt class="docutils literal"><span class="pre">limit</span></tt> parameter. The response includes a <tt class="docutils literal"><span class="pre">nextToken</span></tt> string. To get the next page of results, run the request again and specify the string for the <tt class="docutils literal"><span class="pre">nextToken</span></tt> parameter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Each call to the API is limited to span a duration of seven days. It is likely that the number of records returned is smaller than the specified <tt class="docutils literal"><span class="pre">limit</span></tt> . In such cases, you can make another call, using the <tt class="docutils literal"><span class="pre">nextToken</span></tt> .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/GetResourceConfigHistory">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">get-resource-config-history</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">configurationItems</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-resource-config-history
+--resource-type &lt;value&gt;
+--resource-id &lt;value&gt;
+[--later-time &lt;value&gt;]
+[--earlier-time &lt;value&gt;]
+[--chronological-order &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--resource-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The resource type.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::CustomerGateway</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::EIP</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::Host</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::Instance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::InternetGateway</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::NetworkAcl</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::NetworkInterface</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::RouteTable</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::SecurityGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::Subnet</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CloudTrail::Trail</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::Volume</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::VPC</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::VPNConnection</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::VPNGateway</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::RegisteredHAInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::NatGateway</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::EgressOnlyInternetGateway</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::VPCEndpoint</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::VPCEndpointService</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::FlowLog</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::EC2::VPCPeeringConnection</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::IAM::Group</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::IAM::Policy</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::IAM::Role</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::IAM::User</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ElasticLoadBalancingV2::LoadBalancer</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ACM::Certificate</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBInstance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBParameterGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBOptionGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBSubnetGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBSecurityGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBSnapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBCluster</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBClusterParameterGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::DBClusterSnapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::RDS::EventSubscription</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::S3::Bucket</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::S3::AccountPublicAccessBlock</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Redshift::Cluster</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Redshift::ClusterSnapshot</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Redshift::ClusterParameterGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Redshift::ClusterSecurityGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Redshift::ClusterSubnetGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Redshift::EventSubscription</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::SSM::ManagedInstanceInventory</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CloudWatch::Alarm</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CloudFormation::Stack</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ElasticLoadBalancing::LoadBalancer</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::AutoScaling::AutoScalingGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::AutoScaling::LaunchConfiguration</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::AutoScaling::ScalingPolicy</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::AutoScaling::ScheduledAction</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::DynamoDB::Table</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CodeBuild::Project</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAF::RateBasedRule</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAF::Rule</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAF::RuleGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAF::WebACL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAFRegional::RateBasedRule</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAFRegional::Rule</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAFRegional::RuleGroup</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::WAFRegional::WebACL</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CloudFront::Distribution</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CloudFront::StreamingDistribution</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Lambda::Alias</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Lambda::Function</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ElasticBeanstalk::Application</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ElasticBeanstalk::ApplicationVersion</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ElasticBeanstalk::Environment</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::MobileHub::Project</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::XRay::EncryptionConfig</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::SSM::AssociationCompliance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::SSM::PatchCompliance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Shield::Protection</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ShieldRegional::Protection</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::Config::ResourceCompliance</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::LicenseManager::LicenseConfiguration</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGateway::DomainName</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGateway::Method</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGateway::Stage</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGateway::RestApi</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGatewayV2::DomainName</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGatewayV2::Stage</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ApiGatewayV2::Api</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::CodePipeline::Pipeline</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ServiceCatalog::CloudFormationProvisionedProduct</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ServiceCatalog::CloudFormationProduct</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">AWS::ServiceCatalog::Portfolio</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the resource (for example., <tt class="docutils literal"><span class="pre">sg-xxxxxx</span></tt> ).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--later-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The time stamp that indicates a later time. If not specified, current time is taken.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--earlier-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>The time stamp that indicates an earlier time. If not specified, the action returns paginated results that contain configuration items that start when the first configuration item was recorded.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--chronological-order</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The chronological order for configuration items listed. By default, the results are listed in reverse chronological order.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Reverse</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Forward</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get the configuration history of an AWS resource</strong></p>
+<p>The following command returns a list of configuration items for an EC2 instance with an ID of <tt class="docutils literal"><span class="pre">i-1a2b3c4d</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws configservice get-resource-config-history --resource-type AWS::EC2::Instance --resource-id i-1a2b3c4d</pre>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>configurationItems -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list that contains the configuration history of one or more resources.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A list that contains detailed configurations of a specified resource.</p>
+<p>version -&gt; (string)</p>
+<blockquote>
+<div>The version number of the resource configuration.</div>
+</blockquote>
+<p>accountId -&gt; (string)</p>
+<blockquote>
+<div>The 12-digit AWS account ID associated with the resource.</div>
+</blockquote>
+<p>configurationItemCaptureTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time when the configuration recording was initiated.</div>
+</blockquote>
+<p>configurationItemStatus -&gt; (string)</p>
+<blockquote>
+<div>The configuration item status.</div>
+</blockquote>
+<p>configurationStateId -&gt; (string)</p>
+<blockquote>
+<div>An identifier that indicates the ordering of the configuration items of a resource.</div>
+</blockquote>
+<p>configurationItemMD5Hash -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Unique MD5 hash that represents the configuration item's state.</p>
+<p>You can use MD5 hash to compare the states of two or more configuration items that are associated with the same resource.</p>
+</div>
+</blockquote>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>accoun</div>
+</blockquote>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The type of AWS resource.</div>
+</blockquote>
+<p>resourceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the resource (for example, <tt class="docutils literal"><span class="pre">sg-xxxxxx</span></tt> ).</div>
+</blockquote>
+<p>resourceName -&gt; (string)</p>
+<blockquote>
+<div>The custom name of the resource, if available.</div>
+</blockquote>
+<p>awsRegion -&gt; (string)</p>
+<blockquote>
+<div>The region where the resource resides.</div>
+</blockquote>
+<p>availabilityZone -&gt; (string)</p>
+<blockquote>
+<div>The Availability Zone associated with the resource.</div>
+</blockquote>
+<p>resourceCreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time stamp when the resource was created.</div>
+</blockquote>
+<p>tags -&gt; (map)</p>
+<blockquote>
+<div>
+<p>A mapping of key value tags associated with the resource.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+<p>relatedEvents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of CloudTrail event IDs.</p>
+<p>A populated field indicates that the current configuration was initiated by the events recorded in the CloudTrail log. For more information about CloudTrail, see <a class="reference external" href="https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html">What Is AWS CloudTrail</a> .</p>
+<p>An empty field indicates that the current configuration was not initiated by any event. As of Version 1.3, the relatedEvents field is empty. You can access the <a class="reference external" href="https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/API_LookupEvents.html">LookupEvents API</a> in the <em>AWS CloudTrail API Reference</em> to retrieve the events for the resource.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>relationships -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of related AWS resources.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The relationship of the related resource to the main resource.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The resource type of the related resource.</div>
+</blockquote>
+<p>resourceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the related resource (for example, <tt class="docutils literal"><span class="pre">sg-xxxxxx</span></tt> ).</div>
+</blockquote>
+<p>resourceName -&gt; (string)</p>
+<blockquote>
+<div>The custom name of the related resource, if available.</div>
+</blockquote>
+<p>relationshipName -&gt; (string)</p>
+<blockquote>
+<div>The type of relationship with the related resource.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>configuration -&gt; (string)</p>
+<blockquote>
+<div>The description of the resource configuration.</div>
+</blockquote>
+<p>supplementaryConfiguration -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Configuration attributes that AWS Config returns for certain resource types to supplement the information returned for the <tt class="docutils literal"><span class="pre">configuration</span></tt> parameter.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>The string that you use in a subsequent request to get the next page of results in a paginated response.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

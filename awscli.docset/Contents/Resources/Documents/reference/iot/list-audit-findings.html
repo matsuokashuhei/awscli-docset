@@ -1,0 +1,523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-audit-findings — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="iot" href="index.html">
+    <link rel="next" title="list-audit-mitigation-actions-executions" href="list-audit-mitigation-actions-executions.html">
+    <link rel="prev" title="list-attached-policies" href="list-attached-policies.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-audit-findings">
+<span id="cli-aws-iot-list-audit-findings"></span><h1>list-audit-findings<a class="headerlink" href="#list-audit-findings" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Lists the findings (results) of a Device Defender audit or of the audits performed during a specified time period. (Findings are retained for 180 days.)</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/iot-2015-05-28/ListAuditFindings">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-audit-findings</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">findings</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-audit-findings
+[--task-id &lt;value&gt;]
+[--check-name &lt;value&gt;]
+[--resource-identifier &lt;value&gt;]
+[--start-time &lt;value&gt;]
+[--end-time &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--task-id</span></tt> (string)</p>
+<blockquote>
+<div>A filter to limit results to the audit with the specified ID. You must specify either the taskId or the startTime and endTime, but not both.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--check-name</span></tt> (string)</p>
+<blockquote>
+<div>A filter to limit results to the findings for the specified audit check.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-identifier</span></tt> (structure)</p>
+<blockquote>
+<div>Information identifying the noncompliant resource.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>deviceCertificateId=string,caCertificateId=string,cognitoIdentityPoolId=string,clientId=string,policyVersionIdentifier={policyName=string,policyVersionId=string},account=string,iamRoleArn=string,roleAliasArn=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"deviceCertificateId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"caCertificateId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"cognitoIdentityPoolId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"policyVersionIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"policyName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"policyVersionId"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"account"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"iamRoleArn"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"roleAliasArn"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--start-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>A filter to limit results to those found after the specified time. You must specify either the startTime and endTime or the taskId, but not both.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--end-time</span></tt> (timestamp)</p>
+<blockquote>
+<div>A filter to limit results to those found before the specified time. You must specify either the startTime and endTime or the taskId, but not both.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To list all findings from an audit</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">list-audit-findings</span></tt> example lists all findings from an AWS IoT Device Defender audit with a specified task ID.</p>
+<div class="highlight-python">
+<pre>aws iot list-audit-findings \
+    --task-id a3aea009955e501a31b764abe1bebd3d</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"findings"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To list findings for an audit check type</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">list-audit-findings</span></tt> example shows findings from AWS IoT Device Defender audits that ran between June 5, 2019 and June 19, 2019 in which devices are sharing a device certificate. When you specify a check name, you must provide a start and end time.</p>
+<div class="highlight-python">
+<pre>aws iot list-audit-findings \
+    --check-name DEVICE_CERTIFICATE_SHARED_CHECK \
+    --start-time 1559747125 \
+    --end-time 1560962028</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"findings"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"taskId"</span><span class="p">:</span> <span class="s2">"eeef61068b0eb03c456d746c5a26ee04"</span><span class="p">,</span>
+            <span class="s2">"checkName"</span><span class="p">:</span> <span class="s2">"DEVICE_CERTIFICATE_SHARED_CHECK"</span><span class="p">,</span>
+            <span class="s2">"taskStartTime"</span><span class="p">:</span> <span class="mf">1560161017.172</span><span class="p">,</span>
+            <span class="s2">"findingTime"</span><span class="p">:</span> <span class="mf">1560161017.592</span><span class="p">,</span>
+            <span class="s2">"severity"</span><span class="p">:</span> <span class="s2">"CRITICAL"</span><span class="p">,</span>
+            <span class="s2">"nonCompliantResource"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"DEVICE_CERTIFICATE"</span><span class="p">,</span>
+                <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"deviceCertificateId"</span><span class="p">:</span> <span class="s2">"b193ab7162c0fadca83246d24fa090300a1236fe58137e121b011804d8ac1d6b"</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"relatedResources"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"ZipxgAIl"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1560086374068"</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"ZipxgAIl"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1560081552187"</span><span class="p">,</span>
+                        <span class="s2">"DISCONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1560086371552"</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"ZipxgAIl"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559289863631"</span><span class="p">,</span>
+                        <span class="s2">"DISCONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1560081532716"</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"reasonForNonCompliance"</span><span class="p">:</span> <span class="s2">"Certificate shared by one or more devices."</span><span class="p">,</span>
+            <span class="s2">"reasonForNonComplianceCode"</span><span class="p">:</span> <span class="s2">"CERTIFICATE_SHARED_BY_MULTIPLE_DEVICES"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"taskId"</span><span class="p">:</span> <span class="s2">"bade6b5efd2e1b1569822f6021b39cf5"</span><span class="p">,</span>
+            <span class="s2">"checkName"</span><span class="p">:</span> <span class="s2">"DEVICE_CERTIFICATE_SHARED_CHECK"</span><span class="p">,</span>
+            <span class="s2">"taskStartTime"</span><span class="p">:</span> <span class="mf">1559988217.27</span><span class="p">,</span>
+            <span class="s2">"findingTime"</span><span class="p">:</span> <span class="mf">1559988217.655</span><span class="p">,</span>
+            <span class="s2">"severity"</span><span class="p">:</span> <span class="s2">"CRITICAL"</span><span class="p">,</span>
+            <span class="s2">"nonCompliantResource"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"DEVICE_CERTIFICATE"</span><span class="p">,</span>
+                <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"deviceCertificateId"</span><span class="p">:</span> <span class="s2">"b193ab7162c0fadca83246d24fa090300a1236fe58137e121b011804d8ac1d6b"</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"relatedResources"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"xShGENLW"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559972350825"</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"xShGENLW"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559255062002"</span><span class="p">,</span>
+                        <span class="s2">"DISCONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559972350616"</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"reasonForNonCompliance"</span><span class="p">:</span> <span class="s2">"Certificate shared by one or more devices."</span><span class="p">,</span>
+            <span class="s2">"reasonForNonComplianceCode"</span><span class="p">:</span> <span class="s2">"CERTIFICATE_SHARED_BY_MULTIPLE_DEVICES"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"taskId"</span><span class="p">:</span> <span class="s2">"c23f6233ba2d35879c4bb2810fb5ffd6"</span><span class="p">,</span>
+            <span class="s2">"checkName"</span><span class="p">:</span> <span class="s2">"DEVICE_CERTIFICATE_SHARED_CHECK"</span><span class="p">,</span>
+            <span class="s2">"taskStartTime"</span><span class="p">:</span> <span class="mf">1559901817.31</span><span class="p">,</span>
+            <span class="s2">"findingTime"</span><span class="p">:</span> <span class="mf">1559901817.767</span><span class="p">,</span>
+            <span class="s2">"severity"</span><span class="p">:</span> <span class="s2">"CRITICAL"</span><span class="p">,</span>
+            <span class="s2">"nonCompliantResource"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"DEVICE_CERTIFICATE"</span><span class="p">,</span>
+                <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"deviceCertificateId"</span><span class="p">:</span> <span class="s2">"b193ab7162c0fadca83246d24fa090300a1236fe58137e121b011804d8ac1d6b"</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"relatedResources"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"TvnQoEoU"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559826729768"</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"CLIENT_ID"</span><span class="p">,</span>
+                    <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"clientId"</span><span class="p">:</span> <span class="s2">"TvnQoEoU"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"additionalInfo"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"CONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559345920964"</span><span class="p">,</span>
+                        <span class="s2">"DISCONNECTION_TIME"</span><span class="p">:</span> <span class="s2">"1559826728402"</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">],</span>
+            <span class="s2">"reasonForNonCompliance"</span><span class="p">:</span> <span class="s2">"Certificate shared by one or more devices."</span><span class="p">,</span>
+            <span class="s2">"reasonForNonComplianceCode"</span><span class="p">:</span> <span class="s2">"CERTIFICATE_SHARED_BY_MULTIPLE_DEVICES"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iot/latest/developerguide/AuditCommands.html">Audit Commands</a> in the <em>AWS IoT Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>findings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The findings (results) of the audit.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The findings (results) of the audit.</p>
+<p>findingId -&gt; (string)</p>
+<blockquote>
+<div>A unique identifier for this set of audit findings. This identifier is used to apply mitigation tasks to one or more sets of findings.</div>
+</blockquote>
+<p>taskId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the audit that generated this result (finding).</div>
+</blockquote>
+<p>checkName -&gt; (string)</p>
+<blockquote>
+<div>The audit check that generated this result.</div>
+</blockquote>
+<p>taskStartTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the audit started.</div>
+</blockquote>
+<p>findingTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The time the result (finding) was discovered.</div>
+</blockquote>
+<p>severity -&gt; (string)</p>
+<blockquote>
+<div>The severity of the result (finding).</div>
+</blockquote>
+<p>nonCompliantResource -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The resource that was found to be noncompliant with the audit check.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The type of the noncompliant resource.</div>
+</blockquote>
+<p>resourceIdentifier -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information that identifies the noncompliant resource.</p>
+<p>deviceCertificateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the certificate attached to the resource.</div>
+</blockquote>
+<p>caCertificateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the CA certificate used to authorize the certificate.</div>
+</blockquote>
+<p>cognitoIdentityPoolId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Amazon Cognito identity pool.</div>
+</blockquote>
+<p>clientId -&gt; (string)</p>
+<blockquote>
+<div>The client ID.</div>
+</blockquote>
+<p>policyVersionIdentifier -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The version of the policy associated with the resource.</p>
+<p>policyName -&gt; (string)</p>
+<blockquote>
+<div>The name of the policy.</div>
+</blockquote>
+<p>policyVersionId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the version of the policy associated with the resource.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>account -&gt; (string)</p>
+<blockquote>
+<div>The account with which the resource is associated.</div>
+</blockquote>
+<p>iamRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the IAM role that has overly permissive actions.</div>
+</blockquote>
+<p>roleAliasArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the role alias that has overly permissive actions.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>additionalInfo -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Other information about the noncompliant resource.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>relatedResources -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of related resources.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a related resource.</p>
+<p>resourceType -&gt; (string)</p>
+<blockquote>
+<div>The type of resource.</div>
+</blockquote>
+<p>resourceIdentifier -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information that identifies the resource.</p>
+<p>deviceCertificateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the certificate attached to the resource.</div>
+</blockquote>
+<p>caCertificateId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the CA certificate used to authorize the certificate.</div>
+</blockquote>
+<p>cognitoIdentityPoolId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the Amazon Cognito identity pool.</div>
+</blockquote>
+<p>clientId -&gt; (string)</p>
+<blockquote>
+<div>The client ID.</div>
+</blockquote>
+<p>policyVersionIdentifier -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The version of the policy associated with the resource.</p>
+<p>policyName -&gt; (string)</p>
+<blockquote>
+<div>The name of the policy.</div>
+</blockquote>
+<p>policyVersionId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the version of the policy associated with the resource.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>account -&gt; (string)</p>
+<blockquote>
+<div>The account with which the resource is associated.</div>
+</blockquote>
+<p>iamRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the IAM role that has overly permissive actions.</div>
+</blockquote>
+<p>roleAliasArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the role alias that has overly permissive actions.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>additionalInfo -&gt; (map)</p>
+<blockquote>
+<div>
+<p>Other information about the resource.</p>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>reasonForNonCompliance -&gt; (string)</p>
+<blockquote>
+<div>The reason the resource was noncompliant.</div>
+</blockquote>
+<p>reasonForNonComplianceCode -&gt; (string)</p>
+<blockquote>
+<div>A code that indicates the reason that the resource was noncompliant.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>A token that can be used to retrieve the next set of results, or <tt class="docutils literal"><span class="pre">null</span></tt> if there are no additional results.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

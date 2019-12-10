@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-notebook-instance — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="sagemaker" href="index.html">
+    <link rel="next" title="create-notebook-instance-lifecycle-config" href="create-notebook-instance-lifecycle-config.html">
+    <link rel="prev" title="create-monitoring-schedule" href="create-monitoring-schedule.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-notebook-instance">
+<span id="cli-aws-sagemaker-create-notebook-instance"></span><h1>create-notebook-instance<a class="headerlink" href="#create-notebook-instance" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates an Amazon SageMaker notebook instance. A notebook instance is a machine learning (ML) compute instance running on a Jupyter notebook.</p>
+<p>In a <tt class="docutils literal"><span class="pre">CreateNotebookInstance</span></tt> request, specify the type of ML compute instance that you want to run. Amazon SageMaker launches the instance, installs common libraries that you can use to explore datasets for model training, and attaches an ML storage volume to the notebook instance.</p>
+<p>Amazon SageMaker also provides a set of example notebooks. Each notebook demonstrates how to use Amazon SageMaker with a specific algorithm or with a machine learning framework.</p>
+<p>After receiving the request, Amazon SageMaker does the following:</p>
+<ul class="simple">
+<li>Creates a network interface in the Amazon SageMaker VPC.</li>
+<li>(Option) If you specified <tt class="docutils literal"><span class="pre">SubnetId</span></tt> , Amazon SageMaker creates a network interface in your own VPC, which is inferred from the subnet ID that you provide in the input. When creating this network interface, Amazon SageMaker attaches the security group that you specified in the request to the network interface that it creates in your VPC.</li>
+<li>Launches an EC2 instance of the type specified in the request in the Amazon SageMaker VPC. If you specified <tt class="docutils literal"><span class="pre">SubnetId</span></tt> of your VPC, Amazon SageMaker specifies both network interfaces when launching this instance. This enables inbound traffic from your own VPC to the notebook instance, assuming that the security groups allow it.</li>
+</ul>
+<p>After creating the notebook instance, Amazon SageMaker returns its Amazon Resource Name (ARN). You can't change the name of a notebook instance after you create it.</p>
+<p>After Amazon SageMaker creates the notebook instance, you can connect to the Jupyter server and work in Jupyter notebooks. For example, you can write code to explore a dataset that you can use for model training, train a model, host models by creating Amazon SageMaker endpoints, and validate hosted models.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html">How It Works</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateNotebookInstance">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-notebook-instance
+--notebook-instance-name &lt;value&gt;
+--instance-type &lt;value&gt;
+[--subnet-id &lt;value&gt;]
+[--security-group-ids &lt;value&gt;]
+--role-arn &lt;value&gt;
+[--kms-key-id &lt;value&gt;]
+[--tags &lt;value&gt;]
+[--lifecycle-config-name &lt;value&gt;]
+[--direct-internet-access &lt;value&gt;]
+[--volume-size-in-gb &lt;value&gt;]
+[--accelerator-types &lt;value&gt;]
+[--default-code-repository &lt;value&gt;]
+[--additional-code-repositories &lt;value&gt;]
+[--root-access &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--notebook-instance-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the new notebook instance.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of ML compute instance to launch for the notebook instance.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ml.t2.medium</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t2.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t2.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t2.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t3.medium</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t3.large</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t3.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.t3.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m4.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m4.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m4.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m4.10xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m4.16xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m5.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m5.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m5.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m5.12xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.m5.24xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c4.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c4.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c4.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c4.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5.9xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5.18xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5d.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5d.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5d.4xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5d.9xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.c5d.18xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.p2.xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.p2.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.p2.16xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.p3.2xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.p3.8xlarge</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ml.p3.16xlarge</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--subnet-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the subnet in a VPC to which you would like to have a connectivity from your ML compute instance.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>The VPC security group IDs, in the form sg-xxxxxxxx. The security groups must be for the same VPC as specified in the subnet.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>When you send any requests to AWS resources from the notebook instance, Amazon SageMaker assumes this role to perform tasks on your behalf. You must grant this role necessary permissions so Amazon SageMaker can perform these tasks. The policy must allow the Amazon SageMaker service principal (sagemaker.amazonaws.com) permissions to assume this role. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html">Amazon SageMaker Roles</a> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To be able to pass this role to Amazon SageMaker, the caller of this API must have the <tt class="docutils literal"><span class="pre">iam:PassRole</span></tt> permission.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--kms-key-id</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of a AWS Key Management Service key that Amazon SageMaker uses to encrypt data on the storage volume attached to your notebook instance. The KMS key you provide must be enabled. For information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/enabling-keys.html">Enabling and Disabling Keys</a> in the <em>AWS Key Management Service Developer Guide</em> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of tags to associate with the notebook instance. You can add tags later by using the <tt class="docutils literal"><span class="pre">CreateTags</span></tt> API.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--lifecycle-config-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of a lifecycle configuration to associate with the notebook instance. For information about lifestyle configurations, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html">Step 2.1: (Optional) Customize a Notebook Instance</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--direct-internet-access</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Sets whether Amazon SageMaker provides internet access to the notebook instance. If you set this to <tt class="docutils literal"><span class="pre">Disabled</span></tt> this notebook instance will be able to access resources only in your VPC, and will not be able to connect to Amazon SageMaker training and endpoint services unless your configure a NAT Gateway in your VPC.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/appendix-additional-considerations.html#appendix-notebook-and-internet-access">Notebook Instances Are Internet-Enabled by Default</a> . You can set the value of this parameter to <tt class="docutils literal"><span class="pre">Disabled</span></tt> only if you set a value for the <tt class="docutils literal"><span class="pre">SubnetId</span></tt> parameter.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Enabled</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Disabled</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--volume-size-in-gb</span></tt> (integer)</p>
+<blockquote>
+<div>The size, in GB, of the ML storage volume to attach to the notebook instance. The default value is 5 GB.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--accelerator-types</span></tt> (list)</p>
+<blockquote>
+<div>A list of Elastic Inference (EI) instance types to associate with this notebook instance. Currently, only one instance type can be associated with a notebook instance. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html">Using Elastic Inference in Amazon SageMaker</a> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...
+
+Where valid values are:
+  ml.eia1.medium
+  ml.eia1.large
+  ml.eia1.xlarge
+  ml.eia2.medium
+  ml.eia2.large
+  ml.eia2.xlarge</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--default-code-repository</span></tt> (string)</p>
+<blockquote>
+<div>A Git repository to associate with the notebook instance as its default code repository. This can be either the name of a Git repository stored as a resource in your account, or the URL of a Git repository in <a class="reference external" href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">AWS CodeCommit</a> or in any other Git repository. When you open a notebook instance, it opens in the directory that contains this repository. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html">Associating Git Repositories with Amazon SageMaker Notebook Instances</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--additional-code-repositories</span></tt> (list)</p>
+<blockquote>
+<div>An array of up to three Git repositories to associate with the notebook instance. These can be either the names of Git repositories stored as resources in your account, or the URL of Git repositories in <a class="reference external" href="https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html">AWS CodeCommit</a> or in any other Git repository. These repositories are cloned at the same level as the default repository of your notebook instance. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html">Associating Git Repositories with Amazon SageMaker Notebook Instances</a> .</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--root-access</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Whether root access is enabled or disabled for users of the notebook instance. The default value is <tt class="docutils literal"><span class="pre">Enabled</span></tt> .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Lifecycle configurations need root access to be able to set up a notebook instance. Because of this, lifecycle configurations associated with a notebook instance always run with root access even if you disable root access for users.</p>
+</div>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Enabled</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Disabled</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>NotebookInstanceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the notebook instance.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

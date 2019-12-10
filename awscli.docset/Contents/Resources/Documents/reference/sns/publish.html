@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>publish — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="sns" href="index.html">
+    <link rel="next" title="remove-permission" href="remove-permission.html">
+    <link rel="prev" title="opt-in-phone-number" href="opt-in-phone-number.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="publish">
+<span id="cli-aws-sns-publish"></span><h1>publish<a class="headerlink" href="#publish" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Sends a message to an Amazon SNS topic or sends a text message (SMS message) directly to a phone number.</p>
+<p>If you send a message to a topic, Amazon SNS delivers the message to each endpoint that is subscribed to the topic. The format of the message depends on the notification protocol for each subscribed endpoint.</p>
+<p>When a <tt class="docutils literal"><span class="pre">messageId</span></tt> is returned, the message has been saved and Amazon SNS will attempt to deliver it shortly.</p>
+<p>To use the <tt class="docutils literal"><span class="pre">Publish</span></tt> action for sending a message to a mobile endpoint, such as an app on a Kindle device or mobile phone, you must specify the EndpointArn for the TargetArn parameter. The EndpointArn is returned when making a call with the <tt class="docutils literal"><span class="pre">CreatePlatformEndpoint</span></tt> action.</p>
+<p>For more information about formatting messages, see <a class="reference external" href="https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html">Send Custom Platform-Specific Payloads in Messages to Mobile Devices</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sns-2010-03-31/Publish">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  publish
+[--topic-arn &lt;value&gt;]
+[--target-arn &lt;value&gt;]
+[--phone-number &lt;value&gt;]
+--message &lt;value&gt;
+[--subject &lt;value&gt;]
+[--message-structure &lt;value&gt;]
+[--message-attributes &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--topic-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The topic you want to publish to.</p>
+<p>If you don't specify a value for the <tt class="docutils literal"><span class="pre">TopicArn</span></tt> parameter, you must specify a value for the <tt class="docutils literal"><span class="pre">PhoneNumber</span></tt> or <tt class="docutils literal"><span class="pre">TargetArn</span></tt> parameters.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--target-arn</span></tt> (string)</p>
+<blockquote>
+<div>If you don't specify a value for the <tt class="docutils literal"><span class="pre">TargetArn</span></tt> parameter, you must specify a value for the <tt class="docutils literal"><span class="pre">PhoneNumber</span></tt> or <tt class="docutils literal"><span class="pre">TopicArn</span></tt> parameters.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--phone-number</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The phone number to which you want to deliver an SMS message. Use E.164 format.</p>
+<p>If you don't specify a value for the <tt class="docutils literal"><span class="pre">PhoneNumber</span></tt> parameter, you must specify a value for the <tt class="docutils literal"><span class="pre">TargetArn</span></tt> or <tt class="docutils literal"><span class="pre">TopicArn</span></tt> parameters.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--message</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The message you want to send.</p>
+<p>If you are publishing to a topic and you want to send the same message to all transport protocols, include the text of the message as a String value. If you want to send different messages for each transport protocol, set the value of the <tt class="docutils literal"><span class="pre">MessageStructure</span></tt> parameter to <tt class="docutils literal"><span class="pre">json</span></tt> and use a JSON object for the <tt class="docutils literal"><span class="pre">Message</span></tt> parameter.</p>
+<p>Constraints:</p>
+<ul class="simple">
+<li>With the exception of SMS, messages must be UTF-8 encoded strings and at most 256 KB in size (262,144 bytes, not 262,144 characters).</li>
+<li>For SMS, each message can contain up to 140 characters. This character limit depends on the encoding schema. For example, an SMS message can contain 160 GSM characters, 140 ASCII characters, or 70 UCS-2 characters. If you publish a message that exceeds this size limit, Amazon SNS sends the message as multiple messages, each fitting within the size limit. Messages aren't truncated mid-word but are cut off at whole-word boundaries. The total size limit for a single SMS <tt class="docutils literal"><span class="pre">Publish</span></tt> action is 1,600 characters.</li>
+</ul>
+<p>JSON-specific constraints:</p>
+<ul class="simple">
+<li>Keys in the JSON object that correspond to supported transport protocols must have simple JSON string values.</li>
+<li>The values will be parsed (unescaped) before they are used in outgoing messages.</li>
+<li>Outbound notifications are JSON encoded (meaning that the characters will be reescaped for sending).</li>
+<li>Values have a minimum length of 0 (the empty string, "", is allowed).</li>
+<li>Values have a maximum length bounded by the overall message size (so, including multiple protocols may limit message sizes).</li>
+<li>Non-string values will cause the key to be ignored.</li>
+<li>Keys that do not correspond to supported transport protocols are ignored.</li>
+<li>Duplicate keys are not allowed.</li>
+<li>Failure to parse or validate any key or value in the message will cause the <tt class="docutils literal"><span class="pre">Publish</span></tt> call to return an error (no partial delivery).</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--subject</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Optional parameter to be used as the "Subject" line when the message is delivered to email endpoints. This field will also be included, if present, in the standard JSON messages delivered to other endpoints.</p>
+<p>Constraints: Subjects must be ASCII text that begins with a letter, number, or punctuation mark; must not include line breaks or control characters; and must be less than 100 characters long.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--message-structure</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Set <tt class="docutils literal"><span class="pre">MessageStructure</span></tt> to <tt class="docutils literal"><span class="pre">json</span></tt> if you want to send a different message for each protocol. For example, using one publish action, you can send a short message to your SMS subscribers and a longer message to your email subscribers. If you set <tt class="docutils literal"><span class="pre">MessageStructure</span></tt> to <tt class="docutils literal"><span class="pre">json</span></tt> , the value of the <tt class="docutils literal"><span class="pre">Message</span></tt> parameter must:</p>
+<ul class="simple">
+<li>be a syntactically valid JSON object; and</li>
+<li>contain at least a top-level JSON key of "default" with a value that is a string.</li>
+</ul>
+<p>You can define other top-level keys that define the message you want to send to a specific transport protocol (e.g., "http").</p>
+<p>Valid value: <tt class="docutils literal"><span class="pre">json</span></tt></p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--message-attributes</span></tt> (map)</p>
+<blockquote>
+<div>Message attributes for Publish action.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">KeyName1</span><span class="o">=</span><span class="n">DataType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">StringValue</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BinaryValue</span><span class="o">=</span><span class="n">blob</span><span class="p">,</span><span class="n">KeyName2</span><span class="o">=</span><span class="n">DataType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">StringValue</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">BinaryValue</span><span class="o">=</span><span class="n">blob</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{"string": {
+      "DataType": "string",
+      "StringValue": "string",
+      "BinaryValue": blob
+    }
+  ...}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command publishes a message to an SNS topic named <tt class="docutils literal"><span class="pre">my-topic</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws sns publish --topic-arn "arn:aws:sns:us-west-2:0123456789012:my-topic" --message file://message.txt</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">message.txt</span></tt> is a text file containing the message to publish:</p>
+<div class="highlight-python">
+<pre>Hello World
+Second Line</pre>
+</div>
+<p>Putting the message in a text file allows you to include line breaks.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>MessageId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Unique identifier assigned to the published message.</p>
+<p>Length Constraint: Maximum 100 characters</p>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

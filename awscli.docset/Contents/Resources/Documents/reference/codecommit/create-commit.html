@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-commit — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="codecommit" href="index.html">
+    <link rel="next" title="create-pull-request" href="create-pull-request.html">
+    <link rel="prev" title="create-branch" href="create-branch.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-commit">
+<span id="cli-aws-codecommit-create-commit"></span><h1>create-commit<a class="headerlink" href="#create-commit" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a commit for a repository on the tip of a specified branch.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/codecommit-2015-04-13/CreateCommit">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-commit
+--repository-name &lt;value&gt;
+--branch-name &lt;value&gt;
+[--parent-commit-id &lt;value&gt;]
+[--author-name &lt;value&gt;]
+[--email &lt;value&gt;]
+[--commit-message &lt;value&gt;]
+[--keep-empty-folders | --no-keep-empty-folders]
+[--put-files &lt;value&gt;]
+[--delete-files &lt;value&gt;]
+[--set-file-modes &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--repository-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the repository where you create the commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--branch-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the branch where you create the commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parent-commit-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the commit that is the parent of the commit you create. Not required if this is an empty repository.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--author-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the author who created the commit. This information is used as both the author and committer for the commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--email</span></tt> (string)</p>
+<blockquote>
+<div>The email address of the person who created the commit.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--commit-message</span></tt> (string)</p>
+<blockquote>
+<div>The commit message you want to include in the commit. Commit messages are limited to 256 KB. If no message is specified, a default message is used.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--keep-empty-folders</span></tt> | <tt class="docutils literal"><span class="pre">--no-keep-empty-folders</span></tt> (boolean)</p>
+<blockquote>
+<div>If the commit contains deletions, whether to keep a folder or folder structure if the changes leave the folders empty. If true, a ..gitkeep file is created for empty folders. The default is false.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--put-files</span></tt> (list)</p>
+<blockquote>
+<div>The files to add or update in this commit.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>filePath=string,fileMode=string,fileContent=blob,sourceFile={filePath=string,isMove=boolean} ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "filePath": "string",
+    "fileMode": "EXECUTABLE"|"NORMAL"|"SYMLINK",
+    "fileContent": blob,
+    "sourceFile": {
+      "filePath": "string",
+      "isMove": true|false
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--delete-files</span></tt> (list)</p>
+<blockquote>
+<div>The files to delete in this commit. These files still exist in earlier commits.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>filePath=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "filePath": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--set-file-modes</span></tt> (list)</p>
+<blockquote>
+<div>The file modes to update for files in this commit.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>filePath=string,fileMode=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "filePath": "string",
+    "fileMode": "EXECUTABLE"|"NORMAL"|"SYMLINK"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a commit</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-commit</span></tt> example demonstrates how to create an initial commit for a repository that adds a <tt class="docutils literal"><span class="pre">readme.md</span></tt> file to a repository named <tt class="docutils literal"><span class="pre">MyDemoRepo</span></tt> in the <tt class="docutils literal"><span class="pre">master</span></tt> branch.</p>
+<div class="highlight-python">
+<pre>aws codecommit create-commit --repository-name MyDemoRepo --branch-name master --put-files "filePath=readme.md,fileContent='Welcome to our team repository.'"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"filesAdded"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"blobId"</span><span class="p">:</span> <span class="s2">"5e1c309d-EXAMPLE"</span><span class="p">,</span>
+            <span class="s2">"absolutePath"</span><span class="p">:</span> <span class="s2">"readme.md"</span><span class="p">,</span>
+            <span class="s2">"fileMode"</span><span class="p">:</span> <span class="s2">"NORMAL"</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"commitId"</span><span class="p">:</span> <span class="s2">"4df8b524-EXAMPLE"</span><span class="p">,</span>
+    <span class="s2">"treeId"</span><span class="p">:</span> <span class="s2">"55b57003-EXAMPLE"</span><span class="p">,</span>
+    <span class="s2">"filesDeleted"</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s2">"filesUpdated"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-commit.html#how-to-create-commit-cli">Create a Commit in AWS CodeCommit</a> in the <em>AWS CodeCommit User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>commitId -&gt; (string)</p>
+<blockquote>
+<div>The full commit ID of the commit that contains your committed file changes.</div>
+</blockquote>
+<p>treeId -&gt; (string)</p>
+<blockquote>
+<div>The full SHA-1 pointer of the tree information for the commit that contains the commited file changes.</div>
+</blockquote>
+<p>filesAdded -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The files added as part of the committed file changes.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A file to be added, updated, or deleted as part of a commit.</p>
+<p>absolutePath -&gt; (string)</p>
+<blockquote>
+<div>The full path to the file to be added or updated, including the name of the file.</div>
+</blockquote>
+<p>blobId -&gt; (string)</p>
+<blockquote>
+<div>The blob ID that contains the file information.</div>
+</blockquote>
+<p>fileMode -&gt; (string)</p>
+<blockquote>
+<div>The extrapolated file mode permissions for the file. Valid values include EXECUTABLE and NORMAL.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>filesUpdated -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The files updated as part of the commited file changes.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A file to be added, updated, or deleted as part of a commit.</p>
+<p>absolutePath -&gt; (string)</p>
+<blockquote>
+<div>The full path to the file to be added or updated, including the name of the file.</div>
+</blockquote>
+<p>blobId -&gt; (string)</p>
+<blockquote>
+<div>The blob ID that contains the file information.</div>
+</blockquote>
+<p>fileMode -&gt; (string)</p>
+<blockquote>
+<div>The extrapolated file mode permissions for the file. Valid values include EXECUTABLE and NORMAL.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>filesDeleted -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The files deleted as part of the committed file changes.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A file to be added, updated, or deleted as part of a commit.</p>
+<p>absolutePath -&gt; (string)</p>
+<blockquote>
+<div>The full path to the file to be added or updated, including the name of the file.</div>
+</blockquote>
+<p>blobId -&gt; (string)</p>
+<blockquote>
+<div>The blob ID that contains the file information.</div>
+</blockquote>
+<p>fileMode -&gt; (string)</p>
+<blockquote>
+<div>The extrapolated file mode permissions for the file. Valid values include EXECUTABLE and NORMAL.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

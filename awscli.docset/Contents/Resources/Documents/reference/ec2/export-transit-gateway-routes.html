@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>export-transit-gateway-routes — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="get-capacity-reservation-usage" href="get-capacity-reservation-usage.html">
+    <link rel="prev" title="export-image" href="export-image.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="export-transit-gateway-routes">
+<span id="cli-aws-ec2-export-transit-gateway-routes"></span><h1>export-transit-gateway-routes<a class="headerlink" href="#export-transit-gateway-routes" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Exports routes from the specified transit gateway route table to the specified S3 bucket. By default, all routes are exported. Alternatively, you can filter by CIDR range.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ExportTransitGatewayRoutes">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  export-transit-gateway-routes
+--transit-gateway-route-table-id &lt;value&gt;
+[--filters &lt;value&gt;]
+--s3-bucket &lt;value&gt;
+[--dry-run | --no-dry-run]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--transit-gateway-route-table-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the route table.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>One or more filters. The possible values are:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">attachment.transit-gateway-attachment-id</span></tt> - The id of the transit gateway attachment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">attachment.resource-id</span></tt> - The resource id of the transit gateway attachment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">route-search.exact-match</span></tt> - The exact match of the specified filter.</li>
+<li>
+<tt class="docutils literal"><span class="pre">route-search.longest-prefix-match</span></tt> - The longest prefix that matches the route.</li>
+<li>
+<tt class="docutils literal"><span class="pre">route-search.subnet-of-match</span></tt> - The routes with a subnet that match the specified CIDR filter.</li>
+<li>
+<tt class="docutils literal"><span class="pre">route-search.supernet-of-match</span></tt> - The routes with a CIDR that encompass the CIDR filter. For example, if you have 10.0.1.0/29 and 10.0.1.0/31 routes in your route table and you specify supernet-of-match as 10.0.1.0/30, then the result returns 10.0.1.0/29.</li>
+<li>
+<tt class="docutils literal"><span class="pre">state</span></tt> - The state of the attachment (<tt class="docutils literal"><span class="pre">available</span></tt> | <tt class="docutils literal"><span class="pre">deleted</span></tt> | <tt class="docutils literal"><span class="pre">deleting</span></tt> | <tt class="docutils literal"><span class="pre">failed</span></tt> | <tt class="docutils literal"><span class="pre">modifying</span></tt> | <tt class="docutils literal"><span class="pre">pendingAcceptance</span></tt> | <tt class="docutils literal"><span class="pre">pending</span></tt> | <tt class="docutils literal"><span class="pre">rollingBack</span></tt> | <tt class="docutils literal"><span class="pre">rejected</span></tt> | <tt class="docutils literal"><span class="pre">rejecting</span></tt> ).</li>
+<li>
+<tt class="docutils literal"><span class="pre">transit-gateway-route-destination-cidr-block</span></tt> - The CIDR range.</li>
+<li>
+<tt class="docutils literal"><span class="pre">type</span></tt> - The type of route (<tt class="docutils literal"><span class="pre">active</span></tt> | <tt class="docutils literal"><span class="pre">blackhole</span></tt> ).</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--s3-bucket</span></tt> (string)</p>
+<blockquote>
+<div>The name of the S3 bucket.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>S3Location -&gt; (string)</p>
+<blockquote>
+<div>The URL of the exported file in Amazon S3. For example, s3://<em>bucket_name</em> /VPCTransitGateway/TransitGatewayRouteTables/<em>file_name</em> .</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

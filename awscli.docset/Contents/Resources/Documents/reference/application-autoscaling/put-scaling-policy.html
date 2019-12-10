@@ -1,0 +1,450 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>put-scaling-policy — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="application-autoscaling" href="index.html">
+    <link rel="next" title="put-scheduled-action" href="put-scheduled-action.html">
+    <link rel="prev" title="describe-scheduled-actions" href="describe-scheduled-actions.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="put-scaling-policy">
+<span id="cli-aws-application-autoscaling-put-scaling-policy"></span><h1>put-scaling-policy<a class="headerlink" href="#put-scaling-policy" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates or updates a policy for an Application Auto Scaling scalable target.</p>
+<p>Each scalable target is identified by a service namespace, resource ID, and scalable dimension. A scaling policy applies to the scalable target identified by those three attributes. You cannot create a scaling policy until you have registered the resource as a scalable target using  RegisterScalableTarget .</p>
+<p>To update a policy, specify its policy name and the parameters that you want to change. Any parameters that you don't specify are not changed by this update request.</p>
+<p>You can view the scaling policies for a service namespace using  DescribeScalingPolicies . If you are no longer using a scaling policy, you can delete it using  DeleteScalingPolicy .</p>
+<p>Multiple scaling policies can be in force at the same time for the same scalable target. You can have one or more target tracking scaling policies, one or more step scaling policies, or both. However, there is a chance that multiple policies could conflict, instructing the scalable target to scale out or in at the same time. Application Auto Scaling gives precedence to the policy that provides the largest capacity for both scale out and scale in. For example, if one policy increases capacity by 3, another policy increases capacity by 200 percent, and the current capacity is 10, Application Auto Scaling uses the policy with the highest calculated capacity (200% of 10 = 20) and scales out to 30.</p>
+<p>Learn more about how to work with scaling policies in the <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">Application Auto Scaling User Guide</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/PutScalingPolicy">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  put-scaling-policy
+--policy-name &lt;value&gt;
+--service-namespace &lt;value&gt;
+--resource-id &lt;value&gt;
+--scalable-dimension &lt;value&gt;
+[--policy-type &lt;value&gt;]
+[--step-scaling-policy-configuration &lt;value&gt;]
+[--target-tracking-scaling-policy-configuration &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--policy-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the scaling policy.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--service-namespace</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The namespace of the AWS service that provides the resource or <tt class="docutils literal"><span class="pre">custom-resource</span></tt> for a resource provided by your own application or service. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces">AWS Service Namespaces</a> in the <em>Amazon Web Services General Reference</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ecs</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">elasticmapreduce</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ec2</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">appstream</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rds</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sagemaker</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">custom-resource</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">comprehend</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lambda</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The identifier of the resource associated with the scaling policy. This string consists of the resource type and unique identifier.</p>
+<ul class="simple">
+<li>ECS service - The resource type is <tt class="docutils literal"><span class="pre">service</span></tt> and the unique identifier is the cluster name and service name. Example: <tt class="docutils literal"><span class="pre">service/default/sample-webapp</span></tt> .</li>
+<li>Spot Fleet request - The resource type is <tt class="docutils literal"><span class="pre">spot-fleet-request</span></tt> and the unique identifier is the Spot Fleet request ID. Example: <tt class="docutils literal"><span class="pre">spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</span></tt> .</li>
+<li>EMR cluster - The resource type is <tt class="docutils literal"><span class="pre">instancegroup</span></tt> and the unique identifier is the cluster ID and instance group ID. Example: <tt class="docutils literal"><span class="pre">instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0</span></tt> .</li>
+<li>AppStream 2.0 fleet - The resource type is <tt class="docutils literal"><span class="pre">fleet</span></tt> and the unique identifier is the fleet name. Example: <tt class="docutils literal"><span class="pre">fleet/sample-fleet</span></tt> .</li>
+<li>DynamoDB table - The resource type is <tt class="docutils literal"><span class="pre">table</span></tt> and the unique identifier is the table name. Example: <tt class="docutils literal"><span class="pre">table/my-table</span></tt> .</li>
+<li>DynamoDB global secondary index - The resource type is <tt class="docutils literal"><span class="pre">index</span></tt> and the unique identifier is the index name. Example: <tt class="docutils literal"><span class="pre">table/my-table/index/my-table-index</span></tt> .</li>
+<li>Aurora DB cluster - The resource type is <tt class="docutils literal"><span class="pre">cluster</span></tt> and the unique identifier is the cluster name. Example: <tt class="docutils literal"><span class="pre">cluster:my-db-cluster</span></tt> .</li>
+<li>Amazon SageMaker endpoint variant - The resource type is <tt class="docutils literal"><span class="pre">variant</span></tt> and the unique identifier is the resource ID. Example: <tt class="docutils literal"><span class="pre">endpoint/my-end-point/variant/KMeansClustering</span></tt> .</li>
+<li>Custom resources are not supported with a resource type. This parameter must specify the <tt class="docutils literal"><span class="pre">OutputValue</span></tt> from the CloudFormation template stack used to access the resources. The unique identifier is defined by the service provider. More information is available in our <a class="reference external" href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a> .</li>
+<li>Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: <tt class="docutils literal"><span class="pre">arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</span></tt> .</li>
+<li>Lambda provisioned concurrency - The resource type is <tt class="docutils literal"><span class="pre">function</span></tt> and the unique identifier is the function name with a function version or alias name suffix that is not <tt class="docutils literal"><span class="pre">$LATEST</span></tt> . Example: <tt class="docutils literal"><span class="pre">function:my-function:prod</span></tt> or <tt class="docutils literal"><span class="pre">function:my-function:1</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--scalable-dimension</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The scalable dimension. This string consists of the service namespace, resource type, and scaling property.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ecs:service:DesiredCount</span></tt> - The desired task count of an ECS service.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ec2:spot-fleet-request:TargetCapacity</span></tt> - The target capacity of a Spot Fleet request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">elasticmapreduce:instancegroup:InstanceCount</span></tt> - The instance count of an EMR Instance Group.</li>
+<li>
+<tt class="docutils literal"><span class="pre">appstream:fleet:DesiredCapacity</span></tt> - The desired capacity of an AppStream 2.0 fleet.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:table:ReadCapacityUnits</span></tt> - The provisioned read capacity for a DynamoDB table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:table:WriteCapacityUnits</span></tt> - The provisioned write capacity for a DynamoDB table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:index:ReadCapacityUnits</span></tt> - The provisioned read capacity for a DynamoDB global secondary index.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:index:WriteCapacityUnits</span></tt> - The provisioned write capacity for a DynamoDB global secondary index.</li>
+<li>
+<tt class="docutils literal"><span class="pre">rds:cluster:ReadReplicaCount</span></tt> - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.</li>
+<li>
+<tt class="docutils literal"><span class="pre">sagemaker:variant:DesiredInstanceCount</span></tt> - The number of EC2 instances for an Amazon SageMaker model endpoint variant.</li>
+<li>
+<tt class="docutils literal"><span class="pre">custom-resource:ResourceType:Property</span></tt> - The scalable dimension for a custom resource provided by your own application or service.</li>
+<li>
+<tt class="docutils literal"><span class="pre">comprehend:document-classifier-endpoint:DesiredInferenceUnits</span></tt> - The number of inference units for an Amazon Comprehend document classification endpoint.</li>
+<li>
+<tt class="docutils literal"><span class="pre">lambda:function:ProvisionedConcurrency</span></tt> - The provisioned concurrency for a Lambda function.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ecs:service:DesiredCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ec2:spot-fleet-request:TargetCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">elasticmapreduce:instancegroup:InstanceCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">appstream:fleet:DesiredCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:table:ReadCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:table:WriteCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:index:ReadCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:index:WriteCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rds:cluster:ReadReplicaCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sagemaker:variant:DesiredInstanceCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">custom-resource:ResourceType:Property</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">comprehend:document-classifier-endpoint:DesiredInferenceUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lambda:function:ProvisionedConcurrency</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--policy-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The policy type. This parameter is required if you are creating a scaling policy.</p>
+<p>The following policy types are supported:</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">TargetTrackingScaling</span></tt> —Not supported for Amazon EMR</p>
+<p><tt class="docutils literal"><span class="pre">StepScaling</span></tt> —Not supported for DynamoDB, Amazon Comprehend, or AWS Lambda</p>
+</div>
+</blockquote>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html">Target Tracking Scaling Policies</a> and <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html">Step Scaling Policies</a> in the <em>Application Auto Scaling User Guide</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">StepScaling</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TargetTrackingScaling</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--step-scaling-policy-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>A step scaling policy.</p>
+<p>This parameter is required if you are creating a policy and the policy type is <tt class="docutils literal"><span class="pre">StepScaling</span></tt> .</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>AdjustmentType=string,StepAdjustments=[{MetricIntervalLowerBound=double,MetricIntervalUpperBound=double,ScalingAdjustment=integer},{MetricIntervalLowerBound=double,MetricIntervalUpperBound=double,ScalingAdjustment=integer}],MinAdjustmentMagnitude=integer,Cooldown=integer,MetricAggregationType=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "AdjustmentType": "ChangeInCapacity"|"PercentChangeInCapacity"|"ExactCapacity",
+  "StepAdjustments": [
+    {
+      "MetricIntervalLowerBound": double,
+      "MetricIntervalUpperBound": double,
+      "ScalingAdjustment": integer
+    }
+    ...
+  ],
+  "MinAdjustmentMagnitude": integer,
+  "Cooldown": integer,
+  "MetricAggregationType": "Average"|"Minimum"|"Maximum"
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--target-tracking-scaling-policy-configuration</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>A target tracking scaling policy. Includes support for predefined or customized metrics.</p>
+<p>This parameter is required if you are creating a policy and the policy type is <tt class="docutils literal"><span class="pre">TargetTrackingScaling</span></tt> .</p>
+</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "TargetValue": double,
+  "PredefinedMetricSpecification": {
+    "PredefinedMetricType": "DynamoDBReadCapacityUtilization"|"DynamoDBWriteCapacityUtilization"|"ALBRequestCountPerTarget"|"RDSReaderAverageCPUUtilization"|"RDSReaderAverageDatabaseConnections"|"EC2SpotFleetRequestAverageCPUUtilization"|"EC2SpotFleetRequestAverageNetworkIn"|"EC2SpotFleetRequestAverageNetworkOut"|"SageMakerVariantInvocationsPerInstance"|"ECSServiceAverageCPUUtilization"|"ECSServiceAverageMemoryUtilization"|"AppStreamAverageCapacityUtilization"|"ComprehendInferenceUtilization"|"LambdaProvisionedConcurrencyUtilization",
+    "ResourceLabel": "string"
+  },
+  "CustomizedMetricSpecification": {
+    "MetricName": "string",
+    "Namespace": "string",
+    "Dimensions": [
+      {
+        "Name": "string",
+        "Value": "string"
+      }
+      ...
+    ],
+    "Statistic": "Average"|"Minimum"|"Maximum"|"SampleCount"|"Sum",
+    "Unit": "string"
+  },
+  "ScaleOutCooldown": integer,
+  "ScaleInCooldown": integer,
+  "DisableScaleIn": true|false
+}</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To apply a target tracking scaling policy with a predefined metric specification</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-scaling-policy</span></tt> example applies a target tracking scaling policy with a predefined metric specification to an Amazon ECS service called web-app in the default cluster. The policy keeps the average CPU utilization of the service at 75 percent, with scale-out and scale-in cooldown periods of 60 seconds. The output contains the ARNs and names of the two CloudWatch alarms created on your behalf.</p>
+<div class="highlight-python">
+<pre>aws application-autoscaling put-scaling-policy --service-namespace ecs \
+--scalable-dimension ecs:service:DesiredCount \
+--resource-id service/default/web-app \
+--policy-name cpu75-target-tracking-scaling-policy --policy-type TargetTrackingScaling \
+--target-tracking-scaling-policy-configuration file://config.json</pre>
+</div>
+<p>This example assumes that you have a <cite>config.json</cite> file in the current directory with the following contents:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="s2">"TargetValue"</span><span class="p">:</span> <span class="mf">75.0</span><span class="p">,</span>
+     <span class="s2">"PredefinedMetricSpecification"</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">"PredefinedMetricType"</span><span class="p">:</span> <span class="s2">"ECSServiceAverageCPUUtilization"</span>
+     <span class="p">},</span>
+     <span class="s2">"ScaleOutCooldown"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"ScaleInCooldown"</span><span class="p">:</span> <span class="mi">60</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"PolicyARN"</span><span class="p">:</span> <span class="s2">"arn:aws:autoscaling:us-west-2:012345678910:scalingPolicy:6d8972f3-efc8-437c-92d1-6270f29a66e7:resource/ecs/service/default/web-app:policyName/cpu75-target-tracking-scaling-policy"</span><span class="p">,</span>
+    <span class="s2">"Alarms"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"AlarmARN"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudwatch:us-west-2:012345678910:alarm:TargetTracking-service/default/web-app-AlarmHigh-d4f0770c-b46e-434a-a60f-3b36d653feca"</span><span class="p">,</span>
+            <span class="s2">"AlarmName"</span><span class="p">:</span> <span class="s2">"TargetTracking-service/default/web-app-AlarmHigh-d4f0770c-b46e-434a-a60f-3b36d653feca"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"AlarmARN"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudwatch:us-west-2:012345678910:alarm:TargetTracking-service/default/web-app-AlarmLow-1b437334-d19b-4a63-a812-6c67aaf2910d"</span><span class="p">,</span>
+            <span class="s2">"AlarmName"</span><span class="p">:</span> <span class="s2">"TargetTracking-service/default/web-app-AlarmLow-1b437334-d19b-4a63-a812-6c67aaf2910d"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To apply a target tracking scaling policy with a customized metric specification</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-scaling-policy</span></tt> example applies a target tracking scaling policy with a customized metric specification to an Amazon ECS service called web-app in the default cluster. The policy keeps the average utilization of the service at 75 percent, with scale-out and scale-in cooldown periods of 60 seconds. The output contains the ARNs and names of the two CloudWatch alarms created on your behalf.</p>
+<div class="highlight-python">
+<pre>aws application-autoscaling put-scaling-policy --service-namespace ecs \
+--scalable-dimension ecs:service:DesiredCount \
+--resource-id service/default/web-app \
+--policy-name cms75-target-tracking-scaling-policy
+--policy-type TargetTrackingScaling \
+--target-tracking-scaling-policy-configuration file://config.json</pre>
+</div>
+<p>This example assumes that you have a <cite>config.json</cite> file in the current directory with the following contents:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"TargetValue"</span><span class="p">:</span><span class="mf">75.0</span><span class="p">,</span>
+    <span class="s2">"CustomizedMetricSpecification"</span><span class="p">:{</span>
+        <span class="s2">"MetricName"</span><span class="p">:</span><span class="s2">"MyUtilizationMetric"</span><span class="p">,</span>
+        <span class="s2">"Namespace"</span><span class="p">:</span><span class="s2">"MyNamespace"</span><span class="p">,</span>
+        <span class="s2">"Dimensions"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"Name"</span><span class="p">:</span><span class="s2">"MyOptionalMetricDimensionName"</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span><span class="s2">"MyOptionalMetricDimensionValue"</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="s2">"Statistic"</span><span class="p">:</span><span class="s2">"Average"</span><span class="p">,</span>
+        <span class="s2">"Unit"</span><span class="p">:</span><span class="s2">"Percent"</span>
+    <span class="p">},</span>
+    <span class="s2">"ScaleOutCooldown"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"ScaleInCooldown"</span><span class="p">:</span> <span class="mi">60</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"PolicyARN"</span><span class="p">:</span> <span class="s2">"arn:aws:autoscaling:us-west-2:012345678910:scalingPolicy: 8784a896-b2ba-47a1-b08c-27301cc499a1:resource/ecs/service/default/web-app:policyName/cms75-target-tracking-scaling-policy"</span><span class="p">,</span>
+    <span class="s2">"Alarms"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"AlarmARN"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudwatch:us-west-2:012345678910:alarm:TargetTracking-service/default/web-app-AlarmHigh-9bc77b56-0571-4276-ba0f-d4178882e0a0"</span><span class="p">,</span>
+            <span class="s2">"AlarmName"</span><span class="p">:</span> <span class="s2">"TargetTracking-service/default/web-app-AlarmHigh-9bc77b56-0571-4276-ba0f-d4178882e0a0"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"AlarmARN"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudwatch:us-west-2:012345678910:alarm:TargetTracking-service/default/web-app-AlarmLow-9b6ad934-6d37-438e-9e05-02836ddcbdc4"</span><span class="p">,</span>
+            <span class="s2">"AlarmName"</span><span class="p">:</span> <span class="s2">"TargetTracking-service/default/web-app-AlarmLow-9b6ad934-6d37-438e-9e05-02836ddcbdc4"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 3: To apply a target tracking scaling policy for scale out only</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">put-scaling-policy</span></tt> example applies a target tracking scaling policy to an Amazon ECS service called <tt class="docutils literal"><span class="pre">web-app</span></tt> in the default cluster. The policy is used to scale out the ECS service when the <tt class="docutils literal"><span class="pre">RequestCountPerTarget</span></tt> metric from the Application Load Balancer exceeds the threshold. The output contains the ARN and name of the CloudWatch alarm created on your behalf.</p>
+<div class="highlight-python">
+<pre>aws application-autoscaling put-scaling-policy \
+    --service-namespace ecs \
+    --scalable-dimension ecs:service:DesiredCount \
+    --resource-id service/default/web-app \
+    --policy-name alb-scale-out-target-tracking-scaling-policy \
+    --policy-type TargetTrackingScaling \
+    --target-tracking-scaling-policy-configuration file://config.json</pre>
+</div>
+<p>Contents of <tt class="docutils literal"><span class="pre">config.json</span></tt>:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="s2">"TargetValue"</span><span class="p">:</span> <span class="mf">1000.0</span><span class="p">,</span>
+     <span class="s2">"PredefinedMetricSpecification"</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">"PredefinedMetricType"</span><span class="p">:</span> <span class="s2">"ALBRequestCountPerTarget"</span><span class="p">,</span>
+         <span class="s2">"ResourceLabel"</span><span class="p">:</span> <span class="s2">"app/EC2Co-EcsEl-1TKLTMITMM0EO/f37c06a68c1748aa/targetgroup/EC2Co-Defau-LDNM7Q3ZH1ZN/6d4ea56ca2d6a18d"</span>
+     <span class="p">},</span>
+     <span class="s2">"ScaleOutCooldown"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"ScaleInCooldown"</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+    <span class="s2">"DisableScaleIn"</span><span class="p">:</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"PolicyARN"</span><span class="p">:</span> <span class="s2">"arn:aws:autoscaling:us-west-2:123456789012:scalingPolicy:6d8972f3-efc8-437c-92d1-6270f29a66e7:resource/ecs/service/default/web-app:policyName/alb-scale-out-target-tracking-scaling-policy"</span><span class="p">,</span>
+    <span class="s2">"Alarms"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"AlarmName"</span><span class="p">:</span> <span class="s2">"TargetTracking-service/default/web-app-AlarmHigh-d4f0770c-b46e-434a-a60f-3b36d653feca"</span><span class="p">,</span>
+            <span class="s2">"AlarmARN"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudwatch:us-west-2:123456789012:alarm:TargetTracking-service/default/web-app-AlarmHigh-d4f0770c-b46e-434a-a60f-3b36d653feca"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html">Target Tracking Scaling Policies for Application Auto Scaling</a> in the <em>AWS Application Auto Scaling User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>PolicyARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the resulting scaling policy.</div>
+</blockquote>
+<p>Alarms -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The CloudWatch alarms created for the target tracking scaling policy.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a CloudWatch alarm associated with a scaling policy.</p>
+<p>AlarmName -&gt; (string)</p>
+<blockquote>
+<div>The name of the alarm.</div>
+</blockquote>
+<p>AlarmARN -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the alarm.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

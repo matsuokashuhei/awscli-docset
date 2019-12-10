@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>authorize-security-group-ingress — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="bundle-instance" href="bundle-instance.html">
+    <link rel="prev" title="authorize-security-group-egress" href="authorize-security-group-egress.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="authorize-security-group-ingress">
+<span id="cli-aws-ec2-authorize-security-group-ingress"></span><h1>authorize-security-group-ingress<a class="headerlink" href="#authorize-security-group-ingress" title="Permalink to this headline">¶</a>
+</h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To specify multiple rules in a single command use the <tt class="docutils literal"><span class="pre">--ip-permissions</span></tt> option</p>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Adds the specified ingress rules to a security group.</p>
+<p>An inbound rule permits instances to receive traffic from the specified IPv4 or IPv6 CIDR address ranges, or from the instances associated with the specified destination security groups.</p>
+<p>You specify a protocol for each rule (for example, TCP). For TCP and UDP, you must also specify the destination port or port range. For ICMP/ICMPv6, you must also specify the ICMP/ICMPv6 type and code. You can use -1 to mean all types or all codes.</p>
+<p>Rule changes are propagated to instances within the security group as quickly as possible. However, a small delay might occur.</p>
+<p>For more information about VPC security group limits, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html">Amazon VPC Limits</a> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AuthorizeSecurityGroupIngress">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  authorize-security-group-ingress
+[--group-id &lt;value&gt;]
+[--group-name &lt;value&gt;]
+[--ip-permissions &lt;value&gt;]
+[--dry-run | --no-dry-run]
+[--protocol &lt;value&gt;]
+[--port &lt;value&gt;]
+[--cidr &lt;value&gt;]
+[--source-group &lt;value&gt;]
+[--group-owner &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--group-id</span></tt> (string)</p>
+<blockquote>
+<div>The ID of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--group-name</span></tt> (string)</p>
+<blockquote>
+<div>[EC2-Classic, default VPC] The name of the security group. You must specify either the security group ID or the security group name in the request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--ip-permissions</span></tt> (list)</p>
+<blockquote>
+<div>The sets of IP permissions.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>FromPort=integer,IpProtocol=string,IpRanges=[{CidrIp=string,Description=string},{CidrIp=string,Description=string}],Ipv6Ranges=[{CidrIpv6=string,Description=string},{CidrIpv6=string,Description=string}],PrefixListIds=[{Description=string,PrefixListId=string},{Description=string,PrefixListId=string}],ToPort=integer,UserIdGroupPairs=[{Description=string,GroupId=string,GroupName=string,PeeringStatus=string,UserId=string,VpcId=string,VpcPeeringConnectionId=string},{Description=string,GroupId=string,GroupName=string,PeeringStatus=string,UserId=string,VpcId=string,VpcPeeringConnectionId=string}] ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "FromPort": integer,
+    "IpProtocol": "string",
+    "IpRanges": [
+      {
+        "CidrIp": "string",
+        "Description": "string"
+      }
+      ...
+    ],
+    "Ipv6Ranges": [
+      {
+        "CidrIpv6": "string",
+        "Description": "string"
+      }
+      ...
+    ],
+    "PrefixListIds": [
+      {
+        "Description": "string",
+        "PrefixListId": "string"
+      }
+      ...
+    ],
+    "ToPort": integer,
+    "UserIdGroupPairs": [
+      {
+        "Description": "string",
+        "GroupId": "string",
+        "GroupName": "string",
+        "PeeringStatus": "string",
+        "UserId": "string",
+        "VpcId": "string",
+        "VpcPeeringConnectionId": "string"
+      }
+      ...
+    ]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--protocol</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The IP protocol: <tt class="docutils literal"><span class="pre">tcp</span></tt> | <tt class="docutils literal"><span class="pre">udp</span></tt> | <tt class="docutils literal"><span class="pre">icmp</span></tt></p>
+<p>(VPC only) Use <tt class="docutils literal"><span class="pre">all</span></tt> to specify all protocols.</p>
+<p>If this argument is provided without also providing the <tt class="docutils literal"><span class="pre">port</span></tt> argument, then it will be applied to all ports for the specified protocol.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--port</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>For TCP or UDP: The range of ports to allow. A single integer or a range (<tt class="docutils literal"><span class="pre">min-max</span></tt> ).</p>
+<p>For ICMP: A single integer or a range (<tt class="docutils literal"><span class="pre">type-code</span></tt> ) representing the ICMP type number and the ICMP code number respectively. A value of -1 indicates all ICMP codes for all ICMP types. A value of -1 just for <tt class="docutils literal"><span class="pre">type</span></tt> indicates all ICMP codes for the specified ICMP type.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cidr</span></tt> (string)</p>
+<blockquote>
+<div>The CIDR IP range.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--source-group</span></tt> (string)</p>
+<blockquote>
+<div>The name or ID of the source security group.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--group-owner</span></tt> (string)</p>
+<blockquote>
+<div>The AWS account ID that owns the source security group. Cannot be used when specifying a CIDR IP address.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>[EC2-Classic] To add a rule that allows inbound SSH traffic</strong></p>
+<p>The following example enables inbound traffic on TCP port 22 (SSH). If the command succeeds, no output is returned.</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \\
+    --group-name MySecurityGroup \
+    --protocol tcp \
+    --port 22 \
+    --cidr 203.0.113.0/24</pre>
+</div>
+<p>This command produces no output.</p>
+<p><strong>[EC2-Classic] To add a rule that allows inbound HTTP traffic from a security group in another account</strong></p>
+<p>The following example enables inbound traffic on TCP port 80 from a source security group (<tt class="docutils literal"><span class="pre">otheraccountgroup</span></tt>) in a different AWS account (123456789012). Incoming traffic is allowed based on the private IP addresses of instances that are associated with the source security group (not the public IP or Elastic IP addresses).</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-name MySecurityGroup \
+    --protocol tcp \
+    --port 80 \
+    --source-group otheraccountgroup \
+    --group-owner 123456789012</pre>
+</div>
+<p>This command produces no output.</p>
+<p><strong>[EC2-Classic] To add a rule that allows inbound HTTPS traffic from an ELB</strong></p>
+<p>The following example enables inbound traffic on TCP port 443 from an ELB.</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-name MySecurityGroup \
+    --protocol tcp \
+    --port 443 \
+    --source-group amazon-elb-sg \
+    --group-owner amazon-elb</pre>
+</div>
+<p><strong>[EC2-VPC] To add a rule that allows inbound SSH traffic</strong></p>
+<p>The following example enables inbound traffic on TCP port 22 (SSH). Note that you can't reference a security group for EC2-VPC by name.</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --protocol tcp \
+    --port 22 \
+    --cidr 203.0.113.0/24</pre>
+</div>
+<p>This command produces no output.</p>
+<p><strong>[EC2-VPC] To add a rule that allows inbound HTTP traffic from another security group</strong></p>
+<p>The following example enables inbound access on TCP port 80 from the source security group <tt class="docutils literal"><span class="pre">sg-1a2b3c4d</span></tt>. Note that for EC2-VPC, the source group must be in the same VPC or in a peer VPC (requires a VPC peering connection). Incoming traffic is allowed based on the private IP addresses of instances that are associated with the source security group (not the public IP or Elastic IP addresses).</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --protocol tcp \
+    --port 80 \
+    --source-group sg-1a2b3c4d</pre>
+</div>
+<p>This command produces no output.</p>
+<p><strong>[EC2-VPC] To add one rule for RDP and another rule for ping/ICMP</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">ip-permissions</span></tt> parameter to add two rules, one that enables inbound access on TCP port 3389 (RDP) and the other that enables ping/ICMP.</p>
+<p>(Windows):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress ^
+    --group-id sg-1234567890abcdef0 ^
+    --ip-permissions IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=172.31.0.0/16}] IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges=[{CidrIp=172.31.0.0/16}]</pre>
+</div>
+<p><strong>[EC2-VPC] To add a rule for ICMP traffic</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">ip-permissions</span></tt> parameter to add an inbound rule that allows the ICMP message <tt class="docutils literal"><span class="pre">Destination</span> <span class="pre">Unreachable:</span> <span class="pre">Fragmentation</span> <span class="pre">Needed</span> <span class="pre">and</span> <span class="pre">Don't</span> <span class="pre">Fragment</span> <span class="pre">was</span> <span class="pre">Set</span></tt> (Type 3, Code 4) from anywhere.</p>
+<p>(Linux):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --ip-permissions IpProtocol=icmp,FromPort=3,ToPort=4,IpRanges='[{CidrIp=0.0.0.0/0}]'</pre>
+</div>
+<p>(Windows):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress ^
+    --group-id sg-1234567890abcdef0 ^
+    --ip-permissions IpProtocol=icmp,FromPort=3,ToPort=4,IpRanges=[{CidrIp=0.0.0.0/0}]</pre>
+</div>
+<p>This command produces no output.</p>
+<p><strong>[EC2-VPC] To add a rule for IPv6 traffic</strong></p>
+<p>The following example grants SSH access (port 22) from the IPv6 range <tt class="docutils literal"><span class="pre">2001:db8:1234:1a00::/64</span></tt>.</p>
+<p>(Linux):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --ip-permissions IpProtocol=tcp,FromPort=22,ToPort=22,Ipv6Ranges='[{CidrIpv6=2001:db8:1234:1a00::/64}]'</pre>
+</div>
+<p>(Windows):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress ^
+    --group-id sg-1234567890abcdef0 ^
+    --ip-permissions IpProtocol=tcp,FromPort=22,ToPort=22,Ipv6Ranges=[{CidrIpv6=2001:db8:1234:1a00::/64}]</pre>
+</div>
+<p><strong>[EC2-VPC] To add a rule for ICMPv6 traffic</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">ip-permissions</span></tt> parameter to add an inbound rule that allows ICMPv6 traffic from anywhere.</p>
+<p>(Linux):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --ip-permissions IpProtocol=icmpv6,Ipv6Ranges='[{CidrIpv6=::/0}]'</pre>
+</div>
+<p>(Windows):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress ^
+    --group-id sg-1234567890abcdef0 ^
+    --ip-permissions IpProtocol=icmpv6,Ipv6Ranges=[{CidrIpv6=::/0}]</pre>
+</div>
+<p><strong>Add a rule with a description</strong></p>
+<p>The following example uses the <tt class="docutils literal"><span class="pre">ip-permissions</span></tt> parameter to add an inbound rule that allows RDP traffic from a specific IPv4 address range. The rule includes a description to help you identify it later.</p>
+<p>(Linux):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress \
+    --group-id sg-1234567890abcdef0 \
+    --ip-permissions IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges='[{CidrIp=203.0.113.0/24,Description="RDP access from NY office"}]'</pre>
+</div>
+<p>(Windows):</p>
+<div class="highlight-python">
+<pre>aws ec2 authorize-security-group-ingress ^
+    --group-id sg-1234567890abcdef0 ^
+    --ip-permissions IpProtocol=tcp,FromPort=3389,ToPort=3389,IpRanges=[{CidrIp=203.0.113.0/24,Description="RDP access from NY office"}]</pre>
+</div>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/cli/latest/userguide/cli-ec2-sg.html">Using Security Groups</a> in the <em>AWS Command Line Interface User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>None</p>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

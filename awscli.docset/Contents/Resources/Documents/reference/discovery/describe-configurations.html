@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-configurations — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="discovery" href="index.html">
+    <link rel="next" title="describe-continuous-exports" href="describe-continuous-exports.html">
+    <link rel="prev" title="describe-agents" href="describe-agents.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-configurations">
+<span id="cli-aws-discovery-describe-configurations"></span><h1>describe-configurations<a class="headerlink" href="#describe-configurations" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Retrieves attributes for a list of configuration item IDs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>All of the supplied IDs must be for the same asset type from one of the following:</p>
+<ul class="simple">
+<li>server</li>
+<li>application</li>
+<li>process</li>
+<li>connection</li>
+</ul>
+<p>Output fields are specific to the asset type specified. For example, the output for a <em>server</em> configuration item includes a list of attributes about the server, such as host name, operating system, number of network cards, etc.</p>
+<p class="last">For a complete list of outputs for each asset type, see <a class="reference external" href="http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#DescribeConfigurations">Using the DescribeConfigurations Action</a> .</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/discovery-2015-11-01/DescribeConfigurations">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-configurations
+--configuration-ids &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--configuration-ids</span></tt> (list)</p>
+<blockquote>
+<div>One or more configuration IDs.</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Describe selected asset configurations</strong></p>
+<p>This example command describes the configurations of two specified servers. The action detects the type of asset from the configuration ID. Only one type of asset is allowed per command.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws discovery describe-configurations --configuration-ids "d-server-099385097ef9fbcfb" "d-server-0c4f2dd1fee22c6c1"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"configurations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+                 <span class="s2">"server.performance.maxCpuUsagePct"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskReadIOPS"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgCpuUsagePct"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.type"</span><span class="p">:</span> <span class="s2">"EC2"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxNetworkReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.19140625"</span><span class="p">,</span>
+                 <span class="s2">"server.hostName"</span><span class="p">:</span> <span class="s2">"ip-172-31-35-152"</span><span class="p">,</span>
+                 <span class="s2">"server.configurationId"</span><span class="p">:</span> <span class="s2">"d-server-0c4f2dd1fee22c6c1"</span><span class="p">,</span>
+                 <span class="s2">"server.tags.hasMoreValues"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.minFreeRAMInKB"</span><span class="p">:</span> <span class="s2">"1543496.0"</span><span class="p">,</span>
+                 <span class="s2">"server.osVersion"</span><span class="p">:</span> <span class="s2">"3.14.48-33.39.amzn1.x86_64"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.applications"</span><span class="p">:</span> <span class="s2">"[]"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numDisks"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numCpus"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numCores"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskWriteIOPS"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxNetworkWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.82421875"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.networkInterfaceInfo"</span><span class="p">:</span> <span class="s2">"[{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">eth0</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">06:A7:7D:3F:54:57</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">172.31.35.152</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">netMask</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">255.255.240.0</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">lo</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">00:00:00:00:00:00</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">127.0.0.1</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">netMask</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">255.0.0.0</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">eth0</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">06:A7:7D:3F:54:57</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">fe80::4a7:7dff:fe3f:5457</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">lo</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">00:00:00:00:00:00</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">::1</span><span class="se">\"</span><span class="s2">}]"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgNetworkReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.04915364583333333"</span><span class="p">,</span>
+                 <span class="s2">"server.tags"</span><span class="p">:</span> <span class="s2">"[]"</span><span class="p">,</span>
+                 <span class="s2">"server.applications.hasMoreValues"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+                 <span class="s2">"server.timeOfCreation"</span><span class="p">:</span> <span class="s2">"2016-10-28 23:44:00.0"</span><span class="p">,</span>
+                 <span class="s2">"server.agentId"</span><span class="p">:</span> <span class="s2">"i-4447bc1b"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskReadIOPS"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgFreeRAMInKB"</span><span class="p">:</span> <span class="s2">"1547210.1333333333"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskWriteIOPS"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numNetworkCards"</span><span class="p">:</span> <span class="s2">"2"</span><span class="p">,</span>
+                 <span class="s2">"server.hypervisor"</span><span class="p">:</span> <span class="s2">"xen"</span><span class="p">,</span>
+                 <span class="s2">"server.networkInterfaceInfo.hasMoreValues"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgNetworkWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.1380859375"</span><span class="p">,</span>
+                 <span class="s2">"server.osName"</span><span class="p">:</span> <span class="s2">"Linux - Amazon Linux AMI release 2015.03"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.totalRAMInKB"</span><span class="p">:</span> <span class="s2">"1694732.0"</span><span class="p">,</span>
+                 <span class="s2">"server.cpuType"</span><span class="p">:</span> <span class="s2">"x64"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+                 <span class="s2">"server.performance.maxCpuUsagePct"</span><span class="p">:</span> <span class="s2">"100.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskReadIOPS"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgCpuUsagePct"</span><span class="p">:</span> <span class="s2">"14.733333333333338"</span><span class="p">,</span>
+                 <span class="s2">"server.type"</span><span class="p">:</span> <span class="s2">"EC2"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxNetworkReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"13.400390625"</span><span class="p">,</span>
+                 <span class="s2">"server.hostName"</span><span class="p">:</span> <span class="s2">"ip-172-31-42-208"</span><span class="p">,</span>
+                 <span class="s2">"server.configurationId"</span><span class="p">:</span> <span class="s2">"d-server-099385097ef9fbcfb"</span><span class="p">,</span>
+                 <span class="s2">"server.tags.hasMoreValues"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.minFreeRAMInKB"</span><span class="p">:</span> <span class="s2">"1531104.0"</span><span class="p">,</span>
+                 <span class="s2">"server.osVersion"</span><span class="p">:</span> <span class="s2">"3.14.48-33.39.amzn1.x86_64"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.applications"</span><span class="p">:</span> <span class="s2">"[]"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numDisks"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numCpus"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numCores"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskWriteIOPS"</span><span class="p">:</span> <span class="s2">"1.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxNetworkWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"12.271484375"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.5333333333333334"</span><span class="p">,</span>
+                 <span class="s2">"server.networkInterfaceInfo"</span><span class="p">:</span> <span class="s2">"[{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">eth0</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">06:4A:79:60:75:61</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">172.31.42.208</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">netMask</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">255.255.240.0</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">eth0</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">06:4A:79:60:75:61</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">fe80::44a:79ff:fe60:7561</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">lo</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">00:00:00:00:00:00</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">::1</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">lo</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">macAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">00:00:00:00:00:00</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">ipAddress</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">127.0.0.1</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">netMask</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">255.0.0.0</span><span class="se">\"</span><span class="s2">}]"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgNetworkReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"2.8720052083333334"</span><span class="p">,</span>
+                 <span class="s2">"server.tags"</span><span class="p">:</span> <span class="s2">"[]"</span><span class="p">,</span>
+                 <span class="s2">"server.applications.hasMoreValues"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+                 <span class="s2">"server.timeOfCreation"</span><span class="p">:</span> <span class="s2">"2016-10-28 23:44:30.0"</span><span class="p">,</span>
+                 <span class="s2">"server.agentId"</span><span class="p">:</span> <span class="s2">"i-c142b99e"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.maxDiskWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"4.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskReadIOPS"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgFreeRAMInKB"</span><span class="p">:</span> <span class="s2">"1534946.4"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskReadsPerSecondInKB"</span><span class="p">:</span> <span class="s2">"0.0"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgDiskWriteIOPS"</span><span class="p">:</span> <span class="s2">"0.13333333333333336"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.numNetworkCards"</span><span class="p">:</span> <span class="s2">"2"</span><span class="p">,</span>
+                 <span class="s2">"server.hypervisor"</span><span class="p">:</span> <span class="s2">"xen"</span><span class="p">,</span>
+                 <span class="s2">"server.networkInterfaceInfo.hasMoreValues"</span><span class="p">:</span> <span class="s2">"false"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.avgNetworkWritesPerSecondInKB"</span><span class="p">:</span> <span class="s2">"1.7977864583333332"</span><span class="p">,</span>
+                 <span class="s2">"server.osName"</span><span class="p">:</span> <span class="s2">"Linux - Amazon Linux AMI release 2015.03"</span><span class="p">,</span>
+                 <span class="s2">"server.performance.totalRAMInKB"</span><span class="p">:</span> <span class="s2">"1694732.0"</span><span class="p">,</span>
+                 <span class="s2">"server.cpuType"</span><span class="p">:</span> <span class="s2">"x64"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Describe selected asset configurations</strong></p>
+<p>This example command describes the configurations of two specified applications. The action detects the type of asset from the configuration ID. Only one type of asset is allowed per command.</p>
+<p>Command:</p>
+<div class="highlight-python">
+<pre>aws discovery describe-configurations --configuration-ids "d-application-0ac39bc0e4fad0e42" "d-application-02444a45288013764q"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"configurations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+                 <span class="s2">"application.serverCount"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+                 <span class="s2">"application.name"</span><span class="p">:</span> <span class="s2">"Application-12345"</span><span class="p">,</span>
+                 <span class="s2">"application.lastModifiedTime"</span><span class="p">:</span> <span class="s2">"2016-12-13 23:53:27.0"</span><span class="p">,</span>
+                 <span class="s2">"application.description"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                 <span class="s2">"application.timeOfCreation"</span><span class="p">:</span> <span class="s2">"2016-12-13 23:53:27.0"</span><span class="p">,</span>
+                 <span class="s2">"application.configurationId"</span><span class="p">:</span> <span class="s2">"d-application-0ac39bc0e4fad0e42"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+                 <span class="s2">"application.serverCount"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+                 <span class="s2">"application.name"</span><span class="p">:</span> <span class="s2">"Application-67890"</span><span class="p">,</span>
+                 <span class="s2">"application.lastModifiedTime"</span><span class="p">:</span> <span class="s2">"2016-12-13 23:53:33.0"</span><span class="p">,</span>
+                 <span class="s2">"application.description"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                 <span class="s2">"application.timeOfCreation"</span><span class="p">:</span> <span class="s2">"2016-12-13 23:53:33.0"</span><span class="p">,</span>
+                 <span class="s2">"application.configurationId"</span><span class="p">:</span> <span class="s2">"d-application-02444a45288013764"</span>
+         <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>configurations -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A key in the response map. The value is an array of data.</p>
+<p>(map)</p>
+<blockquote>
+<div>
+<p>key -&gt; (string)</p>
+<p>value -&gt; (string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

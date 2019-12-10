@@ -1,0 +1,579 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>execute-statement — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rds-data" href="index.html">
+    <link rel="next" title="rollback-transaction" href="rollback-transaction.html">
+    <link rel="prev" title="commit-transaction" href="commit-transaction.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="execute-statement">
+<span id="cli-aws-rds-data-execute-statement"></span><h1>execute-statement<a class="headerlink" href="#execute-statement" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Runs a SQL statement against a database.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If a call isn't part of a transaction because it doesn't include the <tt class="docutils literal"><span class="pre">transactionID</span></tt> parameter, changes that result from the call are committed automatically.</p>
+</div>
+<p>The response size limit is 1 MB or 1,000 records. If the call returns more than 1 MB of response data or over 1,000 records, the call is terminated.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rds-data-2018-08-01/ExecuteStatement">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  execute-statement
+[--continue-after-timeout | --no-continue-after-timeout]
+[--database &lt;value&gt;]
+[--include-result-metadata | --no-include-result-metadata]
+[--parameters &lt;value&gt;]
+--resource-arn &lt;value&gt;
+[--result-set-options &lt;value&gt;]
+[--schema &lt;value&gt;]
+--secret-arn &lt;value&gt;
+--sql &lt;value&gt;
+[--transaction-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--continue-after-timeout</span></tt> | <tt class="docutils literal"><span class="pre">--no-continue-after-timeout</span></tt> (boolean)</p>
+<blockquote>
+<div>
+<p>A value that indicates whether to continue running the statement after the call times out. By default, the statement stops running when the call times out.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">For DDL statements, we recommend continuing to run the statement after the call times out. When a DDL statement terminates before it is finished running, it can result in errors and possibly corrupted data structures.</p>
+</div>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--database</span></tt> (string)</p>
+<blockquote>
+<div>The name of the database.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--include-result-metadata</span></tt> | <tt class="docutils literal"><span class="pre">--no-include-result-metadata</span></tt> (boolean)</p>
+<blockquote>
+<div>A value that indicates whether to include metadata in the results.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--parameters</span></tt> (list)</p>
+<blockquote>
+<div>The parameters for the SQL statement.</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "name": "string",
+    "typeHint": "DATE"|"DECIMAL"|"TIME"|"TIMESTAMP",
+    "value": {
+      "arrayValue": {
+        "arrayValues": [
+          {
+            "arrayValues": [
+              { ... recursive ... }
+              ...
+            ],
+            "booleanValues": [true|false, ...],
+            "doubleValues": [double, ...],
+            "longValues": [long, ...],
+            "stringValues": ["string", ...]
+          }
+          ...
+        ],
+        "booleanValues": [true|false, ...],
+        "doubleValues": [double, ...],
+        "longValues": [long, ...],
+        "stringValues": ["string", ...]
+      },
+      "blobValue": blob,
+      "booleanValue": true|false,
+      "doubleValue": double,
+      "isNull": true|false,
+      "longValue": long,
+      "stringValue": "string"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the Aurora Serverless DB cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--result-set-options</span></tt> (structure)</p>
+<blockquote>
+<div>Options that control how the result set is returned.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">decimalReturnType</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"decimalReturnType"</span><span class="p">:</span> <span class="s2">"DOUBLE_OR_LONG"</span><span class="o">|</span><span class="s2">"STRING"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--schema</span></tt> (string)</p>
+<blockquote>
+<div>The name of the database schema.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--secret-arn</span></tt> (string)</p>
+<blockquote>
+<div>The name or ARN of the secret that enables access to the DB cluster.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sql</span></tt> (string)</p>
+<blockquote>
+<div>The SQL statement to run.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--transaction-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The identifier of a transaction that was started by using the <tt class="docutils literal"><span class="pre">BeginTransaction</span></tt> operation. Specify the transaction ID of the transaction that you want to include the SQL statement in.</p>
+<p>If the SQL statement is not part of a transaction, don't set this parameter.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To execute a SQL statement that is part of a transaction</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">execute-statement</span></tt> example runs a SQL statement that is part of a transaction.</p>
+<div class="highlight-python">
+<pre>aws rds-data execute-statement \
+    --resource-arn "arn:aws:rds:us-west-2:123456789012:cluster:mydbcluster" \
+    --database "mydb" \
+    --secret-arn "arn:aws:secretsmanager:us-west-2:123456789012:secret:mysecret" \
+    --sql "update mytable set quantity=5 where id=201" \
+    --transaction-id "ABC1234567890xyz"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"numberOfRecordsUpdated"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To execute a SQL statement with parameters</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">execute-statement</span></tt> example runs a SQL statement with parameters.</p>
+<div class="highlight-python">
+<pre>aws rds-data execute-statement \
+    --resource-arn "arn:aws:rds:us-east-1:123456789012:cluster:mydbcluster" \
+    --database "mydb" \
+    --secret-arn "arn:aws:secretsmanager:us-east-1:123456789012:secret:mysecret" \
+    --sql "insert into mytable values (:id, :val)" \
+    --parameters "[{\"name\": \"id\", \"value\": {\"longValue\": 1}},{\"name\": \"val\", \"value\": {\"stringValue\": \"value1\"}}]"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"numberOfRecordsUpdated"</span><span class="p">:</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html">Using the Data API for Aurora Serverless</a> in the <em>Amazon RDS User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>columnMetadata -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Metadata for the columns included in the results.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains the metadata for a column.</p>
+<p>arrayBaseColumnType -&gt; (integer)</p>
+<blockquote>
+<div>The type of the column.</div>
+</blockquote>
+<p>isAutoIncrement -&gt; (boolean)</p>
+<blockquote>
+<div>A value that indicates whether the column increments automatically.</div>
+</blockquote>
+<p>isCaseSensitive -&gt; (boolean)</p>
+<blockquote>
+<div>A value that indicates whether the column is case-sensitive.</div>
+</blockquote>
+<p>isCurrency -&gt; (boolean)</p>
+<blockquote>
+<div>A value that indicates whether the column contains currency values.</div>
+</blockquote>
+<p>isSigned -&gt; (boolean)</p>
+<blockquote>
+<div>A value that indicates whether an integer column is signed.</div>
+</blockquote>
+<p>label -&gt; (string)</p>
+<blockquote>
+<div>The label for the column.</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the column.</div>
+</blockquote>
+<p>nullable -&gt; (integer)</p>
+<blockquote>
+<div>A value that indicates whether the column is nullable.</div>
+</blockquote>
+<p>precision -&gt; (integer)</p>
+<blockquote>
+<div>The precision value of a decimal number column.</div>
+</blockquote>
+<p>scale -&gt; (integer)</p>
+<blockquote>
+<div>The scale value of a decimal number column.</div>
+</blockquote>
+<p>schemaName -&gt; (string)</p>
+<blockquote>
+<div>The name of the schema that owns the table that includes the column.</div>
+</blockquote>
+<p>tableName -&gt; (string)</p>
+<blockquote>
+<div>The name of the table that includes the column.</div>
+</blockquote>
+<p>type -&gt; (integer)</p>
+<blockquote>
+<div>The type of the column.</div>
+</blockquote>
+<p>typeName -&gt; (string)</p>
+<blockquote>
+<div>The database-specific data type of the column.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>generatedFields -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Values for fields generated during the request.</p>
+<blockquote>
+<div>`` note pThe codegeneratedFields/codedata isn't supported by Aurora PostgreSQL. To get the values of generated fields, use the codeRETURNING/codeclause. For more information, see a href=https://www.postgresql.org/docs/10/dml-returning.htmlReturning Data From Modified Rows/ain the PostgreSQL documentation./p /note``</div>
+</blockquote>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains a value.</p>
+<p>arrayValue -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An array of values.</p>
+<p>arrayValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of arrays.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains an array.</p>
+<p>arrayValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of arrays.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>booleanValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of Boolean values.</p>
+<p>(boolean)</p>
+</div>
+</blockquote>
+<p>doubleValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of integers.</p>
+<p>(double)</p>
+</div>
+</blockquote>
+<p>longValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of floating point numbers.</p>
+<p>(long)</p>
+</div>
+</blockquote>
+<p>stringValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of strings.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>booleanValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of Boolean values.</p>
+<p>(boolean)</p>
+</div>
+</blockquote>
+<p>doubleValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of integers.</p>
+<p>(double)</p>
+</div>
+</blockquote>
+<p>longValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of floating point numbers.</p>
+<p>(long)</p>
+</div>
+</blockquote>
+<p>stringValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of strings.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>blobValue -&gt; (blob)</p>
+<blockquote>
+<div>A value of BLOB data type.</div>
+</blockquote>
+<p>booleanValue -&gt; (boolean)</p>
+<blockquote>
+<div>A value of Boolean data type.</div>
+</blockquote>
+<p>doubleValue -&gt; (double)</p>
+<blockquote>
+<div>A value of double data type.</div>
+</blockquote>
+<p>isNull -&gt; (boolean)</p>
+<blockquote>
+<div>A NULL value.</div>
+</blockquote>
+<p>longValue -&gt; (long)</p>
+<blockquote>
+<div>A value of long data type.</div>
+</blockquote>
+<p>stringValue -&gt; (string)</p>
+<blockquote>
+<div>A value of string data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>numberOfRecordsUpdated -&gt; (long)</p>
+<blockquote>
+<div>The number of records updated by the request.</div>
+</blockquote>
+<p>records -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The records returned by the SQL statement.</p>
+<p>(list)</p>
+<blockquote>
+<div>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains a value.</p>
+<p>arrayValue -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>An array of values.</p>
+<p>arrayValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of arrays.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Contains an array.</p>
+<p>arrayValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of arrays.</p>
+<p>( ... recursive ... )</p>
+</div>
+</blockquote>
+<p>booleanValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of Boolean values.</p>
+<p>(boolean)</p>
+</div>
+</blockquote>
+<p>doubleValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of integers.</p>
+<p>(double)</p>
+</div>
+</blockquote>
+<p>longValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of floating point numbers.</p>
+<p>(long)</p>
+</div>
+</blockquote>
+<p>stringValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of strings.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>booleanValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of Boolean values.</p>
+<p>(boolean)</p>
+</div>
+</blockquote>
+<p>doubleValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of integers.</p>
+<p>(double)</p>
+</div>
+</blockquote>
+<p>longValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of floating point numbers.</p>
+<p>(long)</p>
+</div>
+</blockquote>
+<p>stringValues -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of strings.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>blobValue -&gt; (blob)</p>
+<blockquote>
+<div>A value of BLOB data type.</div>
+</blockquote>
+<p>booleanValue -&gt; (boolean)</p>
+<blockquote>
+<div>A value of Boolean data type.</div>
+</blockquote>
+<p>doubleValue -&gt; (double)</p>
+<blockquote>
+<div>A value of double data type.</div>
+</blockquote>
+<p>isNull -&gt; (boolean)</p>
+<blockquote>
+<div>A NULL value.</div>
+</blockquote>
+<p>longValue -&gt; (long)</p>
+<blockquote>
+<div>A value of long data type.</div>
+</blockquote>
+<p>stringValue -&gt; (string)</p>
+<blockquote>
+<div>A value of string data type.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

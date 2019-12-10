@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>describe-scalable-targets — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="application-autoscaling" href="index.html">
+    <link rel="next" title="describe-scaling-activities" href="describe-scaling-activities.html">
+    <link rel="prev" title="deregister-scalable-target" href="deregister-scalable-target.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="describe-scalable-targets">
+<span id="cli-aws-application-autoscaling-describe-scalable-targets"></span><h1>describe-scalable-targets<a class="headerlink" href="#describe-scalable-targets" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets information about the scalable targets in the specified namespace.</p>
+<p>You can filter the results using <tt class="docutils literal"><span class="pre">ResourceIds</span></tt> and <tt class="docutils literal"><span class="pre">ScalableDimension</span></tt> .</p>
+<p>To create a scalable target or update an existing one, see  RegisterScalableTarget . If you are no longer using a scalable target, you can deregister it using  DeregisterScalableTarget .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/application-autoscaling-2016-02-06/DescribeScalableTargets">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">describe-scalable-targets</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">ScalableTargets</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  describe-scalable-targets
+--service-namespace &lt;value&gt;
+[--resource-ids &lt;value&gt;]
+[--scalable-dimension &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--page-size &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--service-namespace</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The namespace of the AWS service that provides the resource or <tt class="docutils literal"><span class="pre">custom-resource</span></tt> for a resource provided by your own application or service. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces">AWS Service Namespaces</a> in the <em>Amazon Web Services General Reference</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ecs</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">elasticmapreduce</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ec2</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">appstream</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rds</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sagemaker</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">custom-resource</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">comprehend</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lambda</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The identifier of the resource associated with the scalable target. This string consists of the resource type and unique identifier. If you specify a scalable dimension, you must also specify a resource ID.</p>
+<ul class="simple">
+<li>ECS service - The resource type is <tt class="docutils literal"><span class="pre">service</span></tt> and the unique identifier is the cluster name and service name. Example: <tt class="docutils literal"><span class="pre">service/default/sample-webapp</span></tt> .</li>
+<li>Spot Fleet request - The resource type is <tt class="docutils literal"><span class="pre">spot-fleet-request</span></tt> and the unique identifier is the Spot Fleet request ID. Example: <tt class="docutils literal"><span class="pre">spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</span></tt> .</li>
+<li>EMR cluster - The resource type is <tt class="docutils literal"><span class="pre">instancegroup</span></tt> and the unique identifier is the cluster ID and instance group ID. Example: <tt class="docutils literal"><span class="pre">instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0</span></tt> .</li>
+<li>AppStream 2.0 fleet - The resource type is <tt class="docutils literal"><span class="pre">fleet</span></tt> and the unique identifier is the fleet name. Example: <tt class="docutils literal"><span class="pre">fleet/sample-fleet</span></tt> .</li>
+<li>DynamoDB table - The resource type is <tt class="docutils literal"><span class="pre">table</span></tt> and the unique identifier is the table name. Example: <tt class="docutils literal"><span class="pre">table/my-table</span></tt> .</li>
+<li>DynamoDB global secondary index - The resource type is <tt class="docutils literal"><span class="pre">index</span></tt> and the unique identifier is the index name. Example: <tt class="docutils literal"><span class="pre">table/my-table/index/my-table-index</span></tt> .</li>
+<li>Aurora DB cluster - The resource type is <tt class="docutils literal"><span class="pre">cluster</span></tt> and the unique identifier is the cluster name. Example: <tt class="docutils literal"><span class="pre">cluster:my-db-cluster</span></tt> .</li>
+<li>Amazon SageMaker endpoint variant - The resource type is <tt class="docutils literal"><span class="pre">variant</span></tt> and the unique identifier is the resource ID. Example: <tt class="docutils literal"><span class="pre">endpoint/my-end-point/variant/KMeansClustering</span></tt> .</li>
+<li>Custom resources are not supported with a resource type. This parameter must specify the <tt class="docutils literal"><span class="pre">OutputValue</span></tt> from the CloudFormation template stack used to access the resources. The unique identifier is defined by the service provider. More information is available in our <a class="reference external" href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a> .</li>
+<li>Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: <tt class="docutils literal"><span class="pre">arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</span></tt> .</li>
+<li>Lambda provisioned concurrency - The resource type is <tt class="docutils literal"><span class="pre">function</span></tt> and the unique identifier is the function name with a function version or alias name suffix that is not <tt class="docutils literal"><span class="pre">$LATEST</span></tt> . Example: <tt class="docutils literal"><span class="pre">function:my-function:prod</span></tt> or <tt class="docutils literal"><span class="pre">function:my-function:1</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--scalable-dimension</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The scalable dimension associated with the scalable target. This string consists of the service namespace, resource type, and scaling property. If you specify a scalable dimension, you must also specify a resource ID.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ecs:service:DesiredCount</span></tt> - The desired task count of an ECS service.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ec2:spot-fleet-request:TargetCapacity</span></tt> - The target capacity of a Spot Fleet request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">elasticmapreduce:instancegroup:InstanceCount</span></tt> - The instance count of an EMR Instance Group.</li>
+<li>
+<tt class="docutils literal"><span class="pre">appstream:fleet:DesiredCapacity</span></tt> - The desired capacity of an AppStream 2.0 fleet.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:table:ReadCapacityUnits</span></tt> - The provisioned read capacity for a DynamoDB table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:table:WriteCapacityUnits</span></tt> - The provisioned write capacity for a DynamoDB table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:index:ReadCapacityUnits</span></tt> - The provisioned read capacity for a DynamoDB global secondary index.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:index:WriteCapacityUnits</span></tt> - The provisioned write capacity for a DynamoDB global secondary index.</li>
+<li>
+<tt class="docutils literal"><span class="pre">rds:cluster:ReadReplicaCount</span></tt> - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.</li>
+<li>
+<tt class="docutils literal"><span class="pre">sagemaker:variant:DesiredInstanceCount</span></tt> - The number of EC2 instances for an Amazon SageMaker model endpoint variant.</li>
+<li>
+<tt class="docutils literal"><span class="pre">custom-resource:ResourceType:Property</span></tt> - The scalable dimension for a custom resource provided by your own application or service.</li>
+<li>
+<tt class="docutils literal"><span class="pre">comprehend:document-classifier-endpoint:DesiredInferenceUnits</span></tt> - The number of inference units for an Amazon Comprehend document classification endpoint.</li>
+<li>
+<tt class="docutils literal"><span class="pre">lambda:function:ProvisionedConcurrency</span></tt> - The provisioned concurrency for a Lambda function.</li>
+</ul>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ecs:service:DesiredCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ec2:spot-fleet-request:TargetCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">elasticmapreduce:instancegroup:InstanceCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">appstream:fleet:DesiredCapacity</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:table:ReadCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:table:WriteCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:index:ReadCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">dynamodb:index:WriteCapacityUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">rds:cluster:ReadReplicaCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">sagemaker:variant:DesiredInstanceCount</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">custom-resource:ResourceType:Property</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">comprehend:document-classifier-endpoint:DesiredInferenceUnits</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">lambda:function:ProvisionedConcurrency</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--page-size</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The size of each page to get in the AWS service call. This does not affect the number of items returned in the command's output. Setting a smaller page size results in more calls to the AWS service, retrieving fewer items in each call. This can help prevent the AWS service calls from timing out.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To describe scalable targets</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-scalable-targets</span></tt> example command displays details for the the scalable targets for the <tt class="docutils literal"><span class="pre">ecs</span></tt> service namespace:</p>
+<div class="highlight-python">
+<pre>aws application-autoscaling describe-scalable-targets \
+    --service-namespace ecs</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ScalableTargets"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"ScalableDimension"</span><span class="p">:</span> <span class="s2">"ecs:service:DesiredCount"</span><span class="p">,</span>
+            <span class="s2">"ResourceId"</span><span class="p">:</span> <span class="s2">"service/default/web-app"</span><span class="p">,</span>
+            <span class="s2">"RoleARN"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:role/ApplicationAutoscalingECSRole"</span><span class="p">,</span>
+            <span class="s2">"SuspendedState"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"DynamicScalingOutSuspended"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"ScheduledScalingSuspended"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"DynamicScalingInSuspended"</span><span class="p">:</span> <span class="n">false</span>
+            <span class="p">},</span>
+            <span class="s2">"CreationTime"</span><span class="p">:</span> <span class="mf">1462558906.199</span><span class="p">,</span>
+            <span class="s2">"MinCapacity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"ServiceNamespace"</span><span class="p">:</span> <span class="s2">"ecs"</span><span class="p">,</span>
+            <span class="s2">"MaxCapacity"</span><span class="p">:</span> <span class="mi">10</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html">What Is Application Auto Scaling?</a> in the <em>Application Auto Scaling User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ScalableTargets -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The scalable targets that match the request parameters.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a scalable target.</p>
+<p>ServiceNamespace -&gt; (string)</p>
+<blockquote>
+<div>The namespace of the AWS service that provides the resource or <tt class="docutils literal"><span class="pre">custom-resource</span></tt> for a resource provided by your own application or service. For more information, see <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces">AWS Service Namespaces</a> in the <em>Amazon Web Services General Reference</em> .</div>
+</blockquote>
+<p>ResourceId -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The identifier of the resource associated with the scalable target. This string consists of the resource type and unique identifier.</p>
+<ul class="simple">
+<li>ECS service - The resource type is <tt class="docutils literal"><span class="pre">service</span></tt> and the unique identifier is the cluster name and service name. Example: <tt class="docutils literal"><span class="pre">service/default/sample-webapp</span></tt> .</li>
+<li>Spot Fleet request - The resource type is <tt class="docutils literal"><span class="pre">spot-fleet-request</span></tt> and the unique identifier is the Spot Fleet request ID. Example: <tt class="docutils literal"><span class="pre">spot-fleet-request/sfr-73fbd2ce-aa30-494c-8788-1cee4EXAMPLE</span></tt> .</li>
+<li>EMR cluster - The resource type is <tt class="docutils literal"><span class="pre">instancegroup</span></tt> and the unique identifier is the cluster ID and instance group ID. Example: <tt class="docutils literal"><span class="pre">instancegroup/j-2EEZNYKUA1NTV/ig-1791Y4E1L8YI0</span></tt> .</li>
+<li>AppStream 2.0 fleet - The resource type is <tt class="docutils literal"><span class="pre">fleet</span></tt> and the unique identifier is the fleet name. Example: <tt class="docutils literal"><span class="pre">fleet/sample-fleet</span></tt> .</li>
+<li>DynamoDB table - The resource type is <tt class="docutils literal"><span class="pre">table</span></tt> and the unique identifier is the table name. Example: <tt class="docutils literal"><span class="pre">table/my-table</span></tt> .</li>
+<li>DynamoDB global secondary index - The resource type is <tt class="docutils literal"><span class="pre">index</span></tt> and the unique identifier is the index name. Example: <tt class="docutils literal"><span class="pre">table/my-table/index/my-table-index</span></tt> .</li>
+<li>Aurora DB cluster - The resource type is <tt class="docutils literal"><span class="pre">cluster</span></tt> and the unique identifier is the cluster name. Example: <tt class="docutils literal"><span class="pre">cluster:my-db-cluster</span></tt> .</li>
+<li>Amazon SageMaker endpoint variant - The resource type is <tt class="docutils literal"><span class="pre">variant</span></tt> and the unique identifier is the resource ID. Example: <tt class="docutils literal"><span class="pre">endpoint/my-end-point/variant/KMeansClustering</span></tt> .</li>
+<li>Custom resources are not supported with a resource type. This parameter must specify the <tt class="docutils literal"><span class="pre">OutputValue</span></tt> from the CloudFormation template stack used to access the resources. The unique identifier is defined by the service provider. More information is available in our <a class="reference external" href="https://github.com/aws/aws-auto-scaling-custom-resource">GitHub repository</a> .</li>
+<li>Amazon Comprehend document classification endpoint - The resource type and unique identifier are specified using the endpoint ARN. Example: <tt class="docutils literal"><span class="pre">arn:aws:comprehend:us-west-2:123456789012:document-classifier-endpoint/EXAMPLE</span></tt> .</li>
+<li>Lambda provisioned concurrency - The resource type is <tt class="docutils literal"><span class="pre">function</span></tt> and the unique identifier is the function name with a function version or alias name suffix that is not <tt class="docutils literal"><span class="pre">$LATEST</span></tt> . Example: <tt class="docutils literal"><span class="pre">function:my-function:prod</span></tt> or <tt class="docutils literal"><span class="pre">function:my-function:1</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p>ScalableDimension -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The scalable dimension associated with the scalable target. This string consists of the service namespace, resource type, and scaling property.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">ecs:service:DesiredCount</span></tt> - The desired task count of an ECS service.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ec2:spot-fleet-request:TargetCapacity</span></tt> - The target capacity of a Spot Fleet request.</li>
+<li>
+<tt class="docutils literal"><span class="pre">elasticmapreduce:instancegroup:InstanceCount</span></tt> - The instance count of an EMR Instance Group.</li>
+<li>
+<tt class="docutils literal"><span class="pre">appstream:fleet:DesiredCapacity</span></tt> - The desired capacity of an AppStream 2.0 fleet.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:table:ReadCapacityUnits</span></tt> - The provisioned read capacity for a DynamoDB table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:table:WriteCapacityUnits</span></tt> - The provisioned write capacity for a DynamoDB table.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:index:ReadCapacityUnits</span></tt> - The provisioned read capacity for a DynamoDB global secondary index.</li>
+<li>
+<tt class="docutils literal"><span class="pre">dynamodb:index:WriteCapacityUnits</span></tt> - The provisioned write capacity for a DynamoDB global secondary index.</li>
+<li>
+<tt class="docutils literal"><span class="pre">rds:cluster:ReadReplicaCount</span></tt> - The count of Aurora Replicas in an Aurora DB cluster. Available for Aurora MySQL-compatible edition and Aurora PostgreSQL-compatible edition.</li>
+<li>
+<tt class="docutils literal"><span class="pre">sagemaker:variant:DesiredInstanceCount</span></tt> - The number of EC2 instances for an Amazon SageMaker model endpoint variant.</li>
+<li>
+<tt class="docutils literal"><span class="pre">custom-resource:ResourceType:Property</span></tt> - The scalable dimension for a custom resource provided by your own application or service.</li>
+<li>
+<tt class="docutils literal"><span class="pre">comprehend:document-classifier-endpoint:DesiredInferenceUnits</span></tt> - The number of inference units for an Amazon Comprehend document classification endpoint.</li>
+<li>
+<tt class="docutils literal"><span class="pre">lambda:function:ProvisionedConcurrency</span></tt> - The provisioned concurrency for a Lambda function.</li>
+</ul>
+</div>
+</blockquote>
+<p>MinCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The minimum value to scale to in response to a scale-in event.</div>
+</blockquote>
+<p>MaxCapacity -&gt; (integer)</p>
+<blockquote>
+<div>The maximum value to scale to in response to a scale-out event.</div>
+</blockquote>
+<p>RoleARN -&gt; (string)</p>
+<blockquote>
+<div>The ARN of an IAM role that allows Application Auto Scaling to modify the scalable target on your behalf.</div>
+</blockquote>
+<p>CreationTime -&gt; (timestamp)</p>
+<blockquote>
+<div>The Unix timestamp for when the scalable target was created.</div>
+</blockquote>
+<p>SuspendedState -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies whether the scaling activities for a scalable target are in a suspended state.</p>
+<p>DynamicScalingInSuspended -&gt; (boolean)</p>
+<blockquote>
+<div>Whether scale in by a target tracking scaling policy or a step scaling policy is suspended. Set the value to <tt class="docutils literal"><span class="pre">true</span></tt> if you don't want Application Auto Scaling to remove capacity when a scaling policy is triggered. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p>DynamicScalingOutSuspended -&gt; (boolean)</p>
+<blockquote>
+<div>Whether scale out by a target tracking scaling policy or a step scaling policy is suspended. Set the value to <tt class="docutils literal"><span class="pre">true</span></tt> if you don't want Application Auto Scaling to add capacity when a scaling policy is triggered. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+<p>ScheduledScalingSuspended -&gt; (boolean)</p>
+<blockquote>
+<div>Whether scheduled scaling is suspended. Set the value to <tt class="docutils literal"><span class="pre">true</span></tt> if you don't want Application Auto Scaling to add or remove capacity by initiating scheduled actions. The default is <tt class="docutils literal"><span class="pre">false</span></tt> .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>The token required to get the next set of results. This value is <tt class="docutils literal"><span class="pre">null</span></tt> if there are no more results to return.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

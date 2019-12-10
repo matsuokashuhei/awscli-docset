@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-environment — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="elasticbeanstalk" href="index.html">
+    <link rel="next" title="update-tags-for-resource" href="update-tags-for-resource.html">
+    <link rel="prev" title="update-configuration-template" href="update-configuration-template.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-environment">
+<span id="cli-aws-elasticbeanstalk-update-environment"></span><h1>update-environment<a class="headerlink" href="#update-environment" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Updates the environment description, deploys a new application version, updates the configuration settings to an entirely new configuration template, or updates select configuration option values in the running environment.</p>
+<p>Attempting to update both the release and configuration is not allowed and AWS Elastic Beanstalk returns an <tt class="docutils literal"><span class="pre">InvalidParameterCombination</span></tt> error.</p>
+<p>When updating the configuration settings to a new template or individual settings, a draft configuration is created and  DescribeConfigurationSettings for this environment returns two setting descriptions with different <tt class="docutils literal"><span class="pre">DeploymentStatus</span></tt> values.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/elasticbeanstalk-2010-12-01/UpdateEnvironment">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-environment
+[--application-name &lt;value&gt;]
+[--environment-id &lt;value&gt;]
+[--environment-name &lt;value&gt;]
+[--group-name &lt;value&gt;]
+[--description &lt;value&gt;]
+[--tier &lt;value&gt;]
+[--version-label &lt;value&gt;]
+[--template-name &lt;value&gt;]
+[--solution-stack-name &lt;value&gt;]
+[--platform-arn &lt;value&gt;]
+[--option-settings &lt;value&gt;]
+[--options-to-remove &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--application-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the application with which the environment is associated.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--environment-id</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ID of the environment to update.</p>
+<p>If no environment with this ID exists, AWS Elastic Beanstalk returns an <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</p>
+<p>Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns <tt class="docutils literal"><span class="pre">MissingRequiredParameter</span></tt> error.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--environment-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of the environment to update. If no environment with this name exists, AWS Elastic Beanstalk returns an <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</p>
+<p>Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns <tt class="docutils literal"><span class="pre">MissingRequiredParameter</span></tt> error.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--group-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the group to which the target environment belongs. Specify a group name only if the environment's name is specified in an environment manifest and not with the environment name or environment ID parameters. See <a class="reference external" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html">Environment Manifest (env.yaml)</a> for details.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--description</span></tt> (string)</p>
+<blockquote>
+<div>If this parameter is specified, AWS Elastic Beanstalk updates the description of this environment.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--tier</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>This specifies the tier to use to update the environment.</p>
+<p>Condition: At this time, if you change the tier version, name, or type, AWS Elastic Beanstalk returns <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Name</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Type</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Version</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--version-label</span></tt> (string)</p>
+<blockquote>
+<div>If this parameter is specified, AWS Elastic Beanstalk deploys the named application version to the environment. If no such application version is found, returns an <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--template-name</span></tt> (string)</p>
+<blockquote>
+<div>If this parameter is specified, AWS Elastic Beanstalk deploys this configuration template to the environment. If no such configuration template is found, AWS Elastic Beanstalk returns an <tt class="docutils literal"><span class="pre">InvalidParameterValue</span></tt> error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--solution-stack-name</span></tt> (string)</p>
+<blockquote>
+<div>This specifies the platform version that the environment will run after the environment is updated.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--platform-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the platform, if used.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--option-settings</span></tt> (list)</p>
+<blockquote>
+<div>If specified, AWS Elastic Beanstalk updates the configuration set associated with the running environment and sets the specified configuration options to the requested value.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceName=string,Namespace=string,OptionName=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceName": "string",
+    "Namespace": "string",
+    "OptionName": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--options-to-remove</span></tt> (list)</p>
+<blockquote>
+<div>A list of custom user-defined configuration options to remove from the configuration set for this environment.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>ResourceName=string,Namespace=string,OptionName=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "ResourceName": "string",
+    "Namespace": "string",
+    "OptionName": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update an environment to a new version</strong></p>
+<p>The following command updates an environment named "my-env" to version "v2" of the application to which it belongs:</p>
+<div class="highlight-python">
+<pre>aws elasticbeanstalk update-environment --environment-name my-env --version-label v2</pre>
+</div>
+<p>This command requires that the "my-env" environment already exists and belongs to an application that has a valid application version with the label "v2".</p>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"ApplicationName"</span><span class="p">:</span> <span class="s2">"my-app"</span><span class="p">,</span>
+  <span class="s2">"EnvironmentName"</span><span class="p">:</span> <span class="s2">"my-env"</span><span class="p">,</span>
+  <span class="s2">"VersionLabel"</span><span class="p">:</span> <span class="s2">"v2"</span><span class="p">,</span>
+  <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Updating"</span><span class="p">,</span>
+  <span class="s2">"EnvironmentId"</span><span class="p">:</span> <span class="s2">"e-szqipays4h"</span><span class="p">,</span>
+  <span class="s2">"EndpointURL"</span><span class="p">:</span> <span class="s2">"awseb-e-i-AWSEBLoa-1RDLX6TC9VUAO-0123456789.us-west-2.elb.amazonaws.com"</span><span class="p">,</span>
+  <span class="s2">"SolutionStackName"</span><span class="p">:</span> <span class="s2">"64bit Amazon Linux running Tomcat 7"</span><span class="p">,</span>
+  <span class="s2">"CNAME"</span><span class="p">:</span> <span class="s2">"my-env.elasticbeanstalk.com"</span><span class="p">,</span>
+  <span class="s2">"Health"</span><span class="p">:</span> <span class="s2">"Grey"</span><span class="p">,</span>
+  <span class="s2">"Tier"</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">" "</span><span class="p">,</span>
+      <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"Standard"</span><span class="p">,</span>
+      <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"WebServer"</span>
+  <span class="p">},</span>
+  <span class="s2">"DateUpdated"</span><span class="p">:</span> <span class="s2">"2015-02-03T23:12:29.119Z"</span><span class="p">,</span>
+  <span class="s2">"DateCreated"</span><span class="p">:</span> <span class="s2">"2015-02-03T23:04:54.453Z"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>To set an environment variable</strong></p>
+<p>The following command sets the value of the "PARAM1" variable in the "my-env" environment to "ParamValue":</p>
+<div class="highlight-python">
+<pre>aws elasticbeanstalk update-environment --environment-name my-env --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=PARAM1,Value=ParamValue</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">option-settings</span></tt> parameter takes a namespace in addition to the name and value of the variable. Elastic Beanstalk supports several namespaces for options in addition to environment variables.</p>
+<p><strong>To configure option settings from a file</strong></p>
+<p>The following command configures several options in the <tt class="docutils literal"><span class="pre">aws:elb:loadbalancer</span></tt> namespace from a file:</p>
+<div class="highlight-python">
+<pre>aws elasticbeanstalk update-environment --environment-name my-env --option-settings file://options.json</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">options.json</span></tt> is a JSON object defining several settings:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">"Namespace"</span><span class="p">:</span> <span class="s2">"aws:elb:healthcheck"</span><span class="p">,</span>
+    <span class="s2">"OptionName"</span><span class="p">:</span> <span class="s2">"Interval"</span><span class="p">,</span>
+    <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"15"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"Namespace"</span><span class="p">:</span> <span class="s2">"aws:elb:healthcheck"</span><span class="p">,</span>
+    <span class="s2">"OptionName"</span><span class="p">:</span> <span class="s2">"Timeout"</span><span class="p">,</span>
+    <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"8"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"Namespace"</span><span class="p">:</span> <span class="s2">"aws:elb:healthcheck"</span><span class="p">,</span>
+    <span class="s2">"OptionName"</span><span class="p">:</span> <span class="s2">"HealthyThreshold"</span><span class="p">,</span>
+    <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"2"</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="s2">"Namespace"</span><span class="p">:</span> <span class="s2">"aws:elb:healthcheck"</span><span class="p">,</span>
+    <span class="s2">"OptionName"</span><span class="p">:</span> <span class="s2">"UnhealthyThreshold"</span><span class="p">,</span>
+    <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"3"</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ApplicationName"</span><span class="p">:</span> <span class="s2">"my-app"</span><span class="p">,</span>
+    <span class="s2">"EnvironmentName"</span><span class="p">:</span> <span class="s2">"my-env"</span><span class="p">,</span>
+    <span class="s2">"VersionLabel"</span><span class="p">:</span> <span class="s2">"7f58-stage-150812_025409"</span><span class="p">,</span>
+    <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"Updating"</span><span class="p">,</span>
+    <span class="s2">"EnvironmentId"</span><span class="p">:</span> <span class="s2">"e-wtp2rpqsej"</span><span class="p">,</span>
+    <span class="s2">"EndpointURL"</span><span class="p">:</span> <span class="s2">"awseb-e-w-AWSEBLoa-14XB83101Q4L-104QXY80921.sa-east-1.elb.amazonaws.com"</span><span class="p">,</span>
+    <span class="s2">"SolutionStackName"</span><span class="p">:</span> <span class="s2">"64bit Amazon Linux 2015.03 v2.0.0 running Tomcat 8 Java 8"</span><span class="p">,</span>
+    <span class="s2">"CNAME"</span><span class="p">:</span> <span class="s2">"my-env.elasticbeanstalk.com"</span><span class="p">,</span>
+    <span class="s2">"Health"</span><span class="p">:</span> <span class="s2">"Grey"</span><span class="p">,</span>
+    <span class="s2">"AbortableOperationInProgress"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">"Tier"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Version"</span><span class="p">:</span> <span class="s2">" "</span><span class="p">,</span>
+        <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"Standard"</span><span class="p">,</span>
+        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"WebServer"</span>
+    <span class="p">},</span>
+    <span class="s2">"DateUpdated"</span><span class="p">:</span> <span class="s2">"2015-08-12T18:15:23.804Z"</span><span class="p">,</span>
+    <span class="s2">"DateCreated"</span><span class="p">:</span> <span class="s2">"2015-08-07T20:48:49.599Z"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information about namespaces and supported options, see <a class="reference external" href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html">Option Values</a> in the <em>AWS Elastic Beanstalk Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>EnvironmentName -&gt; (string)</p>
+<blockquote>
+<div>The name of this environment.</div>
+</blockquote>
+<p>EnvironmentId -&gt; (string)</p>
+<blockquote>
+<div>The ID of this environment.</div>
+</blockquote>
+<p>ApplicationName -&gt; (string)</p>
+<blockquote>
+<div>The name of the application associated with this environment.</div>
+</blockquote>
+<p>VersionLabel -&gt; (string)</p>
+<blockquote>
+<div>The application version deployed in this environment.</div>
+</blockquote>
+<p>SolutionStackName -&gt; (string)</p>
+<blockquote>
+<div>The name of the <tt class="docutils literal"><span class="pre">SolutionStack</span></tt> deployed with this environment.</div>
+</blockquote>
+<p>PlatformArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the platform.</div>
+</blockquote>
+<p>TemplateName -&gt; (string)</p>
+<blockquote>
+<div>The name of the configuration template used to originally launch this environment.</div>
+</blockquote>
+<p>Description -&gt; (string)</p>
+<blockquote>
+<div>Describes this environment.</div>
+</blockquote>
+<p>EndpointURL -&gt; (string)</p>
+<blockquote>
+<div>For load-balanced, autoscaling environments, the URL to the LoadBalancer. For single-instance environments, the IP address of the instance.</div>
+</blockquote>
+<p>CNAME -&gt; (string)</p>
+<blockquote>
+<div>The URL to the CNAME for this environment.</div>
+</blockquote>
+<p>DateCreated -&gt; (timestamp)</p>
+<blockquote>
+<div>The creation date for this environment.</div>
+</blockquote>
+<p>DateUpdated -&gt; (timestamp)</p>
+<blockquote>
+<div>The last modified date for this environment.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The current operational status of the environment:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Launching</span></tt> : Environment is in the process of initial deployment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Updating</span></tt> : Environment is in the process of updating its configuration settings or application version.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Ready</span></tt> : Environment is available to have an action performed on it, such as update or terminate.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Terminating</span></tt> : Environment is in the shut-down process.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Terminated</span></tt> : Environment is not running.</li>
+</ul>
+</div>
+</blockquote>
+<p>AbortableOperationInProgress -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>Indicates if there is an in-progress environment configuration update or application version deployment that you can cancel.</p>
+<blockquote>
+<div>
+<p><tt class="docutils literal"><span class="pre">true:</span></tt> There is an update in progress.</p>
+<p><tt class="docutils literal"><span class="pre">false:</span></tt> There are no updates currently in progress.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Health -&gt; (string)</p>
+<blockquote>
+<div>
+<p>Describes the health status of the environment. AWS Elastic Beanstalk indicates the failure levels for a running environment:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">Red</span></tt> : Indicates the environment is not responsive. Occurs when three or more consecutive failures occur for an environment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Yellow</span></tt> : Indicates that something is wrong. Occurs when two consecutive failures occur for an environment.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Green</span></tt> : Indicates the environment is healthy and fully functional.</li>
+<li>
+<tt class="docutils literal"><span class="pre">Grey</span></tt> : Default health for a new environment. The environment is not fully launched and health checks have not started or health checks are suspended during an <tt class="docutils literal"><span class="pre">UpdateEnvironment</span></tt> or <tt class="docutils literal"><span class="pre">RestartEnvironment</span></tt> request.</li>
+</ul>
+<p>Default: <tt class="docutils literal"><span class="pre">Grey</span></tt></p>
+</div>
+</blockquote>
+<p>HealthStatus -&gt; (string)</p>
+<blockquote>
+<div>Returns the health status of the application running in your environment. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html">Health Colors and Statuses</a> .</div>
+</blockquote>
+<p>Resources -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The description of the AWS resources used by this environment.</p>
+<p>LoadBalancer -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the LoadBalancer.</p>
+<p>LoadBalancerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the LoadBalancer.</div>
+</blockquote>
+<p>Domain -&gt; (string)</p>
+<blockquote>
+<div>The domain name of the LoadBalancer.</div>
+</blockquote>
+<p>Listeners -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of Listeners used by the LoadBalancer.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Describes the properties of a Listener for the LoadBalancer.</p>
+<p>Protocol -&gt; (string)</p>
+<blockquote>
+<div>The protocol that is used by the Listener.</div>
+</blockquote>
+<p>Port -&gt; (integer)</p>
+<blockquote>
+<div>The port that is used by the Listener.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Tier -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Describes the current tier of this environment.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The name of this environment tier.</p>
+<p>Valid values:</p>
+<ul class="simple">
+<li>For <em>Web server tier</em> – <tt class="docutils literal"><span class="pre">WebServer</span></tt>
+</li>
+<li>For <em>Worker tier</em> – <tt class="docutils literal"><span class="pre">Worker</span></tt>
+</li>
+</ul>
+</div>
+</blockquote>
+<p>Type -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of this environment tier.</p>
+<p>Valid values:</p>
+<ul class="simple">
+<li>For <em>Web server tier</em> – <tt class="docutils literal"><span class="pre">Standard</span></tt>
+</li>
+<li>For <em>Worker tier</em> – <tt class="docutils literal"><span class="pre">SQS/HTTP</span></tt>
+</li>
+</ul>
+</div>
+</blockquote>
+<p>Version -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The version of this environment tier. When you don't set a value to it, Elastic Beanstalk uses the latest compatible worker tier version.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This member is deprecated. Any specific version that you set may become out of date. We recommend leaving it unspecified.</p>
+</div>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EnvironmentLinks -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of links to other environments in the same group.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A link to another environment, defined in the environment's manifest. Links provide connection information in system properties that can be used to connect to another environment in the same group. See <a class="reference external" href="https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html">Environment Manifest (env.yaml)</a> for details.</p>
+<p>LinkName -&gt; (string)</p>
+<blockquote>
+<div>The name of the link.</div>
+</blockquote>
+<p>EnvironmentName -&gt; (string)</p>
+<blockquote>
+<div>The name of the linked environment (the dependency).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EnvironmentArn -&gt; (string)</p>
+<blockquote>
+<div>The environment's Amazon Resource Name (ARN), which can be used in other API requests that require an ARN.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

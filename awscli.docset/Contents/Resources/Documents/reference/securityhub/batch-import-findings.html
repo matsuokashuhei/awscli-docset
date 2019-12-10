@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>batch-import-findings — AWS CLI 1.16.299 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.299',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="up" title="securityhub" href="index.html">
+    <link rel="next" title="create-action-target" href="create-action-target.html">
+    <link rel="prev" title="batch-enable-standards" href="batch-enable-standards.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="batch-import-findings">
+<span id="cli-aws-securityhub-batch-import-findings"></span><h1>batch-import-findings<a class="headerlink" href="#batch-import-findings" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Imports security findings generated from an integrated third-party product into Security Hub. This action is requested by the integrated product to import its findings into Security Hub. The maximum allowed size for a finding is 240 Kb. An error is returned for any finding larger than 240 Kb.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/securityhub-2018-10-26/BatchImportFindings">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  batch-import-findings
+--findings &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--findings</span></tt> (list)</p>
+<blockquote>
+<div>A list of findings to import. To successfully import a finding, it must follow the <a class="reference external" href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security Finding Format</a> .</div>
+</blockquote>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "SchemaVersion": "string",
+    "Id": "string",
+    "ProductArn": "string",
+    "GeneratorId": "string",
+    "AwsAccountId": "string",
+    "Types": ["string", ...],
+    "FirstObservedAt": "string",
+    "LastObservedAt": "string",
+    "CreatedAt": "string",
+    "UpdatedAt": "string",
+    "Severity": {
+      "Product": double,
+      "Normalized": integer
+    },
+    "Confidence": integer,
+    "Criticality": integer,
+    "Title": "string",
+    "Description": "string",
+    "Remediation": {
+      "Recommendation": {
+        "Text": "string",
+        "Url": "string"
+      }
+    },
+    "SourceUrl": "string",
+    "ProductFields": {"string": "string"
+      ...},
+    "UserDefinedFields": {"string": "string"
+      ...},
+    "Malware": [
+      {
+        "Name": "string",
+        "Type": "ADWARE"|"BLENDED_THREAT"|"BOTNET_AGENT"|"COIN_MINER"|"EXPLOIT_KIT"|"KEYLOGGER"|"MACRO"|"POTENTIALLY_UNWANTED"|"SPYWARE"|"RANSOMWARE"|"REMOTE_ACCESS"|"ROOTKIT"|"TROJAN"|"VIRUS"|"WORM",
+        "Path": "string",
+        "State": "OBSERVED"|"REMOVAL_FAILED"|"REMOVED"
+      }
+      ...
+    ],
+    "Network": {
+      "Direction": "IN"|"OUT",
+      "Protocol": "string",
+      "SourceIpV4": "string",
+      "SourceIpV6": "string",
+      "SourcePort": integer,
+      "SourceDomain": "string",
+      "SourceMac": "string",
+      "DestinationIpV4": "string",
+      "DestinationIpV6": "string",
+      "DestinationPort": integer,
+      "DestinationDomain": "string"
+    },
+    "Process": {
+      "Name": "string",
+      "Path": "string",
+      "Pid": integer,
+      "ParentPid": integer,
+      "LaunchedAt": "string",
+      "TerminatedAt": "string"
+    },
+    "ThreatIntelIndicators": [
+      {
+        "Type": "DOMAIN"|"EMAIL_ADDRESS"|"HASH_MD5"|"HASH_SHA1"|"HASH_SHA256"|"HASH_SHA512"|"IPV4_ADDRESS"|"IPV6_ADDRESS"|"MUTEX"|"PROCESS"|"URL",
+        "Value": "string",
+        "Category": "BACKDOOR"|"CARD_STEALER"|"COMMAND_AND_CONTROL"|"DROP_SITE"|"EXPLOIT_SITE"|"KEYLOGGER",
+        "LastObservedAt": "string",
+        "Source": "string",
+        "SourceUrl": "string"
+      }
+      ...
+    ],
+    "Resources": [
+      {
+        "Type": "string",
+        "Id": "string",
+        "Partition": "aws"|"aws-cn"|"aws-us-gov",
+        "Region": "string",
+        "Tags": {"string": "string"
+          ...},
+        "Details": {
+          "AwsEc2Instance": {
+            "Type": "string",
+            "ImageId": "string",
+            "IpV4Addresses": ["string", ...],
+            "IpV6Addresses": ["string", ...],
+            "KeyName": "string",
+            "IamInstanceProfileArn": "string",
+            "VpcId": "string",
+            "SubnetId": "string",
+            "LaunchedAt": "string"
+          },
+          "AwsS3Bucket": {
+            "OwnerId": "string",
+            "OwnerName": "string"
+          },
+          "AwsIamAccessKey": {
+            "UserName": "string",
+            "Status": "Active"|"Inactive",
+            "CreatedAt": "string"
+          },
+          "Container": {
+            "Name": "string",
+            "ImageId": "string",
+            "ImageName": "string",
+            "LaunchedAt": "string"
+          },
+          "Other": {"string": "string"
+            ...}
+        }
+      }
+      ...
+    ],
+    "Compliance": {
+      "Status": "PASSED"|"WARNING"|"FAILED"|"NOT_AVAILABLE"
+    },
+    "VerificationState": "UNKNOWN"|"TRUE_POSITIVE"|"FALSE_POSITIVE"|"BENIGN_POSITIVE",
+    "WorkflowState": "NEW"|"ASSIGNED"|"IN_PROGRESS"|"DEFERRED"|"RESOLVED",
+    "RecordState": "ACTIVE"|"ARCHIVED",
+    "RelatedFindings": [
+      {
+        "ProductArn": "string",
+        "Id": "string"
+      }
+      ...
+    ],
+    "Note": {
+      "Text": "string",
+      "UpdatedBy": "string",
+      "UpdatedAt": "string"
+    }
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>FailedCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of findings that failed to import.</div>
+</blockquote>
+<p>SuccessCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of findings that were successfully imported.</div>
+</blockquote>
+<p>FailedFindings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The list of the findings that failed to import.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Includes details of the list of the findings that can't be imported.</p>
+<p>Id -&gt; (string)</p>
+<blockquote>
+<div>The ID of the error made during the <tt class="docutils literal"><span class="pre">BatchImportFindings</span></tt> operation.</div>
+</blockquote>
+<p>ErrorCode -&gt; (string)</p>
+<blockquote>
+<div>The code of the error made during the <tt class="docutils literal"><span class="pre">BatchImportFindings</span></tt> operation.</div>
+</blockquote>
+<p>ErrorMessage -&gt; (string)</p>
+<blockquote>
+<div>The message of the error made during the <tt class="docutils literal"><span class="pre">BatchImportFindings</span></tt> operation.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

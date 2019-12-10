@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-server — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="opsworks-cm" href="index.html">
+    <link rel="next" title="delete-backup" href="delete-backup.html">
+    <link rel="prev" title="create-backup" href="create-backup.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-server">
+<span id="cli-aws-opsworkscm-create-server"></span><h1>create-server<a class="headerlink" href="#create-server" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates and immedately starts a new server. The server is ready to use when it is in the <tt class="docutils literal"><span class="pre">HEALTHY</span></tt> state. By default, you can create a maximum of 10 servers.</p>
+<p>This operation is asynchronous.</p>
+<p>A <tt class="docutils literal"><span class="pre">LimitExceededException</span></tt> is thrown when you have created the maximum number of servers (10). A <tt class="docutils literal"><span class="pre">ResourceAlreadyExistsException</span></tt> is thrown when a server with the same name already exists in the account. A <tt class="docutils literal"><span class="pre">ResourceNotFoundException</span></tt> is thrown when you specify a backup ID that is not valid or is for a backup that does not exist. A <tt class="docutils literal"><span class="pre">ValidationException</span></tt> is thrown when parameters of the request are not valid.</p>
+<p>If you do not specify a security group by adding the <tt class="docutils literal"><span class="pre">SecurityGroupIds</span></tt> parameter, AWS OpsWorks creates a new security group.</p>
+<blockquote>
+<div>
+<p><em>Chef Automate:</em> The default security group opens the Chef server to the world on TCP port 443. If a KeyName is present, AWS OpsWorks enables SSH access. SSH is also open to the world on TCP port 22.</p>
+<p><em>Puppet Enterprise:</em> The default security group opens TCP ports 22, 443, 4433, 8140, 8142, 8143, and 8170. If a KeyName is present, AWS OpsWorks enables SSH access. SSH is also open to the world on TCP port 22.</p>
+</div>
+</blockquote>
+<p>By default, your server is accessible from any IP address. We recommend that you update your security group rules to allow access from known IP addresses and address ranges only. To edit security group rules, open Security Groups in the navigation pane of the EC2 management console.</p>
+<p>To specify your own domain for a server, and provide your own self-signed or CA-signed certificate and private key, specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> , <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> , and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/opsworkscm-2016-11-01/CreateServer">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-server
+[--associate-public-ip-address | --no-associate-public-ip-address]
+[--custom-domain &lt;value&gt;]
+[--custom-certificate &lt;value&gt;]
+[--custom-private-key &lt;value&gt;]
+[--disable-automated-backup | --no-disable-automated-backup]
+[--engine &lt;value&gt;]
+[--engine-model &lt;value&gt;]
+[--engine-version &lt;value&gt;]
+[--engine-attributes &lt;value&gt;]
+[--backup-retention-count &lt;value&gt;]
+--server-name &lt;value&gt;
+--instance-profile-arn &lt;value&gt;
+--instance-type &lt;value&gt;
+[--key-pair &lt;value&gt;]
+[--preferred-maintenance-window &lt;value&gt;]
+[--preferred-backup-window &lt;value&gt;]
+[--security-group-ids &lt;value&gt;]
+--service-role-arn &lt;value&gt;
+[--subnet-ids &lt;value&gt;]
+[--backup-id &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--associate-public-ip-address</span></tt> | <tt class="docutils literal"><span class="pre">--no-associate-public-ip-address</span></tt> (boolean)</p>
+<blockquote>
+<div>Associate a public IP address with a server that you are launching. Valid values are <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> . The default value is <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--custom-domain</span></tt> (string)</p>
+<blockquote>
+<div>An optional public endpoint of a server, such as <tt class="docutils literal"><span class="pre">https://aws.my-company.com</span></tt> . To access the server, create a CNAME DNS record in your preferred DNS service that points the custom domain to the endpoint that is generated when the server is created (the value of the CreateServer Endpoint attribute). You cannot access the server by using the generated <tt class="docutils literal"><span class="pre">Endpoint</span></tt> value if the server is using a custom domain. If you specify a custom domain, you must also specify values for <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--custom-certificate</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A PEM-formatted HTTPS certificate. The value can be be a single, self-signed certificate, or a certificate chain. If you specify a custom certificate, you must also specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> . The following are requirements for the <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> value:</p>
+<ul class="simple">
+<li>You can provide either a self-signed, custom certificate, or the full certificate chain.</li>
+<li>The certificate must be a valid X509 certificate, or a certificate chain in PEM format.</li>
+<li>The certificate must be valid at the time of upload. A certificate can't be used before its validity period begins (the certificate's <tt class="docutils literal"><span class="pre">NotBefore</span></tt> date), or after it expires (the certificate's <tt class="docutils literal"><span class="pre">NotAfter</span></tt> date).</li>
+<li>The certificate’s common name or subject alternative names (SANs), if present, must match the value of <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> .</li>
+<li>The certificate must match the value of <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> .</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--custom-private-key</span></tt> (string)</p>
+<blockquote>
+<div>A private key in PEM format for connecting to the server by using HTTPS. The private key must not be encrypted; it cannot be protected by a password or passphrase. If you specify a custom private key, you must also specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> and <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--disable-automated-backup</span></tt> | <tt class="docutils literal"><span class="pre">--no-disable-automated-backup</span></tt> (boolean)</p>
+<blockquote>
+<div>Enable or disable scheduled backups. Valid values are <tt class="docutils literal"><span class="pre">true</span></tt> or <tt class="docutils literal"><span class="pre">false</span></tt> . The default value is <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine</span></tt> (string)</p>
+<blockquote>
+<div>The configuration management engine to use. Valid values include <tt class="docutils literal"><span class="pre">ChefAutomate</span></tt> and <tt class="docutils literal"><span class="pre">Puppet</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine-model</span></tt> (string)</p>
+<blockquote>
+<div>The engine model of the server. Valid values in this release include <tt class="docutils literal"><span class="pre">Monolithic</span></tt> for Puppet and <tt class="docutils literal"><span class="pre">Single</span></tt> for Chef.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine-version</span></tt> (string)</p>
+<blockquote>
+<div>The major release version of the engine that you want to use. For a Chef server, the valid value for EngineVersion is currently <tt class="docutils literal"><span class="pre">12</span></tt> . For a Puppet server, the valid value is <tt class="docutils literal"><span class="pre">2017</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--engine-attributes</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Optional engine attributes on a specified server.</p>
+<blockquote>
+<div><strong>Attributes accepted in a Chef createServer request:</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CHEF_AUTOMATE_PIVOTAL_KEY</span></tt> : A base64-encoded RSA public key. The corresponding private key is required to access the Chef API. When no CHEF_AUTOMATE_PIVOTAL_KEY is set, a private key is generated and returned in the response.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CHEF_AUTOMATE_ADMIN_PASSWORD</span></tt> : The password for the administrative user in the Chef Automate web-based dashboard. The password length is a minimum of eight characters, and a maximum of 32. The password can contain letters, numbers, and special characters (<a class="reference external" href="mailto:!/%40#%24%%5E+=_">!/<span>@</span>#$%^+=_</a>). The password must contain at least one lower case letter, one upper case letter, one number, and one special character. When no CHEF_AUTOMATE_ADMIN_PASSWORD is set, one is generated and returned in the response.</li>
+</ul>
+<blockquote>
+<div><strong>Attributes accepted in a Puppet createServer request:</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">PUPPET_ADMIN_PASSWORD</span></tt> : To work with the Puppet Enterprise console, a password must use ASCII characters.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PUPPET_R10K_REMOTE</span></tt> : The r10k remote is the URL of your control repository (for example, <a class="reference external" href="ssh://git@your.git-repo.com:user/control-repo.git">ssh://git@your.git-repo.com:user/control-repo.git</a>). Specifying an r10k remote opens TCP port 8170.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PUPPET_R10K_PRIVATE_KEY</span></tt> : If you are using a private Git repository, add PUPPET_R10K_PRIVATE_KEY to specify a PEM-encoded private SSH key.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Name=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Name": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--backup-retention-count</span></tt> (integer)</p>
+<blockquote>
+<div>The number of automated backups that you want to keep. Whenever a new backup is created, AWS OpsWorks CM deletes the oldest backups if this number is exceeded. The default value is <tt class="docutils literal"><span class="pre">1</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--server-name</span></tt> (string)</p>
+<blockquote>
+<div>The name of the server. The server name must be unique within your AWS account, within each region. Server names must start with a letter; then letters, numbers, or hyphens (-) are allowed, up to a maximum of 40 characters.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-profile-arn</span></tt> (string)</p>
+<blockquote>
+<div>The ARN of the instance profile that your Amazon EC2 instances use. Although the AWS OpsWorks console typically creates the instance profile for you, if you are using API commands instead, run the service-role-creation.yaml AWS CloudFormation template, located at <a class="reference external" href="https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml">https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml</a>. This template creates a CloudFormation stack that includes the instance profile you need.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--instance-type</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon EC2 instance type to use. For example, <tt class="docutils literal"><span class="pre">m5.large</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key-pair</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon EC2 key pair to set for the instance. This parameter is optional; if desired, you may specify this parameter to connect to your instances by using SSH.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--preferred-maintenance-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The start time for a one-hour period each week during which AWS OpsWorks CM performs maintenance on the instance. Valid values must be specified in the following format: <tt class="docutils literal"><span class="pre">DDD:HH:MM</span></tt> . The specified time is in coordinated universal time (UTC). The default value is a random one-hour period on Tuesday, Wednesday, or Friday. See <tt class="docutils literal"><span class="pre">TimeWindowDefinition</span></tt> for more information.</p>
+<blockquote>
+<div>
+<strong>Example:</strong>  <tt class="docutils literal"><span class="pre">Mon:08:00</span></tt> , which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)</div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--preferred-backup-window</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The start time for a one-hour period during which AWS OpsWorks CM backs up application-level data on your server if automated backups are enabled. Valid values must be specified in one of the following formats:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">HH:MM</span></tt> for daily backups</li>
+<li>
+<tt class="docutils literal"><span class="pre">DDD:HH:MM</span></tt> for weekly backups</li>
+</ul>
+<p>The specified time is in coordinated universal time (UTC). The default value is a random, daily start time.</p>
+<blockquote>
+<div>
+<p><strong>Example:</strong>  <tt class="docutils literal"><span class="pre">08:00</span></tt> , which represents a daily start time of 08:00 UTC.</p>
+<p><strong>Example:</strong>  <tt class="docutils literal"><span class="pre">Mon:08:00</span></tt> , which represents a start time of every Monday at 08:00 UTC. (8:00 a.m.)</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--security-group-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A list of security group IDs to attach to the Amazon EC2 instance. If you add this parameter, the specified security groups must be within the VPC that is specified by <tt class="docutils literal"><span class="pre">SubnetIds</span></tt> .</p>
+<p>If you do not specify this parameter, AWS OpsWorks CM creates one new security group that uses TCP ports 22 and 443, open to 0.0.0.0/0 (everyone).</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--service-role-arn</span></tt> (string)</p>
+<blockquote>
+<div>The service role that the AWS OpsWorks CM service backend uses to work with your account. Although the AWS OpsWorks management console typically creates the service role for you, if you are using the AWS CLI or API commands, run the service-role-creation.yaml AWS CloudFormation template, located at <a class="reference external" href="https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml">https://s3.amazonaws.com/opsworks-cm-us-east-1-prod-default-assets/misc/opsworks-cm-roles.yaml</a>. This template creates a CloudFormation stack that includes the service role and instance profile that you need.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--subnet-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The IDs of subnets in which to launch the server EC2 instance.</p>
+<p>Amazon EC2-Classic customers: This field is required. All servers must run within a VPC. The VPC must have "Auto Assign Public IP" enabled.</p>
+<p>EC2-VPC customers: This field is optional. If you do not specify subnet IDs, your EC2 instances are created in a default subnet that is selected by Amazon EC2. If you specify subnet IDs, the VPC must have "Auto Assign Public IP" enabled.</p>
+<p>For more information about supported Amazon EC2 platforms, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">Supported Platforms</a> .</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--backup-id</span></tt> (string)</p>
+<blockquote>
+<div>If you specify this field, AWS OpsWorks CM creates the server by using the backup represented by BackupId.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a server</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-server</span></tt> example creates a new Chef Automate server named <tt class="docutils literal"><span class="pre">automate-06</span></tt> in your default region. Note that defaults are used for most other settings, such as number of backups to retain, and maintenance and backup start times. Before you run a <tt class="docutils literal"><span class="pre">create-server</span></tt> command, complete prerequisites in <a class="reference external" href="http://docs.aws.amazon.com/opsworks/latest/userguide/gettingstarted-opscm.html">Getting Started with AWS OpsWorks for Chef Automate</a> in the <em>AWS Opsworks for Chef Automate User Guide</em>.</p>
+<div class="highlight-python">
+<pre>aws opsworks-cm create-server \
+    --engine "Chef" \
+    --engine-model "Single" \
+    --engine-version "12" \
+    --server-name "automate-06" \
+    --instance-profile-arn "arn:aws:iam::1019881987024:instance-profile/aws-opsworks-cm-ec2-role" \
+    --instance-type "t2.medium" \
+    --key-pair "amazon-test" \
+    --service-role-arn "arn:aws:iam::044726508045:role/aws-opsworks-cm-service-role"</pre>
+</div>
+<p>The output shows you information similar to the following about the new server:</p>
+<div class="highlight-python">
+<pre>{
+    "Server": {
+        "BackupRetentionCount": 10,
+        "CreatedAt": 2016-07-29T13:38:47.520Z,
+        "DisableAutomatedBackup": FALSE,
+        "Endpoint": "https://opsworks-cm.us-east-1.amazonaws.com",
+        "Engine": "Chef",
+        "EngineAttributes": [
+            {
+                "Name": "CHEF_DELIVERY_ADMIN_PASSWORD",
+                "Value": "1Password1"
+            }
+        ],
+        "EngineModel": "Single",
+        "EngineVersion": "12",
+        "InstanceProfileArn": "arn:aws:iam::1019881987024:instance-profile/aws-opsworks-cm-ec2-role",
+        "InstanceType": "t2.medium",
+        "KeyPair": "amazon-test",
+        "MaintenanceStatus": "",
+        "PreferredBackupWindow": "Sun:02:00",
+        "PreferredMaintenanceWindow": "00:00",
+        "SecurityGroupIds": [ "sg-1a24c270" ],
+        "ServerArn": "arn:aws:iam::1019881987024:instance/automate-06-1010V4UU2WRM2",
+        "ServerName": "automate-06",
+        "ServiceRoleArn": "arn:aws:iam::1019881987024:role/aws-opsworks-cm-service-role",
+        "Status": "CREATING",
+        "StatusReason": "",
+        "SubnetIds": [ "subnet-49436a18" ]
+    }
+}</pre>
+</div>
+<p>For more information, see <a class="reference external" href="http://docs.aws.amazon.com/opsworks-cm/latest/APIReference/API_UpdateServer.html">UpdateServer</a> in the <em>AWS OpsWorks for Chef Automate API Reference</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>Server -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The server that is created by the request.</p>
+<p>AssociatePublicIpAddress -&gt; (boolean)</p>
+<blockquote>
+<div>Associate a public IP address with a server that you are launching.</div>
+</blockquote>
+<p>BackupRetentionCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of automated backups to keep.</div>
+</blockquote>
+<p>ServerName -&gt; (string)</p>
+<blockquote>
+<div>The name of the server.</div>
+</blockquote>
+<p>CreatedAt -&gt; (timestamp)</p>
+<blockquote>
+<div>Time stamp of server creation. Example <tt class="docutils literal"><span class="pre">2016-07-29T13:38:47.520Z</span></tt>
+</div>
+</blockquote>
+<p>CloudFormationStackArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the CloudFormation stack that was used to create the server.</div>
+</blockquote>
+<p>CustomDomain -&gt; (string)</p>
+<blockquote>
+<div>An optional public endpoint of a server, such as <tt class="docutils literal"><span class="pre">https://aws.my-company.com</span></tt> . You cannot access the server by using the <tt class="docutils literal"><span class="pre">Endpoint</span></tt> value if the server has a <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> specified.</div>
+</blockquote>
+<p>DisableAutomatedBackup -&gt; (boolean)</p>
+<blockquote>
+<div>Disables automated backups. The number of stored backups is dependent on the value of PreferredBackupCount.</div>
+</blockquote>
+<p>Endpoint -&gt; (string)</p>
+<blockquote>
+<div>A DNS name that can be used to access the engine. Example: <tt class="docutils literal"><span class="pre">myserver-asdfghjkl.us-east-1.opsworks.io</span></tt> . You cannot access the server by using the <tt class="docutils literal"><span class="pre">Endpoint</span></tt> value if the server has a <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> specified.</div>
+</blockquote>
+<p>Engine -&gt; (string)</p>
+<blockquote>
+<div>The engine type of the server. Valid values in this release include <tt class="docutils literal"><span class="pre">ChefAutomate</span></tt> and <tt class="docutils literal"><span class="pre">Puppet</span></tt> .</div>
+</blockquote>
+<p>EngineModel -&gt; (string)</p>
+<blockquote>
+<div>The engine model of the server. Valid values in this release include <tt class="docutils literal"><span class="pre">Monolithic</span></tt> for Puppet and <tt class="docutils literal"><span class="pre">Single</span></tt> for Chef.</div>
+</blockquote>
+<p>EngineAttributes -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The response of a createServer() request returns the master credential to access the server in EngineAttributes. These credentials are not stored by AWS OpsWorks CM; they are returned only as part of the result of createServer().</p>
+<blockquote>
+<div><strong>Attributes returned in a createServer response for Chef</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">CHEF_AUTOMATE_PIVOTAL_KEY</span></tt> : A base64-encoded RSA private key that is generated by AWS OpsWorks for Chef Automate. This private key is required to access the Chef API.</li>
+<li>
+<tt class="docutils literal"><span class="pre">CHEF_STARTER_KIT</span></tt> : A base64-encoded ZIP file. The ZIP file contains a Chef starter kit, which includes a README, a configuration file, and the required RSA private key. Save this file, unzip it, and then change to the directory where you've unzipped the file contents. From this directory, you can run Knife commands.</li>
+</ul>
+<blockquote>
+<div><strong>Attributes returned in a createServer response for Puppet</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">PUPPET_STARTER_KIT</span></tt> : A base64-encoded ZIP file. The ZIP file contains a Puppet starter kit, including a README and a required private key. Save this file, unzip it, and then change to the directory where you've unzipped the file contents.</li>
+<li>
+<tt class="docutils literal"><span class="pre">PUPPET_ADMIN_PASSWORD</span></tt> : An administrator password that you can use to sign in to the Puppet Enterprise console after the server is online.</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A name and value pair that is specific to the engine of the server.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the engine attribute.</div>
+</blockquote>
+<p>Value -&gt; (string)</p>
+<blockquote>
+<div>The value of the engine attribute.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>EngineVersion -&gt; (string)</p>
+<blockquote>
+<div>The engine version of the server. For a Chef server, the valid value for EngineVersion is currently <tt class="docutils literal"><span class="pre">12</span></tt> . For a Puppet server, the valid value is <tt class="docutils literal"><span class="pre">2017</span></tt> .</div>
+</blockquote>
+<p>InstanceProfileArn -&gt; (string)</p>
+<blockquote>
+<div>The instance profile ARN of the server.</div>
+</blockquote>
+<p>InstanceType -&gt; (string)</p>
+<blockquote>
+<div>The instance type for the server, as specified in the CloudFormation stack. This might not be the same instance type that is shown in the EC2 console.</div>
+</blockquote>
+<p>KeyPair -&gt; (string)</p>
+<blockquote>
+<div>The key pair associated with the server.</div>
+</blockquote>
+<p>MaintenanceStatus -&gt; (string)</p>
+<blockquote>
+<div>The status of the most recent server maintenance run. Shows <tt class="docutils literal"><span class="pre">SUCCESS</span></tt> or <tt class="docutils literal"><span class="pre">FAILED</span></tt> .</div>
+</blockquote>
+<p>PreferredMaintenanceWindow -&gt; (string)</p>
+<blockquote>
+<div>The preferred maintenance period specified for the server.</div>
+</blockquote>
+<p>PreferredBackupWindow -&gt; (string)</p>
+<blockquote>
+<div>The preferred backup period specified for the server.</div>
+</blockquote>
+<p>SecurityGroupIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The security group IDs for the server, as specified in the CloudFormation stack. These might not be the same security groups that are shown in the EC2 console.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ServiceRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The service role ARN used to create the server.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The server's status. This field displays the states of actions in progress, such as creating, running, or backing up the server, as well as the server's health state.</div>
+</blockquote>
+<p>StatusReason -&gt; (string)</p>
+<blockquote>
+<div>Depending on the server status, this field has either a human-readable message (such as a create or backup error), or an escaped block of JSON (used for health check results).</div>
+</blockquote>
+<p>SubnetIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The subnet IDs specified in a CreateServer request.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>ServerArn -&gt; (string)</p>
+<blockquote>
+<div>The ARN of the server.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

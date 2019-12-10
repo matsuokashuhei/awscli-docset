@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>update-cluster-settings — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ecs" href="index.html">
+    <link rel="next" title="update-container-agent" href="update-container-agent.html">
+    <link rel="prev" title="untag-resource" href="untag-resource.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="update-cluster-settings">
+<span id="cli-aws-ecs-update-cluster-settings"></span><h1>update-cluster-settings<a class="headerlink" href="#update-cluster-settings" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Modifies the settings to use for a cluster.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/UpdateClusterSettings">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  update-cluster-settings
+--cluster &lt;value&gt;
+--settings &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--cluster</span></tt> (string)</p>
+<blockquote>
+<div>The name of the cluster to modify the settings for.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--settings</span></tt> (list)</p>
+<blockquote>
+<div>The setting to use by default for a cluster. This parameter is used to enable CloudWatch Container Insights for a cluster. If this value is specified, it will override the <tt class="docutils literal"><span class="pre">containerInsights</span></tt> value set with  PutAccountSetting or  PutAccountSettingDefault .</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>name=string,value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "name": "containerInsights",
+    "value": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To modify the settings for your cluster</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-cluster-settings</span></tt> example enables CloudWatch Container Insights for the <tt class="docutils literal"><span class="pre">default</span></tt> cluster.</p>
+<div class="highlight-python">
+<pre>aws ecs update-cluster-settings \
+    --cluster default \
+    --settings name=containerInsights,value=enabled</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"cluster"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"clusterArn"</span><span class="p">:</span> <span class="s2">"arn:aws:ecs:us-west-2:123456789012:cluster/MyCluster"</span><span class="p">,</span>
+        <span class="s2">"clusterName"</span><span class="p">:</span> <span class="s2">"default"</span><span class="p">,</span>
+        <span class="s2">"status"</span><span class="p">:</span> <span class="s2">"ACTIVE"</span><span class="p">,</span>
+        <span class="s2">"registeredContainerInstancesCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"runningTasksCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"pendingTasksCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"activeServicesCount"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"statistics"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"tags"</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">"settings"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"containerInsights"</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="s2">"enabled"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-modifying-longer-id-settings.html">Modifying Account Settings</a> in the <em>Amazon ECS Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>cluster -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A regional grouping of one or more container instances on which you can run task requests. Each account receives a default cluster the first time you use the Amazon ECS service, but you may also create other clusters. Clusters may contain more than one instance type simultaneously.</p>
+<p>clusterArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) that identifies the cluster. The ARN contains the <tt class="docutils literal"><span class="pre">arn:aws:ecs</span></tt> namespace, followed by the Region of the cluster, the AWS account ID of the cluster owner, the <tt class="docutils literal"><span class="pre">cluster</span></tt> namespace, and then the cluster name. For example, <tt class="docutils literal"><span class="pre">arn:aws:ecs:region:012345678910:cluster/test</span></tt> .</div>
+</blockquote>
+<p>clusterName -&gt; (string)</p>
+<blockquote>
+<div>A user-generated string that you use to identify your cluster.</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the cluster. The valid values are <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> or <tt class="docutils literal"><span class="pre">INACTIVE</span></tt> . <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> indicates that you can register container instances with the cluster and the associated instances can accept tasks.</div>
+</blockquote>
+<p>registeredContainerInstancesCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of container instances registered into the cluster. This includes container instances in both <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> and <tt class="docutils literal"><span class="pre">DRAINING</span></tt> status.</div>
+</blockquote>
+<p>runningTasksCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of tasks in the cluster that are in the <tt class="docutils literal"><span class="pre">RUNNING</span></tt> state.</div>
+</blockquote>
+<p>pendingTasksCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of tasks in the cluster that are in the <tt class="docutils literal"><span class="pre">PENDING</span></tt> state.</div>
+</blockquote>
+<p>activeServicesCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of services that are running on the cluster in an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> state. You can view these services with  ListServices .</div>
+</blockquote>
+<p>statistics -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Additional information about your clusters that are separated by launch type, including:</p>
+<ul class="simple">
+<li>runningEC2TasksCount</li>
+<li>RunningFargateTasksCount</li>
+<li>pendingEC2TasksCount</li>
+<li>pendingFargateTasksCount</li>
+<li>activeEC2ServiceCount</li>
+<li>activeFargateServiceCount</li>
+<li>drainingEC2ServiceCount</li>
+<li>drainingFargateServiceCount</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>tags -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.</p>
+<p>The following basic restrictions apply to tags:</p>
+<ul class="simple">
+<li>Maximum number of tags per resource - 50</li>
+<li>For each resource, each tag key must be unique, and each tag key can have only one value.</li>
+<li>Maximum key length - 128 Unicode characters in UTF-8</li>
+<li>Maximum value length - 256 Unicode characters in UTF-8</li>
+<li>If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</li>
+<li>Tag keys and values are case-sensitive.</li>
+<li>Do not use <tt class="docutils literal"><span class="pre">aws:</span></tt> , <tt class="docutils literal"><span class="pre">AWS:</span></tt> , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.</li>
+</ul>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The metadata that you apply to a resource to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.</p>
+<p>The following basic restrictions apply to tags:</p>
+<ul class="simple">
+<li>Maximum number of tags per resource - 50</li>
+<li>For each resource, each tag key must be unique, and each tag key can have only one value.</li>
+<li>Maximum key length - 128 Unicode characters in UTF-8</li>
+<li>Maximum value length - 256 Unicode characters in UTF-8</li>
+<li>If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.</li>
+<li>Tag keys and values are case-sensitive.</li>
+<li>Do not use <tt class="docutils literal"><span class="pre">aws:</span></tt> , <tt class="docutils literal"><span class="pre">AWS:</span></tt> , or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for AWS use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.</li>
+</ul>
+<p>key -&gt; (string)</p>
+<blockquote>
+<div>One part of a key-value pair that make up a tag. A <tt class="docutils literal"><span class="pre">key</span></tt> is a general label that acts like a category for more specific tag values.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The optional part of a key-value pair that make up a tag. A <tt class="docutils literal"><span class="pre">value</span></tt> acts as a descriptor within a tag category (key).</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>settings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The settings for the cluster. This parameter indicates whether CloudWatch Container Insights is enabled or disabled for a cluster.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The settings to use when creating a cluster. This parameter is used to enable CloudWatch Container Insights for a cluster.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the cluster setting. The only supported value is <tt class="docutils literal"><span class="pre">containerInsights</span></tt> .</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value to set for the cluster setting. The supported values are <tt class="docutils literal"><span class="pre">enabled</span></tt> and <tt class="docutils literal"><span class="pre">disabled</span></tt> . If <tt class="docutils literal"><span class="pre">enabled</span></tt> is specified, CloudWatch Container Insights will be enabled for the cluster, otherwise it will be disabled unless the <tt class="docutils literal"><span class="pre">containerInsights</span></tt> account setting is enabled. If a cluster value is specified, it will override the <tt class="docutils literal"><span class="pre">containerInsights</span></tt> value set with  PutAccountSetting or  PutAccountSettingDefault .</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>capacityProviders -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The capacity providers associated with the cluster.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>defaultCapacityProviderStrategy -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The default capacity provider strategy for the cluster. When services or tasks are run in the cluster with no launch type or capacity provider strategy specified, the default capacity provider strategy is used.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The details of a capacity provider strategy.</p>
+<p>capacityProvider -&gt; (string)</p>
+<blockquote>
+<div>The short name or full Amazon Resource Name (ARN) of the capacity provider.</div>
+</blockquote>
+<p>weight -&gt; (integer)</p>
+<blockquote>
+<div>
+<p>The <em>weight</em> value designates the relative percentage of the total number of tasks launched that should use the specified capacity provider.</p>
+<p>For example, if you have a strategy that contains two capacity providers and both have a weight of <tt class="docutils literal"><span class="pre">1</span></tt> , then when the <tt class="docutils literal"><span class="pre">base</span></tt> is satisfied, the tasks will be split evenly across the two capacity providers. Using that same logic, if you specify a weight of <tt class="docutils literal"><span class="pre">1</span></tt> for <em>capacityProviderA</em> and a weight of <tt class="docutils literal"><span class="pre">4</span></tt> for <em>capacityProviderB</em> , then for every one task that is run using <em>capacityProviderA</em> , four tasks would use <em>capacityProviderB</em> .</p>
+</div>
+</blockquote>
+<p>base -&gt; (integer)</p>
+<blockquote>
+<div>The <em>base</em> value designates how many tasks, at a minimum, to run on the specified capacity provider. Only one capacity provider in a capacity provider strategy can have a <em>base</em> defined.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>attachments -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The resources attached to a cluster. When using a capacity provider with a cluster, the Auto Scaling plan that is created will be returned as a cluster attachment.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An object representing a container instance or task attachment.</p>
+<p>id -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the attachment.</div>
+</blockquote>
+<p>type -&gt; (string)</p>
+<blockquote>
+<div>The type of the attachment, such as <tt class="docutils literal"><span class="pre">ElasticNetworkInterface</span></tt> .</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the attachment. Valid values are <tt class="docutils literal"><span class="pre">PRECREATED</span></tt> , <tt class="docutils literal"><span class="pre">CREATED</span></tt> , <tt class="docutils literal"><span class="pre">ATTACHING</span></tt> , <tt class="docutils literal"><span class="pre">ATTACHED</span></tt> , <tt class="docutils literal"><span class="pre">DETACHING</span></tt> , <tt class="docutils literal"><span class="pre">DETACHED</span></tt> , and <tt class="docutils literal"><span class="pre">DELETED</span></tt> .</div>
+</blockquote>
+<p>details -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Details of the attachment. For elastic network interfaces, this includes the network interface ID, the MAC address, the subnet ID, and the private IPv4 address.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A key-value pair object.</p>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the key-value pair. For environment variables, this is the name of the environment variable.</div>
+</blockquote>
+<p>value -&gt; (string)</p>
+<blockquote>
+<div>The value of the key-value pair. For environment variables, this is the value of the environment variable.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>attachmentsStatus -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The status of the capacity providers associated with the cluster. The following are the states that will be returned:</p>
+<blockquote>
+<div>UPDATE_IN_PROGRESS</div>
+</blockquote>
+<p>The available capacity providers for the cluster are updating. This occurs when the Auto Scaling plan is provisioning or deprovisioning.</p>
+<blockquote>
+<div>UPDATE_COMPLETE</div>
+</blockquote>
+<p>The capacity providers have successfully updated.</p>
+<blockquote>
+<div>UPDATE_FAILED</div>
+</blockquote>
+<p>The capacity provider updates failed.</p>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

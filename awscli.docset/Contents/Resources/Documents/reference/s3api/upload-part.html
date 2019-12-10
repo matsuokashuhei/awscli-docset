@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>upload-part — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="s3api" href="index.html">
+    <link rel="next" title="upload-part-copy" href="upload-part-copy.html">
+    <link rel="prev" title="select-object-content" href="select-object-content.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="upload-part">
+<span id="cli-aws-s3api-upload-part"></span><h1>upload-part<a class="headerlink" href="#upload-part" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Uploads a part in a multipart upload.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In this operation, you provide part data in your request. However, you have an option to specify your existing Amazon S3 object as a data source for the part you are uploading. To upload a part from an existing object, you use the  UploadPartCopy operation.</p>
+</div>
+<p>You must initiate a multipart upload (see  CreateMultipartUpload ) before you can upload any part. In response to your initiate request, Amazon S3 returns an upload ID, a unique identifier, that you must include in your upload part request.</p>
+<p>Part numbers can be any number from 1 to 10,000, inclusive. A part number uniquely identifies a part and also defines its position within the object being created. If you upload a new part using the same part number that was used with a previous part, the previously uploaded part is overwritten. Each part must be at least 5 MB in size, except the last part. There is no size limit on the last part of your multipart upload.</p>
+<p>To ensure that data is not corrupted when traversing the network, specify the <tt class="docutils literal"><span class="pre">Content-MD5</span></tt> header in the upload part request. Amazon S3 checks the part data against the provided MD5 value. If they do not match, Amazon S3 returns an error.</p>
+<blockquote>
+<div>
+<strong>Note:</strong> After you initiate multipart upload and upload one or more parts, you must either complete or abort multipart upload in order to stop getting charged for storage of the uploaded parts. Only after you either complete or abort multipart upload, Amazon S3 frees up the parts storage and stops charging you for the parts storage.</div>
+</blockquote>
+<p>For more information on multipart uploads, go to <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html">Multipart Upload Overview</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+<p>For information on the permissions required to use the multipart upload API, go to <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuAndPermissions.html">Multipart Upload API and Permissions</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+<p>You can optionally request server-side encryption where Amazon S3 encrypts your data as it writes it to disks in its data centers and decrypts it for you when you access it. You have the option of providing your own encryption key, or you can use the AWS managed encryption keys. If you choose to provide your own encryption key, the request headers you provide in the request must match the headers you used in the request to initiate the upload by using  CreateMultipartUpload . For more information, go to <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html">Using Server-Side Encryption</a> in the <em>Amazon Simple Storage Service Developer Guide</em> .</p>
+<p>Server-side encryption is supported by the S3 Multipart Upload actions. Unless you are using a customer-provided encryption key, you don't need to specify the encryption parameters in each UploadPart request. Instead, you only need to specify the server-side encryption parameters in the initial Initiate Multipart request. For more information, see  CreateMultipartUpload .</p>
+<p>If you requested server-side encryption using a customer-provided encryption key in your initiate multipart upload request, you must provide identical encryption information in each part upload using the following headers.</p>
+<ul class="simple">
+<li>x-amz-server-side​-encryption​-customer-algorithm</li>
+<li>x-amz-server-side​-encryption​-customer-key</li>
+<li>x-amz-server-side​-encryption​-customer-key-MD5</li>
+</ul>
+<blockquote>
+<div><strong>Special Errors</strong></div>
+</blockquote>
+<ul>
+<li>
+<blockquote class="first">
+<div>
+<ul class="simple">
+<li><em>Code: NoSuchUpload</em></li>
+<li><em>Cause: The specified multipart upload does not exist. The upload ID might be invalid, or the multipart upload might have been aborted or completed.</em></li>
+<li><em>HTTP Status Code: 404 Not Found</em></li>
+<li><em>SOAP Fault Code Prefix: Client</em></li>
+</ul>
+</div>
+</blockquote>
+<p><strong>Related Resources</strong></p>
+</li>
+<li>
+<p class="first">CreateMultipartUpload</p>
+</li>
+<li>
+<p class="first">CompleteMultipartUpload</p>
+</li>
+<li>
+<p class="first">AbortMultipartUpload</p>
+</li>
+<li>
+<p class="first">ListParts</p>
+</li>
+<li>
+<p class="first">ListMultipartUploads</p>
+</li>
+</ul>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/UploadPart">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  upload-part
+[--body &lt;value&gt;]
+--bucket &lt;value&gt;
+[--content-length &lt;value&gt;]
+[--content-md5 &lt;value&gt;]
+--key &lt;value&gt;
+--part-number &lt;value&gt;
+--upload-id &lt;value&gt;
+[--sse-customer-algorithm &lt;value&gt;]
+[--sse-customer-key &lt;value&gt;]
+[--sse-customer-key-md5 &lt;value&gt;]
+[--request-payer &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--body</span></tt> (blob)</p>
+<blockquote>
+<div>Object data.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--bucket</span></tt> (string)</p>
+<blockquote>
+<div>Name of the bucket to which the multipart upload was initiated.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-length</span></tt> (long)</p>
+<blockquote>
+<div>Size of the body in bytes. This parameter is useful when the size of the body cannot be determined automatically.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--content-md5</span></tt> (string)</p>
+<blockquote>
+<div>The base64-encoded 128-bit MD5 digest of the part data. This parameter is auto-populated when using the command from the CLI. This parameter is required if object lock parameters are specified.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--key</span></tt> (string)</p>
+<blockquote>
+<div>Object key for which the multipart upload was initiated.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--part-number</span></tt> (integer)</p>
+<blockquote>
+<div>Part number of part being uploaded. This is a positive integer between 1 and 10,000.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--upload-id</span></tt> (string)</p>
+<blockquote>
+<div>Upload ID identifying the multipart upload whose part is being uploaded.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-algorithm</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the algorithm to use to when encrypting the object (for example, AES256).</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the customer-provided encryption key for Amazon S3 to use in encrypting data. This value is used to store the object and then it is discarded; Amazon S3 does not store the encryption key. The key must be appropriate for use with the algorithm specified in the <tt class="docutils literal"><span class="pre">x-amz-server-side​-encryption​-customer-algorithm</span> <span class="pre">header</span></tt> . This must be the same encryption key specified in the initiate multipart upload request.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sse-customer-key-md5</span></tt> (string)</p>
+<blockquote>
+<div>Specifies the 128-bit MD5 digest of the encryption key according to RFC 1321. Amazon S3 uses this header for a message integrity check to ensure that the encryption key was transmitted without error.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p>The following command uploads the first part in a multipart upload initiated with the <tt class="docutils literal"><span class="pre">create-multipart-upload</span></tt> command:</p>
+<div class="highlight-python">
+<pre>aws s3api upload-part --bucket my-bucket --key 'multipart/01' --part-number 1 --body part01 --upload-id  "dfRtDYU0WWCCcH43C3WFbkRONycyCpTJJvxu2i5GYkZljF.Yxwh6XG7WfS2vC4to6HiV6Yjlx.cph0gtNBtJ8P3URCSbB7rjxI5iEwVDmgaXZOGgkk5nVTW16HOQ5l0R"</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">body</span></tt> option takes the name or path of a local file for upload (do not use the <a class="reference external" href="file://">file://</a> prefix). The minimum part size is 5 MB. Upload ID is returned by <tt class="docutils literal"><span class="pre">create-multipart-upload</span></tt> and can also be retrieved with <tt class="docutils literal"><span class="pre">list-multipart-uploads</span></tt>. Bucket and key are specified when you create the multipart upload.</p>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">e868e0f4719e394144ef36531ee6824c</span><span class="se">\"</span><span class="s2">"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Save the ETag value of each part for later. They are required to complete the multipart upload.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ServerSideEncryption -&gt; (string)</p>
+<blockquote>
+<div>The server-side encryption algorithm used when storing this object in Amazon S3 (for example, AES256, aws:kms).</div>
+</blockquote>
+<p>ETag -&gt; (string)</p>
+<blockquote>
+<div>Entity tag for the uploaded object.</div>
+</blockquote>
+<p>SSECustomerAlgorithm -&gt; (string)</p>
+<blockquote>
+<div>If server-side encryption with a customer-provided encryption key was requested, the response will include this header confirming the encryption algorithm used.</div>
+</blockquote>
+<p>SSECustomerKeyMD5 -&gt; (string)</p>
+<blockquote>
+<div>If server-side encryption with a customer-provided encryption key was requested, the response will include this header to provide round-trip message integrity verification of the customer-provided encryption key.</div>
+</blockquote>
+<p>SSEKMSKeyId -&gt; (string)</p>
+<blockquote>
+<div>If present, specifies the ID of the AWS Key Management Service (AWS KMS) customer master key (CMK) was used for the object.</div>
+</blockquote>
+<p>RequestCharged -&gt; (string)</p>
+<blockquote>
+<div>If present, indicates that the requester was successfully charged for the request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

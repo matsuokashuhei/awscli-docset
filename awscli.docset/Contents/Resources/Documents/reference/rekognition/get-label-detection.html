@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-label-detection — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="rekognition" href="index.html">
+    <link rel="next" title="get-person-tracking" href="get-person-tracking.html">
+    <link rel="prev" title="get-face-search" href="get-face-search.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-label-detection">
+<span id="cli-aws-rekognition-get-label-detection"></span><h1>get-label-detection<a class="headerlink" href="#get-label-detection" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets the label detection results of a Amazon Rekognition Video analysis started by  StartLabelDetection .</p>
+<p>The label detection operation is started by a call to  StartLabelDetection which returns a job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ). When the label detection operation finishes, Amazon Rekognition publishes a completion status to the Amazon Simple Notification Service topic registered in the initial call to <tt class="docutils literal"><span class="pre">StartlabelDetection</span></tt> . To get the results of the label detection operation, first check that the status value published to the Amazon SNS topic is <tt class="docutils literal"><span class="pre">SUCCEEDED</span></tt> . If so, call  GetLabelDetection and pass the job identifier (<tt class="docutils literal"><span class="pre">JobId</span></tt> ) from the initial call to <tt class="docutils literal"><span class="pre">StartLabelDetection</span></tt> .</p>
+<blockquote>
+<div>
+<tt class="docutils literal"><span class="pre">GetLabelDetection</span></tt> returns an array of detected labels (<tt class="docutils literal"><span class="pre">Labels</span></tt> ) sorted by the time the labels were detected. You can also sort by the label name by specifying <tt class="docutils literal"><span class="pre">NAME</span></tt> for the <tt class="docutils literal"><span class="pre">SortBy</span></tt> input parameter.</div>
+</blockquote>
+<p>The labels returned include the label name, the percentage confidence in the accuracy of the detected label, and the time the label was detected in the video.</p>
+<p>The returned labels also include bounding box information for common objects, a hierarchical taxonomy of detected labels, and the version of the label model used for detection.</p>
+<p>Use MaxResults parameter to limit the number of labels returned. If there are more results than specified in <tt class="docutils literal"><span class="pre">MaxResults</span></tt> , the value of <tt class="docutils literal"><span class="pre">NextToken</span></tt> in the operation response contains a pagination token for getting the next set of results. To get the next page of results, call <tt class="docutils literal"><span class="pre">GetlabelDetection</span></tt> and populate the <tt class="docutils literal"><span class="pre">NextToken</span></tt> request parameter with the token value returned from the previous call to <tt class="docutils literal"><span class="pre">GetLabelDetection</span></tt> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/rekognition-2016-06-27/GetLabelDetection">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-label-detection
+--job-id &lt;value&gt;
+[--max-results &lt;value&gt;]
+[--next-token &lt;value&gt;]
+[--sort-by &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--job-id</span></tt> (string)</p>
+<blockquote>
+<div>Job identifier for the label detection operation for which you want results returned. You get the job identifer from an initial call to <tt class="docutils literal"><span class="pre">StartlabelDetection</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>Maximum number of results to return per paginated call. The largest value you can specify is 1000. If you specify a value greater than 1000, a maximum of 1000 results is returned. The default value is 1000.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>If the previous response was incomplete (because there are more labels to retrieve), Amazon Rekognition Video returns a pagination token in the response. You can use this pagination token to retrieve the next set of labels.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--sort-by</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Sort to use for elements in the <tt class="docutils literal"><span class="pre">Labels</span></tt> array. Use <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> to sort array elements by the time labels are detected. Use <tt class="docutils literal"><span class="pre">NAME</span></tt> to alphabetically group elements for a label together. Within each label group, the array element are sorted by detection confidence. The default sort is by <tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt> .</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">NAME</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">TIMESTAMP</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To get the results of an objects and scenes detection operation</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">get-label-detection</span></tt> command displays the results of an objects and scenes detection operation that you started previously by calling <tt class="docutils literal"><span class="pre">start-label-detection</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws rekognition get-label-detection  \
+    --job-id 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Labels"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"Label"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Instances"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">50.19071578979492</span><span class="p">,</span>
+                <span class="s2">"Parents"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Person"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Crowd"</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Audience"</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"Timestamp"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"Label"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Instances"</span><span class="p">:</span> <span class="p">[],</span>
+                <span class="s2">"Confidence"</span><span class="p">:</span> <span class="mf">55.74115753173828</span><span class="p">,</span>
+                <span class="s2">"Parents"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Room"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Indoors"</span>
+                    <span class="p">},</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"School"</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">"Name"</span><span class="p">:</span> <span class="s2">"Classroom"</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">"JobStatus"</span><span class="p">:</span> <span class="s2">"SUCCEEDED"</span><span class="p">,</span>
+    <span class="s2">"LabelModelVersion"</span><span class="p">:</span> <span class="s2">"2.0"</span><span class="p">,</span>
+    <span class="s2">"VideoMetadata"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Format"</span><span class="p">:</span> <span class="s2">"QuickTime / MOV"</span><span class="p">,</span>
+        <span class="s2">"FrameRate"</span><span class="p">:</span> <span class="mf">29.970617294311523</span><span class="p">,</span>
+        <span class="s2">"Codec"</span><span class="p">:</span> <span class="s2">"h264"</span><span class="p">,</span>
+        <span class="s2">"DurationMillis"</span><span class="p">:</span> <span class="mi">6806</span><span class="p">,</span>
+        <span class="s2">"FrameHeight"</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+        <span class="s2">"FrameWidth"</span><span class="p">:</span> <span class="mi">1920</span>
+    <span class="p">},</span>
+    <span class="s2">"NextToken"</span><span class="p">:</span> <span class="s2">"BMugzAi4L72IERzQdbpyMQuEFBsjlo5W0Yx3mfG+sR9mm98E1/CpObenspRfs/5FBQFs4X7G"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/rekognition/latest/dg/labels-detecting-labels-video.html">Detecting Labels in a Video</a> in the <em>Amazon Rekognition Developer Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>JobStatus -&gt; (string)</p>
+<blockquote>
+<div>The current status of the label detection job.</div>
+</blockquote>
+<p>StatusMessage -&gt; (string)</p>
+<blockquote>
+<div>If the job fails, <tt class="docutils literal"><span class="pre">StatusMessage</span></tt> provides a descriptive error message.</div>
+</blockquote>
+<p>VideoMetadata -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about a video that Amazon Rekognition Video analyzed. <tt class="docutils literal"><span class="pre">Videometadata</span></tt> is returned in every page of paginated responses from a Amazon Rekognition video operation.</p>
+<p>Codec -&gt; (string)</p>
+<blockquote>
+<div>Type of compression used in the analyzed video.</div>
+</blockquote>
+<p>DurationMillis -&gt; (long)</p>
+<blockquote>
+<div>Length of the video in milliseconds.</div>
+</blockquote>
+<p>Format -&gt; (string)</p>
+<blockquote>
+<div>Format of the analyzed video. Possible values are MP4, MOV and AVI.</div>
+</blockquote>
+<p>FrameRate -&gt; (float)</p>
+<blockquote>
+<div>Number of frames per second in the video.</div>
+</blockquote>
+<p>FrameHeight -&gt; (long)</p>
+<blockquote>
+<div>Vertical pixel dimension of the video.</div>
+</blockquote>
+<p>FrameWidth -&gt; (long)</p>
+<blockquote>
+<div>Horizontal pixel dimension of the video.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>If the response is truncated, Amazon Rekognition Video returns this token that you can use in the subsequent request to retrieve the next set of labels.</div>
+</blockquote>
+<p>Labels -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of labels detected in the video. Each element contains the detected label and the time, in milliseconds from the start of the video, that the label was detected.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about a label detected in a video analysis request and the time the label was detected in the video.</p>
+<p>Timestamp -&gt; (long)</p>
+<blockquote>
+<div>Time, in milliseconds from the start of the video, that the label was detected.</div>
+</blockquote>
+<p>Label -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Details about the detected label.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name (label) of the object or scene.</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>Level of confidence.</div>
+</blockquote>
+<p>Instances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>If <tt class="docutils literal"><span class="pre">Label</span></tt> represents an object, <tt class="docutils literal"><span class="pre">Instances</span></tt> contains the bounding boxes for each instance of the detected object. Bounding boxes are returned for common object labels such as people, cars, furniture, apparel or pets.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>An instance of a label returned by Amazon Rekognition Image ( DetectLabels ) or by Amazon Rekognition Video ( GetLabelDetection ).</p>
+<p>BoundingBox -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The position of the label instance on the image.</p>
+<p>Width -&gt; (float)</p>
+<blockquote>
+<div>Width of the bounding box as a ratio of the overall image width.</div>
+</blockquote>
+<p>Height -&gt; (float)</p>
+<blockquote>
+<div>Height of the bounding box as a ratio of the overall image height.</div>
+</blockquote>
+<p>Left -&gt; (float)</p>
+<blockquote>
+<div>Left coordinate of the bounding box as a ratio of overall image width.</div>
+</blockquote>
+<p>Top -&gt; (float)</p>
+<blockquote>
+<div>Top coordinate of the bounding box as a ratio of overall image height.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Confidence -&gt; (float)</p>
+<blockquote>
+<div>The confidence that Amazon Rekognition has in the accuracy of the bounding box.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Parents -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The parent labels for a label. The response includes all ancestor labels.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>A parent label for a label. A label can have 0, 1, or more parents.</p>
+<p>Name -&gt; (string)</p>
+<blockquote>
+<div>The name of the parent label.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LabelModelVersion -&gt; (string)</p>
+<blockquote>
+<div>Version number of the label detection model that was used to detect labels.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

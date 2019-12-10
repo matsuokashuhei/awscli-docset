@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>list-devices — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="devicefarm" href="index.html">
+    <link rel="next" title="list-instance-profiles" href="list-instance-profiles.html">
+    <link rel="prev" title="list-device-pools" href="list-device-pools.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="list-devices">
+<span id="cli-aws-devicefarm-list-devices"></span><h1>list-devices<a class="headerlink" href="#list-devices" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets information about unique device types.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/devicefarm-2015-06-23/ListDevices">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p><tt class="docutils literal"><span class="pre">list-devices</span></tt> is a paginated operation. Multiple API calls may be issued in order to retrieve the entire data set of results. You can disable pagination by providing the <tt class="docutils literal"><span class="pre">--no-paginate</span></tt> argument.
+When using <tt class="docutils literal"><span class="pre">--output</span> <span class="pre">text</span></tt> and the <tt class="docutils literal"><span class="pre">--query</span></tt> argument on a paginated response, the <tt class="docutils literal"><span class="pre">--query</span></tt> argument must extract data from the results of the following query expressions: <tt class="docutils literal"><span class="pre">devices</span></tt></p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  list-devices
+[--arn &lt;value&gt;]
+[--filters &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--starting-token &lt;value&gt;]
+[--max-items &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the project.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filters</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>Used to select a set of devices. A filter is made up of an attribute, an operator, and one or more values.</p>
+<ul class="simple">
+<li>Attribute: The aspect of a device such as platform or model used as the selection criteria in a device filter. Allowed values include:<ul>
+<li>ARN: The Amazon Resource Name (ARN) of the device. For example, "arn:aws:devicefarm:us-west-2::device:12345Example".</li>
+<li>PLATFORM: The device platform. Valid values are "ANDROID" or "IOS".</li>
+<li>OS_VERSION: The operating system version. For example, "10.3.2".</li>
+<li>MODEL: The device model. For example, "iPad 5th Gen".</li>
+<li>AVAILABILITY: The current availability of the device. Valid values are "AVAILABLE", "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".</li>
+<li>FORM_FACTOR: The device form factor. Valid values are "PHONE" or "TABLET".</li>
+<li>MANUFACTURER: The device manufacturer. For example, "Apple".</li>
+<li>REMOTE_ACCESS_ENABLED: Whether the device is enabled for remote access. Valid values are "TRUE" or "FALSE".</li>
+<li>REMOTE_DEBUG_ENABLED: Whether the device is enabled for remote debugging. Valid values are "TRUE" or "FALSE". <em>This attribute will be ignored, as remote debugging is `no longer supported &lt;https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html&gt;`__ .</em>
+</li>
+<li>INSTANCE_ARN: The Amazon Resource Name (ARN) of the device instance.</li>
+<li>INSTANCE_LABELS: The label of the device instance.</li>
+<li>FLEET_TYPE: The fleet type. Valid values are "PUBLIC" or "PRIVATE".</li>
+</ul>
+</li>
+<li>Operator: The filter operator.<ul>
+<li>The EQUALS operator is available for every attribute except INSTANCE_LABELS.</li>
+<li>The CONTAINS operator is available for the INSTANCE_LABELS and MODEL attributes.</li>
+<li>The IN and NOT_IN operators are available for the ARN, OS_VERSION, MODEL, MANUFACTURER, and INSTANCE_ARN attributes.</li>
+<li>The LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUALS, and GREATER_THAN_OR_EQUALS operators are also available for the OS_VERSION attribute.</li>
+</ul>
+</li>
+<li>Values: An array of one or more filter values.<ul>
+<li>The IN and NOT_IN operators take a values array that has one or more elements.</li>
+<li>The other operators require an array with a single element.</li>
+<li>In a request, the AVAILABILITY attribute takes "AVAILABLE", "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE" as values.</li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>attribute=string,operator=string,values=string,string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "attribute": "ARN"|"PLATFORM"|"OS_VERSION"|"MODEL"|"AVAILABILITY"|"FORM_FACTOR"|"MANUFACTURER"|"REMOTE_ACCESS_ENABLED"|"REMOTE_DEBUG_ENABLED"|"INSTANCE_ARN"|"INSTANCE_LABELS"|"FLEET_TYPE",
+    "operator": "EQUALS"|"LESS_THAN"|"LESS_THAN_OR_EQUALS"|"GREATER_THAN"|"GREATER_THAN_OR_EQUALS"|"IN"|"NOT_IN"|"CONTAINS",
+    "values": ["string", ...]
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--starting-token</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A token to specify where to start paginating. This is the <tt class="docutils literal"><span class="pre">NextToken</span></tt> from a previously truncated response.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-items</span></tt> (integer)</p>
+<blockquote>
+<div>
+<p>The total number of items to return in the command's output. If the total number of items available is more than the value specified, a <tt class="docutils literal"><span class="pre">NextToken</span></tt> is provided in the command's output. To resume pagination, provide the <tt class="docutils literal"><span class="pre">NextToken</span></tt> value in the <tt class="docutils literal"><span class="pre">starting-token</span></tt> argument of a subsequent command. <strong>Do not</strong> use the <tt class="docutils literal"><span class="pre">NextToken</span></tt> response element directly outside of the AWS CLI.</p>
+<p>For usage examples, see <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/pagination.html">Pagination</a> in the <em>AWS Command Line Interface User Guide</em> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>devices -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the devices.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents a device type that an app is tested against.</p>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The device's ARN.</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The device's display name.</div>
+</blockquote>
+<p>manufacturer -&gt; (string)</p>
+<blockquote>
+<div>The device's manufacturer name.</div>
+</blockquote>
+<p>model -&gt; (string)</p>
+<blockquote>
+<div>The device's model name.</div>
+</blockquote>
+<p>modelId -&gt; (string)</p>
+<blockquote>
+<div>The device's model ID.</div>
+</blockquote>
+<p>formFactor -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The device's form factor.</p>
+<p>Allowed values include:</p>
+<ul class="simple">
+<li>PHONE: The phone form factor.</li>
+<li>TABLET: The tablet form factor.</li>
+</ul>
+</div>
+</blockquote>
+<p>platform -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The device's platform.</p>
+<p>Allowed values include:</p>
+<ul class="simple">
+<li>ANDROID: The Android platform.</li>
+<li>IOS: The iOS platform.</li>
+</ul>
+</div>
+</blockquote>
+<p>os -&gt; (string)</p>
+<blockquote>
+<div>The device's operating system type.</div>
+</blockquote>
+<p>cpu -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the device's CPU.</p>
+<p>frequency -&gt; (string)</p>
+<blockquote>
+<div>The CPU's frequency.</div>
+</blockquote>
+<p>architecture -&gt; (string)</p>
+<blockquote>
+<div>The CPU's architecture, for example x86 or ARM.</div>
+</blockquote>
+<p>clock -&gt; (double)</p>
+<blockquote>
+<div>The clock speed of the device's CPU, expressed in hertz (Hz). For example, a 1.2 GHz CPU is expressed as 1200000000.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>resolution -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The resolution of the device.</p>
+<p>width -&gt; (integer)</p>
+<blockquote>
+<div>The screen resolution's width, expressed in pixels.</div>
+</blockquote>
+<p>height -&gt; (integer)</p>
+<blockquote>
+<div>The screen resolution's height, expressed in pixels.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>heapSize -&gt; (long)</p>
+<blockquote>
+<div>The device's heap size, expressed in bytes.</div>
+</blockquote>
+<p>memory -&gt; (long)</p>
+<blockquote>
+<div>The device's total memory size, expressed in bytes.</div>
+</blockquote>
+<p>image -&gt; (string)</p>
+<blockquote>
+<div>The device's image name.</div>
+</blockquote>
+<p>carrier -&gt; (string)</p>
+<blockquote>
+<div>The device's carrier.</div>
+</blockquote>
+<p>radio -&gt; (string)</p>
+<blockquote>
+<div>The device's radio.</div>
+</blockquote>
+<p>remoteAccessEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>Specifies whether remote access has been enabled for the specified device.</div>
+</blockquote>
+<p>remoteDebugEnabled -&gt; (boolean)</p>
+<blockquote>
+<div>
+<p>This flag is set to <tt class="docutils literal"><span class="pre">true</span></tt> if remote debugging is enabled for the device.</p>
+<blockquote>
+<div><em>Remote debugging is `no longer supported &lt;https://docs.aws.amazon.com/devicefarm/latest/developerguide/history.html&gt;`__ .</em></div>
+</blockquote>
+</div>
+</blockquote>
+<p>fleetType -&gt; (string)</p>
+<blockquote>
+<div>The type of fleet to which this device belongs. Possible values for fleet type are PRIVATE and PUBLIC.</div>
+</blockquote>
+<p>fleetName -&gt; (string)</p>
+<blockquote>
+<div>The name of the fleet to which this device belongs.</div>
+</blockquote>
+<p>instances -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The instances belonging to this device.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Represents the device instance.</p>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the device instance.</div>
+</blockquote>
+<p>deviceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the device.</div>
+</blockquote>
+<p>labels -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of strings describing the device instance.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>status -&gt; (string)</p>
+<blockquote>
+<div>The status of the device instance. Valid values are listed below.</div>
+</blockquote>
+<p>udid -&gt; (string)</p>
+<blockquote>
+<div>Unique device identifier for the device instance.</div>
+</blockquote>
+<p>instanceProfile -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>A object containing information about the instance profile.</p>
+<p>arn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the instance profile.</div>
+</blockquote>
+<p>packageCleanup -&gt; (boolean)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">true</span></tt> , Device Farm will remove app packages after a test run. The default value is <tt class="docutils literal"><span class="pre">false</span></tt> for private devices.</div>
+</blockquote>
+<p>excludeAppPackagesFromCleanup -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of strings specifying the list of app packages that should not be cleaned up from the device after a test run is over.</p>
+<p>The list of packages is only considered if you set <tt class="docutils literal"><span class="pre">packageCleanup</span></tt> to <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>rebootAfterUse -&gt; (boolean)</p>
+<blockquote>
+<div>When set to <tt class="docutils literal"><span class="pre">true</span></tt> , Device Farm will reboot the instance after a test run. The default value is <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
+</blockquote>
+<p>name -&gt; (string)</p>
+<blockquote>
+<div>The name of the instance profile.</div>
+</blockquote>
+<p>description -&gt; (string)</p>
+<blockquote>
+<div>The description of the instance profile.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>availability -&gt; (string)</p>
+<blockquote>
+<div>Reflects how likely a device will be available for a test run. It is currently available in the ListDevices and GetDevice API methods.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>nextToken -&gt; (string)</p>
+<blockquote>
+<div>If the number of items that are returned is significantly large, this is an identifier that is also returned, which can be used in a subsequent call to this operation to return the next set of items in the list.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

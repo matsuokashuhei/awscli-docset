@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-ml-task-runs — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="glue" href="index.html">
+    <link rel="next" title="get-ml-transform" href="get-ml-transform.html">
+    <link rel="prev" title="get-ml-task-run" href="get-ml-task-run.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-ml-task-runs">
+<span id="cli-aws-glue-get-ml-task-runs"></span><h1>get-ml-task-runs<a class="headerlink" href="#get-ml-task-runs" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Gets a list of runs for a machine learning transform. Machine learning task runs are asynchronous tasks that AWS Glue runs on your behalf as part of various machine learning workflows. You can get a sortable, filterable list of machine learning task runs by calling <tt class="docutils literal"><span class="pre">GetMLTaskRuns</span></tt> with their parent transform's <tt class="docutils literal"><span class="pre">TransformID</span></tt> and other optional parameters as documented in this section.</p>
+<p>This operation returns a list of historic runs and must be paginated.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMLTaskRuns">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-ml-task-runs
+--transform-id &lt;value&gt;
+[--next-token &lt;value&gt;]
+[--max-results &lt;value&gt;]
+[--filter &lt;value&gt;]
+[--sort &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--transform-id</span></tt> (string)</p>
+<blockquote>
+<div>The unique identifier of the machine learning transform.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--next-token</span></tt> (string)</p>
+<blockquote>
+<div>A token for pagination of the results. The default is empty.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--max-results</span></tt> (integer)</p>
+<blockquote>
+<div>The maximum number of results to return.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--filter</span></tt> (structure)</p>
+<blockquote>
+<div>The filter criteria, in the <tt class="docutils literal"><span class="pre">TaskRunFilterCriteria</span></tt> structure, for the task run.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">TaskRunType</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">Status</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">StartedBefore</span><span class="o">=</span><span class="n">timestamp</span><span class="p">,</span><span class="n">StartedAfter</span><span class="o">=</span><span class="n">timestamp</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"TaskRunType"</span><span class="p">:</span> <span class="s2">"EVALUATION"</span><span class="o">|</span><span class="s2">"LABELING_SET_GENERATION"</span><span class="o">|</span><span class="s2">"IMPORT_LABELS"</span><span class="o">|</span><span class="s2">"EXPORT_LABELS"</span><span class="o">|</span><span class="s2">"FIND_MATCHES"</span><span class="p">,</span>
+  <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"STARTING"</span><span class="o">|</span><span class="s2">"RUNNING"</span><span class="o">|</span><span class="s2">"STOPPING"</span><span class="o">|</span><span class="s2">"STOPPED"</span><span class="o">|</span><span class="s2">"SUCCEEDED"</span><span class="o">|</span><span class="s2">"FAILED"</span><span class="o">|</span><span class="s2">"TIMEOUT"</span><span class="p">,</span>
+  <span class="s2">"StartedBefore"</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+  <span class="s2">"StartedAfter"</span><span class="p">:</span> <span class="n">timestamp</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--sort</span></tt> (structure)</p>
+<blockquote>
+<div>The sorting criteria, in the <tt class="docutils literal"><span class="pre">TaskRunSortCriteria</span></tt> structure, for the task run.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">Column</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">SortDirection</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"Column"</span><span class="p">:</span> <span class="s2">"TASK_RUN_TYPE"</span><span class="o">|</span><span class="s2">"STATUS"</span><span class="o">|</span><span class="s2">"STARTED"</span><span class="p">,</span>
+  <span class="s2">"SortDirection"</span><span class="p">:</span> <span class="s2">"DESCENDING"</span><span class="o">|</span><span class="s2">"ASCENDING"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>TaskRuns -&gt; (list)</p>
+<blockquote>
+<div>
+<p>A list of task runs that are associated with the transform.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The sampling parameters that are associated with the machine learning transform.</p>
+<p>TransformId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for the transform.</div>
+</blockquote>
+<p>TaskRunId -&gt; (string)</p>
+<blockquote>
+<div>The unique identifier for this task run.</div>
+</blockquote>
+<p>Status -&gt; (string)</p>
+<blockquote>
+<div>The current status of the requested task run.</div>
+</blockquote>
+<p>LogGroupName -&gt; (string)</p>
+<blockquote>
+<div>The names of the log group for secure logging, associated with this task run.</div>
+</blockquote>
+<p>Properties -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Specifies configuration properties associated with this task run.</p>
+<p>TaskType -&gt; (string)</p>
+<blockquote>
+<div>The type of task run.</div>
+</blockquote>
+<p>ImportLabelsTaskRunProperties -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration properties for an importing labels task run.</p>
+<p>InputS3Path -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Simple Storage Service (Amazon S3) path from where you will import the labels.</div>
+</blockquote>
+<p>Replace -&gt; (boolean)</p>
+<blockquote>
+<div>Indicates whether to overwrite your existing labels.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ExportLabelsTaskRunProperties -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration properties for an exporting labels task run.</p>
+<p>OutputS3Path -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Simple Storage Service (Amazon S3) path where you will export the labels.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>LabelingSetGenerationTaskRunProperties -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration properties for a labeling set generation task run.</p>
+<p>OutputS3Path -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Simple Storage Service (Amazon S3) path where you will generate the labeling set.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>FindMatchesTaskRunProperties -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The configuration properties for a find matches task run.</p>
+<p>JobId -&gt; (string)</p>
+<blockquote>
+<div>The job ID for the Find Matches task run.</div>
+</blockquote>
+<p>JobName -&gt; (string)</p>
+<blockquote>
+<div>The name assigned to the job for the Find Matches task run.</div>
+</blockquote>
+<p>JobRunId -&gt; (string)</p>
+<blockquote>
+<div>The job run ID for the Find Matches task run.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ErrorString -&gt; (string)</p>
+<blockquote>
+<div>The list of error strings associated with this task run.</div>
+</blockquote>
+<p>StartedOn -&gt; (timestamp)</p>
+<blockquote>
+<div>The date and time that this task run started.</div>
+</blockquote>
+<p>LastModifiedOn -&gt; (timestamp)</p>
+<blockquote>
+<div>The last point in time that the requested task run was updated.</div>
+</blockquote>
+<p>CompletedOn -&gt; (timestamp)</p>
+<blockquote>
+<div>The last point in time that the requested task run was completed.</div>
+</blockquote>
+<p>ExecutionTime -&gt; (integer)</p>
+<blockquote>
+<div>The amount of time (in seconds) that the task run consumed resources.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>NextToken -&gt; (string)</p>
+<blockquote>
+<div>A pagination token, if more results are available.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

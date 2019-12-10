@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-data-source-from-redshift — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="machinelearning" href="index.html">
+    <link rel="next" title="create-data-source-from-s3" href="create-data-source-from-s3.html">
+    <link rel="prev" title="create-data-source-from-rds" href="create-data-source-from-rds.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-data-source-from-redshift">
+<span id="cli-aws-machinelearning-create-data-source-from-redshift"></span><h1>create-data-source-from-redshift<a class="headerlink" href="#create-data-source-from-redshift" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates a <tt class="docutils literal"><span class="pre">DataSource</span></tt> from a database hosted on an Amazon Redshift cluster. A <tt class="docutils literal"><span class="pre">DataSource</span></tt> references data that can be used to perform either <tt class="docutils literal"><span class="pre">CreateMLModel</span></tt> , <tt class="docutils literal"><span class="pre">CreateEvaluation</span></tt> , or <tt class="docutils literal"><span class="pre">CreateBatchPrediction</span></tt> operations.</p>
+<p><tt class="docutils literal"><span class="pre">CreateDataSourceFromRedshift</span></tt> is an asynchronous operation. In response to <tt class="docutils literal"><span class="pre">CreateDataSourceFromRedshift</span></tt> , Amazon Machine Learning (Amazon ML) immediately returns and sets the <tt class="docutils literal"><span class="pre">DataSource</span></tt> status to <tt class="docutils literal"><span class="pre">PENDING</span></tt> . After the <tt class="docutils literal"><span class="pre">DataSource</span></tt> is created and ready for use, Amazon ML sets the <tt class="docutils literal"><span class="pre">Status</span></tt> parameter to <tt class="docutils literal"><span class="pre">COMPLETED</span></tt> . <tt class="docutils literal"><span class="pre">DataSource</span></tt> in <tt class="docutils literal"><span class="pre">COMPLETED</span></tt> or <tt class="docutils literal"><span class="pre">PENDING</span></tt> states can be used to perform only <tt class="docutils literal"><span class="pre">CreateMLModel</span></tt> , <tt class="docutils literal"><span class="pre">CreateEvaluation</span></tt> , or <tt class="docutils literal"><span class="pre">CreateBatchPrediction</span></tt> operations.</p>
+<p>If Amazon ML can't accept the input source, it sets the <tt class="docutils literal"><span class="pre">Status</span></tt> parameter to <tt class="docutils literal"><span class="pre">FAILED</span></tt> and includes an error message in the <tt class="docutils literal"><span class="pre">Message</span></tt> attribute of the <tt class="docutils literal"><span class="pre">GetDataSource</span></tt> operation response.</p>
+<p>The observations should be contained in the database hosted on an Amazon Redshift cluster and should be specified by a <tt class="docutils literal"><span class="pre">SelectSqlQuery</span></tt> query. Amazon ML executes an <tt class="docutils literal"><span class="pre">Unload</span></tt> command in Amazon Redshift to transfer the result set of the <tt class="docutils literal"><span class="pre">SelectSqlQuery</span></tt> query to <tt class="docutils literal"><span class="pre">S3StagingLocation</span></tt> .</p>
+<p>After the <tt class="docutils literal"><span class="pre">DataSource</span></tt> has been created, it's ready for use in evaluations and batch predictions. If you plan to use the <tt class="docutils literal"><span class="pre">DataSource</span></tt> to train an <tt class="docutils literal"><span class="pre">MLModel</span></tt> , the <tt class="docutils literal"><span class="pre">DataSource</span></tt> also requires a recipe. A recipe describes how each input variable will be used in training an <tt class="docutils literal"><span class="pre">MLModel</span></tt> . Will the variable be included or excluded from training? Will the variable be manipulated; for example, will it be combined with another variable or will it be split apart into word combinations? The recipe provides answers to these questions.</p>
+<p>You can't change an existing datasource, but you can copy and modify the settings from an existing Amazon Redshift datasource to create a new datasource. To do so, call <tt class="docutils literal"><span class="pre">GetDataSource</span></tt> for an existing datasource and copy the values to a <tt class="docutils literal"><span class="pre">CreateDataSource</span></tt> call. Change the settings that you want to change and make sure that all required fields have the appropriate values.</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/machinelearning-2014-12-12/CreateDataSourceFromRedshift">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-data-source-from-redshift
+--data-source-id &lt;value&gt;
+[--data-source-name &lt;value&gt;]
+--data-spec &lt;value&gt;
+--role-arn &lt;value&gt;
+[--compute-statistics | --no-compute-statistics]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--data-source-id</span></tt> (string)</p>
+<blockquote>
+<div>A user-supplied ID that uniquely identifies the <tt class="docutils literal"><span class="pre">DataSource</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--data-source-name</span></tt> (string)</p>
+<blockquote>
+<div>A user-supplied name or description of the <tt class="docutils literal"><span class="pre">DataSource</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--data-spec</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>The data specification of an Amazon Redshift <tt class="docutils literal"><span class="pre">DataSource</span></tt> :</p>
+<ul class="simple">
+<li>DatabaseInformation -<ul>
+<li>
+<tt class="docutils literal"><span class="pre">DatabaseName</span></tt> - The name of the Amazon Redshift database.</li>
+<li>
+<tt class="docutils literal"><span class="pre">ClusterIdentifier</span></tt> - The unique ID for the Amazon Redshift cluster.</li>
+</ul>
+</li>
+<li>DatabaseCredentials - The AWS Identity and Access Management (IAM) credentials that are used to connect to the Amazon Redshift database.</li>
+<li>SelectSqlQuery - The query that is used to retrieve the observation data for the <tt class="docutils literal"><span class="pre">Datasource</span></tt> .</li>
+<li>S3StagingLocation - The Amazon Simple Storage Service (Amazon S3) location for staging Amazon Redshift data. The data retrieved from Amazon Redshift using the <tt class="docutils literal"><span class="pre">SelectSqlQuery</span></tt> query is stored in this location.</li>
+<li>DataSchemaUri - The Amazon S3 location of the <tt class="docutils literal"><span class="pre">DataSchema</span></tt> .</li>
+<li>DataSchema - A JSON string representing the schema. This is not required if <tt class="docutils literal"><span class="pre">DataSchemaUri</span></tt> is specified.</li>
+<li>DataRearrangement - A JSON string that represents the splitting and rearrangement requirements for the <tt class="docutils literal"><span class="pre">DataSource</span></tt> . Sample - <tt class="docutils literal"><span class="pre">"{\"splitting\":{\"percentBegin\":10,\"percentEnd\":60}}"</span></tt>
+</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>DatabaseInformation={DatabaseName=string,ClusterIdentifier=string},SelectSqlQuery=string,DatabaseCredentials={Username=string,Password=string},S3StagingLocation=string,DataRearrangement=string,DataSchema=string,DataSchemaUri=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DatabaseInformation"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"DatabaseName"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"ClusterIdentifier"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"SelectSqlQuery"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DatabaseCredentials"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"Username"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+    <span class="s2">"Password"</span><span class="p">:</span> <span class="s2">"string"</span>
+  <span class="p">},</span>
+  <span class="s2">"S3StagingLocation"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DataRearrangement"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DataSchema"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DataSchemaUri"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>A fully specified role Amazon Resource Name (ARN). Amazon ML assumes the role on behalf of the user to create the following:</p>
+<ul class="simple">
+<li>A security group to allow Amazon ML to execute the <tt class="docutils literal"><span class="pre">SelectSqlQuery</span></tt> query on an Amazon Redshift cluster</li>
+<li>An Amazon S3 bucket policy to grant Amazon ML read/write permissions on the <tt class="docutils literal"><span class="pre">S3StagingLocation</span></tt>
+</li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--compute-statistics</span></tt> | <tt class="docutils literal"><span class="pre">--no-compute-statistics</span></tt> (boolean)</p>
+<blockquote>
+<div>The compute statistics for a <tt class="docutils literal"><span class="pre">DataSource</span></tt> . The statistics are generated from the observation data referenced by a <tt class="docutils literal"><span class="pre">DataSource</span></tt> . Amazon ML uses the statistics internally during <tt class="docutils literal"><span class="pre">MLModel</span></tt> training. This parameter must be set to <tt class="docutils literal"><span class="pre">true</span></tt> if the <tt class="docutils literal"><span class="pre">DataSource</span></tt> needs to be used for <tt class="docutils literal"><span class="pre">MLModel</span></tt> training.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>DataSourceId -&gt; (string)</p>
+<blockquote>
+<div>A user-supplied ID that uniquely identifies the datasource. This value should be identical to the value of the <tt class="docutils literal"><span class="pre">DataSourceID</span></tt> in the request.</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

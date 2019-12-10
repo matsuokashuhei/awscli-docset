@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>create-flow-logs — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="ec2" href="index.html">
+    <link rel="next" title="create-fpga-image" href="create-fpga-image.html">
+    <link rel="prev" title="create-fleet" href="create-fleet.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="create-flow-logs">
+<span id="cli-aws-ec2-create-flow-logs"></span><h1>create-flow-logs<a class="headerlink" href="#create-flow-logs" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Creates one or more flow logs to capture information about IP traffic for a specific network interface, subnet, or VPC.</p>
+<p>Flow log data for a monitored network interface is recorded as flow log records, which are log events consisting of fields that describe the traffic flow. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records">Flow Log Records</a> in the <em>Amazon Virtual Private Cloud User Guide</em> .</p>
+<p>When publishing to CloudWatch Logs, flow log records are published to a log group, and each network interface has a unique log stream in the log group. When publishing to Amazon S3, flow log records for all of the monitored network interfaces are published to a single log file object that is stored in the specified bucket.</p>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html">VPC Flow Logs</a> in the <em>Amazon Virtual Private Cloud User Guide</em> .</p>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateFlowLogs">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  create-flow-logs
+[--dry-run | --no-dry-run]
+[--client-token &lt;value&gt;]
+[--deliver-logs-permission-arn &lt;value&gt;]
+[--log-group-name &lt;value&gt;]
+--resource-ids &lt;value&gt;
+--resource-type &lt;value&gt;
+--traffic-type &lt;value&gt;
+[--log-destination-type &lt;value&gt;]
+[--log-destination &lt;value&gt;]
+[--log-format &lt;value&gt;]
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--dry-run</span></tt> | <tt class="docutils literal"><span class="pre">--no-dry-run</span></tt> (boolean)</p>
+<blockquote>
+<div>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <tt class="docutils literal"><span class="pre">DryRunOperation</span></tt> . Otherwise, it is <tt class="docutils literal"><span class="pre">UnauthorizedOperation</span></tt> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html">How to Ensure Idempotency</a> .</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--deliver-logs-permission-arn</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The ARN for the IAM role that permits Amazon EC2 to publish flow logs to a CloudWatch Logs log group in your account.</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">LogDestinationType</span></tt> as <tt class="docutils literal"><span class="pre">s3</span></tt> , do not specify <tt class="docutils literal"><span class="pre">DeliverLogsPermissionArn</span></tt> or <tt class="docutils literal"><span class="pre">LogGroupName</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-group-name</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The name of a new or existing CloudWatch Logs log group where Amazon EC2 publishes your flow logs.</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">LogDestinationType</span></tt> as <tt class="docutils literal"><span class="pre">s3</span></tt> , do not specify <tt class="docutils literal"><span class="pre">DeliverLogsPermissionArn</span></tt> or <tt class="docutils literal"><span class="pre">LogGroupName</span></tt> .</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--resource-ids</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>The ID of the subnet, network interface, or VPC for which you want to create a flow log.</p>
+<p>Constraints: Maximum of 1000 resources</p>
+</div>
+</blockquote>
+<p>Syntax:</p>
+<div class="highlight-python">
+<pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--resource-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of resource for which to create the flow log. For example, if you specified a VPC ID for the <tt class="docutils literal"><span class="pre">ResourceId</span></tt> property, specify <tt class="docutils literal"><span class="pre">VPC</span></tt> for this property.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">VPC</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Subnet</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">NetworkInterface</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--traffic-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The type of traffic to log. You can log traffic that the resource accepts or rejects, or all traffic.</p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">ACCEPT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">REJECT</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">ALL</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-destination-type</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the type of destination to which the flow log data is to be published. Flow log data can be published to CloudWatch Logs or Amazon S3. To publish flow log data to CloudWatch Logs, specify <tt class="docutils literal"><span class="pre">cloud-watch-logs</span></tt> . To publish flow log data to Amazon S3, specify <tt class="docutils literal"><span class="pre">s3</span></tt> .</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">LogDestinationType</span></tt> as <tt class="docutils literal"><span class="pre">s3</span></tt> , do not specify <tt class="docutils literal"><span class="pre">DeliverLogsPermissionArn</span></tt> or <tt class="docutils literal"><span class="pre">LogGroupName</span></tt> .</p>
+<p>Default: <tt class="docutils literal"><span class="pre">cloud-watch-logs</span></tt></p>
+<p>Possible values:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">cloud-watch-logs</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">s3</span></tt></li>
+</ul>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-destination</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>Specifies the destination to which the flow log data is to be published. Flow log data can be published to a CloudWatch Logs log group or an Amazon S3 bucket. The value specified for this parameter depends on the value specified for <tt class="docutils literal"><span class="pre">LogDestinationType</span></tt> .</p>
+<p>If <tt class="docutils literal"><span class="pre">LogDestinationType</span></tt> is not specified or <tt class="docutils literal"><span class="pre">cloud-watch-logs</span></tt> , specify the Amazon Resource Name (ARN) of the CloudWatch Logs log group. For example, to publish to a log group called <tt class="docutils literal"><span class="pre">my-logs</span></tt> , specify <tt class="docutils literal"><span class="pre">arn:aws:logs:us-east-1:123456789012:log-group:my-logs</span></tt> . Alternatively, use <tt class="docutils literal"><span class="pre">LogGroupName</span></tt> instead.</p>
+<p>If LogDestinationType is <tt class="docutils literal"><span class="pre">s3</span></tt> , specify the ARN of the Amazon S3 bucket. You can also specify a subfolder in the bucket. To specify a subfolder in the bucket, use the following ARN format: <tt class="docutils literal"><span class="pre">bucket_ARN/subfolder_name/</span></tt> . For example, to specify a subfolder named <tt class="docutils literal"><span class="pre">my-logs</span></tt> in a bucket named <tt class="docutils literal"><span class="pre">my-bucket</span></tt> , use the following ARN: <tt class="docutils literal"><span class="pre">arn:aws:s3:::my-bucket/my-logs/</span></tt> . You cannot use <tt class="docutils literal"><span class="pre">AWSLogs</span></tt> as a subfolder name. This is a reserved term.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--log-format</span></tt> (string)</p>
+<blockquote>
+<div>
+<p>The fields to include in the flow log record, in the order in which they should appear. For a list of available fields, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records">Flow Log Records</a> . If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must specify at least one field.</p>
+<p>Specify the fields using the <tt class="docutils literal"><span class="pre">${field-id}</span></tt> format, separated by spaces. For the AWS CLI, use single quotation marks (' ') to surround the parameter value.</p>
+<p>Only applicable to flow logs that are published to an Amazon S3 bucket.</p>
+</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>Example 1: To create a flow log</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-flow-logs</span></tt> example creates a flow log that captures all rejected traffic for the specified network interface. The flow logs are delivered to a log group in CloudWatch Logs using the permissions in the specified IAM role.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-flow-logs \
+    --resource-type NetworkInterface \
+    --resource-ids eni-11223344556677889 \
+    --traffic-type REJECT \
+    --log-group-name my-flow-logs \
+    --deliver-logs-permission-arn arn:aws:iam::123456789101:role/publishFlowLogs</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ClientToken"</span><span class="p">:</span> <span class="s2">"so0eNA2uSHUNlHI0S2cJ305GuIX1CezaRdGtexample"</span><span class="p">,</span>
+    <span class="s2">"FlowLogIds"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"fl-12345678901234567"</span>
+    <span class="p">],</span>
+    <span class="s2">"Unsuccessful"</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To create a flow log with a custom format</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-flow-logs</span></tt> example creates a flow log that captures all traffic for the specified VPC and delivers the flow logs to an Amazon S3 bucket. The <tt class="docutils literal"><span class="pre">--log-format</span></tt> parameter specifies a custom format for the flow log records.</p>
+<div class="highlight-python">
+<pre>aws ec2 create-flow-logs \
+    --resource-type VPC \
+    --resource-ids vpc-00112233344556677 \
+    --traffic-type ALL \
+    --log-destination-type s3 \
+    --log-destination arn:aws:s3:::flow-log-bucket/my-custom-flow-logs/ \
+    --log-format '${version} ${vpc-id} ${subnet-id} ${instance-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${tcp-flags} ${type} ${pkt-srcaddr} ${pkt-dstaddr}'</pre>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html">VPC Flow Logs</a> in the <em>Amazon VPC User Guide</em>.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>ClientToken -&gt; (string)</p>
+<blockquote>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.</div>
+</blockquote>
+<p>FlowLogIds -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The IDs of the flow logs.</p>
+<p>(string)</p>
+</div>
+</blockquote>
+<p>Unsuccessful -&gt; (list)</p>
+<blockquote>
+<div>
+<p>Information about the flow logs that could not be created successfully.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>Information about items that were not successfully processed in a batch call.</p>
+<p>Error -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Information about the error.</p>
+<p>Code -&gt; (string)</p>
+<blockquote>
+<div>The error code.</div>
+</blockquote>
+<p>Message -&gt; (string)</p>
+<blockquote>
+<div>The error message accompanying the error code.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>ResourceId -&gt; (string)</p>
+<blockquote>
+<div>The ID of the resource.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>

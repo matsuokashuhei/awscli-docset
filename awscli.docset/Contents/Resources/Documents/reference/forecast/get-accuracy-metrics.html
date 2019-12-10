@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+  
+    <title>get-accuracy-metrics — AWS CLI 1.16.298 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
+  <script src="/SdkStatic/sdk-priv.js" async="true"></script>
+    
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.298',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="up" title="forecast" href="index.html">
+    <link rel="next" title="list-dataset-groups" href="list-dataset-groups.html">
+    <link rel="prev" title="describe-predictor" href="describe-predictor.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
+  
+   
+
+  </head>
+  <body>
+  
+  
+  <!--REGION_DISCLAIMER_DO_NOT_REMOVE-->
+
+    
+    <div class="container">
+        
+    
+  
+        <div class="document clearer">
+      
+            <div class="body">
+              
+  
+<div class="section" id="get-accuracy-metrics">
+<span id="cli-aws-forecast-get-accuracy-metrics"></span><h1>get-accuracy-metrics<a class="headerlink" href="#get-accuracy-metrics" title="Permalink to this headline">¶</a>
+</h1>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
+</h2>
+<p>Provides metrics on the accuracy of the models that were trained by the  CreatePredictor operation. Use metrics to see how well the model performed and to decide whether to use the predictor to generate a forecast. For more information, see  metrics .</p>
+<p>This operation generates metrics for each backtest window that was evaluated. The number of backtest windows (<tt class="docutils literal"><span class="pre">NumberOfBacktestWindows</span></tt> ) is specified using the  EvaluationParameters object, which is optionally included in the <tt class="docutils literal"><span class="pre">CreatePredictor</span></tt> request. If <tt class="docutils literal"><span class="pre">NumberOfBacktestWindows</span></tt> isn't specified, the number defaults to one.</p>
+<p>The parameters of the <tt class="docutils literal"><span class="pre">filling</span></tt> method determine which items contribute to the metrics. If you want all items to contribute, specify <tt class="docutils literal"><span class="pre">zero</span></tt> . If you want only those items that have complete data in the range being evaluated to contribute, specify <tt class="docutils literal"><span class="pre">nan</span></tt> . For more information, see  FeaturizationMethod .</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before you can get accuracy metrics, the <tt class="docutils literal"><span class="pre">Status</span></tt> of the predictor must be <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> , signifying that training has completed. To get the status, use the  DescribePredictor operation.</p>
+</div>
+<p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/forecast-2018-06-26/GetAccuracyMetrics">AWS API Documentation</a></p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="synopsis">
+<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+</h2>
+<div class="highlight-python">
+<pre>  get-accuracy-metrics
+--predictor-arn &lt;value&gt;
+[--cli-input-json &lt;value&gt;]
+[--generate-cli-skeleton &lt;value&gt;]</pre>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
+</h2>
+<p><tt class="docutils literal"><span class="pre">--predictor-arn</span></tt> (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the predictor to get metrics for.</div>
+</blockquote>
+<p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
+Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
+<p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
+Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
+<p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
+</h2>
+<p>PredictorEvaluationResults -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of results from evaluating the predictor.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The results of evaluating an algorithm. Returned as part of the  GetAccuracyMetrics response.</p>
+<p>AlgorithmArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the algorithm that was evaluated.</div>
+</blockquote>
+<p>TestWindows -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The array of test windows used for evaluating the algorithm. The <tt class="docutils literal"><span class="pre">NumberOfBacktestWindows</span></tt> from the  EvaluationParameters object determines the number of windows in the array.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The metrics for a time range within the evaluation portion of a dataset. This object is part of the  EvaluationResult object.</p>
+<p>The <tt class="docutils literal"><span class="pre">TestWindowStart</span></tt> and <tt class="docutils literal"><span class="pre">TestWindowEnd</span></tt> parameters are determined by the <tt class="docutils literal"><span class="pre">BackTestWindowOffset</span></tt> parameter of the  EvaluationParameters object.</p>
+<p>TestWindowStart -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp that defines the start of the window.</div>
+</blockquote>
+<p>TestWindowEnd -&gt; (timestamp)</p>
+<blockquote>
+<div>The timestamp that defines the end of the window.</div>
+</blockquote>
+<p>ItemCount -&gt; (integer)</p>
+<blockquote>
+<div>The number of data points within the window.</div>
+</blockquote>
+<p>EvaluationType -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The type of evaluation.</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">SUMMARY</span></tt> - The average metrics across all windows.</li>
+<li>
+<tt class="docutils literal"><span class="pre">COMPUTED</span></tt> - The metrics for the specified window.</li>
+</ul>
+</div>
+</blockquote>
+<p>Metrics -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Provides metrics used to evaluate the performance of a predictor.</p>
+<p>RMSE -&gt; (double)</p>
+<blockquote>
+<div>The root mean square error (RMSE).</div>
+</blockquote>
+<p>WeightedQuantileLosses -&gt; (list)</p>
+<blockquote>
+<div>
+<p>An array of weighted quantile losses. Quantiles divide a probability distribution into regions of equal probability. The distribution in this case is the loss function.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The weighted loss value for a quantile. This object is part of the  Metrics object.</p>
+<p>Quantile -&gt; (double)</p>
+<blockquote>
+<div>The quantile. Quantiles divide a probability distribution into regions of equal probability. For example, if the distribution was divided into 5 regions of equal probability, the quantiles would be 0.2, 0.4, 0.6, and 0.8.</div>
+</blockquote>
+<p>LossValue -&gt; (double)</p>
+<blockquote>
+<div>The difference between the predicted value and the actual value over the quantile, weighted (normalized) by dividing by the sum over all quantiles.</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</div>
+
+
+            </div>
+          <div class="clearfix"></div>
+        </div>
+        
+    
+  
+
+    </div>
+  <script type="text/javascript" src="https://media.amazonwebservices.com/js/sitecatalyst/s_code.min.js"></script>
+  <script type="text/javascript">
+  s.prop66 = 'AWS CLI';
+  s.eVar66 = 'D=c66';
+  s.prop65 = 'API Reference';
+  s.eVar65 = 'D=c65';
+  var s_code = s.t();
+  if (s_code) document.write(s_code);
+  </script>
+    
+  
+
+
+
+  
+    
+  
+  </body>
+</html>
