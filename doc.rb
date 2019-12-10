@@ -53,7 +53,6 @@ def edit_content(_service, command)
     'div.footer-links',
     'div.footer.container'
   ].each do |css|
-    # doc.css(css).each { |node| node.content = nil }
     doc.css(css).each(&:remove)
   end
   doc.to_html
@@ -85,12 +84,20 @@ def populate(service, command)
   db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) VALUES (?, ?, ?)', [name, type, path])
 end
 
+def find(service, command)
+  name = [service[:name], command[:name]].join(' ')
+  type = 'Command'
+  path = File.join('reference', service[:name], "#{command[:name]}.html")
+  db = SQLite3::Database.new('awscli.docset/Contents/Resources/docSet.dsidx')
+  db.execute('SELECT * FROM searchIndex WHERE name = ? AND type = ? AND path = ?', [name, type, path])
+end
+
 def test?
   ARGV[0] == 'test'
 end
 
 def main
-  reset_db
+  # reset_db
   download_css
   services(CLI_ROOT_URL).then do |services|
     if test?
@@ -107,6 +114,8 @@ def main
         commands
       end
     end.each do |command|
+      next if find(service, command).first
+
       puts command[:name]
       output(service, command)
       populate(service, command)
