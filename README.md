@@ -23,3 +23,5 @@ Enter ".help" for usage hints.
 sqlite> CREATE TABLE searchIndex(id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);
 sqlite> CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);
 ```
+
+About setting up the SQLite3, please see https://kapeli.com/docsets#dashDocset .
