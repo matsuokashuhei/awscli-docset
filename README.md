@@ -1,17 +1,20 @@
 Dash documentation for AWS CLI
+=
 
-https://kapeli.com/docsets#dashDocset
+Add [awscli-docset/awscli.docset](https://github.com/matsuokashuhei/awscli-docset/tree/master/awscli.docset) into your [Dash](https://kapeli.com/dash).
 
-# Set up SQLite
+# Development
 
-## Install SQLite into the container
+## Set up SQLite (Optional)
+
+### Install SQLite into the container
 
 ```
 apt-get update
 apt-get install sqlite3
 ```
 
-## Create a database
+### Create a database
 
 ```
 sqlite3 awscli.docset/Contents/Resources/docSet.dsidx
