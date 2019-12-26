@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-budget — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-budget — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="budgets" href="index.html">
     <link rel="next" title="create-notification" href="create-notification.html">
     <link rel="prev" title="budgets" href="index.html">
@@ -177,60 +177,65 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
 </h2>
 <p><strong>To create a Cost and Usage budget</strong></p>
-<p>This example creates a Cost and Usage budget.</p>
-<p>Command:</p>
+<p>The following <tt class="docutils literal"><span class="pre">create-budget</span></tt> command creates a Cost and Usage budget.</p>
 <div class="highlight-python">
-<pre>aws budgets create-budget --account-id 111122223333 --budget file://budget.json --notifications-with-subscribers file://notifications-with-subscribers.json</pre>
+<pre>aws budgets create-budget \
+    --account-id 111122223333 \
+    --budget file://budget.json \
+    --notifications-with-subscribers file://notifications-with-subscribers.json</pre>
 </div>
-<p>budget.json:</p>
+<p>Contents of <tt class="docutils literal"><span class="pre">budget.json</span></tt>:</p>
 <div class="highlight-python">
 <div class="highlight"><pre><span></span><span class="p">{</span>
-   <span class="s2">"BudgetLimit"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"Amount"</span><span class="p">:</span> <span class="s2">"100"</span><span class="p">,</span>
-      <span class="s2">"Unit"</span><span class="p">:</span> <span class="s2">"USD"</span>
-   <span class="p">},</span>
-   <span class="s2">"BudgetName"</span><span class="p">:</span> <span class="s2">"Example Budget"</span><span class="p">,</span>
-   <span class="s2">"BudgetType"</span><span class="p">:</span> <span class="s2">"COST"</span><span class="p">,</span>
-   <span class="s2">"CostFilters"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"AZ"</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">"us-east-1"</span> <span class="p">]</span>
-   <span class="p">},</span>
-   <span class="s2">"CostTypes"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"IncludeCredit"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeDiscount"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeOtherSubscription"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeRecurring"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeRefund"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeSubscription"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeSupport"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeTax"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"IncludeUpfront"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
-      <span class="s2">"UseBlended"</span><span class="p">:</span> <span class="n">false</span>
-   <span class="p">},</span>
-   <span class="s2">"TimePeriod"</span><span class="p">:</span> <span class="p">{</span>
-      <span class="s2">"Start"</span><span class="p">:</span> <span class="mi">1477958399</span><span class="p">,</span>
-      <span class="s2">"End"</span><span class="p">:</span> <span class="mi">3706473600</span>
-   <span class="p">},</span>
-   <span class="s2">"TimeUnit"</span><span class="p">:</span> <span class="s2">"MONTHLY"</span>
+    <span class="s2">"BudgetLimit"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Amount"</span><span class="p">:</span> <span class="s2">"100"</span><span class="p">,</span>
+        <span class="s2">"Unit"</span><span class="p">:</span> <span class="s2">"USD"</span>
+    <span class="p">},</span>
+    <span class="s2">"BudgetName"</span><span class="p">:</span> <span class="s2">"Example Tag Budget"</span><span class="p">,</span>
+    <span class="s2">"BudgetType"</span><span class="p">:</span> <span class="s2">"COST"</span><span class="p">,</span>
+    <span class="s2">"CostFilters"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"TagKeyValue"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"user:Key$value1"</span><span class="p">,</span>
+            <span class="s2">"user:Key$value2"</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">"CostTypes"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"IncludeCredit"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeDiscount"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeOtherSubscription"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeRecurring"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeRefund"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeSubscription"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeSupport"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeTax"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"IncludeUpfront"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"UseBlended"</span><span class="p">:</span> <span class="n">false</span>
+    <span class="p">},</span>
+    <span class="s2">"TimePeriod"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Start"</span><span class="p">:</span> <span class="mi">1477958399</span><span class="p">,</span>
+        <span class="s2">"End"</span><span class="p">:</span> <span class="mi">3706473600</span>
+    <span class="p">},</span>
+    <span class="s2">"TimeUnit"</span><span class="p">:</span> <span class="s2">"MONTHLY"</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>notifications-with-subscribers.json:</p>
+<p>Contents of <tt class="docutils literal"><span class="pre">notifications-with-subscribers.json</span></tt>:</p>
 <div class="highlight-python">
 <div class="highlight"><pre><span></span><span class="p">[</span>
-   <span class="p">{</span>
-      <span class="s2">"Notification"</span><span class="p">:</span> <span class="p">{</span>
-         <span class="s2">"ComparisonOperator"</span><span class="p">:</span> <span class="s2">"GREATER_THAN"</span><span class="p">,</span>
-         <span class="s2">"NotificationType"</span><span class="p">:</span> <span class="s2">"ACTUAL"</span><span class="p">,</span>
-         <span class="s2">"Threshold"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
-         <span class="s2">"ThresholdType"</span><span class="p">:</span> <span class="s2">"PERCENTAGE"</span>
-      <span class="p">},</span>
-      <span class="s2">"Subscribers"</span><span class="p">:</span> <span class="p">[</span>
-         <span class="p">{</span>
-            <span class="s2">"Address"</span><span class="p">:</span> <span class="s2">"example@example.com"</span><span class="p">,</span>
-            <span class="s2">"SubscriptionType"</span><span class="p">:</span> <span class="s2">"EMAIL"</span>
-         <span class="p">}</span>
-      <span class="p">]</span>
-   <span class="p">}</span>
+    <span class="p">{</span>
+        <span class="s2">"Notification"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"ComparisonOperator"</span><span class="p">:</span> <span class="s2">"GREATER_THAN"</span><span class="p">,</span>
+            <span class="s2">"NotificationType"</span><span class="p">:</span> <span class="s2">"ACTUAL"</span><span class="p">,</span>
+            <span class="s2">"Threshold"</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+            <span class="s2">"ThresholdType"</span><span class="p">:</span> <span class="s2">"PERCENTAGE"</span>
+        <span class="p">},</span>
+        <span class="s2">"Subscribers"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"Address"</span><span class="p">:</span> <span class="s2">"example@example.com"</span><span class="p">,</span>
+                <span class="s2">"SubscriptionType"</span><span class="p">:</span> <span class="s2">"EMAIL"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -238,6 +243,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
 </h2>
+<p>None</p>
 </div>
 </div>
 

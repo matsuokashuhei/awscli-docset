@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>copy-object — AWS CLI 1.16.298 Command Reference</title>
+    <title>copy-object — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="s3api" href="index.html">
     <link rel="next" title="create-bucket" href="create-bucket.html">
     <link rel="prev" title="complete-multipart-upload" href="complete-multipart-upload.html">
@@ -72,7 +72,7 @@
 <p class="last">All headers with the <tt class="docutils literal"><span class="pre">x-amz-</span></tt> prefix, including <tt class="docutils literal"><span class="pre">x-amz-copy-source</span></tt> , must be signed.</p>
 </div>
 <p>You can use this operation to change the storage class of an object that is already stored in Amazon S3 using the <tt class="docutils literal"><span class="pre">StorageClass</span></tt> parameter. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html">Storage Classes</a> .</p>
-<p>The source object that you are copying can be encrypted or unencrypted. If the source object is encrypted, it can be encrypted by server-side encryption using AWS managed encryption keys or by using a customer-provided encryption key. When copying an object, you can request that Amazon S3 encrypt the target object by using either the AWS managed encryption keys or by using your own encryption key. You can do this regardless of the form of server-side encryption that was used to encrypt the source, or even if the source object was not encrypted. For more information about server-side encryption, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html">Using Server-Side Encryption</a> .</p>
+<p>The source object that you are copying can be encrypted or unencrypted. If the source object is encrypted, it can be encrypted by server-side encryption using AWS managed encryption keys or by using a customer-provided encryption key. When copying an object, you can request that Amazon S3 encrypt the target object by using either the AWS managed encryption keys or by using your own encryption key. You can do this regardless of the form of server-side encryption that was used to encrypt the source, or even if the source object was not encrypted. For more information about server-side encryption, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html">Using Server-Side Encryption</a> .</p>
 <p>A copy request might return an error when Amazon S3 receives the copy request or while Amazon S3 is copying the files. If the error occurs before the copy operation starts, you receive a standard Amazon S3 error. If the error occurs during the copy operation, the error response is embedded in the <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt> response. This means that a <tt class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></tt> response can contain either a success or an error. Design your application to parse the contents of the response and handle it appropriately.</p>
 <p>If the copy is successful, you receive a response with information about the copied object.</p>
 <div class="admonition note">
@@ -128,7 +128,7 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-</span> <span class="pre">encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the AWS managed customer master key (CMK) in AWS KMS to protect the data.</p>
+<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the AWS managed CMK in AWS KMS to protect the data. If you want to use a customer managed AWS KMS CMK, you must provide the <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt> of the symmetric customer managed CMK. Amazon S3 only supports symmetric CMKs and not asymmetric CMKs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric Keys</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -405,7 +405,7 @@
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--ssekms-key-id</span></tt> (string)</p>
 <blockquote>
-<div>Specifies the AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4. For information about configuring using any of the officially supported AWS SDKs and AWS CLI, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version">Specifying the Signature Version in Request Authentication</a> in the <em>Amazon S3 Developer Guide</em> .</div>
+<div>Specifies the AWS KMS key ID to use for object encryption. All GET and PUT requests for an object protected by AWS KMS will fail if not made via SSL or using SigV4. For information about configuring using any of the officially supported AWS SDKs and AWS CLI, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingAWSSDK.html#specify-signature-version">Specifying the Signature Version in Request Authentication</a> in the <em>Amazon S3 Developer Guide</em> .</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--ssekms-encryption-context</span></tt> (string)</p>
 <blockquote>
@@ -426,7 +426,7 @@
 <p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
 <blockquote>
 <div>
-<p>Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
+<p>Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from requester pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
 <p>Possible values:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
@@ -531,7 +531,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>SSEKMSKeyId -&gt; (string)</p>
 <blockquote>
-<div>If present, specifies the ID of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used for the object.</div>
+<div>If present, specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.</div>
 </blockquote>
 <p>SSEKMSEncryptionContext -&gt; (string)</p>
 <blockquote>

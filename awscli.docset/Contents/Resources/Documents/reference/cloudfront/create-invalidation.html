@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-invalidation — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-invalidation — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="cloudfront" href="index.html">
     <link rel="next" title="create-public-key" href="create-public-key.html">
     <link rel="prev" title="create-field-level-encryption-profile" href="create-field-level-encryption-profile.html">
@@ -109,47 +109,80 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
 </h2>
 <p><strong>To create an invalidation for a CloudFront distribution</strong></p>
-<p>The following command creates an invalidation for a CloudFront distribution with the ID <tt class="docutils literal"><span class="pre">S11A16G5KZMEQD</span></tt>:</p>
+<p>The following example creates an invalidation for the file
+<tt class="docutils literal"><span class="pre">/example-path/example-file.jpg</span></tt> in the CloudFront distribution with the ID
+<tt class="docutils literal"><span class="pre">EDFDVBD6EXAMPLE</span></tt>:</p>
 <div class="highlight-python">
-<pre>aws cloudfront create-invalidation --distribution-id S11A16G5KZMEQD \
-  --paths /index.html /error.html</pre>
+<pre>aws cloudfront create-invalidation \
+    --distribution-id EDFDVBD6EXAMPLE \
+    --paths "/example-path/example-file.jpg"</pre>
 </div>
-<p>The --paths will automatically generate a random <tt class="docutils literal"><span class="pre">CallerReference</span></tt> every time.</p>
-<p>Or you can use the following command to do the same thing, so that you can have a chance to specify your own <tt class="docutils literal"><span class="pre">CallerReference</span></tt> here:</p>
-<div class="highlight-python">
-<pre>aws cloudfront create-invalidation --invalidation-batch file://invbatch.json --distribution-id S11A16G5KZMEQD</pre>
-</div>
-<p>The distribution ID is available in the output of <tt class="docutils literal"><span class="pre">create-distribution</span></tt> and <tt class="docutils literal"><span class="pre">list-distributions</span></tt>.</p>
-<p>The file <tt class="docutils literal"><span class="pre">invbatch.json</span></tt> is a JSON document in the current folder that specifies two paths to invalidate:</p>
+<p>Output:</p>
 <div class="highlight-python">
 <div class="highlight"><pre><span></span><span class="p">{</span>
-  <span class="s2">"Paths"</span><span class="p">:</span> <span class="p">{</span>
-    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"/index.html"</span><span class="p">,</span> <span class="s2">"/error.html"</span><span class="p">]</span>
-  <span class="p">},</span>
-  <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"my-invalidation-2015-09-01"</span>
+    <span class="s2">"Location"</span><span class="p">:</span> <span class="s2">"https://cloudfront.amazonaws.com/2019-03-26/distribution/EDFDVBD6EXAMPLE/invalidation/I1JLWSDAP8FU89"</span><span class="p">,</span>
+    <span class="s2">"Invalidation"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"I1JLWSDAP8FU89"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"InProgress"</span><span class="p">,</span>
+        <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2019-12-05T18:24:51.407Z"</span><span class="p">,</span>
+        <span class="s2">"InvalidationBatch"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Paths"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"/example-path/example-file.jpg"</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-1575570291-670203"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Output of both commands:</p>
+<p>In the previous example, the AWS CLI automatically generated a random
+<tt class="docutils literal"><span class="pre">CallerReference</span></tt>. To specify your own <tt class="docutils literal"><span class="pre">CallerReference</span></tt>, or to avoid
+passing the invalidation parameters as command line arguments, you can use a
+JSON file. The following example creates an invalidation for two files, by
+providing the invalidation parameters in a JSON file named
+<tt class="docutils literal"><span class="pre">inv-batch.json</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws cloudfront create-invalidation \
+    --distribution-id EDFDVBD6EXAMPLE \
+    --invalidation-batch file://inv-batch.json</pre>
+</div>
+<p>The file <tt class="docutils literal"><span class="pre">inv-batch.json</span></tt> is a JSON document in the current folder that
+contains the following:</p>
 <div class="highlight-python">
 <div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Paths"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">"/example-path/example-file.jpg"</span><span class="p">,</span>
+            <span class="s2">"/example-path/example-file-2.jpg"</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-example"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Location"</span><span class="p">:</span> <span class="s2">"https://cloudfront.amazonaws.com/2019-03-26/distribution/EDFDVBD6EXAMPLE/invalidation/I2J0I21PCUYOIK"</span><span class="p">,</span>
     <span class="s2">"Invalidation"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"I2J0I21PCUYOIK"</span><span class="p">,</span>
         <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"InProgress"</span><span class="p">,</span>
+        <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2019-12-05T18:40:49.413Z"</span><span class="p">,</span>
         <span class="s2">"InvalidationBatch"</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">"Paths"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
-                    <span class="s2">"/index.html"</span><span class="p">,</span>
-                    <span class="s2">"/error.html"</span>
-                <span class="p">],</span>
-                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span>
+                    <span class="s2">"/example-path/example-file.jpg"</span><span class="p">,</span>
+                    <span class="s2">"/example-path/example-file-2.jpg"</span>
+                <span class="p">]</span>
             <span class="p">},</span>
-            <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"my-invalidation-2015-09-01"</span>
-        <span class="p">},</span>
-        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"YNY2LI2BVJ4NJU"</span><span class="p">,</span>
-        <span class="s2">"CreateTime"</span><span class="p">:</span> <span class="s2">"2015-08-31T21:15:52.042Z"</span>
-    <span class="p">},</span>
-    <span class="s2">"Location"</span><span class="p">:</span> <span class="s2">"https://cloudfront.amazonaws.com/2015-04-17/distribution/S11A16G5KZMEQD/invalidation/YNY2LI2BVJ4NJU"</span>
+            <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-example"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

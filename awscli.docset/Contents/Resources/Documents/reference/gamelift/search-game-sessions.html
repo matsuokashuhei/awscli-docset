@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>search-game-sessions — AWS CLI 1.16.298 Command Reference</title>
+    <title>search-game-sessions — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="gamelift" href="index.html">
     <link rel="next" title="start-fleet-actions" href="start-fleet-actions.html">
     <link rel="prev" title="resolve-alias" href="resolve-alias.html">
@@ -58,7 +58,7 @@
 <p>Retrieves all active game sessions that match a set of search criteria and sorts them in a specified order. You can search or sort by the following game session attributes:</p>
 <ul class="simple">
 <li>
-<strong>gameSessionId</strong> -- Unique identifier for the game session. You can use either a <tt class="docutils literal"><span class="pre">GameSessionId</span></tt> or <tt class="docutils literal"><span class="pre">GameSessionArn</span></tt> value.</li>
+<strong>gameSessionId</strong> -- A unique identifier for the game session. You can use either a <tt class="docutils literal"><span class="pre">GameSessionId</span></tt> or <tt class="docutils literal"><span class="pre">GameSessionArn</span></tt> value.</li>
 <li>
 <strong>gameSessionName</strong> -- Name assigned to a game session. This value is set when requesting a new game session with  CreateGameSession or updating with  UpdateGameSession . Game session names do not need to be unique to a game session.</li>
 <li>
@@ -118,11 +118,11 @@ When using <tt class="docutils literal"><span class="pre">--output</span> <span 
 </h2>
 <p><tt class="docutils literal"><span class="pre">--fleet-id</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for a fleet to search for active game sessions. Each request must reference either a fleet ID or alias ID, but not both.</div>
+<div>A unique identifier for a fleet to search for active game sessions. You can use either the fleet ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--alias-id</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for an alias associated with the fleet to search for active game sessions. Each request must reference either a fleet ID or alias ID, but not both.</div>
+<div>A unique identifier for an alias associated with the fleet to search for active game sessions. You can use either the alias ID or ARN value. Each request must reference either a fleet ID or alias ID, but not both.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--filter-expression</span></tt> (string)</p>
 <blockquote>
@@ -197,7 +197,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>GameSessions -&gt; (list)</p>
 <blockquote>
 <div>
-<p>Collection of objects containing game session properties for each session matching the request.</p>
+<p>A collection of objects containing game session properties for each session matching the request.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
@@ -220,15 +220,19 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </ul>
 <p>GameSessionId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for the game session. A game session ARN has the following format: <tt class="docutils literal"><span class="pre">arn:aws:gamelift:region::gamesession/fleet</span> <span class="pre">ID/custom</span> <span class="pre">ID</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">idempotency</span> <span class="pre">token</span></tt> .</div>
+<div>A unique identifier for the game session. A game session ARN has the following format: <tt class="docutils literal"><span class="pre">arn:aws:gamelift:region::gamesession/fleet</span> <span class="pre">ID/custom</span> <span class="pre">ID</span> <span class="pre">string</span> <span class="pre">or</span> <span class="pre">idempotency</span> <span class="pre">token</span></tt> .</div>
 </blockquote>
 <p>Name -&gt; (string)</p>
 <blockquote>
-<div>Descriptive label that is associated with a game session. Session names do not need to be unique.</div>
+<div>A descriptive label that is associated with a game session. Session names do not need to be unique.</div>
 </blockquote>
 <p>FleetId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a fleet that the game session is running on.</div>
+<div>A unique identifier for a fleet that the game session is running on.</div>
+</blockquote>
+<p>FleetArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (<a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> ) associated with the GameLift fleet that this game session is running on.</div>
 </blockquote>
 <p>CreationTime -&gt; (timestamp)</p>
 <blockquote>
@@ -244,7 +248,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>MaximumPlayerSessionCount -&gt; (integer)</p>
 <blockquote>
-<div>Maximum number of players that can be connected simultaneously to the game session.</div>
+<div>The maximum number of players that can be connected simultaneously to the game session.</div>
 </blockquote>
 <p>Status -&gt; (string)</p>
 <blockquote>
@@ -261,14 +265,14 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>(structure)</p>
 <blockquote>
 <div>
-<p>Set of key-value pairs that contain information about a game session. When included in a game session request, these properties communicate details to be used when setting up the new game session, such as to specify a game mode, level, or map. Game properties are passed to the game server process when initiating a new game session; the server process uses the properties as appropriate. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create">Amazon GameLift Developer Guide</a> .</p>
+<p>Set of key-value pairs that contain information about a game session. When included in a game session request, these properties communicate details to be used when setting up the new game session. For example, a game property might specify a game mode, level, or map. Game properties are passed to the game server process when initiating a new game session. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create">Amazon GameLift Developer Guide</a> .</p>
 <p>Key -&gt; (string)</p>
 <blockquote>
-<div>Game property identifier.</div>
+<div>The game property identifier.</div>
 </blockquote>
 <p>Value -&gt; (string)</p>
 <blockquote>
-<div>Game property value.</div>
+<div>The game property value.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -276,9 +280,19 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>IpAddress -&gt; (string)</p>
 <blockquote>
-<div>IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and port number.</div>
+<div>IP address of the instance that is running the game session. When connecting to a Amazon GameLift game server, a client needs to reference an IP address (or DNS name) and port number.</div>
 </blockquote>
 <p>DnsName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>DNS identifier assigned to the instance that is running the game session. Values have the following format:</p>
+<ul class="simple">
+<li>TLS-enabled fleets: <tt class="docutils literal"><span class="pre">unique</span> <span class="pre">identifier.region</span> <span class="pre">identifier.amazongamelift.com</span></tt> .</li>
+<li>Non-TLS-enabled fleets: <tt class="docutils literal"><span class="pre">ec2-unique</span> <span class="pre">identifier.compute.amazonaws.com</span></tt> . (See <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses">Amazon EC2 Instance IP Addressing</a> .)</li>
+</ul>
+<p>When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP address.</p>
+</div>
+</blockquote>
 <p>Port -&gt; (integer)</p>
 <blockquote>
 <div>Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and port number.</div>
@@ -289,7 +303,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>CreatorId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a player. This ID is used to enforce a resource protection policy (if one exists), that limits the number of game sessions a player can create.</div>
+<div>A unique identifier for a player. This ID is used to enforce a resource protection policy (if one exists), that limits the number of game sessions a player can create.</div>
 </blockquote>
 <p>GameSessionData -&gt; (string)</p>
 <blockquote>

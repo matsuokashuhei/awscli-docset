@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>update-runtime-configuration — AWS CLI 1.16.298 Command Reference</title>
+    <title>update-runtime-configuration — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="gamelift" href="index.html">
     <link rel="next" title="update-script" href="update-script.html">
     <link rel="prev" title="update-matchmaking-configuration" href="update-matchmaking-configuration.html">
@@ -55,9 +55,9 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
 </h2>
-<p>Updates the current run-time configuration for the specified fleet, which tells Amazon GameLift how to launch server processes on instances in the fleet. You can update a fleet's run-time configuration at any time after the fleet is created; it does not need to be in an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status.</p>
-<p>To update run-time configuration, specify the fleet ID and provide a <tt class="docutils literal"><span class="pre">RuntimeConfiguration</span></tt> object with an updated set of server process configurations.</p>
-<p>Each instance in a Amazon GameLift fleet checks regularly for an updated run-time configuration and changes how it launches server processes to comply with the latest version. Existing server processes are not affected by the update; run-time configuration changes are applied gradually as existing processes shut down and new processes are launched during Amazon GameLift's normal process recycling activity.</p>
+<p>Updates the current runtime configuration for the specified fleet, which tells Amazon GameLift how to launch server processes on instances in the fleet. You can update a fleet's runtime configuration at any time after the fleet is created; it does not need to be in an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status.</p>
+<p>To update runtime configuration, specify the fleet ID and provide a <tt class="docutils literal"><span class="pre">RuntimeConfiguration</span></tt> object with an updated set of server process configurations.</p>
+<p>Each instance in a Amazon GameLift fleet checks regularly for an updated runtime configuration and changes how it launches server processes to comply with the latest version. Existing server processes are not affected by the update; runtime configuration changes are applied gradually as existing processes shut down and new processes are launched during Amazon GameLift's normal process recycling activity.</p>
 <blockquote>
 <div>
 <p><strong>Learn more</strong></p>
@@ -69,16 +69,7 @@
 <li>CreateFleet</li>
 <li>ListFleets</li>
 <li>DeleteFleet</li>
-<li>Describe fleets:<ul>
 <li>DescribeFleetAttributes</li>
-<li>DescribeFleetCapacity</li>
-<li>DescribeFleetPortSettings</li>
-<li>DescribeFleetUtilization</li>
-<li>DescribeRuntimeConfiguration</li>
-<li>DescribeEC2InstanceLimits</li>
-<li>DescribeFleetEvents</li>
-</ul>
-</li>
 <li>Update fleets:<ul>
 <li>UpdateFleetAttributes</li>
 <li>UpdateFleetCapacity</li>
@@ -111,11 +102,11 @@
 </h2>
 <p><tt class="docutils literal"><span class="pre">--fleet-id</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for a fleet to update run-time configuration for.</div>
+<div>A unique identifier for a fleet to update runtime configuration for. You can use either the fleet ID or ARN value.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--runtime-configuration</span></tt> (structure)</p>
 <blockquote>
-<div>Instructions for launching server processes on each instance in the fleet. Server processes run either a custom game build executable or a Realtime Servers script. The run-time configuration lists the types of server processes to run on an instance and includes the following configuration settings: the server executable or launch script file, launch parameters, and the number of processes to run concurrently on each instance. A CreateFleet request must include a run-time configuration with at least one server process configuration.</div>
+<div>Instructions for launching server processes on each instance in the fleet. Server processes run either a custom game build executable or a Realtime Servers script. The runtime configuration lists the types of server processes to run on an instance and includes the following configuration settings: the server executable or launch script file, launch parameters, and the number of processes to run concurrently on each instance. A CreateFleet request must include a runtime configuration with at least one server process configuration.</div>
 </blockquote>
 <p>Shorthand Syntax:</p>
 <div class="highlight-python">
@@ -148,11 +139,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>RuntimeConfiguration -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>The run-time configuration currently in force. If the update was successful, this object matches the one in the request.</p>
+<p>The runtime configuration currently in force. If the update was successful, this object matches the one in the request.</p>
 <p>ServerProcesses -&gt; (list)</p>
 <blockquote>
 <div>
-<p>Collection of server process configurations that describe which server processes to run on each instance in a fleet.</p>
+<p>A collection of server process configurations that describe which server processes to run on each instance in a fleet.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
@@ -160,7 +151,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>LaunchPath -&gt; (string)</p>
 <blockquote>
 <div>
-<p>Location of the server executable in a custom game build or the name of the Realtime script file that contains the <tt class="docutils literal"><span class="pre">Init()</span></tt> function. Game builds and Realtime scripts are installed on instances at the root:</p>
+<p>The location of the server executable in a custom game build or the name of the Realtime script file that contains the <tt class="docutils literal"><span class="pre">Init()</span></tt> function. Game builds and Realtime scripts are installed on instances at the root:</p>
 <ul class="simple">
 <li>Windows (for custom game builds only): <tt class="docutils literal"><span class="pre">C:\game</span></tt> . Example: "<tt class="docutils literal"><span class="pre">C:\game\MyGame\server.exe</span></tt> "</li>
 <li>Linux: <tt class="docutils literal"><span class="pre">/local/game</span></tt> . Examples: "<tt class="docutils literal"><span class="pre">/local/game/MyGame/server.exe</span></tt> " or "<tt class="docutils literal"><span class="pre">/local/game/MyRealtimeScript.js</span></tt> "</li>
@@ -169,11 +160,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>Parameters -&gt; (string)</p>
 <blockquote>
-<div>Optional list of parameters to pass to the server executable or Realtime script on launch.</div>
+<div>An optional list of parameters to pass to the server executable or Realtime script on launch.</div>
 </blockquote>
 <p>ConcurrentExecutions -&gt; (integer)</p>
 <blockquote>
-<div>Number of server processes using this configuration to run concurrently on an instance.</div>
+<div>The number of server processes that use this configuration to run concurrently on an instance.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -181,11 +172,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>MaxConcurrentGameSessionActivations -&gt; (integer)</p>
 <blockquote>
-<div>Maximum number of game sessions with status <tt class="docutils literal"><span class="pre">ACTIVATING</span></tt> to allow on an instance simultaneously. This setting limits the amount of instance resources that can be used for new game activations at any one time.</div>
+<div>The maximum number of game sessions with status <tt class="docutils literal"><span class="pre">ACTIVATING</span></tt> to allow on an instance simultaneously. This setting limits the amount of instance resources that can be used for new game activations at any one time.</div>
 </blockquote>
 <p>GameSessionActivationTimeoutSeconds -&gt; (integer)</p>
 <blockquote>
-<div>Maximum amount of time (in seconds) that a game session can remain in status <tt class="docutils literal"><span class="pre">ACTIVATING</span></tt> . If the game session is not active before the timeout, activation is terminated and the game session status is changed to <tt class="docutils literal"><span class="pre">TERMINATED</span></tt> .</div>
+<div>The maximum amount of time (in seconds) that a game session can remain in status <tt class="docutils literal"><span class="pre">ACTIVATING</span></tt> . If the game session is not active before the timeout, activation is terminated and the game session status is changed to <tt class="docutils literal"><span class="pre">TERMINATED</span></tt> .</div>
 </blockquote>
 </div>
 </blockquote>

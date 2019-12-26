@@ -12,11 +12,11 @@ DB.clean
 
 download_stylesheets
 
-AWS.services.slice(0, 3).each do |service|
+AWS.services.each do |service|
   puts service.name
   Docset.store(service)
   DB.create(service)
-  service.commands.slice(0, 3).each do |command|
+  service.commands.each do |command|
     puts " - #{command.name}"
     Docset.store(command)
     DB.create(command)

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>describe-game-session-placement — AWS CLI 1.16.298 Command Reference</title>
+    <title>describe-game-session-placement — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="gamelift" href="index.html">
     <link rel="next" title="describe-game-session-queues" href="describe-game-session-queues.html">
     <link rel="prev" title="describe-game-session-details" href="describe-game-session-details.html">
@@ -88,7 +88,7 @@
 </h2>
 <p><tt class="docutils literal"><span class="pre">--placement-id</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for a game session placement to retrieve.</div>
+<div>A unique identifier for a game session placement to retrieve.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
 Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
@@ -105,11 +105,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>Object that describes the requested game session placement.</p>
 <p>PlacementId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a game session placement.</div>
+<div>A unique identifier for a game session placement.</div>
 </blockquote>
 <p>GameSessionQueueName -&gt; (string)</p>
 <blockquote>
-<div>Descriptive label that is associated with game session queue. Queue names must be unique within each region.</div>
+<div>A descriptive label that is associated with game session queue. Queue names must be unique within each Region.</div>
 </blockquote>
 <p>Status -&gt; (string)</p>
 <blockquote>
@@ -124,6 +124,8 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <strong>CANCELLED</strong> -- The placement request was canceled with a call to  StopGameSessionPlacement .</li>
 <li>
 <strong>TIMED_OUT</strong> -- A new game session was not successfully created before the time limit expired. You can resubmit the placement request as needed.</li>
+<li>
+<strong>FAILED</strong> -- GameLift is not able to complete the process of placing the game session. Common reasons are the game session terminated before the placement process was completed, or an unexpected internal error.</li>
 </ul>
 </div>
 </blockquote>
@@ -134,14 +136,14 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>(structure)</p>
 <blockquote>
 <div>
-<p>Set of key-value pairs that contain information about a game session. When included in a game session request, these properties communicate details to be used when setting up the new game session, such as to specify a game mode, level, or map. Game properties are passed to the game server process when initiating a new game session; the server process uses the properties as appropriate. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create">Amazon GameLift Developer Guide</a> .</p>
+<p>Set of key-value pairs that contain information about a game session. When included in a game session request, these properties communicate details to be used when setting up the new game session. For example, a game property might specify a game mode, level, or map. Game properties are passed to the game server process when initiating a new game session. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-sdk-client-api.html#gamelift-sdk-client-api-create">Amazon GameLift Developer Guide</a> .</p>
 <p>Key -&gt; (string)</p>
 <blockquote>
-<div>Game property identifier.</div>
+<div>The game property identifier.</div>
 </blockquote>
 <p>Value -&gt; (string)</p>
 <blockquote>
-<div>Game property value.</div>
+<div>The game property value.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -149,43 +151,43 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>MaximumPlayerSessionCount -&gt; (integer)</p>
 <blockquote>
-<div>Maximum number of players that can be connected simultaneously to the game session.</div>
+<div>The maximum number of players that can be connected simultaneously to the game session.</div>
 </blockquote>
 <p>GameSessionName -&gt; (string)</p>
 <blockquote>
-<div>Descriptive label that is associated with a game session. Session names do not need to be unique.</div>
+<div>A descriptive label that is associated with a game session. Session names do not need to be unique.</div>
 </blockquote>
 <p>GameSessionId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for the game session. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
+<div>A unique identifier for the game session. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
 </blockquote>
 <p>GameSessionArn -&gt; (string)</p>
 <blockquote>
-<div>Identifier for the game session created by this placement request. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ). This identifier is unique across all regions. You can use this value as a <tt class="docutils literal"><span class="pre">GameSessionId</span></tt> value as needed.</div>
+<div>Identifier for the game session created by this placement request. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ). This identifier is unique across all Regions. You can use this value as a <tt class="docutils literal"><span class="pre">GameSessionId</span></tt> value as needed.</div>
 </blockquote>
 <p>GameSessionRegion -&gt; (string)</p>
 <blockquote>
-<div>Name of the region where the game session created by this placement request is running. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
+<div>Name of the Region where the game session created by this placement request is running. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
 </blockquote>
 <p>PlayerLatencies -&gt; (list)</p>
 <blockquote>
 <div>
-<p>Set of values, expressed in milliseconds, indicating the amount of latency that a player experiences when connected to AWS regions.</p>
+<p>Set of values, expressed in milliseconds, indicating the amount of latency that a player experiences when connected to AWS Regions.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
-<p>Regional latency information for a player, used when requesting a new game session with  StartGameSessionPlacement . This value indicates the amount of time lag that exists when the player is connected to a fleet in the specified region. The relative difference between a player's latency values for multiple regions are used to determine which fleets are best suited to place a new game session for the player.</p>
+<p>Regional latency information for a player, used when requesting a new game session with  StartGameSessionPlacement . This value indicates the amount of time lag that exists when the player is connected to a fleet in the specified Region. The relative difference between a player's latency values for multiple Regions are used to determine which fleets are best suited to place a new game session for the player.</p>
 <p>PlayerId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a player associated with the latency data.</div>
+<div>A unique identifier for a player associated with the latency data.</div>
 </blockquote>
 <p>RegionIdentifier -&gt; (string)</p>
 <blockquote>
-<div>Name of the region that is associated with the latency value.</div>
+<div>Name of the Region that is associated with the latency value.</div>
 </blockquote>
 <p>LatencyInMilliseconds -&gt; (float)</p>
 <blockquote>
-<div>Amount of time that represents the time lag experienced by the player when connected to the specified region.</div>
+<div>Amount of time that represents the time lag experienced by the player when connected to the specified Region.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -201,9 +203,19 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>IpAddress -&gt; (string)</p>
 <blockquote>
-<div>IP address of the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and port number. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
+<div>IP address of the instance that is running the game session. When connecting to a Amazon GameLift game server, a client needs to reference an IP address (or DNS name) and port number. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
 </blockquote>
 <p>DnsName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>DNS identifier assigned to the instance that is running the game session. Values have the following format:</p>
+<ul class="simple">
+<li>TLS-enabled fleets: <tt class="docutils literal"><span class="pre">unique</span> <span class="pre">identifier.region</span> <span class="pre">identifier.amazongamelift.com</span></tt> .</li>
+<li>Non-TLS-enabled fleets: <tt class="docutils literal"><span class="pre">ec2-unique</span> <span class="pre">identifier.compute.amazonaws.com</span></tt> . (See <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses">Amazon EC2 Instance IP Addressing</a> .)</li>
+</ul>
+<p>When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP address.</p>
+</div>
+</blockquote>
 <p>Port -&gt; (integer)</p>
 <blockquote>
 <div>Port number for the game session. To connect to a Amazon GameLift game server, an app needs both the IP address and port number. This value is set once the new game session is placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ).</div>
@@ -211,7 +223,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>PlacedPlayerSessions -&gt; (list)</p>
 <blockquote>
 <div>
-<p>Collection of information on player sessions created in response to the game session placement request. These player sessions are created only once a new game session is successfully placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ). This information includes the player ID (as provided in the placement request) and the corresponding player session ID. Retrieve full player sessions by calling  DescribePlayerSessions with the player session ID.</p>
+<p>A collection of information on player sessions created in response to the game session placement request. These player sessions are created only once a new game session is successfully placed (placement status is <tt class="docutils literal"><span class="pre">FULFILLED</span></tt> ). This information includes the player ID (as provided in the placement request) and the corresponding player session ID. Retrieve full player sessions by calling  DescribePlayerSessions with the player session ID.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
@@ -229,11 +241,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </ul>
 <p>PlayerId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a player that is associated with this player session.</div>
+<div>A unique identifier for a player that is associated with this player session.</div>
 </blockquote>
 <p>PlayerSessionId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a player session.</div>
+<div>A unique identifier for a player session.</div>
 </blockquote>
 </div>
 </blockquote>

@@ -4,32 +4,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>wait — AWS CLI 1.16.298 Command Reference</title>
-  <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap.min.css">
-  <script type="text/javascript" src="../../../_static/jquery-1.9.1.min.js"></script>
+    <title>opsworks-cm — AWS CLI 1.16.309 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
     
-    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css">
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '1.16.298',
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../../index.html">
-    <link rel="up" title="opsworks-cm" href="../index.html">
-    <link rel="next" title="node-associated" href="node-associated.html">
-    <link rel="prev" title="update-server-engine-attributes" href="../update-server-engine-attributes.html">
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="associate-node" href="associate-node.html">
+    <link rel="prev" title="instance-terminated" href="../opsworks/wait/instance-terminated.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-responsive.min.css">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
   
    
 
@@ -49,22 +49,73 @@
             <div class="body">
               
   
-<div class="section" id="wait">
-<span id="cli-aws-opsworkscm-wait"></span><h1>wait<a class="headerlink" href="#wait" title="Permalink to this headline">¶</a>
+<div class="section" id="opsworks-cm">
+<span id="cli-aws-opsworkscm"></span><h1>opsworks-cm<a class="headerlink" href="#opsworks-cm" title="Permalink to this headline">¶</a>
 </h1>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
 </h2>
-<p>Wait until a particular condition is satisfied. Each subcommand polls an API until the listed requirement is met.</p>
-<p>See <a class="reference internal" href="../../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
-<p>See <a class="reference internal" href="../../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p>AWS OpsWorks for configuration management (CM) is a service that runs and manages configuration management servers. You can use AWS OpsWorks CM to create and manage AWS OpsWorks for Chef Automate and AWS OpsWorks for Puppet Enterprise servers, and add or remove nodes for the servers to manage.</p>
+<blockquote>
+<div><strong>Glossary of terms</strong></div>
+</blockquote>
+<ul class="simple">
+<li>
+<strong>Server</strong> : A configuration management server that can be highly-available. The configuration management server runs on an Amazon Elastic Compute Cloud (EC2) instance, and may use various other AWS services, such as Amazon Relational Database Service (RDS) and Elastic Load Balancing. A server is a generic abstraction over the configuration manager that you want to use, much like Amazon RDS. In AWS OpsWorks CM, you do not start or stop servers. After you create servers, they continue to run until they are deleted.</li>
+<li>
+<strong>Engine</strong> : The engine is the specific configuration manager that you want to use. Valid values in this release include <tt class="docutils literal"><span class="pre">ChefAutomate</span></tt> and <tt class="docutils literal"><span class="pre">Puppet</span></tt> .</li>
+<li>
+<strong>Backup</strong> : This is an application-level backup of the data that the configuration manager stores. AWS OpsWorks CM creates an S3 bucket for backups when you launch the first server. A backup maintains a snapshot of a server's configuration-related attributes at the time the backup starts.</li>
+<li>
+<strong>Events</strong> : Events are always related to a server. Events are written during server creation, when health checks run, when backups are created, when system maintenance is performed, etc. When you delete a server, the server's events are also deleted.</li>
+<li>
+<strong>Account attributes</strong> : Every account has attributes that are assigned in the AWS OpsWorks CM database. These attributes store information about configuration limits (servers, backups, etc.) and your customer account.</li>
+</ul>
+<blockquote>
+<div><strong>Endpoints</strong></div>
+</blockquote>
+<p>AWS OpsWorks CM supports the following endpoints, all HTTPS. You must connect to one of the following endpoints. Your servers can only be accessed or managed within the endpoint in which they are created.</p>
+<ul class="simple">
+<li>opsworks-cm.us-east-1.amazonaws.com</li>
+<li>opsworks-cm.us-east-2.amazonaws.com</li>
+<li>opsworks-cm.us-west-1.amazonaws.com</li>
+<li>opsworks-cm.us-west-2.amazonaws.com</li>
+<li>opsworks-cm.ap-northeast-1.amazonaws.com</li>
+<li>opsworks-cm.ap-southeast-1.amazonaws.com</li>
+<li>opsworks-cm.ap-southeast-2.amazonaws.com</li>
+<li>opsworks-cm.eu-central-1.amazonaws.com</li>
+<li>opsworks-cm.eu-west-1.amazonaws.com</li>
+</ul>
+<blockquote>
+<div><strong>Throttling limits</strong></div>
+</blockquote>
+<p>All API operations allow for five requests per second with a burst of 10 requests per second.</p>
 </div>
 <div class="section" id="available-commands">
 <h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
 </h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="node-associated.html">node-associated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="associate-node.html">associate-node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-backup.html">create-backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-server.html">create-server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-backup.html">delete-backup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-server.html">delete-server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-account-attributes.html">describe-account-attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-backups.html">describe-backups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-events.html">describe-events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-node-association-status.html">describe-node-association-status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-servers.html">describe-servers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disassociate-node.html">disassociate-node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export-server-engine-attribute.html">export-server-engine-attribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-tags-for-resource.html">list-tags-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="restore-server.html">restore-server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="start-maintenance.html">start-maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tag-resource.html">tag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="untag-resource.html">untag-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-server.html">update-server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-server-engine-attributes.html">update-server-engine-attributes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wait/index.html">wait</a></li>
 </ul>
 </div>
 </div>

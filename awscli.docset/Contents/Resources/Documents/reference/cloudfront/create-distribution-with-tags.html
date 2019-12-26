@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-distribution-with-tags — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-distribution-with-tags — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="cloudfront" href="index.html">
     <link rel="next" title="create-field-level-encryption-config" href="create-field-level-encryption-config.html">
     <link rel="prev" title="create-distribution" href="create-distribution.html">
@@ -313,6 +313,258 @@ Performs service operation based on the JSON string provided. The JSON string fo
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
 Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create a CloudFront distribution with tags</strong></p>
+<p>The following example creates a distribution with two tags by providing the
+distribution configuration and tags in a JSON file named
+<tt class="docutils literal"><span class="pre">dist-config-with-tags.json</span></tt>:</p>
+<div class="highlight-python">
+<pre>aws cloudfront create-distribution-with-tags \
+    --distribution-config-with-tags file://dist-config-with-tags.json</pre>
+</div>
+<p>The file <tt class="docutils literal"><span class="pre">dist-config-with-tags.json</span></tt> is a JSON document in the current
+folder that contains the following. Note the <tt class="docutils literal"><span class="pre">Tags</span></tt> object at the top of
+the file, which contains two tags:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">Name</span> <span class="pre">=</span> <span class="pre">ExampleDistribution</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Project</span> <span class="pre">=</span> <span class="pre">ExampleProject</span></tt></li>
+</ul>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Tags"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"Name"</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"ExampleDistribution"</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="s2">"Key"</span><span class="p">:</span> <span class="s2">"Project"</span><span class="p">,</span>
+                <span class="s2">"Value"</span><span class="p">:</span> <span class="s2">"ExampleProject"</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">"DistributionConfig"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-example"</span><span class="p">,</span>
+        <span class="s2">"Aliases"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="s2">"DefaultRootObject"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+        <span class="s2">"Origins"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"awsexamplebucket.s3.amazonaws.com-cli-example"</span><span class="p">,</span>
+                    <span class="s2">"DomainName"</span><span class="p">:</span> <span class="s2">"awsexamplebucket.s3.amazonaws.com"</span><span class="p">,</span>
+                    <span class="s2">"OriginPath"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                    <span class="s2">"CustomHeaders"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                    <span class="p">},</span>
+                    <span class="s2">"S3OriginConfig"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"OriginAccessIdentity"</span><span class="p">:</span> <span class="s2">""</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="s2">"OriginGroups"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="s2">"DefaultCacheBehavior"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"TargetOriginId"</span><span class="p">:</span> <span class="s2">"awsexamplebucket.s3.amazonaws.com-cli-example"</span><span class="p">,</span>
+            <span class="s2">"ForwardedValues"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"QueryString"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"Cookies"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Forward"</span><span class="p">:</span> <span class="s2">"none"</span>
+                <span class="p">},</span>
+                <span class="s2">"Headers"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="p">},</span>
+                <span class="s2">"QueryStringCacheKeys"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"TrustedSigners"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">"ViewerProtocolPolicy"</span><span class="p">:</span> <span class="s2">"allow-all"</span><span class="p">,</span>
+            <span class="s2">"MinTTL"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"AllowedMethods"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">"HEAD"</span><span class="p">,</span>
+                    <span class="s2">"GET"</span>
+                <span class="p">],</span>
+                <span class="s2">"CachedMethods"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"HEAD"</span><span class="p">,</span>
+                        <span class="s2">"GET"</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"SmoothStreaming"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"DefaultTTL"</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span>
+            <span class="s2">"MaxTTL"</span><span class="p">:</span> <span class="mi">31536000</span><span class="p">,</span>
+            <span class="s2">"Compress"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"LambdaFunctionAssociations"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">"FieldLevelEncryptionId"</span><span class="p">:</span> <span class="s2">""</span>
+        <span class="p">},</span>
+        <span class="s2">"CacheBehaviors"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="s2">"CustomErrorResponses"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"Logging"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"IncludeCookies"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">""</span>
+        <span class="p">},</span>
+        <span class="s2">"PriceClass"</span><span class="p">:</span> <span class="s2">"PriceClass_All"</span><span class="p">,</span>
+        <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+        <span class="s2">"ViewerCertificate"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"CloudFrontDefaultCertificate"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"MinimumProtocolVersion"</span><span class="p">:</span> <span class="s2">"TLSv1"</span><span class="p">,</span>
+            <span class="s2">"CertificateSource"</span><span class="p">:</span> <span class="s2">"cloudfront"</span>
+        <span class="p">},</span>
+        <span class="s2">"Restrictions"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"GeoRestriction"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"RestrictionType"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">,</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s2">"WebACLId"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"HttpVersion"</span><span class="p">:</span> <span class="s2">"http2"</span><span class="p">,</span>
+        <span class="s2">"IsIPV6Enabled"</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Location"</span><span class="p">:</span> <span class="s2">"https://cloudfront.amazonaws.com/2019-03-26/distribution/EDFDVBD6EXAMPLE"</span><span class="p">,</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"E2QWRUHEXAMPLE"</span><span class="p">,</span>
+    <span class="s2">"Distribution"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"EDFDVBD6EXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"ARN"</span><span class="p">:</span> <span class="s2">"arn:aws:cloudfront::123456789012:distribution/EDFDVBD6EXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"InProgress"</span><span class="p">,</span>
+        <span class="s2">"LastModifiedTime"</span><span class="p">:</span> <span class="s2">"2019-12-04T23:35:41.433Z"</span><span class="p">,</span>
+        <span class="s2">"InProgressInvalidationBatches"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">"DomainName"</span><span class="p">:</span> <span class="s2">"d111111abcdef8.cloudfront.net"</span><span class="p">,</span>
+        <span class="s2">"ActiveTrustedSigners"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">},</span>
+        <span class="s2">"DistributionConfig"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-example"</span><span class="p">,</span>
+            <span class="s2">"Aliases"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">"DefaultRootObject"</span><span class="p">:</span> <span class="s2">"index.html"</span><span class="p">,</span>
+            <span class="s2">"Origins"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"awsexamplebucket.s3.amazonaws.com-cli-example"</span><span class="p">,</span>
+                        <span class="s2">"DomainName"</span><span class="p">:</span> <span class="s2">"awsexamplebucket.s3.amazonaws.com"</span><span class="p">,</span>
+                        <span class="s2">"OriginPath"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                        <span class="s2">"CustomHeaders"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                        <span class="p">},</span>
+                        <span class="s2">"S3OriginConfig"</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">"OriginAccessIdentity"</span><span class="p">:</span> <span class="s2">""</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">"OriginGroups"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">"DefaultCacheBehavior"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"TargetOriginId"</span><span class="p">:</span> <span class="s2">"awsexamplebucket.s3.amazonaws.com-cli-example"</span><span class="p">,</span>
+                <span class="s2">"ForwardedValues"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"QueryString"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                    <span class="s2">"Cookies"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Forward"</span><span class="p">:</span> <span class="s2">"none"</span>
+                    <span class="p">},</span>
+                    <span class="s2">"Headers"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                    <span class="p">},</span>
+                    <span class="s2">"QueryStringCacheKeys"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">"TrustedSigners"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="p">},</span>
+                <span class="s2">"ViewerProtocolPolicy"</span><span class="p">:</span> <span class="s2">"allow-all"</span><span class="p">,</span>
+                <span class="s2">"MinTTL"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"AllowedMethods"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">"HEAD"</span><span class="p">,</span>
+                        <span class="s2">"GET"</span>
+                    <span class="p">],</span>
+                    <span class="s2">"CachedMethods"</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="s2">"Items"</span><span class="p">:</span> <span class="p">[</span>
+                            <span class="s2">"HEAD"</span><span class="p">,</span>
+                            <span class="s2">"GET"</span>
+                        <span class="p">]</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s2">"SmoothStreaming"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"DefaultTTL"</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span>
+                <span class="s2">"MaxTTL"</span><span class="p">:</span> <span class="mi">31536000</span><span class="p">,</span>
+                <span class="s2">"Compress"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"LambdaFunctionAssociations"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="p">},</span>
+                <span class="s2">"FieldLevelEncryptionId"</span><span class="p">:</span> <span class="s2">""</span>
+            <span class="p">},</span>
+            <span class="s2">"CacheBehaviors"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">"CustomErrorResponses"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"Logging"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"IncludeCookies"</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+                <span class="s2">"Bucket"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+                <span class="s2">"Prefix"</span><span class="p">:</span> <span class="s2">""</span>
+            <span class="p">},</span>
+            <span class="s2">"PriceClass"</span><span class="p">:</span> <span class="s2">"PriceClass_All"</span><span class="p">,</span>
+            <span class="s2">"Enabled"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+            <span class="s2">"ViewerCertificate"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"CloudFrontDefaultCertificate"</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="s2">"MinimumProtocolVersion"</span><span class="p">:</span> <span class="s2">"TLSv1"</span><span class="p">,</span>
+                <span class="s2">"CertificateSource"</span><span class="p">:</span> <span class="s2">"cloudfront"</span>
+            <span class="p">},</span>
+            <span class="s2">"Restrictions"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"GeoRestriction"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"RestrictionType"</span><span class="p">:</span> <span class="s2">"none"</span><span class="p">,</span>
+                    <span class="s2">"Quantity"</span><span class="p">:</span> <span class="mi">0</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="s2">"WebACLId"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+            <span class="s2">"HttpVersion"</span><span class="p">:</span> <span class="s2">"http2"</span><span class="p">,</span>
+            <span class="s2">"IsIPV6Enabled"</span><span class="p">:</span> <span class="n">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>
@@ -705,7 +957,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>ForwardedValues -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>A complex type that specifies how CloudFront handles query strings and cookies.</p>
+<p>A complex type that specifies how CloudFront handles query strings, cookies, and HTTP headers.</p>
 <p>QueryString -&gt; (boolean)</p>
 <blockquote>
 <div>
@@ -1020,7 +1272,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>ForwardedValues -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>A complex type that specifies how CloudFront handles query strings and cookies.</p>
+<p>A complex type that specifies how CloudFront handles query strings, cookies, and HTTP headers.</p>
 <p>QueryString -&gt; (boolean)</p>
 <blockquote>
 <div>
@@ -1336,7 +1588,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <li>The value of <tt class="docutils literal"><span class="pre">PathPattern</span></tt> matches the path to your custom error messages. For example, suppose you saved custom error pages for 4xx errors in an Amazon S3 bucket in a directory named <tt class="docutils literal"><span class="pre">/4xx-errors</span></tt> . Your distribution must include a cache behavior for which the path pattern routes requests for your custom error pages to that location, for example, <tt class="docutils literal"><span class="pre">/4xx-errors/*</span></tt> .</li>
 <li>The value of <tt class="docutils literal"><span class="pre">TargetOriginId</span></tt> specifies the value of the <tt class="docutils literal"><span class="pre">ID</span></tt> element for the origin that contains your custom error pages.</li>
 </ul>
-<p>If you specify a value for <tt class="docutils literal"><span class="pre">ResponsePagePath</span></tt> , you must also specify a value for <tt class="docutils literal"><span class="pre">ResponseCode</span></tt> . If you don't want to specify a value, include an empty element, <tt class="docutils literal"><span class="pre">ResponsePagePath</span></tt> , in the XML document.</p>
+<p>If you specify a value for <tt class="docutils literal"><span class="pre">ResponsePagePath</span></tt> , you must also specify a value for <tt class="docutils literal"><span class="pre">ResponseCode</span></tt> .</p>
 <p>We recommend that you store custom error pages in an Amazon S3 bucket. If you store custom error pages on an HTTP server and the server starts to return 5xx errors, CloudFront can't get the files that you want to return to viewers because the origin server is unavailable.</p>
 </div>
 </blockquote>
@@ -1349,14 +1601,13 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <li>If you don't care about distinguishing among different client errors or server errors, you can specify <tt class="docutils literal"><span class="pre">400</span></tt> or <tt class="docutils literal"><span class="pre">500</span></tt> as the <tt class="docutils literal"><span class="pre">ResponseCode</span></tt> for all 4xx or 5xx errors.</li>
 <li>You might want to return a <tt class="docutils literal"><span class="pre">200</span></tt> status code (OK) and static website so your customers don't know that your website is down.</li>
 </ul>
-<p>If you specify a value for <tt class="docutils literal"><span class="pre">ResponseCode</span></tt> , you must also specify a value for <tt class="docutils literal"><span class="pre">ResponsePagePath</span></tt> . If you don't want to specify a value, include an empty element, <tt class="docutils literal"><span class="pre">ResponseCode</span></tt> , in the XML document.</p>
+<p>If you specify a value for <tt class="docutils literal"><span class="pre">ResponseCode</span></tt> , you must also specify a value for <tt class="docutils literal"><span class="pre">ResponsePagePath</span></tt> .</p>
 </div>
 </blockquote>
 <p>ErrorCachingMinTTL -&gt; (long)</p>
 <blockquote>
 <div>
 <p>The minimum amount of time, in seconds, that you want CloudFront to cache the HTTP status code specified in <tt class="docutils literal"><span class="pre">ErrorCode</span></tt> . When this time period has elapsed, CloudFront queries your origin to see whether the problem that caused the error has been resolved and the requested object is now available.</p>
-<p>If you don't want to specify a value, include an empty element, <tt class="docutils literal"><span class="pre">ErrorCachingMinTTL</span></tt> , in the XML document.</p>
 <p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html">Customizing Error Responses</a> in the <em>Amazon CloudFront Developer Guide</em> .</p>
 </div>
 </blockquote>
@@ -1416,46 +1667,33 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>A complex type that specifies whether you want viewers to use HTTP or HTTPS to request your objects, whether you're using an alternate domain name with HTTPS, and if so, if you're using AWS Certificate Manager (ACM) or a third-party certificate authority.</p>
 <p>CloudFrontDefaultCertificate -&gt; (boolean)</p>
 <blockquote>
-<div>
-<p>If you're using the CloudFront domain name for your distribution, such as <tt class="docutils literal"><span class="pre">d111111abcdef8.cloudfront.net</span></tt> , specify the following value:</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">CloudFrontDefaultCertificatetrueCloudFrontDefaultCertificate</span></tt></li>
-</ul>
-</div>
+<div>If you're using the CloudFront domain name for your distribution, such as <tt class="docutils literal"><span class="pre">d111111abcdef8.cloudfront.net</span></tt> , specify this value as <tt class="docutils literal"><span class="pre">true</span></tt> .</div>
 </blockquote>
 <p>IAMCertificateId -&gt; (string)</p>
 <blockquote>
 <div>
-<p>If you want viewers to use HTTPS to request your objects and you're using an alternate domain name, you must choose the type of certificate that you want to use. Specify the following value if you purchased your certificate from a third-party certificate authority:</p>
-<ul class="simple">
-<li>
-<tt class="docutils literal"><span class="pre">IAMCertificateId*IAM</span> <span class="pre">certificate</span> <span class="pre">ID*</span> <span class="pre">IAMCertificateId</span></tt> where `` <em>IAM certificate ID</em> `` is the ID that IAM returned when you added the certificate to the IAM certificate store.</li>
-</ul>
-<p>If you specify <tt class="docutils literal"><span class="pre">IAMCertificateId</span></tt> , you must also specify a value for <tt class="docutils literal"><span class="pre">SSLSupportMethod</span></tt> .</p>
+<p>If you want viewers to use HTTPS to request your objects and you're using an alternate domain name, you must choose the type of certificate that you want to use. If you purchased your certificate from a third-party certificate authority and uploaded it to the IAM certificate store, specify the certificate ID that you want to use for this distribution.</p>
+<p>If you specify a certificate ID, you must also specify an SSL support method (<tt class="docutils literal"><span class="pre">sni-only</span></tt> or <tt class="docutils literal"><span class="pre">vip</span></tt> ).</p>
 </div>
 </blockquote>
 <p>ACMCertificateArn -&gt; (string)</p>
 <blockquote>
 <div>
-<p>If you want viewers to use HTTPS to request your objects and you're using an alternate domain name, you must choose the type of certificate that you want to use. Specify the following value if ACM provided your certificate:</p>
-<ul class="simple">
-<li>
-<tt class="docutils literal"><span class="pre">ACMCertificateArn*ARN</span> <span class="pre">for</span> <span class="pre">ACM</span> <span class="pre">SSL/TLS</span> <span class="pre">certificate*</span> <span class="pre">ACMCertificateArn</span></tt> where `` <em>ARN for ACM SSL/TLS certificate</em> `` is the ARN for the ACM SSL/TLS certificate that you want to use for this distribution.</li>
-</ul>
-<p>If you specify <tt class="docutils literal"><span class="pre">ACMCertificateArn</span></tt> , you must also specify a value for <tt class="docutils literal"><span class="pre">SSLSupportMethod</span></tt> .</p>
+<p>If you want viewers to use HTTPS to request your objects and you're using an alternate domain name, you must choose the type of certificate that you want to use. If ACM provided your certificate, specify the Amazon Resource Name (ARN) for the ACM certificate that you want to use for this distribution. CloudFront only supports ACM certificates in the US East (N. Virginia) Region (us-east-1).</p>
+<p>If you specify an ACM certificate ARN, you must also specify an SSL support method (<tt class="docutils literal"><span class="pre">sni-only</span></tt> or <tt class="docutils literal"><span class="pre">vip</span></tt> ).</p>
 </div>
 </blockquote>
 <p>SSLSupportMethod -&gt; (string)</p>
 <blockquote>
 <div>
-<p>If you specify a value for <a class="reference external" href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-ACMCertificateArn">ACMCertificateArn</a> or for <a class="reference external" href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-IAMCertificateId">IAMCertificateId</a> , you must also specify how you want CloudFront to serve HTTPS requests: using a method that works for browsers and clients released after 2010 or one that works for all clients.</p>
+<p>If you specify a value for <a class="reference external" href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-ACMCertificateArn">ACMCertificateArn</a> or for <a class="reference external" href="https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-IAMCertificateId">IAMCertificateId</a> , you must also specify how you want CloudFront to serve HTTPS requests: using a method that works for browsers and clients released after 2010, or one that works for all clients.</p>
 <ul class="simple">
 <li>
-<tt class="docutils literal"><span class="pre">sni-only</span></tt> : CloudFront can respond to HTTPS requests from viewers that support Server Name Indication (SNI). All modern browsers support SNI, but there are a few that don't. For a current list of the browsers that support SNI, see the <a class="reference external" href="http://en.wikipedia.org/wiki/Server_Name_Indication">Wikipedia entry Server Name Indication</a> . To learn about options to explore if you have users with browsers that don't include SNI support, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html">Choosing How CloudFront Serves HTTPS Requests</a> in the <em>Amazon CloudFront Developer Guide</em> .</li>
+<tt class="docutils literal"><span class="pre">sni-only</span></tt> : CloudFront can respond to HTTPS requests from viewers that support Server Name Indication (SNI). All modern browsers support SNI, but there are a few that don't. For a current list of the browsers that support SNI, see the <a class="reference external" href="http://en.wikipedia.org/wiki/Server_Name_Indication">Wikipedia entry Server Name Indication</a> . To learn about options to explore if you have viewers with browsers that don't include SNI support, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html">Choosing How CloudFront Serves HTTPS Requests</a> in the <em>Amazon CloudFront Developer Guide</em> .</li>
 <li>
 <tt class="docutils literal"><span class="pre">vip</span></tt> : CloudFront uses dedicated IP addresses for your content and can respond to HTTPS requests from any viewer. However, there are additional monthly charges. For details, including specific pricing information, see <a class="reference external" href="http://aws.amazon.com/cloudfront/custom-ssl-domains/">Custom SSL options for Amazon CloudFront</a> on the AWS marketing site.</li>
 </ul>
-<p>Don't specify a value for <tt class="docutils literal"><span class="pre">SSLSupportMethod</span></tt> if you specified <tt class="docutils literal"><span class="pre">CloudFrontDefaultCertificatetrueCloudFrontDefaultCertificate</span></tt> .</p>
+<p>Don't specify a value here if you specified <tt class="docutils literal"><span class="pre">CloudFrontDefaultCertificate</span></tt> as <tt class="docutils literal"><span class="pre">true</span></tt> .</p>
 <p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html">Choosing How CloudFront Serves HTTPS Requests</a> in the <em>Amazon CloudFront Developer Guide</em> .</p>
 </div>
 </blockquote>
@@ -1464,22 +1702,20 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <div>
 <p>Specify the security policy that you want CloudFront to use for HTTPS connections. A security policy determines two settings:</p>
 <ul class="simple">
-<li>The minimum SSL/TLS protocol that CloudFront uses to communicate with viewers</li>
-<li>The cipher that CloudFront uses to encrypt the content that it returns to viewers</li>
+<li>The minimum SSL/TLS protocol that CloudFront uses to communicate with viewers.</li>
+<li>The cipher that CloudFront uses to encrypt the content that it returns to viewers.</li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">On the CloudFront console, this setting is called <strong>Security policy</strong> .</p>
+<p class="last">On the CloudFront console, this setting is called <strong>Security Policy</strong> .</p>
 </div>
-<p>We recommend that you specify <tt class="docutils literal"><span class="pre">TLSv1.1_2016</span></tt> unless your users are using browsers or devices that do not support TLSv1.1 or later.</p>
+<p>We recommend that you specify <tt class="docutils literal"><span class="pre">TLSv1.1_2016</span></tt> unless your viewers are using browsers or devices that do not support TLSv1.1 or later.</p>
 <p>When both of the following are true, you must specify <tt class="docutils literal"><span class="pre">TLSv1</span></tt> or later for the security policy:</p>
 <ul class="simple">
-<li>You're using a custom certificate: you specified a value for <tt class="docutils literal"><span class="pre">ACMCertificateArn</span></tt> or for <tt class="docutils literal"><span class="pre">IAMCertificateId</span></tt>
-</li>
-<li>You're using SNI: you specified <tt class="docutils literal"><span class="pre">sni-only</span></tt> for <tt class="docutils literal"><span class="pre">SSLSupportMethod</span></tt>
-</li>
+<li>You're using a custom certificate; that is, you specified a value for <tt class="docutils literal"><span class="pre">ACMCertificateArn</span></tt> or for <tt class="docutils literal"><span class="pre">IAMCertificateId</span></tt> .</li>
+<li>You're using SNI; that is, you specified <tt class="docutils literal"><span class="pre">sni-only</span></tt> for <tt class="docutils literal"><span class="pre">SSLSupportMethod</span></tt> .</li>
 </ul>
-<p>If you specify <tt class="docutils literal"><span class="pre">true</span></tt> for <tt class="docutils literal"><span class="pre">CloudFrontDefaultCertificate</span></tt> , CloudFront automatically sets the security policy to <tt class="docutils literal"><span class="pre">TLSv1</span></tt> regardless of the value that you specify for <tt class="docutils literal"><span class="pre">MinimumProtocolVersion</span></tt> .</p>
+<p>If you specify <tt class="docutils literal"><span class="pre">true</span></tt> for <tt class="docutils literal"><span class="pre">CloudFrontDefaultCertificate</span></tt> , CloudFront automatically sets the security policy to <tt class="docutils literal"><span class="pre">TLSv1</span></tt> regardless of the value that you specify here.</p>
 <p>For information about the relationship between the security policy that you choose and the protocols and ciphers that CloudFront uses to communicate with viewers, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html#secure-connections-supported-ciphers">Supported SSL/TLS Protocols and Ciphers for Communication Between Viewers and CloudFront</a> in the <em>Amazon CloudFront Developer Guide</em> .</p>
 </div>
 </blockquote>
@@ -1549,8 +1785,8 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>WebACLId -&gt; (string)</p>
 <blockquote>
 <div>
-<p>A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution.</p>
-<p>AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the IP addresses that requests originate from or the values of query strings, CloudFront responds to requests either with the requested content or with an HTTP 403 status code (Forbidden). You can also configure CloudFront to return a custom error page when a request is blocked. For more information about AWS WAF, see the <a class="reference external" href="http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer Guide</a> .</p>
+<p>A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution. To specify a web ACL created using the latest version of AWS WAF, use the ACL ARN, for example <tt class="docutils literal"><span class="pre">arn:aws:wafv2:us-east-1:123456789012:global/webacl/ExampleWebACL/473e64fd-f30b-4765-81a0-62ad96dd167a</span></tt> . To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example <tt class="docutils literal"><span class="pre">473e64fd-f30b-4765-81a0-62ad96dd167a</span></tt> .</p>
+<p>AWS WAF is a web application firewall that lets you monitor the HTTP and HTTPS requests that are forwarded to CloudFront, and lets you control access to your content. Based on conditions that you specify, such as the IP addresses that requests originate from or the values of query strings, CloudFront responds to requests either with the requested content or with an HTTP 403 status code (Forbidden). You can also configure CloudFront to return a custom error page when a request is blocked. For more information about AWS WAF, see the <a class="reference external" href="https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html">AWS WAF Developer Guide</a> .</p>
 </div>
 </blockquote>
 <p>HttpVersion -&gt; (string)</p>
@@ -1602,7 +1838,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <li>
 <strong>SUSPENDED</strong> indicates that the associated CNAME does not have a valid ICP recordal number.</li>
 <li>
-<strong>PENDING</strong> indicates that at least one CNAME associated with the distribution does not have a valid ICP recordal number.</li>
+<strong>PENDING</strong> indicates that CloudFront can't determine the ICP recordal status of the CNAME associated with the distribution because there was an error in trying to determine the status. You can try again to see if the error is resolved in which case CloudFront returns an APPROVED or SUSPENDED status.</li>
 </ul>
 </div>
 </blockquote>

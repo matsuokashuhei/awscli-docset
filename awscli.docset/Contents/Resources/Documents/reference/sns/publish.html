@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>publish — AWS CLI 1.16.299 Command Reference</title>
+    <title>publish — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.299',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="sns" href="index.html">
     <link rel="next" title="remove-permission" href="remove-permission.html">
     <link rel="prev" title="opt-in-phone-number" href="opt-in-phone-number.html">
@@ -170,16 +170,39 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
 </h2>
-<p>The following command publishes a message to an SNS topic named <tt class="docutils literal"><span class="pre">my-topic</span></tt>:</p>
+<p><strong>Example 1: To publish a message to a topic</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">publish</span></tt> example publishes the specified message to the specified SNS topic. The message comes from a text file, which enables you to include line breaks.</p>
 <div class="highlight-python">
-<pre>aws sns publish --topic-arn "arn:aws:sns:us-west-2:0123456789012:my-topic" --message file://message.txt</pre>
+<pre>aws sns publish \
+    --topic-arn "arn:aws:sns:us-west-2:123456789012:my-topic" \
+    --message file://message.txt</pre>
 </div>
-<p><tt class="docutils literal"><span class="pre">message.txt</span></tt> is a text file containing the message to publish:</p>
+<p>Contents of <tt class="docutils literal"><span class="pre">message.txt</span></tt>:</p>
 <div class="highlight-python">
 <pre>Hello World
 Second Line</pre>
 </div>
-<p>Putting the message in a text file allows you to include line breaks.</p>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"MessageId"</span><span class="p">:</span> <span class="s2">"123a45b6-7890-12c3-45d6-111122223333"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example 2: To publish an SMS message to a phone number</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">publish</span></tt> example publishes the message <tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">world!</span></tt> to the phone number <tt class="docutils literal"><span class="pre">+1-555-555-0100</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws sns publish \
+    --message "Hello world!" \
+    --phone-number +1-555-555-0100</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"MessageId"</span><span class="p">:</span> <span class="s2">"123a45b6-7890-12c3-45d6-333322221111"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

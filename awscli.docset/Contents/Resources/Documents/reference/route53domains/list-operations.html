@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>list-operations — AWS CLI 1.16.298 Command Reference</title>
+    <title>list-operations — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="route53domains" href="index.html">
     <link rel="next" title="list-tags-for-domain" href="list-tags-for-domain.html">
     <link rel="prev" title="list-domains" href="list-domains.html">
@@ -107,6 +107,54 @@ Performs service operation based on the JSON string provided. The JSON string fo
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
 Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To list the status of operations that return an operation ID</strong></p>
+<p>Some domain registration operations run asynchronously and return a response before they finish. These operations return an operation ID that you can use to get the current status. The following <tt class="docutils literal"><span class="pre">list-operations</span></tt> command lists summary information, including the status, about the current domain-registration operations.</p>
+<p>This command runs only in the <tt class="docutils literal"><span class="pre">us-east-1</span></tt> Region. If your default region is set to <tt class="docutils literal"><span class="pre">us-east-1</span></tt>, you can omit the <tt class="docutils literal"><span class="pre">region</span></tt> parameter.</p>
+<div class="highlight-python">
+<pre>aws route53domains list-operations
+    --region us-east-1</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Operations"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">"OperationId"</span><span class="p">:</span> <span class="s2">"aab9822f-1da0-4bf3-8a15-fd4e0example"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"SUCCESSFUL"</span><span class="p">,</span>
+            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"DOMAIN_LOCK"</span><span class="p">,</span>
+            <span class="s2">"SubmittedDate"</span><span class="p">:</span> <span class="mf">1455321739.986</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"OperationId"</span><span class="p">:</span> <span class="s2">"c24379ed-76be-42f8-bdad-9379bexample"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"SUCCESSFUL"</span><span class="p">,</span>
+            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"UPDATE_NAMESERVER"</span><span class="p">,</span>
+            <span class="s2">"SubmittedDate"</span><span class="p">:</span> <span class="mf">1468960475.109</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"OperationId"</span><span class="p">:</span> <span class="s2">"f47e1297-ef9e-4c2b-ae1e-a5fcbexample"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"SUCCESSFUL"</span><span class="p">,</span>
+            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"RENEW_DOMAIN"</span><span class="p">,</span>
+            <span class="s2">"SubmittedDate"</span><span class="p">:</span> <span class="mf">1473561835.943</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"OperationId"</span><span class="p">:</span> <span class="s2">"75584f23-b15f-459e-aed7-dc6f5example"</span><span class="p">,</span>
+            <span class="s2">"Status"</span><span class="p">:</span> <span class="s2">"SUCCESSFUL"</span><span class="p">,</span>
+            <span class="s2">"Type"</span><span class="p">:</span> <span class="s2">"UPDATE_DOMAIN_CONTACT"</span><span class="p">,</span>
+            <span class="s2">"SubmittedDate"</span><span class="p">:</span> <span class="mf">1547501003.41</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The output includes all the operations that return an operation ID and that you have performed on all the domains that you have ever registered using the current AWS account. If you want to get only the operations that you submitted after a specified date, you can include the <tt class="docutils literal"><span class="pre">submitted-since</span></tt> parameter and specify a date in Unix format and Coordinated Universal Time (UTC). The following command gets the status of all operations that were submitted after 12:00 am UTC on January 1, 2020.</p>
+<div class="highlight-python">
+<pre>aws route53domains list-operations \
+    --submitted-since 1577836800</pre>
+</div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

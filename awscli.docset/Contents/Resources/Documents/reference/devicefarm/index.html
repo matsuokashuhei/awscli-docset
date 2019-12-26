@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>devicefarm — AWS CLI 1.16.299 Command Reference</title>
+    <title>devicefarm — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.299',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,10 +24,10 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="aws" href="../index.html">
     <link rel="next" title="create-device-pool" href="create-device-pool.html">
-    <link rel="prev" title="deployment-successful" href="../deploy/wait/deployment-successful.html">
+    <link rel="prev" title="reject-invitation" href="../detective/reject-invitation.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
   
@@ -55,7 +55,11 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
 </h2>
-<p>AWS Device Farm is a service that enables mobile app developers to test Android, iOS, and Fire OS apps on physical phones, tablets, and other devices in the cloud.</p>
+<p>Welcome to the AWS Device Farm API documentation, which contains APIs for:</p>
+<ul class="simple">
+<li>Testing on desktop browsers Device Farm makes it possible for you to test your web applications on desktop browsers using Selenium. The APIs for desktop browser testing contain <tt class="docutils literal"><span class="pre">TestGrid</span></tt> in their names. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/devicefarm/latest/testgrid/">Testing Web Applications on Selenium with Device Farm</a> .</li>
+<li>Testing on real mobile devices Device Farm makes it possible for you to test apps on physical phones, tablets, and other devices in the cloud. For more information, see the <a class="reference external" href="https://docs.aws.amazon.com/devicefarm/latest/developerguide/">Device Farm Developer Guide</a> .</li>
+</ul>
 </div>
 <div class="section" id="available-commands">
 <h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
@@ -67,6 +71,8 @@
 <li class="toctree-l1"><a class="reference internal" href="create-network-profile.html">create-network-profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="create-project.html">create-project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="create-remote-access-session.html">create-remote-access-session</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-test-grid-project.html">create-test-grid-project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-test-grid-url.html">create-test-grid-url</a></li>
 <li class="toctree-l1"><a class="reference internal" href="create-upload.html">create-upload</a></li>
 <li class="toctree-l1"><a class="reference internal" href="create-vpce-configuration.html">create-vpce-configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="delete-device-pool.html">delete-device-pool</a></li>
@@ -75,6 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="delete-project.html">delete-project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="delete-remote-access-session.html">delete-remote-access-session</a></li>
 <li class="toctree-l1"><a class="reference internal" href="delete-run.html">delete-run</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-test-grid-project.html">delete-test-grid-project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="delete-upload.html">delete-upload</a></li>
 <li class="toctree-l1"><a class="reference internal" href="delete-vpce-configuration.html">delete-vpce-configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-account-settings.html">get-account-settings</a></li>
@@ -91,6 +98,8 @@
 <li class="toctree-l1"><a class="reference internal" href="get-run.html">get-run</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-suite.html">get-suite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-test.html">get-test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-test-grid-project.html">get-test-grid-project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-test-grid-session.html">get-test-grid-session</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-upload.html">get-upload</a></li>
 <li class="toctree-l1"><a class="reference internal" href="get-vpce-configuration.html">get-vpce-configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install-to-remote-access-session.html">install-to-remote-access-session</a></li>
@@ -110,6 +119,10 @@
 <li class="toctree-l1"><a class="reference internal" href="list-samples.html">list-samples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="list-suites.html">list-suites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="list-tags-for-resource.html">list-tags-for-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-test-grid-projects.html">list-test-grid-projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-test-grid-session-actions.html">list-test-grid-session-actions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-test-grid-session-artifacts.html">list-test-grid-session-artifacts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-test-grid-sessions.html">list-test-grid-sessions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="list-tests.html">list-tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="list-unique-problems.html">list-unique-problems</a></li>
 <li class="toctree-l1"><a class="reference internal" href="list-uploads.html">list-uploads</a></li>
@@ -127,6 +140,7 @@
 <li class="toctree-l1"><a class="reference internal" href="update-instance-profile.html">update-instance-profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="update-network-profile.html">update-network-profile</a></li>
 <li class="toctree-l1"><a class="reference internal" href="update-project.html">update-project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-test-grid-project.html">update-test-grid-project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="update-upload.html">update-upload</a></li>
 <li class="toctree-l1"><a class="reference internal" href="update-vpce-configuration.html">update-vpce-configuration</a></li>
 </ul>

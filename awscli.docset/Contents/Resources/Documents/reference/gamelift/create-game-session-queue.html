@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-game-session-queue — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-game-session-queue — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="gamelift" href="index.html">
     <link rel="next" title="create-matchmaking-configuration" href="create-matchmaking-configuration.html">
     <link rel="prev" title="create-game-session" href="create-game-session.html">
@@ -55,7 +55,7 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
 </h2>
-<p>Establishes a new queue for processing requests to place new game sessions. A queue identifies where new game sessions can be hosted -- by specifying a list of destinations (fleets or aliases) -- and how long requests can wait in the queue before timing out. You can set up a queue to try to place game sessions on fleets in multiple regions. To add placement requests to a queue, call  StartGameSessionPlacement and reference the queue name.</p>
+<p>Establishes a new queue for processing requests to place new game sessions. A queue identifies where new game sessions can be hosted -- by specifying a list of destinations (fleets or aliases) -- and how long requests can wait in the queue before timing out. You can set up a queue to try to place game sessions on fleets in multiple Regions. To add placement requests to a queue, call  StartGameSessionPlacement and reference the queue name.</p>
 <blockquote>
 <div>
 <p><strong>Destination order.</strong> When processing a request for a game session, Amazon GameLift tries each destination in order until it finds one with available resources to host the new game session. A queue's default order is determined by how destinations are listed. The default order is overridden when a game session placement request provides player latency information. Player latency information enables Amazon GameLift to prioritize destinations where players report the lowest average latency, as a result placing the new game session where the majority of players will have the best possible gameplay experience.</p>
@@ -81,6 +81,7 @@
 [--timeout-in-seconds &lt;value&gt;]
 [--player-latency-policies &lt;value&gt;]
 [--destinations &lt;value&gt;]
+[--tags &lt;value&gt;]
 [--cli-input-json &lt;value&gt;]
 [--generate-cli-skeleton &lt;value&gt;]</pre>
 </div>
@@ -90,15 +91,15 @@
 </h2>
 <p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
 <blockquote>
-<div>Descriptive label that is associated with game session queue. Queue names must be unique within each region.</div>
+<div>A descriptive label that is associated with game session queue. Queue names must be unique within each Region.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--timeout-in-seconds</span></tt> (integer)</p>
 <blockquote>
-<div>Maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a <tt class="docutils literal"><span class="pre">TIMED_OUT</span></tt> status.</div>
+<div>The maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a <tt class="docutils literal"><span class="pre">TIMED_OUT</span></tt> status.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--player-latency-policies</span></tt> (list)</p>
 <blockquote>
-<div>Collection of latency policies to apply when processing game sessions placement requests with player latency information. Multiple policies are evaluated in order of the maximum latency value, starting with the lowest latency values. With just one policy, it is enforced at the start of the game session placement for the duration period. With multiple policies, each policy is enforced consecutively for its duration period. For example, a queue might enforce a 60-second policy followed by a 120-second policy, and then no policy for the remainder of the placement. A player latency policy must set a value for MaximumIndividualPlayerLatencyMilliseconds; if none is set, this API requests will fail.</div>
+<div>A collection of latency policies to apply when processing game sessions placement requests with player latency information. Multiple policies are evaluated in order of the maximum latency value, starting with the lowest latency values. With just one policy, the policy is enforced at the start of the game session placement for the duration period. With multiple policies, each policy is enforced consecutively for its duration period. For example, a queue might enforce a 60-second policy followed by a 120-second policy, and then no policy for the remainder of the placement. A player latency policy must set a value for <tt class="docutils literal"><span class="pre">MaximumIndividualPlayerLatencyMilliseconds</span></tt> . If none is set, this API request fails.</div>
 </blockquote>
 <p>Shorthand Syntax:</p>
 <div class="highlight-python">
@@ -116,7 +117,7 @@
 </div>
 <p><tt class="docutils literal"><span class="pre">--destinations</span></tt> (list)</p>
 <blockquote>
-<div>List of fleets that can be used to fulfill game session placement requests in the queue. Fleets are identified by either a fleet ARN or a fleet alias ARN. Destinations are listed in default preference order.</div>
+<div>A list of fleets that can be used to fulfill game session placement requests in the queue. Fleets are identified by either a fleet ARN or a fleet alias ARN. Destinations are listed in default preference order.</div>
 </blockquote>
 <p>Shorthand Syntax:</p>
 <div class="highlight-python">
@@ -127,6 +128,24 @@
 <pre>[
   {
     "DestinationArn": "string"
+  }
+  ...
+]</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of labels to assign to the new game session queue resource. Tags are developer-defined key-value pairs. Tagging AWS resources are useful for resource management, access management and cost allocation. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging AWS Resources</a> in the <em>AWS General Reference</em> . Once the resource is created, you can use  TagResource ,  UntagResource , and  ListTagsForResource to add, remove, and view tags. The maximum tag limit may be lower than stated. See the AWS General Reference for actual tagging limits.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
   }
   ...
 ]</pre>
@@ -143,27 +162,27 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>GameSessionQueue -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>Object that describes the newly created game session queue.</p>
+<p>An object that describes the newly created game session queue.</p>
 <p>Name -&gt; (string)</p>
 <blockquote>
-<div>Descriptive label that is associated with game session queue. Queue names must be unique within each region.</div>
+<div>A descriptive label that is associated with game session queue. Queue names must be unique within each Region.</div>
 </blockquote>
 <p>GameSessionQueueArn -&gt; (string)</p>
 <blockquote>
-<div>Amazon Resource Name (<a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html">ARN</a> ) that is assigned to a game session queue and uniquely identifies it. Format is <tt class="docutils literal"><span class="pre">arn:aws:gamelift:region:aws</span> <span class="pre">account:gamesessionqueue/queue</span> <span class="pre">name</span></tt> .</div>
+<div>Amazon Resource Name (<a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> ) that is assigned to a GameLift game session queue resource and uniquely identifies it. ARNs are unique across all Regions. In a GameLift game session queue ARN, the resource ID matches the <em>Name</em> value.</div>
 </blockquote>
 <p>TimeoutInSeconds -&gt; (integer)</p>
 <blockquote>
-<div>Maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a <tt class="docutils literal"><span class="pre">TIMED_OUT</span></tt> status.</div>
+<div>The maximum time, in seconds, that a new game session placement request remains in the queue. When a request exceeds this time, the game session placement changes to a <tt class="docutils literal"><span class="pre">TIMED_OUT</span></tt> status.</div>
 </blockquote>
 <p>PlayerLatencyPolicies -&gt; (list)</p>
 <blockquote>
 <div>
-<p>Collection of latency policies to apply when processing game sessions placement requests with player latency information. Multiple policies are evaluated in order of the maximum latency value, starting with the lowest latency values. With just one policy, it is enforced at the start of the game session placement for the duration period. With multiple policies, each policy is enforced consecutively for its duration period. For example, a queue might enforce a 60-second policy followed by a 120-second policy, and then no policy for the remainder of the placement.</p>
+<p>A collection of latency policies to apply when processing game sessions placement requests with player latency information. Multiple policies are evaluated in order of the maximum latency value, starting with the lowest latency values. With just one policy, the policy is enforced at the start of the game session placement for the duration period. With multiple policies, each policy is enforced consecutively for its duration period. For example, a queue might enforce a 60-second policy followed by a 120-second policy, and then no policy for the remainder of the placement.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
-<p>Queue setting that determines the highest latency allowed for individual players when placing a game session. When a latency policy is in force, a game session cannot be placed at any destination in a region where a player is reporting latency higher than the cap. Latency policies are only enforced when the placement request contains player latency information.</p>
+<p>Queue setting that determines the highest latency allowed for individual players when placing a game session. When a latency policy is in force, a game session cannot be placed with any fleet in a Region where a player reports latency higher than the cap. Latency policies are only enforced when the placement request contains player latency information.</p>
 <ul class="simple">
 <li>CreateGameSessionQueue</li>
 <li>DescribeGameSessionQueues</li>
@@ -185,11 +204,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>Destinations -&gt; (list)</p>
 <blockquote>
 <div>
-<p>List of fleets that can be used to fulfill game session placement requests in the queue. Fleets are identified by either a fleet ARN or a fleet alias ARN. Destinations are listed in default preference order.</p>
+<p>A list of fleets that can be used to fulfill game session placement requests in the queue. Fleets are identified by either a fleet ARN or a fleet alias ARN. Destinations are listed in default preference order.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
-<p>Fleet designated in a game session queue. Requests for new game sessions in the queue are fulfilled by starting a new game session on any destination configured for a queue.</p>
+<p>Fleet designated in a game session queue. Requests for new game sessions in the queue are fulfilled by starting a new game session on any destination that is configured for a queue.</p>
 <ul class="simple">
 <li>CreateGameSessionQueue</li>
 <li>DescribeGameSessionQueues</li>
@@ -198,7 +217,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </ul>
 <p>DestinationArn -&gt; (string)</p>
 <blockquote>
-<div>Amazon Resource Name (ARN) assigned to fleet or fleet alias. ARNs, which include a fleet ID or alias ID and a region name, provide a unique identifier across all regions.</div>
+<div>The Amazon Resource Name (ARN) that is assigned to fleet or fleet alias. ARNs, which include a fleet ID or alias ID and a Region name, provide a unique identifier across all Regions.</div>
 </blockquote>
 </div>
 </blockquote>

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>batch-import-findings — AWS CLI 1.16.299 Command Reference</title>
+    <title>batch-import-findings — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.299',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="securityhub" href="index.html">
     <link rel="next" title="create-action-target" href="create-action-target.html">
     <link rel="prev" title="batch-enable-standards" href="batch-enable-standards.html">
@@ -74,7 +74,7 @@
 </h2>
 <p><tt class="docutils literal"><span class="pre">--findings</span></tt> (list)</p>
 <blockquote>
-<div>A list of findings to import. To successfully import a finding, it must follow the <a class="reference external" href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security Finding Format</a> .</div>
+<div>A list of findings to import. To successfully import a finding, it must follow the <a class="reference external" href="https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html">AWS Security Finding Format</a> . Maximum of 100 findings per request.</div>
 </blockquote>
 <p>JSON Syntax:</p>
 <div class="highlight-python">
@@ -159,6 +159,29 @@
         "Tags": {"string": "string"
           ...},
         "Details": {
+          "AwsCloudFrontDistribution": {
+            "DomainName": "string",
+            "ETag": "string",
+            "LastModifiedTime": "string",
+            "Logging": {
+              "Bucket": "string",
+              "Enabled": true|false,
+              "IncludeCookies": true|false,
+              "Prefix": "string"
+            },
+            "Origins": {
+              "Items": [
+                {
+                  "DomainName": "string",
+                  "Id": "string",
+                  "OriginPath": "string"
+                }
+                ...
+              ]
+            },
+            "Status": "string",
+            "WebAclId": "string"
+          },
           "AwsEc2Instance": {
             "Type": "string",
             "ImageId": "string",
@@ -170,6 +193,27 @@
             "SubnetId": "string",
             "LaunchedAt": "string"
           },
+          "AwsElbv2LoadBalancer": {
+            "AvailabilityZones": [
+              {
+                "ZoneName": "string",
+                "SubnetId": "string"
+              }
+              ...
+            ],
+            "CanonicalHostedZoneId": "string",
+            "CreatedTime": "string",
+            "DNSName": "string",
+            "IpAddressType": "string",
+            "Scheme": "string",
+            "SecurityGroups": ["string", ...],
+            "State": {
+              "Code": "string",
+              "Reason": "string"
+            },
+            "Type": "string",
+            "VpcId": "string"
+          },
           "AwsS3Bucket": {
             "OwnerId": "string",
             "OwnerName": "string"
@@ -177,7 +221,90 @@
           "AwsIamAccessKey": {
             "UserName": "string",
             "Status": "Active"|"Inactive",
-            "CreatedAt": "string"
+            "CreatedAt": "string",
+            "PrincipalId": "string",
+            "PrincipalType": "string",
+            "PrincipalName": "string"
+          },
+          "AwsIamRole": {
+            "AssumeRolePolicyDocument": "string",
+            "CreateDate": "string",
+            "RoleId": "string",
+            "RoleName": "string",
+            "MaxSessionDuration": integer,
+            "Path": "string"
+          },
+          "AwsKmsKey": {
+            "AWSAccountId": "string",
+            "CreationDate": double,
+            "KeyId": "string",
+            "KeyManager": "string",
+            "KeyState": "string",
+            "Origin": "string"
+          },
+          "AwsLambdaFunction": {
+            "Code": {
+              "S3Bucket": "string",
+              "S3Key": "string",
+              "S3ObjectVersion": "string",
+              "ZipFile": "string"
+            },
+            "CodeSha256": "string",
+            "DeadLetterConfig": {
+              "TargetArn": "string"
+            },
+            "Environment": {
+              "Variables": {"string": "string"
+                ...},
+              "Error": {
+                "ErrorCode": "string",
+                "Message": "string"
+              }
+            },
+            "FunctionName": "string",
+            "Handler": "string",
+            "KmsKeyArn": "string",
+            "LastModified": "string",
+            "Layers": [
+              {
+                "Arn": "string",
+                "CodeSize": integer
+              }
+              ...
+            ],
+            "MasterArn": "string",
+            "MemorySize": integer,
+            "RevisionId": "string",
+            "Role": "string",
+            "Runtime": "string",
+            "Timeout": integer,
+            "TracingConfig": {
+              "Mode": "string"
+            },
+            "VpcConfig": {
+              "SecurityGroupIds": ["string", ...],
+              "SubnetIds": ["string", ...],
+              "VpcId": "string"
+            },
+            "Version": "string"
+          },
+          "AwsSnsTopic": {
+            "KmsMasterKeyId": "string",
+            "Subscription": [
+              {
+                "Endpoint": "string",
+                "Protocol": "string"
+              }
+              ...
+            ],
+            "TopicName": "string",
+            "Owner": "string"
+          },
+          "AwsSqsQueue": {
+            "KmsDataKeyReusePeriodSeconds": integer,
+            "KmsMasterKeyId": "string",
+            "QueueName": "string",
+            "DeadLetterTargetArn": "string"
           },
           "Container": {
             "Name": "string",

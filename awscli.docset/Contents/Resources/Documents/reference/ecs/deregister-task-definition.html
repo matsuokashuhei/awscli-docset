@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>deregister-task-definition — AWS CLI 1.16.298 Command Reference</title>
+    <title>deregister-task-definition — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="ecs" href="index.html">
     <link rel="next" title="describe-capacity-providers" href="describe-capacity-providers.html">
     <link rel="prev" title="deregister-container-instance" href="deregister-container-instance.html">
@@ -717,14 +717,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <blockquote>
 <div>
 <p>A list of strings to provide custom labels for SELinux and AppArmor multi-level security systems. This field is not valid for containers in tasks using the Fargate launch type.</p>
+<p>With Windows containers, this parameter can be used to reference a credential spec file when configuring a container for Active Directory authentication. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/windows-gmsa.html">Using gMSAs for Windows Containers</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
 <p>This parameter maps to <tt class="docutils literal"><span class="pre">SecurityOpt</span></tt> in the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> section of the <a class="reference external" href="https://docs.docker.com/engine/api/v1.35/">Docker Remote API</a> and the <tt class="docutils literal"><span class="pre">--security-opt</span></tt> option to <a class="reference external" href="https://docs.docker.com/engine/reference/run/">docker run</a> .</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The Amazon ECS container agent running on a container instance must register with the <tt class="docutils literal"><span class="pre">ECS_SELINUX_CAPABLE=true</span></tt> or <tt class="docutils literal"><span class="pre">ECS_APPARMOR_CAPABLE=true</span></tt> environment variables before containers placed on that instance can use these security options. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html">Amazon ECS Container Agent Configuration</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This parameter is not supported for Windows containers.</p>
 </div>
 <p>(string)</p>
 </div>
@@ -790,15 +787,15 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>logDriver -&gt; (string)</p>
 <blockquote>
 <div>
-<p>The log driver to use for the container. The valid values listed for this parameter are log drivers that the Amazon ECS container agent can communicate with by default.</p>
-<p>For tasks using the Fargate launch type, the supported log drivers are <tt class="docutils literal"><span class="pre">awslogs</span></tt> and <tt class="docutils literal"><span class="pre">splunk</span></tt> .</p>
-<p>For tasks using the EC2 launch type, the supported log drivers are <tt class="docutils literal"><span class="pre">awslogs</span></tt> , <tt class="docutils literal"><span class="pre">fluentd</span></tt> , <tt class="docutils literal"><span class="pre">gelf</span></tt> , <tt class="docutils literal"><span class="pre">json-file</span></tt> , <tt class="docutils literal"><span class="pre">journald</span></tt> , <tt class="docutils literal"><span class="pre">logentries</span></tt> , <tt class="docutils literal"><span class="pre">syslog</span></tt> , and <tt class="docutils literal"><span class="pre">splunk</span></tt> .</p>
+<p>The log driver to use for the container. The valid values listed earlier are log drivers that the Amazon ECS container agent can communicate with by default.</p>
+<p>For tasks using the Fargate launch type, the supported log drivers are <tt class="docutils literal"><span class="pre">awslogs</span></tt> , <tt class="docutils literal"><span class="pre">splunk</span></tt> , and <tt class="docutils literal"><span class="pre">awsfirelens</span></tt> .</p>
+<p>For tasks using the EC2 launch type, the supported log drivers are <tt class="docutils literal"><span class="pre">awslogs</span></tt> , <tt class="docutils literal"><span class="pre">fluentd</span></tt> , <tt class="docutils literal"><span class="pre">gelf</span></tt> , <tt class="docutils literal"><span class="pre">json-file</span></tt> , <tt class="docutils literal"><span class="pre">journald</span></tt> , <tt class="docutils literal"><span class="pre">logentries</span></tt> ,``syslog`` , <tt class="docutils literal"><span class="pre">splunk</span></tt> , and <tt class="docutils literal"><span class="pre">awsfirelens</span></tt> .</p>
 <p>For more information about using the <tt class="docutils literal"><span class="pre">awslogs</span></tt> log driver, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html">Using the awslogs Log Driver</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
+<p>For more information about using the <tt class="docutils literal"><span class="pre">awsfirelens</span></tt> log driver, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_firelens.html">Custom Log Routing</a> in the <em>Amazon Elastic Container Service Developer Guide</em> .</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you have a custom driver that is not listed above that you would like to work with the Amazon ECS container agent, you can fork the Amazon ECS container agent project that is <a class="reference external" href="https://github.com/aws/amazon-ecs-agent">available on GitHub</a> and customize it to work with that driver. We encourage you to submit pull requests for changes that you would like to have included. However, Amazon Web Services does not currently support running modified copies of this software.</p>
+<p class="last">If you have a custom driver that is not listed, you can fork the Amazon ECS container agent project that is <a class="reference external" href="https://github.com/aws/amazon-ecs-agent">available on GitHub</a> and customize it to work with that driver. We encourage you to submit pull requests for changes that you would like to have included. However, we do not currently provide support for running modified copies of this software.</p>
 </div>
-<p>This parameter requires version 1.18 of the Docker Remote API or greater on your container instance. To check the Docker Remote API version on your container instance, log in to your container instance and run the following command: <tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">version</span> <span class="pre">--format</span> <span class="pre">'{{.Server.APIVersion}}'</span></tt></p>
 </div>
 </blockquote>
 <p>options -&gt; (map)</p>

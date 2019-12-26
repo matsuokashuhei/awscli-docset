@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-fleet — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-fleet — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="ec2" href="index.html">
     <link rel="next" title="create-flow-logs" href="create-flow-logs.html">
     <link rel="prev" title="create-egress-only-internet-gateway" href="create-egress-only-internet-gateway.html">
@@ -92,7 +92,7 @@
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--client-token</span></tt> (string)</p>
 <blockquote>
-<div>Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a> .</div>
+<div>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html">Ensuring Idempotency</a> .</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--spot-options</span></tt> (structure)</p>
 <blockquote>
@@ -122,13 +122,15 @@
 </blockquote>
 <p>Shorthand Syntax:</p>
 <div class="highlight-python">
-<div class="highlight"><pre><span></span><span class="n">AllocationStrategy</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">SingleInstanceType</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">SingleAvailabilityZone</span><span class="o">=</span><span class="n">boolean</span><span class="p">,</span><span class="n">MinTargetCapacity</span><span class="o">=</span><span class="n">integer</span><span class="p">,</span><span class="n">MaxTotalPrice</span><span class="o">=</span><span class="n">string</span>
-</pre></div>
+<pre>AllocationStrategy=string,CapacityReservationOptions={UsageStrategy=string},SingleInstanceType=boolean,SingleAvailabilityZone=boolean,MinTargetCapacity=integer,MaxTotalPrice=string</pre>
 </div>
 <p>JSON Syntax:</p>
 <div class="highlight-python">
 <div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">"AllocationStrategy"</span><span class="p">:</span> <span class="s2">"lowest-price"</span><span class="o">|</span><span class="s2">"prioritized"</span><span class="p">,</span>
+  <span class="s2">"CapacityReservationOptions"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">"UsageStrategy"</span><span class="p">:</span> <span class="s2">"use-capacity-reservations-first"</span>
+  <span class="p">},</span>
   <span class="s2">"SingleInstanceType"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
   <span class="s2">"SingleAvailabilityZone"</span><span class="p">:</span> <span class="n">true</span><span class="o">|</span><span class="n">false</span><span class="p">,</span>
   <span class="s2">"MinTargetCapacity"</span><span class="p">:</span> <span class="n">integer</span><span class="p">,</span>
@@ -244,7 +246,7 @@
 <div class="highlight-python">
 <pre>[
   {
-    "ResourceType": "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+    "ResourceType": "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
     "Tags": [
       {
         "Key": "string",
@@ -433,7 +435,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>LaunchTemplateAndOverrides -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>The launch templates and overrides that were used for launching the instances. Any parameters that you specify in the Overrides override the same parameters in the launch template.</p>
+<p>The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.</p>
 <p>LaunchTemplateSpecification -&gt; (structure)</p>
 <blockquote>
 <div>
@@ -486,7 +488,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>The location where the instance launched, if applicable.</p>
 <p>GroupName -&gt; (string)</p>
 <blockquote>
-<div>The name of the placement group the instance is in.</div>
+<div>The name of the placement group that the instance is in.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -504,7 +506,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>ErrorMessage -&gt; (string)</p>
 <blockquote>
-<div>The error message that describes why the instance could not be launched. For more information about error messages, see ee <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html">Error Codes</a> .</div>
+<div>The error message that describes why the instance could not be launched. For more information about error messages, see <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html.html">Error Codes</a> .</div>
 </blockquote>
 </div>
 </blockquote>
@@ -521,7 +523,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>LaunchTemplateAndOverrides -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>The launch templates and overrides that were used for launching the instances. Any parameters that you specify in the Overrides override the same parameters in the launch template.</p>
+<p>The launch templates and overrides that were used for launching the instances. The values that you specify in the Overrides replace the values in the launch template.</p>
 <p>LaunchTemplateSpecification -&gt; (structure)</p>
 <blockquote>
 <div>
@@ -574,7 +576,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>The location where the instance launched, if applicable.</p>
 <p>GroupName -&gt; (string)</p>
 <blockquote>
-<div>The name of the placement group the instance is in.</div>
+<div>The name of the placement group that the instance is in.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -599,7 +601,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>Platform -&gt; (string)</p>
 <blockquote>
-<div>The value is <tt class="docutils literal"><span class="pre">Windows</span></tt> for Windows instances; otherwise blank.</div>
+<div>The value is <tt class="docutils literal"><span class="pre">Windows</span></tt> for Windows instances. Otherwise, the value is blank.</div>
 </blockquote>
 </div>
 </blockquote>

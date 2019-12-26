@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>describe-audit-finding — AWS CLI 1.16.298 Command Reference</title>
+    <title>describe-audit-finding — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="iot" href="index.html">
     <link rel="next" title="describe-audit-mitigation-actions-task" href="describe-audit-mitigation-actions-task.html">
     <link rel="prev" title="describe-account-audit-configuration" href="describe-account-audit-configuration.html">
@@ -81,6 +81,42 @@ Performs service operation based on the JSON string provided. The JSON string fo
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
 Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To list details for an audit finding</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-audit-finding</span></tt> example lists the details for the specified AWS IoT Device Defender audit finding. An audit can produce multiple findings. Use the <tt class="docutils literal"><span class="pre">list-audit-findings</span></tt> command to get a list of the findings from an audit to get the <tt class="docutils literal"><span class="pre">findingId</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws iot describe-audit-finding \
+    --finding-id "ef4826b8-e55a-44b9-b460-5c485355371b"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"finding"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"findingId"</span><span class="p">:</span> <span class="s2">"ef4826b8-e55a-44b9-b460-5c485355371b"</span><span class="p">,</span>
+        <span class="s2">"taskId"</span><span class="p">:</span> <span class="s2">"873ed69c74a9ec8fa9b8e88e9abc4661"</span><span class="p">,</span>
+        <span class="s2">"checkName"</span><span class="p">:</span> <span class="s2">"IOT_POLICY_OVERLY_PERMISSIVE_CHECK"</span><span class="p">,</span>
+        <span class="s2">"taskStartTime"</span><span class="p">:</span> <span class="mf">1576012045.745</span><span class="p">,</span>
+        <span class="s2">"findingTime"</span><span class="p">:</span> <span class="mf">1576012046.168</span><span class="p">,</span>
+        <span class="s2">"severity"</span><span class="p">:</span> <span class="s2">"CRITICAL"</span><span class="p">,</span>
+        <span class="s2">"nonCompliantResource"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"resourceType"</span><span class="p">:</span> <span class="s2">"IOT_POLICY"</span><span class="p">,</span>
+            <span class="s2">"resourceIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"policyVersionIdentifier"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"policyName"</span><span class="p">:</span> <span class="s2">"smp-ggrass-group_Core-policy"</span><span class="p">,</span>
+                    <span class="s2">"policyVersionId"</span><span class="p">:</span> <span class="s2">"1"</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+         <span class="p">},</span>
+        <span class="s2">"reasonForNonCompliance"</span><span class="p">:</span> <span class="s2">"Policy allows broad access to IoT data plane actions: [iot:Subscribe, iot:Connect, iot:GetThingShadow, iot:DeleteThingShadow, iot:UpdateThingShadow, iot:Publish]."</span><span class="p">,</span>
+        <span class="s2">"reasonForNonComplianceCode"</span><span class="p">:</span> <span class="s2">"ALLOWS_BROAD_ACCESS_TO_IOT_DATA_PLANE_ACTIONS"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/iot/latest/developerguide/AuditCommands.html#device-defender-AuditCommandsFindings">Check Audit Results (Audit Commands)</a> in the <em>AWS IoT Developer Guide</em>.</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>delete-cluster — AWS CLI 1.16.298 Command Reference</title>
+    <title>delete-cluster — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="eks" href="index.html">
     <link rel="next" title="delete-fargate-profile" href="delete-fargate-profile.html">
     <link rel="prev" title="create-nodegroup" href="create-nodegroup.html">
@@ -153,11 +153,18 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>endpointPublicAccess -&gt; (boolean)</p>
 <blockquote>
-<div>This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public API server endpoint is disabled, your cluster's Kubernetes API server can receive only requests that originate from within the cluster VPC.</div>
+<div>This parameter indicates whether the Amazon EKS public API server endpoint is enabled. If the Amazon EKS public API server endpoint is disabled, your cluster's Kubernetes API server can only receive requests that originate from within the cluster VPC.</div>
 </blockquote>
 <p>endpointPrivateAccess -&gt; (boolean)</p>
 <blockquote>
-<div>This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the private VPC endpoint instead of traversing the internet.</div>
+<div>This parameter indicates whether the Amazon EKS private API server endpoint is enabled. If the Amazon EKS private API server endpoint is enabled, Kubernetes API requests that originate from within your cluster's VPC use the private VPC endpoint instead of traversing the internet. If this value is disabled and you have worker nodes or AWS Fargate pods in the cluster, then ensure that <tt class="docutils literal"><span class="pre">publicAccessCidrs</span></tt> includes the necessary CIDR blocks for communication with the worker nodes or Fargate pods. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS Cluster Endpoint Access Control</a> in the * <em>Amazon EKS User Guide</em> * .</div>
+</blockquote>
+<p>publicAccessCidrs -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The CIDR blocks that are allowed access to your cluster's public Kubernetes API server endpoint. Communication to the endpoint from addresses outside of the listed CIDR blocks is denied. The default value is <tt class="docutils literal"><span class="pre">0.0.0.0/0</span></tt> . If you've disabled private endpoint access and you have worker nodes or AWS Fargate pods in the cluster, then ensure that the necessary CIDR blocks are listed. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html">Amazon EKS Cluster Endpoint Access Control</a> in the * <em>Amazon EKS User Guide</em> * .</p>
+<p>(string)</p>
+</div>
 </blockquote>
 </div>
 </blockquote>

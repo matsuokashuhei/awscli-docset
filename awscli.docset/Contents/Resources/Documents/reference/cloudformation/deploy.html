@@ -4,32 +4,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>deploy — AWS CLI 1.16.298 Command Reference</title>
-  <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap.min.css">
-  <script type="text/javascript" src="../../../_static/jquery-1.9.1.min.js"></script>
+    <title>cloudformation — AWS CLI 1.16.309 Command Reference</title>
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
+  <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
     
-    <link rel="stylesheet" href="../../../_static/guzzle.css" type="text/css">
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/guzzle.css" type="text/css">
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css">
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '1.16.298',
+        URL_ROOT:    '../../',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../../index.html">
-    <link rel="up" title="cloudformation" href="../index.html">
-    <link rel="next" title="deregister-type" href="../deregister-type.html">
-    <link rel="prev" title="delete-stack-set" href="../delete-stack-set.html">
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
+    <link rel="up" title="aws" href="../index.html">
+    <link rel="next" title="cancel-update-stack" href="cancel-update-stack.html">
+    <link rel="prev" title="upgrade-published-schema" href="../clouddirectory/upgrade-published-schema.html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../../../_static/bootstrap-responsive.min.css">
+  <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-responsive.min.css">
   
    
 
@@ -49,98 +49,81 @@
             <div class="body">
               
   
-<div class="section" id="deploy">
-<span id="cli-aws-cloudformation-deploy"></span><h1>deploy<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a>
+<div class="section" id="cloudformation">
+<span id="cli-aws-cloudformation"></span><h1>cloudformation<a class="headerlink" href="#cloudformation" title="Permalink to this headline">¶</a>
 </h1>
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
 </h2>
-<p>Deploys the specified AWS CloudFormation template by creating and then executing
-a change set. The command terminates after AWS CloudFormation executes the
-change set. If you want to view the change set before AWS CloudFormation
-executes it, use the <tt class="docutils literal"><span class="pre">--no-execute-changeset</span></tt> flag.</p>
-<p>To update a stack, specify the name of an existing stack. To create a new stack,
-specify a new stack name.</p>
-<p>See <a class="reference internal" href="../../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+<p>AWS CloudFormation allows you to create and manage AWS infrastructure deployments predictably and repeatedly. You can use AWS CloudFormation to leverage AWS products, such as Amazon Elastic Compute Cloud, Amazon Elastic Block Store, Amazon Simple Notification Service, Elastic Load Balancing, and Auto Scaling to build highly-reliable, highly scalable, cost-effective applications without creating or configuring the underlying AWS infrastructure.</p>
+<p>With AWS CloudFormation, you declare all of your resources and dependencies in a template file. The template defines a collection of resources as a single unit called a stack. AWS CloudFormation creates and deletes all member resources of the stack together and manages all dependencies between the resources for you.</p>
+<p>For more information about AWS CloudFormation, see the <a class="reference external" href="http://aws.amazon.com/cloudformation/">AWS CloudFormation Product Page</a> .</p>
+<p>Amazon CloudFormation makes use of other AWS products. If you need additional technical information about a specific AWS product, you can find the product's technical documentation at <a class="reference external" href="https://docs.aws.amazon.com/">docs.aws.amazon.com</a> .</p>
 </div>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a>
+<div class="section" id="available-commands">
+<h2>Available Commands<a class="headerlink" href="#available-commands" title="Permalink to this headline">¶</a>
 </h2>
-<div class="highlight-python">
-<pre>  deploy
---template-file &lt;value&gt;
---stack-name &lt;value&gt;
-[--s3-bucket &lt;value&gt;]
-[--force-upload]
-[--s3-prefix &lt;value&gt;]
-[--kms-key-id &lt;value&gt;]
-[--parameter-overrides &lt;value&gt; [&lt;value&gt;...]]
-[--capabilities &lt;value&gt; [&lt;value&gt;...]]
-[--no-execute-changeset]
-[--role-arn &lt;value&gt;]
-[--notification-arns &lt;value&gt; [&lt;value&gt;...]]
-[--fail-on-empty-changeset | --no-fail-on-empty-changeset]
-[--tags &lt;value&gt; [&lt;value&gt;...]]</pre>
-</div>
-</div>
-<div class="section" id="options">
-<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a>
-</h2>
-<p><tt class="docutils literal"><span class="pre">--template-file</span></tt> (string)
-The path where your AWS CloudFormation template is located.</p>
-<p><tt class="docutils literal"><span class="pre">--stack-name</span></tt> (string)
-The name of the AWS CloudFormation stack you're deploying to. If you specify an existing stack, the command updates the stack. If you specify a new stack, the command creates it.</p>
-<p><tt class="docutils literal"><span class="pre">--s3-bucket</span></tt> (string)
-The name of the S3 bucket where this command uploads your CloudFormation template. This is required the deployments of templates sized greater than 51,200 bytes</p>
-<p><tt class="docutils literal"><span class="pre">--force-upload</span></tt> (boolean)
-Indicates whether to override existing files in the S3 bucket. Specify this flag to upload artifacts even if they match existing artifacts in the S3 bucket.</p>
-<p><tt class="docutils literal"><span class="pre">--s3-prefix</span></tt> (string)
-A prefix name that the command adds to the artifacts' name when it uploads them to the S3 bucket. The prefix name is a path name (folder name) for the S3 bucket.</p>
-<p><tt class="docutils literal"><span class="pre">--kms-key-id</span></tt> (string)
-The ID of an AWS KMS key that the command uses to encrypt artifacts that are at rest in the S3 bucket.</p>
-<p><tt class="docutils literal"><span class="pre">--parameter-overrides</span></tt> (list)
-A list of parameter structures that specify input parameters for your stack template. If you're updating a stack and you don't specify a parameter, the command uses the stack's existing value. For new stacks, you must specify parameters that don't have a default value. Syntax: ParameterKey1=ParameterValue1 ParameterKey2=ParameterValue2 ...</p>
-<p>Syntax:</p>
-<div class="highlight-python">
-<pre>"string" "string" ...</pre>
-</div>
-<p><tt class="docutils literal"><span class="pre">--capabilities</span></tt> (list)
-A list of capabilities that you must specify before AWS Cloudformation can create certain stacks. Some stack templates might include resources that can affect permissions in your AWS account, for example, by creating new AWS Identity and Access Management (IAM) users. For those stacks, you must explicitly acknowledge their capabilities by specifying this parameter. The only valid values are CAPABILITY_IAM and CAPABILITY_NAMED_IAM. If you have IAM resources, you can specify either capability. If you have IAM resources with custom names, you must specify CAPABILITY_NAMED_IAM. If you don't specify this parameter, this action returns an InsufficientCapabilities error.</p>
-<p>Syntax:</p>
-<div class="highlight-python">
-<pre>"string" "string" ...
-
-Where valid values are:
-  CAPABILITY_IAM
-  CAPABILITY_NAMED_IAM</pre>
-</div>
-<p><tt class="docutils literal"><span class="pre">--no-execute-changeset</span></tt> (boolean)
-Indicates whether to execute the change set. Specify this flag if you want to view your stack changes before executing the change set. The command creates an AWS CloudFormation change set and then exits without executing the change set. After you view the change set, execute it to implement your changes.</p>
-<p><tt class="docutils literal"><span class="pre">--role-arn</span></tt> (string)
-The Amazon Resource Name (ARN) of an AWS Identity and Access Management (IAM) role that AWS CloudFormation assumes when executing the change set.</p>
-<p><tt class="docutils literal"><span class="pre">--notification-arns</span></tt> (list)
-Amazon Simple Notification Service topic Amazon Resource Names (ARNs) that AWS CloudFormation associates with the stack.</p>
-<p>Syntax:</p>
-<div class="highlight-python">
-<pre>"string" "string" ...</pre>
-</div>
-<p><tt class="docutils literal"><span class="pre">--fail-on-empty-changeset</span></tt> | <tt class="docutils literal"><span class="pre">--no-fail-on-empty-changeset</span></tt> (boolean)
-Specify if the CLI should return a non-zero exit code if there are no changes to be made to the stack. The default behavior is to return a non-zero exit code.</p>
-<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)
-A list of tags to associate with the stack that is created or updated. AWS CloudFormation also propagates these tags to resources in the stack if the resource supports it. Syntax: TagKey1=TagValue1 TagKey2=TagValue2 ...</p>
-<p>Syntax:</p>
-<div class="highlight-python">
-<pre>"string" "string" ...</pre>
-</div>
-<p>See <a class="reference internal" href="../../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
-</div>
-<div class="section" id="examples">
-<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
-</h2>
-<p>Following command deploys template named <tt class="docutils literal"><span class="pre">template.json</span></tt> to a stack named
-<tt class="docutils literal"><span class="pre">my-new-stack</span></tt>:</p>
-<div class="highlight-python">
-<pre>aws cloudformation deploy --template-file /path_to_template/template.json --stack-name my-new-stack --parameter-overrides Key1=Value1 Key2=Value2 --tags Key1=Value1 Key2=Value2</pre>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cancel-update-stack.html">cancel-update-stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="continue-update-rollback.html">continue-update-rollback</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-change-set.html">create-change-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-stack.html">create-stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-stack-instances.html">create-stack-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create-stack-set.html">create-stack-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-change-set.html">delete-change-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-stack.html">delete-stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-stack-instances.html">delete-stack-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delete-stack-set.html">delete-stack-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deploy/index.html">deploy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deregister-type.html">deregister-type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-account-limits.html">describe-account-limits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-change-set.html">describe-change-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-drift-detection-status.html">describe-stack-drift-detection-status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-events.html">describe-stack-events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-instance.html">describe-stack-instance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-resource.html">describe-stack-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-resource-drifts.html">describe-stack-resource-drifts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-resources.html">describe-stack-resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-set.html">describe-stack-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stack-set-operation.html">describe-stack-set-operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-stacks.html">describe-stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-type.html">describe-type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="describe-type-registration.html">describe-type-registration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detect-stack-drift.html">detect-stack-drift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detect-stack-resource-drift.html">detect-stack-resource-drift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="detect-stack-set-drift.html">detect-stack-set-drift</a></li>
+<li class="toctree-l1"><a class="reference internal" href="estimate-template-cost.html">estimate-template-cost</a></li>
+<li class="toctree-l1"><a class="reference internal" href="execute-change-set.html">execute-change-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-stack-policy.html">get-stack-policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-template.html">get-template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get-template-summary.html">get-template-summary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-change-sets.html">list-change-sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-exports.html">list-exports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-imports.html">list-imports</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-stack-instances.html">list-stack-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-stack-resources.html">list-stack-resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-stack-set-operation-results.html">list-stack-set-operation-results</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-stack-set-operations.html">list-stack-set-operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-stack-sets.html">list-stack-sets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-stacks.html">list-stacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-type-registrations.html">list-type-registrations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-type-versions.html">list-type-versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="list-types.html">list-types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package.html">package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="record-handler-progress.html">record-handler-progress</a></li>
+<li class="toctree-l1"><a class="reference internal" href="register-type.html">register-type</a></li>
+<li class="toctree-l1"><a class="reference internal" href="set-stack-policy.html">set-stack-policy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="set-type-default-version.html">set-type-default-version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signal-resource.html">signal-resource</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stop-stack-set-operation.html">stop-stack-set-operation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-stack.html">update-stack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-stack-instances.html">update-stack-instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-stack-set.html">update-stack-set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="update-termination-protection.html">update-termination-protection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate-template.html">validate-template</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wait/index.html">wait</a></li>
+</ul>
 </div>
 </div>
 </div>

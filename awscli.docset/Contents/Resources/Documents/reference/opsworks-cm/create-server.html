@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-server — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-server — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="opsworks-cm" href="index.html">
     <link rel="next" title="delete-backup" href="delete-backup.html">
     <link rel="prev" title="create-backup" href="create-backup.html">
@@ -94,6 +94,7 @@
 [--security-group-ids &lt;value&gt;]
 --service-role-arn &lt;value&gt;
 [--subnet-ids &lt;value&gt;]
+[--tags &lt;value&gt;]
 [--backup-id &lt;value&gt;]
 [--cli-input-json &lt;value&gt;]
 [--generate-cli-skeleton &lt;value&gt;]</pre>
@@ -108,12 +109,12 @@
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--custom-domain</span></tt> (string)</p>
 <blockquote>
-<div>An optional public endpoint of a server, such as <tt class="docutils literal"><span class="pre">https://aws.my-company.com</span></tt> . To access the server, create a CNAME DNS record in your preferred DNS service that points the custom domain to the endpoint that is generated when the server is created (the value of the CreateServer Endpoint attribute). You cannot access the server by using the generated <tt class="docutils literal"><span class="pre">Endpoint</span></tt> value if the server is using a custom domain. If you specify a custom domain, you must also specify values for <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> .</div>
+<div>Supported on servers running Chef Automate 2. An optional public endpoint of a server, such as <tt class="docutils literal"><span class="pre">https://aws.my-company.com</span></tt> . To access the server, create a CNAME DNS record in your preferred DNS service that points the custom domain to the endpoint that is generated when the server is created (the value of the CreateServer Endpoint attribute). You cannot access the server by using the generated <tt class="docutils literal"><span class="pre">Endpoint</span></tt> value if the server is using a custom domain. If you specify a custom domain, you must also specify values for <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> .</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--custom-certificate</span></tt> (string)</p>
 <blockquote>
 <div>
-<p>A PEM-formatted HTTPS certificate. The value can be be a single, self-signed certificate, or a certificate chain. If you specify a custom certificate, you must also specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> . The following are requirements for the <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> value:</p>
+<p>Supported on servers running Chef Automate 2. A PEM-formatted HTTPS certificate. The value can be be a single, self-signed certificate, or a certificate chain. If you specify a custom certificate, you must also specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> and <tt class="docutils literal"><span class="pre">CustomPrivateKey</span></tt> . The following are requirements for the <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> value:</p>
 <ul class="simple">
 <li>You can provide either a self-signed, custom certificate, or the full certificate chain.</li>
 <li>The certificate must be a valid X509 certificate, or a certificate chain in PEM format.</li>
@@ -125,7 +126,7 @@
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--custom-private-key</span></tt> (string)</p>
 <blockquote>
-<div>A private key in PEM format for connecting to the server by using HTTPS. The private key must not be encrypted; it cannot be protected by a password or passphrase. If you specify a custom private key, you must also specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> and <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> .</div>
+<div>Supported on servers running Chef Automate 2. A private key in PEM format for connecting to the server by using HTTPS. The private key must not be encrypted; it cannot be protected by a password or passphrase. If you specify a custom private key, you must also specify values for <tt class="docutils literal"><span class="pre">CustomDomain</span></tt> and <tt class="docutils literal"><span class="pre">CustomCertificate</span></tt> .</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--disable-automated-backup</span></tt> | <tt class="docutils literal"><span class="pre">--no-disable-automated-backup</span></tt> (boolean)</p>
 <blockquote>
@@ -259,6 +260,35 @@
 <p>Syntax:</p>
 <div class="highlight-python">
 <pre>"string" "string" ...</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>
+<p>A map that contains tag keys and tag values to attach to an AWS OpsWorks for Chef Automate or AWS OpsWorks for Puppet Enterprise server.</p>
+<ul class="simple">
+<li>The key cannot be empty.</li>
+<li>The key can be a maximum of 127 characters, and can contain only Unicode letters, numbers, or separators, or the following special characters: <tt class="docutils literal"><span class="pre">+</span> <span class="pre">-</span> <span class="pre">=</span> <span class="pre">.</span> <span class="pre">_</span> <span class="pre">:</span> <span class="pre">/</span></tt>
+</li>
+<li>The value can be a maximum 255 characters, and contain only Unicode letters, numbers, or separators, or the following special characters: <tt class="docutils literal"><span class="pre">+</span> <span class="pre">-</span> <span class="pre">=</span> <span class="pre">.</span> <span class="pre">_</span> <span class="pre">:</span> <span class="pre">/</span></tt>
+</li>
+<li>Leading and trailing white spaces are trimmed from both the key and value.</li>
+<li>A maximum of 50 user-applied tags is allowed for any AWS OpsWorks-CM server.</li>
+</ul>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
 </div>
 <p><tt class="docutils literal"><span class="pre">--backup-id</span></tt> (string)</p>
 <blockquote>
