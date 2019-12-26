@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>sign — AWS CLI 1.16.298 Command Reference</title>
+    <title>sign — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="cloudfront" href="index.html">
     <link rel="next" title="tag-resource" href="tag-resource.html">
     <link rel="prev" title="list-tags-for-resource" href="list-tags-for-resource.html">
@@ -87,6 +87,28 @@ An optional start date and time for the URL. Supported formats include: YYYY-MM-
 <p><tt class="docutils literal"><span class="pre">--ip-address</span></tt> (string)
 An optional IP address or IP address range to allow client making the GET request from. Format: x.x.x.x/x or x.x.x.x</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To sign a CloudFront URL</strong></p>
+<p>The following example signs a CloudFront URL. To sign a URL, you need the key
+pair ID (called the <strong>Access Key ID</strong> in the AWS Management Console) and the
+private key of the trusted signer's CloudFront key pair. For more information
+about signed URLs, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">Serving Private Content with Signed URLs and Signed
+Cookies</a>
+in the <em>Amazon CloudFront Developer Guide</em>.</p>
+<div class="highlight-python">
+<pre>aws cloudfront sign \
+    --url https://d111111abcdef8.cloudfront.net/private-content/private-file.html \
+    --key-pair-id APKAEIBAERJR2EXAMPLE \
+    --private-key file://cf-signer-priv-key.pem \
+    --date-less-than 2020-01-01</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<pre>https://d111111abcdef8.cloudfront.net/private-content/private-file.html?Expires=1577836800&amp;Signature=nEXK7Kby47XKeZQKVc6pwkif6oZc-JWSpDkH0UH7EBGGqvgurkecCbgL5VfUAXyLQuJxFwRQWscz-owcq9KpmewCXrXQbPaJZNi9XSNwf4YKurPDQYaRQawKoeenH0GFteRf9ELK-Bs3nljTLjtbgzIUt7QJNKXcWr8AuUYikzGdJ4-qzx6WnxXfH~fxg4-GGl6l2kgCpXUB6Jx6K~Y3kpVOdzUPOIqFLHAnJojbhxqrVejomZZ2XrquDvNUCCIbePGnR3d24UPaLXG4FKOqNEaWDIBXu7jUUPwOyQCvpt-GNvjRJxqWf93uMobeMOiVYahb-e0KItiQewGcm0eLZQ__&amp;Key-Pair-Id=APKAEIBAERJR2EXAMPLE</pre>
+</div>
 </div>
 </div>
 

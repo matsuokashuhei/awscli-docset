@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>update-cloud-front-origin-access-identity — AWS CLI 1.16.298 Command Reference</title>
+    <title>update-cloud-front-origin-access-identity — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="cloudfront" href="index.html">
     <link rel="next" title="update-distribution" href="update-distribution.html">
     <link rel="prev" title="untag-resource" href="untag-resource.html">
@@ -104,6 +104,61 @@ Performs service operation based on the JSON string provided. The JSON string fo
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
 Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update a CloudFront origin access identity</strong></p>
+<p>The following example updates the origin access identity (OAI) with the ID
+<tt class="docutils literal"><span class="pre">E74FTE3AEXAMPLE</span></tt>. The only field that you can update is the OAI's
+<tt class="docutils literal"><span class="pre">Comment</span></tt>.</p>
+<p>To update an OAI, you must have the OAI's ID and <tt class="docutils literal"><span class="pre">ETag</span></tt>. The OAI ID is returned in the output of the
+<a class="reference external" href="create-cloud-front-origin-access-identity.html">create-cloud-front-origin-access-identity</a> and
+<a class="reference external" href="list-cloud-front-origin-access-identities.html">list-cloud-front-origin-access-identities</a> commands.
+To get the <tt class="docutils literal"><span class="pre">ETag</span></tt>, use the
+<a class="reference external" href="get-cloud-front-origin-access-identity.html">get-cloud-front-origin-access-identity</a> or
+<a class="reference external" href="get-cloud-front-origin-access-identity-config.html">get-cloud-front-origin-access-identity-config</a> command.
+Use the <tt class="docutils literal"><span class="pre">--if-match</span></tt> option to provide the OAI's <tt class="docutils literal"><span class="pre">ETag</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws cloudfront update-cloud-front-origin-access-identity \
+    --id E74FTE3AEXAMPLE \
+    --if-match E2QWRUHEXAMPLE \
+    --cloud-front-origin-access-identity-config \
+        CallerReference=cli-example,Comment="Example OAI Updated"</pre>
+</div>
+<p>You can accomplish the same thing by providing the OAI configuration in a JSON
+file, as shown in the following example:</p>
+<div class="highlight-python">
+<pre>aws cloudfront update-cloud-front-origin-access-identity \
+    --id E74FTE3AEXAMPLE \
+    --if-match E2QWRUHEXAMPLE \
+    --cloud-front-origin-access-identity-config file://OAI-config.json</pre>
+</div>
+<p>The file <tt class="docutils literal"><span class="pre">OAI-config.json</span></tt> is a JSON document in the current directory that
+contains the following:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-example"</span><span class="p">,</span>
+    <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"Example OAI Updated"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Whether you provide the OAI configuration with a command line argument or a
+JSON file, the output is the same:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"ETag"</span><span class="p">:</span> <span class="s2">"E9LHASXEXAMPLE"</span><span class="p">,</span>
+    <span class="s2">"CloudFrontOriginAccessIdentity"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"Id"</span><span class="p">:</span> <span class="s2">"E74FTE3AEXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"S3CanonicalUserId"</span><span class="p">:</span> <span class="s2">"cd13868f797c227fbea2830611a26fe0a21ba1b826ab4bed9b7771c9aEXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"CloudFrontOriginAccessIdentityConfig"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"CallerReference"</span><span class="p">:</span> <span class="s2">"cli-example"</span><span class="p">,</span>
+            <span class="s2">"Comment"</span><span class="p">:</span> <span class="s2">"Example OAI Updated"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

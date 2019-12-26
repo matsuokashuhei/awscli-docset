@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>describe-instances — AWS CLI 1.16.298 Command Reference</title>
+    <title>describe-instances — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="ec2" href="index.html">
     <link rel="next" title="describe-internet-gateways" href="describe-internet-gateways.html">
     <link rel="prev" title="describe-instance-types" href="describe-instance-types.html">
@@ -118,7 +118,9 @@ When using <tt class="docutils literal"><span class="pre">--output</span> <span 
 <li>
 <tt class="docutils literal"><span class="pre">hypervisor</span></tt> - The hypervisor type of the instance (<tt class="docutils literal"><span class="pre">ovm</span></tt> | <tt class="docutils literal"><span class="pre">xen</span></tt> ).</li>
 <li>
-<tt class="docutils literal"><span class="pre">iam-instance-profile.arn</span></tt> - The instance profile associated with the instance. Specified as an ARN. <tt class="docutils literal"><span class="pre">image-id</span></tt> - The ID of the image used to launch the instance.</li>
+<tt class="docutils literal"><span class="pre">iam-instance-profile.arn</span></tt> - The instance profile associated with the instance. Specified as an ARN.</li>
+<li>
+<tt class="docutils literal"><span class="pre">image-id</span></tt> - The ID of the image used to launch the instance.</li>
 <li>
 <tt class="docutils literal"><span class="pre">instance-id</span></tt> - The ID of the instance.</li>
 <li>
@@ -324,20 +326,25 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p><strong>Example 1: To describe an Amazon EC2 instance</strong></p>
 <p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about the specified instance.</p>
 <div class="highlight-python">
-<pre>aws ec2 describe-instances \
-    --instance-ids i-1234567890abcdef0</pre>
+<pre>aws ec2 describe-instances --instance-ids i-1234567890abcdef0</pre>
 </div>
 <p><strong>Example 2: To describe instances based on instance type</strong></p>
 <p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only instances of the specified type.</p>
 <div class="highlight-python">
-<pre>aws ec2 describe-instances \
-    --filters Name=instance-type,Values=m5.large</pre>
+<pre>aws ec2 describe-instances --filters Name=instance-type,Values=m5.large</pre>
 </div>
-<p><strong>Example 3: To describe instances based on a tag key and value</strong></p>
-<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only those instances that have a tag with the specified key name and value.</p>
+<p><strong>Example 3: To describe instances based on tags</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only those instances that have a tag with the specified tag key (Owner), regardless of the tag value.</p>
 <div class="highlight-python">
-<pre>aws ec2 describe-instances \
-    --filters "Name=tag-key,Values=Owner"</pre>
+<pre>aws ec2 describe-instances --filters "Name=tag-key,Values=Owner"</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only those instances that have a tag with the specified tag value (my-team), regardless of the tag key.</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances --filters "Name=tag-value,Values=my-team"</pre>
+</div>
+<p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about only those instances that have the specified tag (Owner=my-team).</p>
+<div class="highlight-python">
+<pre>aws ec2 describe-instances --filters "Name=tag:Owner,Values=my-team"</pre>
 </div>
 <p><strong>Example 4: To filter the results based on multiple conditions</strong></p>
 <p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example displays details about all instances with the specified type that are also in the specified Availability Zone.</p>
@@ -347,8 +354,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </div>
 <p>The following <tt class="docutils literal"><span class="pre">describe-instances</span></tt> example uses a JSON input file to perform the same filtering as the previous example. When filters get more complicated, they can be easier to specify in a JSON file.</p>
 <div class="highlight-python">
-<pre>aws ec2 describe-instances \
-    --filters file://filters.json</pre>
+<pre>aws ec2 describe-instances --filters file://filters.json</pre>
 </div>
 <p>Contents of <tt class="docutils literal"><span class="pre">filters.json</span></tt>:</p>
 <div class="highlight-python">

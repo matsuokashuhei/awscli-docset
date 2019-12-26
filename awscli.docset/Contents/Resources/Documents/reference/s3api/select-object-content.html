@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>select-object-content — AWS CLI 1.16.298 Command Reference</title>
+    <title>select-object-content — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="s3api" href="index.html">
     <link rel="next" title="upload-part" href="upload-part.html">
     <link rel="prev" title="restore-object" href="restore-object.html">
@@ -264,6 +264,22 @@ outfile &lt;value&gt;</pre>
 <p><tt class="docutils literal"><span class="pre">outfile</span></tt> (string)
 Filename where the records will be saved</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To filter the contents of an Amazon S3 object based on an SQL statement</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">select-object-content</span></tt> example filters the object <tt class="docutils literal"><span class="pre">my-data-file.csv</span></tt> with the specified SQL statement and sends output to a file.</p>
+<div class="highlight-python">
+<pre>aws s3api select-object-content \
+    --bucket my-bucket \
+    --key my-data-file.csv \
+    --expression "select * from s3object limit 100" \
+    --expression-type 'SQL' \
+    --input-serialization '{"CSV": {}, "CompressionType": "NONE"}' \
+    --output-serialization '{"CSV": {}}' "output.csv"</pre>
+</div>
+<p>This command produces no output.</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

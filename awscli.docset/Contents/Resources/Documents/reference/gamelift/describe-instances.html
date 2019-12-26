@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>describe-instances — AWS CLI 1.16.298 Command Reference</title>
+    <title>describe-instances — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="gamelift" href="index.html">
     <link rel="next" title="describe-matchmaking" href="describe-matchmaking.html">
     <link rel="prev" title="describe-game-sessions" href="describe-game-sessions.html">
@@ -81,11 +81,11 @@ When using <tt class="docutils literal"><span class="pre">--output</span> <span 
 </h2>
 <p><tt class="docutils literal"><span class="pre">--fleet-id</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for a fleet to retrieve instance information for.</div>
+<div>A unique identifier for a fleet to retrieve instance information for. You can use either the fleet ID or ARN value.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--instance-id</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for an instance to retrieve. Specify an instance ID or leave blank to retrieve all instances in the fleet.</div>
+<div>A unique identifier for an instance to retrieve. Specify an instance ID or leave blank to retrieve all instances in the fleet.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
 Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
@@ -120,24 +120,34 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>Instances -&gt; (list)</p>
 <blockquote>
 <div>
-<p>Collection of objects containing properties for each instance returned.</p>
+<p>A collection of objects containing properties for each instance returned.</p>
 <p>(structure)</p>
 <blockquote>
 <div>
 <p>Properties that describe an instance of a virtual computing resource that hosts one or more game servers. A fleet may contain zero or more instances.</p>
 <p>FleetId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a fleet that the instance is in.</div>
+<div>A unique identifier for a fleet that the instance is in.</div>
 </blockquote>
 <p>InstanceId -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for an instance.</div>
+<div>A unique identifier for an instance.</div>
 </blockquote>
 <p>IpAddress -&gt; (string)</p>
 <blockquote>
-<div>IP address assigned to the instance.</div>
+<div>IP address that is assigned to the instance.</div>
 </blockquote>
 <p>DnsName -&gt; (string)</p>
+<blockquote>
+<div>
+<p>DNS identifier assigned to the instance that is running the game session. Values have the following format:</p>
+<ul class="simple">
+<li>TLS-enabled fleets: <tt class="docutils literal"><span class="pre">unique</span> <span class="pre">identifier.region</span> <span class="pre">identifier.amazongamelift.com</span></tt> .</li>
+<li>Non-TLS-enabled fleets: <tt class="docutils literal"><span class="pre">ec2-unique</span> <span class="pre">identifier.compute.amazonaws.com</span></tt> . (See <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#concepts-public-addresses">Amazon EC2 Instance IP Addressing</a> .)</li>
+</ul>
+<p>When connecting to a game session that is running on a TLS-enabled fleet, you must use the DNS name, not the IP address.</p>
+</div>
+</blockquote>
 <p>OperatingSystem -&gt; (string)</p>
 <blockquote>
 <div>Operating system that is running on this instance.</div>

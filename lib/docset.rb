@@ -8,6 +8,8 @@ module Docset
 
   def self.store(operation)
     path = convert_to_docset_url(operation.url)
+    return if File.exist?(path)
+
     FileUtils.mkdir_p(File.dirname(path))
     File.open(path, 'w') do |file|
       file.write(operation.document.to_html)

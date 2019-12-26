@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-matchmaking-rule-set — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-matchmaking-rule-set — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="gamelift" href="index.html">
     <link rel="next" title="create-player-session" href="create-player-session.html">
     <link rel="prev" title="create-matchmaking-configuration" href="create-matchmaking-configuration.html">
@@ -55,8 +55,8 @@
 <div class="section" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a>
 </h2>
-<p>Creates a new rule set for FlexMatch matchmaking. A rule set describes the type of match to create, such as the number and size of teams, and sets the parameters for acceptable player matches, such as minimum skill level or character type. A rule set is used by a  MatchmakingConfiguration .</p>
-<p>To create a matchmaking rule set, provide unique rule set name and the rule set body in JSON format. Rule sets must be defined in the same region as the matchmaking configuration they are used with.</p>
+<p>Creates a new rule set for FlexMatch matchmaking. A rule set describes the type of match to create, such as the number and size of teams. It also sets the parameters for acceptable player matches, such as minimum skill level or character type. A rule set is used by a  MatchmakingConfiguration .</p>
+<p>To create a matchmaking rule set, provide unique rule set name and the rule set body in JSON format. Rule sets must be defined in the same Region as the matchmaking configuration they are used with.</p>
 <p>Since matchmaking rule sets cannot be edited, it is a good idea to check the rule set syntax using  ValidateMatchmakingRuleSet before creating a new rule set.</p>
 <blockquote>
 <div><strong>Learn more</strong></div>
@@ -89,6 +89,7 @@
 <pre>  create-matchmaking-rule-set
 --name &lt;value&gt;
 --rule-set-body &lt;value&gt;
+[--tags &lt;value&gt;]
 [--cli-input-json &lt;value&gt;]
 [--generate-cli-skeleton &lt;value&gt;]</pre>
 </div>
@@ -98,12 +99,30 @@
 </h2>
 <p><tt class="docutils literal"><span class="pre">--name</span></tt> (string)</p>
 <blockquote>
-<div>Unique identifier for a matchmaking rule set. A matchmaking configuration identifies the rule set it uses by this name value. (Note: The rule set name is different from the optional "name" field in the rule set body.)</div>
+<div>A unique identifier for a matchmaking rule set. A matchmaking configuration identifies the rule set it uses by this name value. Note that the rule set name is different from the optional <tt class="docutils literal"><span class="pre">name</span></tt> field in the rule set body.</div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--rule-set-body</span></tt> (string)</p>
 <blockquote>
-<div>Collection of matchmaking rules, formatted as a JSON string. Comments are not allowed in JSON, but most elements support a description field.</div>
+<div>A collection of matchmaking rules, formatted as a JSON string. Comments are not allowed in JSON, but most elements support a description field.</div>
 </blockquote>
+<p><tt class="docutils literal"><span class="pre">--tags</span></tt> (list)</p>
+<blockquote>
+<div>A list of labels to assign to the new matchmaking rule set resource. Tags are developer-defined key-value pairs. Tagging AWS resources are useful for resource management, access management and cost allocation. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html">Tagging AWS Resources</a> in the <em>AWS General Reference</em> . Once the resource is created, you can use  TagResource ,  UntagResource , and  ListTagsForResource to add, remove, and view tags. The maximum tag limit may be lower than stated. See the AWS General Reference for actual tagging limits.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>Key=string,Value=string ...</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>[
+  {
+    "Key": "string",
+    "Value": "string"
+  }
+  ...
+]</pre>
+</div>
 <p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
 Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
@@ -116,18 +135,22 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>RuleSet -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>Object that describes the newly created matchmaking rule set.</p>
+<p>The newly created matchmaking rule set.</p>
 <p>RuleSetName -&gt; (string)</p>
 <blockquote>
-<div>Unique identifier for a matchmaking rule set</div>
+<div>A unique identifier for a matchmaking rule set</div>
+</blockquote>
+<p>RuleSetArn -&gt; (string)</p>
+<blockquote>
+<div>Amazon Resource Name (<a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html">ARN</a> ) that is assigned to a GameLift matchmaking rule set resource and uniquely identifies it. ARNs are unique across all Regions. In a GameLift rule set ARN, the resource ID matches the <em>RuleSetName</em> value.</div>
 </blockquote>
 <p>RuleSetBody -&gt; (string)</p>
 <blockquote>
-<div>Collection of matchmaking rules, formatted as a JSON string. Comments are not allowed in JSON, but most elements support a description field.</div>
+<div>A collection of matchmaking rules, formatted as a JSON string. Comments are not allowed in JSON, but most elements support a description field.</div>
 </blockquote>
 <p>CreationTime -&gt; (timestamp)</p>
 <blockquote>
-<div>Time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
+<div>The time stamp indicating when this data object was created. The format is a number expressed in Unix time as milliseconds (for example "1469498468.057").</div>
 </blockquote>
 </div>
 </blockquote>

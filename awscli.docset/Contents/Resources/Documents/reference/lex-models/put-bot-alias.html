@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>put-bot-alias — AWS CLI 1.16.298 Command Reference</title>
+    <title>put-bot-alias — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="lex-models" href="index.html">
     <link rel="next" title="put-intent" href="put-intent.html">
     <link rel="prev" title="put-bot" href="put-bot.html">
@@ -70,6 +70,7 @@
 --bot-version &lt;value&gt;
 --bot-name &lt;value&gt;
 [--checksum &lt;value&gt;]
+[--conversation-logs &lt;value&gt;]
 [--cli-input-json &lt;value&gt;]
 [--generate-cli-skeleton &lt;value&gt;]</pre>
 </div>
@@ -101,6 +102,29 @@
 <p>When you want to update a bot alias, set the <tt class="docutils literal"><span class="pre">checksum</span></tt> field to the checksum of the most recent revision of the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version. If you don't specify the <tt class="docutils literal"><span class="pre">checksum</span></tt> field, or if the checksum does not match the <tt class="docutils literal"><span class="pre">$LATEST</span></tt> version, you get a <tt class="docutils literal"><span class="pre">PreconditionFailedException</span></tt> exception.</p>
 </div>
 </blockquote>
+<p><tt class="docutils literal"><span class="pre">--conversation-logs</span></tt> (structure)</p>
+<blockquote>
+<div>Settings that determine how Amazon Lex uses conversation logs for the alias.</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<pre>logSettings=[{logType=string,destination=string,kmsKeyArn=string,resourceArn=string},{logType=string,destination=string,kmsKeyArn=string,resourceArn=string}],iamRoleArn=string</pre>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<pre>{
+  "logSettings": [
+    {
+      "logType": "AUDIO"|"TEXT",
+      "destination": "CLOUDWATCH_LOGS"|"S3",
+      "kmsKeyArn": "string",
+      "resourceArn": "string"
+    }
+    ...
+  ],
+  "iamRoleArn": "string"
+}</pre>
+</div>
 <p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
 Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
@@ -137,6 +161,53 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>checksum -&gt; (string)</p>
 <blockquote>
 <div>The checksum for the current version of the alias.</div>
+</blockquote>
+<p>conversationLogs -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>The settings that determine how Amazon Lex uses conversation logs for the alias.</p>
+<p>logSettings -&gt; (list)</p>
+<blockquote>
+<div>
+<p>The settings for your conversation logs.</p>
+<p>(structure)</p>
+<blockquote>
+<div>
+<p>The settings for conversation logs.</p>
+<p>logType -&gt; (string)</p>
+<blockquote>
+<div>The type of logging that is enabled.</div>
+</blockquote>
+<p>destination -&gt; (string)</p>
+<blockquote>
+<div>The destination where logs are delivered.</div>
+</blockquote>
+<p>kmsKeyArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the key used to encrypt audio logs in an S3 bucket.</div>
+</blockquote>
+<p>resourceArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the CloudWatch Logs log group or S3 bucket where the logs are delivered.</div>
+</blockquote>
+<p>resourcePrefix -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The resource prefix of the S3 object or CloudWatch Logs log entry where logs are delivered. For both S3 and CloudWatch Logs, the prefix is:</p>
+<blockquote>
+<div><tt class="docutils literal"><span class="pre">aws/lex/bot-name/bot-alias/bot-version</span></tt></div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+</div>
+</blockquote>
+<p>iamRoleArn -&gt; (string)</p>
+<blockquote>
+<div>The Amazon Resource Name (ARN) of the IAM role used to write your logs to CloudWatch Logs or an S3 bucket.</div>
+</blockquote>
+</div>
 </blockquote>
 </div>
 </div>

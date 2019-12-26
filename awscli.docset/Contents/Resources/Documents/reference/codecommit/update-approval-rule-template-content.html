@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>update-approval-rule-template-content — AWS CLI 1.16.298 Command Reference</title>
+    <title>update-approval-rule-template-content — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="codecommit" href="index.html">
     <link rel="next" title="update-approval-rule-template-description" href="update-approval-rule-template-description.html">
     <link rel="prev" title="untag-resource" href="untag-resource.html">
@@ -91,6 +91,34 @@ Performs service operation based on the JSON string provided. The JSON string fo
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
 Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To update the content of an approval rule template</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">update-approval-rule-template-content</span></tt> example changes the content of the specified approval rule template to redefine the approval pool to users who assume the role of <tt class="docutils literal"><span class="pre">CodeCommitReview</span></tt>.</p>
+<div class="highlight-python">
+<pre>aws codecommit update-approval-rule-template-content \
+    --approval-rule-template-name 1-approver-rule  \
+    --new-rule-content "{\"Version\": \"2018-11-08\",\"DestinationReferences\": [\"refs/heads/master\"],\"Statements\": [{\"Type\": \"Approvers\",\"NumberOfApprovalsNeeded\": 2,\"ApprovalPoolMembers\": [\"arn:aws:sts::123456789012:assumed-role/CodeCommitReview/*\"]}]}"</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"approvalRuleTemplate"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"creationDate"</span><span class="p">:</span> <span class="mf">1571352720.773</span><span class="p">,</span>
+        <span class="s2">"approvalRuleTemplateDescription"</span><span class="p">:</span> <span class="s2">"Requires 1 approval for all pull requests from the CodeCommitReview pool"</span><span class="p">,</span>
+        <span class="s2">"lastModifiedDate"</span><span class="p">:</span> <span class="mf">1571358728.41</span><span class="p">,</span>
+        <span class="s2">"approvalRuleTemplateId"</span><span class="p">:</span> <span class="s2">"41de97b7-EXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"approvalRuleTemplateContent"</span><span class="p">:</span> <span class="s2">"{</span><span class="se">\"</span><span class="s2">Version</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">2018-11-08</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">Statements</span><span class="se">\"</span><span class="s2">: [{</span><span class="se">\"</span><span class="s2">Type</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">Approvers</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">NumberOfApprovalsNeeded</span><span class="se">\"</span><span class="s2">: 1,</span><span class="se">\"</span><span class="s2">ApprovalPoolMembers</span><span class="se">\"</span><span class="s2">: [</span><span class="se">\"</span><span class="s2">arn:aws:sts::123456789012:assumed-role/CodeCommitReview/*</span><span class="se">\"</span><span class="s2">]}]}"</span><span class="p">,</span>
+        <span class="s2">"approvalRuleTemplateName"</span><span class="p">:</span> <span class="s2">"1-approver-rule-for-all-pull-requests"</span><span class="p">,</span>
+        <span class="s2">"ruleContentSha256"</span><span class="p">:</span> <span class="s2">"2f6c21a5EXAMPLE"</span><span class="p">,</span>
+        <span class="s2">"lastModifiedUser"</span><span class="p">:</span> <span class="s2">"arn:aws:iam::123456789012:user/Li_Juan"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-manage-templates.html#update-template-content">Manage Approval Rule Templates</a> in the <em>AWS CodeCommit User Guide</em>.</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

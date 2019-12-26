@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-asset — AWS CLI 1.16.298 Command Reference</title>
+    <title>create-asset — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="mediapackage-vod" href="index.html">
     <link rel="next" title="create-packaging-configuration" href="create-packaging-configuration.html">
     <link rel="prev" title="mediapackage-vod" href="index.html">
@@ -91,6 +91,41 @@ Performs service operation based on the JSON string provided. The JSON string fo
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
 Prints a JSON skeleton to standard output without sending an API request. If provided with no value or the value <tt class="docutils literal"><span class="pre">input</span></tt>, prints a sample input JSON that can be used as an argument for <tt class="docutils literal"><span class="pre">--cli-input-json</span></tt>. If provided with the value <tt class="docutils literal"><span class="pre">output</span></tt>, it validates the command inputs and returns a sample output JSON for that command.</p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a>
+</h2>
+<p><strong>To create an asset</strong></p>
+<p>The following <tt class="docutils literal"><span class="pre">create-asset</span></tt> example creates an asset named <tt class="docutils literal"><span class="pre">Chicken_Asset</span></tt> in the current AWS account. The asset ingests the file <tt class="docutils literal"><span class="pre">30sec_chicken.smil</span></tt> to MediaPackage.</p>
+<div class="highlight-python">
+<pre>aws mediapackage-vod create-asset \
+    --id chicken_asset \
+    --packaging-group-id hls_chicken_gp \
+    --source-role-arn arn:aws:iam::111122223333:role/EMP_Vod \
+    --source-arn arn:aws:s3::111122223333:video-bucket/A/30sec_chicken.smil</pre>
+</div>
+<p>Output:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">"Arn"</span><span class="p">:</span><span class="s2">"arn:aws:mediapackage-vod:us-west-2:111122223333:assets/chicken_asset"</span><span class="p">,</span>
+    <span class="s2">"Id"</span><span class="p">:</span><span class="s2">"chicken_asset"</span><span class="p">,</span>
+    <span class="s2">"PackagingGroupId"</span><span class="p">:</span><span class="s2">"hls_chicken_gp"</span><span class="p">,</span>
+    <span class="s2">"SourceArn"</span><span class="p">:</span><span class="s2">"arn:aws:s3::111122223333:video-bucket/A/30sec_chicken.smil"</span><span class="p">,</span>
+    <span class="s2">"SourceRoleArn"</span><span class="p">:</span><span class="s2">"arn:aws:iam::111122223333:role/EMP_Vod"</span><span class="p">,</span>
+    <span class="s2">"EgressEndpoints"</span><span class="p">:[</span>
+        <span class="p">{</span>
+            <span class="s2">"PackagingConfigurationId"</span><span class="p">:</span><span class="s2">"New_config_1"</span><span class="p">,</span>
+            <span class="s2">"Url"</span><span class="p">:</span><span class="s2">"https://c75ea2668ab49d02bca7ae10ef31c59e.egress.mediapackage-vod.us-west-2.amazonaws.com/out/v1/6644b55df1744261ab3732a8e5cdaf07/904b06a58c7645e08d57d40d064216ac/f5b2e633ff4942228095d164c10074f3/index.m3u8"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">"PackagingConfigurationId"</span><span class="p">:</span><span class="s2">"new_hls"</span><span class="p">,</span>
+            <span class="s2">"Url"</span><span class="p">:</span><span class="s2">" https://c75ea2668ab49d02bca7ae10ef31c59e.egress.mediapackage-vod.us-west-2.amazonaws.com/out/v1/6644b55df1744261ab3732a8e5cdaf07/fe8f1f00a80e424cb4f8da4095835e9e/7370ec57432343af816332356d2bd5c6/string.m3u8"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For more information, see <a class="reference external" href="https://docs.aws.amazon.com/mediapackage/latest/ug/asset-create.html">Ingest an Asset</a> in the <em>AWS Elemental MediaPackage User Guide</em>.</p>
 </div>
 <div class="section" id="output">
 <h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a>

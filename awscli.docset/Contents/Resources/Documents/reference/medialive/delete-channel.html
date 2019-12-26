@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>delete-channel — AWS CLI 1.16.298 Command Reference</title>
+    <title>delete-channel — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="medialive" href="index.html">
     <link rel="next" title="delete-input" href="delete-input.html">
     <link rel="prev" title="create-tags" href="create-tags.html">
@@ -1020,9 +1020,17 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <blockquote>
 <div>A partial URI prefix that will be prepended to each output in the media .m3u8 file. Can be used if base manifest is delivered from a different URL than the main .m3u8 file.</div>
 </blockquote>
+<p>BaseUrlContent1 -&gt; (string)</p>
+<blockquote>
+<div>Optional. One value per output group. This field is required only if you are completing Base URL content A, and the downstream system has notified you that the media files for pipeline 1 of all outputs are in a location different from the media files for pipeline 0.</div>
+</blockquote>
 <p>BaseUrlManifest -&gt; (string)</p>
 <blockquote>
 <div>A partial URI prefix that will be prepended to each output in the media .m3u8 file. Can be used if base manifest is delivered from a different URL than the main .m3u8 file.</div>
+</blockquote>
+<p>BaseUrlManifest1 -&gt; (string)</p>
+<blockquote>
+<div>Optional. One value per output group. Complete this field only if you are completing Base URL manifest A, and the downstream system has notified you that the child manifest files for pipeline 1 of all outputs are in a location different from the child manifest files for pipeline 0.</div>
 </blockquote>
 <p>CaptionLanguageMappings -&gt; (list)</p>
 <blockquote>
@@ -1195,6 +1203,10 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </div>
 </blockquote>
 </div>
+</blockquote>
+<p>HlsId3SegmentTagging -&gt; (string)</p>
+<blockquote>
+<div>State of HLS ID3 Segment Tagging</div>
 </blockquote>
 <p>IFrameOnlyPlaylists -&gt; (string)</p>
 <blockquote>
@@ -1788,6 +1800,10 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <blockquote>
 <div>
 <p>Hls Output Settings</p>
+<p>H265PackagingType -&gt; (string)</p>
+<blockquote>
+<div>Only applicable when this output is referencing an H.265 video description. Specifies whether MP4 segments should be packaged as HEV1 or HVC1.</div>
+</blockquote>
 <p>HlsSettings -&gt; (structure)</p>
 <blockquote>
 <div>
@@ -1821,6 +1837,20 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>AudioTrackType -&gt; (string)</p>
 <blockquote>
 <div>Four types of audio-only tracks are supported: Audio-Only Variant Stream The client can play back this audio-only stream instead of video in low-bandwidth scenarios. Represented as an EXT-X-STREAM-INF in the HLS manifest. Alternate Audio, Auto Select, Default Alternate rendition that the client should try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=YES, AUTOSELECT=YES Alternate Audio, Auto Select, Not Default Alternate rendition that the client may try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=YES Alternate Audio, not Auto Select Alternate rendition that the client will not try to play back by default. Represented as an EXT-X-MEDIA in the HLS manifest with DEFAULT=NO, AUTOSELECT=NO</div>
+</blockquote>
+<p>SegmentType -&gt; (string)</p>
+<blockquote>
+<div>Specifies the segment type.</div>
+</blockquote>
+</div>
+</blockquote>
+<p>Fmp4HlsSettings -&gt; (structure)</p>
+<blockquote>
+<div>
+<p>Fmp4 Hls Settings</p>
+<p>AudioRenditionSets -&gt; (string)</p>
+<blockquote>
+<div>List all the audio groups that are used with the video output stream. Input all the audio GROUP-IDs that are associated to the video, separate by ','.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -2306,6 +2336,10 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <blockquote>
 <div>The frequency at which to capture frames for inclusion in the output. May be specified in either seconds or milliseconds, as specified by captureIntervalUnits.</div>
 </blockquote>
+<p>CaptureIntervalUnits -&gt; (string)</p>
+<blockquote>
+<div>Unit for the frame capture interval.</div>
+</blockquote>
 </div>
 </blockquote>
 <p>H264Settings -&gt; (structure)</p>
@@ -2440,7 +2474,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>RateControlMode -&gt; (string)</p>
 <blockquote>
-<div>Rate control mode. QVBR: Quality will match the specified quality level except when it is constrained by the maximum bitrate. Recommended if you or your viewers pay for bandwidth. VBR: Quality and bitrate vary, depending on the video complexity. Recommended instead of QVBR if you want to maintain a specific average bitrate over the duration of the channel. CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices that cannot handle variable bitrates.</div>
+<div>Rate control mode. QVBR: Quality will match the specified quality level except when it is constrained by the maximum bitrate. Recommended if you or your viewers pay for bandwidth. VBR: Quality and bitrate vary, depending on the video complexity. Recommended instead of QVBR if you want to maintain a specific average bitrate over the duration of the channel. CBR: Quality varies, depending on the video complexity. Recommended only if you distribute your assets to devices that cannot handle variable bitrates. Multiplex: This rate control mode is only supported (and is required) when the video is being delivered to a MediaLive Multiplex in which case the rate control configuration is controlled by the properties within the Multiplex Program.</div>
 </blockquote>
 <p>ScanType -&gt; (string)</p>
 <blockquote>

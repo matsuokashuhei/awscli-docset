@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>create-email-identity — AWS CLI 1.16.299 Command Reference</title>
+    <title>create-email-identity — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.299',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.299 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="sesv2" href="index.html">
     <link rel="next" title="delete-configuration-set" href="delete-configuration-set.html">
     <link rel="prev" title="create-deliverability-test-report" href="create-deliverability-test-report.html">
@@ -57,7 +57,8 @@
 </h2>
 <p>Starts the process of verifying an email identity. An <em>identity</em> is an email address or domain that you use when you send email. Before you can use an identity to send email, you first have to verify it. By verifying an identity, you demonstrate that you're the owner of the identity, and that you've given Amazon SES API v2 permission to send email from the identity.</p>
 <p>When you verify an email address, Amazon SES sends an email to the address. Your email address is verified as soon as you follow the link in the verification email.</p>
-<p>When you verify a domain, this operation provides a set of DKIM tokens, which you can convert into CNAME tokens. You add these CNAME tokens to the DNS configuration for your domain. Your domain is verified when Amazon SES detects these records in the DNS configuration for your domain. For some DNS providers, it can take 72 hours or more to complete the domain verification process.</p>
+<p>When you verify a domain without specifying the <tt class="docutils literal"><span class="pre">DkimSigningAttributes</span></tt> object, this operation provides a set of DKIM tokens. You can convert these tokens into CNAME records, which you then add to the DNS configuration for your domain. Your domain is verified when Amazon SES detects these records in the DNS configuration for your domain. This verification method is known as <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">Easy DKIM</a> .</p>
+<p>Alternatively, you can perform the verification process by providing your own public-private key pair. This verification method is known as Bring Your Own DKIM (BYODKIM). To use BYODKIM, your call to the <tt class="docutils literal"><span class="pre">CreateEmailIdentity</span></tt> operation has to include the <tt class="docutils literal"><span class="pre">DkimSigningAttributes</span></tt> object. When you specify this object, you provide a selector (a component of the DNS record name that identifies the public key that you want to use for DKIM authentication) and a private key.</p>
 <p>See also: <a class="reference external" href="https://docs.aws.amazon.com/goto/WebAPI/sesv2-2019-09-27/CreateEmailIdentity">AWS API Documentation</a></p>
 <p>See <a class="reference internal" href="../index.html"><em>'aws help'</em></a> for descriptions of global parameters.</p>
 </div>
@@ -68,6 +69,7 @@
 <pre>  create-email-identity
 --email-identity &lt;value&gt;
 [--tags &lt;value&gt;]
+[--dkim-signing-attributes &lt;value&gt;]
 [--cli-input-json &lt;value&gt;]
 [--generate-cli-skeleton &lt;value&gt;]</pre>
 </div>
@@ -97,6 +99,26 @@
   ...
 ]</pre>
 </div>
+<p><tt class="docutils literal"><span class="pre">--dkim-signing-attributes</span></tt> (structure)</p>
+<blockquote>
+<div>
+<p>If your request includes this object, Amazon SES configures the identity to use Bring Your Own DKIM (BYODKIM) for DKIM authentication purposes, as opposed to the default method, <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">Easy DKIM</a> .</p>
+<p>You can only specify this object if the email identity is a domain, as opposed to an address.</p>
+</div>
+</blockquote>
+<p>Shorthand Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="n">DomainSigningSelector</span><span class="o">=</span><span class="n">string</span><span class="p">,</span><span class="n">DomainSigningPrivateKey</span><span class="o">=</span><span class="n">string</span>
+</pre></div>
+</div>
+<p>JSON Syntax:</p>
+<div class="highlight-python">
+<div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">"DomainSigningSelector"</span><span class="p">:</span> <span class="s2">"string"</span><span class="p">,</span>
+  <span class="s2">"DomainSigningPrivateKey"</span><span class="p">:</span> <span class="s2">"string"</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 <p><tt class="docutils literal"><span class="pre">--cli-input-json</span></tt> (string)
 Performs service operation based on the JSON string provided. The JSON string follows the format provided by <tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt>. If other arguments are provided on the command line, the CLI values will override the JSON-provided values. It is not possible to pass arbitrary binary values using a JSON-provided value as the string will be taken literally.</p>
 <p><tt class="docutils literal"><span class="pre">--generate-cli-skeleton</span></tt> (string)
@@ -117,7 +139,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>DkimAttributes -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>An object that contains information about the DKIM attributes for the identity. This object includes the tokens that you use to create the CNAME records that are required to complete the DKIM verification process.</p>
+<p>An object that contains information about the DKIM attributes for the identity.</p>
 <p>SigningEnabled -&gt; (boolean)</p>
 <blockquote>
 <div>If the value is <tt class="docutils literal"><span class="pre">true</span></tt> , then the messages that you send from the identity are signed using DKIM. If the value is <tt class="docutils literal"><span class="pre">false</span></tt> , then the messages that you send from the identity aren't DKIM-signed.</div>
@@ -128,23 +150,37 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>Describes whether or not Amazon SES has successfully located the DKIM records in the DNS records for the domain. The status can be one of the following:</p>
 <ul class="simple">
 <li>
-<tt class="docutils literal"><span class="pre">PENDING</span></tt> – Amazon SES hasn't yet detected the DKIM records in the DNS configuration for the domain, but will continue to attempt to locate them.</li>
+<tt class="docutils literal"><span class="pre">PENDING</span></tt> – The verification process was initiated, but Amazon SES hasn't yet detected the DKIM records in the DNS configuration for the domain.</li>
 <li>
-<tt class="docutils literal"><span class="pre">SUCCESS</span></tt> – Amazon SES located the DKIM records in the DNS configuration for the domain and determined that they're correct. You can now send DKIM-signed email from the identity.</li>
+<tt class="docutils literal"><span class="pre">SUCCESS</span></tt> – The verification process completed successfully.</li>
 <li>
-<tt class="docutils literal"><span class="pre">FAILED</span></tt> – Amazon SES wasn't able to locate the DKIM records in the DNS settings for the domain, and won't continue to search for them.</li>
+<tt class="docutils literal"><span class="pre">FAILED</span></tt> – The verification process failed. This typically occurs when Amazon SES fails to find the DKIM records in the DNS configuration of the domain.</li>
 <li>
-<tt class="docutils literal"><span class="pre">TEMPORARY_FAILURE</span></tt> – A temporary issue occurred, which prevented Amazon SES from determining the DKIM status for the domain.</li>
+<tt class="docutils literal"><span class="pre">TEMPORARY_FAILURE</span></tt> – A temporary issue is preventing Amazon SES from determining the DKIM authentication status of the domain.</li>
 <li>
-<tt class="docutils literal"><span class="pre">NOT_STARTED</span></tt> – Amazon SES hasn't yet started searching for the DKIM records in the DKIM records for the domain.</li>
+<tt class="docutils literal"><span class="pre">NOT_STARTED</span></tt> – The DKIM verification process hasn't been initiated for the domain.</li>
 </ul>
 </div>
 </blockquote>
 <p>Tokens -&gt; (list)</p>
 <blockquote>
 <div>
-<p>A set of unique strings that you use to create a set of CNAME records that you add to the DNS configuration for your domain. When Amazon SES detects these records in the DNS configuration for your domain, the DKIM authentication process is complete. Amazon SES usually detects these records within about 72 hours of adding them to the DNS configuration for your domain.</p>
+<p>If you used <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">Easy DKIM</a> to configure DKIM authentication for the domain, then this object contains a set of unique strings that you use to create a set of CNAME records that you add to the DNS configuration for your domain. When Amazon SES detects these records in the DNS configuration for your domain, the DKIM authentication process is complete.</p>
+<p>If you configured DKIM authentication for the domain by providing your own public-private key pair, then this object contains the selector for the public key.</p>
+<p>Regardless of the DKIM authentication method you use, Amazon SES searches for the appropriate records in the DNS configuration of the domain for up to 72 hours.</p>
 <p>(string)</p>
+</div>
+</blockquote>
+<p>SigningAttributesOrigin -&gt; (string)</p>
+<blockquote>
+<div>
+<p>A string that indicates how DKIM was configured for the identity. There are two possible values:</p>
+<ul class="simple">
+<li>
+<tt class="docutils literal"><span class="pre">AWS_SES</span></tt> – Indicates that DKIM was configured for the identity by using <a class="reference external" href="https://docs.aws.amazon.com/ses/latest/DeveloperGuide/easy-dkim.html">Easy DKIM</a> .</li>
+<li>
+<tt class="docutils literal"><span class="pre">EXTERNAL</span></tt> – Indicates that DKIM was configured for the identity by using Bring Your Own DKIM (BYODKIM).</li>
+</ul>
 </div>
 </blockquote>
 </div>

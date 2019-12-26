@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>put-object — AWS CLI 1.16.298 Command Reference</title>
+    <title>put-object — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="s3api" href="index.html">
     <link rel="next" title="put-object-acl" href="put-object-acl.html">
     <link rel="prev" title="put-bucket-website" href="put-bucket-website.html">
@@ -87,7 +87,7 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-</span> <span class="pre">encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the AWS managed CMK in AWS KMS to protect the data.</p>
+<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the AWS managed CMK in AWS KMS to protect the data. If you want to use a customer managed AWS KMS CMK, you must provide the <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt> of the symmetric customer managed CMK. Amazon S3 only supports symmetric CMKs and not asymmetric CMKs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric Keys</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -102,7 +102,7 @@
 </ul>
 </li>
 </ul>
-<p>For more information about server-side encryption with CMKs stored in KMS (SSE-KMS), see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html">Protecting Data Using Server-Side Encryption with CMKs stored in AWS KMS</a> .</p>
+<p>For more information about server-side encryption with CMKs stored in KMS (SSE-KMS), see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html">Protecting Data Using Server-Side Encryption with CMKs stored in AWS</a> .</p>
 <blockquote>
 <div>Access-Control-List (ACL)-Specific Request Headers</div>
 </blockquote>
@@ -176,7 +176,7 @@
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-</span> <span class="pre">encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the default AWS KMS CMK to protect the data.</p>
+<p class="last">If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but don't provide <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt> , Amazon S3 uses the AWS managed CMK in AWS KMS to protect the data. If you want to use a customer managed AWS KMS CMK, you must provide the <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption-aws-kms-key-id</span></tt> of the symmetric customer managed CMK. Amazon S3 only supports symmetric CMKs and not asymmetric CMKs. For more information, see <a class="reference external" href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric Keys</a> in the <em>AWS Key Management Service Developer Guide</em> .</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -408,8 +408,8 @@
 <p><tt class="docutils literal"><span class="pre">--ssekms-key-id</span></tt> (string)</p>
 <blockquote>
 <div>
-<p>If <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> is present and has the value of <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , this header specifies the ID of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used for the object.</p>
-<p>If the value of <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> is <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , this header specifies the ID of the AWS KMS CMK that will be used for the object. If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but do not provide``x-amz-server-side-encryption-aws-kms-key-id`` , Amazon S3 uses the AWS managed CMK in AWS to protect the data.</p>
+<p>If <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> is present and has the value of <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , this header specifies the ID of the AWS Key Management Service (AWS KMS) symmetrical customer managed customer master key (CMK) that was used for the object.</p>
+<p>If the value of <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> is <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , this header specifies the ID of the symmetric customer managed AWS KMS CMK that will be used for the object. If you specify <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption:aws:kms</span></tt> , but do not provide``x-amz-server-side-encryption-aws-kms-key-id`` , Amazon S3 uses the AWS managed CMK in AWS to protect the data.</p>
 </div>
 </blockquote>
 <p><tt class="docutils literal"><span class="pre">--ssekms-encryption-context</span></tt> (string)</p>
@@ -419,7 +419,7 @@
 <p><tt class="docutils literal"><span class="pre">--request-payer</span></tt> (string)</p>
 <blockquote>
 <div>
-<p>Confirms that the requester knows that she or he will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from Requester Pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/http:/docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
+<p>Confirms that the requester knows that they will be charged for the request. Bucket owners need not specify this parameter in their requests. For information about downloading objects from requester pays buckets, see <a class="reference external" href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectsinRequesterPaysBuckets.html">Downloading Objects in Requestor Pays Buckets</a> in the <em>Amazon S3 Developer Guide</em> .</p>
 <p>Possible values:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">requester</span></tt></li>
@@ -505,7 +505,7 @@ specified using Windows file system syntax.):</p>
 </blockquote>
 <p>SSEKMSKeyId -&gt; (string)</p>
 <blockquote>
-<div>If <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> is present and has the value of <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , this header specifies the ID of the AWS Key Management Service (AWS KMS) customer master key (CMK) that was used for the object.</div>
+<div>If <tt class="docutils literal"><span class="pre">x-amz-server-side-encryption</span></tt> is present and has the value of <tt class="docutils literal"><span class="pre">aws:kms</span></tt> , this header specifies the ID of the AWS Key Management Service (AWS KMS) symmetric customer managed customer master key (CMK) that was used for the object.</div>
 </blockquote>
 <p>SSEKMSEncryptionContext -&gt; (string)</p>
 <blockquote>

@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     
   
-    <title>list-journeys — AWS CLI 1.16.298 Command Reference</title>
+    <title>list-journeys — AWS CLI 1.16.309 Command Reference</title>
   <link rel="stylesheet" type="text/css" href="../../_static/bootstrap.min.css">
   <script type="text/javascript" src="../../_static/jquery-1.9.1.min.js"></script>
   <script src="/SdkStatic/sdk-priv.js" async="true"></script>
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.16.298',
+        VERSION:     '1.16.309',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="AWS CLI 1.16.298 Command Reference" href="../../index.html">
+    <link rel="top" title="AWS CLI 1.16.309 Command Reference" href="../../index.html">
     <link rel="up" title="pinpoint" href="index.html">
     <link rel="next" title="list-tags-for-resource" href="list-tags-for-resource.html">
     <link rel="prev" title="get-voice-template" href="get-voice-template.html">
@@ -110,7 +110,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <p>Activities -&gt; (map)</p>
 <blockquote>
 <div>
-<p>The configuration and other settings for the activities that comprise the journey.</p>
+<p>A map that contains a set of Activity objects, one object for each activity in the journey. For each Activity object, the key is the unique identifier (string) for an activity and the value is the settings for the activity.</p>
 <p>key -&gt; (string)</p>
 <p>value -&gt; (structure)</p>
 <blockquote>
@@ -496,11 +496,11 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>FalseActivity -&gt; (string)</p>
 <blockquote>
-<div>The unique identifier for the activity to perform if the condition isn't met.</div>
+<div>The unique identifier for the activity to perform if the conditions aren't met.</div>
 </blockquote>
 <p>TrueActivity -&gt; (string)</p>
 <blockquote>
-<div>The unique identifier for the activity to perform if the condition is met.</div>
+<div>The unique identifier for the activity to perform if the conditions are met.</div>
 </blockquote>
 </div>
 </blockquote>
@@ -530,6 +530,13 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <blockquote>
 <div>The name of the email template to use for the message.</div>
 </blockquote>
+<p>TemplateVersion -&gt; (string)</p>
+<blockquote>
+<div>
+<p>The unique identifier for the version of the email template to use for the message. If specified, this value must match the identifier for an existing template version. To retrieve a list of versions and version identifiers for a template, use the Template Versionsresource.</p>
+<p>If you don't specify a value for this property, Amazon Pinpoint uses the <em>active</em> version of the template. The <em>active</em> version is typically the version of a template that's been most recently reviewed and approved for use, depending on your workflow. It isn't necessarily the latest version of a template.</p>
+</div>
+</blockquote>
 </div>
 </blockquote>
 <p>Holdout -&gt; (structure)</p>
@@ -542,14 +549,17 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>Percentage -&gt; (integer)</p>
 <blockquote>
-<div>The percentage of participants who shouldn't continue the journey.</div>
+<div>
+<p>The percentage of participants who shouldn't continue the journey.</p>
+<p>To determine which participants are held out, Amazon Pinpoint applies a probability-based algorithm to the percentage that you specify. Therefore, the actual percentage of participants who are held out may not be equal to the percentage that you specify.</p>
+</div>
 </blockquote>
 </div>
 </blockquote>
 <p>MultiCondition -&gt; (structure)</p>
 <blockquote>
 <div>
-<p>The settings for a multivariate split activity. This type of activity sends participants down one of as many as five paths in a journey, based on conditions that you specify.</p>
+<p>The settings for a multivariate split activity. This type of activity sends participants down one of as many as five paths (including a default <em>Else</em> path) in a journey, based on conditions that you specify.</p>
 <p>Branches -&gt; (list)</p>
 <blockquote>
 <div>
@@ -912,7 +922,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>DefaultActivity -&gt; (string)</p>
 <blockquote>
-<div>The activity to perform by default for any path in the activity.</div>
+<div>The unique identifier for the activity to perform for participants who don't meet any of the conditions specified for other paths in the activity.</div>
 </blockquote>
 <p>EvaluationWaitTime -&gt; (structure)</p>
 <blockquote>
@@ -948,7 +958,10 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 </blockquote>
 <p>Percentage -&gt; (integer)</p>
 <blockquote>
-<div>The percentage of participants to send down the activity path.</div>
+<div>
+<p>The percentage of participants to send down the activity path.</p>
+<p>To determine which participants are sent down each path, Amazon Pinpoint applies a probability-based algorithm to the percentages that you specify for the paths. Therefore, the actual percentage of participants who are sent down a path may not be equal to the percentage that you specify.</p>
+</div>
 </blockquote>
 </div>
 </blockquote>
@@ -1101,7 +1114,7 @@ Prints a JSON skeleton to standard output without sending an API request. If pro
 <li>ACTIVE - The journey has been developed and published. Depending on the journey's schedule, the journey may currently be running or scheduled to start running at a later time. If a journey's status is ACTIVE, you can't add, change, or remove activities from it.</li>
 <li>COMPLETED - The journey has been published and has finished running. All participants have entered the journey and no participants are waiting to complete the journey or any activities in the journey.</li>
 <li>CANCELLED - The journey has been stopped. If a journey's status is CANCELLED, you can't add, change, or remove activities or segment settings from the journey.</li>
-<li>CLOSED - The journey has been published and has started running. It may have also passed its scheduled end time, or passed its scheduled start time and a refresh frequency hasn't been specified for it. If a journey's status is CLOSED, you can't add participants to it, and no existing participants can enter the journey for the first time. However, any existing participants who are currently waiting to start an activity may resume the journey.</li>
+<li>CLOSED - The journey has been published and has started running. It may have also passed its scheduled end time, or passed its scheduled start time and a refresh frequency hasn't been specified for it. If a journey's status is CLOSED, you can't add participants to it, and no existing participants can enter the journey for the first time. However, any existing participants who are currently waiting to start an activity may continue the journey.</li>
 </ul>
 </div>
 </blockquote>
